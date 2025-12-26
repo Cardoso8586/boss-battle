@@ -213,7 +213,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot.version}</version>
         <configuration>
-          <mainClass>com.boss-battle.BossBattleApplication</mainClass>
+          <mainClass>com.boss_battle.BossBattleApplication</mainClass>
         </configuration>
         <executions>
           <execution>
