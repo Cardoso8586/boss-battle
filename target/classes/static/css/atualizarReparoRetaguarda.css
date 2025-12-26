@@ -1,0 +1,48 @@
+/* ==============================
+   REPARO RETAGUARDA – TEXTO FIXO
+================================ */
+#reparoRetaguarda {
+    color: #00ff88;
+    font-weight: 900;
+    font-size: 1.4rem;
+    text-shadow: 0 0 8px rgba(0,255,136,0.6);
+}
+
+/* ==============================
+   FLOATING +REPARO
+================================ */
+.reparo-float {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #00ff88;
+
+    text-shadow:
+        0 0 6px rgba(0,255,136,0.9),
+        0 0 12px rgba(0,255,136,0.6);
+
+    pointer-events: none;
+    animation: subirReparo 1.6s ease-out forwards;
+}
+
+/* ==============================
+   ANIMAÇÃO
+================================ */
+@keyframes subirReparo {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 10px) scale(0.85);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40px) scale(1.15);
+    }
+}

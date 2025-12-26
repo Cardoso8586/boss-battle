@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Boss Battle</title>
+    
+     
+    
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">  
+    <link rel="stylesheet" href="/css/bossSection.css"> 
+     <link rel="stylesheet" href="/css/referidos.css">    
+    <link rel="stylesheet" href="/css/dano-animacao.css">   
+    <link rel="stylesheet" href="/css/user-info.css">  
+    <link rel="stylesheet" href="/css/loja.css">  
+     <link rel="stylesheet" href="/css/ajustes-batalha.css">
+     <link rel="stylesheet" href="/css/ajustesatalha.css">  
+     <link rel="stylesheet" href="/css/reward-card.css">
+      <link rel="stylesheet" href="/css/tutorial.css">  
+      <link rel="stylesheet" href="/css/recuperacaoVigorAnimacao.css"> 
+ 
+    
+    <meta name="user-id" th:content="${idUsuario}" />
+</head>
+<body>
+    <!-- Barra de menu -->
+    <header class="menu-bar">
+        <div class="logo">
+            <h1>Boss Battle</h1>
+   <!-- Widget do Google T         
+<select id="lang-select">
+  <option value="pt">Português</option>
+  <option value="en">English</option>
+  <option value="es">Español</option>
+</select>
+
+<div id="google_translate_element" style="display:none;"></div>
+ranslate escondido -->
+
+
+        </div>
+        
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<nav>
+    <div class="hamburger" id="mobile-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <ul class="nav-list">
+    
+    
+
+
+ <div class="user-info">
+ <h2>
+  Bem-vindo, 
+ <span th:text="${usuario.username}"></span>!
+ </h2>
+
+ <p>
+  ID: <strong th:text="${idUsuario}">0</strong>
+ </p>
+ <p>
+ <p>
+  XP: <span id="xp" th:text="${xpUsuario}">0</span>
+ </p>
+ <p>
+  Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
+ </p>
+       
+
+
+
+
+
+
+
+ <div class="saldo-box">
+    <span>BOSS:</span>
+    <strong id="boss_coins" th:text="${boss_coins}">0</strong>
+</div>
+
+    
+    
+</div>
+<li>
+  <a href="#" data-section="jogo">
+    <i class="fa-solid fa-shield-alt"></i> Arena de Batalha
+  </a>
+</li>
+
+
+<li>
+  <a href="#" data-section="loja">
+    <i class="fa-solid fa-shop"></i> Aprimoramentos
+  </a>
+</li>
+
+<li>
+  <a href="#" data-section="retirar">
+    <i class="fa-solid fa-hand-holding-dollar"></i> Resgatar Recompensas
+  </a>
+</li>
+
+<li>
+  <a href="#" data-section="perfil">
+    <i class="fa-solid fa-user"></i> Guerreiro
+  </a>
+</li>
+
+<li>
+  <a href="#" data-section="referidos">
+    <i class="fa-solid fa-user-plus"></i> Aliados  
+  </a>
+</li>
+
+<li>
+  <a href="#" data-section="help">
+    <i class="fa-solid fa-user-help"></i> Tutorial  
+  </a>
+</li>
+
+<li>
+  <a href="/logout">
+    <i class="fa-solid fa-right-from-bracket"></i> Voltar ao Acampamento
+  </a>
+</li>
+
+    </ul>
+</nav>
+
+
+
+
+<!-- 
+ <div class="user-info">
+ <h2>
+  Bem-vindo, 
+ <span th:text="${usuario.username}"></span>!
+ </h2>
+
+ <p>
+  ID: <strong th:text="${idUsuario}">0</strong>
+ </p>
+ <p>
+ <p>
+  XP: <span id="xp" th:text="${xpUsuario}">0</span>
+ </p>
+ <p>
+  Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
+ </p>
+       
+
+
+ <div class="saldo-box">
+    <span>BOSS:</span>
+    <strong id="boss_coins" th:text="${boss_coins}">0</strong>
+</div>
+
+    
+    
+</div>
+
+   -->      
+    </header>
+
+<main>
+<!-- Seção do boss -->
+<section id="jogo" class="active">
+ <h2 class="jogo-title">⚔️ Arena de Batalha </h2>
+   
+
+    <div class="boss-user-wrapper">
+
+        <!-- Card do Usuário -->
+        <div id="user-card">
+
+            <!-- Guerreiros -->
+            <h2 class="card-title"> Meus Guerreiros</h2>
+
+            <div class="card-section">
+                <img id="guerreiro-image" src="/images/guerreiro.webp" alt="guerreiro">
+               <p>
+    <strong>Ataque:</strong>
+    <span class="ataque-container">
+        <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
+        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+
+
+                <p class="highlight">
+                    Dano/min: <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
+                </p>
+
+                <div class="energia-wrapper">
+                    <div class="energia-header">⚡ Vigor: <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
+                     <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
+                    </div>
+                    <div class="energia-bar-bg">
+                        <div id="energiaBar" class="energia-bar" 
+                             th:style="'width:' + ${energiaGuerreiros} + '%'"></div>
+                    </div>
+                    
+                    <p>
+<p style="position: relative;"> <strong></strong><span id="reparoRetaguarda"></span>
+
+    <p id="p">
+    <strong>Retaguarda:</strong>
+    <span class="retaguarda-container">
+        <span id="guerreirosRetaguarda" th:text="${guerreirosRetaguarda}">100</span>
+        <img id="generating-image" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+    
+
+                    
+                  <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
+                    
+<button id="btnRecarregar"
+        th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
+    ⚡ Recarregar Vigor
+</button>
+
+  <div class="reward-card" id="rewardCard" style="display:none;">
+    <div class="reward-level" id="rewardLevel">Próximo nível:</div> 
+    <img id="rewardImage" src="" alt="Reward">
+    <div class="reward-title" id="rewardTitle"></div>
+    <div class="reward-amount" id="rewardAmount"></div>
+    <div class="reward-desc" id="rewardDesc"></div>
+</div>
+
+
+<!-- NÚCLEO DE BATALHA (LIVRE NA TELA) -->
+<div id="nucleoLivre">
+
+    <!-- BOTÃO -->
+    <button id="btnNucleo" class="btn-nucleo-icon">
+        <img src="/icones/ajustes.webp" alt="Ajustes de Batalha">
+        <span class="nucleo-label">Ajustes de Batalha</span>
+    </button>
+
+    <!-- CARD -->
+    <div id="nucleoCard" class="nucleo-card hidden">
+
+        <button id="fecharNucleo" class="nucleo-close">✕</button>
+
+        <h2 class="card-title">Ajustes de Batalha</h2>
+        
+        <!-- POÇÃO -->
+      <div class="nucleo-item">
+      <img src="icones/pocao_vigor.webp" alt="Poção de Vigor" class="icone-item">
+       Poção de Vigor: <span id="pocaoVigor">0</span>
+      </div>
+
+        <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
+        <button id="btnAtivarPocao" class="btn-nucleo-acao hidden"> Ativar Poção</button>
+
+        <!-- GUERREIRO -->
+       <div class="nucleo-item">
+       <img src="icones/guerreiro.webp" alt="Guerreiro" class="icone-item">
+       Guerreiros Disponíveis: <span id="guerreirosCount">0</span>
+       
+       
+       
+       <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
+    Enviar ao Ataque
+</button>
+
+<button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
+    Enviar à Retaguarda
+</button>
+
+<button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
+    Retirar do Ataque
+</button>
+
+<button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
+    Retirar da Retaguarda
+</button>
+       
+      </div>
+
+      
+    
+        
+       
+      
+       
+       
+    </div>
+
+</div>
+
+
+
+
+    
+
+<!-- Ajustes de Batalha -->
+
+
+
+                </div>
+
+              
+            </div>
+
+            <hr class="card-divider">
+
+            <!-- Ataque Manual -->
+            <h2 class="card-title">🔥 Ataque Especial</h2>
+            <div class="card-section">
+            <span id="damage" th:text="${ataque_base}">0</span>
+Dano 
+<span class="bonus">+ Ataque Surpresa da Retaguarda</span>
+            
+              <p>
+    <strong>Ataque Base:</strong><br>
+    <span class="damage-container">
+        <span id="damage" th:text="${ataque_base}">0</span> Dano
+        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+
+                <button id="attackBtn">Atacar Boss</button>
+            </div>
+
+        </div>
+
+        <!-- Card do Boss -->
+        <div id="boss-container">
+            <h2 id="boss-name"></h2>
+
+            <img id="boss-image" src="" alt="Boss">
+            
+            <div id="damageFloatContainer"></div>
+            
+            <h3>Recompensa</h3>
+            <p>BOSS: <span id="boss-reward"></span></p>
+            <p>XP: <span id="boss-xp"></span></p>
+
+            <div class="hp-bar-bg">
+                <div id="boss-hp-bar"></div>
+            </div>
+
+            <p>HP: <span id="boss-hp-text"></span></p>
+
+            <div id="bossInfo"></div>
+        </div>
+
+    </div>
+    
+    <div class="ataques-recentes">
+    <h3>⚔️ Últimos ataques</h3>
+    <ul id="listaAtaques"></ul>
+</div>
+    
+    
+</section>
+
+
+
+<section id="loja">
+    <h2>Aprimoramentos</h2>
+    <p>Aqui você pode comprar itens para fortalecer seu exército e melhorar seu jogo.</p>
+
+    <div class="loja-wrapper">
+<!-- Card Guerreiros -->
+<div class="loja-card">
+    <h3>Guerreiro</h3>
+
+    <!-- Imagem do Guerreiro -->
+    <img src="images/guerreiro.webp" alt="Guerreiro" class="card-imagem" />
+    
+
+    <p>Adicione mais guerreiros ao seu exército.</p>
+    <p>Preço por 1 unidade: <span class="preco" id="preco-guerreiros"></span></p>
+    <label for="quantidade-guerreiros">Quantidade:</label>
+    <input type="number" id="quantidade-guerreiros" min="1" value="1">
+    <button class="btn-comprar" data-item="guerreiros">Comprar</button>
+</div>
+
+
+<!-- Card Capacidade de Vigor -->
+<div class="loja-card">
+    <h3>Capacidade de Vigor</h3>
+
+    <!-- Imagem de energia/vigor -->
+    <img src="icones/capacidade_vigor.webp" alt="Vigor" class="card-imagem" />
+
+    <p>Aumente a capacidade máxima de vigor dos seus guerreiros.</p>
+    <p>Preço por 5 unidades: <span class="preco" id="preco-energia"></span></p>
+    
+    <label for="quantidade-energia">Quantidade:</label>
+    <input type="number" id="quantidade-energia" min="1" value="1">
+    
+    <button class="btn-comprar" data-item="energia">Comprar</button>
+</div>
+
+
+
+<!-- Card Ataque Especial -->
+<div class="loja-card">
+    <h3>Ataque Especial</h3>
+
+    <!-- Imagem do Ataque Especial -->
+    <img src="icones/ataque_especial.webp" alt="Ataque Especial" class="card-imagem" />
+
+    <p>Aumente o poder do seu ataque especial.</p>
+    <p>Preço por 5 unidades: <span class="preco" id="preco-ataque-especial"></span></p>
+
+    <label for="quantidade-ataque">Quantidade:</label>
+    <input type="number" id="quantidade-ataque" min="1" value="1">
+
+    <button class="btn-comprar" data-item="ataqueEspecial">Comprar</button>
+</div>
+
+
+<!-- Vigor Automático (Item Raro) -->
+<div class="loja-card">
+    <h3>Poção Automática de Vigor</h3>
+
+    <!-- Imagem do item -->
+    <img src="icones/pocao_vigor.webp" alt="Poção Automática de Vigor" class="card-imagem" />
+
+    <p>Restaura completamente o vigor dos guerreiros automaticamente quando estiver abaixo do limite.</p>
+    <p>Preço por unidade: <span class="preco" id="preco-auto-vigor" data-preco-item="PocaoAutomaticaVigor"></span></p>
+    
+    <label for="quantidade-auto-vigor">Quantidade que deseja comprar:</label>
+    <input type="number" id="quantidade-auto-vigor" class="quantidade-item" min="1" value="1">
+    
+    <button class="btn-comprar" data-item="PocaoAutomaticaVigor">Comprar Poção</button>
+</div>
+
+
+
+
+
+
+
+        
+    </div>
+</section>
+
+
+    
+    
+    <section id="perfil">
+        <h2>Perfil</h2>
+        <p>Email: <span th:text="${usuario.email}">email@exemplo.com</span></p>
+  
+       
+    </section>
+    
+    
+<!-- seção referidos -->
+<section id="referidos">
+    <h2>Aliados</h2>
+
+    <div>
+        <h3>Seu link de convite:</h3>
+        <input type="text" id="linkConvite" th:value="${linkReferencia}" readonly />
+        <button id="copyBtn" onclick="
+            const input = document.getElementById('linkConvite');
+            navigator.clipboard.writeText(input.value).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const original = btn.textContent;
+                btn.textContent = 'Copiado!';
+                setTimeout(() => { btn.textContent = original; }, 5000);
+            }).catch(err => {
+                alert('Erro ao copiar: ' + err);
+            });
+        ">Copiar link</button>
+    </div>
+    
+    <div class="info-box">
+    <p>
+      Bônus de Aliados acumulado: 
+     
+      <span id="ganhosPendentesSpan" th:text="${ganhosPendentesReferral}">0</span>
+    </p>
+
+      
+      <!-- Botão de Reivindicar (aparece só se houver saldo) -->
+ <form id="claimForm" th:if="${ganhosPendentesReferral > 0}">
+    <button type="submit" id="claimBtn">Reivindicar Ganhos</button>
+</form>
+
+</div>
+
+
+
+
+      <h3>Meus Aliados: <span th:text="${qtdIndicados}">0</span></h3>
+  <div id="indicados-wrapper">
+    <ul>
+      <li th:each="indicado : ${indicados}">
+          <span th:text="${indicado.username}">Usuário</span>
+      </li>
+    </ul>
+  </div>
+  
+</section>
+
+    
+    
+    
+
+    <section id="retirar">
+        <h2>Resgatar Recompensas</h2>
+        <p>Aqui você pode retirar seus ganhos.</p>
+    </section>
+    
+    
+<section id="help">
+
+    <h2 class="help-header">Tutorial da Arena</h2>
+
+    <div class="help-card">
+
+        <p>Bem-vindo à arena! Aqui você enfrenta o boss junto com outros jogadores em batalhas contínuas.</p>
+
+        <h3>Objetivo</h3>
+        <p>Derrubar o boss. Quanto mais dano você causar durante a luta, maior será sua recompensa.</p>
+
+        <h3>Guerreiros</h3>
+        <ul>
+            <li>
+                <strong>Guerreiros no Ataque:</strong>
+                guerreiros enviados para o ataque causam dano direto ao boss.
+                Cada guerreiro no ataque é mais eficiente, mas consome vigor continuamente.
+            </li>
+            <li>
+                <strong>Guerreiros na Retaguarda:</strong>
+                atuam de forma estratégica:
+    ajudam a recuperar vigor e fortalecem o ataque especial com ataques surpresa.
+    Esses efeitos são divididos e possuem limites conforme a quantidade de guerreiros.
+            </li>
+        </ul>
+
+
+
+        <h3>Ataques</h3>
+        <ul>
+            <li>
+                <strong>Ataque de Guerreiros:</strong>
+                ocorre automaticamente enquanto houver vigor disponível.
+                Quanto mais guerreiros no ataque, maior o dano causado ao boss.
+            </li>
+           <li>
+    <strong>Ataque Especial:</strong>
+    é carregado ao longo do tempo.
+    Guerreiros na retaguarda contribuem com ataques surpresa,
+    aumentando gradativamente o poder do ataque especial,
+    respeitando limites conforme a quantidade de guerreiros.
+</li>
+
+        </ul>
+
+        <h3>Vigor</h3>
+        <p>
+            O vigor é um recurso limitado usado pelos guerreiros no ataque.
+            Guerreiros na retaguarda ajudam a recuperar vigor gradativamente,
+            permitindo manter o combate por mais tempo.
+            Equilibrar ataque e retaguarda é a chave para maximizar seu desempenho.
+        </p>
+
+        <h3>Poções</h3>
+        <ul>
+            <li>Poções podem aumentar temporariamente o vigor.</li>
+            <li>Algumas poções ajudam a recuperar vigor mais rapidamente.</li>
+        </ul>
+
+        <h3>Recompensas</h3>
+        <p>
+            Após a derrota do boss, você recebe recompensas proporcionais ao dano causado.
+            Use-as para comprar itens, poções e contratar mais guerreiros,
+            fortalecendo seu exército para as próximas batalhas.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+
+ 
+    
+
+
+
+    
+    
+</main>
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+    <div class="footer-content">
+        <p>© 2025 Boss Battle. Todos os direitos reservados.</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">FB</a>
+            <a href="#" title="Twitter">TW</a>
+            <a href="#" title="Instagram">IG</a>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="/js/loadBoss.js"></script>  
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/nav.js"></script>
+   
+    <script src="/js/atacarBoss.js"></script> 
+    <script src="/js/lang-select.js"></script> 
+   
+     <script src="/js/recarregarEnergia.js"></script>  
+     <script src="/js/atualizarStatusUsuario.js"></script>  
+     
+    <!-- loja --> 
+    <script src="/js/atualizarPrecosLoja.js"></script>
+    <script src="/js/comprarGuerreiro.js"></script>
+
+    <script src="/js/comprarCapacidadeVigor.js"></script> 
+    <script src="/js/comprarAtaqueEspecial.js"></script> 
+    <!-- referidos -->
+    <script src="/js/reivindicarReferidos.js" defer></script>  
+    
+     <script src="/js/ajustesBatalha.js" defer></script>          
+     <script src="/js/ativarPocaoVigor.js" defer></script> 
+     <script src="/js/comprarPocaoVigorAuto.js" defer></script>        
+     <script src="/js/rewardAtualizarar.js" defer></script> 
+     <script src="/js/equiparGuerreiro.js" defer></script> 
+     <script src="/js/ataquesRecentes.js" defer></script>
+      <script src="/js/equiparRetaguarda.js" defer></script>    
+      <script src="/js/retirarAtaqueRetaguarda.js" defer></script>       
+     <script src="/js/atualizarReparoRetaguarda.js" defer></script> 
+      <script src="/js/atualizarAtaquePorMinuto.js" defer></script> 
+    
+    
+    
+    
+    
+    
+   
+   
+    
+    
+</body>
+</html>

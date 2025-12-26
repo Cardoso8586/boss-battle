@@ -1,0 +1,360 @@
+/* ==============================
+   CONTAINER LIVRE
+================================ */
+#nucleoLivre {
+    position: absolute;   /* livre no desktop */
+    top: 420px;
+    left: 490px;
+    z-index: 999;
+}
+
+
+
+/* ==============================
+   BOTÃO ÍCONE
+================================ */
+.btn-nucleo-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-nucleo-icon img {
+    width: 140px;
+    height: 140px;
+    display: block;
+    margin: 0 auto;
+
+    filter: drop-shadow(0 0 12px rgba(255,180,0,0.6));
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-nucleo-icon:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 18px rgba(255,180,0,0.9));
+}
+
+.nucleo-label {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #ffb400;
+    text-transform: uppercase;
+}
+
+/* ==============================
+   CARD
+================================ */
+.nucleo-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    min-width: 280px;
+    padding: 20px 18px;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+
+    border: 1px solid rgba(255,180,0,0.35);
+    border-radius: 10px;
+
+    box-shadow: 0 0 25px rgba(255,180,0,0.25);
+    text-align: center;
+}
+
+/* ==============================
+   FECHAR
+================================ */
+.nucleo-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+
+    background: none;
+    border: none;
+    color: #ffb400;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* ==============================
+   ITENS
+================================ */
+
+
+.nucleo-item {
+    margin: 10px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+     
+}
+
+#pocaoVigor {
+    color: #00ff88;          /* verde vigor */
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(0,255,136,0.6);
+    font-size: 1.2rem;
+}
+
+
+
+#guerreirosCount {
+    color: #00ff88;          /* verde vigor */
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(0,255,136,0.6);
+    font-size: 1.2rem;
+}
+
+.icone-item {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+
+.highlight {
+    color: #ffb400;
+    font-weight: bold;
+}
+
+/* ==============================
+   ANIMAÇÃO
+================================ */
+.nucleo-card.abrindo {
+    animation: abrirHUD 0.25s ease;
+}
+
+@keyframes abrirHUD {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==============================
+   VISIBILIDADE
+================================ */
+.hidden {
+    display: none !important;
+}
+
+/* =====================================================
+   📱 RESPONSIVIDADE
+===================================================== */
+
+/* Tablets e celulares */
+@media (max-width: 1024px) {
+    #nucleoLivre {
+        position: fixed;
+
+        /* 🔥 canto superior direito */
+        top: 500px;
+        right: 16px;
+        left: auto;
+        bottom: auto;
+
+        transform: none;
+    }
+
+    .btn-nucleo-icon img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .nucleo-label {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .nucleo-card {
+        position: fixed;
+
+        /* abre logo abaixo do botão */
+       top: 400px;
+        right: 16px;
+        left: auto;
+
+        min-width: 260px;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+    .btn-nucleo-icon img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .nucleo-card {
+        min-width: 92vw;
+        right: 4vw;
+    }
+}
+
+.btn-nucleo-acao {
+    margin-top: 10px;
+    padding: 8px 18px;
+
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.5);
+    color: #00ff88;
+
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-nucleo-acao:hover {
+    background: rgba(0,255,136,0.15);
+}
+
+/* ==============================
+   BOTÃO RETAGUARDA
+================================ */
+.btn-retaguarda-acao {
+    margin-top: 12px;
+    padding: 10px 22px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(0,160,255,0.15),
+        rgba(0,255,180,0.12)
+    );
+
+    border: 1px solid rgba(0,200,255,0.6);
+    color: #6affd3;
+
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    box-shadow:
+        0 0 10px rgba(0,200,255,0.35),
+        inset 0 0 8px rgba(0,255,200,0.15);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+/* Hover */
+.btn-retaguarda-acao:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(0,200,255,0.25),
+        rgba(0,255,200,0.22)
+    );
+
+    box-shadow:
+        0 0 18px rgba(0,220,255,0.6),
+        inset 0 0 12px rgba(0,255,200,0.25);
+
+    transform: translateY(-1px) scale(1.03);
+}
+
+/* Clique */
+.btn-retaguarda-acao:active {
+    transform: scale(0.96);
+    box-shadow:
+        0 0 6px rgba(0,200,255,0.4),
+        inset 0 0 14px rgba(0,180,200,0.35);
+}
+
+/* Desabilitado */
+.btn-retaguarda-acao:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Ícone opcional dentro do botão */
+.btn-retaguarda-acao img {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(0,255,255,0.6));
+}
+
+/* ==============================
+   BOTÕES DE RETIRADA
+================================ */
+/* ==============================
+   BOTÕES – RETIRAR
+================================ */
+.btn-nucleo-acao.retirar {
+    margin-top: 10px;
+    padding: 8px 18px;
+
+    background: rgba(255, 60, 60, 0.08);
+    border: 1px solid rgba(255, 60, 60, 0.55);
+    color: #ff3c3c;
+
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    border-radius: 6px;
+    cursor: pointer;
+
+    transition: 
+        background 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+/* Hover */
+.btn-nucleo-acao.retirar:hover {
+    background: rgba(255, 60, 60, 0.18);
+    box-shadow: 0 0 12px rgba(255, 60, 60, 0.45);
+    transform: scale(1.05);
+}
+
+/* Clique */
+.btn-nucleo-acao.retirar:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 6px rgba(255, 60, 60, 0.3);
+}
+
+/* Desativado */
+.btn-nucleo-acao.retirar:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ==============================
+   VARIAÇÕES (OPCIONAL)
+================================ */
+
+/* Retirar do ATAQUE – vermelho mais forte */
+#btnRetirarGuerreiro {
+    border-color: rgba(255, 80, 80, 0.8);
+    color: #ff5a5a;
+}
+
+/* Retirar da RETAGUARDA – tom mais escuro */
+#btnRetirarRetaguarda {
+    border-color: rgba(200, 40, 40, 0.8);
+    color: #e64545;
+}
+
+

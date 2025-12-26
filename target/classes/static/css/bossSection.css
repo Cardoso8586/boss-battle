@@ -1,0 +1,341 @@
+
+/* ==============================
+   RESET BÁSICO
+================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a1a1a, #050505);
+    color: #ecf0f1;
+     font-size: 18px;
+    font-family: 'Segoe UI', sans-serif;
+    
+}
+
+/* ==============================
+   TÍTULO
+================================ */
+.jogo-title {
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffb400;
+    text-shadow: 0 0 10px rgba(255,180,0,0.6);
+    margin-bottom: 30px;
+}
+
+.jogo-title::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 4px;
+    margin: 14px auto 0;
+    background: linear-gradient(90deg, transparent, #ff3c00, transparent);
+    border-radius: 10px;
+}
+
+/* ==============================
+   ARENA (WRAPPER)
+================================ */
+.boss-user-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 130px;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+}
+
+/* ==============================
+   REMOVER VISUAL DE CARD
+================================ */
+#user-card,
+#boss-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+}
+
+/* ==============================
+   BOSS (CENTRO DA ARENA)
+================================ */
+#boss-container {
+	 position: relative; /* FUNDAMENTAL */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#boss-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ff3c00;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px rgba(255,60,0,0.8);
+}
+
+#boss-image {
+    max-width: 320px;
+    width: 90%;
+    border: none;
+    box-shadow: none;
+    filter: drop-shadow(0 0 35px rgba(255,60,0,0.6));
+    animation: bossIdle 4s ease-in-out infinite;
+}
+
+@keyframes bossIdle {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* ==============================
+   BOSS HUD
+================================ */
+.hp-bar-bg {
+    width: 320px;
+    height: 16px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+#boss-hp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    transition: width 0.4s ease;
+}
+
+#boss-container p,
+#boss-container h3 {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+/* ==============================
+   USUÁRIO / GUERREIRO
+================================ */
+#user-card {
+    text-align: center;
+    max-width: 320px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    color: #00ff88;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0,255,136,0.6);
+}
+
+.card-section p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+.highlight {
+    color: #ffb400;
+    font-weight: bold;
+}
+
+/* ==============================
+   IMAGEM DO GUERREIRO
+================================ */
+#guerreiro-image {
+    width: 140px;
+    margin: 10px auto 15px;
+    display: block;
+    filter: drop-shadow(0 0 18px rgba(0,255,136,0.6));
+}
+
+/* ==============================
+   ENERGIA (HUD LIMPO)
+================================ */
+.energia-wrapper {
+    background: transparent;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.energia-header {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #ffb400;
+}
+
+.energia-bar-bg {
+    width: 100%;
+    height: 12px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.energia-bar {
+    height: 100%;
+    background: #00ff88;
+    transition: width 0.4s ease;
+}
+/* ==============================
+   BOTÕES (HUD UNIFICADO)
+================================ */
+#attackBtn,
+#btnRecarregar {
+    margin-top: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,255,136,0.45);
+    color: #7fffd4;
+    padding: 10px 26px;
+    border-radius: 6px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover sutil */
+#attackBtn:hover,
+#btnRecarregar:hover:not(:disabled) {
+    background: rgba(0,255,136,0.08);
+    box-shadow: inset 0 0 10px rgba(0,255,136,0.35);
+    transform: translateY(-1px);
+}
+
+/* Botão em cooldown / desativado */
+#attackBtn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,255,136,0.45);
+    color: #7fffd4;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Desativado */
+
+#btnRecarregar:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* ==============================
+   DIVISOR INVISÍVEL
+================================ */
+.card-divider {
+    border: none;
+    height: 20px;
+}
+
+/* ==============================
+   DANO FLUTUANTE
+================================ */
+#damageFloatContainer {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ==============================
+   RESPONSIVO
+================================ */
+@media (max-width: 900px) {
+    .boss-user-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    #boss-image {
+        max-width: 300px;
+    }
+}
+
+
+.ataques-recentes {
+    margin-top: 14px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.ataques-recentes h3 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffb400;
+    margin-bottom: 6px;
+    text-shadow: 0 0 6px rgba(255,180,0,0.4);
+}
+
+#listaAtaques {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#listaAtaques li {
+    font-size: 0.85rem;
+    color: #bfc9c9; /* cinza claro, NÃO branco */
+    margin-bottom: 4px;
+    letter-spacing: 0.4px;
+}
+
+/* número de dano */
+#listaAtaques li b {
+    color: #ff3c00; /* vermelho do boss */
+    font-weight: 800;
+}
+
+/* nome do usuário (se usar <strong>) */
+#listaAtaques li strong {
+    color: #00ff88; /* verde energia */
+    font-weight: 700;
+}
+
+.retaguarda-container {
+    display: inline-flex;
+    align-items: center; /* alinha verticalmente número e imagem */
+    gap: 5px; /* distância mínima entre número e imagem */
+}
+
+.retaguarda-container img {
+    width: 16px;   /* tamanho pequeno */
+    height: 16px;
+}
+
+.ataque-container {
+    display: inline-flex;
+    align-items: center; /* alinha número e imagem verticalmente */
+    gap: 5px; /* pequena distância entre número e imagem */
+}
+
+.ataque-container img {
+    width: 16px;  /* tamanho pequeno da imagem */
+    height: 16px;
+}
+
+.damage-container {
+    display: inline-flex;
+    align-items: center; /* alinha o número, texto e imagem verticalmente */
+    gap: 5px; /* pequena distância entre “Dano” e a imagem */
+}
+
+.damage-container img {
+    width: 16px;  /* tamanho pequeno da imagem */
+    height: 16px;
+}
+
+

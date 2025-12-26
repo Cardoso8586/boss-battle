@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0f0f0f;
+    color: #fff;
+     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* Garantir que o cursor aparece no menu */
+nav, nav * {
+    cursor: url('assets/cursor.cur'), auto !important;
+}
+
+/* Caso o menu use <ul> e <li> */
+ul.menu, ul.menu *, li.menu, li.menu *, a, a * {
+    cursor: url('assets/cursor.cur'), pointer !important;
+}
+
+/* Cursor padrão do site inteiro */
+html, body, * {
+    cursor: url('assets/cursor.cur'), auto;
+}
+
+/* Exemplo: se quiser algum campo com cursor normal */
+input, textarea {
+    cursor: text !important;
+}
+
+button {
+    cursor: url('assets/cursor.cur'), pointer;
+}
+
+
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    flex: 1; /* empurra o footer para o fim */
+}
+
+/* dashboard.css ou nav.css */
+
+main section {
+    display: none;
+}
+main section.active {
+    display: block;
+}
+
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1b1b1b;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px #000;
+}
+
+.menu-bar .logo h1 {
+    margin: 0;
+    color: #f0d26a;
+}
+
+.menu-bar nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-bar nav ul li {
+    margin: 0 10px;
+}
+
+.menu-bar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.menu-bar nav ul li a:hover {
+    color: #f0d26a;
+}
+
+.menu-bar .user-info {
+    font-weight: bold;
+}
+
+.dashboard-content {
+    padding: 20px;
+}
+
+section {
+    margin-top: 20px;
+    background-color: #1b1b1b;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #222;
+}
+
+
+

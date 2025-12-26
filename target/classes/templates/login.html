@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Boss Battle</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+<div class="auth-container">
+    <h2>Entrar</h2>
+
+    <form id="loginForm">
+        <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
+        <input type="password" id="loginSenha" placeholder="Senha" required>
+          <input type="hidden" name="ref" th:value="${ref}" />
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p class="msg" id="loginMsg"></p>
+
+    <div class="link">
+        Não tem conta? <a href="/cadastro">Criar conta</a>
+    </div>
+</div>
+
+<script src="static/js/auth.js"></script>
+<script src="/js/realizarLogin.js"></script>
+   <script src="/js/loadBoss.js"></script>  
+</body>
+</html>

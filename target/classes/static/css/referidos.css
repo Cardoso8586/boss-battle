@@ -1,0 +1,120 @@
+/* ===============================
+   ESTILO DA SEÇÃO REFERIDOS
+=============================== */
+#referidos {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #1e1e2f; /* fundo escuro */
+    color: #fff; /* texto branco */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#referidos h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ffcc00;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#referidos p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#referidos span {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* ===============================
+   ESTILO DO LINK DE CONVITE
+=============================== */
+#referidos div {
+    margin-top: 20px;
+}
+
+#referidos h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#referidos input[type="text"] {
+    width: calc(100% - 110px);
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: #2c2c3c;
+    color: #fff;
+    margin-right: 10px;
+}
+
+#referidos button#copyBtn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ffcc00;
+    color: #1e1e2f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#referidos button#copyBtn:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+/* ===============================
+   RESPONSIVO
+=============================== */
+@media (max-width: 480px) {
+    #referidos input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #referidos button#copyBtn {
+        width: 100%;
+    }
+}
+
+#claimForm {
+    margin-top: 15px;
+}
+
+#claimBtn {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#claimBtn:hover {
+    background: linear-gradient(135deg, #34ce57, #218838);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+
+#claimBtn:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#claimBtn:disabled {
+    background: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}

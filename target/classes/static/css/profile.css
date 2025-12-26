@@ -1,0 +1,39 @@
+.profile-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-info .info-item {
+    font-size: 16px;
+}
+
+.profile-stats h3 {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.profile-stats p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .profile-info {
+        gap: 5px;
+    }
+}

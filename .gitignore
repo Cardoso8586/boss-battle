@@ -1,0 +1,31 @@
+# ===========================
+# Arquivo: .gitignore
+# ===========================
+
+# Pastas de build e cache
+.gradle/
+build/
+out/
+bin/
+
+# IDEs e configurações locais
+.idea/
+*.iml
+
+# Arquivos temporários e logs
+*.log
+*.tmp
+*.swp
+
+# Arquivos compilados
+*.class
+*.jar
+*.war
+
+# Variáveis de ambiente locais
+*.env
+
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
