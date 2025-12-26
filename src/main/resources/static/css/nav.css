@@ -1,7 +1,7 @@
 /* ================================
    NAV LATERAL (DESKTOP)
 ================================ */
-@media (min-width: 769px) {
+@media (min-width: 1169px) {
 
     nav {
         position: fixed;
@@ -65,7 +65,7 @@
 /* ================================
    RESPONSIVO (MOBILE)
 ================================ */
-@media (max-width: 768px) {
+@media (max-width: 1168px) {
 
     /* Botão hamburger */
     .hamburger {

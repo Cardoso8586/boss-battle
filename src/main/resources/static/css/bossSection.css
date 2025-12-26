@@ -290,7 +290,7 @@ body {
 ================================ */
 
 /* Tablets */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
     .boss-user-wrapper {
         flex-direction: column;
         align-items: center;
@@ -307,7 +307,7 @@ body {
 }
 
 /* Mobile */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     body {
         font-size: 16px;
     }
