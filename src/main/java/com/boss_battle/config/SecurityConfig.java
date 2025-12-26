@@ -45,7 +45,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:8080"
+                "http://localhost:8080",
+                "https://boss-battle.up.railway.app"
                 
         ));
 
