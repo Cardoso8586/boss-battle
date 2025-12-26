@@ -67,15 +67,7 @@
 ================================ */
 @media (max-width: 768px) {
 
-    /* ESCONDE O NAV FIXO */
-    nav {
-        position: static;
-        width: auto;
-        height: auto;
-        border: none;
-    }
-
-    /* MOSTRA O HAMBURGER */
+    /* HAMBURGER */
     .hamburger {
         display: flex;
         flex-direction: column;
@@ -85,11 +77,11 @@
         left: 15px;
         top: 90px;
 
-        z-index: 10000;
+        z-index: 10001;
         cursor: pointer;
 
         padding: 10px;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0,0,0,0.45);
         border-radius: 10px;
         backdrop-filter: blur(6px);
     }
@@ -101,7 +93,7 @@
         border-radius: 3px;
     }
 
-    /* MENU LATERAL MOBILE */
+    /* MENU LATERAL */
     .nav-list {
         position: fixed;
         top: 140px;
@@ -121,23 +113,32 @@
         border-right: 2px solid #111;
 
         transition: left 0.3s ease;
-        z-index: 9999;
+        z-index: 10000;
     }
 
-    /* ABERTO */
     .nav-list.show {
         left: 0;
     }
 
     .nav-list li {
-        background: #1b1b1b;
+        width: 100%;
         padding: 14px 16px;
+
+        background: #1b1b1b;
         border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
     main,
     section,
     .container {
         margin-left: 0;
+    }
+}
+
+/* Mobile — ícones maiores */
+@media (max-width: 768px) {
+    .nav-list li a i {
+        font-size: 20px;
     }
 }

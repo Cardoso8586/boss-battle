@@ -252,7 +252,7 @@ body {
 /* ==============================
    RESPONSIVO
 ================================ */
-@media (max-width: 900px) {
+@media (max-width: 400px) {
     .boss-user-wrapper {
         flex-direction: column;
         align-items: center;
