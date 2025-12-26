@@ -1,7 +1,7 @@
 /* ================================
    NAV LATERAL (DESKTOP)
 ================================ */
-@media (min-width: 1169px) {
+@media (min-width: 769px) {
 
     nav {
         position: fixed;
@@ -65,9 +65,17 @@
 /* ================================
    RESPONSIVO (MOBILE)
 ================================ */
-@media (max-width: 1168px) {
+@media (max-width: 768px) {
 
-    /* Botão hamburger */
+    /* ESCONDE O NAV FIXO */
+    nav {
+        position: static;
+        width: auto;
+        height: auto;
+        border: none;
+    }
+
+    /* MOSTRA O HAMBURGER */
     .hamburger {
         display: flex;
         flex-direction: column;
@@ -77,19 +85,13 @@
         left: 15px;
         top: 90px;
 
+        z-index: 10000;
         cursor: pointer;
-        z-index: 9999;
 
         padding: 10px;
-        background: rgba(0,0,0,0.35);
+        background: rgba(0,0,0,0.4);
         border-radius: 10px;
-        backdrop-filter: blur(4px);
-
-        transition: transform .2s;
-    }
-
-    .hamburger:hover {
-        transform: scale(1.05);
+        backdrop-filter: blur(6px);
     }
 
     .hamburger .bar {
@@ -99,73 +101,43 @@
         border-radius: 3px;
     }
 
-    /* MENU LATERAL */
+    /* MENU LATERAL MOBILE */
     .nav-list {
         position: fixed;
         top: 140px;
-        left: -400px;
+        left: -100%;
 
-        width: 390px;
+        width: 85%;
+        max-width: 360px;
         height: calc(100% - 150px);
-        padding: 40px 20px;
 
+        padding: 30px 20px;
+
+        display: flex;
         flex-direction: column;
         gap: 12px;
 
         background: #222;
         border-right: 2px solid #111;
-        transition: left .3s ease;
-        z-index: 9998;
+
+        transition: left 0.3s ease;
+        z-index: 9999;
     }
 
-    /* Quando aberto */
+    /* ABERTO */
     .nav-list.show {
         left: 0;
     }
 
-    /* ESTILO DOS ITENS NO MOBILE */
     .nav-list li {
-        width: 75%;
-        padding: 0;
-
         background: #1b1b1b;
-        padding: 12px 15px;
+        padding: 14px 16px;
         border-radius: 8px;
-
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
-
-        transition: 0.25s ease;
     }
 
-    .nav-list li:hover {
-        background: #2a2a2a;
-        transform: translateX(5px);
-    }
-
-    /* Links mobile */
-    .nav-list li a {
-        font-size: 17px;
-        display: block;
-    }
-}
-
-/* Ícones no menu */
-.nav-list li a i {
-    margin-right: 10px;
-    font-size: 18px;
-    width: 22px;
-    text-align: center;
-}
-
-/* Hover mais bonito */
-.nav-list li a:hover i {
-    color: #f1c40f;
-}
-
-/* Mobile — ícones maiores */
-@media (max-width: 768px) {
-    .nav-list li a i {
-        font-size: 20px;
+    main,
+    section,
+    .container {
+        margin-left: 0;
     }
 }
