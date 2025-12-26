@@ -1,4 +1,3 @@
-
 /* ==============================
    RESET BÁSICO
 ================================ */
@@ -9,9 +8,8 @@
 body {
     background: radial-gradient(circle at top, #1a1a1a, #050505);
     color: #ecf0f1;
-     font-size: 18px;
+    font-size: 18px;
     font-family: 'Segoe UI', sans-serif;
-    
 }
 
 /* ==============================
@@ -67,7 +65,7 @@ body {
    BOSS (CENTRO DA ARENA)
 ================================ */
 #boss-container {
-	 position: relative; /* FUNDAMENTAL */
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,6 +183,7 @@ body {
     background: #00ff88;
     transition: width 0.4s ease;
 }
+
 /* ==============================
    BOTÕES (HUD UNIFICADO)
 ================================ */
@@ -203,7 +202,6 @@ body {
     transition: all 0.2s ease;
 }
 
-/* Hover sutil */
 #attackBtn:hover,
 #btnRecarregar:hover:not(:disabled) {
     background: rgba(0,255,136,0.08);
@@ -211,18 +209,10 @@ body {
     transform: translateY(-1px);
 }
 
-/* Botão em cooldown / desativado */
 #attackBtn:disabled {
     opacity: 0.35;
     cursor: not-allowed;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(0,255,136,0.45);
-    color: #7fffd4;
-    box-shadow: none;
-    transform: none;
 }
-
-/* Desativado */
 
 #btnRecarregar:disabled {
     opacity: 0.35;
@@ -250,24 +240,10 @@ body {
 }
 
 /* ==============================
-   RESPONSIVO
+   ATAQUES RECENTES
 ================================ */
-@media (max-width: 900px) {
-    .boss-user-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
-    }
-
-    #boss-image {
-        max-width: 300px;
-    }
-}
-
-
 .ataques-recentes {
     margin-top: 14px;
-    font-family: 'Segoe UI', sans-serif;
 }
 
 .ataques-recentes h3 {
@@ -277,7 +253,6 @@ body {
     text-transform: uppercase;
     color: #ffb400;
     margin-bottom: 6px;
-    text-shadow: 0 0 6px rgba(255,180,0,0.4);
 }
 
 #listaAtaques {
@@ -288,54 +263,70 @@ body {
 
 #listaAtaques li {
     font-size: 0.85rem;
-    color: #bfc9c9; /* cinza claro, NÃO branco */
+    color: #bfc9c9;
     margin-bottom: 4px;
-    letter-spacing: 0.4px;
 }
 
-/* número de dano */
-#listaAtaques li b {
-    color: #ff3c00; /* vermelho do boss */
-    font-weight: 800;
-}
-
-/* nome do usuário (se usar <strong>) */
-#listaAtaques li strong {
-    color: #00ff88; /* verde energia */
-    font-weight: 700;
-}
-
-.retaguarda-container {
-    display: inline-flex;
-    align-items: center; /* alinha verticalmente número e imagem */
-    gap: 5px; /* distância mínima entre número e imagem */
-}
-
-.retaguarda-container img {
-    width: 16px;   /* tamanho pequeno */
-    height: 16px;
-}
-
-.ataque-container {
-    display: inline-flex;
-    align-items: center; /* alinha número e imagem verticalmente */
-    gap: 5px; /* pequena distância entre número e imagem */
-}
-
-.ataque-container img {
-    width: 16px;  /* tamanho pequeno da imagem */
-    height: 16px;
-}
-
+/* ==============================
+   ÍCONES INLINE
+================================ */
+.retaguarda-container,
+.ataque-container,
 .damage-container {
     display: inline-flex;
-    align-items: center; /* alinha o número, texto e imagem verticalmente */
-    gap: 5px; /* pequena distância entre “Dano” e a imagem */
+    align-items: center;
+    gap: 5px;
 }
 
+.retaguarda-container img,
+.ataque-container img,
 .damage-container img {
-    width: 16px;  /* tamanho pequeno da imagem */
+    width: 16px;
     height: 16px;
 }
 
+/* ==============================
+   RESPONSIVO — ADIÇÕES (SEM QUEBRAR NADA)
+================================ */
 
+/* Tablets */
+@media (max-width: 900px) {
+    .boss-user-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .hp-bar-bg {
+        width: 280px;
+    }
+
+    #boss-image {
+        max-width: 300px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+    }
+
+    .jogo-title {
+        font-size: 2rem;
+    }
+
+    .hp-bar-bg {
+        width: 240px;
+    }
+
+    #guerreiro-image {
+        width: 110px;
+    }
+
+    #attackBtn,
+    #btnRecarregar {
+        width: 100%;
+        max-width: 260px;
+    }
+}
