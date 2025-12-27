@@ -70,69 +70,95 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==============================
-    // BOTÃO DE COMPRA
-    // ==============================
-    if (btnComprar) {
-        btnComprar.addEventListener('click', async () => {
-            const card = btnComprar.closest('.loja-card');
-            const quantidadeInput = card.querySelector('.quantidade-item');
-            const quantidade = parseInt(quantidadeInput.value);
+	// ==============================
+	// BOTÃO DE COMPRA (COM TEMPORIZADOR)
+	// ==============================
+	if (btnComprar) {
 
-            if (!quantidade || quantidade <= 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Quantidade inválida',
-                    text: 'Informe uma quantidade válida.',
-                    confirmButtonText: 'Ok'
-                });
-                return;
-            }
+	    let emCooldownCompra = false;
+	    const tempoCooldownCompra = 3; // segundos
 
-            btnComprar.disabled = true; // evita clique múltiplo
+	    btnComprar.addEventListener('click', async () => {
 
-            try {
-                const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ quantidade })
-                });
+	        if (emCooldownCompra) return;
 
-                if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Compra realizada!',
-                        text: `Você comprou ${quantidade} poção(ões) de Vigor Automático.`,
-                        confirmButtonText: 'Ok'
-                    });
+	        const card = btnComprar.closest('.loja-card');
+	        const quantidadeInput = card.querySelector('.quantidade-item');
+	        const quantidade = parseInt(quantidadeInput.value);
 
-                    // Atualiza UI imediatamente após compra
-                    atualizarUsuario();
-					
+	        if (!quantidade || quantidade <= 0) {
+	            Swal.fire({
+	                icon: 'warning',
+	                title: 'Quantidade inválida',
+	                text: 'Informe uma quantidade válida.',
+	                confirmButtonText: 'Ok'
+	            });
+	            return;
+	        }
 
-                } else {
-                    const text = await res.text();
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Saldo insuficiente',
-                        text: text || 'Não foi possível comprar.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
+	        emCooldownCompra = true;
+	        btnComprar.disabled = true;
 
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao tentar comprar Poção Automática de Vigor.',
-                    confirmButtonText: 'Ok'
-                });
-            } finally {
-                btnComprar.disabled = false;
-            }
-        });
-    }
+	        let tempoRestante = tempoCooldownCompra;
+	        const textoOriginal = btnComprar.innerText;
+
+	        btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
+
+	        const timer = setInterval(() => {
+	            tempoRestante--;
+	            btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
+	            if (tempoRestante <= 0) clearInterval(timer);
+	        }, 1000);
+
+	        try {
+	            const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
+	                method: 'POST',
+	                headers: { 'Content-Type': 'application/json' },
+	                body: JSON.stringify({ quantidade })
+	            });
+
+	            if (res.ok) {
+	                Swal.fire({
+	                    icon: 'success',
+	                    title: 'Compra realizada!',
+	                    text: `Você comprou ${quantidade} poção(ões) de Vigor Automático.`,
+	                    timer: 4000,
+	                    showConfirmButton: false
+	                });
+
+	                atualizarUsuario();
+
+	            } else {
+	                const text = await res.text();
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Saldo insuficiente',
+	                    text: text || 'Não foi possível comprar.',
+	                    timer: 4000,
+	                    showConfirmButton: false
+	                });
+	            }
+
+	        } catch (e) {
+	            console.error(e);
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao tentar comprar Poção Automática de Vigor.',
+	                timer: 4000,
+	                showConfirmButton: false
+	            });
+
+	        } finally {
+	            setTimeout(() => {
+	                emCooldownCompra = false;
+	                btnComprar.disabled = false;
+	                btnComprar.innerText = textoOriginal;
+	            }, tempoCooldownCompra * 1000);
+	        }
+	    });
+	}
+
 	let emCooldown = false;
 	const tempoCooldown = 3; // segundos
 
