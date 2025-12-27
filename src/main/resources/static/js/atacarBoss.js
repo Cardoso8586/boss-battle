@@ -115,28 +115,31 @@ async function bossEstaAtivo() {
 }
 
 // ---------------------------------------------------
-// ⚔️ CLICK ATAQUE
+// ⚔️ CLICK ATAQUE (COM TEMPORIZADOR DE ATAQUE)
 attackBtn.addEventListener("click", async () => {
 
-    if (ataqueEmAndamento) return;
+    // 🔒 trava absoluta
+    if (ataqueEmAndamento || !bossVivo) return;
 
     ataqueEmAndamento = true;
     attackBtn.disabled = true;
 
     const textoOriginal = attackBtn.innerText;
+    const tempoAtaque = 2; // ⏱️ tempo "atacando" (segundos)
+    let restante = tempoAtaque;
 
-    // 🔎 VERIFICA SE O BOSS ESTÁ ATIVO
-    const bossAtivo = await bossEstaAtivo();
+    // ⏳ texto inicial
+    attackBtn.innerText = `Atacando... (${restante}s)`;
 
-    if (!bossAtivo) {
-        swalWarningAuto("O boss já foi derrotado.", 4);
-        attackBtn.innerText = "Boss derrotado";
-        attackBtn.style.pointerEvents = "none";
-        ataqueEmAndamento = false;
-        return;
-    }
+    // ⏱️ contador visual
+    const timerAtaque = setInterval(() => {
+        restante--;
+        attackBtn.innerText = `Atacando... (${restante}s)`;
+        if (restante <= 0) clearInterval(timerAtaque);
+    }, 1000);
 
     if (!usuarioId) {
+        clearInterval(timerAtaque);
         swalWarningAuto("Usuário não identificado.", 4);
         ataqueEmAndamento = false;
         attackBtn.disabled = false;
@@ -152,24 +155,28 @@ attackBtn.addEventListener("click", async () => {
 
         const data = await response.json();
 
+        // 💀 boss morreu
         if (data.status === "BOSS_DEAD") {
+            clearInterval(timerAtaque);
             tratarMorteBoss();
             return;
         }
 
-        if (data.status === "COOLDOWN") {
-            iniciarCooldown(data.segundosRestantes || 300);
-            return;
-        }
-
+        // 💥 dano
         if (data.damage !== undefined) {
             showDamageFloating(data.damage);
-            iniciarCooldown(data.segundosRestantes || 300);
         }
+
+        // 🔥 SEMPRE usa o cooldown do servidor
+        verificarCooldownInicial();
 
     } catch (err) {
         console.error(err);
+
+        clearInterval(timerAtaque);
+
         swalWarningAuto("Erro ao atacar o boss.", 4);
+
         ataqueEmAndamento = false;
         attackBtn.disabled = false;
         attackBtn.innerText = textoOriginal;

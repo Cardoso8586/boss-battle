@@ -100,7 +100,7 @@
         left: -100%;
 
         width: 85%;
-        max-width: 360px;
+        max-width: 300px;
         height: calc(100% - 150px);
 
         padding: 30px 20px;
@@ -121,7 +121,7 @@
     }
 
     .nav-list li {
-        width: 100%;
+        width: 95%;
         padding: 14px 16px;
 
         background: #1b1b1b;
