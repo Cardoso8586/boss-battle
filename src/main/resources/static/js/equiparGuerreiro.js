@@ -67,42 +67,69 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     // BOTÃO EQUIPAR GUERREIRO
     // ==============================
-    if (btnEquiparGuerreiro) {
-        btnEquiparGuerreiro.addEventListener('click', async () => {
-            btnEquiparGuerreiro.disabled = true;
 
-            try {
-                const res = await fetch(`/equipar/guerreiro/${usuarioId}`, { method: 'POST' });
-                if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Guerreiro enviado!',
-                        text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
-                        confirmButtonText: 'Ok'
-                    });
-                    atualizarGuerreiro();
-                } else {
-                    const text = await res.text();
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Não foi possível enviar',
-                        text: text || 'Erro ao enviar guerreiro.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao tentar equipar guerreiro.',
-                    confirmButtonText: 'Ok'
-                });
-            } finally {
-                btnEquiparGuerreiro.disabled = false;
-            }
-        });
-    }
+	// ==============================
+	if (btnEquiparGuerreiro) {
+
+	    let emCooldownGuerreiro = false;
+	    const tempoCooldownGuerreiro = 5; // segundos
+
+	    btnEquiparGuerreiro.addEventListener('click', async () => {
+
+	        if (emCooldownGuerreiro) return;
+
+	        emCooldownGuerreiro = true;
+	        btnEquiparGuerreiro.disabled = true;
+
+	        let tempoRestante = tempoCooldownGuerreiro;
+	        const textoOriginal = btnEquiparGuerreiro.innerText;
+
+	        btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
+
+	        const timer = setInterval(() => {
+	            tempoRestante--;
+	            btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
+	            if (tempoRestante <= 0) clearInterval(timer);
+	        }, 1000);
+
+	        try {
+	            const res = await fetch(`/equipar/guerreiro/${usuarioId}`, { method: 'POST' });
+
+	            if (res.ok) {
+	                Swal.fire({
+	                    icon: 'success',
+	                    title: 'Guerreiro enviado!',
+	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
+	                    confirmButtonText: 'Ok'
+	                });
+
+	                atualizarGuerreiro();
+
+	            } else {
+	                // WARNING COM TIMER (4s)
+	                swalWarningAuto(
+	                    'Não foi possível enviar o guerreiro.',
+	                    4
+	                );
+	            }
+
+	        } catch (e) {
+	            console.error(e);
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao tentar equipar guerreiro.',
+	                confirmButtonText: 'Ok'
+	            });
+	        } finally {
+	            setTimeout(() => {
+	                emCooldownGuerreiro = false;
+	                btnEquiparGuerreiro.disabled = false;
+	                btnEquiparGuerreiro.innerText = textoOriginal;
+	            }, tempoCooldownGuerreiro * 1000);
+	        }
+	    });
+	}
 
     // ==============================
     // ATUALIZAÇÃO PERIÓDICA

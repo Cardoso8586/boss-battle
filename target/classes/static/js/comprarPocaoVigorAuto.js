@@ -133,84 +133,70 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-	// ==============================
-	// BOTÃO DE ATIVAR POÇÃO
-	// ==============================
-	if (btnAtivarPocao) {
-	    btnAtivarPocao.addEventListener('click', async () => {
-	        btnAtivarPocao.disabled = true;
+	let emCooldown = false;
+	const tempoCooldown = 3; // segundos
 
-	        try {
-	            const res = await fetch(`/ativar/pocao-vigor/${usuarioId}`, {
-	                method: 'POST',
-	                headers: { 'Content-Type': 'application/json' }
-	            });
+	btnAtivarPocao.addEventListener('click', async () => {
+	    if (emCooldown) return;
 
-	            if (res.ok) {
-	                Swal.fire({
-	                    icon: 'success',
-	                    title: 'Poção ativada!',
-	                    text: 'Sua poção de vigor foi ativada com sucesso.',
-	                    confirmButtonText: 'Ok'
-	                });
+	    emCooldown = true;
+	    btnAtivarPocao.disabled = true;
 
-	                // Atualiza UI imediatamente após ativar
-	                atualizarUsuario();
+	    let tempoRestante = tempoCooldown;
+	    const textoOriginal = btnAtivarPocao.innerText;
 
-	            } else {
-	                const text = await res.text();
-	                Swal.fire({
-	                    icon: 'warning',
-	                    title: 'Não foi possível ativar',
-	                    text: text || 'Erro ao ativar poção.',
-	                    confirmButtonText: 'Ok'
-	                });
-	            }
-	        } catch (e) {
-	            console.error(e);
-	            Swal.fire({
-	                icon: 'error',
-	                title: 'Erro',
-	                text: 'Erro ao tentar ativar poção.',
-	                confirmButtonText: 'Ok'
-	            });
-	        } finally {
-	            btnAtivarPocao.disabled = false;
+	    btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
+
+	    const timer = setInterval(() => {
+	        tempoRestante--;
+	        btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
+
+	        if (tempoRestante <= 0) {
+	            clearInterval(timer);
 	        }
-	    });
-	}
-	/**
-	 * 
-	 * 
-	 */
-	// ==============================
-	   // Evento do botão ativar poção
-	   // ==============================
-	   btnAtivarPocao.addEventListener('click', async () => {
+	    }, 1000);
 
-	       btnAtivarPocao.disabled = true;
+	    try {
+	        const quantidade = 1;
 
-	       try {
-	           const quantidade = 1; // ativa 1 poção por clique
+	        const res = await fetch(
+	            `/api/pocao-vigor/ativar?usuarioId=${usuarioId}&quantidade=${quantidade}`,
+	            { method: 'POST' }
+	        );
 
-	           const res = await fetch(
-	               `/api/pocao-vigor/ativar?usuarioId=${usuarioId}&quantidade=${quantidade}`,
-	               { method: 'POST' }
-	           );
+	        if (!res.ok) {
+	            const erro = await res.text();
+	            Swal.fire({
+	                icon: 'warning',
+	                title: 'Erro',
+	                text: erro
+	            });
+	            return;
+	        }
 
-	           if (!res.ok) {
-	               const erro = await res.text();
-	               alert(erro);
-	               return;
-	           }
+	        Swal.fire({
+	            icon: 'success',
+	            title: 'Poção ativada!',
+	            text: 'Sua poção foi ativada com sucesso.'
+	        });
 
-	           await atualizarUsuario(); // atualiza UI imediatamente
-	       } catch (e) {
-	           console.error(e);
-	       } finally {
-	           btnAtivarPocao.disabled = false;
-	       }
-	   });
+	        await atualizarUsuario();
+
+	    } catch (e) {
+	        console.error(e);
+	        Swal.fire({
+	            icon: 'error',
+	            title: 'Erro',
+	            text: 'Erro ao tentar ativar poção.'
+	        });
+	    } finally {
+	        setTimeout(() => {
+	            emCooldown = false;
+	            btnAtivarPocao.disabled = false;
+	            btnAtivarPocao.innerText = textoOriginal;
+	        }, tempoCooldown * 1000);
+	    }
+	});
 
 
     // ==============================

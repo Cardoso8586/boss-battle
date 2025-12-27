@@ -54,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error(err);
         }
-    }
-
+    /*** 
     // Evento de clique do botão continua igual
     btnRecarregar.addEventListener('click', async () => {
         try {
@@ -64,7 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error(err);
         }
-    });
+    });*/
+}
+
+
 
     // Atualiza ao carregar e a cada 10s
     atualizarUsuario();

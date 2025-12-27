@@ -45,87 +45,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==============================
     // RETIRAR DO ATAQUE
-    // ==============================
-    if (btnRetirarAtaque) {
-        btnRetirarAtaque.addEventListener('click', async () => {
-            btnRetirarAtaque.disabled = true;
+	// ==============================
+	// SWEETALERT WARNING AUTOMÁTICO (4s)
+	// ==============================
+	function swalWarningAuto(texto, segundos = 4) {
+	    let tempo = segundos;
 
-            try {
-                const res = await fetch(`/retirar/ataque/${usuarioId}`, {
-                    method: 'POST'
-                });
+	    Swal.fire({
+	        icon: 'warning',
+	        title: 'Ação inválida',
+	        html: `${texto}<br><b>Fechando em ${tempo}s</b>`,
+	        timer: segundos * 1000,
+	        timerProgressBar: true,
+	        showConfirmButton: false,
+	        didOpen: () => {
+	            const interval = setInterval(() => {
+	                tempo--;
+	                const b = Swal.getHtmlContainer().querySelector('b');
+	                if (b) b.textContent = `Fechando em ${tempo}s`;
+	                if (tempo <= 0) clearInterval(interval);
+	            }, 1000);
+	        }
+	    });
+	}
 
-                if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Guerreiro retirado!',
-                        text: 'O guerreiro voltou ao Acampamento.',
-                        confirmButtonText: 'Ok'
-                    });
-                    atualizarStatus();
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Ação inválida',
-                        text: 'Nenhum guerreiro no ataque.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao retirar guerreiro do ataque.',
-                    confirmButtonText: 'Ok'
-                });
-            } finally {
-                btnRetirarAtaque.disabled = false;
-            }
-        });
-    }
+	// ==============================
+	// RETIRAR DO ATAQUE (COM TEMPORIZADOR)
+	// ==============================
+	if (btnRetirarAtaque) {
 
-    // ==============================
-    // RETIRAR DA RETAGUARDA
-    // ==============================
-    if (btnRetirarRetaguarda) {
-        btnRetirarRetaguarda.addEventListener('click', async () => {
-            btnRetirarRetaguarda.disabled = true;
+	    let emCooldownRetirarAtaque = false;
+	    const tempoCooldownRetirarAtaque = 5; // segundos
 
-            try {
-                const res = await fetch(`/retirar/retaguarda/${usuarioId}`, {
-                    method: 'POST'
-                });
+	    btnRetirarAtaque.addEventListener('click', async () => {
 
-                if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Retaguarda recuada!',
-                        text: 'O guerreiro voltou ao Acampamento.',
-                        confirmButtonText: 'Ok'
-                    });
-                    atualizarStatus();
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Ação inválida',
-                        text: 'Nenhum guerreiro na retaguarda.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao retirar guerreiro da retaguarda.',
-                    confirmButtonText: 'Ok'
-                });
-            } finally {
-                btnRetirarRetaguarda.disabled = false;
-            }
-        });
-    }
+	        if (emCooldownRetirarAtaque) return;
+
+	        emCooldownRetirarAtaque = true;
+	        btnRetirarAtaque.disabled = true;
+
+	        let tempoRestante = tempoCooldownRetirarAtaque;
+	        const textoOriginal = btnRetirarAtaque.innerText;
+
+	        btnRetirarAtaque.innerText = `Retirando... (${tempoRestante}s)`;
+
+	        const timer = setInterval(() => {
+	            tempoRestante--;
+	            btnRetirarAtaque.innerText = `Retirando... (${tempoRestante}s)`;
+	            if (tempoRestante <= 0) clearInterval(timer);
+	        }, 1000);
+
+	        try {
+	            const res = await fetch(`/retirar/ataque/${usuarioId}`, { method: 'POST' });
+
+	            if (res.ok) {
+	                Swal.fire({
+	                    icon: 'success',
+	                    title: 'Guerreiro retirado!',
+	                    text: 'O guerreiro voltou ao Acampamento.',
+	                    confirmButtonText: 'Ok'
+	                });
+
+	                atualizarStatus();
+
+	            } else {
+	                swalWarningAuto('Nenhum guerreiro no ataque.', 4);
+	            }
+
+	        } catch (e) {
+	            console.error(e);
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao retirar guerreiro do ataque.',
+	                confirmButtonText: 'Ok'
+	            });
+	        } finally {
+	            setTimeout(() => {
+	                emCooldownRetirarAtaque = false;
+	                btnRetirarAtaque.disabled = false;
+	                btnRetirarAtaque.innerText = textoOriginal;
+	            }, tempoCooldownRetirarAtaque * 1000);
+	        }
+	    });
+	}
+
+	// ==============================
+	// RETIRAR DA RETAGUARDA (COM TEMPORIZADOR)
+	// ==============================
+	if (btnRetirarRetaguarda) {
+
+	    let emCooldownRetirarRetaguarda = false;
+	    const tempoCooldownRetirarRetaguarda = 5; // segundos
+
+	    btnRetirarRetaguarda.addEventListener('click', async () => {
+
+	        if (emCooldownRetirarRetaguarda) return;
+
+	        emCooldownRetirarRetaguarda = true;
+	        btnRetirarRetaguarda.disabled = true;
+
+	        let tempoRestante = tempoCooldownRetirarRetaguarda;
+	        const textoOriginal = btnRetirarRetaguarda.innerText;
+
+	        btnRetirarRetaguarda.innerText = `Retirando... (${tempoRestante}s)`;
+
+	        const timer = setInterval(() => {
+	            tempoRestante--;
+	            btnRetirarRetaguarda.innerText = `Retirando... (${tempoRestante}s)`;
+	            if (tempoRestante <= 0) clearInterval(timer);
+	        }, 1000);
+
+	        try {
+	            const res = await fetch(`/retirar/retaguarda/${usuarioId}`, { method: 'POST' });
+
+	            if (res.ok) {
+	                Swal.fire({
+	                    icon: 'success',
+	                    title: 'Retaguarda recuada!',
+	                    text: 'O guerreiro voltou ao Acampamento.',
+	                    confirmButtonText: 'Ok'
+	                });
+
+	                atualizarStatus();
+
+	            } else {
+	                swalWarningAuto('Nenhum guerreiro na retaguarda.', 4);
+	            }
+
+	        } catch (e) {
+	            console.error(e);
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao retirar guerreiro da retaguarda.',
+	                confirmButtonText: 'Ok'
+	            });
+	        } finally {
+	            setTimeout(() => {
+	                emCooldownRetirarRetaguarda = false;
+	                btnRetirarRetaguarda.disabled = false;
+	                btnRetirarRetaguarda.innerText = textoOriginal;
+	            }, tempoCooldownRetirarRetaguarda * 1000);
+	        }
+	    });
+	}
 
     // ==============================
     // INIT

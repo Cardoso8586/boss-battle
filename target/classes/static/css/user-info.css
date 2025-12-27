@@ -63,12 +63,16 @@
 @media (max-width: 568px) {
 
     .user-info {
-        left: 20px;
-        width: 60px;          /* menor, mas utilizável */
-        padding: 10px 12px;
-        border-radius: 10px;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-        font-size: 0.85rem;
+     
+    left: 15px;
+    background:#1b1b1b;
+    border: 1px solid #3a3a55;
+    border-radius: 12px;
+    padding: 16px 20px;
+    width: 300px;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .user-info h2 {

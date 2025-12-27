@@ -65,46 +65,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==============================
-    // BOTÃO ENVIAR PARA RETAGUARDA
-    // ==============================
-    if (btnEquiparRetaguarda) {
-        btnEquiparRetaguarda.addEventListener('click', async () => {
-            btnEquiparRetaguarda.disabled = true;
+	// ==============================
+	// BOTÃO ENVIAR PARA RETAGUARDA (COM TEMPORIZADOR)
+	// ==============================
 
-            try {
-                const res = await fetch(`/equipar/retaguarda/${usuarioId}`, { method: 'POST' });
+	if (btnEquiparRetaguarda) {
 
-                if (res.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Enviado para retaguarda!',
-                        text: 'O guerreiro foi enviado a retaguarda com sucesso.',
-                        confirmButtonText: 'Ok'
-                    });
-                    atualizarRetaguarda();
-                } else {
-                    const text = await res.text();
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Não foi possível enviar',
-                        text: text || 'Erro ao enviar para retaguarda.',
-                        confirmButtonText: 'Ok'
-                    });
-                }
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao tentar enviar para retaguarda.',
-                    confirmButtonText: 'Ok'
-                });
-            } finally {
-                btnEquiparRetaguarda.disabled = false;
-            }
-        });
-    }
+	    let emCooldownRetaguarda = false;
+	    const tempoCooldownRetaguarda = 5; // segundos
+
+	    btnEquiparRetaguarda.addEventListener('click', async () => {
+
+	        if (emCooldownRetaguarda) return;
+
+	        emCooldownRetaguarda = true;
+	        btnEquiparRetaguarda.disabled = true;
+
+	        let tempoRestante = tempoCooldownRetaguarda;
+	        const textoOriginal = btnEquiparRetaguarda.innerText;
+
+	        btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
+
+	        const timer = setInterval(() => {
+	            tempoRestante--;
+	            btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
+	            if (tempoRestante <= 0) clearInterval(timer);
+	        }, 1000);
+
+	        try {
+	            const res = await fetch(`/equipar/retaguarda/${usuarioId}`, { method: 'POST' });
+
+	            if (res.ok) {
+	                Swal.fire({
+	                    icon: 'success',
+	                    title: 'Enviado para retaguarda!',
+	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
+	                    confirmButtonText: 'Ok'
+	                });
+
+	                atualizarRetaguarda();
+
+	            } else {
+	                // WARNING AUTOMÁTICO (4s)
+	                swalWarningAuto(
+	                    'Não foi possível enviar o guerreiro para a retaguarda.',
+	                    4
+	                );
+	            }
+
+	        } catch (e) {
+	            console.error(e);
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao tentar enviar para retaguarda.',
+	                confirmButtonText: 'Ok'
+	            });
+	        } finally {
+	            setTimeout(() => {
+	                emCooldownRetaguarda = false;
+	                btnEquiparRetaguarda.disabled = false;
+	                btnEquiparRetaguarda.innerText = textoOriginal;
+	            }, tempoCooldownRetaguarda * 1000);
+	        }
+	    });
+	}
 
     // ==============================
     // ATUALIZAÇÃO PERIÓDICA

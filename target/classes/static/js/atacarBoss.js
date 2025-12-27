@@ -3,19 +3,16 @@ const usuarioId = getUsuarioLogadoId();
 
 let cooldownInterval = null;
 let bossVivo = true;
-let reloadDisparado = false; // 🔥 evita reload múltiplo
-
-let ataqueEmAndamento = false; // 🔒 trava real de ataque
+let reloadDisparado = false;
+let ataqueEmAndamento = false;
 
 // ---------------------------------------------------
-
 function getUsuarioLogadoId() {
     const meta = document.querySelector('meta[name="user-id"]');
     return meta ? parseInt(meta.getAttribute("content")) : null;
 }
 
 // ---------------------------------------------------
-
 function showDamageFloating(value) {
     const container = document.getElementById("damageFloatContainer");
     const floatText = document.createElement("div");
@@ -24,12 +21,34 @@ function showDamageFloating(value) {
     floatText.textContent = `-${value}`;
 
     container.appendChild(floatText);
-
     setTimeout(() => floatText.remove(), 1000);
 }
 
 // ---------------------------------------------------
-// ⏱️ COOLDOWN
+// ⚠️ WARNING AUTO
+function swalWarningAuto(texto, segundos = 4) {
+    let tempo = segundos;
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Atenção',
+        html: `${texto}<br><b>Fechando em ${tempo}s</b>`,
+        timer: segundos * 1000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        didOpen: () => {
+            const interval = setInterval(() => {
+                tempo--;
+                const b = Swal.getHtmlContainer().querySelector('b');
+                if (b) b.textContent = `Fechando em ${tempo}s`;
+                if (tempo <= 0) clearInterval(interval);
+            }, 1000);
+        }
+    });
+}
+
+// ---------------------------------------------------
+// ⏱️ COOLDOWN VISUAL
 function iniciarCooldown(segundos) {
 
     if (!bossVivo) return;
@@ -54,8 +73,6 @@ function iniciarCooldown(segundos) {
             if (bossVivo) {
                 attackBtn.disabled = false;
                 attackBtn.innerText = "Atacar Boss";
-
-                // 🔓 LIBERA O LOCK AQUI
                 ataqueEmAndamento = false;
             }
             return;
@@ -64,7 +81,6 @@ function iniciarCooldown(segundos) {
         attackBtn.innerText = `Aguarde (${restante}s)`;
     }, 1000);
 }
-
 
 // ---------------------------------------------------
 // 💀 MORTE DO BOSS
@@ -84,47 +100,68 @@ function tratarMorteBoss() {
     attackBtn.innerText = "Boss derrotado";
     attackBtn.style.pointerEvents = "none";
 
-    setTimeout(() => {
-        location.reload();
-    }, 600);
+    setTimeout(() => location.reload(), 600);
+}
+
+async function bossEstaAtivo() {
+    try {
+        const response = await fetch("/api/boss/active");
+        const data = await response.json();
+        return data.active === true;
+    } catch (e) {
+        console.error("Erro ao verificar boss ativo", e);
+        return false; // segurança máxima
+    }
 }
 
 // ---------------------------------------------------
 // ⚔️ CLICK ATAQUE
 attackBtn.addEventListener("click", async () => {
 
-    // 🔒 trava absoluta
-    if (ataqueEmAndamento || !bossVivo) return;
+    if (ataqueEmAndamento) return;
 
     ataqueEmAndamento = true;
     attackBtn.disabled = true;
 
-    if (!usuarioId) {
-        alert("Usuário não identificado.");
+    const textoOriginal = attackBtn.innerText;
+
+    // 🔎 VERIFICA SE O BOSS ESTÁ ATIVO
+    const bossAtivo = await bossEstaAtivo();
+
+    if (!bossAtivo) {
+        swalWarningAuto("O boss já foi derrotado.", 4);
+        attackBtn.innerText = "Boss derrotado";
+        attackBtn.style.pointerEvents = "none";
         ataqueEmAndamento = false;
         return;
     }
 
+    if (!usuarioId) {
+        swalWarningAuto("Usuário não identificado.", 4);
+        ataqueEmAndamento = false;
+        attackBtn.disabled = false;
+        attackBtn.innerText = textoOriginal;
+        return;
+    }
+
     try {
-        const response = await fetch(`/api/boss/hit?usuarioId=${usuarioId}`, {
-            method: "POST"
-        });
+        const response = await fetch(
+            `/api/boss/hit?usuarioId=${usuarioId}`,
+            { method: "POST" }
+        );
 
         const data = await response.json();
 
-        // 💀 boss morreu
         if (data.status === "BOSS_DEAD") {
             tratarMorteBoss();
             return;
         }
 
-        // ⏱️ cooldown
         if (data.status === "COOLDOWN") {
             iniciarCooldown(data.segundosRestantes || 300);
             return;
         }
 
-        // ✅ ataque válido
         if (data.damage !== undefined) {
             showDamageFloating(data.damage);
             iniciarCooldown(data.segundosRestantes || 300);
@@ -132,38 +169,29 @@ attackBtn.addEventListener("click", async () => {
 
     } catch (err) {
         console.error(err);
-
-        if (bossVivo) {
-            attackBtn.disabled = false;
-            attackBtn.innerText = "Atacar Boss";
-        }
-
-    } finally {
-        // ⚠️ libera SOMENTE se cooldown não iniciou
-        if (!cooldownInterval && bossVivo) {
-            ataqueEmAndamento = false;
-        }
+        swalWarningAuto("Erro ao atacar o boss.", 4);
+        ataqueEmAndamento = false;
+        attackBtn.disabled = false;
+        attackBtn.innerText = textoOriginal;
     }
 });
 
 // ---------------------------------------------------
-// 🔄 COOLDOWN INICIAL
+// 🔄 VERIFICA COOLDOWN REAL NO SERVIDOR
 async function verificarCooldownInicial() {
 
-    if (!usuarioId) return;
+    if (!usuarioId || !bossVivo) return;
 
     try {
         const res = await fetch(`/api/boss/cooldown?usuarioId=${usuarioId}`);
         const data = await res.json();
-
-        if (!bossVivo) return;
 
         if (!data.podeAtacar) {
             iniciarCooldown(data.segundosRestantes || 300);
         } else {
             attackBtn.disabled = false;
             attackBtn.innerText = "Atacar Boss";
-           // attackBtn.style.backgroundColor = "#f39c12";
+            ataqueEmAndamento = false;
         }
 
     } catch (e) {
