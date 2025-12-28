@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparRetaguarda) {
 
 	    let emCooldownRetaguarda = false;
-	    const tempoCooldownRetaguarda = 5; // segundos
+	    const tempoCooldownRetaguarda = 4; // segundos
 
 	    btnEquiparRetaguarda.addEventListener('click', async () => {
 
@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Enviado para retaguarda!',
 	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
-	                    confirmButtonText: 'Ok'
+						timer: 4000,
+						                       showConfirmButton: false
 	                });
 
 	                atualizarRetaguarda();
@@ -119,7 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar enviar para retaguarda.',
-	                confirmButtonText: 'Ok'
+					timer: 4000,
+					                       showConfirmButton: false
 	            });
 	        } finally {
 	            setTimeout(() => {

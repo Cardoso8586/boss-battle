@@ -40,7 +40,7 @@ public class UsuarioBossBattleService {
         }
 
         // 🔄 AGORA SIM: recalcula preços com dados atualizados
-        lojaService.atualizarPrecosLoja(usuario);
+        //lojaService.atualizarPrecosLoja(usuario, quantidade);
         // ➕ Adiciona XP
        // usuario.setExp(0);
         // 💾 Salva tudo

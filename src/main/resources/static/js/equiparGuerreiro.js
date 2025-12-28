@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparGuerreiro) {
 
 	    let emCooldownGuerreiro = false;
-	    const tempoCooldownGuerreiro = 5; // segundos
+	    const tempoCooldownGuerreiro = 4; // segundos
 
 	    btnEquiparGuerreiro.addEventListener('click', async () => {
 
@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro enviado!',
 	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
-	                    confirmButtonText: 'Ok'
+						timer: 4000,
+						                       showConfirmButton: false
 	                });
 
 	                atualizarGuerreiro();
@@ -119,7 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar guerreiro.',
-	                confirmButtonText: 'Ok'
+					timer: 4000,
+					                       showConfirmButton: false
 	            });
 	        } finally {
 	            setTimeout(() => {

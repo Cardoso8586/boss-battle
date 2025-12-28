@@ -26,7 +26,7 @@ function showDamageFloating(value) {
 
 // ---------------------------------------------------
 // ⚠️ WARNING AUTO
-function swalWarningAuto(texto, segundos = 4) {
+function swalWarningAuto(texto, segundos = 10) {
     let tempo = segundos;
 
     Swal.fire({
@@ -125,7 +125,7 @@ attackBtn.addEventListener("click", async () => {
     attackBtn.disabled = true;
 
     const textoOriginal = attackBtn.innerText;
-    const tempoAtaque = 2; // ⏱️ tempo "atacando" (segundos)
+    const tempoAtaque = 10; // ⏱️ tempo "atacando" (segundos)
     let restante = tempoAtaque;
 
     // ⏳ texto inicial

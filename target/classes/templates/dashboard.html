@@ -174,176 +174,22 @@ ranslate escondido -->
 
 <main>
 <!-- Seção do boss -->
+<!-- Seção do boss -->
 <section id="jogo" class="active">
- <h2 class="jogo-title">⚔️ Arena de Batalha </h2>
-   
+    <h2 class="jogo-title">⚔️ Arena de Batalha</h2>
 
     <div class="boss-user-wrapper">
 
-        <!-- Card do Usuário -->
-        <div id="user-card">
-
-            <!-- Guerreiros -->
-            <h2 class="card-title"> Meus Guerreiros</h2>
-
-            <div class="card-section">
-                <img id="guerreiro-image" src="/images/guerreiro.webp" alt="guerreiro">
-               <p>
-    <strong>Ataque:</strong>
-    <span class="ataque-container">
-        <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
-        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-
-
-                <p class="highlight">
-                    Dano/min: <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
-                </p>
-
-                <div class="energia-wrapper">
-                    <div class="energia-header">⚡ Vigor: <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
-                     <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
-                    </div>
-                    <div class="energia-bar-bg">
-                        <div id="energiaBar" class="energia-bar" 
-                             th:style="'width:' + ${energiaGuerreiros} + '%'"></div>
-                    </div>
-                    
-                    <p>
-<p style="position: relative;"> <strong></strong><span id="reparoRetaguarda"></span>
-
-    <p id="p">
-    <strong>Retaguarda:</strong>
-    <span class="retaguarda-container">
-        <span id="guerreirosRetaguarda" th:text="${guerreirosRetaguarda}">100</span>
-        <img id="generating-image" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-    
-
-                    
-                  <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
-                    
-<button id="btnRecarregar"
-        th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
-    ⚡ Recarregar Vigor
-</button>
-
-  <div class="reward-card" id="rewardCard" style="display:none;">
-    <div class="reward-level" id="rewardLevel">Próximo nível:</div> 
-    <img id="rewardImage" src="" alt="Reward">
-    <div class="reward-title" id="rewardTitle"></div>
-    <div class="reward-amount" id="rewardAmount"></div>
-    <div class="reward-desc" id="rewardDesc"></div>
-</div>
-
-
-<!-- NÚCLEO DE BATALHA (LIVRE NA TELA) -->
-<div id="nucleoLivre">
-
-    <!-- BOTÃO -->
-    <button id="btnNucleo" class="btn-nucleo-icon">
-        <img src="/icones/ajustes.webp" alt="Ajustes de Batalha">
-        <span class="nucleo-label">Ajustes de Batalha</span>
-    </button>
-
-    <!-- CARD -->
-    <div id="nucleoCard" class="nucleo-card hidden">
-
-        <button id="fecharNucleo" class="nucleo-close">✕</button>
-
-        <h2 class="card-title">Ajustes de Batalha</h2>
-        
-        <!-- POÇÃO -->
-      <div class="nucleo-item">
-      <img src="icones/pocao_vigor.webp" alt="Poção de Vigor" class="icone-item">
-       Poção de Vigor: <span id="pocaoVigor">0</span>
-      </div>
-
-        <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
-        <button id="btnAtivarPocao" class="btn-nucleo-acao hidden"> Ativar Poção</button>
-
-        <!-- GUERREIRO -->
-       <div class="nucleo-item">
-       <img src="icones/guerreiro.webp" alt="Guerreiro" class="icone-item">
-       Guerreiros Disponíveis: <span id="guerreirosCount">0</span>
-       
-       
-       
-       <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
-    Enviar ao Ataque
-</button>
-
-<button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
-    Enviar à Retaguarda
-</button>
-
-<button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
-    Retirar do Ataque
-</button>
-
-<button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
-    Retirar da Retaguarda
-</button>
-       
-      </div>
-
-      
-    
-        
-       
-      
-       
-       
-    </div>
-
-</div>
-
-
-
-
-    
-
-<!-- Ajustes de Batalha -->
-
-
-
-                </div>
-
-              
-            </div>
-
-            <hr class="card-divider">
-
-            <!-- Ataque Manual -->
-            <h2 class="card-title">🔥 Ataque Especial</h2>
-            <div class="card-section">
-            <span id="damage" th:text="${ataque_base}">0</span>
-Dano 
-<span class="bonus">+ Ataque Surpresa da Retaguarda</span>
-            
-              <p>
-    <strong>Ataque Base:</strong><br>
-    <span class="damage-container">
-        <span id="damage" th:text="${ataque_base}">0</span> Dano
-        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-
-                <button id="attackBtn">Atacar Boss</button>
-            </div>
-
-        </div>
-
-        <!-- Card do Boss -->
+        <!-- =========================
+             BOSS (EM CIMA)
+        ========================== -->
         <div id="boss-container">
             <h2 id="boss-name"></h2>
 
             <img id="boss-image" src="" alt="Boss">
-            
+
             <div id="damageFloatContainer"></div>
-            
+
             <h3>Recompensa</h3>
             <p>BOSS: <span id="boss-reward"></span></p>
             <p>XP: <span id="boss-xp"></span></p>
@@ -353,18 +199,146 @@ Dano
             </div>
 
             <p>HP: <span id="boss-hp-text"></span></p>
-
             <div id="bossInfo"></div>
         </div>
 
+        <!-- =========================
+             COMBATE (LADO A LADO)
+        ========================== -->
+        <div class="combate-wrapper">
+
+            <!-- ===== ATAQUE ESPECIAL ===== -->
+            <div class="ataque-especial-card">
+                <h2 class="card-title">🔥 Ataque Especial</h2>
+
+                <div class="card-section">
+                    <p>
+                        <strong>Ataque Base:</strong><br>
+                        <span class="damage-container">
+                            <span id="damage" th:text="${ataque_base}">0</span> Dano
+                            <img src="/icones/generating.gif" alt="gerando">
+                        </span>
+                    </p>
+
+                    <span class="bonus">+ Ataque Surpresa da Retaguarda</span>
+
+                    <button id="attackBtn">Atacar Boss</button>
+                </div>
+            </div>
+
+            <!-- ===== GUERREIROS ===== -->
+            <div id="user-card">
+
+                <h2 class="card-title">⚔️ Meus Guerreiros</h2>
+
+                <div class="card-section">
+                    <img id="guerreiro-image" src="/images/guerreiro.webp" alt="guerreiro">
+
+                    <p>
+                        <strong>Ataque:</strong>
+                        <span class="ataque-container">
+                            <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
+                            <img src="/icones/generating.gif" alt="gerando">
+                        </span>
+                    </p>
+
+                    <p class="highlight">
+                        Dano/min:
+                        <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
+                    </p>
+
+                    <!-- Energia -->
+                    <div class="energia-wrapper">
+                        <div class="energia-header">
+                            ⚡ Vigor:
+                            <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
+                            <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
+                        </div>
+
+                        <div class="energia-bar-bg">
+                            <div id="energiaBar" class="energia-bar"
+                                 th:style="'width:' + ${energiaGuerreiros} + '%'"></div>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Retaguarda:</strong>
+                        <span class="retaguarda-container">
+                            <span id="guerreirosRetaguarda"
+                                  th:text="${guerreirosRetaguarda}">100</span>
+                            <img src="/icones/generating.gif" alt="gerando">
+                        </span>
+                    </p>
+
+                    <button id="btnRecarregar"
+                            th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
+                        ⚡ Recarregar Vigor
+                    </button>
+
+                    <!-- Reward -->
+                    <div class="reward-card" id="rewardCard" style="display:none;">
+                        <div class="reward-level" id="rewardLevel">Próximo nível:</div>
+                        <img id="rewardImage" src="" alt="Reward">
+                        <div class="reward-title" id="rewardTitle"></div>
+                        <div class="reward-amount" id="rewardAmount"></div>
+                        <div class="reward-desc" id="rewardDesc"></div>
+                    </div>
+
+                    <!-- Núcleo -->
+                    <div id="nucleoLivre">
+                        <button id="btnNucleo" class="btn-nucleo-icon">
+                            <img src="/icones/ajustes.webp" alt="Ajustes">
+                            <span class="nucleo-label">Ajustes de Batalha</span>
+                        </button>
+
+                        <div id="nucleoCard" class="nucleo-card hidden">
+                            <button id="fecharNucleo" class="nucleo-close">✕</button>
+                            <h2 class="card-title">Ajustes de Batalha</h2>
+
+                            <div class="nucleo-item">
+                                <img src="icones/pocao_vigor.webp" class="icone-item">
+                                Poção de Vigor: <span id="pocaoVigor">0</span>
+                            </div>
+
+                            <button id="btnAtivarPocao"
+                                    class="btn-nucleo-acao hidden">
+                                Ativar Poção
+                            </button>
+
+                            <div class="nucleo-item">
+                                <img src="icones/guerreiro.webp" class="icone-item">
+                                Guerreiros Disponíveis:
+                                <span id="guerreirosCount">0</span>
+                            </div>
+
+                            <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
+                                Enviar ao Ataque
+                            </button>
+                            <button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
+                                Enviar à Retaguarda
+                            </button>
+                            <button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
+                                Retirar do Ataque
+                            </button>
+                            <button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
+                                Retirar da Retaguarda
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================
+             ÚLTIMOS ATAQUES
+        ========================== -->
+        <div class="ataques-recentes">
+            <h3>⚔️ Últimos ataques</h3>
+            <ul id="listaAtaques"></ul>
+        </div>
+
     </div>
-    
-    <div class="ataques-recentes">
-    <h3>⚔️ Últimos ataques</h3>
-    <ul id="listaAtaques"></ul>
-</div>
-    
-    
 </section>
 
 

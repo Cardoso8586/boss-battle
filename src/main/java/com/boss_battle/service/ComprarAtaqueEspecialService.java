@@ -48,7 +48,7 @@ public class ComprarAtaqueEspecialService {
         usuario.setAtaqueBase(novoAtaque);
 
         // 🔁 recalcula preços da PRÓXIMA compra
-        lojaService.atualizarPrecosLoja(usuario);
+        lojaService.atualizarPrecosLoja(usuario, quantidade);
 
         repo.save(usuario);
         return true;

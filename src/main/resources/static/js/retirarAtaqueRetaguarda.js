@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnRetirarAtaque) {
 
 	    let emCooldownRetirarAtaque = false;
-	    const tempoCooldownRetirarAtaque = 5; // segundos
+	    const tempoCooldownRetirarAtaque = 4; // segundos
 
 	    btnRetirarAtaque.addEventListener('click', async () => {
 
@@ -103,7 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro retirado!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
-	                    confirmButtonText: 'Ok'
+						timer: 4000,
+						                       showConfirmButton: false
 	                });
 
 	                atualizarStatus();
@@ -118,7 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro do ataque.',
-	                confirmButtonText: 'Ok'
+					timer: 4000,
+					                       showConfirmButton: false
 	            });
 	        } finally {
 	            setTimeout(() => {
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnRetirarRetaguarda) {
 
 	    let emCooldownRetirarRetaguarda = false;
-	    const tempoCooldownRetirarRetaguarda = 5; // segundos
+	    const tempoCooldownRetirarRetaguarda = 4; // segundos
 
 	    btnRetirarRetaguarda.addEventListener('click', async () => {
 
@@ -164,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Retaguarda recuada!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
-	                    confirmButtonText: 'Ok'
+						timer: 4000,
+						                       showConfirmButton: false
 	                });
 
 	                atualizarStatus();
@@ -179,7 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
-	                confirmButtonText: 'Ok'
+					timer: 4000,
+					                       showConfirmButton: false
 	            });
 	        } finally {
 	            setTimeout(() => {
