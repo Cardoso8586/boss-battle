@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    title: 'Guerreiro enviado!',
 	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
 						timer: 4000,
-						                       showConfirmButton: false
+						showConfirmButton: false,
+						background: '#0f0f0f',
+						color: '#ffb400'
 	                });
 
 	                atualizarGuerreiro();
@@ -121,7 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar guerreiro.',
 					timer: 4000,
-					                       showConfirmButton: false
+					showConfirmButton: false,
+					background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 	        } finally {
 	            setTimeout(() => {

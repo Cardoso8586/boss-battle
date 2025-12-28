@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'warning',
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+					background: '#1a1a1a', 
+		            color: '#ffb400'   
                 });
                 return;
             }
@@ -60,13 +62,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Compra realizada!',
-                        text: `Você comprou ${quantidade} guerreiro(s).`,
-                        timer: 4000,
-                        showConfirmButton: false
-                    });
+
+					if (quantidade <= 1) {
+						Swal.fire({
+										    title: 'Compra realizada!',
+										    html: `Você comprou ${quantidade} guerreiro.`,
+										    imageUrl: '/icones/guerreiro.webp', 
+										    imageWidth: 80,  
+										    imageHeight: 80,
+										    imageAlt: 'Guerreiro',
+										    timer: 4000,
+										    showConfirmButton: false,
+										    background: '#1a1a1a',
+										    color: '#ffb400'       
+										});
+
+					} else{
+						Swal.fire({
+					    title: 'Compra realizada!',
+					    html: `Você comprou ${quantidade} guerreiros.`,
+					    imageUrl: '/icones/guerreiro.webp', 
+					    imageWidth: 80,   
+					    imageHeight: 80,
+					    imageAlt: 'Guerreiro',
+					    timer: 4000,
+					    showConfirmButton: false,
+					    background: '#1a1a1a',
+					    color: '#ffb400' 
+					});
+						
+					}
+					
+					
+
 
                     if (typeof atualizarUsuario === 'function') {
                         atualizarUsuario();
@@ -84,7 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         title: 'Saldo insuficiente',
                         text: `Custo estimado: ${custoEstimado.toLocaleString('pt-BR')} | Saldo: ${saldo.toLocaleString('pt-BR')}`,
                         timer: 4000,
-                        showConfirmButton: false
+                        showConfirmButton: false,
+						background: '#1a1a1a',
+	                    color: '#ffb400'       
+						
                     });
                 }
 
@@ -96,7 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'Erro',
                     text: 'Erro ao tentar comprar.',
                     timer: 4000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
+					background: '#1a1a1a', 
+					color: '#ffb400'     
                 });
 
             } finally {

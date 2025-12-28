@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	        timer: segundos * 1000,
 	        timerProgressBar: true,
 	        showConfirmButton: false,
+			background: '#0f0f0f',									    
+			color: '#ffb400',
 	        didOpen: () => {
 	            const interval = setInterval(() => {
 	                tempo--;
@@ -104,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    title: 'Guerreiro retirado!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
-						                       showConfirmButton: false
+						showConfirmButton: false,
+						background: '#0f0f0f',
+						color: '#ffb400'
 	                });
 
 	                atualizarStatus();
@@ -120,7 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro do ataque.',
 					timer: 4000,
-					                       showConfirmButton: false
+					showConfirmButton: false,
+				    background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 	        } finally {
 	            setTimeout(() => {
@@ -167,7 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    title: 'Retaguarda recuada!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
-						                       showConfirmButton: false
+						showConfirmButton: false,
+					    background: '#0f0f0f',
+					    color: '#ffb400'
+						
 	                });
 
 	                atualizarStatus();
@@ -183,7 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
 					timer: 4000,
-					                       showConfirmButton: false
+					showConfirmButton: false,
+					background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 	        } finally {
 	            setTimeout(() => {

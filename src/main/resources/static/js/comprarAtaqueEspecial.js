@@ -23,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'warning',
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Ok',
+				background: '#1a1a1a', 
+				color: '#ffb400'      
             });
             return;
         }
@@ -58,13 +60,41 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (res.ok) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Ataque especial aprimorado!',
-                    text: `Você adquiriu ${quantidade} unidade(s) de ataque especial.`,
-                    timer: 4000,
-                    showConfirmButton: false
-                });
+				
+				if (quantidade<=1){
+					
+				Swal.fire({
+				    title: '🔥 Ataque especial aprimorado!',
+				    html: `Você adquiriu <b>${quantidade}</b> unidade de ataque especial.`,
+				    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
+				    imageWidth: 90,
+				    imageHeight: 90,
+				    imageAlt: 'Ataque Especial',
+				    timer: 4000,
+				    showConfirmButton: false,
+				    background: '#0f0f0f',
+				    color: '#ffb400'
+				  
+				    
+				});	
+				}else{
+					Swal.fire({
+									    title: '🔥 Ataque especial aprimorado!',
+									    html: `Você adquiriu <b>${quantidade}</b> unidades de ataque especial.`,
+									    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
+									    imageWidth: 90,
+									    imageHeight: 90,
+									    imageAlt: 'Ataque Especial',
+									    timer: 4000,
+									    showConfirmButton: false,
+									    background: '#0f0f0f',
+									    color: '#ffb400'
+									  
+									    
+									});
+					
+				}
+				
 
                 if (typeof atualizarUsuario === 'function') {
                     atualizarUsuario();
@@ -82,7 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'Saldo insuficiente',
                     text: `Você precisa de ${custoEstimado.toLocaleString('pt-BR')} Boss Coins, mas só tem ${saldo.toLocaleString('pt-BR')} Boss Coins.`,
                     timer: 4000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
+					background: '#1a1a1a', 
+				    color: '#ffb400'      
+					
                 });
             }
 
@@ -94,7 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Erro',
                 text: 'Erro ao tentar comprar ataque especial.',
                 timer: 4000,
-                showConfirmButton: false
+                showConfirmButton: false,
+				background: '#1a1a1a', 
+			    color: '#ffb400'      
             });
 
         } finally {

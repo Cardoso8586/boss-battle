@@ -91,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'warning',
 	                title: 'Quantidade inválida',
 	                text: 'Informe uma quantidade válida.',
-	                confirmButtonText: 'Ok'
+	                confirmButtonText: 'Ok',
+					background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 	            return;
 	        }
@@ -118,13 +120,45 @@ document.addEventListener('DOMContentLoaded', () => {
 	            });
 
 	            if (res.ok) {
-	                Swal.fire({
-	                    icon: 'success',
-	                    title: 'Compra realizada!',
-	                    text: `Você comprou ${quantidade} poção(ões) de Vigor Automático.`,
-	                    timer: 4000,
-	                    showConfirmButton: false
-	                });
+					
+					if (quantidade<=1){
+						Swal.fire({
+					    title: '⚡ Compra realizada!',
+					    html: `Você comprou <b>${quantidade}</b> poção de <b>Vigor Automático</b>.`,
+					    imageUrl: '/icones/pocao_vigor.webp', // usa o ícone da poção
+					    imageWidth: 90,
+					    imageHeight: 90,
+					    imageAlt: 'Poção de Vigor Automático',
+					    timer: 4000,
+					    showConfirmButton: false,
+					    background: '#0f0f0f',
+						/** background: `
+					   				       url('/icones/bg-alert.webp') 
+					   				       center / cover 
+					   				       no-repeat
+					   				   `, */
+					  
+					    color: '#ffb400'
+					});
+						
+					}else{
+						
+						Swal.fire({
+											    title: '⚡ Compra realizada!',
+											    html: `Você comprou <b>${quantidade}</b> poções de <b>Vigor Automático</b>.`,
+											    imageUrl: '/icones/pocao_vigor.webp', // usa o ícone da poção
+											    imageWidth: 90,
+											    imageHeight: 90,
+											    imageAlt: 'Poção de Vigor Automático',
+											    timer: 4000,
+											    showConfirmButton: false,
+											    background: '#0f0f0f',
+											    color: '#ffb400'
+											});	
+						
+					}
+					
+
 
 	                atualizarUsuario();
 
@@ -135,7 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    title: 'Saldo insuficiente',
 	                    text: text || 'Não foi possível comprar.',
 	                    timer: 4000,
-	                    showConfirmButton: false
+	                    showConfirmButton: false,
+						background: '#0f0f0f',
+				        color: '#ffb400'
 	                });
 	            }
 
@@ -146,7 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Erro',
 	                text: 'Erro ao tentar comprar Poção Automática de Vigor.',
 	                timer: 4000,
-	                showConfirmButton: false
+	                showConfirmButton: false,
+					background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 
 	        } finally {
@@ -195,7 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	            Swal.fire({
 	                icon: 'warning',
 	                title: 'Erro',
-	                text: erro
+	                text: erro,
+					background: '#0f0f0f',
+					
+				    color: '#ffb400'
 	            });
 	            return;
 	        }
@@ -203,7 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	        Swal.fire({
 	            icon: 'success',
 	            title: 'Poção ativada!',
-	            text: 'Sua poção foi ativada com sucesso.'
+	            text: 'Sua poção foi ativada com sucesso.',
+				timer: 4000,
+				showConfirmButton: false,
+				background: '#0f0f0f',
+				color: '#ffb400'
 	        });
 
 	        await atualizarUsuario();
@@ -213,7 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	        Swal.fire({
 	            icon: 'error',
 	            title: 'Erro',
-	            text: 'Erro ao tentar ativar poção.'
+	            text: 'Erro ao tentar ativar poção.',
+				background: '#0f0f0f',
+				color: '#ffb400'
 	        });
 	    } finally {
 	        setTimeout(() => {

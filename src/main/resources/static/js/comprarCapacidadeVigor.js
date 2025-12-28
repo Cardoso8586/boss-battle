@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'warning',
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Ok',
+				background: '#1a1a1a', // combina com o tema do seu jogo
+			    color: '#ffb400'        // cor do texto
             });
             return;
         }
@@ -52,13 +54,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (res.ok) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Capacidade aumentada!',
-                    text: `Você comprou ${quantidade} unidade(s) de Vigor.`,
-                    timer: 4000,
-                    showConfirmButton: false
-                });
+				
+				if (quantidade <=1){
+					
+				    Swal.fire({
+				    title: 'Capacidade aumentada!',
+				    html: `Você comprou ${quantidade} unidade de Vigor.`,
+				    imageUrl: '/icones/capacidade_vigor.webp',
+				    imageWidth: 80,   
+				    imageHeight: 80, 
+				    imageAlt: 'Poção de Vigor',
+				    timer: 4000,
+				    showConfirmButton: false,
+				    background: '#1a1a1a', 
+				    color: '#ffb400'       
+				});
+				
+				}else{
+					Swal.fire({
+							    title: 'Capacidade aumentada!',
+							    html: `Você comprou ${quantidade} unidades de Vigor.`,
+							    imageUrl: '/icones/capacidade_vigor.webp',
+							    imageWidth: 80,   
+							    imageHeight: 80, 
+							    imageAlt: 'Poção de Vigor',
+							    timer: 4000,
+							    showConfirmButton: false,
+							    background: '#1a1a1a', 
+							    color: '#ffb400'       
+							});
+					
+				}
+			
+
 
                 // 🔁 Atualiza UI após compra
                 if (typeof atualizarUsuario === 'function') {
@@ -72,7 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'Saldo insuficiente',
                     text: text || 'Não foi possível comprar.',
                     timer: 4000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
+					background: '#1a1a1a', 
+				    color: '#ffb400'       
                 });
             }
 
@@ -84,7 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Erro',
                 text: 'Erro ao tentar aumentar capacidade de vigor.',
                 timer: 4000,
-                showConfirmButton: false
+                showConfirmButton: false,
+				background: '#1a1a1a',
+				color: '#ffb400'        
             });
 
         } finally {

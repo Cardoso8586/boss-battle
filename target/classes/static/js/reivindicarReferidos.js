@@ -62,7 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Sim, reivindicar!',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
+			background: '#0f0f0f',
+			color: '#ffb400'
         }).then(async (result) => {
 
             if (!result.isConfirmed) return;
@@ -81,22 +83,33 @@ document.addEventListener("DOMContentLoaded", () => {
                     throw new Error("Erro ao reivindicar");
                 }
 
-                await Swal.fire(
-                    'Sucesso!',
-                    'Seus ganhos foram reivindicados!',
-                    'success'
-                );
+				await Swal.fire({
+				    title: 'Sucesso!',
+				    text: 'Seus ganhos foram reivindicados!',
+				    icon: 'success',
+				    background: '#0f0f0f',
+				    color: '#ffb400',
+				    confirmButtonColor: '#00ff88'
+				});
+
 
                 // 🔥 atualiza estado após claim
                 ganhosSpan.innerText = "0";
                 claimBtn.style.display = "none";
 
             } catch (err) {
-                Swal.fire(
-                    'Erro',
-                    'Não foi possível reivindicar os ganhos.',
-                    'error'
-                );
+				Swal.fire({
+				    title: '❌ Falha na Reivindicação',
+				    html: '<b>Não foi possível reivindicar os ganhos.</b>',
+				    imageUrl: '/icones/erro.webp',
+				    imageWidth: 90,
+				    imageHeight: 90,
+				    imageAlt: 'Erro',
+				    background: '#0f0f0f',
+				    color: '#ffb400',
+				    confirmButtonColor: '#ff3c00'
+				});
+
             }
         });
     });

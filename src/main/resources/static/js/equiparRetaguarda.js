@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    title: 'Enviado para retaguarda!',
 	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
 						timer: 4000,
-						                       showConfirmButton: false
+						showConfirmButton: false,
+						background: '#0f0f0f',
+						color: '#ffb400'
 	                });
 
 	                atualizarRetaguarda();
@@ -121,7 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Erro',
 	                text: 'Erro ao tentar enviar para retaguarda.',
 					timer: 4000,
-					                       showConfirmButton: false
+					showConfirmButton: false,
+					background: '#0f0f0f',
+					color: '#ffb400'
 	            });
 	        } finally {
 	            setTimeout(() => {

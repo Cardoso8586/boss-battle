@@ -45,7 +45,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 10px;
+    gap: 130px;
     flex-wrap: wrap;
     padding-bottom: 40px;
 }
@@ -116,7 +116,7 @@ body {
 
 #boss-container p,
 #boss-container h3 {
-    margin: 18px 0;
+    margin: 8px 0;
     font-size: 0.95rem;
     letter-spacing: 1px;
 }
@@ -337,7 +337,5 @@ body {
     width: 16px;  /* tamanho pequeno da imagem */
     height: 16px;
 }
-
-
 
 
