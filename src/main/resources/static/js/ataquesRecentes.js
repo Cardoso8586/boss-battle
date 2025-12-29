@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ataques.forEach(a => {
                 const li = document.createElement('li');
-				li.innerHTML = `<strong>Usuário ${a.userId}</strong> causou <b>${a.damage}</b> de dano`;
+				li.innerHTML = `<strong>${a.username}</strong> causou <b>${a.damage}</b> de dano`;
 
                 lista.appendChild(li);
             });

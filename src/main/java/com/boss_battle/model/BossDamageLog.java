@@ -19,7 +19,7 @@ public class BossDamageLog {
 
     private String bossName;
 
-    
+    private String userName;
 
     private Long userId;
 
@@ -81,5 +81,13 @@ public class BossDamageLog {
 
 	public void setBossName(String bossName) {
 		this.bossName = bossName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -24,7 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
                 confirmButtonText: 'Ok',
-				background: '#1a1a1a', 
+				// background: '#0f0f0f',
+								   background: `
+								     linear-gradient(
+								       rgba(0, 0, 0, 0.7),
+								       rgba(0, 0, 0, 0.7)
+								     ),
+								     url('/icones/bg-alert.webp')
+								     center / cover
+								     no-repeat
+								   `,
 				color: '#ffb400'      
             });
             return;
@@ -72,7 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageAlt: 'Ataque Especial',
 				    timer: 4000,
 				    showConfirmButton: false,
-				    background: '#0f0f0f',
+					// background: '#0f0f0f',
+									   background: `
+									     linear-gradient(
+									       rgba(0, 0, 0, 0.7),
+									       rgba(0, 0, 0, 0.7)
+									     ),
+									     url('/icones/bg-alert.webp')
+									     center / cover
+									     no-repeat
+									   `,
 				    color: '#ffb400'
 				  
 				    
@@ -87,7 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
 									    imageAlt: 'Ataque Especial',
 									    timer: 4000,
 									    showConfirmButton: false,
-									    background: '#0f0f0f',
+										// background: '#0f0f0f',
+														   background: `
+														     linear-gradient(
+														       rgba(0, 0, 0, 0.7),
+														       rgba(0, 0, 0, 0.7)
+														     ),
+														     url('/icones/bg-alert.webp')
+														     center / cover
+														     no-repeat
+														   `,
 									    color: '#ffb400'
 									  
 									    
@@ -113,7 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     text: `Você precisa de ${custoEstimado.toLocaleString('pt-BR')} Boss Coins, mas só tem ${saldo.toLocaleString('pt-BR')} Boss Coins.`,
                     timer: 4000,
                     showConfirmButton: false,
-					background: '#1a1a1a', 
+					// background: '#0f0f0f',
+									   background: `
+									     linear-gradient(
+									       rgba(0, 0, 0, 0.7),
+									       rgba(0, 0, 0, 0.7)
+									     ),
+									     url('/icones/bg-alert.webp')
+									     center / cover
+									     no-repeat
+									   `,
 				    color: '#ffb400'      
 					
                 });
@@ -128,7 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: 'Erro ao tentar comprar ataque especial.',
                 timer: 4000,
                 showConfirmButton: false,
-				background: '#1a1a1a', 
+				// background: '#0f0f0f',
+								   background: `
+								     linear-gradient(
+								       rgba(0, 0, 0, 0.7),
+								       rgba(0, 0, 0, 0.7)
+								     ),
+								     url('/icones/bg-alert.webp')
+								     center / cover
+								     no-repeat
+								   `,
 			    color: '#ffb400'      
             });
 

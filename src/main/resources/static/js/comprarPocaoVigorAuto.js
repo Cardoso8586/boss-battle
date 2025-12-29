@@ -92,7 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                title: 'Quantidade inválida',
 	                text: 'Informe uma quantidade válida.',
 	                confirmButtonText: 'Ok',
-					background: '#0f0f0f',
+					// background: '#0f0f0f',
+									   background: `
+									     linear-gradient(
+									       rgba(0, 0, 0, 0.7),
+									       rgba(0, 0, 0, 0.7)
+									     ),
+									     url('/icones/bg-alert.webp')
+									     center / cover
+									     no-repeat
+									   `,
 					color: '#ffb400'
 	            });
 	            return;
@@ -126,17 +135,22 @@ document.addEventListener('DOMContentLoaded', () => {
 					    title: '⚡ Compra realizada!',
 					    html: `Você comprou <b>${quantidade}</b> poção de <b>Vigor Automático</b>.`,
 					    imageUrl: '/icones/pocao_vigor.webp', // usa o ícone da poção
-					    imageWidth: 90,
+					    imageWidth: 80,
 					    imageHeight: 90,
 					    imageAlt: 'Poção de Vigor Automático',
 					    timer: 4000,
 					    showConfirmButton: false,
-					    background: '#0f0f0f',
-						/** background: `
-					   				       url('/icones/bg-alert.webp') 
-					   				       center / cover 
-					   				       no-repeat
-					   				   `, */
+					   // background: '#0f0f0f',
+					   background: `
+					     linear-gradient(
+					       rgba(0, 0, 0, 0.7),
+					       rgba(0, 0, 0, 0.7)
+					     ),
+					     url('/icones/bg-alert.webp')
+					     center / cover
+					     no-repeat
+					   `,
+
 					  
 					    color: '#ffb400'
 					});
@@ -152,7 +166,16 @@ document.addEventListener('DOMContentLoaded', () => {
 											    imageAlt: 'Poção de Vigor Automático',
 											    timer: 4000,
 											    showConfirmButton: false,
-											    background: '#0f0f0f',
+												// background: '#0f0f0f',
+																   background: `
+																     linear-gradient(
+																       rgba(0, 0, 0, 0.7),
+																       rgba(0, 0, 0, 0.7)
+																     ),
+																     url('/icones/bg-alert.webp')
+																     center / cover
+																     no-repeat
+																   `,
 											    color: '#ffb400'
 											});	
 						
@@ -170,7 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    text: text || 'Não foi possível comprar.',
 	                    timer: 4000,
 	                    showConfirmButton: false,
-						background: '#0f0f0f',
+						// background: '#0f0f0f',
+										   background: `
+										     linear-gradient(
+										       rgba(0, 0, 0, 0.7),
+										       rgba(0, 0, 0, 0.7)
+										     ),
+										     url('/icones/bg-alert.webp')
+										     center / cover
+										     no-repeat
+										   `,
 				        color: '#ffb400'
 	                });
 	            }
@@ -183,7 +215,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                text: 'Erro ao tentar comprar Poção Automática de Vigor.',
 	                timer: 4000,
 	                showConfirmButton: false,
-					background: '#0f0f0f',
+					// background: '#0f0f0f',
+									   background: `
+									     linear-gradient(
+									       rgba(0, 0, 0, 0.7),
+									       rgba(0, 0, 0, 0.7)
+									     ),
+									     url('/icones/bg-alert.webp')
+									     center / cover
+									     no-repeat
+									   `,
 					color: '#ffb400'
 	            });
 
@@ -234,7 +275,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'warning',
 	                title: 'Erro',
 	                text: erro,
-					background: '#0f0f0f',
+					// background: '#0f0f0f',
+									   background: `
+									     linear-gradient(
+									       rgba(0, 0, 0, 0.7),
+									       rgba(0, 0, 0, 0.7)
+									     ),
+									     url('/icones/ativar_pocao_alert.webp')
+									     center / cover
+									     no-repeat
+									   `,
 					
 				    color: '#ffb400'
 	            });
@@ -247,7 +297,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	            text: 'Sua poção foi ativada com sucesso.',
 				timer: 4000,
 				showConfirmButton: false,
-				background: '#0f0f0f',
+				// background: '#0f0f0f',
+												   background: `
+												     linear-gradient(
+												       rgba(0, 0, 0, 0.7),
+												       rgba(0, 0, 0, 0.7)
+												     ),
+												     url('/icones/ativar_pocao_alert.webp')
+												     center / cover
+												     no-repeat
+												   `,
+								
 				color: '#ffb400'
 	        });
 
@@ -259,7 +319,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	            icon: 'error',
 	            title: 'Erro',
 	            text: 'Erro ao tentar ativar poção.',
-				background: '#0f0f0f',
+				// background: '#0f0f0f',
+												   background: `
+												     linear-gradient(
+												       rgba(0, 0, 0, 0.7),
+												       rgba(0, 0, 0, 0.7)
+												     ),
+												     url('/icones/ativar_pocao_alert.webp')
+												     center / cover
+												     no-repeat
+												   `,
+								
 				color: '#ffb400'
 	        });
 	    } finally {

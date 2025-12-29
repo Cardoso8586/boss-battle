@@ -63,7 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
             showCancelButton: true,
             confirmButtonText: 'Sim, reivindicar!',
             cancelButtonText: 'Cancelar',
-			background: '#0f0f0f',
+			// background: '#0f0f0f',
+											   background: `
+											     linear-gradient(
+											       rgba(0, 0, 0, 0.7),
+											       rgba(0, 0, 0, 0.7)
+											     ),
+											     url('/icones/bg-alert.webp')
+											     center / cover
+											     no-repeat
+											   `,
 			color: '#ffb400'
         }).then(async (result) => {
 
@@ -87,7 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				    title: 'Sucesso!',
 				    text: 'Seus ganhos foram reivindicados!',
 				    icon: 'success',
-				    background: '#0f0f0f',
+					// background: '#0f0f0f',
+													   background: `
+													     linear-gradient(
+													       rgba(0, 0, 0, 0.7),
+													       rgba(0, 0, 0, 0.7)
+													     ),
+													     url('/icones/bg-alert.webp')
+													     center / cover
+													     no-repeat
+													   `,
 				    color: '#ffb400',
 				    confirmButtonColor: '#00ff88'
 				});
@@ -105,7 +123,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				    imageWidth: 90,
 				    imageHeight: 90,
 				    imageAlt: 'Erro',
-				    background: '#0f0f0f',
+					// background: '#0f0f0f',
+													   background: `
+													     linear-gradient(
+													       rgba(0, 0, 0, 0.7),
+													       rgba(0, 0, 0, 0.7)
+													     ),
+													     url('/icones/bg-alert.webp')
+													     center / cover
+													     no-repeat
+													   `,
 				    color: '#ffb400',
 				    confirmButtonColor: '#ff3c00'
 				});

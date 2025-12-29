@@ -107,7 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
 						showConfirmButton: false,
-						background: '#0f0f0f',
+						// background: '#0f0f0f',
+																												   background: `
+																												     linear-gradient(
+																												       rgba(0, 0, 0, 0.7),
+																												       rgba(0, 0, 0, 0.7)
+																												     ),
+																												     url('/icones/voltar-acampamento.webp')
+																												     center / cover
+																												     no-repeat
+																												   `,
 						color: '#ffb400'
 	                });
 
@@ -125,7 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                text: 'Erro ao retirar guerreiro do ataque.',
 					timer: 4000,
 					showConfirmButton: false,
-				    background: '#0f0f0f',
+					// background: '#0f0f0f',
+																																   background: `
+																																     linear-gradient(
+																																       rgba(0, 0, 0, 0.7),
+																																       rgba(0, 0, 0, 0.7)
+																																     ),
+																																     url('/icones/voltar-acampamento.webp')
+																																     center / cover
+																																     no-repeat
+																																   `,
 					color: '#ffb400'
 	            });
 	        } finally {
@@ -174,7 +192,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
 						showConfirmButton: false,
-					    background: '#0f0f0f',
+						// background: '#0f0f0f',
+																																	   background: `
+																																	     linear-gradient(
+																																	       rgba(0, 0, 0, 0.7),
+																																	       rgba(0, 0, 0, 0.7)
+																																	     ),
+																																	     url('/icones/voltar-acampamento.webp')
+																																	     center / cover
+																																	     no-repeat
+																																	   `,
 					    color: '#ffb400'
 						
 	                });
@@ -193,7 +220,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
 					timer: 4000,
 					showConfirmButton: false,
-					background: '#0f0f0f',
+					// background: '#0f0f0f',
+																																   background: `
+																																     linear-gradient(
+																																       rgba(0, 0, 0, 0.7),
+																																       rgba(0, 0, 0, 0.7)
+																																     ),
+																																     url('/icones/voltar-acampamento.webp')
+																																     center / cover
+																																     no-repeat
+																																   `,
 					color: '#ffb400'
 	            });
 	        } finally {

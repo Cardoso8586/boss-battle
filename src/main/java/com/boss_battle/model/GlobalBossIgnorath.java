@@ -160,29 +160,6 @@ public class GlobalBossIgnorath implements BattleBoss {
 
 	    
 	  
-	    /**
-	    
-	    public void applyDamage(long damage) {
-
-	        // Se já está morto, não faz nada
-	        if (!this.alive) return;
-
-	        // Calcula o HP final
-	        long finalHp = this.currentHp - damage;
-	        if (finalHp < 0) finalHp = 0;
-
-	        this.currentHp = finalHp;
-
-	        // Verifica morte
-	        if (finalHp == 0) {
-	            this.alive = false;
-
-	            // se tiver sistema de respawn automático:
-	            this.respawnAt = LocalDateTime.now().plusSeconds(respawnCooldownSeconds);
-	        }
-	    }
-
-	    */
 	    
 
 	}

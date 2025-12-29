@@ -18,6 +18,7 @@ import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
+import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
@@ -30,6 +31,7 @@ import com.boss_battle.model.GlobalBossOblivion;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
+import com.boss_battle.model.GlobalBossThunderon;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
 import com.boss_battle.model.GlobalBossVespera;
@@ -61,6 +63,8 @@ public class GlobalBossService {
     private final VesperaService vesperaService;
     private final TenebrisService tenebrisService;
     private final GlaciaraService glaciaraService;
+    private final InfernaxService infernaxService;
+    private final ThunderonService thunderonService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -99,6 +103,8 @@ public class GlobalBossService {
             VesperaService vesperaService,
             TenebrisService tenebrisService,
             GlaciaraService glaciaraService,
+            InfernaxService infernaxService,
+            ThunderonService thunderonService,
             
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -138,6 +144,8 @@ public class GlobalBossService {
         this.vesperaService = vesperaService;
         this.tenebrisService = tenebrisService;
         this.glaciaraService = glaciaraService;
+        this.infernaxService = infernaxService;
+        this.thunderonService = thunderonService;
     }
 
     // =============================
@@ -165,6 +173,8 @@ public class GlobalBossService {
         if (vesperaService.get().isAlive()) return vesperaService.get();
         if (tenebrisService.get().isAlive()) return tenebrisService.get();
         if (glaciaraService.get().isAlive()) return glaciaraService.get();
+        if (infernaxService.get().isAlive()) return infernaxService.get();
+        if (thunderonService.get().isAlive()) return thunderonService.get();
         
         return spawnRandomBoss();
     }
@@ -191,7 +201,7 @@ public class GlobalBossService {
 
     
         // usar o valor retornado
-      //  aplicarAtaqueEspecial(ataqueRetaguarda);
+    
         
         Object resultado = null;
 
@@ -259,6 +269,12 @@ public class GlobalBossService {
         resultado = tryHitBoss("GLACIARA", glaciaraService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("INFERNAX", infernaxService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("THUNDERON", thunderonService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
         return Map.of(
             "status", "NO_BOSS",
             "message", "O boss foi derrotado. Aguarde o respawn."
@@ -297,6 +313,9 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossVespera) vesperaService.save((GlobalBossVespera) boss);
         if (boss instanceof GlobalBossTenebris) tenebrisService.save((GlobalBossTenebris) boss);
         if (boss instanceof GlobalBossGlaciara) glaciaraService.save((GlobalBossGlaciara) boss);
+        if (boss instanceof GlobalBossInfernax) infernaxService.save((GlobalBossInfernax) boss);
+        if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
+        
         
         
         
@@ -311,7 +330,11 @@ public class GlobalBossService {
         log.setBossName(bossName);
         log.setUserId(usuario.getId());
         log.setDamage(damage);
+        log.setUserName(usuario.getUsername());
         damageLogRepo.save(log);
+        
+        
+        // getUserName
     }
 
     private Object processReward(String bossName, BattleBoss boss, long damage) {
@@ -383,7 +406,7 @@ public class GlobalBossService {
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
 
-        int choice = random.nextInt(20);
+        int choice = random.nextInt(23);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -575,6 +598,24 @@ public class GlobalBossService {
             	newBoss = gl;
             }
             
+            case 21 -> {
+            	GlobalBossInfernax ix = infernaxService.get();
+            	ix.setAlive(true);
+            	ix.setCurrentHp(ix.getMaxHp());
+            	ix.setSpawnedAt(LocalDateTime.now());
+            	infernaxService.save(ix);
+            	newBoss = ix;
+            }
+            
+            case 22 -> {
+            	GlobalBossThunderon td = thunderonService.get();
+            	td.setAlive(true);
+            	td.setCurrentHp(td.getMaxHp());
+            	td.setSpawnedAt(LocalDateTime.now());
+            	thunderonService.save(td);
+            	newBoss = td;
+            }
+            
             
             
             default -> {
@@ -613,6 +654,10 @@ public class GlobalBossService {
     	GlobalBossVespera vs = vesperaService.get();
     	GlobalBossTenebris ts = tenebrisService.get();
     	GlobalBossGlaciara gl = glaciaraService.get();
+    	GlobalBossInfernax ix = infernaxService.get();
+    	GlobalBossThunderon td = thunderonService.get();
+    	
+    	
     	
         ig.setAlive(false);
         dr.setAlive(false);
@@ -635,7 +680,8 @@ public class GlobalBossService {
         vs.setAlive(false);
         ts.setAlive(false);
         gl.setAlive(false);
-        
+        ix.setAlive(false);
+        td.setAlive(false);
         
         ignorathService.save(ig);
         drakthorService.save(dr);
@@ -658,6 +704,8 @@ public class GlobalBossService {
         vesperaService.save(vs);
         tenebrisService.save(ts);
         glaciaraService.save(gl);
+        infernaxService.save(ix);
+        thunderonService.save(td);
     }
 
     // =============================
@@ -705,6 +753,8 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossVespera) vesperaService.save((GlobalBossVespera) boss);
         if (boss instanceof GlobalBossTenebris) tenebrisService.save((GlobalBossTenebris) boss);
         if (boss instanceof GlobalBossGlaciara) glaciaraService.save((GlobalBossGlaciara) boss);
+        if (boss instanceof GlobalBossInfernax) infernaxService.save((GlobalBossInfernax) boss);
+        if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
         
         registrarDano(bossName, usuario, damage);
 
@@ -774,6 +824,15 @@ public class GlobalBossService {
         
         resultado = tryHitBoss("GLACIARA", glaciaraService.get(), usuario, damage);
         if (resultado != null) return resultado;
+        
+        resultado = tryHitBoss("INFERNAX", infernaxService.get(), usuario, damage);
+        if (resultado != null) return resultado;
+        
+        resultado = tryHitBoss("THUNDERON", thunderonService.get(), usuario, damage);
+        if (resultado != null) return resultado;
+        
+        
+        
         
         return Map.of(
             "status", "NO_BOSS",

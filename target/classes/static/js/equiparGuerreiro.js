@@ -102,7 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
 						timer: 4000,
 						showConfirmButton: false,
-						background: '#0f0f0f',
+						// background: '#0f0f0f',
+																	   background: `
+																	     linear-gradient(
+																	       rgba(0, 0, 0, 0.7),
+																	       rgba(0, 0, 0, 0.7)
+																	     ),
+																	     url('/icones/enviar-ataque.webp')
+																	     center / cover
+																	     no-repeat
+																	   `,
 						color: '#ffb400'
 	                });
 
@@ -124,7 +133,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                text: 'Erro ao tentar equipar guerreiro.',
 					timer: 4000,
 					showConfirmButton: false,
-					background: '#0f0f0f',
+					// background: '#0f0f0f',
+																						   background: `
+																						     linear-gradient(
+																						       rgba(0, 0, 0, 0.7),
+																						       rgba(0, 0, 0, 0.7)
+																						     ),
+																						     url('/icones/enviar-ataque.webp')
+																						     center / cover
+																						     no-repeat
+																						   `,
 					color: '#ffb400'
 	            });
 	        } finally {

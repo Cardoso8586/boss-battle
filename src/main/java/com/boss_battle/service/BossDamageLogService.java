@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.boss_battle.dto.BossDamageLogDTO;
 import com.boss_battle.model.BossDamageLog;
 import com.boss_battle.repository.BossDamageLogRepository;
 
@@ -23,14 +24,20 @@ public class BossDamageLogService {
     }
     
     
-    /**
-     * Retorna os últimos n ataques de um boss específico.
-     */
-    public List<BossDamageLog> ultimosAtaques(int quantidade) {
+    /** public List<BossDamageLog> ultimosAtaques(int quantidade) {
         return repo.findAllByOrderByIdDesc(
             PageRequest.of(0, quantidade)
         );
     }
+     * Retorna os últimos n ataques de um boss específico.
+     */
+   
     
-    
+    public List<BossDamageLogDTO> ultimosAtaques(int quantidade) {
+        return repo.ultimosAtaques(
+            PageRequest.of(0, quantidade)
+        );
+    }
+
+
 }
