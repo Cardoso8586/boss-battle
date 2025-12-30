@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,9 +53,13 @@ public class DashboardController {
         
         model.addAttribute("guerreirosRetaguarda", df.format(usuario.getGuerreirosRetaguarda()));
         
+        long guerreiroAtaque = usuario.getGuerreiros();
+        long guerreiroRetaguarda = usuario.getGuerreirosRetaguarda();
+        long guerreiroInventario= usuario.getGuerreirosInventario();
+        long quantidadeTotalGuerriro = guerreiroAtaque + guerreiroRetaguarda + guerreiroInventario;
         
-       
-  
+        model.addAttribute("quantidadeTotalGuerriro", df.format(quantidadeTotalGuerriro));
+        
         //aqtaque por minuto
         
         long quantGuerreiros = usuario.getGuerreiros();
@@ -73,6 +78,12 @@ public class DashboardController {
         model.addAttribute("energiaGuerreirosPadrao", usuario.getEnergiaGuerreirosPadrao());
         
         
+        Long pocaoVigor = Optional
+                .ofNullable(usuario.getPocaoVigor())
+                .orElse(0L);
+
+        model.addAttribute("quantidadePocaoVigor", pocaoVigor);
+
         
         // Constrói link de convite
         //String linkReferencia = "https://bossbattle.com/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());

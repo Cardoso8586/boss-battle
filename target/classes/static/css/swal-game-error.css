@@ -1,0 +1,44 @@
+.swal-game-error {
+  color: #ff3b3b !important;
+
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  /* contorno fake (stroke) */
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+
+    /* glow vermelho */
+     0 0 6px rgba(255, 60, 60, 0.9),
+     0 0 14px rgba(255, 40, 40, 0.8),
+     0 0 28px rgba(200, 0, 0, 0.7);
+
+  animation: errorPulse 0.9s infinite alternate;
+}
+
+/* animação de alerta */
+@keyframes errorPulse {
+  from {
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0 0 10px rgba(255, 60, 60, 0.6);
+    transform: scale(1);
+  }
+  to {
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0 0 24px rgba(255, 0, 0, 1);
+    transform: scale(1.05);
+  }
+}

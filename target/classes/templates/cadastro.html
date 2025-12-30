@@ -4,91 +4,8 @@
     <meta charset="UTF-8">
     <title>Boss Battle - Cadastro</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #0f0f0f;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-        }
-
-        .auth-container {
-            background: #1b1b1b;
-            padding: 30px;
-            border-radius: 10px;
-            width: 340px;
-            text-align: center;
-            box-shadow: 0 0 12px #222;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #f0d26a;
-        }
-
-        label {
-            display: block;
-            text-align: left;
-            width: 90%;
-            margin: 0 auto;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #e1e1e1;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            font-size: 15px;
-            background: #2a2a2a;
-            color: #fff;
-        }
-
-        button {
-            width: 95%;
-            padding: 12px;
-            background: #f0d26a;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: #1b1b1b;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        button:disabled {
-            background: #535353;
-            cursor: not-allowed;
-        }
-
-        button:hover:enabled {
-            background: #ffe28c;
-        }
-
-        .msg {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .link {
-            margin-top: 15px;
-        }
-
-        .link a {
-            color: #f0d26a;
-            text-decoration: none;
-        }
-    </style>
+ <link rel="stylesheet" href="/css/cadastro.css">
+ 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -99,25 +16,45 @@
    <h2>Cadastro</h2>
 
 <form id="registerForm">
-  <input type="text" id="username" required>
-  <input type="email" id="email" required>
-  <input type="password" id="senha" required>
-  
-  <div class="cf-turnstile" 
+
+  <input
+    type="text"
+    id="username"
+    placeholder="Digite seu usuário"
+    required
+  >
+
+
+  <input
+    type="email"
+    id="email"
+    placeholder="Digite seu email FaucetPay"
+    required
+  >
+
+
+  <input
+    type="password"
+    id="senha"
+    placeholder="Crie uma senha"
+    required
+  >
+
+  <div class="cf-turnstile"
        data-sitekey="0x4AAAAAABeuEKIL4oQVYiXR"
        data-callback="onTurnstileSuccess"
        data-error-callback="onTurnstileError"
-       data-expired-callback="onTurnstileExpired"></div>
-       
+       data-expired-callback="onTurnstileExpired">
+  </div>
+
   <input type="hidden" id="captcha-response" name="response">
-  <input type="hidden" id="ref" name="ref" th:value="${ref}" />
-  
+  <input type="hidden" id="ref" name="ref" th:value="${ref}">
 
-
-  
-  <br><br>
-  <button type="submit" id="submitBtn" disabled>Cadastrar</button>
+  <button type="submit" id="submitBtn" disabled>
+    Cadastrar
+  </button>
 </form>
+
 
 
 

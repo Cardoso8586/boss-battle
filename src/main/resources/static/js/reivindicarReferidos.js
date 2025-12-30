@@ -57,22 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (ganhosPendentes <= 0) return;
 
         Swal.fire({
+			customClass: {      
+			title: 'swal-game-text'
+			},
             title: 'Confirmar Reivindicação?',
             text: `Você irá receber ${ganhosPendentes.toFixed(1)} Boss.`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Sim, reivindicar!',
             cancelButtonText: 'Cancelar',
-			// background: '#0f0f0f',
-											   background: `
-											     linear-gradient(
-											       rgba(0, 0, 0, 0.7),
-											       rgba(0, 0, 0, 0.7)
-											     ),
-											     url('/icones/bg-alert.webp')
-											     center / cover
-											     no-repeat
-											   `,
+			background: 'transparent',
 			color: '#ffb400'
         }).then(async (result) => {
 
@@ -93,19 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 				await Swal.fire({
+					customClass: {      
+					title: 'swal-game-text'
+					},
 				    title: 'Sucesso!',
 				    text: 'Seus ganhos foram reivindicados!',
 				    icon: 'success',
-					// background: '#0f0f0f',
-													   background: `
-													     linear-gradient(
-													       rgba(0, 0, 0, 0.7),
-													       rgba(0, 0, 0, 0.7)
-													     ),
-													     url('/icones/bg-alert.webp')
-													     center / cover
-													     no-repeat
-													   `,
+					background: 'transparent',
 				    color: '#ffb400',
 				    confirmButtonColor: '#00ff88'
 				});
@@ -117,23 +105,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } catch (err) {
 				Swal.fire({
+					customClass: {
+					title: 'swal-game-error'
+					},
 				    title: '❌ Falha na Reivindicação',
 				    html: '<b>Não foi possível reivindicar os ganhos.</b>',
 				    imageUrl: '/icones/erro.webp',
 				    imageWidth: 90,
 				    imageHeight: 90,
 				    imageAlt: 'Erro',
-					// background: '#0f0f0f',
-													   background: `
-													     linear-gradient(
-													       rgba(0, 0, 0, 0.7),
-													       rgba(0, 0, 0, 0.7)
-													     ),
-													     url('/icones/bg-alert.webp')
-													     center / cover
-													     no-repeat
-													   `,
-				    color: '#ffb400',
+					background: 'transparent',
+				    color: '#ff3b3b',
 				    confirmButtonColor: '#ff3c00'
 				});
 

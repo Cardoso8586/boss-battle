@@ -21,7 +21,10 @@
      <link rel="stylesheet" href="/css/reward-card.css">
      <link rel="stylesheet" href="/css/tutorial.css">  
      <link rel="stylesheet" href="/css/recuperacaoVigorAnimacao.css">   
-     <link rel="stylesheet" href="/css/customClass.css">
+     <link rel="stylesheet" href="/css/customClass.css">  
+     <link rel="stylesheet" href="/css/swal-game-error.css">
+      <link rel="stylesheet" href="/css/profile.css">               
+       <link rel="stylesheet" href="/css/ResgatarRecompensas.css">
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -371,8 +374,13 @@ Dano
 
 
 <section id="loja">
-    <h2>Aprimoramentos</h2>
-    <p>Aqui você pode comprar itens para fortalecer seu exército e melhorar seu jogo.</p>
+  <h2 class="secao-titulo">Aprimoramentos</h2>
+
+<p class="secao-descricao">
+  Aqui você pode comprar itens para fortalecer seu exército
+  e melhorar seu jogo.
+</p>
+
 
     <div class="loja-wrapper">
 <!-- Card Guerreiros -->
@@ -456,16 +464,97 @@ Dano
     
     
     <section id="perfil">
-        <h2>Perfil</h2>
-        <p>Email: <span th:text="${usuario.email}">email@exemplo.com</span></p>
+      <h2 class="perfil-titulo">Perfil</h2>
+
+<p class="perfil-info">
+  <span class="label">Email:</span>
+  <span class="valor" th:text="${usuario.email}"></span>
+</p>
+
   
+   <div class="user-info">
+ <h2>
+  Bem-vindo, 
+ <span th:text="${usuario.username}"></span>!
+ </h2>
+
+ <p>
+  ID: <strong th:text="${idUsuario}">0</strong>
+ </p>
+ <p>
+ <p>
+  XP: <span id="xp" th:text="${xpUsuario}">0</span>
+ </p>
+ <p>
+  Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
+ </p>
        
+
+ <div class="saldo-box">
+    <span>BOSS:</span>
+    <strong id="boss_coins" th:text="${boss_coins}">0</strong>
+</div>
+
+
+    
+
+
+</div>
+
+    
+    <div class="user-ajustes">
+
+  <div class="ajuste-item">
+    <span>Capacidade de Vigor</span>
+    <strong id="capacidade_vigor"
+            th:text="${energiaGuerreirosPadrao}">
+      0
+    </strong><span>Cap- Máxima</span>
+  </div>
+
+  <div class="ajuste-item">
+    <span>Ataques / minuto</span>
+    <strong id="ataques_minutos"
+            th:text="${ataquePorMinutoUsuario}">
+      0
+    </strong><span>Dano</span>
+  </div>   
+  
+  
+    <div class="ajuste-item">
+    <span>Guerreiros:</span>
+    <strong id="quantidade_guerreiros"
+            th:text="${quantidadeTotalGuerriro}">
+      0
+    </strong><span>Total</span>
+  </div>  
+  
+   <div class="ajuste-item">
+    <span>Poção Vigor:</span>
+    <strong id="pocao_vigor"
+            th:text="${quantidadePocaoVigor}">
+      0
+    </strong><span>Ajustes</span>
+  </div>  
+  
+     <div class="ajuste-item">
+    <span>Ataque especial:</span>
+    <strong id="ataque_especial"
+            th:text="${ataque_base}">
+      0
+    </strong>  <span>Dano</span>
+  </div>  
+  
+  
+  
+  </div>
     </section>
     
     
 <!-- seção referidos -->
 <section id="referidos">
-    <h2>Aliados</h2>
+  <h2 class="secao-titulo aliados-titulo">Aliados</h2>
+
 
     <div>
         <h3>Seu link de convite:</h3>
@@ -517,8 +606,13 @@ Dano
     
 
     <section id="retirar">
-        <h2>Resgatar Recompensas</h2>
-        <p>Aqui você pode retirar seus ganhos.</p>
+       <h2 class="secao-titulo recompensa-titulo">Resgatar Recompensas</h2>
+<p class="secao-descricao recompensa-desc">
+  Aqui você pode retirar seus ganhos.
+</p>
+
+
+
     </section>
     
     

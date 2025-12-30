@@ -52,14 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	    let tempo = segundos;
 
 	    Swal.fire({
+			customClass: {
+			title: 'swal-game-error'
+		    },
 	        icon: 'warning',
 	        title: 'Ação inválida',
 	        html: `${texto}<br><b>Fechando em ${tempo}s</b>`,
 	        timer: segundos * 1000,
 	        timerProgressBar: true,
 	        showConfirmButton: false,
-			background: '#0f0f0f',									    
-			color: '#ffb400',
+			 background: 'transparent',					    
+			color: '#ff3b3b',
 	        didOpen: () => {
 	            const interval = setInterval(() => {
 	                tempo--;
@@ -102,21 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (res.ok) {
 	                Swal.fire({
+						customClass: {
+						      title: 'swal-game-text'
+						    },
 	                    icon: 'success',
 	                    title: 'Guerreiro retirado!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
 						showConfirmButton: false,
-						// background: '#0f0f0f',
-																												   background: `
-																												     linear-gradient(
-																												       rgba(0, 0, 0, 0.7),
-																												       rgba(0, 0, 0, 0.7)
-																												     ),
-																												     url('/icones/voltar-acampamento.webp')
-																												     center / cover
-																												     no-repeat
-																												   `,
+						 background: 'transparent',
 						color: '#ffb400'
 	                });
 
@@ -129,22 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	        } catch (e) {
 	            console.error(e);
 	            Swal.fire({
+					customClass: {
+					      title: 'swal-game-text'
+					    },
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro do ataque.',
 					timer: 4000,
 					showConfirmButton: false,
-					// background: '#0f0f0f',
-																																   background: `
-																																     linear-gradient(
-																																       rgba(0, 0, 0, 0.7),
-																																       rgba(0, 0, 0, 0.7)
-																																     ),
-																																     url('/icones/voltar-acampamento.webp')
-																																     center / cover
-																																     no-repeat
-																																   `,
-					color: '#ffb400'
+				    background: 'transparent',
+					color: '#ff3b3b'
 	            });
 	        } finally {
 	            setTimeout(() => {
@@ -187,22 +178,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (res.ok) {
 	                Swal.fire({
+						customClass: {
+						      title: 'swal-game-text'
+						    },
 	                    icon: 'success',
 	                    title: 'Retaguarda recuada!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
 						timer: 4000,
 						showConfirmButton: false,
-						// background: '#0f0f0f',
-																																	   background: `
-																																	     linear-gradient(
-																																	       rgba(0, 0, 0, 0.7),
-																																	       rgba(0, 0, 0, 0.7)
-																																	     ),
-																																	     url('/icones/voltar-acampamento.webp')
-																																	     center / cover
-																																	     no-repeat
-																																	   `,
-					    color: '#ffb400'
+						 background: 'transparent',
+					 color: '#ffb400'
 						
 	                });
 
@@ -215,22 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	        } catch (e) {
 	            console.error(e);
 	            Swal.fire({
+					customClass: {
+					      title: 'swal-game-text'
+					    },
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
 					timer: 4000,
 					showConfirmButton: false,
-					// background: '#0f0f0f',
-																																   background: `
-																																     linear-gradient(
-																																       rgba(0, 0, 0, 0.7),
-																																       rgba(0, 0, 0, 0.7)
-																																     ),
-																																     url('/icones/voltar-acampamento.webp')
-																																     center / cover
-																																     no-repeat
-																																   `,
-					color: '#ffb400'
+				    background: 'transparent',
+					color: '#ff3b3b'
 	            });
 	        } finally {
 	            setTimeout(() => {

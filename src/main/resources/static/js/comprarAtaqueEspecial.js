@@ -20,21 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isNaN(quantidade) || quantidade <= 0) {
             Swal.fire({
+				customClass: {
+				title: 'swal-game-error'
+				},
                 icon: 'warning',
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
                 confirmButtonText: 'Ok',
-				// background: '#0f0f0f',
-								   background: `
-								     linear-gradient(
-								       rgba(0, 0, 0, 0.7),
-								       rgba(0, 0, 0, 0.7)
-								     ),
-								     url('/icones/bg-alert.webp')
-								     center / cover
-								     no-repeat
-								   `,
-				color: '#ffb400'      
+				background: 'transparent',
+				color: '#ff3b3b '      
             });
             return;
         }
@@ -73,7 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (quantidade<=1){
 					
 				Swal.fire({
-				    title: '🔥 Ataque especial aprimorado!',
+					customClass: {      
+										title: 'swal-game-text'
+										},
+				    title: 'Ataque especial aprimorado!',
 				    html: `Você adquiriu <b>${quantidade}</b> unidade de ataque especial.`,
 				    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
 				    imageWidth: 90,
@@ -81,23 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageAlt: 'Ataque Especial',
 				    timer: 4000,
 				    showConfirmButton: false,
-					// background: '#0f0f0f',
-									   background: `
-									     linear-gradient(
-									       rgba(0, 0, 0, 0.7),
-									       rgba(0, 0, 0, 0.7)
-									     ),
-									     url('/icones/bg-alert.webp')
-									     center / cover
-									     no-repeat
-									   `,
+					background: 'transparent',
 				    color: '#ffb400'
 				  
 				    
 				});	
 				}else{
 					Swal.fire({
-									    title: '🔥 Ataque especial aprimorado!',
+						customClass: {      
+											title: 'swal-game-text'
+											},
+									    title: 'Ataque especial aprimorado!',
 									    html: `Você adquiriu <b>${quantidade}</b> unidades de ataque especial.`,
 									    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
 									    imageWidth: 90,
@@ -105,16 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 									    imageAlt: 'Ataque Especial',
 									    timer: 4000,
 									    showConfirmButton: false,
-										// background: '#0f0f0f',
-														   background: `
-														     linear-gradient(
-														       rgba(0, 0, 0, 0.7),
-														       rgba(0, 0, 0, 0.7)
-														     ),
-														     url('/icones/bg-alert.webp')
-														     center / cover
-														     no-repeat
-														   `,
+										background: 'transparent',
 									    color: '#ffb400'
 									  
 									    
@@ -135,22 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     : 0;
 
                 Swal.fire({
+					customClass: {
+																   title: 'swal-game-error'
+																 },
                     icon: 'warning',
                     title: 'Saldo insuficiente',
                     text: `Você precisa de ${custoEstimado.toLocaleString('pt-BR')} Boss Coins, mas só tem ${saldo.toLocaleString('pt-BR')} Boss Coins.`,
                     timer: 4000,
                     showConfirmButton: false,
-					// background: '#0f0f0f',
-									   background: `
-									     linear-gradient(
-									       rgba(0, 0, 0, 0.7),
-									       rgba(0, 0, 0, 0.7)
-									     ),
-									     url('/icones/bg-alert.webp')
-									     center / cover
-									     no-repeat
-									   `,
-				    color: '#ffb400'      
+					background: 'transparent',
+				   color: '#ff3b3b '      
 					
                 });
             }
@@ -159,22 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(err);
 
             Swal.fire({
+				customClass: {
+															   title: 'swal-game-error'
+															 },
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar comprar ataque especial.',
                 timer: 4000,
                 showConfirmButton: false,
-				// background: '#0f0f0f',
-								   background: `
-								     linear-gradient(
-								       rgba(0, 0, 0, 0.7),
-								       rgba(0, 0, 0, 0.7)
-								     ),
-								     url('/icones/bg-alert.webp')
-								     center / cover
-								     no-repeat
-								   `,
-			    color: '#ffb400'      
+				background: 'transparent',
+			    color: '#ff3b3b '      
             });
 
         } finally {

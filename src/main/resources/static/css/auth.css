@@ -1,66 +1,168 @@
+/* ===============================
+   RESET / BASE
+================================ */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    background: #0f0f0f;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #fff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.85)
+    ),
+    url('/icones/gameplay.webp') center/cover no-repeat;
+
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* ===============================
+   AUTH WRAPPER (SEM CARD)
+================================ */
 .auth-container {
-    background: #1b1b1b;
-    padding: 30px;
-    border-radius: 10px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 0 12px #222;
+  width: 320px;
+  text-align: center;
+  animation: fadeUp 0.8s ease-out;
 }
 
+/* ===============================
+   TÍTULO
+================================ */
 h2 {
-    margin-bottom: 20px;
-    color: #f0d26a;
+  margin-bottom: 25px;
+  color: #f0d26a;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 8px rgba(240, 210, 106, 0.6),
+    0 0 20px rgba(240, 210, 106, 0.3);
 }
 
+/* ===============================
+   INPUTS
+================================ */
 input {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    font-size: 15px;
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(240, 210, 106, 0.4);
+  border-radius: 6px;
+
+  color: #fff;
+  font-size: 15px;
+
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.8);
 }
 
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+  outline: none;
+  border-color: #f0d26a;
+  box-shadow:
+    0 0 15px rgba(240, 210, 106, 0.8);
+}
+
+/* ===============================
+   BOTÃO
+================================ */
 button {
-    width: 95%;
-    padding: 12px;
-    background: #f0d26a;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #1b1b1b;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+
+  background: #f0d26a;
+  border: none;
+  border-radius: 6px;
+
+  color: #1b1b1b;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 15px rgba(240, 210, 106, 0.6);
 }
 
 button:hover {
-    background: #ffe28c;
+  background: #ffe28c;
+  box-shadow:
+    0 0 25px rgba(240, 210, 106, 0.9);
 }
 
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ===============================
+   MENSAGENS
+================================ */
 .msg {
-    margin-top: 15px;
-    font-size: 14px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #fff;
+
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.9);
 }
 
+/* ===============================
+   LINKS
+================================ */
 .link {
-    margin-top: 15px;
+  margin-top: 20px;
 }
 
 .link a {
-    color: #f0d26a;
-    text-decoration: none;
+  color: #f0d26a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link a:hover {
+  text-shadow:
+    0 0 10px rgba(240, 210, 106, 0.9);
+}
+
+/* ===============================
+   ANIMAÇÕES
+================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+@media (max-width: 420px) {
+  .auth-container {
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
 }

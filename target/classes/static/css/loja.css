@@ -28,11 +28,39 @@
     text-align: center;
 }
 
-.loja-card h3 {
-    color: #f39c12;
-    text-shadow: 1px 1px 2px #000;
-    margin-bottom: 10px;
+.secao-titulo {
+  margin-bottom: 10px;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #ffb400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 12px rgba(255, 180, 0, 0.8);
 }
+
+.secao-descricao {
+  max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+
+  background: rgba(0, 0, 0, 0.45);
+  padding: 12px 16px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 180, 0, 0.25);
+
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.6),
+    inset 0 0 6px rgba(255, 180, 0, 0.1);
+}
+
 
 .loja-card p {
     color: #ecf0f1;

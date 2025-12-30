@@ -97,21 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (res.ok) {
 	                Swal.fire({
+						customClass: {
+						      title: 'swal-game-text'
+						    },
 	                    icon: 'success',
 	                    title: 'Enviado para retaguarda!',
 	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
 						timer: 4000,
 						showConfirmButton: false,
-						// background: '#0f0f0f',
-																												   background: `
-																												     linear-gradient(
-																												       rgba(0, 0, 0, 0.7),
-																												       rgba(0, 0, 0, 0.7)
-																												     ),
-																												     url('/icones/enviar-ataque.webp')
-																												     center / cover
-																												     no-repeat
-																												   `,
+						 background: 'transparent',
 						color: '#ffb400'
 	                });
 
@@ -128,21 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	        } catch (e) {
 	            console.error(e);
 	            Swal.fire({
+					customClass: {
+					      title: 'swal-game-text'
+					    },
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar enviar para retaguarda.',
 					timer: 4000,
 					showConfirmButton: false,
-					// background: '#0f0f0f',
-																											   background: `
-																											     linear-gradient(
-																											       rgba(0, 0, 0, 0.7),
-																											       rgba(0, 0, 0, 0.7)
-																											     ),
-																											     url('/icones/enviar-ataque.webp')
-																											     center / cover
-																											     no-repeat
-																											   `,
+					background: 'transparent',
 					color: '#ffb400'
 	            });
 	        } finally {

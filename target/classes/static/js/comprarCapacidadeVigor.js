@@ -21,21 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!quantidade || quantidade <= 0) {
             Swal.fire({
+				customClass: {
+									   title: 'swal-game-error'
+									 },
                 icon: 'warning',
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
                 confirmButtonText: 'Ok',
-				// background: '#0f0f0f',
-								   background: `
-								     linear-gradient(
-								       rgba(0, 0, 0, 0.7),
-								       rgba(0, 0, 0, 0.7)
-								     ),
-								     url('/icones/bg-alert.webp')
-								     center / cover
-								     no-repeat
-								   `,
-			    color: '#ffb400'       
+				background: 'transparent',
+			    color: '#ff3b3b'  
             });
             return;
         }
@@ -67,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (quantidade <=1){
 					
 				    Swal.fire({
+						customClass: {      
+																		title: 'swal-game-text'
+																		},
 				    title: 'Capacidade aumentada!',
 				    html: `Você comprou ${quantidade} unidade de Vigor.`,
 				    imageUrl: '/icones/capacidade_vigor.webp',
@@ -75,21 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageAlt: 'Poção de Vigor',
 				    timer: 4000,
 				    showConfirmButton: false,
-					// background: '#0f0f0f',
-									   background: `
-									     linear-gradient(
-									       rgba(0, 0, 0, 0.7),
-									       rgba(0, 0, 0, 0.7)
-									     ),
-									     url('/icones/bg-alert.webp')
-									     center / cover
-									     no-repeat
-									   `,
+				    background: 'transparent',
 				    color: '#ffb400'       
 				});
 				
 				}else{
 					Swal.fire({
+						customClass: {      
+																		title: 'swal-game-text'
+																		},
 							    title: 'Capacidade aumentada!',
 							    html: `Você comprou ${quantidade} unidades de Vigor.`,
 							    imageUrl: '/icones/capacidade_vigor.webp',
@@ -98,16 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							    imageAlt: 'Poção de Vigor',
 							    timer: 4000,
 							    showConfirmButton: false,
-								// background: '#0f0f0f',
-												   background: `
-												     linear-gradient(
-												       rgba(0, 0, 0, 0.7),
-												       rgba(0, 0, 0, 0.7)
-												     ),
-												     url('/icones/bg-alert.webp')
-												     center / cover
-												     no-repeat
-												   `,
+								background: 'transparent',
 							    color: '#ffb400'       
 							});
 					
@@ -123,22 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 const text = await res.text();
                 Swal.fire({
+					customClass: {
+										   title: 'swal-game-error'
+										 },
                     icon: 'warning',
                     title: 'Saldo insuficiente',
                     text: text || 'Não foi possível comprar.',
                     timer: 4000,
                     showConfirmButton: false,
-					// background: '#0f0f0f',
-									   background: `
-									     linear-gradient(
-									       rgba(0, 0, 0, 0.7),
-									       rgba(0, 0, 0, 0.7)
-									     ),
-									     url('/icones/bg-alert.webp')
-									     center / cover
-									     no-repeat
-									   `,
-				    color: '#ffb400'       
+					background: 'transparent',
+				    color: '#ff3b3b'     
                 });
             }
 
@@ -146,22 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(e);
 
             Swal.fire({
+				customClass: {
+									   title: 'swal-game-error'
+									 },
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar aumentar capacidade de vigor.',
                 timer: 4000,
                 showConfirmButton: false,
-				// background: '#0f0f0f',
-								   background: `
-								     linear-gradient(
-								       rgba(0, 0, 0, 0.7),
-								       rgba(0, 0, 0, 0.7)
-								     ),
-								     url('/icones/bg-alert.webp')
-								     center / cover
-								     no-repeat
-								   `,
-				color: '#ffb400'        
+				background: 'transparent',
+				color: '#ff3b3b'      
             });
 
         } finally {

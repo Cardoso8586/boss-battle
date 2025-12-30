@@ -1,4 +1,135 @@
+// ===============================
+// 🔢 Formata números
+// ===============================
+function formatarNumero(numero) {
+    return new Intl.NumberFormat('pt-BR').format(numero);
+}
 
+// ===============================
+// 🌐 Estado global
+// ===============================
+let bossImagemAtual = null;
+let bossCache = null;
+
+const CACHE_KEY = "boss_active_cache";
+const CACHE_TTL = 10000; // 10s
+
+// ===============================
+// 💾 Cache helpers
+// ===============================
+function getBossFromCache() {
+    try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (!cached) return null;
+        if (Date.now() - cached.time > CACHE_TTL) return null;
+        return cached.data;
+    } catch {
+        return null;
+    }
+}
+
+function saveBossToCache(boss) {
+    bossCache = boss;
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+        data: boss,
+        time: Date.now()
+    }));
+}
+
+// ===============================
+// ⚡ Placeholder imediato
+// ===============================
+function renderBossPlaceholder() {
+    document.getElementById("boss-name").innerText = "Invocando Boss...";
+    document.getElementById("boss-hp-bar").style.width = "100%";
+    document.getElementById("boss-hp-text").innerText = "???? / ????";
+    document.getElementById("boss-reward").innerText = "?";
+    document.getElementById("boss-xp").innerText = "?";
+}
+
+// ===============================
+// 🎨 Render do Boss
+// ===============================
+function renderBoss(boss) {
+    const nameEl   = document.getElementById("boss-name");
+    const imgEl    = document.getElementById("boss-image");
+    const hpBarEl  = document.getElementById("boss-hp-bar");
+    const hpTextEl = document.getElementById("boss-hp-text");
+    const reward   = document.getElementById("boss-reward");
+    const bossXp   = document.getElementById("boss-xp");
+
+    if (!boss || boss.alive === false) {
+        nameEl.innerText = "Nenhum boss ativo!";
+        imgEl.style.display = "none";
+        hpBarEl.style.width = "0%";
+        hpTextEl.innerText = "";
+        reward.innerText = "0";
+        bossXp.innerText = "0";
+        return;
+    }
+
+    nameEl.innerText = boss.bossName;
+    reward.innerText = formatarNumero(boss.rewardBoss);
+    bossXp.innerText = formatarNumero(boss.rewardExp);
+
+    const percent = (boss.currentHp / boss.maxHp) * 100;
+    hpBarEl.style.width = percent + "%";
+    hpTextEl.innerText =
+        `${formatarNumero(boss.currentHp)} / ${formatarNumero(boss.maxHp)}`;
+
+    // 🖼️ imagem só troca se mudar
+    if (bossImagemAtual !== boss.imageUrl) {
+        bossImagemAtual = boss.imageUrl;
+
+        const img = new Image();
+        img.src = boss.imageUrl;
+        img.onload = () => {
+            imgEl.src = boss.imageUrl;
+            imgEl.style.display = "block";
+        };
+    }
+}
+
+// ===============================
+// 🚀 Invoca boss UMA VEZ
+// ===============================
+async function carregarBossAtivo() {
+
+    // placeholder imediato
+    renderBossPlaceholder();
+
+    // cache
+    const cached = getBossFromCache();
+    if (cached) {
+        bossCache = cached;
+        renderBoss(cached);
+    }
+
+    // fetch único
+    try {
+        const response = await fetch("/api/boss/active");
+        if (!response.ok) return;
+
+        const boss = await response.json();
+
+        saveBossToCache(boss);
+        renderBoss(boss);
+
+    } catch (e) {
+        console.error("Erro ao carregar boss:", e);
+    }
+}
+
+// ===============================
+// 🧠 Inicialização
+// ===============================
+document.addEventListener("DOMContentLoaded", carregarBossAtivo);
+
+
+/**
+ * 
+ * 
+ * 
 // ===============================
 // 🔢 Formata números
 // ===============================
@@ -204,6 +335,7 @@ setInterval(carregarBossAtivo, 3000);
 
  * 
  */
+
 
 
 

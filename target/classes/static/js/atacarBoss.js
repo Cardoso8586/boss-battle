@@ -163,7 +163,7 @@ attackBtn.addEventListener("click", async () => {
 
     if (!usuarioId) {
         clearInterval(timerAtaque);
-        swalWarningAuto("Usuário não identificado.", 4);
+        swalWarningAuto("Usuário não identificado.", 6);
         ataqueEmAndamento = false;
         attackBtn.disabled = false;
         attackBtn.innerText = textoOriginal;
@@ -178,6 +178,27 @@ attackBtn.addEventListener("click", async () => {
 
         const data = await response.json();
         const dano = data.damage;
+		const message = data.message;
+
+		
+
+		if (data.success === false) {
+		  Swal.fire({
+		    customClass: {
+		      title: 'swal-game-error'
+		    },
+		    title: message,
+		    background: 'transparent',
+		    showConfirmButton: false,
+		    timer: 6000
+		  });
+		  
+		  ataqueEmAndamento = false;
+		         attackBtn.disabled = false;
+		         attackBtn.innerText = textoOriginal;
+		  return;
+		}
+
         // 💀 boss morreu
         if (data.status === "BOSS_DEAD") {
             clearInterval(timerAtaque);
@@ -203,7 +224,7 @@ attackBtn.addEventListener("click", async () => {
 
         clearInterval(timerAtaque);
 
-        swalWarningAuto("Erro ao atacar o boss.", 4);
+        swalWarningAuto("Erro ao atacar o boss.", 6);
 
         ataqueEmAndamento = false;
         attackBtn.disabled = false;

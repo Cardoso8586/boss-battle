@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
             Math.min(data.energiaGuerreiros, 100) + '%';
 				
 			Swal.fire({
+				customClass: {
+				      title: 'swal-game-text'
+				    },
 			  title: 'Vigor restaurado!',
 			  timer: 4000,
 			  showConfirmButton: false,
@@ -66,6 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error(err);
             Swal.fire({
+				customClass: {
+				      title: 'swal-game-text'
+				    },
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar recarregar energia.',

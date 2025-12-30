@@ -3,100 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Boss Battle - Login</title>
-    <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: #0f0f0f;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #fff;
-}
-
-.box {
-    background: #1b1b1b;
-    padding: 30px;
-    border-radius: 10px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 0 12px #222;
-}
-
-h2, h3 {
-    margin-bottom: 15px;
-    color: #f0d26a;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    font-size: 15px;
-    background: #2a2a2a;
-    color: white;
-}
-
-button {
-    width: 95%;
-    padding: 12px;
-    background: #f0d26a;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #1b1b1b;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #ffe28c;
-}
-
-#msg {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.register-link {
-    margin-top: 15px;
-}
-
-.register-link a {
-    color: #f0d26a;
-    text-decoration: none;
-}
-
-    </style>
+  <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
 
-<div class="box">
-    <h2 style="text-align:center;">Boss Battle</h2>
-    <h3 style="text-align:center;">Login</h3>
+<div class="auth-container">
+    <h2>Entrar</h2>
 
     <form id="loginForm">
-        <input type="email" id="email" placeholder="Seu e-mail" required>
-        <input type="password" id="senha" placeholder="Sua senha" required>
+        <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
+        <input type="password" id="loginSenha" placeholder="Senha" required>
+          <input type="hidden" name="ref" th:value="${ref}" />
+
         <button type="submit">Entrar</button>
     </form>
 
-    <p id="msg"></p>
+    <p class="msg" id="loginMsg"></p>
 
-    <div class="register-link">
-        <p> 
-             Não tem conta? <a href="/cadastro">Criar conta</a>
-        </p>
+    <div class="link">
+        Não tem conta? <a href="/cadastro">Criar conta</a>
     </div>
 </div>
 
 <script src="/js/login.js"></script>
+<script src="static/js/auth.js"></script>
+<script src="/js/realizarLogin.js"></script>
+<script src="/js/loadBoss.js"></script> 
 
 </body>
 </html>

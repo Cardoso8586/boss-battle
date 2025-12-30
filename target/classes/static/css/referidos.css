@@ -12,13 +12,35 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#referidos h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ffcc00;
-    display: inline-block;
-    padding-bottom: 5px;
+
+.secao-titulo {
+  margin-bottom: 12px;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #ffb400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 12px rgba(255, 180, 0, 0.8);
 }
+
+/* Variante específica para Aliados (opcional) */
+.aliados-titulo {
+  color: #6ee7ff;
+
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 12px rgba(110, 231, 255, 0.8);
+}
+
 
 #referidos p {
     font-size: 16px;

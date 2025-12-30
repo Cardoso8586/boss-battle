@@ -185,8 +185,10 @@ public class GlobalBossService {
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
+        
+         
         if (!bossAttackService.podeAtacar(usuario)) {
+        	
             return Map.of(
                 "status", "COOLDOWN",
                 "message", "Aguarde para atacar novamente",
@@ -194,16 +196,26 @@ public class GlobalBossService {
             );
         }
         
-        long ataqueBase = usuario.getAtaqueBase();
+        Long energia = usuario.getEnergiaGuerreiros();
+
+        if (energia == null || energia <= 0) {
+            return Map.of(
+                "success", false,
+                "message", "Sem vigor! Recarregue para continuar."
+            );
+        }
+
+        else {
+        	
+         long ataqueBase = usuario.getAtaqueBase();
         long ataqueEspecial = retaguardaService.processarAtaqueRetaguarda(usuarioId);
 
         long damage = ataqueBase + ataqueEspecial;
 
         // aplicar diminuir  o vigor
-        Long energia = usuario.getEnergiaGuerreiros();
+        //Long energia = usuario.getEnergiaGuerreiros();
         usuario.setEnergiaGuerreiros(energia - damage);
-        
-    
+        	
         // usar o valor retornado
         Object resultado = null;
 
@@ -281,6 +293,17 @@ public class GlobalBossService {
             "status", "NO_BOSS",
             "message", "O boss foi derrotado. Aguarde o respawn."
         );
+        
+        
+     }
+        
+   
+    	  
+      
+        
+       
+    
+      
         
         
     }
