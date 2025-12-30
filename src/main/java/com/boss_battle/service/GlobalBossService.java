@@ -199,10 +199,12 @@ public class GlobalBossService {
 
         long damage = ataqueBase + ataqueEspecial;
 
+        // aplicar diminuir  o vigor
+        Long energia = usuario.getEnergiaGuerreiros();
+        usuario.setEnergiaGuerreiros(energia - damage);
+        
     
         // usar o valor retornado
-    
-        
         Object resultado = null;
 
         // Tenta atacar cada boss na ordem

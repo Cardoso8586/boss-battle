@@ -45,10 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await res.json();
-
             energiaAtual.textContent = data.energiaGuerreiros;
             energiaBar.style.width =
-                Math.min(data.energiaGuerreiros, 100) + '%';
+            Math.min(data.energiaGuerreiros, 100) + '%';
+				
+			Swal.fire({
+			  title: 'Vigor restaurado!',
+			  timer: 4000,
+			  showConfirmButton: false,
+			  background: 'transparent',
+			  color: '#ffb400'
+			});
+
 
             // se chegou no máximo, mantém desabilitado
             if (data.energiaGuerreiros >= data.energiaGuerreirosPadrao) {
@@ -61,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar recarregar energia.',
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Ok',
+			    background: 'transparent',
+				color: '#ffb400' 
             });
         } finally {
             setTimeout(() => {

@@ -21,7 +21,7 @@ function showDamageFloating(value) {
     floatText.textContent = `-${value}`;
 
     container.appendChild(floatText);
-    setTimeout(() => floatText.remove(), 1000);
+    setTimeout(() => floatText.remove(), 5000);
 }
 
 // ---------------------------------------------------
@@ -125,18 +125,41 @@ attackBtn.addEventListener("click", async () => {
     attackBtn.disabled = true;
 
     const textoOriginal = attackBtn.innerText;
-    const tempoAtaque = 10; // ⏱️ tempo "atacando" (segundos)
+    const tempoAtaque = 4; // ⏱️ tempo "atacando" (segundos)
     let restante = tempoAtaque;
 
     // ⏳ texto inicial
     attackBtn.innerText = `Atacando... (${restante}s)`;
 
-    // ⏱️ contador visual
-    const timerAtaque = setInterval(() => {
-        restante--;
-        attackBtn.innerText = `Atacando... (${restante}s)`;
-        if (restante <= 0) clearInterval(timerAtaque);
-    }, 1000);
+	
+	// abre o alerta UMA VEZ
+	Swal.fire({
+	  title: `Preparando para atacar! ${restante}s`,
+	  showConfirmButton: false,
+	  background: 'transparent',
+	  color: '#ffb400',
+	  customClass: {
+	      title: 'swal-game-text'
+	    },
+	  
+	  allowOutsideClick: false,
+	  didOpen: () => {
+	    const title = Swal.getTitle();
+
+	    const timerAtaque = setInterval(() => {
+	      restante--;
+	      attackBtn.innerText = `Atacando... (${restante}s)`;
+	      title.textContent = `Preparando para atacar! ${restante}s`;
+
+	      if (restante <= 0) {
+	        clearInterval(timerAtaque);
+	        Swal.close();
+	        attackBtn.innerText = 'Atacar';
+	      }
+	    }, 1000);
+	  }
+	});
+
 
     if (!usuarioId) {
         clearInterval(timerAtaque);
@@ -154,7 +177,7 @@ attackBtn.addEventListener("click", async () => {
         );
 
         const data = await response.json();
-
+        const dano = data.damage;
         // 💀 boss morreu
         if (data.status === "BOSS_DEAD") {
             clearInterval(timerAtaque);
@@ -162,10 +185,15 @@ attackBtn.addEventListener("click", async () => {
             return;
         }
 
-        // 💥 dano
-        if (data.damage !== undefined) {
-            showDamageFloating(data.damage);
-        }
+		if (dano!== undefined) {
+		    showDamageFloating(dano);
+		 
+
+		  
+		}
+
+
+
 
         // 🔥 SEMPRE usa o cooldown do servidor
         verificarCooldownInicial();
