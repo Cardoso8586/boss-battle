@@ -1,3 +1,6 @@
+/* ===============================
+   PERFIL - TÍTULO
+================================ */
 .perfil-titulo {
   margin-bottom: 12px;
   font-size: 1.8rem;
@@ -14,6 +17,9 @@
      0 0 10px rgba(255, 180, 0, 0.8);
 }
 
+/* ===============================
+   PERFIL - INFORMAÇÕES
+================================ */
 .perfil-info {
   font-size: 1rem;
   color: #ddd;
@@ -31,18 +37,12 @@
 .perfil-info .valor {
   font-weight: 600;
   color: #fff;
-
-  text-shadow:
-    0 0 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .profile-info {
-        gap: 5px;
-    }
-}
-
+/* ===============================
+   AJUSTES / STATS
+================================ */
 .user-ajustes {
   display: flex;
   gap: 30px;
@@ -85,3 +85,64 @@
      0 0 8px rgba(255, 180, 0, 0.8);
 }
 
+/* ===============================
+   RESPONSIVO - TABLET / MOBILE
+================================ */
+@media (max-width: 768px) {
+
+  .perfil-titulo {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .perfil-info {
+    font-size: 0.95rem;
+    margin: 4px 0;
+  }
+
+  .user-ajustes {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .ajuste-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    text-align: left;
+  }
+
+  .ajuste-item strong {
+    font-size: 1.3rem;
+    text-align: right;
+
+    /* 🔥 garante alinhamento perfeito dos números */
+    font-variant-numeric: tabular-nums;
+    min-width: 60px;
+  }
+}
+
+
+/* ===============================
+   RESPONSIVO - MOBILE PEQUENO
+================================ */
+@media (max-width: 480px) {
+
+  .perfil-titulo {
+    font-size: 1.3rem;
+  }
+
+  .perfil-info {
+    font-size: 0.9rem;
+  }
+
+  .ajuste-item span {
+    font-size: 0.7rem;
+  }
+
+  .ajuste-item strong {
+    font-size: 1.2rem;
+    min-width: 55px;
+  }
+}

@@ -78,8 +78,9 @@ public class SecurityConfig {
                 .requestMatchers(
                         "/static/**",
                         "/images/**",
-                        "icones/**",
-                        "templates",
+                        "/icones/**",
+                        "/audio/**",
+                        "/templates",
                         "/css/**",
                         "/js/**",
                         "/api/boss/active",

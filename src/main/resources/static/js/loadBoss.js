@@ -12,7 +12,7 @@ let bossImagemAtual = null;
 let bossCache = null;
 
 const CACHE_KEY = "boss_active_cache";
-const CACHE_TTL = 10000; // 10s
+const CACHE_TTL = 1000; // 10s
 
 // ===============================
 // 💾 Cache helpers
@@ -40,17 +40,111 @@ function saveBossToCache(boss) {
 // ⚡ Placeholder imediato
 // ===============================
 function renderBossPlaceholder() {
-    document.getElementById("boss-name").innerText = "Invocando Boss...";
+	//tocarSom();
+    const frases = [
+        "O chefe está se aproximando...",
+        "Um chefe poderoso se aproxima...",
+        "Prepare-se... o chefe está chegando.",
+        "Você sente uma presença poderosa se aproximando...",
+        "Algo terrível está prestes a aparecer...",
+        "Um inimigo lendário se aproxima...",
+		"O ar fica pesado... algo poderoso desperta.",
+		   "Você sente um arrepio. Um chefe se aproxima.",
+		   "O silêncio é quebrado por uma presença aterradora...",
+		   "Prepare-se. Esta batalha não será comum.",
+		   "Uma força antiga começa a se manifestar...",
+		   "O chão treme ao longe...",
+		   "Algo observa você nas sombras...",
+		   "Um inimigo lendário desperta do seu sono.",
+		   "O destino está prestes a ser decidido...",
+		   "Não há mais volta. O chefe está vindo.",
+		   "Seu instinto grita perigo...",
+		      "A escuridão se agita ao seu redor...",
+		      "Você sente que não está sozinho...",
+		      "Algo antigo e cruel acordou...",
+		      "O mundo parece prender a respiração...",
+		      "Uma presença esmagadora se aproxima...",
+		      "A morte observa em silêncio...",
+		      "Este pode ser seu último combate..."
+    ];
+
+    const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+
+    document.getElementById("boss-name").innerText = fraseAleatoria;
     document.getElementById("boss-hp-bar").style.width = "100%";
     document.getElementById("boss-hp-text").innerText = "???? / ????";
     document.getElementById("boss-reward").innerText = "?";
     document.getElementById("boss-xp").innerText = "?";
 }
 
+function tocarSom() {
+	
+	let ultimoAudio = "";
+
+	
+	    const checkbox = document.getElementById("audio-toggle");
+	    if (!checkbox.checked) return; // ❌ usuário desligou o áudio
+
+	    const audiosScary = [
+	        "audio/scary1.mp3",
+	        "audio/scary2.mp3",
+	        "audio/scary3.mp3",
+	        "audio/scary4.mp3",
+	        "audio/scary5.mp3",
+			"audio/scary6.mp3"
+	    ];
+
+	    const audio = document.getElementById("super-scary");
+
+	    // escolhe áudio sem repetir
+	    let src;
+	    do {
+	        src = audiosScary[Math.floor(Math.random() * audiosScary.length)];
+	    } while (src === ultimoAudio);
+
+	    ultimoAudio = src;
+
+	    // reset seguro
+	    audio.pause();
+	    audio.currentTime = 0;
+	    audio.src = src;
+
+	    // autoplay seguro
+	    audio.muted = true;
+	    audio.volume = 0;
+
+	    audio.play().then(() => {
+	        audio.muted = false;
+
+	        let vol = 0;
+	        const alvo = 0.4 + Math.random() * 0.2;
+
+	        const fade = setInterval(() => {
+	            if (!checkbox.checked) {
+	                audio.pause();
+	                clearInterval(fade);
+	                return;
+	            }
+
+	            if (vol < alvo) {
+	                vol += 0.02;
+	                audio.volume = vol;
+	            } else {
+	                clearInterval(fade);
+	            }
+	        }, 80);
+	    }).catch(() => {});
+	}
+
+	
+
+
+
 // ===============================
 // 🎨 Render do Boss
 // ===============================
 function renderBoss(boss) {
+	
     const nameEl   = document.getElementById("boss-name");
     const imgEl    = document.getElementById("boss-image");
     const hpBarEl  = document.getElementById("boss-hp-bar");
@@ -58,6 +152,7 @@ function renderBoss(boss) {
     const reward   = document.getElementById("boss-reward");
     const bossXp   = document.getElementById("boss-xp");
 
+	
     if (!boss || boss.alive === false) {
         nameEl.innerText = "Nenhum boss ativo!";
         imgEl.style.display = "none";
@@ -120,11 +215,41 @@ async function carregarBossAtivo() {
     }
 }
 
+
+// ===============================
+// 🚀 Invoca boss
+// ===============================
+async function carregarBoss() {
+
+   
+    const cached = getBossFromCache();
+    if (cached) {
+        bossCache = cached;
+        renderBoss(cached);
+    }
+
+    // fetch único
+    try {
+        const response = await fetch("/api/boss/active");
+        if (!response.ok) return;
+
+        const boss = await response.json();
+
+        saveBossToCache(boss);
+        renderBoss(boss);
+
+    } catch (e) {
+        console.error("Erro ao carregar boss:", e);
+    }
+}
 // ===============================
 // 🧠 Inicialização
 // ===============================
 document.addEventListener("DOMContentLoaded", carregarBossAtivo);
+// Atualiza automaticamente a cada 10 segundos
 
+
+setInterval(carregarBoss, 1000);
 
 /**
  * 

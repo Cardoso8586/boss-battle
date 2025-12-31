@@ -1,0 +1,50 @@
+#listaAtaques {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ataque-item {
+    display: grid;
+    grid-template-columns: 120px max-content 70px max-content;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+    font-size: 14px;
+    white-space: nowrap; /* 🔥 impede quebra */
+}
+
+.ultimos-ataques{
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffb400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 10px rgba(255, 180, 0, 0.8);
+}
+/* Usuário */
+.usuario {
+    font-weight: bold;
+    color: #2ecc71;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Texto */
+.texto {
+    color: #aaa;
+}
+
+/* Dano */
+.dano {
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: right;
+}

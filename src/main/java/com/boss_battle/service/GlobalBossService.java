@@ -207,13 +207,13 @@ public class GlobalBossService {
 
         else {
         	
-         long ataqueBase = usuario.getAtaqueBase();
+        long ataqueBase = usuario.getAtaqueBase();
         long ataqueEspecial = retaguardaService.processarAtaqueRetaguarda(usuarioId);
 
         long damage = ataqueBase + ataqueEspecial;
 
         // aplicar diminuir  o vigor
-        //Long energia = usuario.getEnergiaGuerreiros();
+      
         usuario.setEnergiaGuerreiros(energia - damage);
         	
         // usar o valor retornado
@@ -292,22 +292,15 @@ public class GlobalBossService {
         return Map.of(
             "status", "NO_BOSS",
             "message", "O boss foi derrotado. Aguarde o respawn."
+           
         );
         
         
-     }
-        
-   
-    	  
-      
-        
-       
-    
-      
-        
-        
-    }
+       }
+             
+    }//fim hitActiveBoss
 
+   
     // =============================
     // FUNÇÕES AUXILIARES
     // =============================
@@ -345,8 +338,13 @@ public class GlobalBossService {
         
         
         registrarDano(bossName, usuario, damage);
-
-        return processReward(bossName, boss, damage); // seu método continua para distribuir recompensas
+     /**
+        if (!boss.isAlive() || boss.getCurrentHp() <= 0) {
+            spawnRandomBoss();
+        }
+        */
+        return processReward(bossName, boss, usuario, damage); 
+        
     }
 
 
@@ -359,10 +357,14 @@ public class GlobalBossService {
         damageLogRepo.save(log);
         
         
-        // getUserName
+       
     }
 
-    private Object processReward(String bossName, BattleBoss boss, long damage) {
+    
+    //===================================
+    //processReward
+    //==================================
+    private Object processReward(String bossName, BattleBoss boss,UsuarioBossBattle usuario, long damage) {
         if (boss.isAlive() && boss.getCurrentHp() > 0) {
           
 			return Map.of(
@@ -391,14 +393,29 @@ public class GlobalBossService {
             ));
 
         for (var entry : damagePorUsuario.entrySet()) {
-            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
+            //UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
+        	UsuarioBossBattle u = usuarioRepo.findById(entry.getKey())
+        		    .map(usuarioRepo::saveAndFlush)
+        		    .orElse(null);
+
             if (u == null) continue;
 
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-            double proporcao = (double) danoUsuario / totalDamage;
-            long rewardFinal = Math.round(bossReward * proporcao);
-            long expFinal = Math.round(expReward * proporcao);
+           // long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+            //double proporcao = (double) danoUsuario / totalDamage;
+           // long rewardFinal = Math.round(bossReward * proporcao);
+           // long expFinal = Math.round(expReward * proporcao);
 
+            long danoUsuario = entry.getValue(); 
+
+            long rewardFinal = (bossReward * danoUsuario) / totalDamage;
+            long expFinal = (expReward * danoUsuario) / totalDamage;
+
+            // garante que quem causou dano receba algo
+            if (rewardFinal == 0 && danoUsuario > 0) rewardFinal = 1;
+            if (expFinal == 0 && danoUsuario > 0) expFinal = 1;
+
+            
+            
             if (u.getBossCoins() == null) u.setBossCoins(BigDecimal.ZERO);
             u.setBossCoins(u.getBossCoins().add(BigDecimal.valueOf(rewardFinal)));
 
@@ -420,6 +437,9 @@ public class GlobalBossService {
         );
     }
 
+    //=============================================================
+    // finalizeHit
+    //=============================================================
     private Object finalizeHit(long usuarioId, Object resultado) {
         bossAttackService.registrarAtaque(usuarioId);
         return resultado;
@@ -782,8 +802,13 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
         
         registrarDano(bossName, usuario, damage);
-
-        return processReward(bossName, boss, damage);
+    /*
+        if (!boss.isAlive() || boss.getCurrentHp() <= 0) {
+            spawnRandomBoss();
+        }
+        
+        */
+        return processReward(bossName, boss, usuario, damage);
     }
 
     public Object atacarBossAtivo(UsuarioBossBattle usuario, long damage) {
