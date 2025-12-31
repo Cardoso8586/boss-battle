@@ -109,6 +109,10 @@ public class DashboardController {
 
         model.addAttribute("boss_coins", df.format(coins));
 
+        
+        
+        
+        
 
         return "dashboard"; // Nome do template HTML: dashboard.html
     }

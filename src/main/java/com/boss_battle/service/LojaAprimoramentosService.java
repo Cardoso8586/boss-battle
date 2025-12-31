@@ -12,7 +12,7 @@ public class LojaAprimoramentosService {
     // =====================================
     // PREÇO FIXO DA POÇÃO
     // =====================================
-    private static final long PRECO_BASE_PORCAOVIGOR = 10_000L;
+    private static final long PRECO_BASE_PORCAOVIGOR = 1_000L;
 
     // =====================================
     // AUMENTO FIXO POR COMPRA
