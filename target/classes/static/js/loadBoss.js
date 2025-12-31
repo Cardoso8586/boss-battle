@@ -12,7 +12,7 @@ let bossImagemAtual = null;
 let bossCache = null;
 
 const CACHE_KEY = "boss_active_cache";
-const CACHE_TTL = 1000; // 10s
+const CACHE_TTL = 10000; // 10s
 
 // ===============================
 // 💾 Cache helpers
@@ -76,68 +76,6 @@ function renderBossPlaceholder() {
     document.getElementById("boss-reward").innerText = "?";
     document.getElementById("boss-xp").innerText = "?";
 }
-
-function tocarSom() {
-	
-	let ultimoAudio = "";
-
-	
-	    const checkbox = document.getElementById("audio-toggle");
-	    if (!checkbox.checked) return; // ❌ usuário desligou o áudio
-
-	    const audiosScary = [
-	        "audio/scary1.mp3",
-	        "audio/scary2.mp3",
-	        "audio/scary3.mp3",
-	        "audio/scary4.mp3",
-	        "audio/scary5.mp3",
-			"audio/scary6.mp3"
-	    ];
-
-	    const audio = document.getElementById("super-scary");
-
-	    // escolhe áudio sem repetir
-	    let src;
-	    do {
-	        src = audiosScary[Math.floor(Math.random() * audiosScary.length)];
-	    } while (src === ultimoAudio);
-
-	    ultimoAudio = src;
-
-	    // reset seguro
-	    audio.pause();
-	    audio.currentTime = 0;
-	    audio.src = src;
-
-	    // autoplay seguro
-	    audio.muted = true;
-	    audio.volume = 0;
-
-	    audio.play().then(() => {
-	        audio.muted = false;
-
-	        let vol = 0;
-	        const alvo = 0.4 + Math.random() * 0.2;
-
-	        const fade = setInterval(() => {
-	            if (!checkbox.checked) {
-	                audio.pause();
-	                clearInterval(fade);
-	                return;
-	            }
-
-	            if (vol < alvo) {
-	                vol += 0.02;
-	                audio.volume = vol;
-	            } else {
-	                clearInterval(fade);
-	            }
-	        }, 80);
-	    }).catch(() => {});
-	}
-
-	
-
 
 
 // ===============================
@@ -460,6 +398,71 @@ setInterval(carregarBossAtivo, 3000);
 
  * 
  */
+
+
+ /**
+  *  function tocarSom() {
+  	
+  	let ultimoAudio = "";
+
+  	
+  	    const checkbox = document.getElementById("audio-toggle");
+  	    if (!checkbox.checked) return; // ❌ usuário desligou o áudio
+
+  	    const audiosScary = [
+  	        "audio/scary1.mp3",
+  	        "audio/scary2.mp3",
+  	        "audio/scary3.mp3",
+  	        "audio/scary4.mp3",
+  	        "audio/scary5.mp3",
+  			"audio/scary6.mp3"
+  	    ];
+
+  	    const audio = document.getElementById("super-scary");
+
+  	    // escolhe áudio sem repetir
+  	    let src;
+  	    do {
+  	        src = audiosScary[Math.floor(Math.random() * audiosScary.length)];
+  	    } while (src === ultimoAudio);
+
+  	    ultimoAudio = src;
+
+  	    // reset seguro
+  	    audio.pause();
+  	    audio.currentTime = 0;
+  	    audio.src = src;
+
+  	    // autoplay seguro
+  	    audio.muted = true;
+  	    audio.volume = 0;
+
+  	    audio.play().then(() => {
+  	        audio.muted = false;
+
+  	        let vol = 0;
+  	        const alvo = 0.4 + Math.random() * 0.2;
+
+  	        const fade = setInterval(() => {
+  	            if (!checkbox.checked) {
+  	                audio.pause();
+  	                clearInterval(fade);
+  	                return;
+  	            }
+
+  	            if (vol < alvo) {
+  	                vol += 0.02;
+  	                audio.volume = vol;
+  	            } else {
+  	                clearInterval(fade);
+  	            }
+  	        }, 80);
+  	    }).catch(() => {});
+  	}
+
+  	
+  */
+
 
 
 
