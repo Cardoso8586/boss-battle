@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
@@ -39,7 +40,9 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
+
 @Service
+@Transactional
 public class GlobalBossService {
 
     private final IgnorathService ignorathService;
@@ -182,6 +185,7 @@ public class GlobalBossService {
     // =============================
     // HIT NO BOSS ATIVO
     // =============================
+
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -208,7 +212,7 @@ public class GlobalBossService {
         else {
         	
         long ataqueBase = usuario.getAtaqueBase();
-        long ataqueEspecial = retaguardaService.processarAtaqueRetaguarda(usuarioId);
+        long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
 
         long damage = ataqueBase + ataqueEspecial;
 
@@ -304,6 +308,7 @@ public class GlobalBossService {
     // =============================
     // FUNÇÕES AUXILIARES
     // =============================
+   
     private Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
 
@@ -347,7 +352,7 @@ public class GlobalBossService {
         
     }
 
-
+    @Transactional
     private void registrarDano(String bossName, UsuarioBossBattle usuario, long damage) {
         BossDamageLog log = new BossDamageLog();
         log.setBossName(bossName);
@@ -364,6 +369,82 @@ public class GlobalBossService {
     //===================================
     //processReward
     //==================================
+
+    private Object processReward(
+            String bossName,
+            BattleBoss boss,
+            UsuarioBossBattle usuario,
+            long damage
+    ) {
+
+        if (boss.isAlive() && boss.getCurrentHp() > 0) {
+            return Map.of(
+                "boss", bossName,
+                "currentHp", boss.getCurrentHp(),
+                "rewardBoss", boss.getRewardBoss(),
+                "rewardExp", boss.getRewardExp(),
+                "damage", damage
+            );
+        }
+
+        long bossReward = boss.getRewardBoss();
+        long expReward = boss.getRewardExp();
+
+        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
+        if (logs.isEmpty()) return Map.of("status", "NO_DAMAGE_LOG");
+
+        long bossHpMax = boss.getMaxHp();
+
+        Map<Long, Long> damagePorUsuario = logs.stream()
+            .collect(Collectors.groupingBy(
+                BossDamageLog::getUserId,
+                Collectors.summingLong(BossDamageLog::getDamage)
+            ));
+
+        long totalDamage = Math.min(
+            damagePorUsuario.values().stream().mapToLong(Long::longValue).sum(),
+            bossHpMax
+        );
+
+        for (var entry : damagePorUsuario.entrySet()) {
+
+            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
+            if (u == null) continue;
+
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+
+            double proporcao = (double) danoUsuario / totalDamage;
+
+            long rewardFinal = Math.max(1, Math.round(bossReward * proporcao));
+            long expFinal = Math.max(1, Math.round(expReward * proporcao));
+
+            if (u.getBossCoins() == null) {
+                u.setBossCoins(BigDecimal.ZERO);
+            }
+
+            u.setBossCoins(
+                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
+            );
+
+            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+            usuarioService.adicionarExp(u.getId(), (int) expFinal);
+
+            usuarioRepo.save(u);
+        }
+
+        damageLogRepo.deleteByBossName(bossName);
+
+        return Map.of(
+            "boss", bossName,
+            "status", "DEFEATED",
+            "rewardTotal", bossReward,
+            "expTotal", expReward,
+            "participantes", damagePorUsuario.size()
+        );
+    }
+
+ 
+    /*
     private Object processReward(String bossName, BattleBoss boss,UsuarioBossBattle usuario, long damage) {
         if (boss.isAlive() && boss.getCurrentHp() > 0) {
           
@@ -436,10 +517,11 @@ public class GlobalBossService {
             "participantes", damagePorUsuario.size()
         );
     }
-
+*/
     //=============================================================
     // finalizeHit
     //=============================================================
+
     private Object finalizeHit(long usuarioId, Object resultado) {
         bossAttackService.registrarAtaque(usuarioId);
         return resultado;
@@ -448,6 +530,7 @@ public class GlobalBossService {
     // =============================
     // SPAWN E RESET
     // =============================
+    @Transactional
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
 
@@ -676,7 +759,7 @@ public class GlobalBossService {
         return newBoss;
     }
 
-    
+    @Transactional
     public void killAllBosses() {
         GlobalBossIgnorath ig = ignorathService.get();
         GlobalBossDrakthor dr = drakthorService.get();
@@ -756,6 +839,7 @@ public class GlobalBossService {
     // =============================
     // COOLDOWN
     // =============================
+
     public Map<String, Object> cooldown(Long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -771,7 +855,7 @@ public class GlobalBossService {
     
     //===============================  tryHitBossAuto =====================================================
     //=====================================================================================================
-    
+
     private Object tryHitBossAuto(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
 
@@ -811,6 +895,7 @@ public class GlobalBossService {
         return processReward(bossName, boss, usuario, damage);
     }
 
+    
     public Object atacarBossAtivo(UsuarioBossBattle usuario, long damage) {
         Object resultado = tryHitBossAuto("IGNORATH", ignorathService.get(), usuario, damage);
         if (resultado != null) return resultado;

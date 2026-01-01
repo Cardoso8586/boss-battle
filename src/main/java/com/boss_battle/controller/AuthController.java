@@ -52,10 +52,10 @@ public class AuthController {
 
         // Verifica se username ou email já existem
         if (usuarioRepository.existsByUsername(username)) {
-            return ResponseEntity.badRequest().body("Nome de usuário já existe.");
+            return ResponseEntity.badRequest().body("Esse nome de guerra já está em uso.");
         }
         if (usuarioRepository.existsByEmail(email)) {
-            return ResponseEntity.badRequest().body("Email já cadastrado.");
+            return ResponseEntity.badRequest().body("Este correio já foi registrado por outro guerreiro.");
         }
 
          // Cria usuário

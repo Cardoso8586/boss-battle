@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.repository.NightmareRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class NightmareService {
 
     @Autowired

@@ -1,0 +1,127 @@
+/* ===============================
+   RANKING - LISTA
+================================ */
+#rankingDano {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;           /* menos espaço entre itens */
+  list-style: none;
+  padding: 0;
+  margin: 0;           /* não centraliza */
+  max-width: 280px;    /* largura menor */
+}
+
+#rankingDano li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;  /* menos padding, ocupa menos espaço */
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 180, 0, 0.3);
+  box-shadow:
+    0 0 4px rgba(0, 0, 0, 0.5),
+    inset 0 0 6px rgba(255, 180, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.15s, background 0.15s;
+  font-size: 0.95rem;  /* menor tamanho de fonte */
+}
+
+/* destaque do próprio usuário */
+#rankingDano li.meu-ranking {
+  background: rgba(255, 180, 0, 0.2);
+  border-color: #ffb400;
+  box-shadow:
+    0 0 6px rgba(255, 180, 0, 0.6),
+    inset 0 0 6px rgba(255, 180, 0, 0.2);
+  font-weight: 900;
+  color: #ffb400;
+}
+
+/* efeito hover */
+#rankingDano li:hover {
+  transform: scale(1.02);
+  background: rgba(255, 180, 0, 0.1);
+}
+
+/* posição */
+#rankingDano .posicao {
+  min-width: 30px;    /* menos espaço */
+  text-align: left;
+  font-weight: 900;
+  color: #ffb400;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+/* nome */
+#rankingDano .nome {
+  flex-grow: 1;
+  padding-left: 8px;  /* menos padding */
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+/* dano */
+#rankingDano .dano {
+  min-width: 80px;    /* menos largura */
+  text-align: right;
+  font-weight: 900;
+  color: #ffb400;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 4px rgba(255, 180, 0, 0.8);
+  font-size: 0.95rem;
+}
+
+/* posição fora do top 10 */
+#minhaPosicaoRanking {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  text-align: left;
+  font-weight: 700;
+  color: #ffb400;
+  text-shadow:
+    0 0 3px rgba(0, 0, 0, 0.8);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  #rankingDano li {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 8px;
+  }
+
+  #rankingDano .dano {
+    text-align: left;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  #rankingDano li {
+    padding: 4px 6px;
+    font-size: 0.85rem;
+  }
+
+  #rankingDano .dano {
+    font-size: 0.9rem;
+    min-width: 70px;
+  }
+
+  #rankingDano .posicao {
+    min-width: 25px;
+    font-size: 0.85rem;
+  }
+}
+
+

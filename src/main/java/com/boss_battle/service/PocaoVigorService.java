@@ -21,11 +21,15 @@ public class PocaoVigorService {
      * Ativa poções automáticas de vigor
      * ❗ irreversível
      */
+    
+    @Transactional
     public void ativarPocaoVigor(Long usuarioId, int quantidade) {
 
-        UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+      //  UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
+         //   .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+    	 UsuarioBossBattle usuario = usuarioRepository.findByIdForUpdate(usuarioId)
+    		        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         // ❌ quantidade inválida
         if (quantidade < QTD_MINIMA_ATIVAR) {
             throw new RuntimeException(

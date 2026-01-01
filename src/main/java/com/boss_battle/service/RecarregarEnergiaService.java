@@ -17,7 +17,7 @@ public class RecarregarEnergiaService {
 	 @Transactional
 	 public UsuarioBossBattle recarregarEnergia(Long usuarioId) {
 	     UsuarioBossBattle usuario = repo.findById(usuarioId)
-	             .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+	     .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
 	     
 	     usuario.setEnergiaGuerreiros(usuario.getEnergiaGuerreirosPadrao());
 	     return repo.save(usuario); 

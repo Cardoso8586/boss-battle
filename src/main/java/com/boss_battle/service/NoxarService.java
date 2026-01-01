@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.repository.NoxarRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class NoxarService {
 
     @Autowired

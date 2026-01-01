@@ -3,6 +3,7 @@ package com.boss_battle.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +16,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class RetaguardaService {
+
 
     @Autowired
     private UsuarioBossBattleRepository repo;
@@ -44,10 +46,62 @@ public class RetaguardaService {
         usuario.setEnergiaGuerreiros(novaEnergia);
         repo.save(usuario);
     }
+    
+    //=================================================
+               //Ataque especial da reataguarda
+    //================================================
+   
+ 
+
+    public long ataqueSurpresaRetaguarda(Long usuarioId) {
+
+        UsuarioBossBattle usuario = repo.findById(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        long guerreiros = usuario.getGuerreirosRetaguarda() != null
+                ? usuario.getGuerreirosRetaguarda()
+                : 0L;
+
+        // 🎲 sorteio de 1 a 100
+        int sorteio = ThreadLocalRandom.current().nextInt(1, 101);
+
+        int multiplicador;
+        if (sorteio <= 80) {
+            multiplicador = 1;      // 80%
+        } else if (sorteio <= 90) {
+            multiplicador = 2;      // 10%
+        } else {
+            multiplicador = 3;      // 10%
+        }
+
+        return guerreiros * multiplicador;
+    }
+    
+    /**
+    public long ataqueSurpresaRetaguarda(Long usuarioId) {
+
+        UsuarioBossBattle usuario = repo.findById(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        
+        
+        
+        long guerreiros = usuario.getGuerreirosRetaguarda() != null
+                ? usuario.getGuerreirosRetaguarda()
+                : 0L;
+
+      //  long recuperacao = usuario.getRecuperacaoRetaguarda() != null
+               // ? usuario.getRecuperacaoRetaguarda()
+              //  : 0L;
+
+        return guerreiros * ATAQUE_SURPRESA_RETAGUARDA;
+    }
+*/
+    
     @Scheduled(fixedRate = 80000)
     public void processarRetaguarda() {
 
-        List<Long> ids = repo.findIdsAtivos(); // ideal
+        List<Long> ids = repo.findIdsAtivos(); 
       
         for (Long id : ids) {
             try {

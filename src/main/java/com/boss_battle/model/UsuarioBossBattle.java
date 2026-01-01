@@ -99,14 +99,14 @@ public class UsuarioBossBattle  {
     
   //coluna: quantidade de guerreiros
     @Column(name = "guerreiros_inventario", nullable = false)
-    private Long guerreirosInventario = 1L;
+    private Long guerreirosInventario = 0L;
     
     //==============================================================
     @Column(name = "guerreiros_retaguarda", nullable = false)
-    private Long guerreirosRetaguarda = 1L;
+    private Long guerreirosRetaguarda = 0L;
     
     @Column(name = "recuperacao_retaguarda", nullable = false)
-    private Long recuperacaoRetaguarda = 3L;
+    private Long recuperacaoRetaguarda = 2L;
     
     public Long getGuerreirosRetaguarda() {
         return guerreirosRetaguarda;
@@ -187,12 +187,12 @@ public class UsuarioBossBattle  {
     private Long precoGuerreiros = 1000L;
 
     @Column(name = "preco_energia", nullable = false)
-    private Long precoEnergia = 2000L;
+    private Long precoEnergia = 1000L;
 
   
 
     @Column(name = "preco_ataque_especial", nullable = false)
-    private Long precoAtaqueEspecial = 3000L;
+    private Long precoAtaqueEspecial = 1000L;
     
   //===========================================
  // GETTERS E SETTERS - LOJA

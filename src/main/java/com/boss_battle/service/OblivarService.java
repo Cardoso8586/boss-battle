@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.repository.OblivarRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class OblivarService {
 
     @Autowired

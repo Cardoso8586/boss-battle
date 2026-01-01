@@ -12,7 +12,10 @@ import com.boss_battle.model.RandomLevelReward.RewardType;
 import com.boss_battle.repository.RandomLevelRewardRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class RandomRewardService {
 
     private final RandomLevelRewardRepository rewardRepo;

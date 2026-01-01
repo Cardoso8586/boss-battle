@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.boss_battle.model.UsuarioBossBattle;
+
+import jakarta.persistence.LockModeType;
 
 public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBattle, Long> {
     Optional<UsuarioBossBattle> findByEmail(String email);
@@ -28,6 +32,9 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     	""")
     	List<Long> findIdsAtivos();
   
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM UsuarioBossBattle u WHERE u.id = :id")
+    Optional<UsuarioBossBattle> findByIdForUpdate(@Param("id") Long id);
 
 
 }

@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.repository.InfernaxRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class InfernaxService {
 
     @Autowired

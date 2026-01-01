@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.repository.PyragonRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class PyragonService {
 
     @Autowired

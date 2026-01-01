@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.repository.MechadronRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class MechadronService {
 
     @Autowired

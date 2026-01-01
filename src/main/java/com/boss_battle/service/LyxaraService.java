@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.repository.LyxaraRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class LyxaraService {
 
     @Autowired

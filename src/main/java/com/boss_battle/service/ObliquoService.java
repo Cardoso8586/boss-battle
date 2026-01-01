@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.repository.ObliquoRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ObliquoService {
 
     @Autowired

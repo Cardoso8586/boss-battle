@@ -2,11 +2,13 @@ package com.boss_battle.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
 @Service
+@Transactional
 public class UsuarioBossBattleService {
 
     @Autowired

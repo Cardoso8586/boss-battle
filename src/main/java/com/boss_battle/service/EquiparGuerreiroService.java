@@ -21,8 +21,10 @@ public class EquiparGuerreiroService {
     
     @Transactional
     public Map<String, Number> equiparGuerreiro(Long usuarioId) {
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+       // UsuarioBossBattle usuario = repo.findById(usuarioId)
+         //   .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (usuario.getGuerreirosInventario() <= 0) {
             return Map.of("sucesso", 0);
@@ -49,8 +51,11 @@ public class EquiparGuerreiroService {
     @Transactional
     public Map<String, Number> adicionarGuerreirosRetaguarda(Long usuarioId) {
 
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+       // UsuarioBossBattle usuario = repo.findById(usuarioId)
+              //  .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+
+    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (usuario.getGuerreirosInventario() <= 0) {
             return Map.of("sucesso", 0);
@@ -75,9 +80,12 @@ public class EquiparGuerreiroService {
  @Transactional
  public Map<String, Number> retirarGuerreiroAtaque(Long usuarioId) {
 
-     UsuarioBossBattle usuario = repo.findById(usuarioId)
-             .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+     //UsuarioBossBattle usuario = repo.findById(usuarioId)
+           //  .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+	 UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+		        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+	 
      if (usuario.getGuerreiros() <= 0) {
          return Map.of("sucesso", 0);
      }
@@ -101,8 +109,10 @@ public class EquiparGuerreiroService {
  @Transactional
  public Map<String, Number> retirarGuerreiroRetaguarda(Long usuarioId) {
 
-     UsuarioBossBattle usuario = repo.findById(usuarioId)
-             .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+    // UsuarioBossBattle usuario = repo.findById(usuarioId)
+            // .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+	 UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+		        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
      if (usuario.getGuerreirosRetaguarda() <= 0) {
          return Map.of("sucesso", 0);

@@ -23,8 +23,10 @@ public class ComprarVigorAutoService {
      */
     @Transactional
     public boolean comprarVigorAuto(Long usuarioId, long quantidade) {
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+       // UsuarioBossBattle usuario = repo.findById(usuarioId)
+           // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Preço unitário da poção
         BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPrecoBasePorcaovigor());

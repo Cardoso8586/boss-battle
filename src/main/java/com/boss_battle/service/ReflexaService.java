@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.repository.ReflexaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ReflexaService {
 
     @Autowired

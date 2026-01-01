@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossThunderon;
 import com.boss_battle.repository.ThunderonRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ThunderonService {
 
     @Autowired

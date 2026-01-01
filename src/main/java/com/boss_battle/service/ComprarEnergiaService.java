@@ -24,9 +24,13 @@ public class ComprarEnergiaService {
     @Transactional
     public boolean comprarEnergia(Long usuarioId, int quantidade) {
 
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+       // UsuarioBossBattle usuario = repo.findById(usuarioId)
+           // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+    	
         // ✅ preço unitário vem do usuário
         BigDecimal precoUnitario =
                 BigDecimal.valueOf(usuario.getPrecoEnergia());

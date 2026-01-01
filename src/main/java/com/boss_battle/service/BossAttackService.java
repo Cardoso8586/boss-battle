@@ -8,11 +8,13 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
 @Service
+@Transactional
 public class BossAttackService {
 
     private final Random random = new Random();
@@ -52,6 +54,7 @@ public class BossAttackService {
         return Math.max(segundos, 0);
     }
 
+    @Transactional
     public void registrarAtaque(Long usuarioId) {
         int tentativas = 0;
 

@@ -30,7 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarNucleoGuerreiro(status);
 
         } catch (e) {
-            console.error("Erro ao atualizar núcleo do guerreiro:", e);
+            //console.error("Erro ao atualizar núcleo do guerreiro:", e);
+			Swal.fire({
+							customClass: {
+							      title: 'swal-game-text'
+							    },
+			                icon: 'error',
+			                title: 'Erro',
+			                text: 'Erro ao atualizar núcleo do guerreiro:',
+							timer: 4000,
+							showConfirmButton: false,
+							 background: 'transparent',
+							color: '#ffb400'
+			            });
         }
     }
 	function atualizarNucleoGuerreiro(status) {
@@ -120,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            }
 
 	        } catch (e) {
-	            console.error(e);
+	          //  console.error(e);
 	            Swal.fire({
 					customClass: {
 					      title: 'swal-game-text'

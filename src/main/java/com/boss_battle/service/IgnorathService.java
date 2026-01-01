@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.repository.IgnorathRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class IgnorathService {
 
     @Autowired

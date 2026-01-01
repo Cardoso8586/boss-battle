@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.repository.FlamorRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class FlamorService {
 
     @Autowired

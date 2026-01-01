@@ -22,9 +22,13 @@ public class ComprarGuerreiroService {
     @Transactional
     public boolean comprarGuerreiro(Long usuarioId, int quantidade) {
 
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+       // UsuarioBossBattle usuario = repo.findById(usuarioId)
+            //.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+    	
         BigDecimal precoUnitario =
                 BigDecimal.valueOf(usuario.getPrecoGuerreiros());
 

@@ -113,7 +113,10 @@ public class SecurityConfig {
                         "/equipar/retaguarda/**",
                         "/retirar/ataque/**",
                         "/retirar/retaguarda/**",
-                        "/retaguarda/reparo/**" 
+                        "/retaguarda/reparo/**",
+                        "/api/boss/ranking/dano/**"
+                        
+                        
                        
                         
                         

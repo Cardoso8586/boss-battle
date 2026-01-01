@@ -1,37 +1,57 @@
 package com.boss_battle.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.boss_battle.dto.BossDamageLogDTO;
-import com.boss_battle.model.BossDamageLog;
 import com.boss_battle.repository.BossDamageLogRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class BossDamageLogService {
 
     @Autowired
     private BossDamageLogRepository repo;
 
+  
     @Transactional
-    public void clearBossDamage(String bossName) {
-        repo.deleteByBossName(bossName);
+    public List<Map<String, Object>> top10Dano() {
+        return repo.top10Geral(PageRequest.of(0, 10))
+            .stream()
+            .map(r -> Map.of(
+                "userName", r[1], // já é String
+                "ataques", r[2] != null ? convertToLong(r[2]) : 0,
+                "damage", r[3] != null ? convertToLong(r[3]) : 0
+            ))
+            .toList();
     }
-    
-    
-    /** public List<BossDamageLog> ultimosAtaques(int quantidade) {
-        return repo.findAllByOrderByIdDesc(
-            PageRequest.of(0, quantidade)
-        );
+
+    // utilitário
+    private long convertToLong(Object value) {
+        if (value instanceof Number n) {
+            return n.longValue();
+        } else if (value instanceof String s) {
+            return Long.parseLong(s);
+        } else {
+            throw new IllegalArgumentException("Tipo inesperado: " + value.getClass());
+        }
     }
-     * Retorna os últimos n ataques de um boss específico.
-     */
-   
+
+    
+    public String posicaoUsuario(Long userId) {
+        Integer posicao = repo.buscarPosicaoUsuario(userId);
+        if (posicao == null) {
+            return "Sem ranking";
+        }
+        return posicao + "º";
+    }
+
     
     public List<BossDamageLogDTO> ultimosAtaques(int quantidade) {
         return repo.ultimosAtaques(

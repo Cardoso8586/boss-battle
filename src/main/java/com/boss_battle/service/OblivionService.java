@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossOblivion;
 import com.boss_battle.repository.OblivionRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class OblivionService {
 
     @Autowired

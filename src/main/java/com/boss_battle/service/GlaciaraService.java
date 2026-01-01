@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.repository.GlaciaraRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class GlaciaraService {
 
     @Autowired
