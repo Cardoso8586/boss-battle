@@ -400,24 +400,28 @@ public class GlobalBossService {
                 BossDamageLog::getUserId,
                 Collectors.summingLong(BossDamageLog::getDamage)
             ));
-
+/*
         long totalDamage = Math.min(
             damagePorUsuario.values().stream().mapToLong(Long::longValue).sum(),
             bossHpMax
         );
-
+*/
         for (var entry : damagePorUsuario.entrySet()) {
 
             UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
             if (u == null) continue;
 
+            
             long danoUsuario = Math.min(entry.getValue(), bossHpMax);
 
-            double proporcao = (double) danoUsuario / totalDamage;
+            double percentual = (double) danoUsuario / bossReward;
+            long rewardFinal = Math.max(1, Math.round((bossReward * percentual) / 100));
+            
+            double percentualXP = (double) danoUsuario / expReward;
+            long expFinal = Math.round((expReward * percentualXP) / 100);
 
-            long rewardFinal = Math.max(1, Math.round(bossReward * proporcao));
-            long expFinal = Math.max(1, Math.round(expReward * proporcao));
-
+            
+            
             if (u.getBossCoins() == null) {
                 u.setBossCoins(BigDecimal.ZERO);
             }

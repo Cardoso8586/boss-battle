@@ -18,16 +18,7 @@ List<BossDamageLog> findByBossName(String bossName);
 
 long countByBossName(String bossName);
 
-/**
-@Modifying
-@Query("""
-        SELECT b.userId, SUM(b.damage)
-        FROM BossDamageLog b
-        WHERE b.bossName = :bossName
-        GROUP BY b.userId
-    """)
-    List<Object[]> sumDamageByUser(@Param("bossName") String bossName);
-*/
+
     void deleteByBossName(String bossName);
     @Query(value = """
     	    SELECT 
@@ -40,7 +31,8 @@ long countByBossName(String bossName);
     	    ORDER BY SUM(b.damage) DESC
     	""", nativeQuery = true)
     	List<Object[]> top10Geral(Pageable pageable);
-
+    	
+//=====================================================================================
     	@Query(value = """
     		    SELECT COUNT(*) + 1
     		    FROM (
@@ -52,7 +44,9 @@ long countByBossName(String bossName);
     		        (SELECT SUM(damage) FROM boss_damage_log WHERE user_id = :userId)
     		""", nativeQuery = true)
     		Integer buscarPosicaoUsuario(@Param("userId") Long userId);
-
+    	
+//=====================================================================================
+    	
     	@Query(value = """
     		    SELECT 
     		        COALESCE(MAX(b.user_name), 'Desconhecido') AS userName,
@@ -64,6 +58,8 @@ long countByBossName(String bossName);
 
     
   //  List<Object[]> sumDamageByUser(@Param("bossName") String bossName);
+    	
+//===================================================================================    	
     @Query("""
             SELECT new com.boss_battle.dto.BossDamageLogDTO(
                 b.userName,
