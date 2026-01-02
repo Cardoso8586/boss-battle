@@ -48,13 +48,11 @@ long countByBossName(String bossName);
 //=====================================================================================
     	
     	@Query(value = """
-    		    SELECT 
-    		        COALESCE(MAX(b.user_name), 'Desconhecido') AS userName,
-    		        SUM(b.damage) AS danoTotal
-    		    FROM boss_damage_log b
-    		    WHERE b.user_id = :userId
+    		    select sum(damage)
+    		    from boss_damage_log
+    		    where user_id = :userId
     		""", nativeQuery = true)
-    		Object[] buscarResumoUsuario(@Param("userId") Long userId);
+    		Integer buscarResumoUsuario(@Param("userId") Long userId);
 
     
   //  List<Object[]> sumDamageByUser(@Param("bossName") String bossName);

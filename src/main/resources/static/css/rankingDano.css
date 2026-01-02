@@ -4,7 +4,7 @@
 #rankingDano {
   display: flex;
   flex-direction: column;
-  gap: 6px;           /* menos espaço entre itens */
+  gap: 10px;           /* menos espaço entre itens */
   list-style: none;
   padding: 0;
   margin: 0;           /* não centraliza */
@@ -115,7 +115,7 @@
 
   #rankingDano .dano {
     font-size: 0.9rem;
-    min-width: 70px;
+    min-width: 100px;
   }
 
   #rankingDano .posicao {
