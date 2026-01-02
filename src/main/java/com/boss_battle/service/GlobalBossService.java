@@ -414,7 +414,7 @@ public class GlobalBossService {
             
             long danoUsuario = Math.min(entry.getValue(), bossHpMax);
 
-            double percentual = (double) danoUsuario / bossReward;
+            double percentual = (double) danoUsuario / bossHpMax;
             long rewardFinal = Math.max(1, Math.round((bossReward * percentual) / 100));
             
             double percentualXP = (double) danoUsuario / expReward;
