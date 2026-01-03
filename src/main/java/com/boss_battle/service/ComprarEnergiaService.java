@@ -10,6 +10,7 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
 @Service
+@Transactional
 public class ComprarEnergiaService {
 
     @Autowired

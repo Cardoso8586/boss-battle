@@ -11,6 +11,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ComprarAtaqueEspecialService {
 
     @Autowired
@@ -23,7 +24,7 @@ public class ComprarAtaqueEspecialService {
      * Compra pontos de ataque especial para o usuário
      */
     
-    @Transactional
+   
     public boolean comprarAtaqueEspecial(Long usuarioId, int quantidade) {
 
       //  UsuarioBossBattle usuario = repo.findById(usuarioId)

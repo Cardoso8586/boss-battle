@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
+import jakarta.transaction.Transactional;
+
 
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired

@@ -25,8 +25,34 @@ public class GuerreiroAutoAttackService {
 	    @Autowired
 	    GlobalBossService globalBossService;
 	    
-	    
-	    
+	    @Transactional(Transactional.TxType.REQUIRES_NEW)
+	    public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
+
+	        Long guerreiros = usuario.getGuerreiros();
+	        Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
+	        Long energia = usuario.getEnergiaGuerreiros();
+
+	        if (energia == null || energia <= 0) return;
+	        if (guerreiros == null || guerreiros <= 0) return;
+
+	        if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
+
+	        long dano = guerreiros * ataqueBase;
+
+	        globalBossService.atacarBossAtivo(usuario, dano);
+
+	        // 🔒 trava energia para nunca voltar a atacar
+	        long energiaFinal = energia - dano;
+	        if (energiaFinal < 0) energiaFinal = 0;
+
+	        usuario.setEnergiaGuerreiros(energiaFinal);
+
+	        pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
+
+	        repo.save(usuario);
+	    }
+   
+	  /**  
 @Transactional(Transactional.TxType.REQUIRES_NEW)
 public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
 
@@ -49,6 +75,7 @@ public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
 
     repo.save(usuario);
 }
+*/
 @Scheduled(fixedRate = 60000)
 public void ataqueAutomatico() {
 

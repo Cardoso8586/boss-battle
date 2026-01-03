@@ -9,6 +9,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class PocaoVigorService {
 
     private static final long LIMITE_ENERGIA = 10;
@@ -22,7 +23,7 @@ public class PocaoVigorService {
      * ❗ irreversível
      */
     
-    @Transactional
+
     public void ativarPocaoVigor(Long usuarioId, int quantidade) {
 
       //  UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
@@ -56,7 +57,7 @@ public class PocaoVigorService {
     }
     
     //===================================================================================
-    @Transactional
+
     public boolean verificarEUsarPocaoSeAtiva(UsuarioBossBattle usuario) {
 
         Long energia = usuario.getEnergiaGuerreiros();

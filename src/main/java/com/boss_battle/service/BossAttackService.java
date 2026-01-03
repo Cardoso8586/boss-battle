@@ -54,7 +54,7 @@ public class BossAttackService {
         return Math.max(segundos, 0);
     }
 
-    @Transactional
+  
     public void registrarAtaque(Long usuarioId) {
         int tentativas = 0;
 

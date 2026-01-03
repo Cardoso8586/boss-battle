@@ -186,6 +186,7 @@ public class GlobalBossService {
     // HIT NO BOSS ATIVO
     // =============================
 
+    @Transactional
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -308,7 +309,7 @@ public class GlobalBossService {
     // =============================
     // FUNÇÕES AUXILIARES
     // =============================
-   
+    @Transactional
     private Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
 
@@ -353,7 +354,7 @@ public class GlobalBossService {
     }
 
     @Transactional
-    private void registrarDano(String bossName, UsuarioBossBattle usuario, long damage) {
+    public void registrarDano(String bossName, UsuarioBossBattle usuario, long damage) {
         BossDamageLog log = new BossDamageLog();
         log.setBossName(bossName);
         log.setUserId(usuario.getId());
@@ -369,7 +370,7 @@ public class GlobalBossService {
     //===================================
     //processReward
     //==================================
-
+    @Transactional
     private Object processReward(
             String bossName,
             BattleBoss boss,
@@ -386,7 +387,7 @@ public class GlobalBossService {
                 "damage", damage
             );
         }
-
+      
         long bossReward = boss.getRewardBoss();
         long expReward = boss.getRewardExp();
 
@@ -415,10 +416,11 @@ public class GlobalBossService {
             long danoUsuario = Math.min(entry.getValue(), bossHpMax);
 
             double percentual = (double) danoUsuario / bossHpMax;
-            long rewardFinal = Math.max(1, Math.round((bossReward * percentual) / 100));
+            long rewardFinal = Math.max(1, Math.round(bossReward * percentual));
+
             
-            double percentualXP = (double) danoUsuario / expReward;
-            long expFinal = Math.round((expReward * percentualXP) / 100);
+            double percentualXP = (double) danoUsuario / bossHpMax;
+            long expFinal = Math.max(1, Math.round(expReward * percentualXP));
 
             
             
@@ -435,8 +437,10 @@ public class GlobalBossService {
 
             usuarioRepo.save(u);
         }
-
-        damageLogRepo.deleteByBossName(bossName);
+        resetBoss();
+        //damageLogRepo.deleteByBossName(bossName);
+      //  spawnRandomBoss();
+      
 
         return Map.of(
             "boss", bossName,
@@ -445,6 +449,12 @@ public class GlobalBossService {
             "expTotal", expReward,
             "participantes", damagePorUsuario.size()
         );
+    }
+
+    @Transactional
+    public void resetBoss() {
+        damageLogRepo.deleteAllLogs();
+        spawnRandomBoss();
     }
 
  
@@ -525,7 +535,7 @@ public class GlobalBossService {
     //=============================================================
     // finalizeHit
     //=============================================================
-
+    @Transactional
     private Object finalizeHit(long usuarioId, Object resultado) {
         bossAttackService.registrarAtaque(usuarioId);
         return resultado;
@@ -859,7 +869,7 @@ public class GlobalBossService {
     
     //===============================  tryHitBossAuto =====================================================
     //=====================================================================================================
-
+    @Transactional
     private Object tryHitBossAuto(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
 

@@ -21,7 +21,7 @@ public class BossDamageLogService {
     private BossDamageLogRepository repo;
 
   
-    @Transactional
+
     public List<Map<String, Object>> top10Dano() {
         return repo.top10Geral(PageRequest.of(0, 10))
             .stream()

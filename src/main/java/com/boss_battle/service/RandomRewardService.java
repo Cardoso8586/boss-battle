@@ -96,6 +96,7 @@ public class RandomRewardService {
 
 
     // 🎲 GERADOR DE PRÊMIO
+    @Transactional
     private RandomLevelReward generateAndSave(Long userId) {
 
         // Remove qualquer reward anterior para o usuário

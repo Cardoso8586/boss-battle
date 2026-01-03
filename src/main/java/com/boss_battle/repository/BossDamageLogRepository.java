@@ -19,7 +19,15 @@ List<BossDamageLog> findByBossName(String bossName);
 long countByBossName(String bossName);
 
 
+
+@Modifying(clearAutomatically = true, flushAutomatically = true)
+@Query("DELETE FROM BossDamageLog")
+void deleteAllLogs();
+
+
     void deleteByBossName(String bossName);
+    
+    
     @Query(value = """
     	    SELECT 
     	        b.user_id,

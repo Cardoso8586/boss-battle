@@ -11,6 +11,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ComprarGuerreiroService {
 
     @Autowired

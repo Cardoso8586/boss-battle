@@ -12,6 +12,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 
 
 @Service
+@Transactional
 public class ReferidosRecompensaService {
 	
 
@@ -19,7 +20,7 @@ public class ReferidosRecompensaService {
     private UsuarioBossBattleRepository usuarioRepository;
 	
 	
-    @Transactional
+
     public void adicionarGanho(UsuarioBossBattle usuario, BigDecimal valor) {
       
        
@@ -52,7 +53,7 @@ public class ReferidosRecompensaService {
 	
 	  // =========================================  claimGanhos ===============================================================
 
-    @Transactional
+ 
     public void claimGanhos(UsuarioBossBattle usuario) {
         BigDecimal totalClaim = BigDecimal.ZERO;
 
