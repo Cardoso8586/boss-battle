@@ -31,17 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (e) {
             //console.error("Erro ao atualizar núcleo do guerreiro:", e);
-			Swal.fire({
-							customClass: {
-							      title: 'swal-game-text'
-							    },
+			Swal.fire({			
+			customClass: {
+			title: 'swal-game-error'
+			},
 			                icon: 'error',
 			                title: 'Erro',
 			                text: 'Erro ao atualizar núcleo do guerreiro:',
 							timer: 4000,
 							showConfirmButton: false,
 							 background: 'transparent',
-							color: '#ffb400'
+							color: '#ff3b3b' 
 			            });
         }
     }
@@ -135,15 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	          //  console.error(e);
 	            Swal.fire({
 					customClass: {
-					      title: 'swal-game-text'
-					    },
+								title: 'swal-game-error'
+								},
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar guerreiro.',
 					timer: 4000,
 					showConfirmButton: false,
 					 background: 'transparent',
-					color: '#ffb400'
+					color: '#ff3b3b' 
 	            });
 	        } finally {
 	            setTimeout(() => {

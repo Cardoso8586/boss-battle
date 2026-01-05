@@ -76,7 +76,7 @@ public class GlobalBossService {
     private final ReferidosRecompensaService referidosService;
     private final UsuarioBossBattleService usuarioService;
     private final BossAttackService bossAttackService;
-    private final BossDamageLogService bossDamageLogService;
+    //private final BossDamageLogService bossDamageLogService;
     
    
     private final RetaguardaService retaguardaService;
@@ -129,7 +129,7 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
-        this.bossDamageLogService = bossDamageLogService;
+        //this.bossDamageLogService = bossDamageLogService;
         this.nightmareService = nightmareService;
         this.flamorService = flamorService;
         this.oblivarService = oblivarService;
@@ -412,16 +412,41 @@ public class GlobalBossService {
             UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
             if (u == null) continue;
 
+            //*
+            //TESTE 3  
+            //OBSERVAR
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+
+            long rewardFinal = (bossReward * danoUsuario) / bossHpMax;
+            long expFinal    = (expReward * danoUsuario) / bossHpMax;
+
+            // garante pagamento mínimo
+            rewardFinal = Math.max(1, rewardFinal);
+            expFinal    = Math.max(1, expFinal);
+
             
+            /**
+            //codigo com  Math.ceil paga pelo menos 1 proporcional, funciona/PARECE!
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+
+            double percentual = (double) danoUsuario / bossHpMax;
+
+            long rewardFinal = Math.max(1, (long) Math.ceil(bossReward * percentual));
+            long expFinal    = Math.max(1, (long) Math.ceil(expReward * percentual));
+
+*/
+            /***
+             // codigo com Math.round arredondando pra baixo, não esta bom
             long danoUsuario = Math.min(entry.getValue(), bossHpMax);
 
             double percentual = (double) danoUsuario / bossHpMax;
             long rewardFinal = Math.max(1, Math.round(bossReward * percentual));
+            
 
             
             double percentualXP = (double) danoUsuario / bossHpMax;
             long expFinal = Math.max(1, Math.round(expReward * percentualXP));
-
+*/
             
             
             if (u.getBossCoins() == null) {
