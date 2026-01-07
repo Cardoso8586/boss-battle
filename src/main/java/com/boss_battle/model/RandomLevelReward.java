@@ -58,6 +58,7 @@ public class RandomLevelReward {
     public enum RewardItem {
         BOSS_COIN,
         POCAO_VIGOR,
+        ESPADA_FLANEJANTE,
         GUERREIRO_BASICO,
         GUERREIRO_RARO,
         ATAQUE_SPECIAL,

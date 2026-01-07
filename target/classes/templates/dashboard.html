@@ -49,6 +49,137 @@ ranslate escondido -->
 
 
         </div>
+<!-- Spinner de carregamento com texto dinâmico -->
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <span id="loading-text" class="swal-game-text"></span>
+</div>
+
+<script>
+// Lista de textos épicos
+const loadingMessages = [
+  "Indo pra arena...",
+  "Preparando os guerreiros...",
+  "Aquecendo as espadas...",
+  "O combate vai começar...",
+  "Entrando na batalha...",
+  "Forjando heróis...",
+  "Se preparando para a glória...",
+  "Carregando ação épica..."
+];
+
+// Mostra imediatamente um texto aleatório
+function setRandomLoadingText() {
+    const textEl = document.getElementById('loading-text');
+    const message = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    textEl.textContent = message;
+}
+
+// Mostrar o texto **imediatamente** ao iniciar
+setRandomLoadingText();
+
+// Espera todas as imagens carregarem
+window.addEventListener('load', () => {
+    const loading = document.getElementById('loading');
+    if (loading) {
+        // Aguarda 1,5s para o usuário ler o texto e então faz fade-out
+        setTimeout(() => {
+            loading.style.opacity = '0';
+            setTimeout(() => loading.remove(), 1000);
+        }, 1500);
+    }
+});
+</script>
+
+
+<style>
+/* Container centralizado e com fundo transparente */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9); /* fundo escuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* espaço entre spinner e texto */
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease; /* fade suave */
+  flex-wrap: wrap;
+}
+
+/* Spinner girando */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255,255,255,0.2);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Animação do spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Estilo épico do texto */
+.swal-game-text {
+  color: #ffb400 !important;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  /* contorno fake (stroke) + glow */
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+     0 0 6px rgba(255, 180, 0, 0.9),
+     0 0 14px rgba(255, 160, 0, 0.8),
+     0 0 28px rgba(255, 120, 0, 0.7);
+
+  animation: glowPulse 1.3s infinite alternate;
+  text-align: center;
+}
+
+/* animação de brilho pulsante */
+@keyframes glowPulse {
+  from {
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0 0 8px rgba(255, 180, 0, 0.7),
+       0 0 16px rgba(255, 160, 0, 0.5);
+  }
+  to {
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0 0 14px rgba(255, 200, 0, 1),
+       0 0 36px rgba(255, 140, 0, 0.9);
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+        
         
 <!-- Font Awesome para ícones -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -191,10 +322,27 @@ ranslate escondido -->
 
             <!-- Guerreiros -->
             <h2 class="card-title"> Meus Guerreiros</h2>
+            
+<div id="espadaDesgasteContainer" class="hidden">
+
+<!-- Segundo lugar -->
+<div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+    ✔ Espada equipada
+</div>
+    <strong class="titulo-durabilidade">Durabilidade</strong>
+
+    <div class="barra-wrapper">
+        <progress id="barraEspada" max="100" value="100"></progress>
+        <span id="espadaDesgasteTexto">100%</span>
+    </div>
+</div>
+
+            
 
             <div class="card-section">
-                <img id="guerreiro-image" src="/images/guerreiro.webp" alt="guerreiro">
+                <img id="guerreiro-image" src="" alt="guerreiro">
                <p>
+    
     <strong>Ataque:</strong>
     <span class="ataque-container">
         <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
@@ -270,9 +418,27 @@ ranslate escondido -->
         <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
         <button id="btnAtivarPocao" class="btn-nucleo-acao hidden"> Ativar Poção</button>
 
+
+  <!-- ESPADAS -->
+<div class="nucleo-item">
+    <img src="icones/espada_flanejante.webp" alt="Espada Flanejante" class="icone-item">
+    Espada Flanejante: <span id="espadaFlanejante">0</span>
+</div>
+
+<!-- Primeiro lugar -->
+<div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+    ✔ Espada equipada
+</div>
+
+<button id="btnAtivarEspadaFlanejante"
+        class="btn-nucleo-acao hidden">
+    Ativar Espada
+</button>
+
+
         <!-- GUERREIRO -->
        <div class="nucleo-item">
-       <img src="icones/guerreiro.webp" alt="Guerreiro" class="icone-item">
+       <img src="icones/guerreiro_padrao.webp" alt="Guerreiro" class="icone-item">
        Guerreiros Disponíveis: <span id="guerreirosCount">0</span>
        
        
@@ -402,7 +568,7 @@ Dano
     <h3>Guerreiro</h3>
 
     <!-- Imagem do Guerreiro -->
-    <img src="images/guerreiro.webp" alt="Guerreiro" class="card-imagem" />
+    <img src="images/guerreiro_padrao.webp" alt="Guerreiro" class="card-imagem" />
     
 
     <p>Adicione mais guerreiros ao seu exército.</p>
@@ -465,6 +631,22 @@ Dano
 </div>
 
 
+
+<!-- Espada Flanejante (Item Raro) -->
+<div class="loja-card">
+    <h3>Espada Flanejante</h3>
+
+    <!-- Imagem do item -->
+    <img src="icones/espada_flanejante.webp" alt="Espada Flanejante" class="espada-flanejante-imagem" />
+
+    <p>Aumenta o ataque em 20% durante a vida útil da espada. Durante o uso, a espada se desgasta.</p>
+    <p>Preço por unidade: <span class="preco" id="preco-espada-flanejante" data-preco-item="EspadaFlanejante"></span></p>
+    
+    <label for="quantidade-espada-flanejante">Quantidade que deseja comprar:</label>
+    <input type="number" id="quantidade-espada-flanejante" class="quantidade-item" min="1" value="1">
+    <button class="btn-comprar" data-item="espada-flanejante">Comprar Poção</button>
+    
+</div>
 
 
 
@@ -757,6 +939,7 @@ Dano
     <!-- loja --> 
     <script src="/js/atualizarPrecosLoja.js"></script>
     <script src="/js/comprarGuerreiro.js"></script>
+    <script src="/js/comprarEspadaFlanejante.js" defer></script>
 
     <script src="/js/comprarCapacidadeVigor.js"></script> 
     <script src="/js/comprarAtaqueEspecial.js"></script> 
@@ -773,8 +956,8 @@ Dano
      <script src="/js/retirarAtaqueRetaguarda.js" defer></script>       
      <script src="/js/atualizarReparoRetaguarda.js" defer></script> 
      <script src="/js/atualizarAtaquePorMinuto.js" defer></script>   
-      <script src="/js/carregarRankingDano.js" defer></script>
-     
+     <script src="/js/carregarRankingDano.js" defer></script>  
+     <script src="/js/equiparEspadaFlanejante.js" defer></script>
     
     
     

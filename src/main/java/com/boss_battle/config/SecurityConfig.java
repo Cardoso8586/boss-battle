@@ -103,6 +103,7 @@ public class SecurityConfig {
                         "/comprar/ataque/**",
                         "/comprar/energia/**",
                         "/comprar/ataque-especial/**",
+                        "/comprar/espada/flanejante/**",
                         "/api/loja/**",
                         "/claim-referidos/**",
                         "/api/pocao-vigor/ativar/**",
@@ -114,7 +115,9 @@ public class SecurityConfig {
                         "/retirar/ataque/**",
                         "/retirar/retaguarda/**",
                         "/retaguarda/reparo/**",
-                        "/api/boss/ranking/dano/**"
+                        "/api/boss/ranking/dano/**",
+                        "/api/espada-flanejante/ativar/**"
+                     
                         
                         
                        

@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const ataquePorMinuto  = document.getElementById('ataquePorMinuto');
 	const xp = document.getElementById('xp');
 	const guerreirosRetaguarda  = document.getElementById('guerreirosRetaguarda');
+	const espadaFlanejante  = document.getElementById('espadaFlanejante');
+
 	
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
@@ -35,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			ataquePorMinuto.textContent = formatarNumero(data.ataquePorMinuto);
 			xp.textContent = formatarNumero(data.xp);
 			guerreirosRetaguarda.textContent  = formatarNumero(data.guerreirosRetaguarda);
-			
-			
+			espadaFlanejante.textContent = formatarNumero(data.espadaflanejante);
+		
             // Atualiza valores
             energiaAtual.textContent = formatarNumero(energia);
             energiaMaxima.textContent = formatarNumero(energiaMax);
@@ -45,11 +47,45 @@ document.addEventListener('DOMContentLoaded', () => {
             energiaBar.style.width = percentualEnergia + '%';
 
             // Liberar botão quando energia < 50%
-            if (energia / energiaMax < 0.3) {
+            if (energia / energiaMax < 0.2) {
                 btnRecarregar.disabled = false;
             } else {
                 btnRecarregar.disabled = true;
             }
+			
+			
+			//==================================================================================
+			const container = document.getElementById('espadaDesgasteContainer');
+			const barra = document.getElementById('barraEspada');
+			const texto = document.getElementById('espadaDesgasteTexto');
+
+			const ativa = data.ativaEspadaFlanejante;        // ex: 0 ou 1
+			const desgaste = data.desgasteEspadaFlanejante; // ex: 100 → 0
+           
+			
+			if (ativa !== null && ativa > 0) {
+			    // ✅ TEM espada ativa → MOSTRA
+			    container.classList.remove('hidden');
+
+			    barra.value = desgaste;
+			    texto.textContent = `${desgaste}%`;
+				
+				
+				// Troca a imagem do guerreiro
+				  const guerreiroImage = document.getElementById('guerreiro-image');
+				  guerreiroImage.src = "/icones/guerreiroPadrao_espadaFlanejante.webp";
+				
+			} else {
+			    // ❌ NÃO tem espada ativa → ESCONDE
+			    container.classList.add('hidden');
+				// Caso a espada não esteja ativa, volta para a imagem padrão
+				   const guerreiroImage = document.getElementById('guerreiro-image');
+				   guerreiroImage.src = "/images/guerreiro_padrao.webp";
+			}
+
+			
+			
+			
 
         } catch (err) {
             console.error(err);

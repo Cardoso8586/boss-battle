@@ -69,9 +69,45 @@ public class UsuarioBossBattle  {
     @Column(name = "pocao_vigor_ativa", nullable = false)
     private long pocaoVigorAtiva; // quantidade equipada
 
-
+    @Column(name = "espada_flanejante", nullable = false)
+    private long espadaFlanejante; // quantidade total
+    
+    @Column(name = "espada_flanejante_ativa", nullable = false)
+    private long espadaFlanejanteAtiva; 
+    
+    @Column(name = "espada_flanejante_desgaste", nullable = false)
+    private long espadaFlanejanteDesgaste = 100 ;
     
  // getters / setters
+    
+    //-------------------------------------------------------------------
+    
+    public long getEspadaFlanejanteDesgaste() {
+        return espadaFlanejanteDesgaste;
+    }
+
+    public void setEspadaFlanejanteDesgaste(long espadaFlanejanteDesgaste) {
+        this.espadaFlanejanteDesgaste = espadaFlanejanteDesgaste;
+    }
+
+    
+    public long getEspadaFlanejante() {
+        return espadaFlanejante;
+    }
+
+    public void setEspadaFlanejante(long espadaflanejante) {
+        this.espadaFlanejante = espadaflanejante;
+    }
+
+    public long getEspadaFlanejanteAtiva() {
+        return espadaFlanejanteAtiva;
+    }
+
+    public void setEspadaFlanejanteAtiva(long espadaFlanejanteAtiva) {
+        this.espadaFlanejanteAtiva = espadaFlanejanteAtiva;
+    }
+
+    //------------------------------------------------------------------
     public long getPocaoVigor() {
         return pocaoVigor;
     }
@@ -188,8 +224,6 @@ public class UsuarioBossBattle  {
 
     @Column(name = "preco_energia", nullable = false)
     private Long precoEnergia = 1000L;
-
-  
 
     @Column(name = "preco_ataque_especial", nullable = false)
     private Long precoAtaqueEspecial = 1000L;

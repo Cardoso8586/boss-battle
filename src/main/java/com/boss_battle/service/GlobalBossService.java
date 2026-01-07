@@ -45,6 +45,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 @Transactional
 public class GlobalBossService {
 
+	
     private final IgnorathService ignorathService;
     private final DrakthorService drakthorService;
     private final AzurionService azurionService;
@@ -108,6 +109,7 @@ public class GlobalBossService {
             GlaciaraService glaciaraService,
             InfernaxService infernaxService,
             ThunderonService thunderonService,
+          
             
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -149,6 +151,7 @@ public class GlobalBossService {
         this.glaciaraService = glaciaraService;
         this.infernaxService = infernaxService;
         this.thunderonService = thunderonService;
+      
     }
 
     // =============================
@@ -214,6 +217,7 @@ public class GlobalBossService {
         	
         long ataqueBase = usuario.getAtaqueBase();
         long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
+   
 
         long damage = ataqueBase + ataqueEspecial;
 

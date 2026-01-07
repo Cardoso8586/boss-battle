@@ -42,7 +42,11 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("bossCoin", usuario.getBossCoins()),
         	    Map.entry("ataqueBase", usuario.getAtaqueBase()),
         	    Map.entry("ganhosRef", ganhosRef(usuarioId)),
-        	    Map.entry("guerreirosRetaguarda", usuario.getGuerreirosRetaguarda())
+        	    Map.entry("guerreirosRetaguarda", usuario.getGuerreirosRetaguarda()),
+        	    Map.entry("espadaflanejante", usuario.getEspadaFlanejante()),
+        	    Map.entry("desgasteEspadaFlanejante", usuario.getEspadaFlanejanteDesgaste()),
+        	    Map.entry("ativaEspadaFlanejante", usuario.getEspadaFlanejanteAtiva())
+        	    
         	);
 
     }
@@ -60,6 +64,18 @@ public class AtualizarStatusUsuarioController {
         boolean podeAtivar = qtdEstoque >= qtdMinima;
         long  guerreirosRetaguarda = usuario.getGuerreirosRetaguarda();
         long ativoGuerreiro = usuario.getGuerreiros();
+        
+        //espada flanejante
+        long qtdMinimaEspada = 1L;
+        long qtdEspadasEstoque = usuario.getEspadaFlanejante();
+        boolean podeAtivarEspadaFlanejante =
+                qtdEspadasEstoque >= qtdMinimaEspada
+                && usuario.getEspadaFlanejanteAtiva() == 0;
+        long qtdEspadasAtiva   = usuario.getEspadaFlanejanteAtiva();
+       
+        //--------------------------------------------------------------
+        
+        
 
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("estoque", qtdEstoque);
@@ -69,6 +85,13 @@ public class AtualizarStatusUsuarioController {
         resultado.put("estoqueGuerreiro", estoqueGuerreiro);
         resultado.put("guerreirosRetaguarda", guerreirosRetaguarda);
         resultado.put("ativoGuerreiro", ativoGuerreiro);
+
+     // 🔥 ESPADA FLANEJANTE
+     resultado.put("podeAtivarEspadaFlanejante", podeAtivarEspadaFlanejante);
+     resultado.put("espadaFlanejanteEstoque", qtdEspadasEstoque);
+     resultado.put("espadaFlanejanteAtiva", qtdEspadasAtiva);
+    
+
 
         return resultado;
     }

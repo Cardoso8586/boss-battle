@@ -15,43 +15,60 @@ import jakarta.transaction.Transactional;
 @Service
 public class GuerreiroAutoAttackService {
 
-	
-	  @Autowired
-	    private UsuarioBossBattleRepository repo;
+	private final long ESPADA_FLANEJANTE_PROCENTGEM = 20;
 
-	    @Autowired
-	    PocaoVigorService pocaoVigorService;
-	    
-	    @Autowired
-	    GlobalBossService globalBossService;
-	    
-	    @Transactional(Transactional.TxType.REQUIRES_NEW)
-	    public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
+	@Autowired
+	private EspadaFlanejanteService espadaFlanejanteService;
 
-	        Long guerreiros = usuario.getGuerreiros();
-	        Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
-	        Long energia = usuario.getEnergiaGuerreiros();
+	@Autowired
+	private UsuarioBossBattleRepository repo;
 
-	        if (energia == null || energia <= 0) return;
-	        if (guerreiros == null || guerreiros <= 0) return;
+	@Autowired
+	PocaoVigorService pocaoVigorService;
 
-	        if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
+	@Autowired
+	GlobalBossService globalBossService;
 
-	        long dano = guerreiros * ataqueBase;
+	@Transactional(Transactional.TxType.REQUIRES_NEW)
+	public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
 
-	        globalBossService.atacarBossAtivo(usuario, dano);
+	    Long guerreiros = usuario.getGuerreiros();
+	    Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
+	    Long energia = usuario.getEnergiaGuerreiros();
+	    Long espadasAtivas = usuario.getEspadaFlanejanteAtiva();
 
-	        // 🔒 trava energia para nunca voltar a atacar
-	        long energiaFinal = energia - dano;
-	        if (energiaFinal < 0) energiaFinal = 0;
+	    if (energia == null || energia <= 0) return;
+	    if (guerreiros == null || guerreiros <= 0) return;
 
-	        usuario.setEnergiaGuerreiros(energiaFinal);
+	    if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
 
-	        pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
+	    // ⚔️ dano base
+	    long dano = guerreiros * ataqueBase;
 
-	        repo.save(usuario);
+	    // ⚔️ bônus da espada (20%)
+	    if (espadasAtivas != null && espadasAtivas > 0) {
+
+	        long bonusEspada = (dano * ESPADA_FLANEJANTE_PROCENTGEM) / 100;
+	        dano += bonusEspada;
+
+	        // 🔥 consome desgaste
+	        espadaFlanejanteService.usarEspadaFlanejante(usuario);
 	    }
-   
+
+	    // 🐲 ataca o boss
+	    globalBossService.atacarBossAtivo(usuario, dano);
+
+	    // 🔋 consome energia
+	    long energiaFinal = energia - dano;
+	    if (energiaFinal < 0) energiaFinal = 0;
+	    usuario.setEnergiaGuerreiros(energiaFinal);
+
+	    // 🧪 poção automática
+	    pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
+
+	    repo.save(usuario);
+	}
+
 	  /**  
 @Transactional(Transactional.TxType.REQUIRES_NEW)
 public void processarAtaqueUsuario(UsuarioBossBattle usuario) {

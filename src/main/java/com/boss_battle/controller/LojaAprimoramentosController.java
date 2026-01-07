@@ -39,7 +39,8 @@ public class LojaAprimoramentosController {
         loja.put("precoGuerreiros", usuario.getPrecoGuerreiros());
         loja.put("precoEnergia", usuario.getPrecoEnergia());
         loja.put("precoAtaqueEspecial", usuario.getPrecoAtaqueEspecial());
-        loja.put("PocaoAutomaticaVigor", lojaAprimoramentosService.getPrecoBasePorcaovigor());
+        loja.put("PrecoPocaoAutomaticaVigor", lojaAprimoramentosService.getPrecoBasePorcaovigor());
+        loja.put("PrecoEspadaFlanejante", lojaAprimoramentosService.getPrecoBaseEspadaFlanejante());
 
 
         loja.put("nivel", usuario.getNivel());

@@ -18,13 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	const itemLabels = {
 	    BOSS_COIN: "Boss Coin",
 	    POCAO_VIGOR: "Poção de Vigor",
+		ESPADA_FLANEJANTE:"Espada Flanejante",
 	    GUERREIRO_BASICO: "Guerreiro Básico",
 	    EXP: "Experiência",
 	    ATAQUE_SPECIAL: "Ataque Especial"
 	};
 
 
-	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL"];
+	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL", "ESPADA_FLANEJANTE"];
 
 
     // Função para buscar e atualizar o preview
@@ -58,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         ? `Quantidade: ${data.amount}`
                         : "";
 
+						
+											 
                 document.getElementById("rewardCard").style.display = "block";
             })
             .catch(err => console.error("Erro ao carregar recompensa:", err));

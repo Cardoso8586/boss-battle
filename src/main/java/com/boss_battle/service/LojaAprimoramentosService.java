@@ -16,7 +16,7 @@ public class LojaAprimoramentosService {
     // PREÇO FIXO DA POÇÃO
     // =====================================
     private static final long PRECO_BASE_PORCAOVIGOR = 1_000L;
-
+    private static final long PRECO_BASE_ESPADA_FLANEJANTE = 1_000L;
     // =====================================
     // AUMENTO FIXO POR COMPRA
     // =====================================
@@ -44,7 +44,18 @@ public class LojaAprimoramentosService {
             precoAtaqueAtual + ( quantidade* AUMENTO_PRECO_ATAQUE_ESPECIAL) );
     }
 
+    //======================================
+    
     public long getPrecoBasePorcaovigor() {
         return PRECO_BASE_PORCAOVIGOR;
     }
+    
+    //======================================
+    
+    public long getPrecoBaseEspadaFlanejante() {
+        return PRECO_BASE_ESPADA_FLANEJANTE;
+    }
+    
+    
+    
 }

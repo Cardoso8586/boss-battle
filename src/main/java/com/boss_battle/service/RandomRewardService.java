@@ -63,6 +63,10 @@ public class RandomRewardService {
                 if (reward.getRewardItem() == RewardItem.POCAO_VIGOR) {
                     usuario.setPocaoVigor(usuario.getPocaoVigor() + reward.getAmount());
                 }
+                //ESPADA FLANEJANTE
+                if (reward.getRewardItem() == RewardItem.ESPADA_FLANEJANTE) {
+                    usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + reward.getAmount());
+                }
             }
 
             case GUERREIRO -> {
@@ -110,7 +114,7 @@ public class RandomRewardService {
             reward.setRewardType(RewardType.GUERREIRO);
             reward.setRewardItem(RewardItem.GUERREIRO_BASICO);
             reward.setAmount(1);
-            reward.setImageUrl("icones/guerreiro.webp");
+            reward.setImageUrl("icones/guerreiro_padrao.webp");
 
         } else if (roll < 20) { // Poção
             reward.setRewardType(RewardType.CONSUMABLE);
@@ -118,7 +122,16 @@ public class RandomRewardService {
             reward.setAmount(1);
             reward.setImageUrl("icones/pocao_vigor.webp");
 
-        } else if (roll < 40) { // Ataque especial
+        } else if (roll < 30) { // ESPADA FLANEJANTE
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.ESPADA_FLANEJANTE);
+            reward.setAmount(1);
+            reward.setImageUrl("icones/espada_flanejante.webp");
+
+        }
+        
+        
+        else if (roll < 50) { // Ataque especial
             reward.setRewardType(RewardType.SPECIAL);
             reward.setRewardItem(RewardItem.ATAQUE_SPECIAL);
             reward.setAmount(5);

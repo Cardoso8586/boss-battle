@@ -33,9 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `${dadosLoja.precoAtaqueEspecial.toLocaleString('pt-BR')} Boss Coins`;
 				
 			document.getElementById('preco-auto-vigor').textContent =
-		   `${dadosLoja.PocaoAutomaticaVigor.toLocaleString('pt-BR')} Boss Coins`;
+		   `${dadosLoja.PrecoPocaoAutomaticaVigor.toLocaleString('pt-BR')} Boss Coins`;
 							  
-							  
+					
+		   document.getElementById('preco-espada-flanejante').textContent =
+		   		   `${dadosLoja.PrecoEspadaFlanejante.toLocaleString('pt-BR')} Boss Coins`;		  
 
         } catch (error) {
             console.error('Erro ao carregar preços da loja:', error);
