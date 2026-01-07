@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pocaoVigorSpan  = document.getElementById('pocaoVigor');
     const btnAtivarPocao  = document.getElementById('btnAtivarPocao');
     const pocaoAtivaInfos = document.querySelectorAll('.pocao-ativa-info');
-
+	
     // ==============================
     // ELEMENTOS DE COMPRA
     // ==============================
@@ -40,14 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function atualizarNucleo(status) {
-        const estoque    = status.estoque;
-        const equipada   = status.ativa;
-        const podeAtivar = status.podeAtivar;
+        
+		const estoque = Number(status.estoque) || 0;
+		const equipada = status.ativa;
+		const podeAtivar = status.podeAtivar;
 
+		const pocaoVigorItem = pocaoVigorSpan?.closest('.nucleo-item-pocao');
+
+		if (pocaoVigorItem && pocaoVigorSpan) {
+		    if (estoque <= 0) {
+		        pocaoVigorItem.classList.add('hidden'); // some tudo
+		    } else {
+		        pocaoVigorItem.classList.remove('hidden');
+		        pocaoVigorSpan.textContent = formatarNumero(estoque);
+		    }
+		}
+
+		
+		//
         // Atualiza estoque
-        if (pocaoVigorSpan) {
-            pocaoVigorSpan.textContent = formatarNumero(estoque);
-        }
+        ///if (pocaoVigorSpan) {
+         //   pocaoVigorSpan.textContent = formatarNumero(estoque);
+     //   }
 
         // Controla botão de ativar
         if (btnAtivarPocao) {

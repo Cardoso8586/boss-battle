@@ -87,13 +87,22 @@
 ================================ */
 
 
-.nucleo-item {
+.nucleo-item-pocao {
     margin: 10px 0;
     font-size: 0.95rem;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     padding-bottom: 6px;
      
 }
+
+.nucleo-item-flanejante {
+    margin: 10px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+     
+}
+
 
 #espadaFlanejante {
     color: #00ff88;          /* verde vigor */

@@ -42,24 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     function atualizarEspada(status) {
 
-        const estoque = status.espadaFlanejanteEstoque ?? 0;
-        const ativa   = status.espadaFlanejanteAtiva ?? 0;
-        const podeAtivar = status.podeAtivarEspadaFlanejante === true;
+		const estoque = status.espadaFlanejanteEstoque ?? 0;
+		const ativa = status.espadaFlanejanteAtiva ?? 0;
+		const podeAtivar = status.podeAtivarEspadaFlanejante === true;
 
-        // Estoque
-        if (espadaSpan) {
-            espadaSpan.textContent = formatarNumero(estoque);
-        }
+		const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
 
-        // Botão ativar
-        if (btnAtivarEspada) {
-            if (estoque > 0 && podeAtivar) {
-                btnAtivarEspada.classList.remove('hidden');
-                btnAtivarEspada.disabled = false;
-            } else {
-                btnAtivarEspada.classList.add('hidden');
-            }
-        }
+		// ITEM (imagem + texto + quantidade)
+		if (espadaItem && espadaSpan) {
+		    if (estoque === 0) {
+		        espadaItem.classList.add('hidden');   // melhor que display direto
+		    } else {
+		        espadaItem.classList.remove('hidden');
+		        espadaSpan.textContent = formatarNumero(estoque);
+		    }
+		}
+
+		// BOTÃO ATIVAR
+		if (btnAtivarEspada) {
+		    const mostrarBotao = estoque > 0 && podeAtivar && !ativa;
+
+		    btnAtivarEspada.classList.toggle('hidden', !mostrarBotao);
+		    btnAtivarEspada.disabled = !mostrarBotao;
+		}
 
         // Info ativa
         if (espadaInfos) {

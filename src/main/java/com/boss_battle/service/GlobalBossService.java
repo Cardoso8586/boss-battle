@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
+import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossFlamor;
@@ -24,6 +25,7 @@ import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
 import com.boss_battle.model.GlobalBossNightmare;
+import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
 import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.model.GlobalBossObliquo;
@@ -44,8 +46,6 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 @Service
 @Transactional
 public class GlobalBossService {
-
-	
     private final IgnorathService ignorathService;
     private final DrakthorService drakthorService;
     private final AzurionService azurionService;
@@ -69,6 +69,9 @@ public class GlobalBossService {
     private final GlaciaraService glaciaraService;
     private final InfernaxService infernaxService;
     private final ThunderonService thunderonService;
+    private final NoctharionService noctharionService;
+    private final AzraelPrimeService azraelPrimeService;
+    
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -109,6 +112,8 @@ public class GlobalBossService {
             GlaciaraService glaciaraService,
             InfernaxService infernaxService,
             ThunderonService thunderonService,
+            NoctharionService noctharionService,
+            AzraelPrimeService azraelPrimeService,
           
             
             BossDamageLogRepository damageLogRepo,
@@ -151,6 +156,8 @@ public class GlobalBossService {
         this.glaciaraService = glaciaraService;
         this.infernaxService = infernaxService;
         this.thunderonService = thunderonService;
+        this.noctharionService = noctharionService;
+        this.azraelPrimeService = azraelPrimeService;
       
     }
 
@@ -181,6 +188,9 @@ public class GlobalBossService {
         if (glaciaraService.get().isAlive()) return glaciaraService.get();
         if (infernaxService.get().isAlive()) return infernaxService.get();
         if (thunderonService.get().isAlive()) return thunderonService.get();
+        if (noctharionService.get().isAlive()) return noctharionService.get();
+        if (azraelPrimeService.get().isAlive()) return azraelPrimeService.get();
+        
         
         return spawnRandomBoss();
     }
@@ -298,6 +308,12 @@ public class GlobalBossService {
         resultado = tryHitBoss("THUNDERON", thunderonService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("NOCTHARION", noctharionService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("AZRAEL PRIME", azraelPrimeService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
         return Map.of(
             "status", "NO_BOSS",
             "message", "O boss foi derrotado. Aguarde o respawn."
@@ -343,7 +359,8 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossGlaciara) glaciaraService.save((GlobalBossGlaciara) boss);
         if (boss instanceof GlobalBossInfernax) infernaxService.save((GlobalBossInfernax) boss);
         if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
-        
+        if (boss instanceof GlobalBossNoctharion) noctharionService.save((GlobalBossNoctharion) boss);
+        if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
         
         
         
@@ -577,7 +594,7 @@ public class GlobalBossService {
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
 
-        int choice = random.nextInt(23);
+        int choice = random.nextInt(25);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -787,7 +804,25 @@ public class GlobalBossService {
             	newBoss = td;
             }
             
+            case 23 -> {
+            	GlobalBossNoctharion nt = noctharionService.get();
+            	nt.setAlive(true);
+            	nt.setCurrentHp(nt.getMaxHp());
+            	nt.setSpawnedAt(LocalDateTime.now());
+            	noctharionService.save(nt);
+            	newBoss = nt;
+            }
             
+            case 24 -> {
+            	GlobalBossAzraelPrime ap = azraelPrimeService.get();
+            	ap.setAlive(true);
+            	ap.setCurrentHp(ap.getMaxHp());
+            	ap.setSpawnedAt(LocalDateTime.now());
+            	azraelPrimeService.save(ap);
+            	newBoss = ap;
+            }
+            
+           
             
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
@@ -827,7 +862,8 @@ public class GlobalBossService {
     	GlobalBossGlaciara gl = glaciaraService.get();
     	GlobalBossInfernax ix = infernaxService.get();
     	GlobalBossThunderon td = thunderonService.get();
-    	
+    	GlobalBossNoctharion nt = noctharionService.get();
+    	GlobalBossAzraelPrime ap = azraelPrimeService.get();
     	
     	
         ig.setAlive(false);
@@ -853,6 +889,8 @@ public class GlobalBossService {
         gl.setAlive(false);
         ix.setAlive(false);
         td.setAlive(false);
+        nt.setAlive(false);
+        ap.setAlive(false);
         
         ignorathService.save(ig);
         drakthorService.save(dr);
@@ -877,6 +915,9 @@ public class GlobalBossService {
         glaciaraService.save(gl);
         infernaxService.save(ix);
         thunderonService.save(td);
+        noctharionService.save(nt);
+        azraelPrimeService.save(ap);
+        
     }
 
     // =============================
@@ -927,6 +968,8 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossGlaciara) glaciaraService.save((GlobalBossGlaciara) boss);
         if (boss instanceof GlobalBossInfernax) infernaxService.save((GlobalBossInfernax) boss);
         if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
+        if (boss instanceof GlobalBossNoctharion) noctharionService.save((GlobalBossNoctharion) boss);
+        if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
         
         registrarDano(bossName, usuario, damage);
     /*
@@ -1009,6 +1052,11 @@ public class GlobalBossService {
         resultado = tryHitBoss("THUNDERON", thunderonService.get(), usuario, damage);
         if (resultado != null) return resultado;
         
+        resultado = tryHitBoss("NOCTHARION", noctharionService.get(), usuario, damage);
+        if (resultado != null) return resultado;
+        
+        resultado = tryHitBoss("AZRAEL PRIME", azraelPrimeService.get(), usuario, damage);
+        if (resultado != null) return resultado;
         
         
         

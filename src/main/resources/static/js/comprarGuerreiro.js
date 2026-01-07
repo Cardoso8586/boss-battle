@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						},
 					    title: 'Compra realizada!',
 					    html: `Você comprou ${quantidade} guerreiros.`,
-					    imageUrl: '/icones/guerreiro.webp', 
+					    imageUrl: '/icones/guerreiro_padrao.webp', 
 					    imageWidth: 80,   
 					    imageHeight: 80,
 					    imageAlt: 'Guerreiro',
