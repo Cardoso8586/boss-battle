@@ -2,96 +2,103 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px; /* menor gap */
+    gap: 20px;
 }
 
-/* Cada card ocupa no máximo 1/4 do container - 4 cards por linha */
+/* Cada card ocupa no máximo 1/3 do container - 3 cards por linha */
 .loja-card {
     background: linear-gradient(145deg, #1b1b1b, #2a2a2a);
     border: 2px solid #f39c12;
-    border-radius: 10px;
-    padding: 12px; /* menor padding */
+    border-radius: 12px;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.5);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    flex: 0 1 calc((100% - 36px) / 4); /* 4 por linha, subtraindo gap */
-    max-width: calc((100% - 36px) / 4);
+    flex: 0 1 calc((100% - 60px) / 3); /* 3 por linha, subtraindo gap */
+    max-width: calc((100% - 60px) / 3);
 }
 
 .loja-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+}
+
+#loja > p {
+    text-align: center;
 }
 
 .secao-titulo {
-    margin-bottom: 6px;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: #ffb400;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0 0 8px rgba(255, 180, 0, 0.8);
+  margin-bottom: 10px;
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #ffb400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 12px rgba(255, 180, 0, 0.8);
 }
 
 .secao-descricao {
-    max-width: 380px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #ddd;
-    background: rgba(0,0,0,0.35);
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,180,0,0.25);
-    box-shadow: 0 0 6px rgba(0,0,0,0.5), inset 0 0 4px rgba(255,180,0,0.1);
+  max-width: 520px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+
+  background: rgba(0, 0, 0, 0.45);
+  padding: 12px 16px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 180, 0, 0.25);
+
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.6),
+    inset 0 0 6px rgba(255, 180, 0, 0.1);
 }
+
 
 .loja-card p {
     color: #ecf0f1;
-    margin: 6px 0;
-    font-size: 0.85rem;
+    margin: 8px 0;
 }
 
 .loja-card .preco {
     font-weight: bold;
-    font-size: 14px;
+     font-size: 18px;
     color: #00ff88;
 }
 
 .loja-card label {
     display: block;
-    margin-top: 6px;
+    margin-top: 10px;
     color: #f39c12;
-    font-size: 0.85rem;
 }
 
 .loja-card input[type="number"] {
-    width: 60px;
-    padding: 8px;
-    margin: 12px 0 8px 0;
-    border-radius: 4px;
+    width: 80px;
+    padding: 15px;
+    margin: 25px 0 15px 0;
+    border-radius: 5px;
     border: 1px solid #ccc;
     text-align: center;
     background-color: #222;
     color: #fff;
-    font-size: 0.85rem;
 }
 
 .btn-comprar {
     background-color: #f39c12;
     color: #000;
     border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
+    padding: 10px 15px;
+    border-radius: 8px;
     font-weight: bold;
-    font-size: 0.85rem;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .btn-comprar:hover {
@@ -102,8 +109,8 @@
 /* Responsivo: 2 cards por linha em telas médias */
 @media (max-width: 1024px) {
     .loja-card {
-        flex: 0 1 calc((100% - 12px) / 2);
-        max-width: calc((100% - 12px) / 2);
+        flex: 0 1 calc((100% - 30px) / 2);
+        max-width: calc((100% - 30px) / 2);
     }
 }
 
@@ -119,18 +126,19 @@
     }
 }
 
-/* Imagens menores */
+
 .card-imagem {
-    width: 60px;
+    width: 90px;
     height: auto;
     display: block;
-    margin: 0 auto 6px auto;
+    margin: 0 auto 10px auto;
 }
 
 .espada-flanejante-imagem {
-    width: 20px;
+    width: 40px;
     height: auto;
     display: block;
-    margin: 0 auto 6px auto;
+    margin: 0 auto 10px auto;
 }
+
 
