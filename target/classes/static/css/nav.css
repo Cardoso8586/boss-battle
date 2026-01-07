@@ -6,16 +6,16 @@
     nav {
         position: fixed;
         left: 15px;
-        top: 80px;
+        top: 60px;
 
-        width: 320px;
+        width: 330px;
         height: 100vh;
 
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
 
-        padding: 30px 15px;
+        padding: 10px 10px;
         border-right: 2px solid #111;
     }
 
@@ -28,7 +28,7 @@
 
     .nav-list li {
         width: 100%;
-        padding: 12px 15px;
+        padding: 10px 10px;
 
         background: #1b1b1b;
         border-radius: 8px;

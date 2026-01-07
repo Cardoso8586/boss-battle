@@ -1,66 +1,96 @@
 /* ==============================
-   SEÇÃO DE AJUDA / TUTORIAL (SEM CARD)
+   SEÇÃO DE AJUDA / TUTORIAL
 ================================ */
 #help {
-    width: 90%;
-    max-width: 600px;
+    width: 92%;
+    max-width: 680px;
     margin: 40px auto;
-    padding: 20px 16px;
-    text-align: left;
+    padding: 22px 18px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(20,20,20,0.95),
+        rgba(35,35,35,0.95)
+    );
+
+    border-radius: 14px;
+    border: 1px solid rgba(255, 180, 0, 0.25);
+
     color: #e0e0e0;
     font-family: 'Segoe UI', sans-serif;
-    line-height: 1.5;
+    line-height: 1.6;
+
+    box-shadow:
+        0 0 18px rgba(0,0,0,0.6),
+        inset 0 0 12px rgba(255,180,0,0.08);
 }
 
+/* TÍTULO */
 .help-header {
     font-size: 1.8rem;
     font-weight: 900;
     color: #ffb400;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 180, 0, 0.6);
+
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0 0 12px rgba(255, 180, 0, 0.8);
 }
 
+/* TEXTO */
 .help-card p,
 .help-card ul {
-    font-size: 0.92rem;
-    margin-bottom: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
 }
 
 .help-card ul {
-    padding-left: 18px;
+    padding-left: 20px;
 }
 
 .help-card li {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 0.9rem;
 }
 
+/* PALAVRAS DESTACADAS */
 .help-card li strong {
     color: #00ff88;
     font-weight: 700;
+    text-shadow: 0 0 6px rgba(0,255,136,0.5);
 }
 
+/* SUBTÍTULOS */
 .help-card h3 {
     font-size: 1.1rem;
     color: #ffb400;
-    margin: 12px 0 6px;
+    margin: 16px 0 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 0 0 6px rgba(255, 180, 0, 0.4);
+
+    text-shadow:
+        0 0 8px rgba(255, 180, 0, 0.6);
 }
 
-/* Responsividade */
+/* ==============================
+   MOBILE AJUSTADO
+================================ */
 @media (max-width: 480px) {
     #help {
         width: 95%;
-        padding: 14px 10px;
+        padding: 16px 14px;
+        margin: 25px auto;
     }
 
     .help-header {
         font-size: 1.4rem;
+        margin-bottom: 14px;
     }
 
     .help-card p,
