@@ -499,10 +499,8 @@ public class GlobalBossService {
 
             usuarioRepo.save(u);
         }
-        resetBoss();
-        //damageLogRepo.deleteByBossName(bossName);
-      //  spawnRandomBoss();
-      
+       // resetBoss();
+
 
         return Map.of(
             "boss", bossName,
@@ -519,6 +517,8 @@ public class GlobalBossService {
         damageLogRepo.deleteAllLogs();
         spawnRandomBoss();
     }
+    
+    
 
     /*
     private Object processReward(String bossName, BattleBoss boss,UsuarioBossBattle usuario, long damage) {
