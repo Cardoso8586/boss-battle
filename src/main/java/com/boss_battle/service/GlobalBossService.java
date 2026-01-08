@@ -2,6 +2,7 @@
 package com.boss_battle.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
@@ -412,6 +414,9 @@ public class GlobalBossService {
         long bossReward = boss.getRewardBoss();
         long expReward = boss.getRewardExp();
 
+        //BigDecimal rewardTotal = BigDecimal.valueOf(boss.getRewardBoss());
+       // BigDecimal hpMax       = BigDecimal.valueOf(boss.getMaxHp());
+
         List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
         if (logs.isEmpty()) return Map.of("status", "NO_DAMAGE_LOG");
 
@@ -433,7 +438,21 @@ public class GlobalBossService {
             UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
             if (u == null) continue;
 
-            //*
+            
+            /**
+              //testar pagamento com bigDecimal
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+          
+            BigDecimal dano = BigDecimal.valueOf(danoUsuario);
+
+            BigDecimal percentual = dano.divide(hpMax, 18, RoundingMode.HALF_UP);
+
+            BigDecimal rewardUsuario =rewardTotal.multiply(percentual);
+            
+            long expFinal    = (expReward * danoUsuario) / bossHpMax;
+           */
+    
+            
             //TESTE 3  
             //OBSERVAR
             long danoUsuario = Math.min(entry.getValue(), bossHpMax);
@@ -444,7 +463,6 @@ public class GlobalBossService {
             // garante pagamento mínimo
             rewardFinal = Math.max(1, rewardFinal);
             expFinal    = Math.max(1, expFinal);
-
             
             /**
             //codigo com  Math.ceil paga pelo menos 1 proporcional, funciona/PARECE!
@@ -470,15 +488,13 @@ public class GlobalBossService {
 */
             
             
-            if (u.getBossCoins() == null) {
-                u.setBossCoins(BigDecimal.ZERO);
-            }
-
-            u.setBossCoins(
-                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
+        
+            u.setBossCoins( u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
             );
-
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+            
+         
+            referidosService.adicionarGanho(u,BigDecimal.valueOf(rewardFinal));
+            
             usuarioService.adicionarExp(u.getId(), (int) expFinal);
 
             usuarioRepo.save(u);
@@ -496,6 +512,7 @@ public class GlobalBossService {
             "participantes", damagePorUsuario.size()
         );
     }
+    
 
     @Transactional
     public void resetBoss() {
@@ -503,7 +520,6 @@ public class GlobalBossService {
         spawnRandomBoss();
     }
 
- 
     /*
     private Object processReward(String bossName, BattleBoss boss,UsuarioBossBattle usuario, long damage) {
         if (boss.isAlive() && boss.getCurrentHp() > 0) {

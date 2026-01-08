@@ -34,7 +34,7 @@ public class AzraelPrimeService {
         boss.setAttackPower(2_400L);
         boss.setAttackIntervalSeconds(18L);
 
-        boss.setImageUrl("images/boss_oblivion.webp");
+        boss.setImageUrl("images/boss_azrael_prime.webp");
 
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(14_400L); 

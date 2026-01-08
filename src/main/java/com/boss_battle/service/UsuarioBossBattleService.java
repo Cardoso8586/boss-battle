@@ -28,6 +28,7 @@ public class UsuarioBossBattleService {
         // ➕ Adiciona XP
         usuario.setExp(usuario.getExp() + expGanha);
 
+        
         // 🔁 Sobe nível se necessário
         while (usuario.getExp() >= XP_POR_NIVEL) {
             usuario.setExp(usuario.getExp() - XP_POR_NIVEL);

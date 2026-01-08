@@ -35,6 +35,8 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT u FROM UsuarioBossBattle u WHERE u.id = :id")
     Optional<UsuarioBossBattle> findByIdForUpdate(@Param("id") Long id);
-
+    
+    
+   
 
 }

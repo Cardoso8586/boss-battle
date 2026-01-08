@@ -23,6 +23,7 @@ public class ReferidosRecompensaService {
 
     public void adicionarGanho(UsuarioBossBattle usuario, BigDecimal valor) {
       
+    	
        
         usuarioRepository.save(usuario);
 
