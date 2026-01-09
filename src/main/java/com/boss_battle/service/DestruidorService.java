@@ -53,6 +53,27 @@ public class DestruidorService  {
     public GlobalBossDestruidor save(GlobalBossDestruidor boss) {
         return repo.save(boss);
     }
+    
+    //===========================================================
+    //incrmentar hp, toda vez que o boss morrer/ se der certo..
+    //===========================================================
+    private void aplicarEscalamento(GlobalBossDestruidor boss) {
+
+    	long valorHpMax =  boss.getMaxHp();
+    	long valorCur = boss.getCurrentHp();
+    	
+    	boss.setMaxHp( valorHpMax + 100);
+    	boss.setCurrentHp( valorCur + 100);
+    	long valorXp =  boss.getMaxHp();
+        
+    	boss.setRewardExp(valorXp);
+    	
+    	long valorsetRewardBoss = boss.getRewardBoss();
+        
+        
+ 	   boss.setRewardBoss(valorsetRewardBoss + 1);
+    }
+
 
     // Ataque direto (usado em auto-attack ou debug)
     public GlobalBossDestruidor attack(long damage) {
