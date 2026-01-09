@@ -612,8 +612,8 @@ public class GlobalBossService {
         killAllBosses();
         resetBoss();
         
-        int choice = random.nextInt(1);
-        //int choice = random.nextInt(26);
+      
+        int choice = random.nextInt(26);
         BattleBoss newBoss;
 
         switch (choice) {
