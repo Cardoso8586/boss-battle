@@ -38,13 +38,19 @@
         <div class="logo">
             <h1>Boss Battle</h1>
    <!-- Widget do Google T         
-<select id="lang-select">
-  <option value="pt">Português</option>
-  <option value="en">English</option>
-  <option value="es">Español</option>
-</select>
+<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
 
-<div id="google_translate_element" style="display:none;"></div>
+<div class="gtranslate_wrapper"></div> 
+
+
+<script>
+window.gtranslateSettings = {
+  default_language: "pt",           
+  languages: ["pt","en","es"],     
+  wrapper_selector: ".gtranslate_wrapper",
+  switcher_horizontal_position: "inline"
+}
+</script>
 ranslate escondido -->
 
 
@@ -188,14 +194,7 @@ window.addEventListener('load', () => {
 </style>
 
 
-
-
-
-
-
-
-
-        
+     
         
 <!-- Font Awesome para ícones -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -520,6 +519,8 @@ Dano
 </p>
 
                 <button id="attackBtn">Atacar Boss</button>
+                
+                
             </div>
 
         </div>

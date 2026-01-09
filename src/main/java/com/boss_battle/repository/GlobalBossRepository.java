@@ -14,4 +14,11 @@ public interface GlobalBossRepository extends JpaRepository<GlobalBoss, Long> {
 	  
     List<GlobalBoss> findByAliveTrue(); 
     
+   
+    Optional<GlobalBoss> findFirstByAliveTrue();
+
+  
+    
 }
+
+

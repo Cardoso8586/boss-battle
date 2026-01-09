@@ -1,0 +1,65 @@
+package com.boss_battle.service;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.boss_battle.model.GlobalBoss;
+import com.boss_battle.model.GlobalBossDestruidor;
+import com.boss_battle.repository.DestruidorRepository;
+import com.boss_battle.repository.GlobalBossRepository;
+
+import jakarta.transaction.Transactional;
+
+
+
+@Service
+@Transactional
+public class DestruidorService  {
+	
+    @Autowired
+    private DestruidorRepository repo;
+
+    // Sempre retorna o boss único (ID = 1)
+    public GlobalBossDestruidor get() {
+    	  return repo.findById(1L).orElseGet(() -> createDefaultBoss());
+    }
+
+    // Cria o boss padrão
+    public GlobalBossDestruidor createDefaultBoss() {
+    	GlobalBossDestruidor boss = new GlobalBossDestruidor();
+
+        boss.setName("DESTRUIDOR");
+        boss.setMaxHp(200_000L);
+        boss.setCurrentHp(200_000L);
+        boss.setAlive(true);
+
+        boss.setAttackPower(2_400L);
+        boss.setAttackIntervalSeconds(18L);
+
+        boss.setImageUrl("images/boss_destruidor.webp");
+
+        boss.setSpawnedAt(LocalDateTime.now());
+        boss.setRespawnCooldownSeconds(14_400L); 
+        boss.setSpawnCount(1);
+
+        boss.setRewardBoss(100_000L);
+        boss.setRewardExp(5_000L);
+
+        return repo.save(boss);
+    }
+
+    public GlobalBossDestruidor save(GlobalBossDestruidor boss) {
+        return repo.save(boss);
+    }
+
+    // Ataque direto (usado em auto-attack ou debug)
+    public GlobalBossDestruidor attack(long damage) {
+    	GlobalBossDestruidor boss = get();
+        boss.applyDamage(damage);
+        return repo.save(boss);
+    }
+}
+
+

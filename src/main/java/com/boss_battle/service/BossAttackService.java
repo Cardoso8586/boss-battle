@@ -34,6 +34,7 @@ public class BossAttackService {
             return true;
         }
 
+        
         return usuario.getUltimoAtaqueBoss()
                 .plusMinutes(cooldownSorteadoMinutos)
                 .isBefore(LocalDateTime.now());

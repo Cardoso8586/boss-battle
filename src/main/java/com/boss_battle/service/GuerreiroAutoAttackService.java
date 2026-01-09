@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 
@@ -37,6 +38,10 @@ public class GuerreiroAutoAttackService {
 	    Long energia = usuario.getEnergiaGuerreiros();
 	    Long espadasAtivas = usuario.getEspadaFlanejanteAtiva();
 
+	    BattleBoss boss = globalBossService.getActiveBoss();
+        if (boss == null || !boss.isAlive()) return;
+        
+        
 	    if (energia == null || energia <= 0) return;
 	    if (guerreiros == null || guerreiros <= 0) return;
 
@@ -54,9 +59,9 @@ public class GuerreiroAutoAttackService {
 	        // 🔥 consome desgaste
 	        espadaFlanejanteService.usarEspadaFlanejante(usuario);
 	    }
-
+	    globalBossService.tryHitBoss(boss.getBossName(), boss, usuario, dano);
 	    // 🐲 ataca o boss
-	    globalBossService.atacarBossAtivo(usuario, dano);
+	   // globalBossService.hitActiveBoss(usuario, dano);
 
 	    // 🔋 consome energia
 	    long energiaFinal = energia - dano;
@@ -69,34 +74,12 @@ public class GuerreiroAutoAttackService {
 	    repo.save(usuario);
 	}
 
-	  /**  
-@Transactional(Transactional.TxType.REQUIRES_NEW)
-public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
 
-    Long guerreiros = usuario.getGuerreiros();
-    Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
-    Long energia = usuario.getEnergiaGuerreiros();
-
-    if (energia == null || energia <= 0) return;
-    if (guerreiros == null || guerreiros <= 0) return;
-
-    if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
-
-    long dano = guerreiros * ataqueBase;
-
-    globalBossService.atacarBossAtivo(usuario, dano);
-
-    usuario.setEnergiaGuerreiros(energia - dano);
-
-    pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
-
-    repo.save(usuario);
-}
-*/
 @Scheduled(fixedRate = 60000)
 public void ataqueAutomatico() {
 
-    List<UsuarioBossBattle> usuarios = repo.findAll();
+    //List<UsuarioBossBattle> usuarios = repo.findAll();
+    List<UsuarioBossBattle> usuarios = repo.buscarUsuariosAtivos();
 
     for (UsuarioBossBattle usuario : usuarios) {
         try {

@@ -2,7 +2,6 @@
 package com.boss_battle.service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +9,11 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
+import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossDrakthor;
@@ -73,7 +72,7 @@ public class GlobalBossService {
     private final ThunderonService thunderonService;
     private final NoctharionService noctharionService;
     private final AzraelPrimeService azraelPrimeService;
-    
+    private final DestruidorService destruidorService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -116,7 +115,7 @@ public class GlobalBossService {
             ThunderonService thunderonService,
             NoctharionService noctharionService,
             AzraelPrimeService azraelPrimeService,
-          
+            DestruidorService destruidorService,
             
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -160,6 +159,7 @@ public class GlobalBossService {
         this.thunderonService = thunderonService;
         this.noctharionService = noctharionService;
         this.azraelPrimeService = azraelPrimeService;
+        this.destruidorService = destruidorService;
       
     }
 
@@ -192,6 +192,7 @@ public class GlobalBossService {
         if (thunderonService.get().isAlive()) return thunderonService.get();
         if (noctharionService.get().isAlive()) return noctharionService.get();
         if (azraelPrimeService.get().isAlive()) return azraelPrimeService.get();
+        if (destruidorService.get().isAlive()) return destruidorService.get();
         
         
         return spawnRandomBoss();
@@ -316,6 +317,9 @@ public class GlobalBossService {
         resultado = tryHitBoss("AZRAEL PRIME", azraelPrimeService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("DESTRUIDOR", destruidorService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
         return Map.of(
             "status", "NO_BOSS",
             "message", "O boss foi derrotado. Aguarde o respawn."
@@ -332,7 +336,7 @@ public class GlobalBossService {
     // FUNÇÕES AUXILIARES
     // =============================
     @Transactional
-    private Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
+    public Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
 
         boss.applyDamage(damage);
@@ -363,15 +367,13 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
         if (boss instanceof GlobalBossNoctharion) noctharionService.save((GlobalBossNoctharion) boss);
         if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
-        
+        if (boss instanceof GlobalBossDestruidor) destruidorService.save((GlobalBossDestruidor) boss);
         
         
         registrarDano(bossName, usuario, damage);
-     /**
-        if (!boss.isAlive() || boss.getCurrentHp() <= 0) {
-            spawnRandomBoss();
-        }
-        */
+        
+        if (boss == null || !boss.isAlive()) return null ;
+        
         return processReward(bossName, boss, usuario, damage); 
         
     }
@@ -427,17 +429,23 @@ public class GlobalBossService {
                 BossDamageLog::getUserId,
                 Collectors.summingLong(BossDamageLog::getDamage)
             ));
-/*
-        long totalDamage = Math.min(
-            damagePorUsuario.values().stream().mapToLong(Long::longValue).sum(),
-            bossHpMax
-        );
-*/
+
         for (var entry : damagePorUsuario.entrySet()) {
 
             UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
             if (u == null) continue;
 
+            
+              //TESTE 3  
+            //OBSERVAR
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+
+            long rewardFinal = (bossReward * danoUsuario) / bossHpMax;
+            long expFinal    = (expReward * danoUsuario) / bossHpMax;
+
+            // garante pagamento mínimo
+            rewardFinal = Math.max(1, rewardFinal);
+            expFinal    = Math.max(1, expFinal);
             
             /**
               //testar pagamento com bigDecimal
@@ -453,16 +461,7 @@ public class GlobalBossService {
            */
     
             
-            //TESTE 3  
-            //OBSERVAR
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-
-            long rewardFinal = (bossReward * danoUsuario) / bossHpMax;
-            long expFinal    = (expReward * danoUsuario) / bossHpMax;
-
-            // garante pagamento mínimo
-            rewardFinal = Math.max(1, rewardFinal);
-            expFinal    = Math.max(1, expFinal);
+    
             
             /**
             //codigo com  Math.ceil paga pelo menos 1 proporcional, funciona/PARECE!
@@ -499,8 +498,8 @@ public class GlobalBossService {
 
             usuarioRepo.save(u);
         }
-       // resetBoss();
-
+     
+        resetBoss();
 
         return Map.of(
             "boss", bossName,
@@ -512,12 +511,6 @@ public class GlobalBossService {
     }
     
 
-    @Transactional
-    public void resetBoss() {
-        damageLogRepo.deleteAllLogs();
-        spawnRandomBoss();
-    }
-    
     
 
     /*
@@ -606,11 +599,21 @@ public class GlobalBossService {
     // =============================
     // SPAWN E RESET
     // =============================
+    
+
+    @Transactional
+    public void resetBoss() {
+        damageLogRepo.deleteAllLogs();
+      
+    }
+    
     @Transactional
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
-
-        int choice = random.nextInt(25);
+        resetBoss();
+        
+        int choice = random.nextInt(1);
+        //int choice = random.nextInt(26);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -837,6 +840,14 @@ public class GlobalBossService {
             	azraelPrimeService.save(ap);
             	newBoss = ap;
             }
+            case 25 -> {
+            	GlobalBossDestruidor ds = destruidorService.get();
+            	ds.setAlive(true);
+            	ds.setCurrentHp(ds.getMaxHp());
+            	ds.setSpawnedAt(LocalDateTime.now());
+            	destruidorService.save(ds);
+            	newBoss = ds;
+            }
             
            
             
@@ -880,6 +891,7 @@ public class GlobalBossService {
     	GlobalBossThunderon td = thunderonService.get();
     	GlobalBossNoctharion nt = noctharionService.get();
     	GlobalBossAzraelPrime ap = azraelPrimeService.get();
+    	GlobalBossDestruidor ds = destruidorService.get();
     	
     	
         ig.setAlive(false);
@@ -907,6 +919,8 @@ public class GlobalBossService {
         td.setAlive(false);
         nt.setAlive(false);
         ap.setAlive(false);
+        ds.setAlive(false);
+        
         
         ignorathService.save(ig);
         drakthorService.save(dr);
@@ -933,6 +947,7 @@ public class GlobalBossService {
         thunderonService.save(td);
         noctharionService.save(nt);
         azraelPrimeService.save(ap);
+        destruidorService.save(ds);
         
     }
 
@@ -952,7 +967,13 @@ public class GlobalBossService {
             "segundosRestantes", segundos
         );
     }
+ 
     
+}
+
+
+/**
+   
     //===============================  tryHitBossAuto =====================================================
     //=====================================================================================================
     @Transactional
@@ -988,12 +1009,12 @@ public class GlobalBossService {
         if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
         
         registrarDano(bossName, usuario, damage);
-    /*
+
         if (!boss.isAlive() || boss.getCurrentHp() <= 0) {
             spawnRandomBoss();
         }
         
-        */
+   
         return processReward(bossName, boss, usuario, damage);
     }
 
@@ -1086,449 +1107,6 @@ public class GlobalBossService {
     //============================== ataque do boss =======================================
  
 
-    
-}
 
 
-/**
- * package com.boss_battle.service;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
-
-import com.boss_battle.model.*;
-import com.boss_battle.repository.BossDamageLogRepository;
-import com.boss_battle.repository.UsuarioBossBattleRepository;
-
-@Service
-public class GlobalBossService {
-
-    private final IgnorathService ignorathService;
-    private final DrakthorService drakthorService;
-    private final AzurionService azurionService;
-    private final UmbraxisService umbraxisService;
-    private final NightmareService nightmareService;
-    private final FlamorService flamorService;
-    private final OblivarService oblivarService;
-    private final LyxaraService lyxaraService;
-    
-    
-    private final BossDamageLogRepository damageLogRepo;
-    private final UsuarioBossBattleRepository usuarioRepo;
-    
-    
-    private final ReferidosRecompensaService referidosService;
-    private final UsuarioBossBattleService usuarioService;
-    private final BossAttackService bossAttackService;
-    private final BossDamageLogService bossDamageLogService;
-
-    private final Random random = new Random();
-
-    public GlobalBossService(
-            IgnorathService ignorathService,
-            DrakthorService drakthorService,
-            AzurionService azurionService,
-            UmbraxisService umbraxisService,
-            NightmareService nightmareService,
-            FlamorService flamorService,
-            OblivarService oblivarService,
-            LyxaraService lyxaraService ,
-            
-            BossDamageLogRepository damageLogRepo,
-            UsuarioBossBattleRepository usuarioRepo,
-            ReferidosRecompensaService referidosService,
-            UsuarioBossBattleService usuarioService,
-            BossAttackService bossAttackService,
-            BossDamageLogService bossDamageLogService
-            
-    ) {
-        this.ignorathService = ignorathService;
-        this.drakthorService = drakthorService;
-        this.azurionService = azurionService;
-        this.umbraxisService = umbraxisService;
-        this.damageLogRepo = damageLogRepo;
-        this.usuarioRepo = usuarioRepo;
-        this.referidosService = referidosService;
-        this.usuarioService = usuarioService;
-        this.bossAttackService = bossAttackService;
-        this.bossDamageLogService = bossDamageLogService;
-        this.nightmareService = nightmareService;
-        this.flamorService = flamorService;
-        this.oblivarService = oblivarService;
-        this.lyxaraService = lyxaraService;
-    }
-
-    // =============================
-    // RETORNA O BOSS ATIVO
-    // =============================
-    public synchronized BattleBoss getActiveBoss() {
-        if (ignorathService.get().isAlive()) return ignorathService.get();
-        if (drakthorService.get().isAlive()) return drakthorService.get();
-        if (azurionService.get().isAlive()) return azurionService.get();
-        if (umbraxisService.get().isAlive()) return umbraxisService.get();
-        if (nightmareService.get().isAlive()) return nightmareService.get();
-        if (flamorService.get().isAlive()) return flamorService.get();
-        if (oblivarService.get().isAlive()) return oblivarService.get();
-        if (lyxaraService.get().isAlive()) return lyxaraService.get();
-
-        return spawnRandomBoss();
-    }
-
-    // =============================
-    // HIT NO BOSS ATIVO
-    // =============================
-    public Object hitActiveBoss(long usuarioId) {
-        UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        if (!bossAttackService.podeAtacar(usuario)) {
-            return Map.of(
-                "status", "COOLDOWN",
-                "message", "Aguarde para atacar novamente",
-                "segundosRestantes", bossAttackService.tempoRestanteSegundos(usuario)
-            );
-        }
-
-        long damage = usuario.getAtaqueBase();
-        Object resultado = null;
-
-        // Tenta atacar cada boss na ordem
-        resultado = tryHitBoss("IGNORATH", ignorathService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-
-        resultado = tryHitBoss("DRAKTHOR", drakthorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-
-        resultado = tryHitBoss("AZURION", azurionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-
-        resultado = tryHitBoss("UMBRAXIS", umbraxisService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-
-        resultado = tryHitBoss("NIGHTMARE", nightmareService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
-        resultado = tryHitBoss("FLAMOR", flamorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
-        resultado = tryHitBoss("OBLIVAR", oblivarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
-        resultado = tryHitBoss("LYXARA", lyxaraService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
-        
-        return Map.of(
-            "status", "NO_BOSS",
-            "message", "O boss foi derrotado. Aguarde o respawn."
-        );
-        
-        
-    }
-
-    // =============================
-    // FUNÇÕES AUXILIARES
-    // =============================
-    private Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
-        if (boss == null || !boss.isAlive()) return null;
-
-        boss.applyDamage(damage);
-
-        // salva a instância no serviço correto
-        if (boss instanceof GlobalBossIgnorath) ignorathService.save((GlobalBossIgnorath) boss);
-        if (boss instanceof GlobalBossDrakthor) drakthorService.save((GlobalBossDrakthor) boss);
-        if (boss instanceof GlobalBossAzurion) azurionService.save((GlobalBossAzurion) boss);
-        if (boss instanceof GlobalBossUmbraxis) umbraxisService.save((GlobalBossUmbraxis) boss);
-        if (boss instanceof GlobalBossNightmare) nightmareService.save((GlobalBossNightmare) boss);
-        if (boss instanceof GlobalBossFlamor) flamorService.save((GlobalBossFlamor) boss);
-        if (boss instanceof GlobalBossOblivar) oblivarService.save((GlobalBossOblivar) boss);
-        if (boss instanceof GlobalBossLyxara) lyxaraService.save((GlobalBossLyxara) boss);
-        
-        
-
-        registrarDano(bossName, usuario, damage);
-
-        return processReward(bossName, boss, damage); // seu método continua para distribuir recompensas
-    }
-
-
-    private void registrarDano(String bossName, UsuarioBossBattle usuario, long damage) {
-        BossDamageLog log = new BossDamageLog();
-        log.setBossName(bossName);
-        log.setUserId(usuario.getId());
-        log.setDamage(damage);
-        damageLogRepo.save(log);
-    }
-
-    private Object processReward(String bossName, BattleBoss boss, long damage) {
-        if (boss.isAlive() && boss.getCurrentHp() > 0) {
-          
-			return Map.of(
-                "boss", bossName,
-                "currentHp", boss.getCurrentHp(),
-                "rewardBoss", boss.getRewardBoss(),
-                "rewardExp", boss.getRewardExp(),
-                "damage", damage
-            );
-        }
-
-        long bossReward = boss.getRewardBoss();
-        long expReward = boss.getRewardExp();
-
-        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
-        long bossHpMax = boss.getMaxHp();
-        long totalDamage = Math.min(
-            logs.stream().mapToLong(BossDamageLog::getDamage).sum(),
-            bossHpMax
-        );
-
-        Map<Long, Long> damagePorUsuario = logs.stream()
-            .collect(Collectors.groupingBy(
-                BossDamageLog::getUserId,
-                Collectors.summingLong(BossDamageLog::getDamage)
-            ));
-
-        for (var entry : damagePorUsuario.entrySet()) {
-            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
-            if (u == null) continue;
-
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-            double proporcao = (double) danoUsuario / totalDamage;
-            long rewardFinal = Math.round(bossReward * proporcao);
-            long expFinal = Math.round(expReward * proporcao);
-
-            if (u.getBossCoins() == null) u.setBossCoins(BigDecimal.ZERO);
-            u.setBossCoins(u.getBossCoins().add(BigDecimal.valueOf(rewardFinal)));
-
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
-
-            usuarioRepo.save(u);
-        }
-
-        bossDamageLogService.clearBossDamage(bossName);
-        damageLogRepo.deleteByBossName(bossName);
-
-        return Map.of(
-            "boss", bossName,
-            "status", "DEFEATED",
-            "rewardTotal", bossReward,
-            "expTotal", expReward,
-            "participantes", damagePorUsuario.size()
-        );
-    }
-
-    private Object finalizeHit(long usuarioId, Object resultado) {
-        bossAttackService.registrarAtaque(usuarioId);
-        return resultado;
-    }
-
-    // =============================
-    // SPAWN E RESET
-    // =============================
-    public BattleBoss spawnRandomBoss() {
-        killAllBosses();
-
-        int choice = random.nextInt(7);
-        BattleBoss newBoss;
-
-        switch (choice) {
-            case 0 -> {
-                GlobalBossIgnorath ig = ignorathService.get();
-                ig.setAlive(true);
-                ig.setCurrentHp(ig.getMaxHp());
-                ig.setSpawnedAt(LocalDateTime.now());
-                ignorathService.save(ig);
-                newBoss = ig;
-            }
-            case 1 -> {
-                GlobalBossDrakthor dr = drakthorService.get();
-                dr.setAlive(true);
-                dr.setCurrentHp(dr.getMaxHp());
-                dr.setSpawnedAt(LocalDateTime.now());
-                drakthorService.save(dr);
-                newBoss = dr;
-            }
-            case 2 -> {
-                GlobalBossAzurion az = azurionService.get();
-                az.setAlive(true);
-                az.setCurrentHp(az.getMaxHp());
-                az.setSpawnedAt(LocalDateTime.now());
-                azurionService.save(az);
-                newBoss = az;
-            }
-            
-            case 3 -> {
-            	GlobalBossNightmare nm = nightmareService.get();
-            	nm.setAlive(true);
-            	nm.setCurrentHp(nm.getMaxHp());
-            	nm.setSpawnedAt(LocalDateTime.now());
-            	nightmareService.save(nm);
-                newBoss = nm;
-            }
-            
-            case 4 -> {
-            	GlobalBossFlamor fl = flamorService.get();
-            	fl.setAlive(true);
-            	fl.setCurrentHp(fl.getMaxHp());
-            	fl.setSpawnedAt(LocalDateTime.now());
-                flamorService.save(fl);
-                newBoss = fl;
-            }
-            
-            case 5 -> {
-            	GlobalBossOblivar ob = oblivarService.get();
-            	ob.setAlive(true);
-            	ob.setCurrentHp(ob.getMaxHp());
-            	ob.setSpawnedAt(LocalDateTime.now());
-                oblivarService.save(ob);
-                newBoss = ob;
-            }
-            
-            case 6 -> {
-            	  GlobalBossUmbraxis um = umbraxisService.get();
-                  um.setAlive(true);
-                  um.setCurrentHp(um.getMaxHp());
-                  um.setSpawnedAt(LocalDateTime.now());
-                  umbraxisService.save(um);
-                  newBoss = um;
-            }
-            
-            case 7 -> {
-            	GlobalBossLyxara lx = lyxaraService.get();
-            	lx.setAlive(true);
-            	lx.setCurrentHp(lx.getMaxHp());
-            	lx.setSpawnedAt(LocalDateTime.now());
-            	lyxaraService.save(lx);
-                newBoss = lx;
-          }
-          
-          
-            
-            default -> {
-                GlobalBossUmbraxis um = umbraxisService.get();
-                um.setAlive(true);
-                um.setCurrentHp(um.getMaxHp());
-                um.setSpawnedAt(LocalDateTime.now());
-                umbraxisService.save(um);
-                newBoss = um;
-            }
-        }
-
-        return newBoss;
-    }
-
-    public void killAllBosses() {
-        GlobalBossIgnorath ig = ignorathService.get();
-        GlobalBossDrakthor dr = drakthorService.get();
-        GlobalBossAzurion az = azurionService.get();
-        GlobalBossUmbraxis um = umbraxisService.get();
-        GlobalBossNightmare nm = nightmareService.get();
-        GlobalBossFlamor fl = flamorService.get();
-        GlobalBossOblivar ob = oblivarService.get();
-        GlobalBossLyxara lx = lyxaraService.get();
-        
-        ig.setAlive(false);
-        dr.setAlive(false);
-        az.setAlive(false);
-        um.setAlive(false);
-        nm.setAlive(false);
-        fl.setAlive(false);
-        ob.setAlive(false);
-        lx.setAlive(false);
-        
-        
-        ignorathService.save(ig);
-        drakthorService.save(dr);
-        azurionService.save(az);
-        umbraxisService.save(um);
-        nightmareService.save(nm);
-        flamorService.save(fl);
-        oblivarService.save(ob);
-        lyxaraService.save(lx);
-        
-    }
-
-    // =============================
-    // COOLDOWN
-    // =============================
-    public Map<String, Object> cooldown(Long usuarioId) {
-        UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        boolean podeAtacar = bossAttackService.podeAtacar(usuario);
-        long segundos = bossAttackService.tempoRestanteSegundos(usuario);
-
-        return Map.of(
-            "podeAtacar", podeAtacar,
-            "segundosRestantes", segundos
-        );
-    }
-    
-    //===============================  tryHitBossAuto =====================================================
-    //=====================================================================================================
-    
-    private Object tryHitBossAuto(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
-        if (boss == null || !boss.isAlive()) return null;
-
-        boss.applyDamage(damage);
-
-        if (boss instanceof GlobalBossIgnorath) ignorathService.save((GlobalBossIgnorath) boss);
-        if (boss instanceof GlobalBossDrakthor) drakthorService.save((GlobalBossDrakthor) boss);
-        if (boss instanceof GlobalBossAzurion) azurionService.save((GlobalBossAzurion) boss);
-        if (boss instanceof GlobalBossUmbraxis) umbraxisService.save((GlobalBossUmbraxis) boss);
-        if (boss instanceof GlobalBossNightmare) nightmareService.save((GlobalBossNightmare) boss);
-        if (boss instanceof GlobalBossFlamor) flamorService.save((GlobalBossFlamor) boss);
-        if (boss instanceof GlobalBossOblivar) oblivarService.save((GlobalBossOblivar) boss);
-        if (boss instanceof GlobalBossLyxara) lyxaraService.save((GlobalBossLyxara) boss);
-        
-        
-        
-        registrarDano(bossName, usuario, damage);
-
-        return processReward(bossName, boss, damage);
-    }
-
-    public Object atacarBossAtivo(UsuarioBossBattle usuario, long damage) {
-        Object resultado = tryHitBossAuto("IGNORATH", ignorathService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-
-        resultado = tryHitBossAuto("DRAKTHOR", drakthorService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-
-        resultado = tryHitBossAuto("AZURION", azurionService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-
-        resultado = tryHitBossAuto("UMBRAXIS", umbraxisService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-
-        resultado = tryHitBoss("NIGHTMARE", nightmareService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-        
-        resultado = tryHitBoss("FLAMOR", flamorService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-        
-        resultado = tryHitBoss("OBLIVAR", oblivarService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-        
-        resultado = tryHitBoss("LYXARA", lyxaraService.get(), usuario, damage);
-        if (resultado != null) return resultado;
-        
-        
-        return Map.of(
-            "status", "NO_BOSS",
-            "message", "Nenhum boss ativo no momento"
-        );
-    }
- 
-    
-}
-
- */
-
+*/

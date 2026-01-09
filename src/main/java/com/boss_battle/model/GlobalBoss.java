@@ -20,7 +20,7 @@ public class GlobalBoss implements BattleBoss {
     private Long id;
 
     @Column(nullable = false)
-    private String name; // nome do boss
+    private String name;
 
     @Column(nullable = false)
     private long maxHp;
@@ -133,9 +133,18 @@ public class GlobalBoss implements BattleBoss {
         return rewardBoss;
     }
 
+    public void setRewardBoss(long rewardBoss) {
+        this.rewardBoss = rewardBoss;
+    }
+
     public long getRewardExp() {
         return rewardExp;
     }
+
+    public void setRewardExp(long rewardExp) {
+        this.rewardExp = rewardExp;
+    }
+    
 
 
     public void setId(Long id) {

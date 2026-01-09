@@ -37,6 +37,12 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     Optional<UsuarioBossBattle> findByIdForUpdate(@Param("id") Long id);
     
     
-   
+    @Query("""
+    		SELECT u FROM UsuarioBossBattle u
+    		WHERE u.guerreiros > 0
+    		AND u.energiaGuerreiros > 0
+    		""")
+    		List<UsuarioBossBattle> buscarUsuariosAtivos();
+
 
 }
