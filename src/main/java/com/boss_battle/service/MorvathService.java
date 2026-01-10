@@ -26,6 +26,7 @@ public class MorvathService {
         boss.setName("MORVATH");
         boss.setMaxHp(50_000L);
         boss.setCurrentHp(50_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_morvath.webp");
         boss.setSpawnedAt(LocalDateTime.now());

@@ -5,10 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boss_battle.model.GlobalBoss;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.repository.DestruidorRepository;
-import com.boss_battle.repository.GlobalBossRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -31,10 +29,15 @@ public class DestruidorService  {
     	GlobalBossDestruidor boss = new GlobalBossDestruidor();
 
         boss.setName("DESTRUIDOR");
-        boss.setMaxHp(200_000L);
-        boss.setCurrentHp(200_000L);
+        aplicarEscalamentoDestruidor(boss);
+        
+       // boss.setMaxHp(200_000L);
+        //boss.setCurrentHp(200_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
-
+        
+       
+ 
         boss.setAttackPower(2_400L);
         boss.setAttackIntervalSeconds(18L);
 
@@ -44,8 +47,8 @@ public class DestruidorService  {
         boss.setRespawnCooldownSeconds(14_400L); 
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(100_000L);
-        boss.setRewardExp(5_000L);
+       // boss.setRewardBoss(100_000L);
+       // boss.setRewardExp(5_000L);
 
         return repo.save(boss);
     }
@@ -57,21 +60,21 @@ public class DestruidorService  {
     //===========================================================
     //incrmentar hp, toda vez que o boss morrer/ se der certo..
     //===========================================================
-    private void aplicarEscalamento(GlobalBossDestruidor boss) {
+    public void aplicarEscalamentoDestruidor(GlobalBossDestruidor boss) {
 
     	long valorHpMax =  boss.getMaxHp();
     	long valorCur = boss.getCurrentHp();
     	
     	boss.setMaxHp( valorHpMax + 100);
     	boss.setCurrentHp( valorCur + 100);
-    	long valorXp =  boss.getMaxHp();
-        
-    	boss.setRewardExp(valorXp);
+    	
+    	long valorXp =  boss.getRewardExp();
+    	boss.setRewardExp(valorXp + 1);
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
-        
-        
- 	   boss.setRewardBoss(valorsetRewardBoss + 1);
+ 	    boss.setRewardBoss(valorsetRewardBoss + 1);
+ 	   
+ 	   
     }
 
 

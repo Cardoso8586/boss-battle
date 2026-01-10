@@ -29,6 +29,7 @@ public class NoctharionService {
         boss.setName("NOCTHARION");
         boss.setMaxHp(180_000L);
         boss.setCurrentHp(180_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
 
         boss.setAttackPower(420L);

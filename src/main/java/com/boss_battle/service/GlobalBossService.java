@@ -206,6 +206,14 @@ public class GlobalBossService {
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        BattleBoss boss = getActiveBoss();
+
+      if (boss == null || !boss.isAlive()) {
+         return Map.of(
+        "status", "NO_BOSS",
+        "message", "Boss derrotado. Aguarde o respawn."
+          );
+       }
         
          
         if (!bossAttackService.podeAtacar(usuario)) {
@@ -216,6 +224,8 @@ public class GlobalBossService {
                 "segundosRestantes", bossAttackService.tempoRestanteSegundos(usuario)
             );
         }
+        
+        
         
         Long energia = usuario.getEnergiaGuerreiros();
 
@@ -372,7 +382,7 @@ public class GlobalBossService {
         
         registrarDano(bossName, usuario, damage);
         
-        if (boss == null || !boss.isAlive()) return null ;
+       
         
         return processReward(bossName, boss, usuario, damage); 
         
@@ -402,7 +412,10 @@ public class GlobalBossService {
             UsuarioBossBattle usuario,
             long damage
     ) {
+    	
+    	
 
+    	 // Ainda vivo → fluxo normal
         if (boss.isAlive() && boss.getCurrentHp() > 0) {
             return Map.of(
                 "boss", bossName,
@@ -412,7 +425,18 @@ public class GlobalBossService {
                 "damage", damage
             );
         }
-      
+
+        // 🔐 LOCK: se já está processando morte
+        if (boss.isProcessingDeath()) {
+            return Map.of(
+                "status", "DEFEATED",
+                "message", "Boss já foi derrotado"
+            );
+        }
+
+        // 🔒 Trava a morte
+        boss.setProcessingDeath(true);
+        
         long bossReward = boss.getRewardBoss();
         long expReward = boss.getRewardExp();
 
@@ -499,15 +523,17 @@ public class GlobalBossService {
             usuarioRepo.save(u);
         }
      
-        resetBoss();
+        resetBoss(); // limpa logs
 
-        return Map.of(
-            "boss", bossName,
-            "status", "DEFEATED",
-            "rewardTotal", bossReward,
-            "expTotal", expReward,
-            "participantes", damagePorUsuario.size()
-        );
+     // NÃO libera processingDeath aqui se não houver respawn imediato
+     return Map.of(
+         "boss", bossName,
+         "status", "DEFEATED",
+         "rewardTotal", bossReward,
+         "expTotal", expReward,
+         "participantes", damagePorUsuario.size()
+     );
+
     }
     
 
@@ -612,13 +638,14 @@ public class GlobalBossService {
         killAllBosses();
         resetBoss();
         
-      
+       
         int choice = random.nextInt(26);
         BattleBoss newBoss;
 
         switch (choice) {
             case 0 -> {
                 GlobalBossIgnorath ig = ignorathService.get();
+                ig.setProcessingDeath(false);
                 ig.setAlive(true);
                 ig.setCurrentHp(ig.getMaxHp());
                 ig.setSpawnedAt(LocalDateTime.now());
@@ -627,6 +654,7 @@ public class GlobalBossService {
             }
             case 1 -> {
                 GlobalBossDrakthor dr = drakthorService.get();
+                dr.setProcessingDeath(false);
                 dr.setAlive(true);
                 dr.setCurrentHp(dr.getMaxHp());
                 dr.setSpawnedAt(LocalDateTime.now());
@@ -635,6 +663,7 @@ public class GlobalBossService {
             }
             case 2 -> {
                 GlobalBossAzurion az = azurionService.get();
+                az.setProcessingDeath(false);
                 az.setAlive(true);
                 az.setCurrentHp(az.getMaxHp());
                 az.setSpawnedAt(LocalDateTime.now());
@@ -644,6 +673,7 @@ public class GlobalBossService {
             
             case 3 -> {
             	GlobalBossNightmare nm = nightmareService.get();
+            	nm.setProcessingDeath(false);
             	nm.setAlive(true);
             	nm.setCurrentHp(nm.getMaxHp());
             	nm.setSpawnedAt(LocalDateTime.now());
@@ -653,6 +683,7 @@ public class GlobalBossService {
             
             case 4 -> {
             	GlobalBossFlamor fl = flamorService.get();
+            	fl.setProcessingDeath(false);
             	fl.setAlive(true);
             	fl.setCurrentHp(fl.getMaxHp());
             	fl.setSpawnedAt(LocalDateTime.now());
@@ -662,6 +693,7 @@ public class GlobalBossService {
             
             case 5 -> {
             	GlobalBossOblivar ob = oblivarService.get();
+            	ob.setProcessingDeath(false);
             	ob.setAlive(true);
             	ob.setCurrentHp(ob.getMaxHp());
             	ob.setSpawnedAt(LocalDateTime.now());
@@ -671,6 +703,7 @@ public class GlobalBossService {
             
             case 6 -> {
             	  GlobalBossUmbraxis um = umbraxisService.get();
+            	  um.setProcessingDeath(false);
                   um.setAlive(true);
                   um.setCurrentHp(um.getMaxHp());
                   um.setSpawnedAt(LocalDateTime.now());
@@ -680,6 +713,7 @@ public class GlobalBossService {
             
             case 7 -> {
             	GlobalBossLyxara lx = lyxaraService.get();
+            	lx.setProcessingDeath(false);
             	lx.setAlive(true);
             	lx.setCurrentHp(lx.getMaxHp());
             	lx.setSpawnedAt(LocalDateTime.now());
@@ -690,6 +724,7 @@ public class GlobalBossService {
             
             case 8 -> {
             	GlobalBossNoxar nx = noxarService.get();
+            	nx.setProcessingDeath(false);
             	nx.setAlive(true);
             	nx.setCurrentHp(nx.getMaxHp());
             	nx.setSpawnedAt(LocalDateTime.now());
@@ -699,6 +734,7 @@ public class GlobalBossService {
           
             case 9 -> {
             	GlobalBossUmbrar ub = umbrarService.get();
+            	ub.setProcessingDeath(false);
             	ub.setAlive(true);
             	ub.setCurrentHp(ub.getMaxHp());
             	ub.setSpawnedAt(LocalDateTime.now());
@@ -708,6 +744,7 @@ public class GlobalBossService {
             
             case 10 -> {
             	GlobalBossMorvath mv = morvathService.get();
+            	mv.setProcessingDeath(false);
             	mv.setAlive(true);
             	mv.setCurrentHp(mv.getMaxHp());
             	mv.setSpawnedAt(LocalDateTime.now());
@@ -717,6 +754,7 @@ public class GlobalBossService {
             
             case 11 -> {
             	GlobalBossObliquo oq = obliquoService.get();
+            	oq.setProcessingDeath(false);
             	oq.setAlive(true);
             	oq.setCurrentHp(oq.getMaxHp());
             	oq.setSpawnedAt(LocalDateTime.now());
@@ -726,6 +764,7 @@ public class GlobalBossService {
             
             case 12 -> {
             	GlobalBossPyragon pg = pyragonService.get();
+            	pg.setProcessingDeath(false);
             	pg.setAlive(true);
             	pg.setCurrentHp(pg.getMaxHp());
             	pg.setSpawnedAt(LocalDateTime.now());
@@ -735,6 +774,7 @@ public class GlobalBossService {
             
             case 13-> {
             	GlobalBossGlaciorn gc = glaciornService.get();
+            	gc.setProcessingDeath(false);
             	gc.setAlive(true);
             	gc.setCurrentHp(gc.getMaxHp());
             	gc.setSpawnedAt(LocalDateTime.now());
@@ -744,6 +784,7 @@ public class GlobalBossService {
             
             case 14-> {
             	GlobalBossReflexa rx = reflexaService.get();
+            	rx.setProcessingDeath(false);
             	rx.setAlive(true);
             	rx.setCurrentHp(rx.getMaxHp());
             	rx.setSpawnedAt(LocalDateTime.now());
@@ -753,6 +794,7 @@ public class GlobalBossService {
             
             case 15-> {
             	GlobalBossMechadron mc = mechadronService.get();
+            	mc.setProcessingDeath(false);
             	mc.setAlive(true);
             	mc.setCurrentHp(mc.getMaxHp());
             	mc.setSpawnedAt(LocalDateTime.now());
@@ -762,6 +804,7 @@ public class GlobalBossService {
            
             case 16-> {
             	GlobalBossNoctyr nr = noctyrService.get();
+            	nr.setProcessingDeath(false);
             	nr.setAlive(true);
             	nr.setCurrentHp(nr.getMaxHp());
             	nr.setSpawnedAt(LocalDateTime.now());
@@ -771,6 +814,7 @@ public class GlobalBossService {
             
             case 17-> {
             	GlobalBossOblivion on = oblivionService.get();
+            	on.setProcessingDeath(false);
             	on.setAlive(true);
             	on.setCurrentHp(on.getMaxHp());
             	on.setSpawnedAt(LocalDateTime.now());
@@ -780,6 +824,7 @@ public class GlobalBossService {
             
             case 18 -> {
             	GlobalBossVespera vs = vesperaService.get();
+            	vs.setProcessingDeath(false);
             	vs.setAlive(true);
             	vs.setCurrentHp(vs.getMaxHp());
             	vs.setSpawnedAt(LocalDateTime.now());
@@ -789,6 +834,7 @@ public class GlobalBossService {
             
             case 19 -> {
             	GlobalBossTenebris ts = tenebrisService.get();
+            	ts.setProcessingDeath(false);
             	ts.setAlive(true);
             	ts.setCurrentHp(ts.getMaxHp());
             	ts.setSpawnedAt(LocalDateTime.now());
@@ -798,6 +844,7 @@ public class GlobalBossService {
             
             case 20 -> {
             	GlobalBossGlaciara gl = glaciaraService.get();
+            	gl.setProcessingDeath(false);
             	gl.setAlive(true);
             	gl.setCurrentHp(gl.getMaxHp());
             	gl.setSpawnedAt(LocalDateTime.now());
@@ -807,6 +854,7 @@ public class GlobalBossService {
             
             case 21 -> {
             	GlobalBossInfernax ix = infernaxService.get();
+            	ix.setProcessingDeath(false);
             	ix.setAlive(true);
             	ix.setCurrentHp(ix.getMaxHp());
             	ix.setSpawnedAt(LocalDateTime.now());
@@ -816,6 +864,7 @@ public class GlobalBossService {
             
             case 22 -> {
             	GlobalBossThunderon td = thunderonService.get();
+            	td.setProcessingDeath(false);
             	td.setAlive(true);
             	td.setCurrentHp(td.getMaxHp());
             	td.setSpawnedAt(LocalDateTime.now());
@@ -825,6 +874,7 @@ public class GlobalBossService {
             
             case 23 -> {
             	GlobalBossNoctharion nt = noctharionService.get();
+            	nt.setProcessingDeath(false);
             	nt.setAlive(true);
             	nt.setCurrentHp(nt.getMaxHp());
             	nt.setSpawnedAt(LocalDateTime.now());
@@ -834,6 +884,7 @@ public class GlobalBossService {
             
             case 24 -> {
             	GlobalBossAzraelPrime ap = azraelPrimeService.get();
+            	ap.setProcessingDeath(false);
             	ap.setAlive(true);
             	ap.setCurrentHp(ap.getMaxHp());
             	ap.setSpawnedAt(LocalDateTime.now());
@@ -842,6 +893,8 @@ public class GlobalBossService {
             }
             case 25 -> {
             	GlobalBossDestruidor ds = destruidorService.get();
+            	ds.aplicarEscalamentoDestruidor();
+            	ds.setProcessingDeath(false);
             	ds.setAlive(true);
             	ds.setCurrentHp(ds.getMaxHp());
             	ds.setSpawnedAt(LocalDateTime.now());
@@ -853,6 +906,7 @@ public class GlobalBossService {
             
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
+                um.setProcessingDeath(false);
                 um.setAlive(true);
                 um.setCurrentHp(um.getMaxHp());
                 um.setSpawnedAt(LocalDateTime.now());
@@ -894,34 +948,87 @@ public class GlobalBossService {
     	GlobalBossDestruidor ds = destruidorService.get();
     	
     	
-        ig.setAlive(false);
-        dr.setAlive(false);
-        az.setAlive(false);
-        um.setAlive(false);
-        nm.setAlive(false);
-        fl.setAlive(false);
-        ob.setAlive(false);
-        lx.setAlive(false);
-        nx.setAlive(false);
-        ub.setAlive(false);
-        mv.setAlive(false);
-        oq.setAlive(false);
-        pg.setAlive(false);
-        gc.setAlive(false);
-        rx.setAlive(false);
-        mc.setAlive(false);
-        nr.setAlive(false);
-        on.setAlive(false);
-        vs.setAlive(false);
-        ts.setAlive(false);
-        gl.setAlive(false);
-        ix.setAlive(false);
-        td.setAlive(false);
-        nt.setAlive(false);
-        ap.setAlive(false);
-        ds.setAlive(false);
-        
-        
+    	
+    	
+    	
+    	ig.setAlive(false);
+    	ig.setProcessingDeath(false);
+
+    	dr.setAlive(false);
+    	dr.setProcessingDeath(false);
+
+    	az.setAlive(false);
+    	az.setProcessingDeath(false);
+
+    	um.setAlive(false);
+    	um.setProcessingDeath(false);
+
+    	nm.setAlive(false);
+    	nm.setProcessingDeath(false);
+
+    	fl.setAlive(false);
+    	fl.setProcessingDeath(false);
+
+    	ob.setAlive(false);
+    	ob.setProcessingDeath(false);
+
+    	lx.setAlive(false);
+    	lx.setProcessingDeath(false);
+
+    	nx.setAlive(false);
+    	nx.setProcessingDeath(false);
+
+    	ub.setAlive(false);
+    	ub.setProcessingDeath(false);
+
+    	mv.setAlive(false);
+    	mv.setProcessingDeath(false);
+
+    	oq.setAlive(false);
+    	oq.setProcessingDeath(false);
+
+    	pg.setAlive(false);
+    	pg.setProcessingDeath(false);
+
+    	gc.setAlive(false);
+    	gc.setProcessingDeath(false);
+
+    	rx.setAlive(false);
+    	rx.setProcessingDeath(false);
+
+    	mc.setAlive(false);
+    	mc.setProcessingDeath(false);
+
+    	nr.setAlive(false);
+    	nr.setProcessingDeath(false);
+
+    	on.setAlive(false);
+    	on.setProcessingDeath(false);
+
+    	vs.setAlive(false);
+    	vs.setProcessingDeath(false);
+
+    	ts.setAlive(false);
+    	ts.setProcessingDeath(false);
+
+    	gl.setAlive(false);
+    	gl.setProcessingDeath(false);
+
+    	ix.setAlive(false);
+    	ix.setProcessingDeath(false);
+
+    	td.setAlive(false);
+    	td.setProcessingDeath(false);
+
+    	nt.setAlive(false);
+    	nt.setProcessingDeath(false);
+
+    	ap.setAlive(false);
+    	ap.setProcessingDeath(false);
+
+    	ds.setAlive(false);
+    	ds.setProcessingDeath(false);
+
         ignorathService.save(ig);
         drakthorService.save(dr);
         azurionService.save(az);

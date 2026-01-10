@@ -26,6 +26,7 @@ public class ThunderonService {
         boss.setName("THUNDERON");
         boss.setMaxHp(260_000L);
         boss.setCurrentHp(260_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_thunderon.webp");
         boss.setSpawnedAt(LocalDateTime.now());

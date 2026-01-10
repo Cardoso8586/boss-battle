@@ -58,7 +58,7 @@ public class ComprarEnergiaService {
         );
 
         // 🔁 recalcula preços (SEM salvar)
-        lojaService.atualizarPrecosLoja(usuario, quantidade);
+        lojaService.atualizarPrecoVigor(usuario, quantidade);
 
         // ✅ único save
         repo.save(usuario);

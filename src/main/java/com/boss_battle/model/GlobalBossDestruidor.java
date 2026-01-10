@@ -57,6 +57,19 @@ public class GlobalBossDestruidor implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp = 5_000L;
 
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     public GlobalBossDestruidor() {}
 
     // ===== GETTERS & SETTERS =====
@@ -147,4 +160,25 @@ public class GlobalBossDestruidor implements BattleBoss {
 
         return reward;
     }
+
+	  //===========================================================
+    //incrmentar hp, toda vez que o boss morrer
+    //===========================================================
+    
+    public void aplicarEscalamentoDestruidor () {
+
+    	long valorHpMax =  getMaxHp();
+    	long valorCur = getCurrentHp();
+    	
+    	setMaxHp( valorHpMax + 100);
+    	setCurrentHp( valorCur + 100);
+    	
+    	long valorXp =  getRewardExp();
+    	setRewardExp(valorXp + 1);
+    	
+    	long valorsetRewardBoss = getRewardBoss();
+ 	    setRewardBoss(valorsetRewardBoss + 1);
+ 	   
+    }
+
 }

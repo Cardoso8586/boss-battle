@@ -52,7 +52,19 @@ public class GlobalBoss implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp; // exp
 
-    
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     
     // construtor vazio
     public GlobalBoss() {}

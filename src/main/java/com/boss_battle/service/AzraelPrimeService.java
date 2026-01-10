@@ -29,6 +29,7 @@ public class AzraelPrimeService {
         boss.setName("AZRAEL PRIME");
         boss.setMaxHp(400_000L);
         boss.setCurrentHp(400_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
 
         boss.setAttackPower(2_400L);

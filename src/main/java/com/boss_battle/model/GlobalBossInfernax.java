@@ -57,6 +57,19 @@ public class GlobalBossInfernax implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp = 4200L;
 
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     public GlobalBossInfernax() {}
 
     public Long getId() { return id; }

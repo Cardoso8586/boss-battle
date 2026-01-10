@@ -29,6 +29,7 @@ public class OblivionService {
         boss.setName("OBLIVION");
         boss.setMaxHp(80_000L);
         boss.setCurrentHp(80_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
 
         boss.setAttackPower(200L);

@@ -57,6 +57,19 @@ public class GlobalBossReflexa implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp = 2400L;
 
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     public GlobalBossReflexa() {}
 
     public Long getId() { return id; }

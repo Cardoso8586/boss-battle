@@ -50,7 +50,7 @@ public class ComprarGuerreiroService {
         usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + quantidade);
         
         // 🔁 recalcula preços (SEM salvar)
-        lojaService.atualizarPrecosLoja(usuario, quantidade);
+        lojaService.atualizarPrecoGuerreiro(usuario, quantidade);
 
         // ✅ UM ÚNICO SAVE
         repo.save(usuario);

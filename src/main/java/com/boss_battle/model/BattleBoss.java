@@ -27,5 +27,8 @@ public interface BattleBoss {
     public String getImageUrl();
 	Map<String, Long> applyDamage(long damage);
 	
+	// 🔐 LOCK DE MORTE
+    boolean isProcessingDeath();
+    void setProcessingDeath(boolean b);
   
 }

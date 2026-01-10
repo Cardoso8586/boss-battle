@@ -29,6 +29,7 @@ public class LyxaraService {
         boss.setName("LYXARA — A Soberana Sombria");
         boss.setMaxHp(40_000L);
         boss.setCurrentHp(40_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
 
         boss.setAttackPower(140L);

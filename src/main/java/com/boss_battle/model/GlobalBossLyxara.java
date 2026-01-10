@@ -57,6 +57,19 @@ public class GlobalBossLyxara implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp = 3000;
 
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     public GlobalBossLyxara() {}
 
     public Long getId() { return id; }

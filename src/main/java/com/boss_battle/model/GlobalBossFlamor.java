@@ -25,10 +25,10 @@ public class GlobalBossFlamor implements BattleBoss {
     private String name = "FLAMOR"; // nome chamativo
 
     @Column(nullable = false)
-    private long maxHp = 25_000L; // HP menor
+    private long maxHp = 250_000L; // HP menor
 
     @Column(nullable = false)
-    private long currentHp = 25_000L;
+    private long currentHp = 250_000L;
 
     private long attackPower = 100L; // ataque proporcional
 
@@ -52,10 +52,23 @@ public class GlobalBossFlamor implements BattleBoss {
     private String imageUrl = "images/boss_flamor.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 20_000L; // recompensa proporcional
+    private long rewardBoss = 80_000L; // recompensa proporcional
 
     @Column(nullable = false)
-    private long rewardExp = 500;
+    private long rewardExp = 2500;
+
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
 
     
     public GlobalBossFlamor() {}

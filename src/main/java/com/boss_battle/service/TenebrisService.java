@@ -27,6 +27,7 @@ public class TenebrisService {
         boss.setName("TENEBRIS");
         boss.setMaxHp(70_000);
         boss.setCurrentHp(70_000);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_tenebris.webp");
         boss.setSpawnedAt(LocalDateTime.now());

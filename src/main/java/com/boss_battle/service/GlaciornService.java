@@ -33,6 +33,7 @@ public class GlaciornService {
         boss.setName("GLACIORN");
         boss.setMaxHp(120_000L);
         boss.setCurrentHp(120_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_glaciorn.webp");
         boss.setSpawnedAt(LocalDateTime.now());

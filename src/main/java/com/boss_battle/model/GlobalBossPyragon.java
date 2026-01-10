@@ -57,6 +57,20 @@ public class GlobalBossPyragon implements BattleBoss {
 
     @Column(nullable = false)
     private long rewardExp = 1800L;
+    
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
 
     public GlobalBossPyragon() {}
 

@@ -26,6 +26,7 @@ public class DrakthorService {
         boss.setName("DRAKTHOR — O DEVORA-MUNDOS");
         boss.setMaxHp(150_000);
         boss.setCurrentHp(150_000);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_drakthor.webp");
         boss.setSpawnedAt(LocalDateTime.now());

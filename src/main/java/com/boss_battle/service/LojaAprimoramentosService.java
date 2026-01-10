@@ -28,22 +28,39 @@ public class LojaAprimoramentosService {
      * ⚠️ ESTE MÉTODO DEVE SER CHAMADO
      * SOMENTE APÓS UMA COMPRA
      */
-    public void atualizarPrecosLoja(UsuarioBossBattle usuario, int quantidade) {
+    
+    //---> atualizar preço do guerreiro
+    public void atualizarPrecoGuerreiro(UsuarioBossBattle usuario, int quantidade) {
 
         // 🔒 Usa sempre o preço atual como base
         long precoGuerreirosAtual = usuario.getPrecoGuerreiros();
-        long precoEnergiaAtual = usuario.getPrecoEnergia();
-        long precoAtaqueAtual = usuario.getPrecoAtaqueEspecial();
-
         // 🔼 aumento fixo e permanente
         usuario.setPrecoGuerreiros(precoGuerreirosAtual + (quantidade*AUMENTO_PRECO_GUERREIROS));
 
-        usuario.setPrecoEnergia(precoEnergiaAtual + (quantidade*AUMENTO_PRECO_ENERGIA));
-
-        usuario.setPrecoAtaqueEspecial(
-            precoAtaqueAtual + ( quantidade* AUMENTO_PRECO_ATAQUE_ESPECIAL) );
+       
     }
 
+    
+    //--->atualizar preço do vigor
+    public void atualizarPrecoVigor(UsuarioBossBattle usuario, int quantidade) {
+
+        // 🔒 Usa sempre o preço atual como base
+        long precoEnergiaAtual = usuario.getPrecoEnergia();
+        usuario.setPrecoEnergia(precoEnergiaAtual + (quantidade*AUMENTO_PRECO_ENERGIA));
+    }
+
+    
+    //---> atualizar preço ataque especial
+    public void atualizarPrecoAtaqueEspecial(UsuarioBossBattle usuario, int quantidade) {
+
+        // 🔒 Usa sempre o preço atual como base
+        long precoAtaqueAtual = usuario.getPrecoAtaqueEspecial();
+
+        // 🔼 aumento fixo e permanente
+        usuario.setPrecoAtaqueEspecial(precoAtaqueAtual + ( quantidade* AUMENTO_PRECO_ATAQUE_ESPECIAL) );
+    }
+
+    
     //======================================
     
     public long getPrecoBasePorcaovigor() {

@@ -18,21 +18,22 @@ public class FlamorService {
     private FlamorRepository repo;
 
     public GlobalBossFlamor get() {
-        return repo.findById(1L).orElseGet(() -> createDefaultBoss());
+    	  return repo.findById(1L).orElseGet(() -> createDefaultBoss());
     }
 
     public GlobalBossFlamor createDefaultBoss() {
     	GlobalBossFlamor boss = new GlobalBossFlamor();
          boss.setName("FLAMOR");
-         boss.setMaxHp(25_000L);
-         boss.setCurrentHp(25_000L);
+         boss.setMaxHp(250_000L);
+         boss.setCurrentHp(250_000L);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_flamor.webp");
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600L);
          boss.setSpawnCount(1);
-         boss.setRewardBoss(20_000L);
-         boss.setRewardExp(2000L);
+         boss.setRewardBoss(80_000L);
+         boss.setRewardExp(2500L);
         return repo.save(boss);
     }
 

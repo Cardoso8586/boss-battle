@@ -28,10 +28,10 @@ public class GlobalBossIgnorath implements BattleBoss {
 
 	    // HP total do boss no spawn atual
 	    @Column(nullable = false)
-	    private long maxHp = 50_000L;
+	    private long maxHp = 150_000L;
 
 	    @Column(nullable = false)
-	    private long currentHp = 50_000L;
+	    private long currentHp = 150_000L;
 
 	    // poder de ataque do boss (se ele atacar jogadores/pets)
 	    private long attackPower = 50L;
@@ -63,12 +63,24 @@ public class GlobalBossIgnorath implements BattleBoss {
 	    private String imageUrl = "images/boss_ignorath.webp"; 
 
 	    @Column(nullable = false)
-	    private long rewardBoss = 25_000; 
+	    private long rewardBoss = 75_000; 
 
 	    @Column(nullable = false)
-	    private long rewardExp = 1000; 
+	    private long rewardExp = 4000; 
 
-	   
+	    @Column(nullable = false)
+	    private boolean processingDeath = false;
+
+	    @Override
+	    public boolean isProcessingDeath() {
+	        return processingDeath;
+	    }
+
+	    @Override
+	    public void setProcessingDeath(boolean processingDeath) {
+	        this.processingDeath = processingDeath;
+	    }
+
 
 	    // getters/setters...
 	    

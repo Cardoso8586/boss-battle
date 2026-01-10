@@ -25,6 +25,7 @@ public class VesperaService {
          boss.setName("VESPERA");
          boss.setMaxHp(48_000L);
          boss.setCurrentHp(48_000L);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_vespera.webp");
          boss.setSpawnedAt(LocalDateTime.now());

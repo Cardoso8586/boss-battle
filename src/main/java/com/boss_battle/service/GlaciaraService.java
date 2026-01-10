@@ -26,6 +26,7 @@ public class GlaciaraService {
          boss.setName("GLACIARA - RAINHA DO GELO");
          boss.setMaxHp(65_000L);
          boss.setCurrentHp(65_000L);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_glaciara.webp");
          boss.setSpawnedAt(LocalDateTime.now());

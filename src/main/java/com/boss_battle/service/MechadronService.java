@@ -33,6 +33,7 @@ public class MechadronService {
         boss.setName("MECHADRON");
         boss.setMaxHp(220_000L);
         boss.setCurrentHp(220_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_mechadron.webp");
         boss.setSpawnedAt(LocalDateTime.now());

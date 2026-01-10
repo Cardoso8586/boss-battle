@@ -24,15 +24,16 @@ public class IgnorathService {
     public GlobalBossIgnorath createDefaultBoss() {
     	 GlobalBossIgnorath boss = new GlobalBossIgnorath();
          boss.setName("IGNORATH");
-         boss.setMaxHp(50_000);
-         boss.setCurrentHp(50_000);
+         boss.setMaxHp(150_000);
+         boss.setCurrentHp(150_000);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_ignorath.webp");
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600);
          boss.setSpawnCount(1);
-         boss.setRewardBoss(25_000);
-         boss.setRewardExp(1000);
+         boss.setRewardBoss(75_000);
+         boss.setRewardExp(3000);
         return repo.save(boss);
     }
 

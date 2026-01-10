@@ -26,6 +26,7 @@ public class UmbrarService {
          boss.setName("UMBRAR");
          boss.setMaxHp(42_000L);
          boss.setCurrentHp(42_000L);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_umbrar.webp");
          boss.setSpawnedAt(LocalDateTime.now());

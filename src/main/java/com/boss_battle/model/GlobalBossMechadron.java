@@ -57,6 +57,19 @@ public class GlobalBossMechadron implements BattleBoss {
     @Column(nullable = false)
     private long rewardExp = 2800L;
 
+    @Column(nullable = false)
+    private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
     public GlobalBossMechadron() {}
 
     public Long getId() { return id; }

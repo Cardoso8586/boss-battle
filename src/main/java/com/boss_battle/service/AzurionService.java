@@ -30,6 +30,7 @@ public class AzurionService {
         boss.setName("AZURION");
         boss.setMaxHp(100_000);
         boss.setCurrentHp(100_000);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_azurion.webp");
         boss.setSpawnedAt(LocalDateTime.now());

@@ -34,6 +34,7 @@ public class NightmareService {
         boss.setName("NIGHTMARE");
         boss.setMaxHp(250_000);
         boss.setCurrentHp(250_000);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_nightmare.webp");
         boss.setSpawnedAt(LocalDateTime.now());

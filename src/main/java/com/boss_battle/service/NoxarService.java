@@ -28,6 +28,7 @@ public class NoxarService {
          boss.setName("UMBRA XIS");
          boss.setMaxHp(50_000L);
          boss.setCurrentHp(50_000L);
+         boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_umbraxis.webp");
          boss.setSpawnedAt(LocalDateTime.now());

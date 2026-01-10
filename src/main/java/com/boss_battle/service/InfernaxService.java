@@ -26,6 +26,7 @@ public class InfernaxService {
         boss.setName("INFERNAX");
         boss.setMaxHp(320_000L);
         boss.setCurrentHp(320_000L);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_infernax.webp");
         boss.setSpawnedAt(LocalDateTime.now());

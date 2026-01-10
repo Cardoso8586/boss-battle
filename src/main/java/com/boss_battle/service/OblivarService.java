@@ -33,6 +33,7 @@ public class OblivarService {
         boss.setName("OBLIVAR");
         boss.setMaxHp(35_000);
         boss.setCurrentHp(35_000);
+        boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_oblivar.webp");
         boss.setSpawnedAt(LocalDateTime.now());
