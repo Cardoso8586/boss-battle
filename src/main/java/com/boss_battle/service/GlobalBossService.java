@@ -521,9 +521,12 @@ public class GlobalBossService {
             usuarioService.adicionarExp(u.getId(), (int) expFinal);
 
             usuarioRepo.save(u);
+            
+            // 🔐 idempotência garantida
+           boss.setRewardDistributed(true);
         }
      
-        resetBoss(); // limpa logs
+        resetBoss(); 
 
      // NÃO libera processingDeath aqui se não houver respawn imediato
      return Map.of(

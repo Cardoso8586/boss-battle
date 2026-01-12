@@ -69,6 +69,20 @@ public class GlobalBossNoctharion implements BattleBoss {
     public void setProcessingDeath(boolean processingDeath) {
         this.processingDeath = processingDeath;
     }
+    
+    // ✅ CAMPO PERSISTIDO
+    @Column(nullable = false)
+    private boolean rewardDistributed = false;
+  
+    // getters / setters
+    public boolean isRewardDistributed() {
+        return rewardDistributed;
+    }
+
+    public void setRewardDistributed(boolean rewardDistributed) {
+        this.rewardDistributed = rewardDistributed;
+    }
+ 
 
     public GlobalBossNoctharion() {}
 

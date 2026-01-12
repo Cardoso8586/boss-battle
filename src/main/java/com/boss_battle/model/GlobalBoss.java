@@ -69,9 +69,22 @@ public class GlobalBoss implements BattleBoss {
     // construtor vazio
     public GlobalBoss() {}
     
-    
+    // ✅ CAMPO PERSISTIDO
+    @Column(nullable = false)
+    private boolean rewardDistributed = false;
  
+    // getters / setters
+    public boolean isRewardDistributed() {
+        return rewardDistributed;
+    }
+
+    public void setRewardDistributed(boolean rewardDistributed) {
+        this.rewardDistributed = rewardDistributed;
+    }
  
+
+ 
+  
 
     // --------------------------------
     // IMPLEMENTAÇÃO DE BattleBoss

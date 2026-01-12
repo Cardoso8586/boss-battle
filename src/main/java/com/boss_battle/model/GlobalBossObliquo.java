@@ -71,6 +71,19 @@ public class GlobalBossObliquo implements BattleBoss {
     }
 
 
+    // ✅ CAMPO PERSISTIDO
+    @Column(nullable = false)
+    private boolean rewardDistributed = false;
+  
+    // getters / setters
+    public boolean isRewardDistributed() {
+        return rewardDistributed;
+    }
+
+    public void setRewardDistributed(boolean rewardDistributed) {
+        this.rewardDistributed = rewardDistributed;
+    }
+ 
     public GlobalBossObliquo() {}
 
     public Long getId() { return id; }

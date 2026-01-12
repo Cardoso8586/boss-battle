@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "global_boss_umbraxis")
 public class GlobalBossUmbraxis implements BattleBoss {
@@ -70,6 +71,19 @@ public class GlobalBossUmbraxis implements BattleBoss {
         this.processingDeath = processingDeath;
     }
 
+    // ✅ CAMPO PERSISTIDO
+    @Column(nullable = false)
+    private boolean rewardDistributed = false;
+  
+    // getters / setters
+    public boolean isRewardDistributed() {
+        return rewardDistributed;
+    }
+
+    public void setRewardDistributed(boolean rewardDistributed) {
+        this.rewardDistributed = rewardDistributed;
+    }
+ 
 
     public GlobalBossUmbraxis() {}
 

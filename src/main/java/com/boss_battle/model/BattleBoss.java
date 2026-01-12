@@ -30,5 +30,8 @@ public interface BattleBoss {
 	// 🔐 LOCK DE MORTE
     boolean isProcessingDeath();
     void setProcessingDeath(boolean b);
-  
+    
+    boolean isRewardDistributed();
+    void setRewardDistributed(boolean b);
+
 }
