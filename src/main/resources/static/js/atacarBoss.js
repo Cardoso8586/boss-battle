@@ -203,7 +203,7 @@ attackBtn.addEventListener("click", async () => {
         if (data.status === "BOSS_DEAD") {
             clearInterval(timerAtaque);
             tratarMorteBoss();
-			floatText.textContent = `Derrotado`;
+			
             return;
         }
 
