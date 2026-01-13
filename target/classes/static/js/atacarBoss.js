@@ -98,7 +98,6 @@ function tratarMorteBoss() {
 
     attackBtn.disabled = true;
     attackBtn.innerText = "Boss derrotado";
-	floatText.textContent = `Derrotado`;
     attackBtn.style.pointerEvents = "none";
 
     setTimeout(() => location.reload(), 600);
