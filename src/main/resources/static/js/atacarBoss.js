@@ -98,6 +98,7 @@ function tratarMorteBoss() {
 
     attackBtn.disabled = true;
     attackBtn.innerText = "Boss derrotado";
+	floatText.textContent = `Derrotado`;
     attackBtn.style.pointerEvents = "none";
 
     setTimeout(() => location.reload(), 600);
@@ -203,6 +204,7 @@ attackBtn.addEventListener("click", async () => {
         if (data.status === "BOSS_DEAD") {
             clearInterval(timerAtaque);
             tratarMorteBoss();
+			floatText.textContent = `Derrotado`;
             return;
         }
 
