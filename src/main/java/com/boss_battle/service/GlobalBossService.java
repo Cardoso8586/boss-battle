@@ -426,7 +426,7 @@ public class GlobalBossService {
     //==================================
     
     @Transactional
-    private Object processReward(
+    public Object processReward(
             String bossName,
             BattleBoss boss,
             UsuarioBossBattle usuario,
