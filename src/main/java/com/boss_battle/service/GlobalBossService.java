@@ -251,8 +251,8 @@ public class GlobalBossService {
 
         // aplicar diminuir  o vigor
       
-        usuario.setEnergiaGuerreiros(energia - damage);
-        	
+       // usuario.setEnergiaGuerreiros(energia - damage);
+        boolean bossFoiAtingido = false;
         // usar o valor retornado
         Object resultado = null;
 
@@ -334,6 +334,17 @@ public class GlobalBossService {
         
         resultado = tryHitBoss("DESTRUIDOR", destruidorService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
+        //===============================================================================
+        //===============================================================================
+        if (!bossFoiAtingido) {
+            throw new IllegalStateException("Nenhum boss recebeu dano");
+        }
+        
+        
+      
+        usuario.setEnergiaGuerreiros(energia - damage);
+        
+      
         
         return Map.of(
             "status", "NO_BOSS",
@@ -342,7 +353,10 @@ public class GlobalBossService {
         );
         
         
+        
        }
+        
+        
              
     }//fim hitActiveBoss
 
@@ -411,108 +425,6 @@ public class GlobalBossService {
     //processReward
     //==================================
     
-    @Transactional
-    public Object processReward(
-            String bossName,
-            BattleBoss boss,
-            UsuarioBossBattle usuario,
-            long damage
-    ) {
-
-        // 🔒 lock transacional real
-    	BossRewardLock lock = getOrCreateLock(bossName);
-
-    	if (lock.isRewardDistributed()) {
-    	    return Map.of(
-    	        "status", "ALREADY_DISTRIBUTED",
-    	        "boss", bossName
-    	    );
-    	}
-
-        // Ainda vivo → fluxo normal
-        if (boss.isAlive() && boss.getCurrentHp() > 0) {
-            return Map.of(
-                "boss", bossName,
-                "currentHp", boss.getCurrentHp(),
-                "rewardBoss", boss.getRewardBoss(),
-                "rewardExp", boss.getRewardExp(),
-                "damage", damage
-            );
-        }
-
-        long bossReward = boss.getRewardBoss();
-        long expReward  = boss.getRewardExp();
-
-        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
-        if (logs.isEmpty()) {
-            lock.setRewardDistributed(true);
-            return Map.of("status", "NO_DAMAGE_LOG");
-        }
-
-        long bossHpMax = boss.getMaxHp();
-
-        Map<Long, Long> damagePorUsuario = logs.stream()
-            .collect(Collectors.groupingBy(
-                BossDamageLog::getUserId,
-                Collectors.summingLong(BossDamageLog::getDamage)
-            ));
-
-        for (var entry : damagePorUsuario.entrySet()) {
-
-            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
-            if (u == null) continue;
-
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-
-            long rewardFinal = Math.max(1, (bossReward * danoUsuario) / bossHpMax);
-            long expFinal    = Math.max(1, (expReward * danoUsuario) / bossHpMax);
-
-            u.setBossCoins(
-                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
-            );
-
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
-
-            usuarioRepo.save(u);
-        }
-
-        // 🔐 idempotência REAL (1 única vez)
-        lock.setRewardDistributed(true);
-
-      
-
-        return Map.of(
-            "boss", bossName,
-            "status", "DEFEATED",
-            "rewardTotal", bossReward,
-            "expTotal", expReward,
-            "participantes", damagePorUsuario.size()
-        );
-    }
-    
-    @Transactional
-    public BossRewardLock getOrCreateLock(String bossName) {
-
-        BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
-        if (lock != null) return lock;
-
-        try {
-            lock = new BossRewardLock();
-            lock.setBossName(bossName);
-            lock.setRewardDistributed(false);
-
-            bossRewardLockRepo.saveAndFlush(lock);
-            return lock;
-
-        } catch (DataIntegrityViolationException e) {
-            return bossRewardLockRepo.lockByBossName(bossName);
-        }
-    }
-
-
-
-    /*
     @Transactional
     private Object processReward(
             String bossName,
@@ -612,6 +524,110 @@ public class GlobalBossService {
 
     }
     
+    /**
+    @Transactional
+    public Object processReward(
+            String bossName,
+            BattleBoss boss,
+            UsuarioBossBattle usuario,
+            long damage
+    ) {
+
+        // 🔒 lock transacional real
+    	BossRewardLock lock = getOrCreateLock(bossName);
+
+    	if (lock.isRewardDistributed()) {
+    	    return Map.of(
+    	        "status", "ALREADY_DISTRIBUTED",
+    	        "boss", bossName
+    	    );
+    	}
+
+        // Ainda vivo → fluxo normal
+        if (boss.isAlive() && boss.getCurrentHp() > 0) {
+            return Map.of(
+                "boss", bossName,
+                "currentHp", boss.getCurrentHp(),
+                "rewardBoss", boss.getRewardBoss(),
+                "rewardExp", boss.getRewardExp(),
+                "damage", damage
+            );
+        }
+
+        long bossReward = boss.getRewardBoss();
+        long expReward  = boss.getRewardExp();
+
+        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
+        if (logs.isEmpty()) {
+            lock.setRewardDistributed(true);
+            return Map.of("status", "NO_DAMAGE_LOG");
+        }
+
+        long bossHpMax = boss.getMaxHp();
+
+        Map<Long, Long> damagePorUsuario = logs.stream()
+            .collect(Collectors.groupingBy(
+                BossDamageLog::getUserId,
+                Collectors.summingLong(BossDamageLog::getDamage)
+            ));
+
+        for (var entry : damagePorUsuario.entrySet()) {
+
+            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
+            if (u == null) continue;
+
+            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
+
+            long rewardFinal = Math.max(1, (bossReward * danoUsuario) / bossHpMax);
+            long expFinal    = Math.max(1, (expReward * danoUsuario) / bossHpMax);
+
+            u.setBossCoins(
+                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
+            );
+
+            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+            usuarioService.adicionarExp(u.getId(), (int) expFinal);
+
+            usuarioRepo.save(u);
+        }
+
+        // 🔐 idempotência REAL (1 única vez)
+        lock.setRewardDistributed(true);
+
+      
+
+        return Map.of(
+            "boss", bossName,
+            "status", "DEFEATED",
+            "rewardTotal", bossReward,
+            "expTotal", expReward,
+            "participantes", damagePorUsuario.size()
+        );
+    }
+    
+    @Transactional
+    public BossRewardLock getOrCreateLock(String bossName) {
+
+        BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
+        if (lock != null) return lock;
+
+        try {
+            lock = new BossRewardLock();
+            lock.setBossName(bossName);
+            lock.setRewardDistributed(false);
+
+            bossRewardLockRepo.saveAndFlush(lock);
+            return lock;
+
+        } catch (DataIntegrityViolationException e) {
+            return bossRewardLockRepo.lockByBossName(bossName);
+        }
+    }
+*/
+
+
+    /*
+   
 
     */
 

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
 
     let emCooldownEnergia = false;
-    const tempoCompraEnergia = 3; // ⏱️ segundos
+    const tempoCompraEnergia = 5; // ⏱️ segundos
 
     btn.addEventListener('click', async () => {
 
@@ -41,13 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let restante = tempoCompraEnergia;
 
         // ⏳ TEXTO DO BOTÃO
-        btn.innerText = `Aplicando Vigor... (${restante}s)`;
+        btn.innerText = `Aplicando capacidade de Vigor...`;
+		//btn.innerText = `Aplicando Vigor... (${restante}s)`;
 
-        const timer = setInterval(() => {
-            restante--;
-            btn.innerText = `Aplicando Vigor... (${restante}s)`;
-            if (restante <= 0) clearInterval(timer);
-        }, 1000);
+       // const timer = setInterval(() => {
+         //   restante--;
+            btn.innerText = `Aplicando Vigor...`;
+			//btn.innerText = `Aplicando Vigor... (${restante}s)`;
+           // if (restante <= 0) clearInterval(timer);
+       // }, 1000);
 
         try {
             const res = await fetch(`/comprar/energia/${usuarioId}`, {
@@ -70,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageWidth: 80,   
 				    imageHeight: 80, 
 				    imageAlt: 'Poção de Vigor',
-				    timer: 4000,
+				    timer: 5000,
 				    showConfirmButton: false,
 				    background: 'transparent',
 				    color: '#ffb400'       
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							    imageWidth: 80,   
 							    imageHeight: 80, 
 							    imageAlt: 'Poção de Vigor',
-							    timer: 4000,
+							    timer: 5000,
 							    showConfirmButton: false,
 								background: 'transparent',
 							    color: '#ffb400'       
@@ -111,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'warning',
                     title: 'Saldo insuficiente',
                     text: text || 'Não foi possível comprar.',
-                    timer: 4000,
+                    timer: 5000,
                     showConfirmButton: false,
 					background: 'transparent',
 				    color: '#ff3b3b'     
@@ -128,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar aumentar capacidade de vigor.',
-                timer: 4000,
+                timer: 5000,
                 showConfirmButton: false,
 				background: 'transparent',
 				color: '#ff3b3b'      

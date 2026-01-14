@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
 
     let emCooldownCompra = false;
-    const tempoCompra = 3; // ⏱️ segundos
+    const tempoCompra = 5; // ⏱️ segundos
 
     btn.addEventListener('click', async () => {
 
@@ -37,16 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
 
         const textoOriginal = btn.innerText;
-        let restante = tempoCompra;
+       // let restante = tempoCompra;
 
         // ⏳ TEXTO CORRETO
-        btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
+		btn.innerText = `Aumentando Ataque Especial...`;
+       // btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
 
-        const timer = setInterval(() => {
-            restante--;
-            btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
-            if (restante <= 0) clearInterval(timer);
-        }, 1000);
+       // const timer = setInterval(() => {
+           // restante--;
+           // btn.innerText = `Aumentando Ataque Especial...`;
+			//btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
+          //  if (restante <= 0) clearInterval(timer);
+      //  }, 1000);
 
         const precoUnitario = parseFloat(
             card.querySelector('.preco').textContent.replace(/[^\d]/g, '')
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageWidth: 90,
 				    imageHeight: 90,
 				    imageAlt: 'Ataque Especial',
-				    timer: 4000,
+				    timer: 5000,
 				    showConfirmButton: false,
 					background: 'transparent',
 				    color: '#ffb400'
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 									    imageWidth: 90,
 									    imageHeight: 90,
 									    imageAlt: 'Ataque Especial',
-									    timer: 4000,
+									    timer: 5000,
 									    showConfirmButton: false,
 										background: 'transparent',
 									    color: '#ffb400'
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'warning',
                     title: 'Saldo insuficiente',
                     text: `Você precisa de ${custoEstimado.toLocaleString('pt-BR')} Boss Coins, mas só tem ${saldo.toLocaleString('pt-BR')} Boss Coins.`,
-                    timer: 4000,
+                    timer: 5000,
                     showConfirmButton: false,
 					background: 'transparent',
 				   color: '#ff3b3b '      
@@ -141,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar comprar ataque especial.',
-                timer: 4000,
+                timer: 5000,
                 showConfirmButton: false,
 				background: 'transparent',
 			    color: '#ff3b3b '      

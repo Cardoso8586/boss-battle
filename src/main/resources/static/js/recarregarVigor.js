@@ -19,16 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
         emCooldownRecarregar = true;
         btnRecarregar.disabled = true;
 
-        let tempoRestante = tempoCooldownRecarregar;
+       // let tempoRestante = tempoCooldownRecarregar;
         const textoOriginal = btnRecarregar.innerText;
 
-        btnRecarregar.innerText = `Recarregando... (${tempoRestante}s)`;
-
-        const timer = setInterval(() => {
+		/**
+		 *         const timer = setInterval(() => {
             tempoRestante--;
             btnRecarregar.innerText = `Recarregando... (${tempoRestante}s)`;
             if (tempoRestante <= 0) clearInterval(timer);
         }, 1000);
+		 */
+		
+        btnRecarregar.innerText = `Recarregando Vigor...`;
+
+
 
         try {
             const res = await fetch(
@@ -38,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!res.ok) {
                 swalWarningAuto(
-                    'Não foi possível recarregar energia agora.',
+                    'Não foi possível recarregar o Vigor.',
                     4
                 );
                 return;
@@ -54,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				      title: 'swal-game-text'
 				    },
 			  title: 'Vigor restaurado!',
-			  timer: 4000,
+			  timer: 5000,
 			  showConfirmButton: false,
 			  background: 'transparent',
 			  color: '#ffb400'

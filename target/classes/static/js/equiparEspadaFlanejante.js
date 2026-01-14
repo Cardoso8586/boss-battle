@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATIVAR ESPADA
     // ==============================
     let emCooldown = false;
-    const tempoCooldown = 3;
+    const tempoCooldown = 5;
 
     if (btnAtivarEspada) {
         btnAtivarEspada.addEventListener('click', async () => {
@@ -93,16 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
             emCooldown = true;
             btnAtivarEspada.disabled = true;
 
-            let restante = tempoCooldown;
+          //  let restante = tempoCooldown;
             const textoOriginal = btnAtivarEspada.innerText;
 
-            btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
-
-            const timer = setInterval(() => {
-                restante--;
-                btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
-                if (restante <= 0) clearInterval(timer);
-            }, 1000);
+            btnAtivarEspada.innerText = `Ativando...`;
+			//btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
+			
+           // const timer = setInterval(() => {
+               // restante--;
+              //  btnAtivarEspada.innerText = `Ativando...`;
+				//btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
+				
+              //  if (restante <= 0) clearInterval(timer);
+           // }, 1000);
 
             try {
                 const res = await fetch(
@@ -128,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'success',
                     title: 'Espada equipada!',
                     text: 'Sua Espada Flanejante foi equipada com sucesso.',
-                    timer: 4000,
+                    timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'

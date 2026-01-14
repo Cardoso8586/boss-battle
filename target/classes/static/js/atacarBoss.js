@@ -1,4 +1,6 @@
 const attackBtn = document.getElementById("attackBtn");
+const Aguarde =  document.getElementById("aguarde");
+
 const usuarioId = getUsuarioLogadoId();
 
 let cooldownInterval = null;
@@ -56,7 +58,8 @@ function iniciarCooldown(segundos) {
     let restante = segundos;
 
     attackBtn.disabled = true;
-    attackBtn.innerText = `Aguarde (${restante}s)`;
+   // attackBtn.innerText = `(${restante}s)`;
+	//attackBtn.innerText = `Aguarde (${restante}s)`;
 
     if (cooldownInterval) {
         clearInterval(cooldownInterval);
@@ -78,8 +81,21 @@ function iniciarCooldown(segundos) {
             return;
         }
 
-        attackBtn.innerText = `Aguarde (${restante}s)`;
+        attackBtn.innerText = `${restante}`;
+		//attackBtn.innerText = `Aguarde (${restante}s)`;
+		
     }, 1000);
+	if (restante !== 0) {
+	  Aguarde.innerHTML = "Aguarde";
+	} else {
+	  Aguarde.innerHTML = "";
+	}
+	
+	/**
+	 * 	 document.getElementById("Aguarde").textContent =
+	   restante !== 0 ? "Aguarde" : "";
+
+	 */
 }
 
 // ---------------------------------------------------
@@ -126,16 +142,18 @@ attackBtn.addEventListener("click", async () => {
     attackBtn.disabled = true;
 
     const textoOriginal = attackBtn.innerText;
-    const tempoAtaque = 4; // ⏱️ tempo "atacando" (segundos)
+    const tempoAtaque = 6; // ⏱️ tempo "atacando" (segundos)
     let restante = tempoAtaque;
 
     // ⏳ texto inicial
-    attackBtn.innerText = `Atacando... (${restante}s)`;
+    attackBtn.innerText = `Atacando...`;
+	//attackBtn.innerText = `Atacando... (${restante}s)`;
 
 	
 	// abre o alerta UMA VEZ
 	Swal.fire({
-	  title: `Preparando para atacar! ${restante}s`,
+	  title: `Preparando para atacar!`,
+	 // title: `Preparando para atacar! ${restante}s`,
 	  showConfirmButton: false,
 	  background: 'transparent',
 	  color: '#ffb400',
@@ -147,17 +165,26 @@ attackBtn.addEventListener("click", async () => {
 	  didOpen: () => {
 	    const title = Swal.getTitle();
 
-	    const timerAtaque = setInterval(() => {
-	      restante--;
-	      attackBtn.innerText = `Atacando... (${restante}s)`;
-	      title.textContent = `Preparando para atacar! ${restante}s`;
+		/**
+		 * 
+		 */ 
+		
+		title.textContent = `Preparando para atacar!`;
+	   // const timerAtaque = setInterval(() => {
+	     // restante--;
+	    //  attackBtn.innerText = `Atacando...`;
+		 // attackBtn.innerText = `Atacando... (${restante}s)`;
+		
+	     // title.textContent = `Preparando para atacar! ${restante}s`;
 
 	      if (restante <= 0) {
 	        clearInterval(timerAtaque);
 	        Swal.close();
 	        attackBtn.innerText = 'Atacar';
 	      }
-	    }, 1000);
+	   // }, 1000);
+		
+	   Swal.close();
 	  }
 	});
 
@@ -259,6 +286,7 @@ async function verificarCooldownInicial() {
 
 // 🚀 INICIALIZA
 verificarCooldownInicial();
+setInterval(verificarCooldownInicial, 10000);
 
 
 /**

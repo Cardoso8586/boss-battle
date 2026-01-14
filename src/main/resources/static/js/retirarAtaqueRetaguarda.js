@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// ==============================
 	// SWEETALERT WARNING AUTOMÁTICO (4s)
 	// ==============================
-	function swalWarningAuto(texto, segundos = 4) {
+	function swalWarningAuto(texto, segundos = 5) {
 	    let tempo = segundos;
 
 	    Swal.fire({
@@ -89,16 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
 	        emCooldownRetirarAtaque = true;
 	        btnRetirarAtaque.disabled = true;
 
-	        let tempoRestante = tempoCooldownRetirarAtaque;
+	       // let tempoRestante = tempoCooldownRetirarAtaque;
 	        const textoOriginal = btnRetirarAtaque.innerText;
 
-	        btnRetirarAtaque.innerText = `Retirando... (${tempoRestante}s)`;
+	        btnRetirarAtaque.innerText = `Retirando...`;
+			//btnRetirarAtaque.innerText = `Retirando... (${tempoRestante}s)`;
 
-	        const timer = setInterval(() => {
+			/**
+			 *      const timer = setInterval(() => {
 	            tempoRestante--;
 	            btnRetirarAtaque.innerText = `Retirando... (${tempoRestante}s)`;
 	            if (tempoRestante <= 0) clearInterval(timer);
 	        }, 1000);
+			 */
+	   
 
 	        try {
 	            const res = await fetch(`/retirar/ataque/${usuarioId}`, { method: 'POST' });
@@ -111,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro retirado!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
-						timer: 4000,
+						timer: 5000,
 						showConfirmButton: false,
 						 background: 'transparent',
 						color: '#ffb400'
@@ -132,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro do ataque.',
-					timer: 4000,
+					timer: 5000,
 					showConfirmButton: false,
 				    background: 'transparent',
 					color: '#ff3b3b'
@@ -162,16 +166,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	        emCooldownRetirarRetaguarda = true;
 	        btnRetirarRetaguarda.disabled = true;
 
-	        let tempoRestante = tempoCooldownRetirarRetaguarda;
+	      //  let tempoRestante = tempoCooldownRetirarRetaguarda;
 	        const textoOriginal = btnRetirarRetaguarda.innerText;
 
-	        btnRetirarRetaguarda.innerText = `Retirando... (${tempoRestante}s)`;
-
-	        const timer = setInterval(() => {
+			/**
+			 *      const timer = setInterval(() => {
 	            tempoRestante--;
 	            btnRetirarRetaguarda.innerText = `Retirando... (${tempoRestante}s)`;
 	            if (tempoRestante <= 0) clearInterval(timer);
 	        }, 1000);
+			 */
+	        btnRetirarRetaguarda.innerText = `Retirando...`;
+			//btnRetirarRetaguarda.innerText = `Retirando... (${tempoRestante}s)`;
+	   
 
 	        try {
 	            const res = await fetch(`/retirar/retaguarda/${usuarioId}`, { method: 'POST' });
@@ -184,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Retaguarda recuada!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
-						timer: 4000,
+						timer: 5000,
 						showConfirmButton: false,
 						 background: 'transparent',
 					 color: '#ffb400'
@@ -206,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
-					timer: 4000,
+					timer: 5000,
 					showConfirmButton: false,
 				    background: 'transparent',
 					color: '#ff3b3b'
@@ -225,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // INIT
     // ==============================
     atualizarStatus();
-    setInterval(atualizarStatus, 5000);
+    setInterval(atualizarStatus, 10000);
 
 });
 

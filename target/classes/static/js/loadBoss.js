@@ -12,8 +12,8 @@ let bossImagemAtual = null;
 let bossCache = null;
 
 const CACHE_KEY = "boss_active_cache";
-const CACHE_TTL = 10000; // 10s
-const UPDATE_INTERVAL = 3000; // 3s
+const CACHE_TTL = 10000; 
+const UPDATE_INTERVAL = 15000; 
 
 // ===============================
 // 💾 Cache helpers (RAM + localStorage)

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			                icon: 'error',
 			                title: 'Erro',
 			                text: 'Erro ao atualizar núcleo do guerreiro:',
-							timer: 4000,
+							timer: 5000,
 							showConfirmButton: false,
 							 background: 'transparent',
 							color: '#ff3b3b' 
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparGuerreiro) {
 
 	    let emCooldownGuerreiro = false;
-	    const tempoCooldownGuerreiro = 4; // segundos
+	    const tempoCooldownGuerreiro = 5; // segundos
 
 	    btnEquiparGuerreiro.addEventListener('click', async () => {
 
@@ -93,16 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	        emCooldownGuerreiro = true;
 	        btnEquiparGuerreiro.disabled = true;
 
-	        let tempoRestante = tempoCooldownGuerreiro;
+	      //  let tempoRestante = tempoCooldownGuerreiro;
 	        const textoOriginal = btnEquiparGuerreiro.innerText;
 
-	        btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
+			btnEquiparGuerreiro.innerText = `Enviando...`;
+	      //  btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
 
-	        const timer = setInterval(() => {
-	            tempoRestante--;
-	            btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
-	            if (tempoRestante <= 0) clearInterval(timer);
-	        }, 1000);
+	       // const timer = setInterval(() => {
+	         //   tempoRestante--;
+	           // btnEquiparGuerreiro.innerText = `Enviando...`;
+				//btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
+	          //  if (tempoRestante <= 0) clearInterval(timer);
+	      //  }, 1000);
 
 	        try {
 	            const res = await fetch(`/equipar/guerreiro/${usuarioId}`, { method: 'POST' });
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro enviado!',
 	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
-						timer: 4000,
+						timer: 5000,
 						showConfirmButton: false,
 						 background: 'transparent',
 						color: '#ffb400'
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar guerreiro.',
-					timer: 4000,
+					timer: 5000,
 					showConfirmButton: false,
 					 background: 'transparent',
 					color: '#ff3b3b' 
@@ -159,6 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATUALIZAÇÃO PERIÓDICA
     // ==============================
     atualizarGuerreiro(); // primeira atualização imediata
-    setInterval(atualizarGuerreiro, 5000); // atualiza a cada 5 segundos
+    setInterval(atualizarGuerreiro, 10000); 
 
 });

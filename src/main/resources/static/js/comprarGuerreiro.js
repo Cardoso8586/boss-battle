@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botoesComprar.forEach(botao => {
 
         let emCooldownCompra = false;
-        const tempoCompra = 3; // ⏱️ segundos
+        const tempoCompra = 5; // ⏱️ segundos
 
         botao.addEventListener('click', async () => {
 
@@ -41,16 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
             botao.disabled = true;
 
             const textoOriginal = botao.innerText;
-            let restante = tempoCompra;
+          //  let restante = tempoCompra;
 
             // ⏳ texto no botão
-            botao.innerText = `Comprando... (${restante}s)`;
+			botao.innerText = `Comprando Guerreiro...`;
+            //botao.innerText = `Comprando... (${restante}s)`;
 
-            const timer = setInterval(() => {
-                restante--;
-                botao.innerText = `Comprando... (${restante}s)`;
-                if (restante <= 0) clearInterval(timer);
-            }, 1000);
+            //const timer = setInterval(() => {
+             //   restante--;
+				//botao.innerText = `Comprando...`;
+               // botao.innerText = `Comprando... (${restante}s)`;
+              //  if (restante <= 0) clearInterval(timer);
+          //  }, 1000);
 
             // ⚠️ preço apenas visual
             const precoText = card.querySelector('.preco')

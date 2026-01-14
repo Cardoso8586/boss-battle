@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botoesComprar.forEach(botao => {
 
         let emCooldownCompra = false;
-        const tempoCompra = 3; // segundos
+        const tempoCompra = 5; // segundos
 
         botao.addEventListener('click', async () => {
 
@@ -47,16 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
             botao.disabled = true;
 
             const textoOriginal = botao.innerText;
-            let restante = tempoCompra;
+           // let restante = tempoCompra;
 
             // ⏳ texto no botão
-            botao.innerText = `Comprando... (${restante}s)`;
+            botao.innerText = `Comprando espada flanejante...`;
+			//botao.innerText = `Comprando... (${restante}s)`;
 
-            const timer = setInterval(() => {
-                restante--;
-                botao.innerText = `Comprando... (${restante}s)`;
-                if (restante <= 0) clearInterval(timer);
-            }, 1000);
+          //  const timer = setInterval(() => {
+              //  restante--;
+			//	botao.innerText = `Comprando...`;
+               // botao.innerText = `Comprando... (${restante}s)`;
+              //  if (restante <= 0) clearInterval(timer);
+         //   }, 1000);
 
             // ⚠️ preço apenas visual
             const precoSpan = card.querySelector('.preco');
@@ -79,12 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         Swal.fire({
                             customClass: { title: 'swal-game-text' },
                             title: 'Compra realizada!',
-                            html: `Você comprou ${quantidade} espada.`,
+                            html: `Você comprou ${quantidade} espada Flanejante.`,
                             imageUrl: '/icones/espada_flanejante.webp',
                             imageWidth: 40,
                             imageHeight: 140,
                             imageAlt: 'Espada Flanejante',
-                            timer: 4000,
+                            timer: 5000,
                             showConfirmButton: false,
                             background: 'transparent',
                             color: '#ffb400'
@@ -93,12 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         Swal.fire({
                             customClass: { title: 'swal-game-text' },
                             title: 'Compra realizada!',
-                            html: `Você comprou ${quantidade} espadas.`,
+                            html: `Você comprou ${quantidade} espadas Flanejante.`,
                             imageUrl: '/icones/espada_flanejante.webp',
                             imageWidth: 40,
                             imageHeight: 140,
                             imageAlt: 'Espada Flanejante',
-                            timer: 4000,
+                            timer: 5000,
                             showConfirmButton: false,
                             background: 'transparent',
                             color: '#ffb400'
@@ -123,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         icon: 'warning',
                         title: 'Saldo insuficiente',
                         text: `Custo estimado: ${custoEstimado.toLocaleString('pt-BR')} | Saldo: ${saldo.toLocaleString('pt-BR')}`,
-                        timer: 4000,
+                        timer: 5000,
                         showConfirmButton: false,
                         background: 'transparent',
                         color: '#ff3b3b'
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'error',
                     title: 'Erro',
                     text: 'Erro ao tentar comprar.',
-                    timer: 4000,
+                    timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ff3b3b'

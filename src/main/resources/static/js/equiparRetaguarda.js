@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparRetaguarda) {
 
 	    let emCooldownRetaguarda = false;
-	    const tempoCooldownRetaguarda = 4; // segundos
+	    const tempoCooldownRetaguarda = 5; // segundos
 
 	    btnEquiparRetaguarda.addEventListener('click', async () => {
 
@@ -81,16 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
 	        emCooldownRetaguarda = true;
 	        btnEquiparRetaguarda.disabled = true;
 
-	        let tempoRestante = tempoCooldownRetaguarda;
+	        //let tempoRestante = tempoCooldownRetaguarda;
 	        const textoOriginal = btnEquiparRetaguarda.innerText;
 
-	        btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
-
-	        const timer = setInterval(() => {
+	        btnEquiparRetaguarda.innerText = `Enviando...`;
+			//btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
+			/**
+			 *     const timer = setInterval(() => {
 	            tempoRestante--;
-	            btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
+				btnEquiparRetaguarda.innerText = `Enviando...`;
+	           // btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
 	            if (tempoRestante <= 0) clearInterval(timer);
 	        }, 1000);
+			 */
+	    
 
 	        try {
 	            const res = await fetch(`/equipar/retaguarda/${usuarioId}`, { method: 'POST' });
@@ -103,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Enviado para retaguarda!',
 	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
-						timer: 4000,
+						timer: 5000,
 						showConfirmButton: false,
 						 background: 'transparent',
 						color: '#ffb400'
@@ -128,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar enviar para retaguarda.',
-					timer: 4000,
+					timer: 5000,
 					showConfirmButton: false,
 					background: 'transparent',
 					color: '#ffb400'
@@ -147,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATUALIZAÇÃO PERIÓDICA
     // ==============================
     atualizarRetaguarda();            // primeira atualização
-    setInterval(atualizarRetaguarda, 5000); // a cada 5s
+    setInterval(atualizarRetaguarda, 10000); 
 
 });
 

@@ -37,21 +37,34 @@
     <header class="menu-bar">
         <div class="logo">
             <h1>Boss Battle</h1>
-   <!-- Widget do Google T         
-<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
 
-<div class="gtranslate_wrapper"></div> 
-
-
+<!-- Confi
 <script>
 window.gtranslateSettings = {
-  default_language: "pt",           
-  languages: ["pt","en","es"],     
+  default_language: "pt",
+  languages: ["pt","en","es"],
   wrapper_selector: ".gtranslate_wrapper",
   switcher_horizontal_position: "inline"
 }
 </script>
-ranslate escondido -->
+
+
+<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
+
+<div class="gtranslate_wrapper"></div>
+
+<script>
+document.addEventListener("change", function (e) {
+  if (e.target.closest(".gtranslate_wrapper")) {
+    setTimeout(() => {
+      location.reload();
+    }, 300);
+  }
+});
+</script>
+
+gurações -->
+
 
 
         </div>
@@ -517,7 +530,7 @@ Dano
         <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
     </span>
 </p>
-
+                <span id="aguarde"></span>
                 <button id="attackBtn">Atacar Boss</button>
                 
                 
@@ -661,7 +674,7 @@ Dano
     
     <label for="quantidade-espada-flanejante">Quantidade que deseja comprar:</label>
     <input type="number" id="quantidade-espada-flanejante" class="quantidade-item" min="1" value="1">
-    <button class="btn-comprar" data-item="espada-flanejante">Comprar Poção</button>
+    <button class="btn-comprar" data-item="espada-flanejante">Comprar espada flanejante</button>
     
 </div>
 
@@ -993,6 +1006,7 @@ Dano
      <script src="/js/carregarRankingDano.js" defer></script>  
      <script src="/js/equiparEspadaFlanejante.js" defer></script>
     
+    <script type="module" src="main.js"></script>
     
     
     

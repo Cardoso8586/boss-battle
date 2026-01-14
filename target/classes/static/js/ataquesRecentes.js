@@ -43,5 +43,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 
     carregarAtaques();
-    setInterval(carregarAtaques, 3000);
+    setInterval(carregarAtaques, 15000);
 });

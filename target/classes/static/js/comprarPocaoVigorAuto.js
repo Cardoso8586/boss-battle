@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnComprar) {
 
 	    let emCooldownCompra = false;
-	    const tempoCooldownCompra = 3; // segundos
+	    const tempoCooldownCompra = 5; // segundos
 
 	    btnComprar.addEventListener('click', async () => {
 
@@ -118,16 +118,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	        emCooldownCompra = true;
 	        btnComprar.disabled = true;
 
-	        let tempoRestante = tempoCooldownCompra;
+	      //  let tempoRestante = tempoCooldownCompra;
+			
 	        const textoOriginal = btnComprar.innerText;
 
-	        btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
+			btnComprar.innerText = `Comprando poção de Vigor...`;
+	        //btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
 
-	        const timer = setInterval(() => {
-	            tempoRestante--;
-	            btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
-	            if (tempoRestante <= 0) clearInterval(timer);
-	        }, 1000);
+	      //  const timer = setInterval(() => {
+	           /// tempoRestante--;
+		//btnComprar.innerText = `Comprando...`;
+	           // btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
+	          //  if (tempoRestante <= 0) clearInterval(timer);
+	        //}, 1000);
 
 	        try {
 	            const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
@@ -149,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						  imageWidth: 70,
 						  imageHeight: 90,
 						  imageAlt: 'Poção de Vigor Automático',
-						  timer: 4000,
+						  timer: 5000,
 						  showConfirmButton: false,
 						  background: 'transparent',
 						  color: '#ffb400'
@@ -168,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 												  imageWidth: 70,
 												  imageHeight: 90,
 												  imageAlt: 'Poção de Vigor Automático',
-												  timer: 4000,
+												  timer: 5000,
 												  showConfirmButton: false,
 												  background: 'transparent',
 												  color: '#ffb400'
@@ -189,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Saldo insuficiente',
 	                    text: text || 'Não foi possível comprar.',
-	                    timer: 4000,
+	                    timer: 5000,
 	                    showConfirmButton: false,
 						// background: '#0f0f0f',
 						background: 'transparent',
@@ -206,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar comprar Poção Automática de Vigor.',
-	                timer: 4000,
+	                timer: 5000,
 	                showConfirmButton: false,
 					// background: '#0f0f0f',
 					bbackground: 'transparent',
@@ -224,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	let emCooldown = false;
-	const tempoCooldown = 3; // segundos
+	const tempoCooldown = 5; // segundos
 
 	btnAtivarPocao.addEventListener('click', async () => {
 	    if (emCooldown) return;
@@ -232,19 +235,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	    emCooldown = true;
 	    btnAtivarPocao.disabled = true;
 
-	    let tempoRestante = tempoCooldown;
+	  //  let tempoRestante = tempoCooldown;
 	    const textoOriginal = btnAtivarPocao.innerText;
+		
+		btnAtivarPocao.innerText = `Ativando poção...`;
+	   // btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
 
-	    btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
+	   // const timer = setInterval(() => {
+	      //  tempoRestante--;
+			//btnAtivarPocao.innerText = `Ativando...`;
+	        //btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
 
-	    const timer = setInterval(() => {
-	        tempoRestante--;
-	        btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
-
-	        if (tempoRestante <= 0) {
-	            clearInterval(timer);
-	        }
-	    }, 1000);
+	      //  if (tempoRestante <= 0) {
+	       //     clearInterval(timer);
+	      //  }
+	  //  }, 1000);
 
 	    try {
 	        const quantidade = 1;
@@ -276,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            icon: 'success',
 	            title: 'Poção ativada!',
 	            text: 'Sua poção foi ativada com sucesso.',
-				timer: 4000,
+				timer: 5000,
 				showConfirmButton: false,
 				background: 'transparent',
 								
