@@ -412,7 +412,7 @@ public class GlobalBossService {
     //==================================
     
     @Transactional
-    private Object processReward(
+    public Object processReward(
             String bossName,
             BattleBoss boss,
             UsuarioBossBattle usuario,
@@ -492,7 +492,7 @@ public class GlobalBossService {
     }
     
     @Transactional
-    private BossRewardLock getOrCreateLock(String bossName) {
+    public BossRewardLock getOrCreateLock(String bossName) {
 
         BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
         if (lock != null) return lock;
