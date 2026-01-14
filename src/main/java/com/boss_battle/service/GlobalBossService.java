@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -479,7 +480,7 @@ public class GlobalBossService {
         // 🔐 idempotência REAL (1 única vez)
         lock.setRewardDistributed(true);
 
-        resetBoss();
+      
 
         return Map.of(
             "boss", bossName,
@@ -495,18 +496,21 @@ public class GlobalBossService {
 
         BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
 
-        if (lock == null) {
+        if (lock != null) return lock;
+
+        try {
             lock = new BossRewardLock();
             lock.setBossName(bossName);
             lock.setRewardDistributed(false);
 
             bossRewardLockRepo.saveAndFlush(lock);
 
-            // 🔒 reaplica o lock depois de criar
-            lock = bossRewardLockRepo.lockByBossName(bossName);
-        }
+            return lock;
 
-        return lock;
+        } catch (DataIntegrityViolationException e) {
+            // outra thread criou primeiro → pega com lock
+            return bossRewardLockRepo.lockByBossName(bossName);
+        }
     }
 
 
@@ -710,7 +714,7 @@ public class GlobalBossService {
     @Transactional
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
-        //resetBoss();
+        resetBoss();
         
        
         int choice = random.nextInt(26);
