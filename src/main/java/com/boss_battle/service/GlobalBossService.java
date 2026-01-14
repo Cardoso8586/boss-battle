@@ -495,7 +495,6 @@ public class GlobalBossService {
     private BossRewardLock getOrCreateLock(String bossName) {
 
         BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
-
         if (lock != null) return lock;
 
         try {
@@ -504,14 +503,13 @@ public class GlobalBossService {
             lock.setRewardDistributed(false);
 
             bossRewardLockRepo.saveAndFlush(lock);
-
             return lock;
 
         } catch (DataIntegrityViolationException e) {
-            // outra thread criou primeiro → pega com lock
             return bossRewardLockRepo.lockByBossName(bossName);
         }
     }
+
 
 
     /*

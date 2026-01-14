@@ -4,10 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
 
 @Entity
-@Table(name = "boss_reward_lock")
+@Table(
+  name = "boss_reward_lock",
+  uniqueConstraints = @UniqueConstraint(columnNames = "bossName")
+)
 public class BossRewardLock {
 
     @Id
