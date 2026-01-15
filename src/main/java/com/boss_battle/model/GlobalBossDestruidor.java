@@ -3,6 +3,7 @@ package com.boss_battle.model;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -180,11 +181,18 @@ public class GlobalBossDestruidor implements BattleBoss {
     
     public void aplicarEscalamentoDestruidor () {
 
+
+        Random random = new Random();
+    	long min = 10;
+    	long max = 100;
+    	long incrementarUp = random.nextLong(min, max + 1);
+
+    	
     	long valorHpMax =  getMaxHp();
     	long valorCur = getCurrentHp();
     	
-    	setMaxHp( valorHpMax + 100);
-    	setCurrentHp( valorCur + 100);
+    	setMaxHp( valorHpMax + incrementarUp);
+    	setCurrentHp( valorCur + incrementarUp);
     	
     	long valorXp =  getRewardExp();
     	setRewardExp(valorXp + 1);

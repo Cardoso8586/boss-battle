@@ -66,6 +66,13 @@ function iniciarCooldown(segundos) {
         cooldownInterval = null;
     }
 
+	
+	if (restante !== 0) {
+		  Aguarde.innerHTML = "Aguarde";
+		} else {
+		  Aguarde.innerHTML = "";
+		}
+		
     cooldownInterval = setInterval(() => {
         restante--;
 
@@ -85,11 +92,7 @@ function iniciarCooldown(segundos) {
 		//attackBtn.innerText = `Aguarde (${restante}s)`;
 		
     }, 1000);
-	if (restante !== 0) {
-	  Aguarde.innerHTML = "Aguarde";
-	} else {
-	  Aguarde.innerHTML = "";
-	}
+	
 	
 	/**
 	 * 	 document.getElementById("Aguarde").textContent =

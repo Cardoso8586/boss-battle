@@ -60,6 +60,9 @@ public class GuerreiroAutoAttackService {
 	        espadaFlanejanteService.usarEspadaFlanejante(usuario);
 	    }
 	    globalBossService.tryHitBoss(boss.getBossName(), boss, usuario, dano);
+	    
+	   System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Cusou " + dano+"-"+ "Dano");
+	  
 	    // 🐲 ataca o boss
 	   // globalBossService.hitActiveBoss(usuario, dano);
 

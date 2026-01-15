@@ -8,16 +8,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
-import com.boss_battle.model.BossRewardLock;
-import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzurion;
+import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.model.GlobalBossGlaciara;
@@ -79,8 +77,6 @@ public class GlobalBossService {
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
-    private final BossRewardLockRepository bossRewardLockRepo;
-    
     private final ReferidosRecompensaService referidosService;
     private final UsuarioBossBattleService usuarioService;
     private final BossAttackService bossAttackService;
@@ -141,7 +137,6 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
-        this.bossRewardLockRepo = bossRewardLockRepo;
         //this.bossDamageLogService = bossDamageLogService;
         this.nightmareService = nightmareService;
         this.flamorService = flamorService;
@@ -250,7 +245,8 @@ public class GlobalBossService {
         long damage = ataqueBase + ataqueEspecial;
 
         // aplicar diminuir  o vigor
-      
+        
+        System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Cusou " + damage+"-"+ "Dano");
        // usuario.setEnergiaGuerreiros(energia - damage);
         boolean bossFoiAtingido = false;
         // usar o valor retornado
@@ -401,7 +397,7 @@ public class GlobalBossService {
         
         registrarDano(bossName, usuario, damage);
         
-       
+      //  System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Cusou " + damage+"-"+ "Dano");
         
         return processReward(bossName, boss, usuario, damage); 
         
@@ -414,6 +410,7 @@ public class GlobalBossService {
         log.setUserId(usuario.getId());
         log.setDamage(damage);
         log.setUserName(usuario.getUsername());
+       
         damageLogRepo.save(log);
         
         
@@ -735,6 +732,8 @@ public class GlobalBossService {
         BattleBoss newBoss;
 
         switch (choice) {
+        
+        
             case 0 -> {
                 GlobalBossIgnorath ig = ignorathService.get();
                 ig.setProcessingDeath(false);

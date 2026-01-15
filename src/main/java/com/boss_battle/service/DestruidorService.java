@@ -1,6 +1,7 @@
 package com.boss_battle.service;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,11 +63,17 @@ public class DestruidorService  {
     //===========================================================
     public void aplicarEscalamentoDestruidor(GlobalBossDestruidor boss) {
 
+
+        Random random = new Random();
+    	long min = 10;
+    	long max = 100;
+    	long incrementarUp = random.nextLong(min, max + 1);
+    	
     	long valorHpMax =  boss.getMaxHp();
     	long valorCur = boss.getCurrentHp();
     	
-    	boss.setMaxHp( valorHpMax + 100);
-    	boss.setCurrentHp( valorCur + 100);
+    	boss.setMaxHp( valorHpMax + incrementarUp);
+    	boss.setCurrentHp( valorCur + incrementarUp);
     	
     	long valorXp =  boss.getRewardExp();
     	boss.setRewardExp(valorXp + 1);
@@ -76,7 +83,8 @@ public class DestruidorService  {
  	   
  	   
     }
-
+    
+   
 
     // Ataque direto (usado em auto-attack ou debug)
     public GlobalBossDestruidor attack(long damage) {

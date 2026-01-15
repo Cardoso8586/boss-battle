@@ -17,13 +17,7 @@ public class LojaAprimoramentosService {
     // =====================================
     private static final long PRECO_BASE_PORCAOVIGOR = 5_000L;
     private static final long PRECO_BASE_ESPADA_FLANEJANTE = 5_000L;
-    // =====================================
-    // AUMENTO FIXO POR COMPRA
-    // =====================================
-   // private static long AUMENTO_PRECO_GUERREIROS = 100L;
-   // private static final long AUMENTO_PRECO_ENERGIA = 100L;
-    private static final long AUMENTO_PRECO_ATAQUE_ESPECIAL = 150L;
-
+    
     /**
      * ⚠️ ESTE MÉTODO DEVE SER CHAMADO
      * SOMENTE APÓS UMA COMPRA
