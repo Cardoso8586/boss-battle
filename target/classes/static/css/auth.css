@@ -17,7 +17,7 @@ body {
     url('/icones/gameplay.webp') center/cover no-repeat;
 
   font-family: Arial, sans-serif;
-  display: flex;
+ 
   justify-content: center;
   align-items: center;
 }
