@@ -66,16 +66,16 @@ public class DashboardController {
         long quantAtaqueBaseGuerreiros = usuario.getAtaqueBaseGuerreiros();
         
         long totalAtaquePorMinuto =(quantGuerreiros)* (quantAtaqueBaseGuerreiros);
-        model.addAttribute("ataquePorMinutoUsuario", totalAtaquePorMinuto);
+        model.addAttribute("ataquePorMinutoUsuario",  df.format(totalAtaquePorMinuto));
         
 
         Long energia = usuario.getEnergiaGuerreiros();
         if (energia == null) energia = 0L;
         
-        model.addAttribute("energiaGuerreiros", energia);
+        model.addAttribute("energiaGuerreiros",  df.format(energia));
         
         
-        model.addAttribute("energiaGuerreirosPadrao", usuario.getEnergiaGuerreirosPadrao());
+        model.addAttribute("energiaGuerreirosPadrao",  df.format(usuario.getEnergiaGuerreirosPadrao()));
         
         
         Long pocaoVigor = Optional
@@ -84,6 +84,45 @@ public class DashboardController {
 
         model.addAttribute("quantidadePocaoVigor", pocaoVigor);
 
+        long quantidadeEspadaFlamejante = usuario.getEspadaFlanejante();
+        model.addAttribute("quantidadeEspadaFlanejante", df.format(quantidadeEspadaFlamejante));
+        
+        
+        long quantidadeMachadoDilacerador = usuario.getMachadoDilacerador();
+        model.addAttribute("quantidadeMachadoDilacerador", df.format(quantidadeMachadoDilacerador));
+        
+        /**
+        //========================= atualizar preços de zero =============================================
+        long precoPocaoVigor = usuario.getPrecoPocaoVigor();
+        if (precoPocaoVigor <= 0) {
+            precoPocaoVigor = 5_000L;
+            usuario.setPrecoPocaoVigor(precoPocaoVigor);
+        }
+        long precoEspadaFlanejante = usuario.getPrecoEspadaFlanejante();
+        if (precoEspadaFlanejante <= 0) {
+        	precoEspadaFlanejante = 5_000L;
+            usuario.setPrecoEspadaFlanejante(precoEspadaFlanejante);
+        }
+        long precoMachadoDilacerador = usuario.getPrecoMachadoDilacerador();
+        if (precoMachadoDilacerador <= 0) {
+        	precoMachadoDilacerador = 5_000L;
+            usuario.setPrecoMachadoDilacerador(precoMachadoDilacerador);
+        }
+        
+        long precoGuerreiros = usuario.getPrecoGuerreiros();
+        if (precoGuerreiros <= 0) {
+        	precoGuerreiros = 1_000L;
+            usuario.setPrecoGuerreiros(precoGuerreiros);
+        }
+        
+        long precoAtaqueEspecial = usuario.getPrecoAtaqueEspecial();
+        if (precoAtaqueEspecial <= 0) {
+        	precoAtaqueEspecial = 1_000L;
+            usuario.setPrecoAtaqueEspecial(precoAtaqueEspecial);
+        }
+        
+        //-------------------------------------------------------------------------------------------------
+        */
         
         // Constrói link de convite
         //String linkReferencia = "https://bossbattle.com/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());

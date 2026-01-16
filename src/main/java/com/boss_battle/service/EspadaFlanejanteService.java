@@ -86,7 +86,7 @@ public class EspadaFlanejanteService {
 
 
     // ============================================================================
-    // 🔧 FUTURO: desgaste da espada
+    // 🔧  desgaste da espada
     // ============================================================================
 
     public boolean usarEspadaSeAtiva(UsuarioBossBattle usuario) {

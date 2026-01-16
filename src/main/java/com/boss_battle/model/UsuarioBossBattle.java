@@ -78,8 +78,47 @@ public class UsuarioBossBattle  {
     @Column(name = "espada_flanejante_desgaste", nullable = false)
     private long espadaFlanejanteDesgaste = 100 ;
     
- // getters / setters
     
+    @Column(name = "machado_dilacerador", nullable = false)
+    private long machadoDilacerador; // quantidade total
+    
+    @Column(name = "machado_dilacerador_ativo", nullable = false)
+    private long machadoDilaceradorAtivo; 
+    
+    @Column(name = "machado_dilacerador_desgaste", nullable = false)
+    private long machadoDilaceradorDesgaste = 200 ;
+    
+   
+    
+   
+    // getters / setters
+    
+    
+   //-------------------------------------------------------------------- 
+    public long getMachadoDilacerador() {
+        return machadoDilacerador;
+    }
+
+    public void setMachadoDilacerador(long machadoDilacerador) {
+        this.machadoDilacerador = machadoDilacerador;
+    }
+
+    public long getMachadoDilaceradorAtivo() {
+        return machadoDilaceradorAtivo;
+    }
+
+    public void setMachadoDilaceradorAtivo(long machadoDilaceradorAtivo) {
+        this.machadoDilaceradorAtivo = machadoDilaceradorAtivo;
+    }
+
+    public long getMachadoDilaceradorDesgaste() {
+        return machadoDilaceradorDesgaste;
+    }
+
+    public void setMachadoDilaceradorDesgaste(long machadoDilaceradorDesgaste) {
+        this.machadoDilaceradorDesgaste = machadoDilaceradorDesgaste;
+    }
+
     //-------------------------------------------------------------------
     
     public long getEspadaFlanejanteDesgaste() {
@@ -220,19 +259,55 @@ public class UsuarioBossBattle  {
     //===========================================
     
     @Column(name = "preco_guerreiros", nullable = false)
-    private Long precoGuerreiros = 1000L;
+    private Long precoGuerreiros = 1_000L;
 
     @Column(name = "preco_energia", nullable = false)
-    private Long precoEnergia = 1000L;
+    private Long precoEnergia = 1_000L;
 
     @Column(name = "preco_ataque_especial", nullable = false)
-    private Long precoAtaqueEspecial = 1000L;
+    private Long precoAtaqueEspecial = 1_000L;
     
+   @Column(name = "preco_machado_dilacerador", nullable = false)
+   private Long precoMachadoDilacerador = 5_000L;
+    
+   @Column(name = "preco_pocao_vigor", nullable = false)
+   private Long precoPocaoVigor = 5_000L;
+    
+   @Column(name = "preco_espada_flanejante", nullable = false)
+   private Long precoEspadaFlanejante= 5_000L;
+
+
+   
   //===========================================
  // GETTERS E SETTERS - LOJA
  //===========================================
+   public Long getPrecoMachadoDilacerador() {
+	    return precoMachadoDilacerador;
+	}
+
+	public void setPrecoMachadoDilacerador(Long precoMachadoDilacerador) {
+	    this.precoMachadoDilacerador = precoMachadoDilacerador;
+	}
+
+	public Long getPrecoPocaoVigor() {
+	    return precoPocaoVigor;
+	}
+
+	public void setPrecoPocaoVigor(Long precoPocaoVigor) {
+	    this.precoPocaoVigor = precoPocaoVigor;
+	}
+
+	public Long getPrecoEspadaFlanejante() {
+	    return precoEspadaFlanejante;
+	}
+
+	public void setPrecoEspadaFlanejante(Long precoEspadaFlanejante) {
+	    this.precoEspadaFlanejante = precoEspadaFlanejante;
+	}
+
     
-    
+   
+   
  public Long getPrecoGuerreiros() {
      return precoGuerreiros;
  }

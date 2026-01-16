@@ -12,12 +12,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class LojaAprimoramentosService {
 
-    // =====================================
-    // PREÇO FIXO DA POÇÃO
-    // =====================================
-    private static final long PRECO_BASE_PORCAOVIGOR = 5_000L;
-    private static final long PRECO_BASE_ESPADA_FLANEJANTE = 5_000L;
-    
+
     /**
      * ⚠️ ESTE MÉTODO DEVE SER CHAMADO
      * SOMENTE APÓS UMA COMPRA
@@ -156,21 +151,125 @@ public class LojaAprimoramentosService {
                                    //
     //=============================================================================================
     
+ // ---> atualizar preço poção de vigor
+    public void atualizarPrecoPocaoVigor(UsuarioBossBattle usuario) {
+
+        long precoAtual = usuario.getPrecoPocaoVigor();
+     
+
+        if (precoAtual <= 0) {
+            precoAtual = 5_000L;
+        }
+
+        long nivel = usuario.getNivel();
+
+        long aumento;
+
+        if (nivel <= 10) {
+            aumento = 1_000;
+        } else if (nivel <= 20) {
+            aumento = 2_000;
+        } else if (nivel <= 30) {
+            aumento = 3_000;
+        } else if (nivel <= 40) {
+            aumento = 4_000;
+        } else if (nivel <= 50) {
+            aumento = 5_000;
+        } else if (nivel <= 70) {
+            aumento = 7_000;
+        } else if (nivel <= 100) {
+            aumento = 10_000;
+        } else {
+            aumento = 15_000;
+        }
+
+        // 🔼 aumento fixo e permanente
+        usuario.setPrecoPocaoVigor(precoAtual + aumento);
+    }
+
+    
+ // ---> atualizar preço espada flanejante
+    public void atualizarPrecoEspadaFlanejante(UsuarioBossBattle usuario) {
+
+      
+        
+      
+        long precoAtual = usuario.getPrecoEspadaFlanejante();
+
+        if (precoAtual <= 0) {
+            precoAtual = 5_000L;
+        }
+
+        long nivel = usuario.getNivel();
+
+        long aumento;
+
+        if (nivel <= 10) {
+            aumento = 1_000;
+        } else if (nivel <= 20) {
+            aumento = 2_000;
+        } else if (nivel <= 30) {
+            aumento = 3_000;
+        } else if (nivel <= 40) {
+            aumento = 4_000;
+        } else if (nivel <= 50) {
+            aumento = 5_000;
+        } else if (nivel <= 70) {
+            aumento = 7_000;
+        } else if (nivel <= 100) {
+            aumento = 10_000;
+        } else {
+            aumento = 15_000;
+        }
+
+        usuario.setPrecoEspadaFlanejante(precoAtual + aumento);
+    }
+
+    
+ // ---> atualizar preço espada flanejante
+    public void atualizarPrecoMachadoDilacerador(UsuarioBossBattle usuario) {
+
+        long precoAtual = usuario.getPrecoMachadoDilacerador();
+        if (precoAtual <= 0) {
+            precoAtual = 5_000L;
+        }
+        long nivel = usuario.getNivel();
+
+        long aumento;
+
+        if (nivel <= 10) {
+            aumento = 1_000;
+        } else if (nivel <= 20) {
+            aumento = 2_000;
+        } else if (nivel <= 30) {
+            aumento = 3_000;
+        } else if (nivel <= 40) {
+            aumento = 4_000;
+        } else if (nivel <= 50) {
+            aumento = 5_000;
+        } else if (nivel <= 70) {
+            aumento = 7_000;
+        } else if (nivel <= 100) {
+            aumento = 10_000;
+        } else {
+            aumento = 15_000;
+        }
+
+        usuario.setPrecoMachadoDilacerador(precoAtual + aumento);
+    }
+
+    
+    //======================================
+    
+    public void atualizarPrecoLoja(UsuarioBossBattle usuario) {
+    	
+    	atualizarPrecoMachadoDilacerador(usuario);
+    	atualizarPrecoEspadaFlanejante(usuario);
+    	atualizarPrecoPocaoVigor(usuario);
+    	
+    }//atualizarPrecoLoja
+    
     
    
-    
-    //======================================
-    
-    public long getPrecoBasePorcaovigor() {
-        return PRECO_BASE_PORCAOVIGOR;
-    }
-    
-    //======================================
-    
-    public long getPrecoBaseEspadaFlanejante() {
-        return PRECO_BASE_ESPADA_FLANEJANTE;
-    }
-    
-    
     
 }

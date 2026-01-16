@@ -12,25 +12,25 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class ComprarEspadaFlanejanteService {
-	//comprar espada flanejante
+public class ComprarMachadoDilaceradorService {
 
-	 
-	    @Autowired
-	    private LojaAprimoramentosService lojaService;
-
-	    @Autowired
-	    private UsuarioBossBattleRepository repo;
-
-	    
 	
-	public boolean comprarEspadaFlanejante(Long usuarioId, int quantidade){
+
+    @Autowired
+    private LojaAprimoramentosService lojaService;
+
+    @Autowired
+    private UsuarioBossBattleRepository repo;
+    
+    
+    
+public boolean comprarMachadoDilacerador(Long usuarioId, int quantidade){
 		
 		UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
     	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 	
 		 BigDecimal precoUnitario =
-	                BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
+	                BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
 
 	        BigDecimal valorTotal =
 	                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
@@ -42,9 +42,9 @@ public class ComprarEspadaFlanejanteService {
 	        // 💰 debita
 	        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-	        // ⚔️ adiciona espadas
-	        usuario.setEspadaFlanejante(
-	                usuario.getEspadaFlanejante() + quantidade
+	        // ⚔️ adiciona machados dilacerador
+	        usuario.setMachadoDilacerador(
+	                usuario.getMachadoDilacerador() + quantidade
 	        );
 
 	        repo.save(usuario);
@@ -52,5 +52,6 @@ public class ComprarEspadaFlanejanteService {
 	}
 	
 	
-
-}//--->
+    
+  
+}//--->ComprarMachadoDilaceradorService

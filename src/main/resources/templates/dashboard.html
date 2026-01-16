@@ -351,18 +351,31 @@ window.addEventListener('load', () => {
             <!-- Guerreiros -->
             <h2 class="card-title"> Meus Guerreiros</h2>
             
-<div id="espadaDesgasteContainer" class="hidden">
+<div id="desgasteContainer" class="hidden">
 
 <!-- Segundo lugar -->
 <div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
     ✔ Espada equipada
 </div>
+
+<div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+    ✔ Machado equipado
+</div>
     <strong class="titulo-durabilidade">Durabilidade</strong>
 
+<div class="barra-wrapper">
+    <progress id="barradesgaste"></progress>
+    <span id="desgasteTexto"></span>
+</div>
+
+<!--  
     <div class="barra-wrapper">
-        <progress id="barraEspada" max="100" value="100"></progress>
-        <span id="espadaDesgasteTexto">100%</span>
+        <progress id="barradesgaste" max="100" value="100"></progress>
+        <span id="desgasteTexto">100%</span>
     </div>
+    -->
+    
+    
 </div>
 
             
@@ -462,6 +475,25 @@ window.addEventListener('load', () => {
         class="btn-nucleo-acao hidden">
     Ativar Espada
 </button>
+
+
+  <!-- machado dilacerador -->
+<div class="nucleo-item-dilacerador">
+    <img src="icones/machado_dilacerador.webp" alt="Machado Dilacerador" class="icone-item">
+    Machado Dilacerador: <span id="machadoDilacerador">0</span>
+</div>
+
+<!-- Primeiro lugar -->
+<div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+    ✔ Machado equipado
+</div>
+
+<button id="btnAtivarMachadoDilacerador"
+        class="btn-nucleo-acao hidden">
+    Ativar Machado Dilacerador
+</button>
+
+
 
 
         <!-- GUERREIRO -->
@@ -673,13 +705,27 @@ Dano
     <p>Preço por unidade: <span class="preco" id="preco-espada-flanejante" data-preco-item="EspadaFlanejante"></span></p>
     
     <label for="quantidade-espada-flanejante">Quantidade que deseja comprar:</label>
-    <input type="number" id="quantidade-espada-flanejante" class="quantidade-item" min="1" value="1">
+    <input type="number" id="" class="quantidade-espadas" min="1" value="1">
     <button class="btn-comprar" data-item="espada-flanejante">Comprar espada flanejante</button>
     
 </div>
 
 
+<!--  machado dilacerador (Item Raro) -->
+<div class="loja-card">
+    <h3>Machado Dilacerador</h3>
 
+    <!-- Imagem do item -->
+    <img src="icones/machado_dilacerador.webp" alt="Machado Dilacerador" class="machado-dilacerador-imagem" />
+
+    <p>Aumenta o ataque em 10% durante a vida útil do machado. Durante o uso, o machado se desgasta.</p>
+    <p>Preço por unidade: <span class="preco" id="preco-machado-dilacerador" data-preco-item="MachadoDilacerador"></span></p>
+    
+    <label for="quantidade-machado-dilacerador">Quantidade que deseja comprar:</label>
+    <input type="number" id="quantidade-machado-dilacerador" class="quantidade-machado" min="1" value="1">
+    <button class="btn-comprar" data-item="machado-dilacerador">Comprar Machado dilacerador</button>
+    
+</div>
 
 
         
@@ -755,6 +801,15 @@ Dano
     </strong><span>Total</span>
   </div>  
   
+     <div class="ajuste-item">
+    <span>Ataque especial:</span>
+    <strong id="ataque_especial"
+            th:text="${ataque_base}">
+      0
+    </strong>  <span>Dano</span>
+  </div>  
+  
+  
    <div class="ajuste-item">
     <span>Poção Vigor:</span>
     <strong id="pocao_vigor"
@@ -763,13 +818,27 @@ Dano
     </strong><span>Ajustes</span>
   </div>  
   
-     <div class="ajuste-item">
-    <span>Ataque especial:</span>
-    <strong id="ataque_especial"
-            th:text="${ataque_base}">
+  
+    <div class="ajuste-item">
+    <span>Espada Flanejante:</span>
+    <strong id="espada_flanejante"
+            th:text="${quantidadeEspadaFlanejante}">
       0
-    </strong>  <span>Dano</span>
+    </strong><span>Ajustes</span>
   </div>  
+  
+  
+      <div class="ajuste-item">
+    <span>Machado Dilacerador:</span>
+    <strong id="machado_dilacerador"
+            th:text="${quantidadeMachadoDilacerador}">
+      0
+    </strong><span>Ajustes</span>
+  </div>  
+  
+  
+  
+  
   
  
  </div>
@@ -1005,8 +1074,10 @@ Dano
      <script src="/js/atualizarAtaquePorMinuto.js" defer></script>   
      <script src="/js/carregarRankingDano.js" defer></script>  
      <script src="/js/equiparEspadaFlanejante.js" defer></script>
+      <script src="/js/comprarMachadoDilacerador.js" defer></script>
     
-    <script type="module" src="main.js"></script>
+      <script src="/js/equiparMachadoDilacerador.js" defer></script>
+
     
     
     

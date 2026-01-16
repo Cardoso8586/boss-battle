@@ -116,7 +116,9 @@ public class SecurityConfig {
                         "/retirar/retaguarda/**",
                         "/retaguarda/reparo/**",
                         "/api/boss/ranking/dano/**",
-                        "/api/espada-flanejante/ativar/**"
+                        "/api/espada-flanejante/ativar/**",
+                        "/api/machado-dilacerador/ativar/**",
+                        "/comprar/machado/dilacerador/**"
                      
                         
                         

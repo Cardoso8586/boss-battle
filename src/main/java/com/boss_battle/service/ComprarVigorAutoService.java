@@ -30,7 +30,7 @@ public class ComprarVigorAutoService {
     	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Preço unitário da poção
-        BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPrecoBasePorcaovigor());
+        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoPocaoVigor());
         BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         // Verifica se o usuário tem saldo suficiente

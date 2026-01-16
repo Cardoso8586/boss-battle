@@ -45,15 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // ⏳ texto no botão
 			botao.innerText = `Comprando Guerreiro...`;
-            //botao.innerText = `Comprando... (${restante}s)`;
-
-            //const timer = setInterval(() => {
-             //   restante--;
-				//botao.innerText = `Comprando...`;
-               // botao.innerText = `Comprando... (${restante}s)`;
-              //  if (restante <= 0) clearInterval(timer);
-          //  }, 1000);
-
+         
             // ⚠️ preço apenas visual
             const precoText = card.querySelector('.preco')
                 .textContent.replace(/[^\d]/g, '');

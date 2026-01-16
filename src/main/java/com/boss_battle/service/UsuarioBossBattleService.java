@@ -40,13 +40,10 @@ public class UsuarioBossBattleService {
             
          // 🎲 gera o próximo preview
             randomRewardService.onLevelUp(usuarioId);
+            lojaService.atualizarPrecoLoja(usuario);
+           
         }
 
-        // 🔄 AGORA SIM: recalcula preços com dados atualizados
-        //lojaService.atualizarPrecosLoja(usuario, quantidade);
-        // ➕ Adiciona XP
-       // usuario.setExp(0);
-        // 💾 Salva tudo
         repo.save(usuario);
     }
     

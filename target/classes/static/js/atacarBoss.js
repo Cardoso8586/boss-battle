@@ -55,51 +55,37 @@ function iniciarCooldown(segundos) {
 
     if (!bossVivo) return;
 
-    let restante = segundos;
+    const fimCooldown = Date.now() + segundos * 1000;
+    localStorage.setItem("cooldownFim", fimCooldown);
 
     attackBtn.disabled = true;
-   // attackBtn.innerText = `(${restante}s)`;
-	//attackBtn.innerText = `Aguarde (${restante}s)`;
+    ataqueEmAndamento = true;
 
-    if (cooldownInterval) {
-        clearInterval(cooldownInterval);
-        cooldownInterval = null;
-    }
+    if (cooldownInterval) clearInterval(cooldownInterval);
 
-	
-	if (restante !== 0) {
-		  Aguarde.innerHTML = "Aguarde";
-		} else {
-		  Aguarde.innerHTML = "";
-		}
-		
+    Aguarde.innerHTML = segundos > 0 ? "Aguarde" : "";
+
     cooldownInterval = setInterval(() => {
-        restante--;
+        const restante = Math.ceil((fimCooldown - Date.now()) / 1000);
 
         if (restante <= 0) {
             clearInterval(cooldownInterval);
-            cooldownInterval = null;
+            localStorage.removeItem("cooldownFim");
 
             if (bossVivo) {
                 attackBtn.disabled = false;
                 attackBtn.innerText = "Atacar Boss";
                 ataqueEmAndamento = false;
+                Aguarde.innerHTML = "";
             }
             return;
         }
 
         attackBtn.innerText = `${restante}`;
-		//attackBtn.innerText = `Aguarde (${restante}s)`;
-		
     }, 1000);
-	
-	
-	/**
-	 * 	 document.getElementById("Aguarde").textContent =
-	   restante !== 0 ? "Aguarde" : "";
-
-	 */
 }
+
+
 
 // ---------------------------------------------------
 // 💀 MORTE DO BOSS
@@ -168,18 +154,9 @@ attackBtn.addEventListener("click", async () => {
 	  didOpen: () => {
 	    const title = Swal.getTitle();
 
-		/**
-		 * 
-		 */ 
-		
+	
 		title.textContent = `Preparando para atacar!`;
-	   // const timerAtaque = setInterval(() => {
-	     // restante--;
-	    //  attackBtn.innerText = `Atacando...`;
-		 // attackBtn.innerText = `Atacando... (${restante}s)`;
-		
-	     // title.textContent = `Preparando para atacar! ${restante}s`;
-
+	  
 	      if (restante <= 0) {
 	        clearInterval(timerAtaque);
 	        Swal.close();

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!card) return;
 
             // 📦 quantidade (ID — exatamente como no HTML)
-            const quantidadeInput = card.querySelector('#quantidade-espada-flanejante');
+            const quantidadeInput = card.querySelector('.quantidade-espadas');
             if (!quantidadeInput) return;
 
             const quantidade = parseInt(quantidadeInput.value);
@@ -51,15 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // ⏳ texto no botão
             botao.innerText = `Comprando espada flanejante...`;
-			//botao.innerText = `Comprando... (${restante}s)`;
-
-          //  const timer = setInterval(() => {
-              //  restante--;
-			//	botao.innerText = `Comprando...`;
-               // botao.innerText = `Comprando... (${restante}s)`;
-              //  if (restante <= 0) clearInterval(timer);
-         //   }, 1000);
-
+		
             // ⚠️ preço apenas visual
             const precoSpan = card.querySelector('.preco');
             const precoText = precoSpan

@@ -36,48 +36,53 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao atualizar espada:', e);
         }
     }
+	// ==============================
+	// ATUALIZA ESPADA
+	// ==============================
+	function atualizarEspada(status) {
 
-    // ==============================
-    // ATUALIZA ESPADA
-    // ==============================
-    function atualizarEspada(status) {
+	    const estoque = status.espadaFlanejanteEstoque ?? 0;
+	    const ativa = status.espadaFlanejanteAtiva ?? 0;
+	    const podeAtivar = status.podeAtivarEspadaFlanejante === true;
 
-		const estoque = status.espadaFlanejanteEstoque ?? 0;
-		const ativa = status.espadaFlanejanteAtiva ?? 0;
-		const podeAtivar = status.podeAtivarEspadaFlanejante === true;
+	    // ⚔️ OUTRA ARMA
+	    const machadoAtivo = status.qtdMachadoDilaceradorAtivo ?? 0;
 
-		const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
+	    const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
 
-		// ITEM (imagem + texto + quantidade)
-		if (espadaItem && espadaSpan) {
-		    if (estoque === 0) {
-		        espadaItem.classList.add('hidden');   // melhor que display direto
-		    } else {
-		        espadaItem.classList.remove('hidden');
-		        espadaSpan.textContent = formatarNumero(estoque);
-		    }
-		}
+	    // ITEM (estoque)
+	    if (espadaItem && espadaSpan) {
+	        if (estoque === 0) {
+	            espadaItem.classList.add('hidden');
+	        } else {
+	            espadaItem.classList.remove('hidden');
+	            espadaSpan.textContent = formatarNumero(estoque);
+	        }
+	    }
 
-		// BOTÃO ATIVAR
-		if (btnAtivarEspada) {
-		    const mostrarBotao = estoque > 0 && podeAtivar && !ativa;
+	    // 🔒 BOTÃO ATIVAR (REGRA COMPLETA)
+	    if (btnAtivarEspada) {
+	        const mostrarBotao =
+	            estoque > 0 &&
+	            ativa === 0 &&
+	            podeAtivar &&
+	            machadoAtivo === 0; // 🚫 BLOQUEIA SE MACHADO ATIVO
 
-		    btnAtivarEspada.classList.toggle('hidden', !mostrarBotao);
-		    btnAtivarEspada.disabled = !mostrarBotao;
-		}
+	        btnAtivarEspada.classList.toggle('hidden', !mostrarBotao);
+	        btnAtivarEspada.disabled = !mostrarBotao;
+	    }
 
-        // Info ativa
-        if (espadaInfos) {
-			espadaInfos.forEach(div => {
-			    if (ativa > 0) {   // ativa = número de espadas ativas
-					div.classList.remove('hidden');
-					div.textContent = `✔ Espada equipada (${ativa})`;
-			    } else {
-			        div.classList.add('hidden');    // esconde a mensagem
-			    }
-			});
-        }
-    }
+	    // ℹ️ INFO ATIVO
+	    espadaInfos.forEach(div => {
+	        if (ativa > 0) {
+	            div.classList.remove('hidden');
+	            div.textContent = `✔ Espada equipada (${ativa})`;
+	        } else {
+	            div.classList.add('hidden');
+	        }
+	    });
+	}
+
 
     // ==============================
     // ATIVAR ESPADA
@@ -97,15 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const textoOriginal = btnAtivarEspada.innerText;
 
             btnAtivarEspada.innerText = `Ativando...`;
-			//btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
-			
-           // const timer = setInterval(() => {
-               // restante--;
-              //  btnAtivarEspada.innerText = `Ativando...`;
-				//btnAtivarEspada.innerText = `Ativando... (${restante}s)`;
-				
-              //  if (restante <= 0) clearInterval(timer);
-           // }, 1000);
+		
 
             try {
                 const res = await fetch(

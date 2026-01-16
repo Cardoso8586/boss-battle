@@ -80,6 +80,7 @@ public class GlobalBossService {
     private final ReferidosRecompensaService referidosService;
     private final UsuarioBossBattleService usuarioService;
     private final BossAttackService bossAttackService;
+  
     //private final BossDamageLogService bossDamageLogService;
     
    
@@ -115,6 +116,7 @@ public class GlobalBossService {
             NoctharionService noctharionService,
             AzraelPrimeService azraelPrimeService,
             DestruidorService destruidorService,
+          
             
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -137,6 +139,7 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
+      
         //this.bossDamageLogService = bossDamageLogService;
         this.nightmareService = nightmareService;
         this.flamorService = flamorService;
@@ -246,7 +249,7 @@ public class GlobalBossService {
 
         // aplicar diminuir  o vigor
         
-        System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Cusou " + damage+"-"+ "Dano");
+        System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
        // usuario.setEnergiaGuerreiros(energia - damage);
         boolean bossFoiAtingido = false;
         // usar o valor retornado
@@ -430,7 +433,7 @@ public class GlobalBossService {
             long damage
     ) {
     	
-    	
+    
 
     	 // Ainda vivo → fluxo normal
         if (boss.isAlive() && boss.getCurrentHp() > 0) {
@@ -443,23 +446,23 @@ public class GlobalBossService {
             );
         }
 
-        // 🔐 LOCK: se já está processando morte
-        if (boss.isProcessingDeath()) {
+        
+        
+        if (boss.isProcessingDeath() || boss.isRewardDistributed()) {
             return Map.of(
                 "status", "DEFEATED",
-                "message", "Boss já foi derrotado"
+                "message", "Recompensa já distribuída"
             );
         }
 
-        // 🔒 Trava a morte
+        // 🔒 trava imediatamente
         boss.setProcessingDeath(true);
+
         
         long bossReward = boss.getRewardBoss();
         long expReward = boss.getRewardExp();
 
-        //BigDecimal rewardTotal = BigDecimal.valueOf(boss.getRewardBoss());
-       // BigDecimal hpMax       = BigDecimal.valueOf(boss.getMaxHp());
-
+  
         List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
         if (logs.isEmpty()) return Map.of("status", "NO_DAMAGE_LOG");
 
@@ -471,6 +474,35 @@ public class GlobalBossService {
                 Collectors.summingLong(BossDamageLog::getDamage)
             ));
 
+        for (var entry : damagePorUsuario.entrySet()) {
+
+            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
+            if (u == null) continue;
+
+            long danoUsuario = entry.getValue(); 
+
+            long rewardFinal = (bossReward * danoUsuario) / bossHpMax;
+            long expFinal    = (expReward * danoUsuario) / bossHpMax;
+
+            rewardFinal = Math.max(1, rewardFinal);
+            expFinal    = Math.max(1, expFinal);
+
+            u.setBossCoins(
+                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
+            );
+
+            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+            usuarioService.adicionarExp(u.getId(), (int) expFinal);
+           
+            usuarioRepo.save(u);
+
+            System.out.println(
+                "O usuario " + u.getUsername() +
+                " recebeu " + rewardFinal + " Boss Coin"
+            );
+        }
+
+        /**
         for (var entry : damagePorUsuario.entrySet()) {
 
             UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
@@ -495,20 +527,18 @@ public class GlobalBossService {
             u.setBossCoins( u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
             );
             
-          
-
-         
             referidosService.adicionarGanho(u,BigDecimal.valueOf(rewardFinal));
-            
+        
             usuarioService.adicionarExp(u.getId(), (int) expFinal);
 
             usuarioRepo.save(u);
-            
+            System.out.println("O usurio " + usuario.getUsername() + "-" + "recebeu"+"-" + rewardFinal +"- Boss Coin");
             // 🔐 idempotência garantida
            boss.setRewardDistributed(true);
         }
      
-        resetBoss(); 
+     */
+      
 
      // NÃO libera processingDeath aqui se não houver respawn imediato
      return Map.of(
@@ -521,187 +551,7 @@ public class GlobalBossService {
 
     }
     
-    /**
-    @Transactional
-    public Object processReward(
-            String bossName,
-            BattleBoss boss,
-            UsuarioBossBattle usuario,
-            long damage
-    ) {
-
-        // 🔒 lock transacional real
-    	BossRewardLock lock = getOrCreateLock(bossName);
-
-    	if (lock.isRewardDistributed()) {
-    	    return Map.of(
-    	        "status", "ALREADY_DISTRIBUTED",
-    	        "boss", bossName
-    	    );
-    	}
-
-        // Ainda vivo → fluxo normal
-        if (boss.isAlive() && boss.getCurrentHp() > 0) {
-            return Map.of(
-                "boss", bossName,
-                "currentHp", boss.getCurrentHp(),
-                "rewardBoss", boss.getRewardBoss(),
-                "rewardExp", boss.getRewardExp(),
-                "damage", damage
-            );
-        }
-
-        long bossReward = boss.getRewardBoss();
-        long expReward  = boss.getRewardExp();
-
-        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
-        if (logs.isEmpty()) {
-            lock.setRewardDistributed(true);
-            return Map.of("status", "NO_DAMAGE_LOG");
-        }
-
-        long bossHpMax = boss.getMaxHp();
-
-        Map<Long, Long> damagePorUsuario = logs.stream()
-            .collect(Collectors.groupingBy(
-                BossDamageLog::getUserId,
-                Collectors.summingLong(BossDamageLog::getDamage)
-            ));
-
-        for (var entry : damagePorUsuario.entrySet()) {
-
-            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
-            if (u == null) continue;
-
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-
-            long rewardFinal = Math.max(1, (bossReward * danoUsuario) / bossHpMax);
-            long expFinal    = Math.max(1, (expReward * danoUsuario) / bossHpMax);
-
-            u.setBossCoins(
-                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
-            );
-
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
-
-            usuarioRepo.save(u);
-        }
-
-        // 🔐 idempotência REAL (1 única vez)
-        lock.setRewardDistributed(true);
-
-      
-
-        return Map.of(
-            "boss", bossName,
-            "status", "DEFEATED",
-            "rewardTotal", bossReward,
-            "expTotal", expReward,
-            "participantes", damagePorUsuario.size()
-        );
-    }
-    
-    @Transactional
-    public BossRewardLock getOrCreateLock(String bossName) {
-
-        BossRewardLock lock = bossRewardLockRepo.lockByBossName(bossName);
-        if (lock != null) return lock;
-
-        try {
-            lock = new BossRewardLock();
-            lock.setBossName(bossName);
-            lock.setRewardDistributed(false);
-
-            bossRewardLockRepo.saveAndFlush(lock);
-            return lock;
-
-        } catch (DataIntegrityViolationException e) {
-            return bossRewardLockRepo.lockByBossName(bossName);
-        }
-    }
-*/
-
-
-    /*
    
-
-    */
-
-    /*
-    private Object processReward(String bossName, BattleBoss boss,UsuarioBossBattle usuario, long damage) {
-        if (boss.isAlive() && boss.getCurrentHp() > 0) {
-          
-			return Map.of(
-                "boss", bossName,
-                "currentHp", boss.getCurrentHp(),
-                "rewardBoss", boss.getRewardBoss(),
-                "rewardExp", boss.getRewardExp(),
-                "damage", damage
-            );
-        }
-
-        long bossReward = boss.getRewardBoss();
-        long expReward = boss.getRewardExp();
-
-        List<BossDamageLog> logs = damageLogRepo.findByBossName(bossName);
-        long bossHpMax = boss.getMaxHp();
-        long totalDamage = Math.min(
-            logs.stream().mapToLong(BossDamageLog::getDamage).sum(),
-            bossHpMax
-        );
-
-        Map<Long, Long> damagePorUsuario = logs.stream()
-            .collect(Collectors.groupingBy(
-                BossDamageLog::getUserId,
-                Collectors.summingLong(BossDamageLog::getDamage)
-            ));
-
-        for (var entry : damagePorUsuario.entrySet()) {
-            //UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
-        	UsuarioBossBattle u = usuarioRepo.findById(entry.getKey())
-        		    .map(usuarioRepo::saveAndFlush)
-        		    .orElse(null);
-
-            if (u == null) continue;
-
-           // long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-            //double proporcao = (double) danoUsuario / totalDamage;
-           // long rewardFinal = Math.round(bossReward * proporcao);
-           // long expFinal = Math.round(expReward * proporcao);
-
-            long danoUsuario = entry.getValue(); 
-
-            long rewardFinal = (bossReward * danoUsuario) / totalDamage;
-            long expFinal = (expReward * danoUsuario) / totalDamage;
-
-            // garante que quem causou dano receba algo
-            if (rewardFinal == 0 && danoUsuario > 0) rewardFinal = 1;
-            if (expFinal == 0 && danoUsuario > 0) expFinal = 1;
-
-            
-            
-            if (u.getBossCoins() == null) u.setBossCoins(BigDecimal.ZERO);
-            u.setBossCoins(u.getBossCoins().add(BigDecimal.valueOf(rewardFinal)));
-
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
-
-            usuarioRepo.save(u);
-        }
-
-        bossDamageLogService.clearBossDamage(bossName);
-        damageLogRepo.deleteByBossName(bossName);
-
-        return Map.of(
-            "boss", bossName,
-            "status", "DEFEATED",
-            "rewardTotal", bossReward,
-            "expTotal", expReward,
-            "participantes", damagePorUsuario.size()
-        );
-    }
-*/
     //=============================================================
     // finalizeHit
     //=============================================================

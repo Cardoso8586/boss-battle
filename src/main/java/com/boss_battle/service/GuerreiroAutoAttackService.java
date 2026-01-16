@@ -17,6 +17,7 @@ import jakarta.transaction.Transactional;
 public class GuerreiroAutoAttackService {
 
 	private final long ESPADA_FLANEJANTE_PROCENTGEM = 20;
+	private final long MACHADO_DILACERADOR_PROCENTGEM = 10;
 
 	@Autowired
 	private EspadaFlanejanteService espadaFlanejanteService;
@@ -24,6 +25,10 @@ public class GuerreiroAutoAttackService {
 	@Autowired
 	private UsuarioBossBattleRepository repo;
 
+	@Autowired
+	private MachadoDilaceradorService machadoDilaceradorService;
+	
+	
 	@Autowired
 	PocaoVigorService pocaoVigorService;
 
@@ -37,6 +42,7 @@ public class GuerreiroAutoAttackService {
 	    Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
 	    Long energia = usuario.getEnergiaGuerreiros();
 	    Long espadasAtivas = usuario.getEspadaFlanejanteAtiva();
+	    Long machadoDilaceradorAtivo = usuario.getMachadoDilaceradorAtivo();
 
 	    BattleBoss boss = globalBossService.getActiveBoss();
         if (boss == null || !boss.isAlive()) return;
@@ -59,9 +65,20 @@ public class GuerreiroAutoAttackService {
 	        // 🔥 consome desgaste
 	        espadaFlanejanteService.usarEspadaFlanejante(usuario);
 	    }
+	    
+	    // ⚔️ bônus do MCAHDO DILACERADOR (10%)
+	    if (machadoDilaceradorAtivo != null && machadoDilaceradorAtivo > 0) {
+
+	        long bonusMachado = (dano * MACHADO_DILACERADOR_PROCENTGEM) / 100;
+	        dano += bonusMachado;
+
+	        // 🔥 consome desgaste
+	        machadoDilaceradorService.usarMachadoDilacerador(usuario);
+	    }
+	    
 	    globalBossService.tryHitBoss(boss.getBossName(), boss, usuario, dano);
 	    
-	   System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Cusou " + dano+"-"+ "Dano");
+	   System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Causou " + dano+"-"+ "Dano");
 	  
 	    // 🐲 ataca o boss
 	   // globalBossService.hitActiveBoss(usuario, dano);

@@ -1,20 +1,19 @@
 /**
- * Espada Flanejante – Equipar
+ * Machado Dilacerador – Equipar
  */
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
-    const usuarioId = meta ? parseInt(meta.getAttribute('content')) : null;
+    const usuarioId = meta ? Number(meta.content) : null;
     if (!usuarioId) return;
 
     // ==============================
     // ELEMENTOS
     // ==============================
-    const espadaSpan = document.getElementById('espadaFlanejante');
-    const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
-   // const espadaAtivaInfo = document.querySelector('.espada-flanejante-ativa-info');
-	const espadaInfos = document.querySelectorAll('.espada-flanejante-ativa-info');
+    const machadoSpan = document.getElementById('machadoDilacerador');
+    const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador');
+    const machadoInfos = document.querySelectorAll('.machado-dilacerador-ativo-info');
+
     // ==============================
     // FORMATAÇÃO
     // ==============================
@@ -30,90 +29,88 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!res.ok) return;
 
             const status = await res.json();
-            atualizarEspada(status);
+            atualizarMachadoDilacerador(status);
 
         } catch (e) {
-            console.error('Erro ao atualizar espada:', e);
+            console.error('Erro ao atualizar machado:', e);
         }
     }
-	// ==============================
-	// ATUALIZA ESPADA
-	// ==============================
-	function atualizarEspada(status) {
 
-	    const estoque = status.espadaFlanejanteEstoque ?? 0;
-	    const ativa = status.espadaFlanejanteAtiva ?? 0;
-	    const podeAtivar = status.podeAtivarEspadaFlanejante === true;
+    // ==============================
+    // ATUALIZA MACHADO
+    // ==============================
+	function atualizarMachadoDilacerador(status) {
+
+	    const machadoEstoque = status.qtdMachadoDilaceradorEstoque ?? 0;
+	    const machadoAtivo = status.qtdMachadoDilaceradorAtivo ?? 0;
+	    const podeAtivar = status.podeAtivarMachadoDilacerador === true;
 
 	    // ⚔️ OUTRA ARMA
-	    const machadoAtivo = status.qtdMachadoDilaceradorAtivo ?? 0;
+	    const espadaAtiva = status.espadaFlanejanteAtiva ?? 0;
 
-	    const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
+	    const machadoItem = machadoSpan?.closest('.nucleo-item-dilacerador');
 
+		
+		
 	    // ITEM (estoque)
-	    if (espadaItem && espadaSpan) {
-	        if (estoque === 0) {
-	            espadaItem.classList.add('hidden');
+	    if (machadoItem && machadoSpan) {
+	        if (machadoEstoque === 0 ) {
+	            machadoItem.classList.add('hidden');
 	        } else {
-	            espadaItem.classList.remove('hidden');
-	            espadaSpan.textContent = formatarNumero(estoque);
+	            machadoItem.classList.remove('hidden');
+	            machadoSpan.textContent = formatarNumero(machadoEstoque);
 	        }
 	    }
 
 	    // 🔒 BOTÃO ATIVAR (REGRA COMPLETA)
-	    if (btnAtivarEspada) {
+	    if (btnAtivarMachado) {
 	        const mostrarBotao =
-	            estoque > 0 &&
-	            ativa === 0 &&
+	            machadoEstoque > 0 &&
+	            machadoAtivo === 0 &&
 	            podeAtivar &&
-	            machadoAtivo === 0; // 🚫 BLOQUEIA SE MACHADO ATIVO
+	            espadaAtiva === 0;   // 🚫 BLOQUEIA SE ESPADA ATIVA
 
-	        btnAtivarEspada.classList.toggle('hidden', !mostrarBotao);
-	        btnAtivarEspada.disabled = !mostrarBotao;
+	        btnAtivarMachado.classList.toggle('hidden', !mostrarBotao);
+	        btnAtivarMachado.disabled = !mostrarBotao;
 	    }
 
 	    // ℹ️ INFO ATIVO
-	    espadaInfos.forEach(div => {
-	        if (ativa > 0) {
+	    machadoInfos.forEach(div => {
+	        if (machadoAtivo > 0) {
 	            div.classList.remove('hidden');
-	            div.textContent = `✔ Espada equipada (${ativa})`;
+	            div.textContent = `✔ Machado Dilacerador equipado (${machadoAtivo})`;
 	        } else {
 	            div.classList.add('hidden');
 	        }
 	    });
 	}
 
-
     // ==============================
-    // ATIVAR ESPADA
+    // ATIVAR MACHADO
     // ==============================
     let emCooldown = false;
     const tempoCooldown = 5;
 
-    if (btnAtivarEspada) {
-        btnAtivarEspada.addEventListener('click', async () => {
+    if (btnAtivarMachado) {
+        btnAtivarMachado.addEventListener('click', async () => {
 
             if (emCooldown) return;
 
             emCooldown = true;
-            btnAtivarEspada.disabled = true;
+            btnAtivarMachado.disabled = true;
 
-          //  let restante = tempoCooldown;
-            const textoOriginal = btnAtivarEspada.innerText;
-
-            btnAtivarEspada.innerText = `Ativando...`;
-		
+            const textoOriginal = btnAtivarMachado.innerText;
+            btnAtivarMachado.innerText = 'Ativando...';
 
             try {
                 const res = await fetch(
-                    `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
+                    `/api/machado-dilacerador/ativar?usuarioId=${usuarioId}&quantidade=1`,
                     { method: 'POST' }
                 );
 
                 if (!res.ok) {
                     const erro = await res.text();
                     Swal.fire({
-                        customClass: { title: 'swal-game-error' },
                         icon: 'warning',
                         title: 'Erro',
                         text: erro,
@@ -124,10 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 Swal.fire({
-                    customClass: { title: 'swal-game-text' },
                     icon: 'success',
-                    title: 'Espada equipada!',
-                    text: 'Sua Espada Flanejante foi equipada com sucesso.',
+                    title: 'Machado equipado!',
+                    text: 'Seu Machado Dilacerador foi equipado com sucesso.',
                     timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
@@ -139,18 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (e) {
                 console.error(e);
                 Swal.fire({
-                    customClass: { title: 'swal-game-error' },
                     icon: 'error',
                     title: 'Erro',
-                    text: 'Erro ao tentar equipar espada.',
+                    text: 'Erro ao tentar equipar o machado.',
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
             } finally {
                 setTimeout(() => {
                     emCooldown = false;
-                    btnAtivarEspada.disabled = false;
-                    btnAtivarEspada.innerText = textoOriginal;
+                    btnAtivarMachado.disabled = false;
+                    btnAtivarMachado.innerText = textoOriginal;
                 }, tempoCooldown * 1000);
             }
         });
@@ -162,4 +157,5 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarUsuario();
     setInterval(atualizarUsuario, 5000);
 });
+
 

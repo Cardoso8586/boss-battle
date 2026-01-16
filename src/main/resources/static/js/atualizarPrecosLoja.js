@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		   document.getElementById('preco-espada-flanejante').textContent =
 		   		   `${dadosLoja.PrecoEspadaFlanejante.toLocaleString('pt-BR')} Boss Coins`;		  
 
+		   document.getElementById('preco-machado-dilacerador').textContent =
+				    `${dadosLoja.PrecoMachadoDilacerador.toLocaleString('pt-BR')} Boss Coins`;		  
+	   
+				   
         } catch (error) {
             console.error('Erro ao carregar preços da loja:', error);
         }

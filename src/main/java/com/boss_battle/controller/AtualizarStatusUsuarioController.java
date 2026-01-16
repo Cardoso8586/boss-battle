@@ -45,7 +45,12 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("guerreirosRetaguarda", usuario.getGuerreirosRetaguarda()),
         	    Map.entry("espadaflanejante", usuario.getEspadaFlanejante()),
         	    Map.entry("desgasteEspadaFlanejante", usuario.getEspadaFlanejanteDesgaste()),
-        	    Map.entry("ativaEspadaFlanejante", usuario.getEspadaFlanejanteAtiva())
+        	    Map.entry("ativaEspadaFlanejante", usuario.getEspadaFlanejanteAtiva()),
+        	    
+        	    Map.entry("machadoDilacerador", usuario.getMachadoDilacerador()),
+        	    Map.entry("desgasteMachadoDilacerador", usuario.getMachadoDilaceradorDesgaste()),
+        	    Map.entry("ativarMachadoDilacerador", usuario.getMachadoDilaceradorAtivo())
+        	    
         	    
         	);
 
@@ -73,6 +78,14 @@ public class AtualizarStatusUsuarioController {
                 && usuario.getEspadaFlanejanteAtiva() == 0;
         long qtdEspadasAtiva   = usuario.getEspadaFlanejanteAtiva();
        
+        
+        //machado dilacerador
+        long qtdMinimaMachado = 1L;
+        long qtdMachadoDilaceradorEstoque = usuario.getMachadoDilacerador();
+        boolean podeAtivarMachadoDilacerador =
+        		qtdMachadoDilaceradorEstoque >= qtdMinimaMachado
+                && usuario.getMachadoDilaceradorAtivo() == 0;
+       long qtdMachadoDilaceradorAtivo   = usuario.getMachadoDilaceradorAtivo();
         //--------------------------------------------------------------
         
         
@@ -86,13 +99,18 @@ public class AtualizarStatusUsuarioController {
         resultado.put("guerreirosRetaguarda", guerreirosRetaguarda);
         resultado.put("ativoGuerreiro", ativoGuerreiro);
 
-     // 🔥 ESPADA FLANEJANTE
-     resultado.put("podeAtivarEspadaFlanejante", podeAtivarEspadaFlanejante);
-     resultado.put("espadaFlanejanteEstoque", qtdEspadasEstoque);
-     resultado.put("espadaFlanejanteAtiva", qtdEspadasAtiva);
+       // 🔥 ESPADA FLANEJANTE
+       resultado.put("podeAtivarEspadaFlanejante", podeAtivarEspadaFlanejante);
+       resultado.put("espadaFlanejanteEstoque", qtdEspadasEstoque);
+       resultado.put("espadaFlanejanteAtiva", qtdEspadasAtiva);
+    
+       // 🔥 MACHADO DILACERADOR
+       resultado.put("podeAtivarMachadoDilacerador", podeAtivarMachadoDilacerador);
+       resultado.put("qtdMachadoDilaceradorEstoque", qtdMachadoDilaceradorEstoque);
+       resultado.put("qtdMachadoDilaceradorAtivo", qtdMachadoDilaceradorAtivo);
     
 
-
+ 
         return resultado;
     }
 
