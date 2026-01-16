@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const energia = Math.max(0, data.energiaGuerreiros);
             const espadaFlanejanteAtiva = data.ativaEspadaFlanejante;
+			//const machadoDilaceradorAtivo = data.
             const ataquePorMinuto = data.ataquePorMinuto;
-
+           
             // Verifica se há energia
             if (!energia) return;
 
