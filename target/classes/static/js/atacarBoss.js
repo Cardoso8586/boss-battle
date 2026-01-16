@@ -23,7 +23,7 @@ function showDamageFloating(value) {
     floatText.textContent = `-${value}`;
 
     container.appendChild(floatText);
-    setTimeout(() => floatText.remove(), 5000);
+    setTimeout(() => floatText.remove(), 8000);
 }
 
 // ---------------------------------------------------

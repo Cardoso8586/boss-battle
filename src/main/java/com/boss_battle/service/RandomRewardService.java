@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.boss_battle.model.RandomLevelReward;
 import com.boss_battle.model.UsuarioBossBattle;
-import com.boss_battle.model.RandomLevelReward.RewardItem;
-import com.boss_battle.model.RandomLevelReward.RewardType;
 import com.boss_battle.repository.RandomLevelRewardRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-
+import enums.RewardItem;
+import enums.RewardType;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -66,6 +65,11 @@ public class RandomRewardService {
                 //ESPADA FLANEJANTE
                 if (reward.getRewardItem() == RewardItem.ESPADA_FLANEJANTE) {
                     usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + reward.getAmount());
+                }
+                
+              //MACHADO DILACERADOR
+                if (reward.getRewardItem() == RewardItem.MACHADO_DILACERADOR) {
+                    usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + reward.getAmount());
                 }
             }
 
@@ -127,6 +131,14 @@ public class RandomRewardService {
             reward.setRewardItem(RewardItem.ESPADA_FLANEJANTE);
             reward.setAmount(1);
             reward.setImageUrl("icones/espada_flanejante.webp");
+
+        }
+        
+        else if (roll < 40) { // MACHADO DILACERADOR
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.MACHADO_DILACERADOR);
+            reward.setAmount(1);
+            reward.setImageUrl("icones/machado_dilacerador.webp");
 
         }
         

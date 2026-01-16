@@ -2,6 +2,8 @@ package com.boss_battle.model;
 
 import java.time.LocalDateTime;
 
+import enums.RewardItem;
+import enums.RewardType;
 import jakarta.persistence.*;
 
 @Entity
@@ -47,24 +49,7 @@ public class RandomLevelReward {
     // ENUMS
     // =====================
 
-    public enum RewardType {
-        CURRENCY,
-        CONSUMABLE,
-        PROGRESSION,
-        GUERREIRO,
-        SPECIAL
-    }
-
-    public enum RewardItem {
-        BOSS_COIN,
-        POCAO_VIGOR,
-        ESPADA_FLANEJANTE,
-        GUERREIRO_BASICO,
-        GUERREIRO_RARO,
-        ATAQUE_SPECIAL,
-        EXP
-    }
-
+  
     // =====================
     // GETTERS / SETTERS
     // =====================
