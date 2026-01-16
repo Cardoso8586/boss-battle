@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Boss Battle - Cadastro</title>
-
-  <link rel="stylesheet" href="/css/cadastro.css">
+    <title>Boss Battle Arena - Cadastro</title>
   <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+  <link rel="stylesheet" href="/css/footer.css">  
+  <link rel="stylesheet" href="/css/cadastro.css">
   <link rel="stylesheet" href="/css/customClass.css">  
   <link rel="stylesheet" href="/css/swal-game-error.css">
-  
+    <link rel="stylesheet" href="/css/auth.css">
   
   
   
@@ -19,6 +19,20 @@
 </head>
 <body>
 
+
+<div class="layout">
+ <!-- ESQUERDA -->
+    <div class="layout-esquerdo">
+        <div class="pagamento-info">
+            <h1>⚔️ Arena</h1>
+           <p id="descricao-dinamica">
+    Enfrente chefes lendários, fortaleça seu exército de guerreiros
+    e domine a arena com estratégia, poder e glória.
+</p>
+
+</div>
+    </div>
+    
 <div class="auth-container">
    <h2>Cadastro</h2>
 
@@ -62,12 +76,53 @@
   </button>
 </form>
 
-
+ <div class="link">
+        <a href="/login">  Fazer Login </a>
+    </div>
 
 
 </div>
 
+ <!-- DIREITA -->
+    <div class="layout-direito">
+        <div class="pagamento-info">
+            <h1>Jogue e Ganhe Recompensas</h1>
+         
+<p class="faucet-pay">
+  <a href="https://faucetpay.io/" target="_blank" rel="noopener noreferrer">
+    <img src="/icones/faucet.webp?v=052" alt="Faucet">
+  </a>
+</p>
 
+
+<p class="faucet-pay-moedas">
+
+  <img src="/icones/doge.webp?v=002" alt="doge">
+  <img src="/icones/trx.webp?v=010" alt="trx">
+  <img src="/icones/ltc.webp?v=010" alt="ltc">
+  <img src="/icones/dgb.webp?v=001" alt="dgb">
+ 
+</p>
+
+<!-- 
+ <p>
+    Ganhe recompensas em, LTC, DOGE, DGB e TRX
+    diretamente via FaucetPay.
+</p>
+ -->
+</div>
+    </div>
+    
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>© 2025 Boss Battle Arena . Todos os direitos reservados.</p>
+       
+    </div>
+</footer>
+<script src="/js/descricaoDinamica.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/captcha-response.js"></script>
 

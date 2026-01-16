@@ -2,14 +2,31 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Boss Battle</title>
-       <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
-    <link rel="stylesheet" href="/css/auth.css">
+    <title>Login - Boss Battle Arena</title>
     
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+      <link rel="stylesheet" href="/css/footer.css">  
+    <link rel="stylesheet" href="/css/auth.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 </head>
 <body>
 
+
+<div class="layout">
+
+ <!-- ESQUERDA -->
+    <div class="layout-esquerdo">
+        <div class="pagamento-info">
+            <h1>⚔️ Arena</h1>
+           <p id="descricao-dinamica">
+    Enfrente chefes lendários, fortaleça seu exército de guerreiros
+    e domine a arena com estratégia, poder e glória.
+</p>
+
+</div>
+    </div>
+     
 <div class="auth-container">
     <h2>Entrar</h2>
 
@@ -26,9 +43,56 @@
     <div class="link">
         Não tem conta? <a href="/cadastro">Criar conta</a>
     </div>
+    
+
+ 
+    
 </div>
 
-<script src="static/js/auth.js"></script>
+
+ <!-- DIREITA -->
+    <div class="layout-direito">
+        <div class="pagamento-info">
+            <h1>Batalhe, Evolua e Ganhe</h1>
+         
+<p class="faucet-pay">
+  <a href="https://faucetpay.io/" target="_blank" rel="noopener noreferrer">
+    <img src="/icones/faucet.webp?v=052" alt="Faucet">
+  </a>
+</p>
+
+
+<p class="faucet-pay-moedas">
+
+  <img src="/icones/doge.webp?v=002" alt="doge">
+  <img src="/icones/trx.webp?v=010" alt="trx">
+  <img src="/icones/ltc.webp?v=010" alt="ltc">
+  <img src="/icones/dgb.webp?v=001" alt="dgb">
+ 
+</p>
+
+<!-- 
+ <p>
+    Ganhe recompensas em, LTC, DOGE, DGB e TRX
+    diretamente via FaucetPay.
+</p>
+ -->
+</div>
+    </div>
+    
+    
+    </div>
+    
+   <!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>© 2025 Boss Battle Arena . Todos os direitos reservados.</p>
+       
+    </div>
+</footer>
+
+<script src="/js/descricaoDinamica.js"></script>
+<script src="/js/auth.js"></script>
 <script src="/js/realizarLogin.js"></script>
 <script src="/js/loadBoss.js"></script>  
 
