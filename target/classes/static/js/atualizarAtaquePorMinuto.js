@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const energia = Math.max(0, data.energiaGuerreiros);
             const espadaFlanejanteAtiva = data.ativaEspadaFlanejante;
-			//const machadoDilaceradorAtivo = data.
+			const machadoDilaceradorAtivo = data.ativarMachadoDilacerador;
             const ataquePorMinuto = data.ataquePorMinuto;
            
             // Verifica se há energia
@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (espadaFlanejanteAtiva) {
                 valor *= 1.2;
             }
+			// Se machado dilacerador ativo, aumenta 10%
+			 if (machadoDilaceradorAtivo) {
+			    valor *= 1.1;
+			 }
 
             // Cria e exibe o dano flutuante
             const dmg = document.createElement("span");
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(dmg);
 
             // Remove após 1.2s
-            setTimeout(() => dmg.remove(), 1200);
+            setTimeout(() => dmg.remove(), 3200);
 
         } catch (err) {
             console.error('Erro ao animar dano:', err);

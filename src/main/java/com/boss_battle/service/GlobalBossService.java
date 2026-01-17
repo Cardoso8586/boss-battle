@@ -249,9 +249,10 @@ public class GlobalBossService {
 
         // aplicar diminuir  o vigor
         
+       
+        usuario.setEnergiaGuerreiros(energia - damage);
+        
         System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
-       // usuario.setEnergiaGuerreiros(energia - damage);
-        boolean bossFoiAtingido = false;
         // usar o valor retornado
         Object resultado = null;
 
@@ -335,14 +336,8 @@ public class GlobalBossService {
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         //===============================================================================
         //===============================================================================
-        if (!bossFoiAtingido) {
-            throw new IllegalStateException("Nenhum boss recebeu dano");
-        }
-        
-        
+
       
-        usuario.setEnergiaGuerreiros(energia - damage);
-        
       
         
         return Map.of(
@@ -399,9 +394,6 @@ public class GlobalBossService {
         
         
         registrarDano(bossName, usuario, damage);
-        
-      //  System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Cusou " + damage+"-"+ "Dano");
-        
         return processReward(bossName, boss, usuario, damage); 
         
     }
@@ -433,7 +425,14 @@ public class GlobalBossService {
             long damage
     ) {
     	
-    
+        
+        if (boss.isProcessingDeath() || boss.isRewardDistributed()) {
+            return Map.of(
+                "status", "DEFEATED",
+                "message", "Recompensa já distribuída"
+            );
+        }
+        
 
     	 // Ainda vivo → fluxo normal
         if (boss.isAlive() && boss.getCurrentHp() > 0) {
@@ -447,13 +446,8 @@ public class GlobalBossService {
         }
 
         
+    
         
-        if (boss.isProcessingDeath() || boss.isRewardDistributed()) {
-            return Map.of(
-                "status", "DEFEATED",
-                "message", "Recompensa já distribuída"
-            );
-        }
 
         // 🔒 trava imediatamente
         boss.setProcessingDeath(true);

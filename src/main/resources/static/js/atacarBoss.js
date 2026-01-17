@@ -154,7 +154,7 @@ attackBtn.addEventListener("click", async () => {
 	  didOpen: () => {
 	    const title = Swal.getTitle();
 
-	
+		setTimeout(() => {
 		title.textContent = `Preparando para atacar!`;
 	  
 	      if (restante <= 0) {
@@ -162,9 +162,11 @@ attackBtn.addEventListener("click", async () => {
 	        Swal.close();
 	        attackBtn.innerText = 'Atacar';
 	      }
-	   // }, 1000);
+		  
+		 	   Swal.close(); 
+	   }, 5000);
 		
-	   Swal.close();
+
 	  }
 	});
 

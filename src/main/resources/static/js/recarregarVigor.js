@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btnRecarregar) return;
 
     let emCooldownRecarregar = false;
-    const tempoCooldownRecarregar = 5; // segundos
+    const tempoCooldownRecarregar = 4; // segundos
 
     btnRecarregar.addEventListener('click', async () => {
 
@@ -22,13 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
        // let tempoRestante = tempoCooldownRecarregar;
         const textoOriginal = btnRecarregar.innerText;
 
-		/**
-		 *         const timer = setInterval(() => {
-            tempoRestante--;
-            btnRecarregar.innerText = `Recarregando... (${tempoRestante}s)`;
-            if (tempoRestante <= 0) clearInterval(timer);
-        }, 1000);
-		 */
+		
 		
         btnRecarregar.innerText = `Recarregando Vigor...`;
 
@@ -58,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				      title: 'swal-game-text'
 				    },
 			  title: 'Vigor restaurado!',
-			  timer: 5000,
+			  timer: 7000,
 			  showConfirmButton: false,
 			  background: 'transparent',
 			  color: '#ffb400'

@@ -1,8 +1,8 @@
 package com.boss_battle.dto;
 
 import com.boss_battle.model.RandomLevelReward;
-import enums.RewardItem;
-import enums.RewardType;
+import  com.boss_battle.enums.RewardItem;
+import  com.boss_battle.enums.RewardType;
 
 public class RandomLevelRewardDTO {
 

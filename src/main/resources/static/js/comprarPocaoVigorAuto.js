@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		const podeAtivar = status.podeAtivar;
 
 		const pocaoVigorItem = pocaoVigorSpan?.closest('.nucleo-item-pocao');
-
+		
+				
 		if (pocaoVigorItem && pocaoVigorSpan) {
 		    if (estoque <= 0) {
 		        pocaoVigorItem.classList.add('hidden'); // some tudo
@@ -252,8 +253,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	  //  }, 1000);
 
 	    try {
-	        const quantidade = 1;
+			const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+			if (!res1.ok) return;
 
+			const status = await res1.json();
+	        const quantidade = 1;
+			const ativoGuerreiro = status.ativoGuerreiro;
+							
+			if ( ativoGuerreiro <= 0  )return;
 	        const res = await fetch(
 	            `/api/pocao-vigor/ativar?usuarioId=${usuarioId}&quantidade=${quantidade}`,
 	            { method: 'POST' }

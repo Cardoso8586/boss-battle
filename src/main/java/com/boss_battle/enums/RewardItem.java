@@ -1,4 +1,4 @@
-package enums;
+package  com.boss_battle.enums;
 
 public enum RewardItem {
     BOSS_COIN,

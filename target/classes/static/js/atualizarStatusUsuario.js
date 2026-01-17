@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const guerreirosRetaguarda  = document.getElementById('guerreirosRetaguarda');
 	const espadaFlanejante  = document.getElementById('espadaFlanejante');
     const machadoDilacerador = document.getElementById('machadoDilacerador');
+	const generatingImageAtaque =  document.getElementById('generating-image-ataque');
+	const generatingImage =  document.getElementById('generating-image');
+	
+	
 	
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
@@ -70,56 +74,70 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 		
 
-			
 			const guerreiroImage = document.getElementById('guerreiro-image');
 
-			// PRIORIDADE: ESPADA > MACHADO
+			const quantGuerreirosPadrao = data.guerreiros;
+			const quantGuerreirosRetaguarda = data.guerreirosRetaguarda;
+
+			// ================================
+			// ❌ NÃO EXISTE NENHUM GUERREIRO
+			// ================================
+			if (quantGuerreirosPadrao <= 0 && quantGuerreirosRetaguarda <= 0) {
+			    guerreiroImage.style.display = "none";
+			    generatingImageAtaque.style.display = "none";
+			    generatingImage.style.display = "none";
+			    container.classList.add("hidden");
+
+			    barra.value = 0;
+			    texto.textContent = "";
+			    return;
+			}
+
+			// ================================
+			// ✅ EXISTE PELO MENOS UM GUERREIRO
+			// ================================
+			guerreiroImage.style.display = "block";
+			generatingImageAtaque.style.display = "block";
+			generatingImage.style.display = "block";
+
+			// ================================
+			// ⚔️ PRIORIDADE: ESPADA > MACHADO
+			// ================================
 			if (ativa !== null && ativa > 0) {
 			    // 🗡️ ESPADA ATIVA
-			    container.classList.remove('hidden');
+			    container.classList.remove("hidden");
 
-			    const desgasteAtual = desgaste;
 			    const desgasteMax = 100;
-
 			    barra.max = desgasteMax;
-			    barra.value = desgasteAtual;
+			    barra.value = desgaste;
 
-			    const porcentagem = Math.round(
-			        (desgasteAtual / desgasteMax) * 100
-			    );
-
-			    texto.textContent = `${porcentagem}%`;
+			    texto.textContent = `${Math.round((desgaste / desgasteMax) * 100)}%`;
 
 			    guerreiroImage.src = "/icones/guerreiroPadrao_espadaFlanejante.webp";
 
 			} else if (ativaMachado !== null && ativaMachado > 0) {
 			    // 🪓 MACHADO ATIVO
-			    container.classList.remove('hidden');
+			    container.classList.remove("hidden");
 
-			    const desgasteAtual = desgasteMachado;
-			    const desgasteMax = 200; // 🔥 aqui está o segredo
-
+			    const desgasteMax = 200;
 			    barra.max = desgasteMax;
-			    barra.value = desgasteAtual;
+			    barra.value = desgasteMachado;
 
-			    const porcentagem = Math.round(
-			        (desgasteAtual / desgasteMax) * 100
-			    );
-
-			    texto.textContent = `${porcentagem}%`;
+			    texto.textContent = `${Math.round((desgasteMachado / desgasteMax) * 100)}%`;
 
 			    guerreiroImage.src = "/icones/guerreiroPadrao_machadoDilacerador.webp";
 
 			} else {
-			    // ❌ NENHUMA ARMA ATIVA
-			    container.classList.add('hidden');
+			    // ⚔️ SEM ARMA ATIVA → IMAGEM PADRÃO
+			    container.classList.add("hidden");
 
 			    barra.value = 0;
 			    barra.max = 100;
-			    texto.textContent = '';
+			    texto.textContent = "";
 
 			    guerreiroImage.src = "/images/guerreiro_padrao.webp";
 			}
+
 
 			
 			

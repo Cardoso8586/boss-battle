@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    const machadoItem = machadoSpan?.closest('.nucleo-item-dilacerador');
 
 		
-		
+	
 	    // ITEM (estoque)
 	    if (machadoItem && machadoSpan) {
 	        if (machadoEstoque === 0 ) {
@@ -89,12 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATIVAR MACHADO
     // ==============================
     let emCooldown = false;
-    const tempoCooldown = 5;
+    const tempoCooldown = 4;
+
 
     if (btnAtivarMachado) {
         btnAtivarMachado.addEventListener('click', async () => {
 
             if (emCooldown) return;
+		
+				
+				
 
             emCooldown = true;
             btnAtivarMachado.disabled = true;
@@ -103,6 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
             btnAtivarMachado.innerText = 'Ativando...';
 
             try {
+				const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+			    if (!res1.ok) return;
+				const status = await res1.json();
+				const ativoGuerreiro = status.ativoGuerreiro;	
+				if ( ativoGuerreiro <= 0  )return;
                 const res = await fetch(
                     `/api/machado-dilacerador/ativar?usuarioId=${usuarioId}&quantidade=1`,
                     { method: 'POST' }
@@ -124,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'success',
                     title: 'Machado equipado!',
                     text: 'Seu Machado Dilacerador foi equipado com sucesso.',
-                    timer: 5000,
+                    timer: 7000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			                icon: 'error',
 			                title: 'Erro',
 			                text: 'Erro ao atualizar núcleo do guerreiro:',
-							timer: 5000,
+							timer: 7000,
 							showConfirmButton: false,
 							 background: 'transparent',
 							color: '#ff3b3b' 
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparGuerreiro) {
 
 	    let emCooldownGuerreiro = false;
-	    const tempoCooldownGuerreiro = 5; // segundos
+	    const tempoCooldownGuerreiro = 4; // segundos
 
 	    btnEquiparGuerreiro.addEventListener('click', async () => {
 
@@ -97,14 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	        const textoOriginal = btnEquiparGuerreiro.innerText;
 
 			btnEquiparGuerreiro.innerText = `Enviando...`;
-	      //  btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
-
-	       // const timer = setInterval(() => {
-	         //   tempoRestante--;
-	           // btnEquiparGuerreiro.innerText = `Enviando...`;
-				//btnEquiparGuerreiro.innerText = `Enviando... (${tempoRestante}s)`;
-	          //  if (tempoRestante <= 0) clearInterval(timer);
-	      //  }, 1000);
+	    
 
 	        try {
 	            const res = await fetch(`/equipar/guerreiro/${usuarioId}`, { method: 'POST' });
@@ -117,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro enviado!',
 	                    text: 'Seu guerreiro foi enviado para frente de batalha com sucesso.',
-						timer: 5000,
+						timer: 7000,
 						showConfirmButton: false,
 						 background: 'transparent',
 						color: '#ffb400'
@@ -142,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar guerreiro.',
-					timer: 5000,
+					timer: 7000,
 					showConfirmButton: false,
 					 background: 'transparent',
 					color: '#ff3b3b' 

@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	    const machadoAtivo = status.qtdMachadoDilaceradorAtivo ?? 0;
 
 	    const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
-
+		
+		
 	    // ITEM (estoque)
 	    if (espadaItem && espadaSpan) {
 	        if (estoque === 0) {
@@ -88,12 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATIVAR ESPADA
     // ==============================
     let emCooldown = false;
-    const tempoCooldown = 5;
+    const tempoCooldown = 4;
 
     if (btnAtivarEspada) {
         btnAtivarEspada.addEventListener('click', async () => {
 
             if (emCooldown) return;
+			
 
             emCooldown = true;
             btnAtivarEspada.disabled = true;
@@ -105,6 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 
             try {
+				const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+				if (!res1.ok) return;
+				const status = await res1.json();
+				const ativoGuerreiro = status.ativoGuerreiro;	
+				if ( ativoGuerreiro <= 0  )return;
+				
                 const res = await fetch(
                     `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
                     { method: 'POST' }
@@ -128,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'success',
                     title: 'Espada equipada!',
                     text: 'Sua Espada Flanejante foi equipada com sucesso.',
-                    timer: 5000,
+                    timer: 7000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'

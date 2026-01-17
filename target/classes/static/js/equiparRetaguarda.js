@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnEquiparRetaguarda) {
 
 	    let emCooldownRetaguarda = false;
-	    const tempoCooldownRetaguarda = 5; // segundos
+	    const tempoCooldownRetaguarda = 4; // segundos
 
 	    btnEquiparRetaguarda.addEventListener('click', async () => {
 
@@ -85,15 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	        const textoOriginal = btnEquiparRetaguarda.innerText;
 
 	        btnEquiparRetaguarda.innerText = `Enviando...`;
-			//btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
-			/**
-			 *     const timer = setInterval(() => {
-	            tempoRestante--;
-				btnEquiparRetaguarda.innerText = `Enviando...`;
-	           // btnEquiparRetaguarda.innerText = `Enviando... (${tempoRestante}s)`;
-	            if (tempoRestante <= 0) clearInterval(timer);
-	        }, 1000);
-			 */
+		
 	    
 
 	        try {
@@ -107,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Enviado para retaguarda!',
 	                    text: 'O guerreiro foi enviado à retaguarda com sucesso.',
-						timer: 5000,
+						timer: 7000,
 						showConfirmButton: false,
 						 background: 'transparent',
 						color: '#ffb400'
@@ -132,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar enviar para retaguarda.',
-					timer: 5000,
+					timer: 7000,
 					showConfirmButton: false,
 					background: 'transparent',
 					color: '#ffb400'

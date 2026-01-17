@@ -2,8 +2,8 @@ package com.boss_battle.model;
 
 import java.time.LocalDateTime;
 
-import enums.RewardItem;
-import enums.RewardType;
+import  com.boss_battle.enums.RewardItem;
+import  com.boss_battle.enums.RewardType;
 import jakarta.persistence.*;
 
 @Entity

@@ -9,8 +9,8 @@ import com.boss_battle.model.RandomLevelReward;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.RandomLevelRewardRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import enums.RewardItem;
-import enums.RewardType;
+import  com.boss_battle.enums.RewardItem;
+import  com.boss_battle.enums.RewardType;
 import jakarta.transaction.Transactional;
 
 @Service
