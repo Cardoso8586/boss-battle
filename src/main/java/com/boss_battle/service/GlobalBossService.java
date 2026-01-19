@@ -118,6 +118,8 @@ public class GlobalBossService {
             DestruidorService destruidorService,
           
             
+            
+        
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
             BossRewardLockRepository bossRewardLockRepo,
@@ -139,7 +141,7 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
-      
+       
         //this.bossDamageLogService = bossDamageLogService;
         this.nightmareService = nightmareService;
         this.flamorService = flamorService;
@@ -480,15 +482,37 @@ public class GlobalBossService {
 
             rewardFinal = Math.max(1, rewardFinal);
             expFinal    = Math.max(1, expFinal);
+            
+            try {
+            	if (u.getBossCoins() == null) {
+            	    u.setBossCoins(BigDecimal.ZERO);
+            	}
 
-            u.setBossCoins(
-                u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
-            );
+                u.setBossCoins(
+                    u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
+                );
 
-            referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
+                referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+                usuarioService.adicionarExp(u.getId(), (int) expFinal);
+
+                usuarioRepo.saveAndFlush(u);
+
+            } catch (Exception e) {
+               
+                
+
+                System.out.println("Erro ao creditar reward para user {}"+ u.getId() + e);
+                throw e; // força rollback visível
+            }
+
+
            
-            usuarioRepo.save(u);
+
+            //referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
+            //usuarioService.adicionarExp(u.getId(), (int) expFinal);
+           
+           // usuarioRepo.save(u);
+            usuarioRepo.saveAndFlush(u);
 
             System.out.println(
                 "O usuario " + u.getUsername() +
@@ -496,44 +520,11 @@ public class GlobalBossService {
             );
         }
 
-        /**
-        for (var entry : damagePorUsuario.entrySet()) {
-
-            UsuarioBossBattle u = usuarioRepo.findById(entry.getKey()).orElse(null);
-            if (u == null) continue;
-
-            
-              //TESTE 3  
-            //OBSERVAR
-            long danoUsuario = Math.min(entry.getValue(), bossHpMax);
-
-            long rewardFinal = (bossReward * danoUsuario) / bossHpMax;
-            long expFinal    = (expReward * danoUsuario) / bossHpMax;
-
-            // garante pagamento mínimo
-            rewardFinal = Math.max(1, rewardFinal);
-            expFinal    = Math.max(1, expFinal);
-            
-        
-            
-            
-        
-            u.setBossCoins( u.getBossCoins().add(BigDecimal.valueOf(rewardFinal))
-            );
-            
-            referidosService.adicionarGanho(u,BigDecimal.valueOf(rewardFinal));
-        
-            usuarioService.adicionarExp(u.getId(), (int) expFinal);
-
-            usuarioRepo.save(u);
-            System.out.println("O usurio " + usuario.getUsername() + "-" + "recebeu"+"-" + rewardFinal +"- Boss Coin");
-            // 🔐 idempotência garantida
-           boss.setRewardDistributed(true);
-        }
+        // ✅ FINALIZA O BOSS UMA ÚNICA VEZ
+        boss.setRewardDistributed(true);
+        boss.setProcessingDeath(false);
      
-     */
-      
-
+        
      // NÃO libera processingDeath aqui se não houver respawn imediato
      return Map.of(
          "boss", bossName,
