@@ -357,9 +357,8 @@ public class GlobalBossService {
     }//fim hitActiveBoss
 
    
-    // =============================
-    // FUNÇÕES AUXILIARES
-    // =============================
+    
+    /**
     @Transactional
     public Object tryHitBoss(String bossName, BattleBoss boss, UsuarioBossBattle usuario, long damage) {
         if (boss == null || !boss.isAlive()) return null;
@@ -399,6 +398,64 @@ public class GlobalBossService {
         return processReward(bossName, boss, usuario, damage); 
         
     }
+    */
+    
+    @Transactional
+    public Object tryHitBoss(String bossName, BattleBoss boss,
+                             UsuarioBossBattle usuario, long damage) {
+
+        if (boss == null) return null;
+
+        synchronized (boss) {
+
+            if (!boss.isAlive()) return null;
+
+            boss.applyDamage(damage);
+
+            // salva a instância no serviço correto
+            if (boss instanceof GlobalBossIgnorath) ignorathService.save((GlobalBossIgnorath) boss);
+            if (boss instanceof GlobalBossDrakthor) drakthorService.save((GlobalBossDrakthor) boss);
+            if (boss instanceof GlobalBossAzurion) azurionService.save((GlobalBossAzurion) boss);
+            if (boss instanceof GlobalBossUmbraxis) umbraxisService.save((GlobalBossUmbraxis) boss);
+            if (boss instanceof GlobalBossNightmare) nightmareService.save((GlobalBossNightmare) boss);
+            if (boss instanceof GlobalBossFlamor) flamorService.save((GlobalBossFlamor) boss);
+            if (boss instanceof GlobalBossOblivar) oblivarService.save((GlobalBossOblivar) boss);
+            if (boss instanceof GlobalBossLyxara) lyxaraService.save((GlobalBossLyxara) boss);
+            if (boss instanceof GlobalBossNoxar) noxarService.save((GlobalBossNoxar) boss);
+            if (boss instanceof GlobalBossUmbrar) umbrarService.save((GlobalBossUmbrar) boss);
+            if (boss instanceof GlobalBossMorvath) morvathService.save((GlobalBossMorvath) boss);
+            if (boss instanceof GlobalBossObliquo) obliquoService.save((GlobalBossObliquo) boss);
+            if (boss instanceof GlobalBossPyragon) pyragonService.save((GlobalBossPyragon) boss);
+            if (boss instanceof GlobalBossGlaciorn) glaciornService.save((GlobalBossGlaciorn) boss);
+            if (boss instanceof GlobalBossReflexa) reflexaService.save((GlobalBossReflexa) boss);
+            if (boss instanceof GlobalBossMechadron) mechadronService.save((GlobalBossMechadron) boss);
+            if (boss instanceof GlobalBossNoctyr) noctyrService.save((GlobalBossNoctyr) boss);
+            if (boss instanceof GlobalBossOblivion) oblivionService.save((GlobalBossOblivion) boss);
+            if (boss instanceof GlobalBossVespera) vesperaService.save((GlobalBossVespera) boss);
+            if (boss instanceof GlobalBossTenebris) tenebrisService.save((GlobalBossTenebris) boss);
+            if (boss instanceof GlobalBossGlaciara) glaciaraService.save((GlobalBossGlaciara) boss);
+            if (boss instanceof GlobalBossInfernax) infernaxService.save((GlobalBossInfernax) boss);
+            if (boss instanceof GlobalBossThunderon) thunderonService.save((GlobalBossThunderon) boss);
+            if (boss instanceof GlobalBossNoctharion) noctharionService.save((GlobalBossNoctharion) boss);
+            if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
+            if (boss instanceof GlobalBossDestruidor) destruidorService.save((GlobalBossDestruidor) boss);
+            
+
+            registrarDano(bossName, usuario, damage);
+
+            // se morreu, processa reward
+            if (!boss.isAlive()) {
+                return processReward(bossName, boss, usuario, damage);
+            }
+
+            return Map.of(
+                "boss", bossName,
+                "currentHp", boss.getCurrentHp(),
+                "damage", damage
+            );
+        }
+    }
+
 
     @Transactional
     public void registrarDano(String bossName, UsuarioBossBattle usuario, long damage) {
