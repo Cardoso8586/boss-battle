@@ -3,7 +3,7 @@
     background-color: #1b1b1b;
     color: #fff;
     width: 100%;
-    padding: 15px 0;
+    padding: 15px 20px;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -17,4 +17,35 @@
     margin: 0 auto;
     font-size: 14px;
     opacity: 0.9;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .footer {
+        padding: 12px 15px;
+    }
+
+    .footer-content {
+        font-size: 13px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+    .footer {
+        position: relative; /* evita sobrepor conteúdo */
+        padding: 15px 10px;
+    }
+
+    .footer-content {
+        font-size: 12px;
+        flex-direction: column;
+        text-align: center;
+    }
 }
