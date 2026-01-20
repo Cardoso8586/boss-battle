@@ -427,32 +427,34 @@ public class GlobalBossService {
             long damage
     ) {
     	
-        
-        if (boss.isProcessingDeath() || boss.isRewardDistributed()) {
-            return Map.of(
-                "status", "DEFEATED",
-                "message", "Recompensa já distribuída"
-            );
-        }
-        
+ 
+    	// Ainda vivo → fluxo normal
+    	if (boss.isAlive() && boss.getCurrentHp() > 0) {
+    	    return Map.of(
+    	        "boss", bossName,
+    	        "currentHp", boss.getCurrentHp(),
+    	        "rewardBoss", boss.getRewardBoss(),
+    	        "rewardExp", boss.getRewardExp(),
+    	        "damage", damage
+    	    );
+    	}
+    	
+    	// TRATAR O ULTIMO ATQUE. 
+    	/*
+    	 * Jogador A dá o último hit, Jogador B dá o último hit, Jogador C também
+    	 * */
+    	  synchronized (boss) {
 
-    	 // Ainda vivo → fluxo normal
-        if (boss.isAlive() && boss.getCurrentHp() > 0) {
-            return Map.of(
-                "boss", bossName,
-                "currentHp", boss.getCurrentHp(),
-                "rewardBoss", boss.getRewardBoss(),
-                "rewardExp", boss.getRewardExp(),
-                "damage", damage
-            );
-        }
+    	        if (boss.isProcessingDeath() || boss.isRewardDistributed()) {
+    	            return Map.of(
+    	                "status", "DEFEATED",
+    	                "message", "Recompensa já distribuída"
+    	            );
+    	  }
+
+    	boss.setProcessingDeath(true);
 
         
-    
-        
-
-        // 🔒 trava imediatamente
-        boss.setProcessingDeath(true);
 
         
         long bossReward = boss.getRewardBoss();
@@ -495,7 +497,7 @@ public class GlobalBossService {
                 referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
                 usuarioService.adicionarExp(u.getId(), (int) expFinal);
 
-                usuarioRepo.saveAndFlush(u);
+             
 
             } catch (Exception e) {
                
@@ -506,13 +508,8 @@ public class GlobalBossService {
             }
 
 
-           
-
-            //referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
-            //usuarioService.adicionarExp(u.getId(), (int) expFinal);
-           
-           // usuarioRepo.save(u);
-            usuarioRepo.saveAndFlush(u);
+ 
+           usuarioRepo.saveAndFlush(u);
 
             System.out.println(
                 "O usuario " + u.getUsername() +
@@ -523,6 +520,7 @@ public class GlobalBossService {
         // ✅ FINALIZA O BOSS UMA ÚNICA VEZ
         boss.setRewardDistributed(true);
         boss.setProcessingDeath(false);
+
      
         
      // NÃO libera processingDeath aqui se não houver respawn imediato
@@ -532,10 +530,12 @@ public class GlobalBossService {
          "rewardTotal", bossReward,
          "expTotal", expReward,
          "participantes", damagePorUsuario.size()
-     );
+    	  );
 
     }
-    
+    	  
+    	  
+ }//---> fim processReward
    
     //=============================================================
     // finalizeHit
@@ -560,7 +560,7 @@ public class GlobalBossService {
     @Transactional
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
-        resetBoss();
+       resetBoss();
         
        
         int choice = random.nextInt(26);
