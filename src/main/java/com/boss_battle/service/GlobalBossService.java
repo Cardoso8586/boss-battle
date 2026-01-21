@@ -206,7 +206,63 @@ public class GlobalBossService {
     // =============================
     // HIT NO BOSS ATIVO
     // =============================
+    
+    @Transactional
+    public Object hitActiveBoss(long usuarioId) {
 
+        UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        BattleBoss boss = getActiveBoss();
+
+        if (boss == null || !boss.isAlive()) {
+            return Map.of(
+                "status", "NO_BOSS",
+                "message", "Boss derrotado. Aguarde o respawn."
+            );
+        }
+
+        if (!bossAttackService.podeAtacar(usuario)) {
+            return Map.of(
+                "status", "COOLDOWN",
+                "segundosRestantes", bossAttackService.tempoRestanteSegundos(usuario)
+            );
+        }
+
+        long energia = usuario.getEnergiaGuerreiros();
+        if (energia <= 0) {
+            return Map.of("status", "NO_ENERGY");
+        }
+
+        long damage = usuario.getAtaqueBase()
+                    + retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
+
+        // 🔒 trava local
+        synchronized (boss) {
+
+            if (!boss.isAlive()) {
+                return Map.of("status", "BOSS_DEAD");
+            }
+
+            boss.applyDamage(damage);
+            registrarDano(boss.getBossName(), usuario, damage);
+            
+            System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
+
+            Object resultado = processReward(
+                boss.getBossName(), boss, usuario, damage
+            );
+
+            // energia SÓ é consumida se o hit realmente ocorreu
+            usuario.setEnergiaGuerreiros(energia - damage);
+            usuarioRepo.save(usuario);
+
+            bossAttackService.registrarAtaque(usuarioId);
+            return resultado;
+        }
+    }
+
+/*
     @Transactional
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
@@ -250,8 +306,6 @@ public class GlobalBossService {
         long damage = ataqueBase + ataqueEspecial;
 
         // aplicar diminuir  o vigor
-        
-       
         usuario.setEnergiaGuerreiros(energia - damage);
         
         System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
@@ -356,7 +410,7 @@ public class GlobalBossService {
              
     }//fim hitActiveBoss
 
-   
+  */
     
     /**
     @Transactional

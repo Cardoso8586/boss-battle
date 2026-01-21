@@ -120,10 +120,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            } else {
 	                // WARNING COM TIMER (4s)
+					/**
 	                swalWarningAuto(
 	                    'Não foi possível enviar o guerreiro.',
 	                    4
 	                );
+					 */
+					Swal.fire({
+									customClass: {
+												title: 'swal-game-error'
+												},
+					                icon: 'error',
+					                title: 'Erro',
+					                text: 'Erro ao tentar equipar guerreiro.',
+									timer: 7000,
+									showConfirmButton: false,
+									 background: 'transparent',
+									color: '#ff3b3b' 
+					            });	
+					
 	            }
 
 	        } catch (e) {

@@ -109,10 +109,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            } else {
 	                // WARNING AUTOMÁTICO (4s)
+					/**
 	                swalWarningAuto(
 	                    'Não foi possível enviar o guerreiro para a retaguarda.',
 	                    4
 	                );
+					*/
+					Swal.fire({
+													customClass: {
+																title: 'swal-game-error'
+																},
+									                icon: 'error',
+									                title: 'Erro',
+									                text: 'Não foi possível enviar o guerreiro para a retaguarda.',
+													timer: 7000,
+													showConfirmButton: false,
+													 background: 'transparent',
+													color: '#ff3b3b' 
+									            });	
+									
 	            }
 
 	        } catch (e) {
