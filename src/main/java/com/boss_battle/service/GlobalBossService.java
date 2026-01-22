@@ -206,7 +206,7 @@ public class GlobalBossService {
     // =============================
     // HIT NO BOSS ATIVO
     // =============================
-    
+
     @Transactional
     public Object hitActiveBoss(long usuarioId) {
 
@@ -229,15 +229,20 @@ public class GlobalBossService {
             );
         }
 
+        
         long energia = usuario.getEnergiaGuerreiros();
+        
+        
         if (energia <= 0) {
-            return Map.of("status", "NO_ENERGY");
+        	 return Map.of(
+                     "success", false,
+                     "message", "Sem vigor! Recarregue para continuar."
+                 );
         }
 
         long damage = usuario.getAtaqueBase()
-                    + retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
+                + retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
 
-        // 🔒 trava local
         synchronized (boss) {
 
             if (!boss.isAlive()) {
@@ -246,19 +251,28 @@ public class GlobalBossService {
 
             boss.applyDamage(damage);
             registrarDano(boss.getBossName(), usuario, damage);
-            
-            System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
 
-            Object resultado = processReward(
-                boss.getBossName(), boss, usuario, damage
+            System.out.println(
+                "Usuario-" + usuario.getUsername() +
+                " atacou " + boss.getBossName() +
+                " causando " + damage
             );
 
-            // energia SÓ é consumida se o hit realmente ocorreu
             usuario.setEnergiaGuerreiros(energia - damage);
             usuarioRepo.save(usuario);
-
             bossAttackService.registrarAtaque(usuarioId);
-            return resultado;
+
+            // 🔥 SOMENTE quem matou o boss entra aqui
+            if (!boss.isAlive()) {
+                return processReward(
+                    boss.getBossName(), boss, usuario, damage
+                );
+            }
+
+            return Map.of(
+                "status", "HIT",
+                "currentHp", boss.getCurrentHp()
+            );
         }
     }
 
@@ -496,12 +510,12 @@ public class GlobalBossService {
             
 
             registrarDano(bossName, usuario, damage);
-
+/*
             // se morreu, processa reward
             if (!boss.isAlive()) {
                 return processReward(bossName, boss, usuario, damage);
             }
-
+*/
             return Map.of(
                 "boss", bossName,
                 "currentHp", boss.getCurrentHp(),
@@ -631,7 +645,7 @@ public class GlobalBossService {
         // ✅ FINALIZA O BOSS UMA ÚNICA VEZ
         boss.setRewardDistributed(true);
         boss.setProcessingDeath(false);
-
+        resetBoss();
      
         
      // NÃO libera processingDeath aqui se não houver respawn imediato
@@ -671,7 +685,7 @@ public class GlobalBossService {
     @Transactional
     public BattleBoss spawnRandomBoss() {
         killAllBosses();
-       resetBoss();
+       //resetBoss();
         
        
         int choice = random.nextInt(26);
