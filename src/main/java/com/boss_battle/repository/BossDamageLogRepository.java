@@ -60,10 +60,11 @@ void deleteAllLogs();
     		    from boss_damage_log
     		    where user_id = :userId
     		""", nativeQuery = true)
-    		Integer buscarResumoUsuario(@Param("userId") Long userId);
+    	Long buscarResumoUsuario(@Param("userId") Long userId);
 
     
   //  List<Object[]> sumDamageByUser(@Param("bossName") String bossName);
+    	
     	
 //===================================================================================    	
     @Query("""

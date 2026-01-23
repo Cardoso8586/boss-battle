@@ -18,8 +18,6 @@ import jakarta.transaction.Transactional;
 public class RandomRewardService {
 
     private final RandomLevelRewardRepository rewardRepo;
-    private final UsuarioBossBattleRepository usuarioRepo;
-   
     private final Random random = new Random();
 
     public RandomRewardService(
@@ -28,7 +26,6 @@ public class RandomRewardService {
             
     ) {
         this.rewardRepo = rewardRepo;
-        this.usuarioRepo = usuarioRepo;
       
     }
 
@@ -40,14 +37,10 @@ public class RandomRewardService {
 
  // ⬆️ CHAMAR QUANDO SOBE DE NÍVEL
     
-    
-    public void onLevelUp(Long usuarioId) {
+    public void onLevelUp(UsuarioBossBattle usuario) {
 
-        RandomLevelReward reward = rewardRepo.findByUserId(usuarioId)
+        RandomLevelReward reward = rewardRepo.findByUserId(usuario.getId())
                 .orElseThrow(() -> new RuntimeException("Reward não encontrado"));
-
-        UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         switch (reward.getRewardType()) {
 
@@ -59,53 +52,42 @@ public class RandomRewardService {
             }
 
             case CONSUMABLE -> {
-                if (reward.getRewardItem() == RewardItem.POCAO_VIGOR) {
+                if (reward.getRewardItem() == RewardItem.POCAO_VIGOR)
                     usuario.setPocaoVigor(usuario.getPocaoVigor() + reward.getAmount());
-                }
-                //ESPADA FLANEJANTE
-                if (reward.getRewardItem() == RewardItem.ESPADA_FLANEJANTE) {
+
+                if (reward.getRewardItem() == RewardItem.ESPADA_FLANEJANTE)
                     usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + reward.getAmount());
-                }
-                
-              //MACHADO DILACERADOR
-                if (reward.getRewardItem() == RewardItem.MACHADO_DILACERADOR) {
+
+                if (reward.getRewardItem() == RewardItem.MACHADO_DILACERADOR)
                     usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + reward.getAmount());
-                }
             }
 
             case GUERREIRO -> {
-                if (reward.getRewardItem() == RewardItem.GUERREIRO_BASICO) {
-                    usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + reward.getAmount());
-                }
+                if (reward.getRewardItem() == RewardItem.GUERREIRO_BASICO)
+                    usuario.setGuerreirosInventario(
+                        usuario.getGuerreirosInventario() + reward.getAmount()
+                    );
             }
 
             case SPECIAL -> {
-                if (reward.getRewardItem() == RewardItem.ATAQUE_SPECIAL) {
+                if (reward.getRewardItem() == RewardItem.ATAQUE_SPECIAL)
                     usuario.setAtaqueBase(usuario.getAtaqueBase() + reward.getAmount());
-                }
             }
 
             case PROGRESSION -> {
-                if (reward.getRewardItem() == RewardItem.EXP) {
-                	 usuario.setExp(usuario.getExp() + reward.getAmount());
-                }
+                if (reward.getRewardItem() == RewardItem.EXP)
+                    usuario.setExp(usuario.getExp() + reward.getAmount());
             }
         }
 
-        usuarioRepo.save(usuario);
-
-        // consome o reward atual
         rewardRepo.delete(reward);
-
-        // gera o próximo preview
-        generateAndSave(usuarioId);
+        generateAndSave(usuario.getId());
     }
 
 
 
     // 🎲 GERADOR DE PRÊMIO
-    @Transactional
-    private RandomLevelReward generateAndSave(Long userId) {
+    public RandomLevelReward generateAndSave(Long userId) {
 
         // Remove qualquer reward anterior para o usuário
         rewardRepo.findByUserId(userId).ifPresent(rewardRepo::delete);
@@ -162,7 +144,7 @@ public class RandomRewardService {
             reward.setImageUrl("icones/exp.webp");
         }
 
-        System.out.println("Roll: " + roll + " -> Reward: " + reward.getRewardItem());
+        System.out.println("Prêmio do proximo nivel para: " + userId + " -> Reward: " + reward.getRewardItem());
 
         return rewardRepo.save(reward);
     }

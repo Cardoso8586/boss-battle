@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	    BOSS_COIN: "Boss Coin",
 	    POCAO_VIGOR: "Poção de Vigor",
 		ESPADA_FLANEJANTE:"Espada Flanejante",
+		MACHADO_DILACERADOR:"Machado Dilacerador",
 	    GUERREIRO_BASICO: "Guerreiro Básico",
 	    EXP: "Experiência",
 	    ATAQUE_SPECIAL: "Ataque Especial"
 	};
 
 
-	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL", "ESPADA_FLANEJANTE"];
+	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL", "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR"];
 
 
     // Função para buscar e atualizar o preview

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.UsuarioBossBattle;
-import com.boss_battle.repository.UsuarioBossBattleRepository;
 
 @Service
 @Transactional
@@ -15,15 +14,9 @@ public class UsuarioBossBattleService {
     private LojaAprimoramentosService lojaService;
     @Autowired
     private RandomRewardService randomRewardService;
-    @Autowired
-    private UsuarioBossBattleRepository repo;
-
     private static final long XP_POR_NIVEL = 1000;
 
-    public void adicionarExp(Long usuarioId, long expGanha) {
-
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    public void adicionarExp(UsuarioBossBattle usuario, long expGanha) {
 
         // ➕ Adiciona XP
         usuario.setExp(usuario.getExp() + expGanha);
@@ -39,12 +32,12 @@ public class UsuarioBossBattleService {
             
             
          // 🎲 gera o próximo preview
-            randomRewardService.onLevelUp(usuarioId);
+            randomRewardService.onLevelUp(usuario);
             lojaService.atualizarPrecoLoja(usuario);
            
         }
 
-        repo.save(usuario);
+       // repo.save(usuario);
     }
     
     

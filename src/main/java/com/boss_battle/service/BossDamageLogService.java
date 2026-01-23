@@ -36,7 +36,7 @@ public class BossDamageLogService {
     
     public String posicaoUsuario(Long userId) {
         Integer posicao = repo.buscarPosicaoUsuario(userId);
-        Integer damage = repo.buscarResumoUsuario(userId);
+        Long damage = repo.buscarResumoUsuario(userId);
         DecimalFormat df = new DecimalFormat("#,##0");
         
         if (damage == null) {

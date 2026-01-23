@@ -263,6 +263,43 @@ body {
     z-index: 10;
 }
 
+
+.anuncio {
+  flex: 1;
+  min-height: 120px;
+  border: 2px dashed #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  background: rgba(0,0,0,0.2);
+}
+
+.ataques-e-anuncio {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Últimos ataques */
+.ataques-recentes {
+  flex: 2;
+   gap: 30px;
+}
+
+/* Anúncio */
+.anuncio {
+  flex: 1;
+  min-height: 150px;
+  border: 2px dashed #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+  color: #aaa;
+}
+
+
 /* ==============================
    RESPONSIVO
 ================================ */

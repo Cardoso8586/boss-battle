@@ -22,6 +22,7 @@
 ================================ */
 .perfil-info {
   font-size: 1rem;
+  gap: 20px;
   color: #ddd;
   margin: 6px 0;
 }
@@ -61,7 +62,6 @@
 .ajuste-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   text-align: center;
 }
 
@@ -85,6 +85,27 @@
      0 0 8px rgba(255, 180, 0, 0.8);
 }
 
+.perfil-linha {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+
+.anuncio {
+  flex: 1;
+  min-height: 120px;
+  border: 2px dashed #555;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+  color: #999;
+  background: rgba(0,0,0,0.2);
+}
+
+
 /* ===============================
    RESPONSIVO - TABLET / MOBILE
 ================================ */
@@ -102,7 +123,7 @@
 
   .user-ajustes {
     flex-direction: column;
-    gap: 12px;
+    gap: 40px;
     padding: 12px;
   }
 
@@ -122,6 +143,7 @@
     min-width: 60px;
   }
 }
+
 
 
 /* ===============================
@@ -146,3 +168,6 @@
     min-width: 55px;
   }
 }
+
+
+

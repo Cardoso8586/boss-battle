@@ -249,8 +249,6 @@ gurações -->
     
 </div>
 
-            
-
             <div class="card-section">
                 <img id="guerreiro-image" src="" alt="guerreiro">
                <p>
@@ -392,21 +390,10 @@ gurações -->
        
       </div>
 
-      
-    
-        
-       
-      
-       
-       
+   
     </div>
 
 </div>
-
-
-
-
-    
 
 <!-- Ajustes de Batalha -->
 
@@ -464,25 +451,31 @@ Dano
 
     </div>
     
-    <div class="ataques-recentes">
-    
-    <h2 class="ultimos-ataques">⚔️ Últimos ataques</h2>
- 
-    <ul id="listaAtaques"></ul>
-</div>
-    
-    
-    <!--  
-  <label style="cursor:pointer; user-select:none;">
-    <input type="checkbox" id="audio-toggle" checked>
-    🔊 Ativar áudio
-</label>
+  <div class="ataques-e-anuncio">
 
-<audio id="super-scary" preload="auto"></audio>
--->
+  <div class="ataques-recentes">
+    <h2 class="ultimos-ataques">⚔️ Últimos ataques</h2>
+    <ul id="listaAtaques"></ul>
+  </div>
+
+  <!-- ANÚNCIO AO LADO -->
+  <div class="anuncio anuncio-1">
+    <!-- Futuro banner -->
+    <span>Espaço para anúncio</span>
+  </div>
+
+</div>
+
+    
+  <!-- ANUNCIO 1 -->
+    <div class="anuncio anuncio-1">
+      <!-- Futuro banner -->
+      <span>Espaço para anúncio</span>
+    </div>
 
     
 </section>
+<!-- fim da seção Arena boss -->
 
 
 
@@ -604,8 +597,116 @@ Dano
 </section>
 
 
+<!-- seção perfil do usuario -->
+<section id="perfil">
+
+  <!-- TOPO: user-info + anuncio 1 -->
+  <div class="perfil-linha">
     
+    <div class="user-info">
+      <h2>
+        Bem-vindo, 
+        <span th:text="${usuario.username}"></span>!
+      </h2>
+
+      <p>ID: <strong th:text="${idUsuario}">0</strong></p>
+      <p>XP: <span id="xp" th:text="${xpUsuario}">0</span></p>
+      <p>Nível: <span id="nivel" th:text="${nivelUsuario}">0</span></p>
+
+      <div class="saldo-box">
+        <span>BOSS:</span>
+        <strong id="boss_coins" th:text="${boss_coins}">0</strong>
+      </div>
+    </div>
+
+    <!-- ANUNCIO 1 -->
+    <div class="anuncio anuncio-1">
+      <!-- Futuro banner -->
+      <span>Espaço para anúncio</span>
+    </div>
+
+  </div>
+
+  <!-- USER AJUSTES (abaixo) -->
+  <div class="user-ajustes">
+
+    <div class="ajuste-item">
+      <span>Capacidade de Vigor</span>
+      <strong id="capacidade_vigor" th:text="${energiaGuerreirosPadrao}">0</strong>
+      <span>Cap Máx</span>
+    </div>
+
+    <div class="ajuste-item">
+      <span>Ataques / minuto</span>
+      <strong id="ataques_minutos" th:text="${ataquePorMinutoUsuario}">0</strong>
+      <span>Dano</span>
+    </div>
+
+    <div class="ajuste-item">
+      <span>Guerreiros</span>
+      <strong id="quantidade_guerreiros" th:text="${quantidadeTotalGuerriro}">0</strong>
+      <span>Total</span>
+    </div>
+
+    <div class="ajuste-item">
+      <span>Ataque especial</span>
+      <strong id="ataque_especial" th:text="${ataque_base}">0</strong>
+      <span>Dano</span>
+    </div>
     
+      <div class="ajuste-item">
+    <span>Poção Vigor:</span>
+    <strong id="pocao_vigor"
+            th:text="${quantidadePocaoVigor}">
+      0
+    </strong><span>Ajustes</span>
+  </div>  
+  
+  
+    <div class="ajuste-item">
+    <span>Espada Flanejante:</span>
+    <strong id="espada_flanejante"
+            th:text="${quantidadeEspadaFlanejante}">
+      0
+    </strong><span>Ajustes</span>
+  </div>  
+  
+  
+      <div class="ajuste-item">
+    <span>Machado Dilacerador:</span>
+    <strong id="machado_dilacerador"
+            th:text="${quantidadeMachadoDilacerador}">
+      0
+    </strong><span>Ajustes</span>
+  </div>  
+
+  </div>
+
+  <!-- RANKING + ANUNCIO 2 -->
+  <div class="perfil-linha">
+
+    <div class="ranking-box">
+      <div class="perfil-titulo">Ranking de Dano</div>
+
+      <ul id="rankingDano" class="user-ajustes">
+        <!-- JS -->
+      </ul>
+
+      <div id="minhaPosicaoRanking" class="perfil-info"></div>
+    </div>
+
+    <!-- ANUNCIO 2 -->
+    <div class="anuncio anuncio-2">
+      <span>Espaço para anúncio</span>
+    </div>
+
+  </div>
+
+</section>
+<!-- fim da seção perfil do usuario -->
+
+    
+    <!-- seção perfil 
     <section id="perfil">
       <h2 class="perfil-titulo">Perfil</h2>
 
@@ -637,10 +738,6 @@ Dano
     <span>BOSS:</span>
     <strong id="boss_coins" th:text="${boss_coins}">0</strong>
 </div>
-
-
-    
-
 
 </div>
 
@@ -726,7 +823,8 @@ Dano
 
   
   
-    </section>
+    </section>    
+<!-- fim da seção perfil do usuario -->
     
     
 <!-- seção referidos -->

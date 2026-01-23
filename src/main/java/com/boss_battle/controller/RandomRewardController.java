@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.dto.RandomLevelRewardDTO;
+import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.service.RandomRewardService;
 
 @RestController
@@ -32,9 +33,9 @@ public class RandomRewardController {
 
     // ⬆️ ENTREGA — CHAMAR QUANDO CONFIRMAR O LEVEL UP
     @PostMapping("/claim/{usuarioId}")
-    public ResponseEntity<Void> claim(@PathVariable Long usuarioId) {
+    public ResponseEntity<Void> claim(@PathVariable UsuarioBossBattle usuario) {
 
-        rewardService.onLevelUp(usuarioId);
+        rewardService.onLevelUp(usuario);
 
         return ResponseEntity.ok().build();
     }

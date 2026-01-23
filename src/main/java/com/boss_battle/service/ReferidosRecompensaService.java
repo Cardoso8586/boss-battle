@@ -23,10 +23,6 @@ public class ReferidosRecompensaService {
 
     public void adicionarGanho(UsuarioBossBattle usuario, BigDecimal valor) {
       
-    	
-       
-        usuarioRepository.save(usuario);
-
         // 2️⃣ Dá 10% ao indicante
         if (usuario.getReferredBy() != null) {
             Long referrerId = usuario.getReferredBy();
@@ -44,7 +40,7 @@ public class ReferidosRecompensaService {
 
            
                 
-                usuarioRepository.save(referrer);
+              //  usuarioRepository.save(referrer);
                 System.out.println("[Ganho] Usuário " + referrer.getUsername()
                         + " ganhou 10% de " + usuario.getUsername() + ": " + bonus);
             });
@@ -67,7 +63,7 @@ public class ReferidosRecompensaService {
 
         usuario.setBossCoins(usuario.getBossCoins().add(totalClaim));
         usuario.setGanhosPendentesReferral(BigDecimal.ZERO);
-        usuarioRepository.save(usuario);
+      //  usuarioRepository.save(usuario);
     }
 
 }
