@@ -16,10 +16,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.boss_battle.enums.FaucetPayStatus;
 import com.boss_battle.model.BossBattleTransactionHistory;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossBattleTransactionHistoryRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 
@@ -130,23 +133,38 @@ public class FaucetPayService {
 
         String response = callApi("https://faucetpay.io/api/v1/send", builder);
 
-        boolean sucesso = response.contains("\"status\":200");
+       
 
-        // Histórico
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode json = mapper.readTree(response);
+
+        int status = json.get("status").asInt();
+
+        FaucetPayStatus statusTx = switch (status) {
+            case 200 -> FaucetPayStatus.APROVADO;
+            case 402 -> FaucetPayStatus.REJEITADO_ADMINISTRADOR;
+            case 401 -> FaucetPayStatus.NAO_AUTORIZADO;
+            default -> FaucetPayStatus.ERRO_DESCONHECIDO;
+        };
+
+        // 📜 Histórico (sempre grava)
         BossBattleTransactionHistory tx = new BossBattleTransactionHistory();
         tx.setUserId(userId);
         tx.setCurrency(currency);
         tx.setAmount(valorMoeda.toPlainString());
         tx.setEmail(email);
         tx.setNote(note);
-        tx.setStatus(sucesso ? "APROVADO" : "ERRO: " + response);
+        tx.setStatus(statusTx.getMensagemUsuario());
+
         historyRepository.save(tx);
 
-        // 💰 Desconto FINAL
-        if (sucesso) {
+        // 💰 Desconto FINAL (somente se aprovado)
+        if (statusTx == FaucetPayStatus.APROVADO) {
             usuario.setBossCoins(saldoAtual.subtract(bossCoinParaSaque));
             usuarioRepo.save(usuario);
         }
+
+   
 
         return response;
     }

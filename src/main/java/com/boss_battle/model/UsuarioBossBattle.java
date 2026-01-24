@@ -259,7 +259,7 @@ public class UsuarioBossBattle  {
     //===========================================
     
     @Column(name = "preco_guerreiros", nullable = false)
-    private Long precoGuerreiros = 1_000L;
+    private Long precoGuerreiros = 10_000L;
 
     @Column(name = "preco_energia", nullable = false)
     private Long precoEnergia = 1_000L;

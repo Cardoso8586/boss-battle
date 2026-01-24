@@ -20,43 +20,32 @@ public class ComprarGuerreiroService {
     @Autowired
     private UsuarioBossBattleRepository repo;
 
-    @Transactional
     public boolean comprarGuerreiro(Long usuarioId, int quantidade) {
 
-       // UsuarioBossBattle usuario = repo.findById(usuarioId)
-            //.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        // 🔒 Busca usuário com lock pessimista para evitar race conditions
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoGuerreiros());
+        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-    	
-        BigDecimal precoUnitario =
-                BigDecimal.valueOf(usuario.getPrecoGuerreiros());
-
-        BigDecimal valorTotal =
-                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
-
+        // ❌ Saldo insuficiente
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 debita
+        // 💰 Debita saldo
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // ⚔️ soma guerreiros
-      //  usuario.setGuerreiros(usuario.getGuerreiros() + quantidade);
-
-        // ⚔️ soma guerreiros
+        // ⚔️ Adiciona guerreiros ao inventário
         usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + quantidade);
-        
-        // 🔁 recalcula preços (SEM salvar)
+
+        // 🔁 Recalcula preço (sem salvar usuário ainda)
         lojaService.atualizarPrecoGuerreiro(usuario, quantidade);
 
-        // ✅ UM ÚNICO SAVE
-        repo.save(usuario);
+        // ✅ Salva e força persistência imediata
+        repo.saveAndFlush(usuario);
 
         return true;
     }
 }
-
-

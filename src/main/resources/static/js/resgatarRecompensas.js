@@ -234,8 +234,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		},
         icon: 'error',
         title: 'Erro',
-		text: 'Rejeitado pelo Administrador',
-        //text: err.message,
+		text: err.message,
 		background: 'transparent',
 		color: '#ff3b3b' 
       });

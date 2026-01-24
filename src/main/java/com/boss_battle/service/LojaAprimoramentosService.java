@@ -204,19 +204,19 @@ public class LojaAprimoramentosService {
 
         long aumento;
 
-        if (nivel <= 10) {
+        if (nivel <= 100) {
             aumento = 1_000;
-        } else if (nivel <= 20) {
+        } else if (nivel <= 200) {
             aumento = 2_000;
-        } else if (nivel <= 30) {
+        } else if (nivel <= 300) {
             aumento = 3_000;
-        } else if (nivel <= 40) {
+        } else if (nivel <= 400) {
             aumento = 4_000;
-        } else if (nivel <= 50) {
+        } else if (nivel <= 500) {
             aumento = 5_000;
-        } else if (nivel <= 70) {
+        } else if (nivel <= 700) {
             aumento = 7_000;
-        } else if (nivel <= 100) {
+        } else if (nivel <= 1_000) {
             aumento = 10_000;
         } else {
             aumento = 15_000;
@@ -237,19 +237,19 @@ public class LojaAprimoramentosService {
 
         long aumento;
 
-        if (nivel <= 10) {
+        if (nivel <= 100) {
             aumento = 1_000;
-        } else if (nivel <= 20) {
+        } else if (nivel <= 200) {
             aumento = 2_000;
-        } else if (nivel <= 30) {
+        } else if (nivel <= 300) {
             aumento = 3_000;
-        } else if (nivel <= 40) {
+        } else if (nivel <= 400) {
             aumento = 4_000;
-        } else if (nivel <= 50) {
+        } else if (nivel <= 500) {
             aumento = 5_000;
-        } else if (nivel <= 70) {
+        } else if (nivel <= 700) {
             aumento = 7_000;
-        } else if (nivel <= 100) {
+        } else if (nivel <= 1_000) {
             aumento = 10_000;
         } else {
             aumento = 15_000;

@@ -586,6 +586,7 @@ public class GlobalBossService {
         
             case 0 -> {
                 GlobalBossIgnorath ig = ignorathService.get();
+                ig.aplicarEscalamentoIgnorath();
                 ig.setProcessingDeath(false);
                 ig.setAlive(true);
                 ig.setCurrentHp(ig.getMaxHp());
@@ -595,6 +596,7 @@ public class GlobalBossService {
             }
             case 1 -> {
                 GlobalBossDrakthor dr = drakthorService.get();
+                dr.aplicarEscalamentoDrakthor();
                 dr.setProcessingDeath(false);
                 dr.setAlive(true);
                 dr.setCurrentHp(dr.getMaxHp());
@@ -604,6 +606,7 @@ public class GlobalBossService {
             }
             case 2 -> {
                 GlobalBossAzurion az = azurionService.get();
+                az.aplicarEscalamentoAzurion();
                 az.setProcessingDeath(false);
                 az.setAlive(true);
                 az.setCurrentHp(az.getMaxHp());
@@ -614,6 +617,7 @@ public class GlobalBossService {
             
             case 3 -> {
             	GlobalBossNightmare nm = nightmareService.get();
+            	nm.aplicarEscalamentoNightmare();
             	nm.setProcessingDeath(false);
             	nm.setAlive(true);
             	nm.setCurrentHp(nm.getMaxHp());
@@ -624,6 +628,7 @@ public class GlobalBossService {
             
             case 4 -> {
             	GlobalBossFlamor fl = flamorService.get();
+            	fl.aplicarEscalamentoFlamor();
             	fl.setProcessingDeath(false);
             	fl.setAlive(true);
             	fl.setCurrentHp(fl.getMaxHp());
@@ -634,6 +639,7 @@ public class GlobalBossService {
             
             case 5 -> {
             	GlobalBossOblivar ob = oblivarService.get();
+            	ob.aplicarEscalamentoOblivar();
             	ob.setProcessingDeath(false);
             	ob.setAlive(true);
             	ob.setCurrentHp(ob.getMaxHp());
@@ -654,6 +660,7 @@ public class GlobalBossService {
             
             case 7 -> {
             	GlobalBossLyxara lx = lyxaraService.get();
+            	lx.aplicarEscalamentoLyxara();
             	lx.setProcessingDeath(false);
             	lx.setAlive(true);
             	lx.setCurrentHp(lx.getMaxHp());
@@ -665,6 +672,7 @@ public class GlobalBossService {
             
             case 8 -> {
             	GlobalBossNoxar nx = noxarService.get();
+            	nx.aplicarEscalamentoNoxar();
             	nx.setProcessingDeath(false);
             	nx.setAlive(true);
             	nx.setCurrentHp(nx.getMaxHp());
@@ -675,6 +683,7 @@ public class GlobalBossService {
           
             case 9 -> {
             	GlobalBossUmbrar ub = umbrarService.get();
+            	ub.aplicarEscalamentoUmbrar();
             	ub.setProcessingDeath(false);
             	ub.setAlive(true);
             	ub.setCurrentHp(ub.getMaxHp());
@@ -685,6 +694,7 @@ public class GlobalBossService {
             
             case 10 -> {
             	GlobalBossMorvath mv = morvathService.get();
+            	mv.aplicarEscalamentoMorvat();
             	mv.setProcessingDeath(false);
             	mv.setAlive(true);
             	mv.setCurrentHp(mv.getMaxHp());
@@ -695,6 +705,7 @@ public class GlobalBossService {
             
             case 11 -> {
             	GlobalBossObliquo oq = obliquoService.get();
+            	oq.aplicarEscalamentoObliquo();
             	oq.setProcessingDeath(false);
             	oq.setAlive(true);
             	oq.setCurrentHp(oq.getMaxHp());
@@ -705,6 +716,7 @@ public class GlobalBossService {
             
             case 12 -> {
             	GlobalBossPyragon pg = pyragonService.get();
+            	pg.aplicarEscalamentoPyragon();
             	pg.setProcessingDeath(false);
             	pg.setAlive(true);
             	pg.setCurrentHp(pg.getMaxHp());
@@ -715,6 +727,7 @@ public class GlobalBossService {
             
             case 13-> {
             	GlobalBossGlaciorn gc = glaciornService.get();
+            	gc.aplicarEscalamentoGlaciorn();
             	gc.setProcessingDeath(false);
             	gc.setAlive(true);
             	gc.setCurrentHp(gc.getMaxHp());
@@ -725,6 +738,7 @@ public class GlobalBossService {
             
             case 14-> {
             	GlobalBossReflexa rx = reflexaService.get();
+            	rx.aplicarEscalamentoReflexa();
             	rx.setProcessingDeath(false);
             	rx.setAlive(true);
             	rx.setCurrentHp(rx.getMaxHp());
@@ -735,6 +749,7 @@ public class GlobalBossService {
             
             case 15-> {
             	GlobalBossMechadron mc = mechadronService.get();
+            	mc.aplicarEscalamentoMechadron();
             	mc.setProcessingDeath(false);
             	mc.setAlive(true);
             	mc.setCurrentHp(mc.getMaxHp());
@@ -745,6 +760,7 @@ public class GlobalBossService {
            
             case 16-> {
             	GlobalBossNoctyr nr = noctyrService.get();
+            	nr.aplicarEscalamentoNoctyr();
             	nr.setProcessingDeath(false);
             	nr.setAlive(true);
             	nr.setCurrentHp(nr.getMaxHp());
@@ -755,6 +771,7 @@ public class GlobalBossService {
             
             case 17-> {
             	GlobalBossOblivion on = oblivionService.get();
+            	on.aplicarEscalamentoOblivion();
             	on.setProcessingDeath(false);
             	on.setAlive(true);
             	on.setCurrentHp(on.getMaxHp());
@@ -765,6 +782,7 @@ public class GlobalBossService {
             
             case 18 -> {
             	GlobalBossVespera vs = vesperaService.get();
+            	vs.aplicarEscalamentoVespera();
             	vs.setProcessingDeath(false);
             	vs.setAlive(true);
             	vs.setCurrentHp(vs.getMaxHp());
@@ -775,6 +793,7 @@ public class GlobalBossService {
             
             case 19 -> {
             	GlobalBossTenebris ts = tenebrisService.get();
+            	ts.aplicarEscalamentoTenebris();
             	ts.setProcessingDeath(false);
             	ts.setAlive(true);
             	ts.setCurrentHp(ts.getMaxHp());
@@ -785,6 +804,7 @@ public class GlobalBossService {
             
             case 20 -> {
             	GlobalBossGlaciara gl = glaciaraService.get();
+            	gl.aplicarEscalamentoGlaciara();
             	gl.setProcessingDeath(false);
             	gl.setAlive(true);
             	gl.setCurrentHp(gl.getMaxHp());
@@ -795,6 +815,7 @@ public class GlobalBossService {
             
             case 21 -> {
             	GlobalBossInfernax ix = infernaxService.get();
+            	ix.aplicarEscalamentoInfernax();
             	ix.setProcessingDeath(false);
             	ix.setAlive(true);
             	ix.setCurrentHp(ix.getMaxHp());
@@ -805,6 +826,7 @@ public class GlobalBossService {
             
             case 22 -> {
             	GlobalBossThunderon td = thunderonService.get();
+            	td.aplicarEscalamentoThunderon();
             	td.setProcessingDeath(false);
             	td.setAlive(true);
             	td.setCurrentHp(td.getMaxHp());
@@ -815,6 +837,7 @@ public class GlobalBossService {
             
             case 23 -> {
             	GlobalBossNoctharion nt = noctharionService.get();
+            	nt.aplicarEscalamentoNoctharion();
             	nt.setProcessingDeath(false);
             	nt.setAlive(true);
             	nt.setCurrentHp(nt.getMaxHp());
@@ -825,6 +848,7 @@ public class GlobalBossService {
             
             case 24 -> {
             	GlobalBossAzraelPrime ap = azraelPrimeService.get();
+            	ap.aplicarEscalamentoAzraelPrime();
             	ap.setProcessingDeath(false);
             	ap.setAlive(true);
             	ap.setCurrentHp(ap.getMaxHp());
@@ -847,6 +871,7 @@ public class GlobalBossService {
             
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
+                um.aplicarEscalamentoUmbraxis();
                 um.setProcessingDeath(false);
                 um.setAlive(true);
                 um.setCurrentHp(um.getMaxHp());

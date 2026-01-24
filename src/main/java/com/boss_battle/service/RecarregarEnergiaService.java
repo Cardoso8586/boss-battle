@@ -11,18 +11,20 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class RecarregarEnergiaService {
-	
-	
-	 @Autowired
-	    private UsuarioBossBattleRepository repo;
-	
-	 public UsuarioBossBattle recarregarEnergia(Long usuarioId) {
-	     UsuarioBossBattle usuario = repo.findById(usuarioId)
-	     .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
-	     
-	     usuario.setEnergiaGuerreiros(usuario.getEnergiaGuerreirosPadrao());
-	     return repo.save(usuario); 
-	 }
 
-	 
+    @Autowired
+    private UsuarioBossBattleRepository repo;
+
+    public UsuarioBossBattle recarregarEnergia(Long usuarioId) {
+
+        // 🔒 Busca com lock pessimista
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+
+        // ⚡ Recarrega energia
+        usuario.setEnergiaGuerreiros(usuario.getEnergiaGuerreirosPadrao());
+
+        // 💾 Salva e força commit imediato
+        return repo.saveAndFlush(usuario);
+    }
 }

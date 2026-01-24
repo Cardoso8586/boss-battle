@@ -1,6 +1,7 @@
 package com.boss_battle.service;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,4 +63,30 @@ public class PyragonService {
 
         return repo.save(boss);
     }
+    
+    //===========================================================
+    //incrmentar hp, toda vez que o boss for derrotado
+    //===========================================================
+    public void aplicarEscalamentoPyragon(GlobalBossPyragon boss) {
+
+
+        Random random = new Random();
+    	long min = 100;
+    	long max = 270;
+    	long incrementarUp = random.nextLong(min, max + 1);
+
+    	
+    	long valorHpMax =  boss.getMaxHp();
+    	long valorCur = boss.getCurrentHp();
+    	
+    	boss.setMaxHp( valorHpMax + incrementarUp);
+    	boss.setCurrentHp( valorCur + incrementarUp);
+    	
+    	long valorXp =  boss.getRewardExp();
+    	boss.setRewardExp(valorXp + 7);
+    	
+    	long valorsetRewardBoss = boss.getRewardBoss();
+    	boss.setRewardBoss(valorsetRewardBoss + 4);
+ 	   
+    }//--->incrmentar hp, toda vez que o boss for derrotado
 }

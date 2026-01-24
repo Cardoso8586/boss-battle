@@ -14,44 +14,33 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarMachadoDilaceradorService {
 
-	
-
-    @Autowired
-    private LojaAprimoramentosService lojaService;
-
     @Autowired
     private UsuarioBossBattleRepository repo;
-    
-    
-    
-public boolean comprarMachadoDilacerador(Long usuarioId, int quantidade){
-		
-		UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-	
-		 BigDecimal precoUnitario =
-	                BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
 
-	        BigDecimal valorTotal =
-	                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+    public boolean comprarMachadoDilacerador(Long usuarioId, int quantidade) {
 
-	        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
-	            return false;
-	        }
+        // 🔒 Busca usuário com lock pessimista
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-	        // 💰 debita
-	        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
+        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
+        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-	        // ⚔️ adiciona machados dilacerador
-	        usuario.setMachadoDilacerador(
-	                usuario.getMachadoDilacerador() + quantidade
-	        );
+        // ❌ Saldo insuficiente
+        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
+            return false;
+        }
 
-	        repo.save(usuario);
-	        return true;
-	}
-	
-	
-    
-  
-}//--->ComprarMachadoDilaceradorService
+        // 💰 Debita saldo
+        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
+
+        // ⚔️ Adiciona machados dilacerador
+        usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + quantidade);
+
+        // 💾 Salva e força persistência imediata
+        repo.saveAndFlush(usuario);
+
+        return true;
+    }
+}
+

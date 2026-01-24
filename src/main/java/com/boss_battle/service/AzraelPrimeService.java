@@ -1,11 +1,13 @@
 package com.boss_battle.service;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boss_battle.model.GlobalBossAzraelPrime;
+import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.repository.AzraelPrimeRepository;
 
 import jakarta.transaction.Transactional;
@@ -27,8 +29,9 @@ public class AzraelPrimeService {
     	GlobalBossAzraelPrime boss = new GlobalBossAzraelPrime();
 
         boss.setName("AZRAEL PRIME");
-        boss.setMaxHp(400_000L);
-        boss.setCurrentHp(400_000L);
+        aplicarEscalamentoAzraelPrime(boss);
+      //  boss.setMaxHp(400_000L);
+       // boss.setCurrentHp(400_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
@@ -57,4 +60,31 @@ public class AzraelPrimeService {
         boss.applyDamage(damage);
         return repo.save(boss);
     }
+    
+    //===========================================================
+    //incrmentar hp, toda vez que o boss morrer
+    //===========================================================
+    
+    public void aplicarEscalamentoAzraelPrime (GlobalBossAzraelPrime boss) {
+
+
+        Random random = new Random();
+    	long min = 50;
+    	long max = 150;
+    	long incrementarUp = random.nextLong(min, max + 1);
+
+    	
+    	long valorHpMax =  boss.getMaxHp();
+    	long valorCur = boss.getCurrentHp();
+    	
+    	boss.setMaxHp( valorHpMax + incrementarUp);
+    	boss.setCurrentHp( valorCur + incrementarUp);
+    	
+    	long valorXp =  boss.getRewardExp();
+    	boss.setRewardExp(valorXp + 1);
+    	
+    	long valorsetRewardBoss = boss.getRewardBoss();
+    	boss.setRewardBoss(valorsetRewardBoss + 1);
+ 	   
+    }//--->incrmentar hp, toda vez que o boss morrer
 }

@@ -13,44 +13,34 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ComprarEspadaFlanejanteService {
-	//comprar espada flanejante
 
-	 
-	    @Autowired
-	    private LojaAprimoramentosService lojaService;
+    @Autowired
+    private UsuarioBossBattleRepository repo;
 
-	    @Autowired
-	    private UsuarioBossBattleRepository repo;
+    public boolean comprarEspadaFlanejante(Long usuarioId, int quantidade) {
 
-	    
-	
-	public boolean comprarEspadaFlanejante(Long usuarioId, int quantidade){
-		
-		UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-	
-		 BigDecimal precoUnitario =
-	                BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
+        // 🔒 Busca com lock pessimista
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-	        BigDecimal valorTotal =
-	                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
+        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-	        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
-	            return false;
-	        }
+        // ❌ Saldo insuficiente
+        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
+            return false;
+        }
 
-	        // 💰 debita
-	        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
+        // 💰 Debita saldo
+        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-	        // ⚔️ adiciona espadas
-	        usuario.setEspadaFlanejante(
-	                usuario.getEspadaFlanejante() + quantidade
-	        );
+        // ⚔️ Adiciona espadas flanejantes
+        usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + quantidade);
 
-	        repo.save(usuario);
-	        return true;
-	}
-	
-	
+        // 💾 Salva e força commit imediato
+        repo.saveAndFlush(usuario);
 
-}//--->
+        return true;
+    }
+}
+

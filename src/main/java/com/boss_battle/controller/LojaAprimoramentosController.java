@@ -51,7 +51,7 @@ public class LojaAprimoramentosController {
         
         long precoGuerreiros = usuario.getPrecoGuerreiros();
         if (precoGuerreiros <= 0) {
-        	precoGuerreiros = 1_000L;
+        	precoGuerreiros = 10_000L;
             usuario.setPrecoGuerreiros(precoGuerreiros);
             usuarioRepository.save(usuario);
         }

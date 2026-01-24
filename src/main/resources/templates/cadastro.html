@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/cadastro.css">
   <link rel="stylesheet" href="/css/customClass.css">  
   <link rel="stylesheet" href="/css/swal-game-error.css">
-    
+  <link rel="stylesheet" href="/css/historico.css">
   
   
   
@@ -79,16 +79,27 @@
 
  <div class="link">
         <a href="/login">  Fazer Login </a>
-    </div>
-
-
+        
 </div>
+</div>
+
+
+
 
  <!-- DIREITA -->
     <div class="layout-direito">
         <div class="pagamento-info">
             <h1>Jogue e Ganhe Recompensas</h1>
          
+  <p class="faucet-pay-moedas">
+  <img src="/icones/tether-usdt-logo.webp?v=002" alt="usdt">
+  <img src="/icones/doge.webp?v=002" alt="doge">
+  <img src="/icones/trx.webp?v=010" alt="trx">
+  <img src="/icones/ltc.webp?v=010" alt="ltc">
+  <img src="/icones/dgb.webp?v=001" alt="dgb">
+ 
+</p>
+       
 <p class="faucet-pay">
   <a href="https://faucetpay.io/" target="_blank" rel="noopener noreferrer">
     <img src="/icones/faucet.webp?v=052" alt="Faucet">
@@ -96,14 +107,6 @@
 </p>
 
 
-<p class="faucet-pay-moedas">
-
-  <img src="/icones/doge.webp?v=002" alt="doge">
-  <img src="/icones/trx.webp?v=010" alt="trx">
-  <img src="/icones/ltc.webp?v=010" alt="ltc">
-  <img src="/icones/dgb.webp?v=001" alt="dgb">
- 
-</p>
 
 <!-- 
  <p>
@@ -114,11 +117,24 @@
 </div>
     </div>
 
+</div>
 
 
-
-
-
+<!-- HISTÓRICO GLOBAL -->
+<div id="historico-container" class="historico-container">
+  <h3 class="secao-titulo recompensa-titulo">Histórico de Retiradas</h3>
+  <table class="historico-table">
+    <thead>
+      <tr>
+        <th>Moeda</th>
+        <th>Valor</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody id="historicoRetirada"></tbody>
+  </table>
 </div>
 <!-- Footer -->
 <footer class="footer">
@@ -134,6 +150,7 @@
 <script src="/js/descricaoDinamica.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/captcha-response.js"></script>
+<script src="/js/historico.js"></script>
 
 </body>
 

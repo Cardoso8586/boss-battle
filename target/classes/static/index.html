@@ -30,14 +30,44 @@
     <h2>Entrar</h2>
 
     <form id="loginForm">
-        <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
-        <input type="password" id="loginSenha" placeholder="Senha" required>
-          <input type="hidden" name="ref" th:value="${ref}" />
+    <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
+    <input type="password" id="loginSenha" placeholder="Senha" required>
 
-        <button type="submit">Entrar</button>
-    </form>
+    <input type="hidden" name="ref" th:value="${ref}" />
 
-    <p class="msg" id="loginMsg"></p>
+    <!-- Cloudflare Turnstile -->
+    <div class="cf-turnstile"
+        data-sitekey="0x4AAAAAABeuEKIL4oQVYiXR"
+        data-callback="onTurnstileSuccess"
+        data-error-callback="onTurnstileError"
+        data-expired-callback="onTurnstileExpired">
+    </div>
+
+    <!-- Token do captcha -->
+    <input type="hidden" id="captchaToken">
+
+    <button type="submit" id="loginBtn" disabled>Entrar</button>
+</form>
+
+<p id="loginMsg"></p>
+<script>
+const loginBtn = document.getElementById('loginBtn');
+
+function onTurnstileSuccess(token) {
+    document.getElementById('captchaToken').value = token;
+    loginBtn.disabled = false;
+}
+
+function onTurnstileExpired() {
+    document.getElementById('captchaToken').value = "";
+    loginBtn.disabled = true;
+}
+
+function onTurnstileError() {
+    document.getElementById('captchaToken').value = "";
+    loginBtn.disabled = true;
+}
+</script>
 
     <div class="link">
         Não tem conta? <a href="/cadastro">Criar conta</a>
@@ -48,38 +78,24 @@
     <div class="layout-direito">
         <div class="pagamento-info">
             <h1>Jogue e Ganhe</h1>
-         
+     <p class="faucet-pay-moedas">
+
+  <img src="/icones/tether-usdt-logo.webp?v=002" alt="usdt">
+  <img src="/icones/doge.webp?v=002" alt="doge">
+  <img src="/icones/trx.webp?v=010" alt="trx">
+  <img src="/icones/ltc.webp?v=010" alt="ltc">
+  <img src="/icones/dgb.webp?v=001" alt="dgb">
+ 
+</p>    
 <p class="faucet-pay">
   <a href="https://faucetpay.io/" target="_blank" rel="noopener noreferrer">
     <img src="/icones/faucet.webp?v=052" alt="Faucet">
   </a>
 </p>
 
-
-<p class="faucet-pay-moedas">
-
-  <img src="/icones/doge.webp?v=002" alt="doge">
-  <img src="/icones/trx.webp?v=010" alt="trx">
-  <img src="/icones/ltc.webp?v=010" alt="ltc">
-  <img src="/icones/dgb.webp?v=001" alt="dgb">
- 
-</p>
-
-<!-- 
- <p>
-    Ganhe recompensas em, LTC, DOGE, DGB e TRX
-    diretamente via FaucetPay.
-</p>
- -->
-        </div>
+</div>
     </div> 
     
-    
-    
-    
-    
-    
-
 </div>
 <!-- Footer -->
 <footer class="footer">
@@ -91,6 +107,7 @@
 
 
 
+ <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="/js/descricaoDinamica.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/auth.js"></script>

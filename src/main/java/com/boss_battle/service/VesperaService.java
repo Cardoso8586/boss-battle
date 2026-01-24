@@ -1,6 +1,7 @@
 package com.boss_battle.service;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,31 @@ public class VesperaService {
         return repo.save(boss); // <- atualiza no banco
     }
 
-   
+    //===========================================================
+    //incrmentar hp, toda vez que o boss for derrotado
+    //===========================================================
+    public void aplicarEscalamentoVespera(GlobalBossVespera boss) {
+
+
+        Random random = new Random();
+    	long min = 10;
+    	long max = 100;
+    	long incrementarUp = random.nextLong(min, max + 1);
+
+    	
+    	long valorHpMax =  boss.getMaxHp();
+    	long valorCur = boss.getCurrentHp();
+    	
+    	boss.setMaxHp( valorHpMax + incrementarUp);
+    	boss.setCurrentHp( valorCur + incrementarUp);
+    	
+    	long valorXp =  boss.getRewardExp();
+    	boss.setRewardExp(valorXp + 5);
+    	
+    	long valorsetRewardBoss = boss.getRewardBoss();
+    	boss.setRewardBoss(valorsetRewardBoss + 3);
+ 	   
+    }//--->incrmentar hp, toda vez que o boss for derrotado
+
 
 }

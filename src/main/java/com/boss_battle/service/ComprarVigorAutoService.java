@@ -14,9 +14,6 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 public class ComprarVigorAutoService {
 
     @Autowired
-    private LojaAprimoramentosService lojaAprimoramentosService;
-
-    @Autowired
     private UsuarioBossBattleRepository repo;
 
     /**

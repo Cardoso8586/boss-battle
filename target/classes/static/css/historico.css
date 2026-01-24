@@ -1,0 +1,162 @@
+/* ===============================
+   CONTAINER
+================================ */
+.historico-container {
+  display: table;             /* deixa o container se ajustar ao conteúdo */
+  margin: 40px auto;          /* centraliza horizontalmente */
+  padding: 20px;
+  max-height: none;           /* deixa crescer com o conteúdo */
+  overflow-y: visible;        /* sem scroll interno */
+  overflow-x: auto;           /* scroll horizontal se a tabela for larga */
+  border-radius: 14px;
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  background: transparent;
+  box-shadow:
+    inset 0 0 20px rgba(255, 180, 0, 0.05),
+    0 0 20px rgba(0, 0, 0, 0.8);
+  text-align: center;         /* centraliza títulos e conteúdo de texto */
+}
+
+/* Tabela com largura dinâmica */
+.historico-table {
+  width: auto;                  /* largura depende do conteúdo */
+  min-width: 400px;             /* largura mínima para não quebrar */
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #ffe7a3;
+}
+
+/* Scroll personalizado */
+.historico-container::-webkit-scrollbar {
+  width: 6px;
+}
+.historico-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffd700, #ffb400);
+  border-radius: 10px;
+}
+.historico-container h3{
+	  color: #ffd700;
+	
+	
+}
+/* ===============================
+   TABELA
+================================ */
+.historico-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #ffe7a3;
+}
+
+.historico-table thead {
+  background: linear-gradient(180deg, #2a2200, #151100);
+}
+
+.historico-table th {
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.historico-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+/* Linhas */
+.historico-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.historico-table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+/* ===============================
+   STATUS
+================================ */
+.status-APROVADO {
+  color: #00ff7f;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 127, 0.8);
+}
+
+.status-PENDENTE {
+  color: #ffb400;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 180, 0, 0.8);
+}
+
+.status-ERRO {
+  color: #ff4d4d;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
+}
+
+/* ===============================
+   MOEDA / VALOR
+================================ */
+.moeda-tag {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.valor-tag {
+  font-family: monospace;
+  color: #fff2b3;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 600px) {
+  .historico-table th,
+  .historico-table td {
+    font-size: 0.75rem;
+    padding: 8px;
+  }
+}
+
+/* ===============================
+   RESPONSIVO HISTÓRICO
+================================ */
+@media (max-width: 768px) {
+  .historico-container {
+    display: block;       /* ocupa toda a largura */
+    width: 100%;          /* full width */
+    padding: 10px 5px;    /* pequeno padding lateral */
+    overflow-x: auto;     /* scroll horizontal se necessário */
+    margin: 20px 0;       /* distancia do conteúdo acima e footer */
+  }
+
+  .historico-table {
+    width: 100%;          /* tabela ocupa toda a largura */
+    min-width: 0;         /* remove largura mínima para caber na tela */
+    font-size: 0.85rem;   /* fonte menor */
+  }
+
+  .historico-table th,
+  .historico-table td {
+    padding: 6px 4px;     /* menos padding para caber */
+  }
+}
+
+@media (max-width: 480px) {
+  .historico-container {
+    padding: 8px 3px;     /* ainda menos padding para celulares */
+  }
+
+  .historico-table th,
+  .historico-table td {
+    padding: 4px 2px;
+    font-size: 0.8rem;    /* fonte menor */
+  }
+}
+
+

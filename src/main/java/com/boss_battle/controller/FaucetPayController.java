@@ -68,14 +68,25 @@ public class FaucetPayController {
 
             boolean sucesso = respostaApi.contains("\"status\":200");
 
+            String mensagem;
+
+            if (sucesso) {
+                mensagem = "✅ Retirada enviada com sucesso!";
+            } else if (respostaApi.contains("\"status\":402")) {
+                mensagem = "❌ Saldo insuficiente no momento. Tente novamente mais tarde.";
+            } else if (respostaApi.contains("\"status\":401")) {
+                mensagem = "❌ Falha de autenticação. Verifique suas credenciais.";
+            } else {
+                mensagem = "❌ Ocorreu um erro ao processar a retirada. Tente novamente.";
+            }
+
             return ResponseEntity.ok(
                     Map.of(
                             "success", sucesso,
-                            "message", sucesso
-                                    ? "Retirada enviada com sucesso"
-                                    : "Erro da FaucetPay: " + respostaApi
+                            "message", mensagem
                     )
             );
+
 
         } catch (IOException | ParseException e) {
             return ResponseEntity.internalServerError().body(
@@ -99,13 +110,9 @@ public class FaucetPayController {
 
 
     // ---------------- HISTÓRICO GLOBAL ----------------
- // ---------------- HISTÓRICO GLOBAL ----------------
-    @GetMapping("/historico/todos")
+    @GetMapping("/todos")
     public ResponseEntity<List<BossBattleTransactionHistory>> historicoTodos() {
-
-        List<BossBattleTransactionHistory> historico =
-                historyRepository.findAllByOrderByCreatedAtDesc();
-
+        List<BossBattleTransactionHistory> historico = historyRepository.findAllByOrderByCreatedAtDesc();
         return ResponseEntity.ok(historico);
     }
 

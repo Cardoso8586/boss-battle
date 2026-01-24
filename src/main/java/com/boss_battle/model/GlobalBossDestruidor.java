@@ -200,6 +200,6 @@ public class GlobalBossDestruidor implements BattleBoss {
     	long valorsetRewardBoss = getRewardBoss();
  	    setRewardBoss(valorsetRewardBoss + 1);
  	   
-    }
+    }//--->incrmentar hp, toda vez que o boss morrer
 
 }
