@@ -30,7 +30,15 @@
 <div class="auth-container">
     <h2>Entrar</h2>
     
- 
+ <!-- 
+    <form id="loginForm">
+        <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
+        <input type="password" id="loginSenha" placeholder="Senha" required>
+          <input type="hidden" name="ref" th:value="${ref}" />
+
+        <button type="submit">Entrar</button>
+    </form>
+     -->
     <form id="loginForm">
     <input type="text" id="loginUser" placeholder="Email ou Usuário" required>
     <input type="password" id="loginSenha" placeholder="Senha" required>
@@ -39,7 +47,7 @@
 
     <!-- Cloudflare Turnstile -->
     <div class="cf-turnstile"
-        data-sitekey="0x4AAAAAACPL1fNa0nONmxwi"
+        data-sitekey="0x4AAAAAABeuEKIL4oQVYiXR"
         data-callback="onTurnstileSuccess"
         data-error-callback="onTurnstileError"
         data-expired-callback="onTurnstileExpired">
