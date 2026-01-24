@@ -118,7 +118,11 @@ public class SecurityConfig {
                         "/api/boss/ranking/dano/**",
                         "/api/espada-flanejante/ativar/**",
                         "/api/machado-dilacerador/ativar/**",
-                        "/comprar/machado/dilacerador/**"
+                        "/comprar/machado/dilacerador/**",
+                        "/api/faucetpay/saldo/**",
+                        "/api/faucetpay/retirada/**",
+                        "/api/faucetpay/historico/**",
+                        "/api/faucetpay/historico/todos/**"
                      
                         
                         

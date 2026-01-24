@@ -703,127 +703,11 @@ Dano
   </div>
 
 </section>
-<!-- fim da seção perfil do usuario -->
 
-    
-    <!-- seção perfil 
-    <section id="perfil">
-      <h2 class="perfil-titulo">Perfil</h2>
-
-<p class="perfil-info">
-  <span class="label">Email:</span>
-  <span class="valor" th:text="${usuario.email}"></span>
-</p>
-
-  
-   <div class="user-info">
- <h2>
-  Bem-vindo, 
- <span th:text="${usuario.username}"></span>!
- </h2>
-
- <p>
-  ID: <strong th:text="${idUsuario}">0</strong>
- </p>
- <p>
- <p>
-  XP: <span id="xp" th:text="${xpUsuario}">0</span>
- </p>
- <p>
-  Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
- </p>
-       
-
- <div class="saldo-box">
-    <span>BOSS:</span>
-    <strong id="boss_coins" th:text="${boss_coins}">0</strong>
-</div>
-
-</div>
-
-    
-    <div class="user-ajustes">
-
-  <div class="ajuste-item">
-    <span>Capacidade de Vigor</span>
-    <strong id="capacidade_vigor"
-            th:text="${energiaGuerreirosPadrao}">
-      0
-    </strong><span>Cap- Máxima</span>
-  </div>
-
-  <div class="ajuste-item">
-    <span>Ataques / minuto</span>
-    <strong id="ataques_minutos"
-            th:text="${ataquePorMinutoUsuario}">
-      0
-    </strong><span>Dano</span>
-  </div>   
-  
-  
-    <div class="ajuste-item">
-    <span>Guerreiros:</span>
-    <strong id="quantidade_guerreiros"
-            th:text="${quantidadeTotalGuerriro}">
-      0
-    </strong><span>Total</span>
-  </div>  
-  
-     <div class="ajuste-item">
-    <span>Ataque especial:</span>
-    <strong id="ataque_especial"
-            th:text="${ataque_base}">
-      0
-    </strong>  <span>Dano</span>
-  </div>  
-  
-  
-   <div class="ajuste-item">
-    <span>Poção Vigor:</span>
-    <strong id="pocao_vigor"
-            th:text="${quantidadePocaoVigor}">
-      0
-    </strong><span>Ajustes</span>
-  </div>  
-  
-  
-    <div class="ajuste-item">
-    <span>Espada Flanejante:</span>
-    <strong id="espada_flanejante"
-            th:text="${quantidadeEspadaFlanejante}">
-      0
-    </strong><span>Ajustes</span>
-  </div>  
-  
-  
-      <div class="ajuste-item">
-    <span>Machado Dilacerador:</span>
-    <strong id="machado_dilacerador"
-            th:text="${quantidadeMachadoDilacerador}">
-      0
-    </strong><span>Ajustes</span>
-  </div>  
-  
-  
-  
-  
-  
- 
- </div>
-  
-  
-<div class="perfil-titulo">Ranking de Dano</div>
-
-<ul id="rankingDano" class="user-ajustes">
   <!-- JS vai preencher aqui -->
-</ul>
 
-<div id="minhaPosicaoRanking" class="perfil-info"></div>
+<!-- ======================================================================================================== -->
 
-
-  
-  
-    </section>    
 <!-- fim da seção perfil do usuario -->
     
     
@@ -878,19 +762,116 @@ Dano
 </section>
 
     
-    
-    
+  
+  
 
-    <section id="retirar">
-       <h2 class="secao-titulo recompensa-titulo">Resgatar Recompensas</h2>
+
+    
+   <!-- =======================================  resgatar recompensas  ================================================================= --> 
+
+<section id="retirar">
+  <h2 class="secao-titulo recompensa-titulo">Resgatar Recompensas</h2>
+  <p class="secao-descricao recompensa-desc">
+    Aqui você pode retirar seus ganhos.
+  </p>
+ <p class="secao-descricao recompensa-desc">
+    Mìnimo de Retirada : 100.000 Boss Coin.
+  </p>
+
+  <div class="moedas-grid">
+
+    <!-- USDT -->
+    <div class="moeda-card" data-moeda="USDT">
+      <h3>USDT</h3>
+      <p class="valor">
+          <img src="/icones/tether-usdt-logo.webp?v=002" alt="usdt-icon">
+        <span class="quantidade"></span> USDT
+      </p>
+      <p class="equivalente">
+        ≈ <span class="boss"></span> BossCoin
+      </p>
+      <button class="btn-resgatar">Resgatar</button>
+    </div>
+
+    <!-- DOGE -->
+    <div class="moeda-card" data-moeda="DOGE">
+      <h3>DOGE</h3>
+      <p class="valor">
+        <img src="/icones/doge.webp?v=002" alt="doge">
+        <span class="quantidade"></span> DOGE
+      </p>
+      <p class="equivalente">
+        ≈ <span class="boss"></span> BossCoin
+      </p>
+      <button class="btn-resgatar">Resgatar</button>
+    </div>
+
+    <!-- LTC -->
+    <div class="moeda-card" data-moeda="LTC">
+      <h3>LTC</h3>
+      <p class="valor">
+       <img src="/icones/ltc.webp?v=010" alt="ltc">
+        <span class="quantidade"></span> LTC
+      </p>
+      <p class="equivalente">
+        ≈ <span class="boss"></span> BossCoin
+      </p>
+      <button class="btn-resgatar">Resgatar</button>
+    </div>
+
+    <!-- TRX -->
+    <div class="moeda-card" data-moeda="TRX">
+      <h3>TRX</h3>
+      <p class="valor">
+      <img src="/icones/trx.webp?v=010" alt="trx">
+        <span class="quantidade"></span> TRX
+      </p>
+      <p class="equivalente">
+        ≈ <span class="boss"></span> BossCoin
+      </p>
+      <button class="btn-resgatar">Resgatar</button>
+    </div>
+
+    <!-- DGB -->
+    <div class="moeda-card" data-moeda="DGB">
+      <h3>DGB</h3>
+      <p class="valor">
+        <img src="/icones/dgb.webp?v=001" alt="dgb">
+        <span class="quantidade"></span> DGB
+      </p>
+      <p class="equivalente">
+        ≈ <span class="boss"></span> BossCoin
+      </p>
+      <button class="btn-resgatar">Resgatar</button>
+    </div>
+
+  </div>
+  
+  
+<h3 class="secao-titulo recompensa-titulo">Histórico de Retiradas</h3>
 <p class="secao-descricao recompensa-desc">
-  Aqui você pode retirar seus ganhos.
+  Acompanhe seus últimos resgates no jogo
 </p>
 
+<div id="historico-container" class="historico-container">
+  <table class="historico-table">
+    <thead>
+      <tr>
+        <th>Moeda</th>
+        <th>Valor</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody id="historicoRetirada"></tbody>
+  </table>
+</div>
+
+  
+</section>
 
 
-    </section>
-    
     
 <section id="help">
 
@@ -979,15 +960,6 @@ Dano
 
 </section>
 
-
-
-
- 
-    
-
-
-
-    
     
 </main>
 
@@ -1008,31 +980,24 @@ Dano
     </div>
 </footer>
 
-  <script src="/js/loading.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/loading.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/sessionTimeOut.js" defer></script>
     <script src="/js/loadBoss.js"></script>  
     <script src="/js/dashboard.js"></script>
     <script src="/js/nav.js"></script>
-    
-    
-   
     <script src="/js/atacarBoss.js"></script> 
-    <script src="/js/lang-select.js"></script> 
-   
-     <script src="/js/recarregarVigor.js"></script>  
-     <script src="/js/atualizarStatusUsuario.js"></script>  
-     
+    <script src="/js/lang-select.js"></script>
+    <script src="/js/recarregarVigor.js"></script>  
+    <script src="/js/atualizarStatusUsuario.js"></script>  
     <!-- loja --> 
     <script src="/js/atualizarPrecosLoja.js"></script>
     <script src="/js/comprarGuerreiro.js"></script>
     <script src="/js/comprarEspadaFlanejante.js" defer></script>
-
     <script src="/js/comprarCapacidadeVigor.js"></script> 
     <script src="/js/comprarAtaqueEspecial.js"></script> 
     <!-- referidos -->
     <script src="/js/reivindicarReferidos.js" defer></script>  
-    
      <script src="/js/ajustesBatalha.js" defer></script>          
      <script src="/js/ativarPocaoVigor.js" defer></script> 
      <script src="/js/comprarPocaoVigorAuto.js" defer></script>        
@@ -1045,10 +1010,10 @@ Dano
      <script src="/js/atualizarAtaquePorMinuto.js" defer></script>   
      <script src="/js/carregarRankingDano.js" defer></script>  
      <script src="/js/equiparEspadaFlanejante.js" defer></script>
-      <script src="/js/comprarMachadoDilacerador.js" defer></script>
-    
-      <script src="/js/equiparMachadoDilacerador.js" defer></script>
-     
+     <script src="/js/comprarMachadoDilacerador.js" defer></script>
+     <script src="/js/equiparMachadoDilacerador.js" defer></script>
+     <script src="/js/ultimosPagamentos.js" defer></script>
+     <script src="/js/resgatarRecompensas.js" defer></script>
     
     
     

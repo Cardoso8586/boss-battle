@@ -39,3 +39,161 @@
 .recompensa-desc {
   color: #fff2b3;
 }
+
+.moedas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.moeda-card {
+  background: linear-gradient(145deg, #141414, #1c1c1c);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.moeda-card:hover {
+  transform: translateY(-5px);
+}
+
+.moeda-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.valor {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.equivalente {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+.btn-resgatar {
+  background: gold;
+  color: #000;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-resgatar:hover {
+  background: #ffd700;
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.historico-container {
+  max-height: 250px;
+  overflow-y: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  background: linear-gradient(180deg, #0b0f14, #050608);
+  box-shadow:
+    inset 0 0 20px rgba(255, 180, 0, 0.05),
+    0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Scroll estilizado */
+.historico-container::-webkit-scrollbar {
+  width: 6px;
+}
+.historico-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffd700, #ffb400);
+  border-radius: 10px;
+}
+
+/* ===============================
+   TABELA
+================================ */
+.historico-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #ffe7a3;
+}
+
+.historico-table thead {
+  background: linear-gradient(180deg, #2a2200, #151100);
+}
+
+.historico-table th {
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.historico-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+/* Linhas */
+.historico-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.historico-table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+/* ===============================
+   STATUS
+================================ */
+.status-APROVADO {
+  color: #00ff7f;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 127, 0.8);
+}
+
+.status-PENDENTE {
+  color: #ffb400;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 180, 0, 0.8);
+}
+
+.status-ERRO {
+  color: #ff4d4d;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
+}
+
+/* ===============================
+   MOEDA / VALOR
+================================ */
+.moeda-tag {
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.valor-tag {
+  font-family: monospace;
+  color: #fff2b3;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 600px) {
+  .historico-table th,
+  .historico-table td {
+    font-size: 0.75rem;
+    padding: 8px;
+  }
+}
+

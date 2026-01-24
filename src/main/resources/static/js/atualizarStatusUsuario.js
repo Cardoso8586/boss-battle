@@ -140,43 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 			
-			
-/**
- * 	// PRIORIDADE: ESPADA > MACHADO
-			if (ativa !== null && ativa > 0) {
-			    // ✅ ESPADA ATIVA
-			    container.classList.remove('hidden');
-
-			    barra.value = desgaste;
-			    texto.textContent = `${desgaste}%`;
-
-			    guerreiroImage.src = "/icones/guerreiroPadrao_espadaFlanejante.webp";
-
-			} else if (ativaMachado !== null && ativaMachado > 0) {
-			    // ✅ MACHADO ATIVO
-			    container.classList.remove('hidden');
-
-			    barra.value = desgasteMachado;
-			    texto.textContent = `${desgasteMachado}%`;
-
-			    guerreiroImage.src = "/icones/guerreiroPadrao_machadoDilacerador.webp";
-
-			} else {
-			    // ❌ NENHUMA ARMA ATIVA
-			    container.classList.add('hidden');
-
-			    barra.value = 0;
-			    texto.textContent = '';
-
-			    guerreiroImage.src = "/images/guerreiro_padrao.webp";
-			}
-
-				
- * 
- */
-			
-			
-			
+		
 
         } catch (err) {
             console.error(err);

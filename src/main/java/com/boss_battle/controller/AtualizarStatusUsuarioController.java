@@ -33,6 +33,7 @@ public class AtualizarStatusUsuarioController {
         
         return Map.ofEntries(
         	    Map.entry("id", usuario.getId()),
+        	    Map.entry("email", usuario.getEmail()),
         	    Map.entry("energiaGuerreiros", usuario.getEnergiaGuerreiros()),
         	    Map.entry("energiaGuerreirosPadrao", usuario.getEnergiaGuerreirosPadrao()),
         	    Map.entry("guerreiros", usuario.getGuerreiros()),
