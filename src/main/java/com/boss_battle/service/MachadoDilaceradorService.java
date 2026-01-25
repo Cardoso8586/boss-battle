@@ -51,8 +51,8 @@ public class MachadoDilaceradorService {
         // reseta desgaste
         usuario.setMachadoDilaceradorDesgaste(200);
         
-        usuarioRepository.save(usuario);
-        
+        //usuarioRepository.save(usuario);
+        usuarioRepository.saveAndFlush(usuario);
         
  }//--->ativarMachdoDilacerador
 	    
@@ -85,7 +85,7 @@ public class MachadoDilaceradorService {
 	        } else {
 	            usuario.setMachadoDilaceradorDesgaste(desgasteAtual);
 	        }
-
+	       
 	        return true;
 	    }
 	

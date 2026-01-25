@@ -51,7 +51,8 @@ public class EspadaFlanejanteService {
         // reseta desgaste
         usuario.setEspadaFlanejanteDesgaste(100);
 
-        usuarioRepository.save(usuario);
+       // usuarioRepository.save(usuario);
+        usuarioRepository.saveAndFlush(usuario);
     }
 
     public boolean usarEspadaFlanejante(UsuarioBossBattle usuario) {
