@@ -1,6 +1,4 @@
-/**
- * Machado Dilacerador – Equipar
- */
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -98,8 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (emCooldown) return;
 		
 				
-				
-
             emCooldown = true;
             btnAtivarMachado.disabled = true;
 
@@ -110,13 +106,43 @@ document.addEventListener('DOMContentLoaded', () => {
 				const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
 			    if (!res1.ok) return;
 				const status = await res1.json();
-				const ativoGuerreiro = status.ativoGuerreiro;	
-				if ( ativoGuerreiro <= 0  )return;
+				const ativoGuerreiro = status.ativoGuerreiro;
+				const espadaAtiva = status.espadaFlanejanteAtiva ?? 0;
+
+				
+			
+				//if ( ativoGuerreiro <= 0  )return;
+				clearInterval(window.loopMachado);
+
                 const res = await fetch(
                     `/api/machado-dilacerador/ativar?usuarioId=${usuarioId}&quantidade=1`,
                     { method: 'POST' }
                 );
 
+				if (ativoGuerreiro <= 0) {
+				    Swal.fire({
+				        icon: 'warning',
+				        title: 'Ação bloqueada',
+				        text: 'Você não pode equipar armas agora.',
+				        background: 'transparent',
+				        color: '#ff3b3b'
+				    });
+				    return;
+				}
+
+				if (espadaAtiva === 1) {
+				    Swal.fire({
+				        icon: 'warning',
+				        title: 'Arma incompatível',
+				        text: 'Desequipe a espada antes de equipar o machado.',
+				        background: 'transparent',
+				        color: '#ff3b3b'
+				    });
+				    return;
+				}
+
+
+				
                 if (!res.ok) {
                     const erro = await res.text();
                     Swal.fire({
@@ -164,7 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // LOOP
     // ==============================
     atualizarUsuario();
-    setInterval(atualizarUsuario, 5000);
+	window.loopMachado = setInterval(atualizarUsuario, 5000);
+
+   // setInterval(atualizarUsuario, 5000);
 });
 
 

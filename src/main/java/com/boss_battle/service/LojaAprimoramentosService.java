@@ -165,22 +165,22 @@ public class LojaAprimoramentosService {
 
         long aumento;
 
-        if (nivel <= 10) {
+        if (nivel <= 100) {
+            aumento = 100;
+        } else if (nivel <= 200) {
+            aumento = 200;
+        } else if (nivel <= 300) {
+            aumento = 300;
+        } else if (nivel <= 400) {
+            aumento = 400;
+        } else if (nivel <= 500) {
+            aumento = 500;
+        } else if (nivel <= 700) {
+            aumento = 700;
+        } else if (nivel <= 1_000) {
             aumento = 1_000;
-        } else if (nivel <= 20) {
-            aumento = 2_000;
-        } else if (nivel <= 30) {
-            aumento = 3_000;
-        } else if (nivel <= 40) {
-            aumento = 4_000;
-        } else if (nivel <= 50) {
-            aumento = 5_000;
-        } else if (nivel <= 70) {
-            aumento = 7_000;
-        } else if (nivel <= 100) {
-            aumento = 10_000;
         } else {
-            aumento = 15_000;
+            aumento = 10_000;
         }
 
         // 🔼 aumento fixo e permanente
@@ -205,21 +205,21 @@ public class LojaAprimoramentosService {
         long aumento;
 
         if (nivel <= 100) {
-            aumento = 1_000;
+            aumento = 100;
         } else if (nivel <= 200) {
-            aumento = 2_000;
+            aumento = 200;
         } else if (nivel <= 300) {
-            aumento = 3_000;
+            aumento = 300;
         } else if (nivel <= 400) {
-            aumento = 4_000;
+            aumento = 400;
         } else if (nivel <= 500) {
-            aumento = 5_000;
+            aumento = 500;
         } else if (nivel <= 700) {
-            aumento = 7_000;
+            aumento = 700;
         } else if (nivel <= 1_000) {
-            aumento = 10_000;
+            aumento = 1_000;
         } else {
-            aumento = 15_000;
+            aumento = 10_000;
         }
 
         usuario.setPrecoEspadaFlanejante(precoAtual + aumento);
@@ -238,21 +238,21 @@ public class LojaAprimoramentosService {
         long aumento;
 
         if (nivel <= 100) {
-            aumento = 1_000;
+            aumento = 100;
         } else if (nivel <= 200) {
-            aumento = 2_000;
+            aumento = 200;
         } else if (nivel <= 300) {
-            aumento = 3_000;
+            aumento = 300;
         } else if (nivel <= 400) {
-            aumento = 4_000;
+            aumento = 400;
         } else if (nivel <= 500) {
-            aumento = 5_000;
+            aumento = 500;
         } else if (nivel <= 700) {
-            aumento = 7_000;
+            aumento = 700;
         } else if (nivel <= 1_000) {
-            aumento = 10_000;
+            aumento = 1_000;
         } else {
-            aumento = 15_000;
+            aumento = 10_000;
         }
 
         usuario.setPrecoMachadoDilacerador(precoAtual + aumento);

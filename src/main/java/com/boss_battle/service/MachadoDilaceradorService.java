@@ -50,11 +50,30 @@ public class MachadoDilaceradorService {
         
         // reseta desgaste
         usuario.setMachadoDilaceradorDesgaste(200);
-        
+        validarArmasAtivas(usuario);
         //usuarioRepository.save(usuario);
         usuarioRepository.saveAndFlush(usuario);
         
  }//--->ativarMachdoDilacerador
+	  
+	    private void validarArmasAtivas(UsuarioBossBattle usuario) {
+
+	        long espadaAtiva = usuario.getEspadaFlanejanteAtiva();
+	        long machadoAtivo = usuario.getMachadoDilaceradorAtivo();
+
+	        // ⚠️ ESTADO ILEGAL → PUNIÇÃO
+	        if (
+	            (espadaAtiva > 0 && machadoAtivo > 0) ||
+	            espadaAtiva > 1 ||
+	            machadoAtivo > 1
+	        ) {
+	            usuario.setEspadaFlanejanteAtiva(0);
+	            usuario.setEspadaFlanejanteDesgaste(0);
+
+	            usuario.setMachadoDilaceradorAtivo(0);
+	            usuario.setMachadoDilaceradorDesgaste(0);
+	        }
+	    }    
 	    
 	//===============================================================================
 	                 // USAR MACHADO DILACERADOR
@@ -65,6 +84,14 @@ public class MachadoDilaceradorService {
 	        if (usuario.getMachadoDilaceradorAtivo() <= 0) {
 	            return false;
 	        }
+	        
+	     // 🚫 BLOQUEIA SE ESPADA ATIVA
+	        if (usuario.getEspadaFlanejanteAtiva() > 0) {
+	            throw new RuntimeException(
+	                "Não é possível equipar o machado enquanto uma espada estiver equipada"
+	            );
+	        }
+
 
 	        long desgasteAtual = usuario.getMachadoDilaceradorDesgaste();
 

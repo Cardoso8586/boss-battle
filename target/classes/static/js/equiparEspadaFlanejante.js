@@ -110,13 +110,40 @@ document.addEventListener('DOMContentLoaded', () => {
 				const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
 				if (!res1.ok) return;
 				const status = await res1.json();
-				const ativoGuerreiro = status.ativoGuerreiro;	
-				if ( ativoGuerreiro <= 0  )return;
+				const ativoGuerreiro = status.ativoGuerreiro;
+				const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
+					
 				
+			//	if ( ativoGuerreiro <= 0  )return;
+			clearInterval(window.loopMachado);
+
                 const res = await fetch(
                     `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
                     { method: 'POST' }
                 );
+
+				if (ativoGuerreiro <= 0) {
+				    Swal.fire({
+				        icon: 'warning',
+				        title: 'Ação bloqueada',
+				        text: 'Você não pode equipar armas agora.',
+				        background: 'transparent',
+				        color: '#ff3b3b'
+				    });
+				    return;
+				}
+
+				if (machadoAtivo === 1) {
+				    Swal.fire({
+				        icon: 'info',
+				        title: 'Machado já equipado',
+				        text: 'Você já está usando o Machado Dilacerador.',
+				        background: 'transparent',
+				        color: '#ffb400'
+				    });
+				    return;
+				}
+
 
                 if (!res.ok) {
                     const erro = await res.text();
@@ -168,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // LOOP
     // ==============================
     atualizarUsuario();
-    setInterval(atualizarUsuario, 5000);
+	window.loopMachado = setInterval(atualizarUsuario, 5000);
+
+    //setInterval(atualizarUsuario, 5000);
 });
 

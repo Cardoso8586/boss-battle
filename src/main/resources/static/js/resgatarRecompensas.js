@@ -248,5 +248,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await atualizarPrecos();
     buscarSaldo();
   }
+  
+  setInterval(atualizarPrecos, 10000);
+  setInterval(buscarSaldo, 10000);
 });
 
