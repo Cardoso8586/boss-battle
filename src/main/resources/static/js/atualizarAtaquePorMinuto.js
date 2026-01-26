@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			const machadoDilaceradorAtivo = data.ativarMachadoDilacerador;
             const ataquePorMinuto = data.ataquePorMinuto;
            
+          
+            let valor = ataquePorMinuto;
             // Verifica se há energia
             if (!energia) return;
-
-            let valor = ataquePorMinuto;
-
+			if (energia <= 0) return;
             // Se espada flanejante estiver ativa, aumenta 20%
             if (espadaFlanejanteAtiva) {
                 valor *= 1.2;

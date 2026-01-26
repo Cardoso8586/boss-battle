@@ -20,7 +20,7 @@ public class BossAttackService {
     private final Random random = new Random();
 
     private static final long COOLDOWN_MIN_MINUTOS = 8;
-    private static final long COOLDOWN_MAX_MINUTOS = 15;
+    private static final long COOLDOWN_MAX_MINUTOS = 20;
 
     // cooldown sorteado e FIXO até o próximo ataque
     private long cooldownSorteadoMinutos = 8;

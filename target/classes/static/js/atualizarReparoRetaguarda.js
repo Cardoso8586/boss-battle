@@ -15,7 +15,9 @@ async function atualizarReparoRetaguarda() {
 
         // Se já estiver cheio, não anima
         if (energiaAtual >= energiaMaxima) return;
-
+		// Se já estiver zerada, não mostrar
+		if (energiaAtual <= 0) return;
+		
         if (reparoEfetivo > 0) {
             animarReparo(reparoEfetivo);
 

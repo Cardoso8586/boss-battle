@@ -149,49 +149,6 @@ public class RandomRewardService {
         return rewardRepo.save(reward);
     }
 
-    /**
-    private RandomLevelReward generateAndSave(Long userId) {
 
-        RandomLevelReward reward = new RandomLevelReward();
-        reward.setUserId(userId);
-
-        int roll = random.nextInt(100); // 0 a 99
-        if (roll < 10) { // ⚔️ Guerreiro - 10%
-            reward.setRewardType(RewardType.GUERREIRO);
-            reward.setRewardItem(RewardItem.GUERREIRO_BASICO);
-            reward.setAmount(1);
-            reward.setImageUrl("icones/guerreiro.webp");
-
-        } else if (roll < 20) { // 🧪 Poção - 10%
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.POCAO_VIGOR);
-            reward.setAmount(1);
-            reward.setImageUrl("icones/pocao_vigor.webp");
-
-        } else if (roll < 40) { // ✨ Ataque especial - 20%
-            reward.setRewardType(RewardType.SPECIAL);
-            reward.setRewardItem(RewardItem.ATAQUE_SPECIAL);
-            reward.setAmount(5);
-            reward.setImageUrl("icones/ataque_especial.webp");
-
-        } else if (roll < 70) { // 💰 Moedas - 30%
-            reward.setRewardType(RewardType.CURRENCY);
-            reward.setRewardItem(RewardItem.BOSS_COIN);
-            reward.setAmount(200 + random.nextInt(500));
-            reward.setImageUrl("icones/boss_coin.webp");
-
-        } else { // ⭐ EXP - 30%
-            reward.setRewardType(RewardType.PROGRESSION);
-            reward.setRewardItem(RewardItem.EXP);
-            reward.setAmount(250);
-            reward.setImageUrl("icones/exp.webp");
-        }
-
-        // Para debug: mostrar chance e roll
-        System.out.println("Roll: " + roll + " -> Reward: " + reward.getRewardItem());
-
-        return rewardRepo.save(reward);
-    }
-*/
 }
 

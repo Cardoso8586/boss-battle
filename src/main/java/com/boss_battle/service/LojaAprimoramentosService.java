@@ -165,24 +165,23 @@ public class LojaAprimoramentosService {
 
         long aumento;
 
-        if (nivel <= 100) {
-            aumento = 100;
-        } else if (nivel <= 200) {
-            aumento = 200;
-        } else if (nivel <= 300) {
-            aumento = 300;
-        } else if (nivel <= 400) {
-            aumento = 400;
-        } else if (nivel <= 500) {
-            aumento = 500;
-        } else if (nivel <= 700) {
-            aumento = 700;
-        } else if (nivel <= 1_000) {
-            aumento = 1_000;
-        } else {
-            aumento = 10_000;
-        }
-
+        if (nivel <= 10) aumento = 10;
+        else if (nivel <= 20) aumento = 20;
+        else if (nivel <= 30) aumento = 30;
+        else if (nivel <= 40) aumento = 40;
+        else if (nivel <= 50) aumento = 50;
+        else if (nivel <= 70) aumento = 70;
+        else if (nivel <= 100) aumento = 100;
+        else if (nivel <= 200) aumento = 200;
+        else if (nivel <= 300) aumento = 300;
+        else if (nivel <= 400) aumento = 400;
+        else if (nivel <= 500) aumento = 500;
+        else if (nivel <= 600) aumento = 600;
+        else if (nivel <= 700) aumento = 700;
+        else if (nivel <= 800) aumento = 800;
+        else if (nivel <= 900) aumento = 900;
+        else if (nivel <= 1_000) aumento = 1_000;
+        else aumento = 1_500;
         // 🔼 aumento fixo e permanente
         usuario.setPrecoPocaoVigor(precoAtual + aumento);
     }
@@ -191,9 +190,6 @@ public class LojaAprimoramentosService {
  // ---> atualizar preço espada flanejante
     public void atualizarPrecoEspadaFlanejante(UsuarioBossBattle usuario) {
 
-      
-        
-      
         long precoAtual = usuario.getPrecoEspadaFlanejante();
 
         if (precoAtual <= 0) {
@@ -204,56 +200,54 @@ public class LojaAprimoramentosService {
 
         long aumento;
 
-        if (nivel <= 100) {
-            aumento = 100;
-        } else if (nivel <= 200) {
-            aumento = 200;
-        } else if (nivel <= 300) {
-            aumento = 300;
-        } else if (nivel <= 400) {
-            aumento = 400;
-        } else if (nivel <= 500) {
-            aumento = 500;
-        } else if (nivel <= 700) {
-            aumento = 700;
-        } else if (nivel <= 1_000) {
-            aumento = 1_000;
-        } else {
-            aumento = 10_000;
-        }
-
+        if (nivel <= 10) aumento = 10;
+        else if (nivel <= 20) aumento = 20;
+        else if (nivel <= 30) aumento = 30;
+        else if (nivel <= 40) aumento = 40;
+        else if (nivel <= 50) aumento = 50;
+        else if (nivel <= 70) aumento = 70;
+        else if (nivel <= 100) aumento = 100;
+        else if (nivel <= 200) aumento = 200;
+        else if (nivel <= 300) aumento = 300;
+        else if (nivel <= 400) aumento = 400;
+        else if (nivel <= 500) aumento = 500;
+        else if (nivel <= 600) aumento = 600;
+        else if (nivel <= 700) aumento = 700;
+        else if (nivel <= 800) aumento = 800;
+        else if (nivel <= 900) aumento = 900;
+        else if (nivel <= 1_000) aumento = 1_000;
+        else aumento = 1_500;
         usuario.setPrecoEspadaFlanejante(precoAtual + aumento);
     }
 
     
- // ---> atualizar preço espada flanejante
     public void atualizarPrecoMachadoDilacerador(UsuarioBossBattle usuario) {
 
         long precoAtual = usuario.getPrecoMachadoDilacerador();
         if (precoAtual <= 0) {
             precoAtual = 5_000L;
         }
-        long nivel = usuario.getNivel();
 
+        long nivel = usuario.getNivel();
         long aumento;
 
-        if (nivel <= 100) {
-            aumento = 100;
-        } else if (nivel <= 200) {
-            aumento = 200;
-        } else if (nivel <= 300) {
-            aumento = 300;
-        } else if (nivel <= 400) {
-            aumento = 400;
-        } else if (nivel <= 500) {
-            aumento = 500;
-        } else if (nivel <= 700) {
-            aumento = 700;
-        } else if (nivel <= 1_000) {
-            aumento = 1_000;
-        } else {
-            aumento = 10_000;
-        }
+        if (nivel <= 10) aumento = 10;
+        else if (nivel <= 20) aumento = 20;
+        else if (nivel <= 30) aumento = 30;
+        else if (nivel <= 40) aumento = 40;
+        else if (nivel <= 50) aumento = 50;
+        else if (nivel <= 70) aumento = 70;
+        else if (nivel <= 100) aumento = 100;
+        else if (nivel <= 200) aumento = 200;
+        else if (nivel <= 300) aumento = 300;
+        else if (nivel <= 400) aumento = 400;
+        else if (nivel <= 500) aumento = 500;
+        else if (nivel <= 600) aumento = 600;
+        else if (nivel <= 700) aumento = 700;
+        else if (nivel <= 800) aumento = 800;
+        else if (nivel <= 900) aumento = 900;
+        else if (nivel <= 1_000) aumento = 1_000;
+        else aumento = 1_500;
 
         usuario.setPrecoMachadoDilacerador(precoAtual + aumento);
     }

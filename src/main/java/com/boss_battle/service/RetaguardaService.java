@@ -29,9 +29,13 @@ public class RetaguardaService {
 
         long energiaMaxima = usuario.getEnergiaGuerreirosPadrao();
         long energiaAtual = usuario.getEnergiaGuerreiros();
-
         Long guerreiros = usuario.getGuerreirosRetaguarda();
         Long recuperacao = usuario.getRecuperacaoRetaguarda();
+        
+     // energia zerada bloqueia recuperação automática
+        if (energiaAtual <= 0) {
+            return;
+        }
 
         if (guerreiros == null || recuperacao == null) return;
         if (guerreiros <= 0 || recuperacao <= 0) return;
