@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     const espadaSpan = document.getElementById('espadaFlanejante');
     const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
-   // const espadaAtivaInfo = document.querySelector('.espada-flanejante-ativa-info');
+    //const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador'); travar imediatamnete o botão de ativar o machado
 	const espadaInfos = document.querySelectorAll('.espada-flanejante-ativa-info');
     // ==============================
     // FORMATAÇÃO
@@ -92,8 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const tempoCooldown = 4;
 
     if (btnAtivarEspada) {
-        btnAtivarEspada.addEventListener('click', async () => {
 
+        btnAtivarEspada.addEventListener('click', async () => {
+		
             if (emCooldown) return;
 			
 
