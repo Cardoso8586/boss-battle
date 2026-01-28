@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     const espadaSpan = document.getElementById('espadaFlanejante');
     const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
-    //const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador'); travar imediatamnete o botão de ativar o machado
+    const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador'); 
 	const espadaInfos = document.querySelectorAll('.espada-flanejante-ativa-info');
     // ==============================
     // FORMATAÇÃO
@@ -90,107 +90,231 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     let emCooldown = false;
     const tempoCooldown = 4;
+	if (btnAtivarEspada) {
 
-    if (btnAtivarEspada) {
+	    btnAtivarEspada.addEventListener('click', async () => {
 
-        btnAtivarEspada.addEventListener('click', async () => {
-		
-            if (emCooldown) return;
-			
+	        if (emCooldown) return;
 
-            emCooldown = true;
-            btnAtivarEspada.disabled = true;
+	        emCooldown = true;
+	        btnAtivarEspada.disabled = true;
 
-          //  let restante = tempoCooldown;
-            const textoOriginal = btnAtivarEspada.innerText;
+	        // 🔒 trava o botão do machado imediatamente
+	        btnAtivarMachado.style.pointerEvents = 'none';
+	        btnAtivarMachado.style.opacity = '0.5';
 
-            btnAtivarEspada.innerText = `Ativando...`;
-		
+	        const textoOriginal = btnAtivarEspada.innerText;
+	        btnAtivarEspada.innerText = 'Ativando...';
 
-            try {
-				const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
-				if (!res1.ok) return;
-				const status = await res1.json();
-				const ativoGuerreiro = status.ativoGuerreiro;
-				const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
-					
-				
-			//	if ( ativoGuerreiro <= 0  )return;
-			clearInterval(window.loopMachado);
+	        try {
+	            const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+	            if (!res1.ok) {
+	                // 🔄 destrava machado se falhar
+	                btnAtivarMachado.style.pointerEvents = 'auto';
+	                btnAtivarMachado.style.opacity = '1';
+	                return;
+	            }
 
-                const res = await fetch(
-                    `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
-                    { method: 'POST' }
-                );
+	            const status = await res1.json();
+	            const ativoGuerreiro = status.ativoGuerreiro;
+	            const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
 
-				if (ativoGuerreiro <= 0) {
-				    Swal.fire({
-				        icon: 'warning',
-				        title: 'Ação bloqueada',
-				        text: 'Você não pode equipar armas agora.',
-				        background: 'transparent',
-				        color: '#ff3b3b'
-				    });
-				    return;
-				}
+	            clearInterval(window.loopMachado);
 
-				if (machadoAtivo === 1) {
-				    Swal.fire({
-				        icon: 'info',
-				        title: 'Machado já equipado',
-				        text: 'Você já está usando o Machado Dilacerador.',
-				        background: 'transparent',
-				        color: '#ffb400'
-				    });
-				    return;
-				}
+	            if (ativoGuerreiro <= 0) {
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Ação bloqueada',
+	                    text: 'Você não pode equipar armas agora.',
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+
+	                // 🔄 destrava machado
+	                btnAtivarMachado.style.pointerEvents = 'auto';
+	                btnAtivarMachado.style.opacity = '1';
+	                return;
+	            }
+
+	            if (machadoAtivo === 1) {
+	                Swal.fire({
+	                    icon: 'info',
+	                    title: 'Machado já equipado',
+	                    text: 'Desequipe o machado antes de usar a espada.',
+	                    background: 'transparent',
+	                    color: '#ffb400'
+	                });
+
+	                // 🔄 destrava machado
+	                btnAtivarMachado.style.pointerEvents = 'auto';
+	                btnAtivarMachado.style.opacity = '1';
+	                return;
+	            }
+
+	            const res = await fetch(
+	                `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
+	                { method: 'POST' }
+	            );
+
+	            if (!res.ok) {
+	                const erro = await res.text();
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Erro',
+	                    text: erro,
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+
+	                // 🔄 destrava machado
+	                btnAtivarMachado.style.pointerEvents = 'auto';
+	                btnAtivarMachado.style.opacity = '1';
+	                return;
+	            }
+
+	            Swal.fire({
+	                icon: 'success',
+	                title: 'Espada equipada!',
+	                text: 'Sua Espada Flanejante foi equipada com sucesso.',
+	                timer: 7000,
+	                showConfirmButton: false,
+	                background: 'transparent',
+	                color: '#ffb400'
+	            });
+
+	            await atualizarUsuario();
+	            // ✅ sucesso → machado permanece travado
+
+	        } catch (e) {
+	            console.error(e);
+
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao tentar equipar espada.',
+	                background: 'transparent',
+	                color: '#ff3b3b'
+	            });
+
+	            // 🔄 destrava machado no catch
+	            btnAtivarMachado.style.pointerEvents = 'auto';
+	            btnAtivarMachado.style.opacity = '1';
+
+	        } finally {
+	            setTimeout(() => {
+	                emCooldown = false;
+	                btnAtivarEspada.disabled = false;
+	                btnAtivarEspada.innerText = textoOriginal;
+	            }, tempoCooldown * 1000);
+	        }
+	    });
+	}
+
+	/**
+	 * 	 if (btnAtivarEspada) {
+
+	        btnAtivarEspada.addEventListener('click', async () => {
+	 	
+	            if (emCooldown) return;
+	 		
+
+	            emCooldown = true;
+	            btnAtivarEspada.disabled = true;
+
+	          //  let restante = tempoCooldown;
+	 	  
+	            const textoOriginal = btnAtivarEspada.innerText;
+
+	            btnAtivarEspada.innerText = `Ativando...`;
+	 	
+
+	            try {
+	 			const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+	 			if (!res1.ok) return;
+	 			const status = await res1.json();
+	 			const ativoGuerreiro = status.ativoGuerreiro;
+	 			const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
+	 				
+	 			
+	 		//	if ( ativoGuerreiro <= 0  )return;
+	 		clearInterval(window.loopMachado);
+
+	                const res = await fetch(
+	                    `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
+	                    { method: 'POST' }
+	                );
+
+	 			if (ativoGuerreiro <= 0) {
+	 			    Swal.fire({
+	 			        icon: 'warning',
+	 			        title: 'Ação bloqueada',
+	 			        text: 'Você não pode equipar armas agora.',
+	 			        background: 'transparent',
+	 			        color: '#ff3b3b'
+	 			    });
+	 			    return;
+	 			}
+
+	 			if (machadoAtivo === 1) {
+	 			    Swal.fire({
+	 			        icon: 'info',
+	 			        title: 'Machado já equipado',
+	 			        text: 'Você já está usando o Machado Dilacerador.',
+	 			        background: 'transparent',
+	 			        color: '#ffb400'
+	 			    });
+	 			    return;
+	 			}
 
 
-                if (!res.ok) {
-                    const erro = await res.text();
-                    Swal.fire({
-                        customClass: { title: 'swal-game-error' },
-                        icon: 'warning',
-                        title: 'Erro',
-                        text: erro,
-                        background: 'transparent',
-                        color: '#ff3b3b'
-                    });
-                    return;
-                }
+	                if (!res.ok) {
+	                    const erro = await res.text();
+	                    Swal.fire({
+	                        customClass: { title: 'swal-game-error' },
+	                        icon: 'warning',
+	                        title: 'Erro',
+	                        text: erro,
+	                        background: 'transparent',
+	                        color: '#ff3b3b'
+	                    });
+	                    return;
+	                }
 
-                Swal.fire({
-                    customClass: { title: 'swal-game-text' },
-                    icon: 'success',
-                    title: 'Espada equipada!',
-                    text: 'Sua Espada Flanejante foi equipada com sucesso.',
-                    timer: 7000,
-                    showConfirmButton: false,
-                    background: 'transparent',
-                    color: '#ffb400'
-                });
+	                Swal.fire({
+	                    customClass: { title: 'swal-game-text' },
+	                    icon: 'success',
+	                    title: 'Espada equipada!',
+	                    text: 'Sua Espada Flanejante foi equipada com sucesso.',
+	                    timer: 7000,
+	                    showConfirmButton: false,
+	                    background: 'transparent',
+	                    color: '#ffb400'
+	                });
 
-                await atualizarUsuario();
+	                await atualizarUsuario();
 
-            } catch (e) {
-                console.error(e);
-                Swal.fire({
-                    customClass: { title: 'swal-game-error' },
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Erro ao tentar equipar espada.',
-                    background: 'transparent',
-                    color: '#ff3b3b'
-                });
-            } finally {
-                setTimeout(() => {
-                    emCooldown = false;
-                    btnAtivarEspada.disabled = false;
-                    btnAtivarEspada.innerText = textoOriginal;
-                }, tempoCooldown * 1000);
-            }
-        });
-    }
+	            } catch (e) {
+	                console.error(e);
+	                Swal.fire({
+	                    customClass: { title: 'swal-game-error' },
+	                    icon: 'error',
+	                    title: 'Erro',
+	                    text: 'Erro ao tentar equipar espada.',
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+	            } finally {
+	                setTimeout(() => {
+	                    emCooldown = false;
+	                    btnAtivarEspada.disabled = false;
+	                    btnAtivarEspada.innerText = textoOriginal;
+	                }, tempoCooldown * 1000);
+	            }
+	        });
+	    }
+	 * 
+	 */
+   
 
     // ==============================
     // LOOP

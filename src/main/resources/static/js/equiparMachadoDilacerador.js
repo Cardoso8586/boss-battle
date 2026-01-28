@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     const machadoSpan = document.getElementById('machadoDilacerador');
     const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador');
+	const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
     const machadoInfos = document.querySelectorAll('.machado-dilacerador-ativo-info');
 
     // ==============================
@@ -88,9 +89,127 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     let emCooldown = false;
     const tempoCooldown = 4;
+	if (btnAtivarMachado) {
+	    btnAtivarMachado.addEventListener('click', async () => {
 
+	        if (emCooldown) return;
 
-    if (btnAtivarMachado) {
+	        emCooldown = true;
+	        btnAtivarMachado.disabled = true;
+
+	        // 🔒 trava botão da espada imediatamente
+	        btnAtivarEspada.style.pointerEvents = 'none';
+	        btnAtivarEspada.style.opacity = '0.5';
+
+	        const textoOriginal = btnAtivarMachado.innerText;
+	        btnAtivarMachado.innerText = 'Ativando...';
+
+	        try {
+	            const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
+	            if (!res1.ok) {
+	                // 🔄 destrava espada se falhar
+	                btnAtivarEspada.style.pointerEvents = 'auto';
+	                btnAtivarEspada.style.opacity = '1';
+	                return;
+	            }
+
+	            const status = await res1.json();
+	            const ativoGuerreiro = status.ativoGuerreiro;
+	            const espadaAtiva = status.espadaFlanejanteAtiva ?? 0;
+
+	            clearInterval(window.loopMachado);
+
+	            if (ativoGuerreiro <= 0) {
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Ação bloqueada',
+	                    text: 'Você não pode equipar armas agora.',
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+
+	                // 🔄 destrava espada
+	                btnAtivarEspada.style.pointerEvents = 'auto';
+	                btnAtivarEspada.style.opacity = '1';
+	                return;
+	            }
+
+	            if (espadaAtiva === 1) {
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Arma incompatível',
+	                    text: 'Desequipe a espada antes de equipar o machado.',
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+
+	                // 🔄 destrava espada
+	                btnAtivarEspada.style.pointerEvents = 'auto';
+	                btnAtivarEspada.style.opacity = '1';
+	                return;
+	            }
+
+	            const res = await fetch(
+	                `/api/machado-dilacerador/ativar?usuarioId=${usuarioId}&quantidade=1`,
+	                { method: 'POST' }
+	            );
+
+	            if (!res.ok) {
+	                const erro = await res.text();
+	                Swal.fire({
+	                    icon: 'warning',
+	                    title: 'Erro',
+	                    text: erro,
+	                    background: 'transparent',
+	                    color: '#ff3b3b'
+	                });
+
+	                // 🔄 destrava espada
+	                btnAtivarEspada.style.pointerEvents = 'auto';
+	                btnAtivarEspada.style.opacity = '1';
+	                return;
+	            }
+
+	            Swal.fire({
+	                icon: 'success',
+	                title: 'Machado equipado!',
+	                text: 'Seu Machado Dilacerador foi equipado com sucesso.',
+	                timer: 7000,
+	                showConfirmButton: false,
+	                background: 'transparent',
+	                color: '#ffb400'
+	            });
+
+	            await atualizarUsuario();
+	            // ✅ sucesso → espada permanece travada
+
+	        } catch (e) {
+	            console.error(e);
+
+	            Swal.fire({
+	                icon: 'error',
+	                title: 'Erro',
+	                text: 'Erro ao tentar equipar o machado.',
+	                background: 'transparent',
+	                color: '#ff3b3b'
+	            });
+
+	            // 🔄 destrava espada no catch
+	            btnAtivarEspada.style.pointerEvents = 'auto';
+	            btnAtivarEspada.style.opacity = '1';
+
+	        } finally {
+	            setTimeout(() => {
+	                emCooldown = false;
+	                btnAtivarMachado.disabled = false;
+	                btnAtivarMachado.innerText = textoOriginal;
+	            }, tempoCooldown * 1000);
+	        }
+	    });
+	}
+
+/**
+ *  if (btnAtivarMachado) {
         btnAtivarMachado.addEventListener('click', async () => {
 
             if (emCooldown) return;
@@ -185,6 +304,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+ * 
+ */
+   
 
     // ==============================
     // LOOP
