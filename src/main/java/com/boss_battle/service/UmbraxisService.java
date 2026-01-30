@@ -26,8 +26,8 @@ public class UmbraxisService {
     public GlobalBossUmbraxis createDefaultBoss() {
     	GlobalBossUmbraxis boss = new GlobalBossUmbraxis();
          boss.setName("UMBRA XIS");
-         boss.setMaxHp(200_000);
-         boss.setCurrentHp(200_000);
+        // boss.setMaxHp(200_000);
+        // boss.setCurrentHp(200_000);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_umbraxis.webp");
          boss.setSpawnedAt(LocalDateTime.now());

@@ -26,8 +26,9 @@ public class NoctyrService {
     public GlobalBossNoctyr createDefaultBoss() {
     	GlobalBossNoctyr boss = new GlobalBossNoctyr();
         boss.setName("NOCTYR");
-        boss.setMaxHp(60_000);
-        boss.setCurrentHp(60_000);
+        aplicarEscalamentoNoctyr(boss);
+       // boss.setMaxHp(60_000);
+       // boss.setCurrentHp(60_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_noctyr.webp");
