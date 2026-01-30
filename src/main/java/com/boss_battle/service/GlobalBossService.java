@@ -871,7 +871,7 @@ public class GlobalBossService {
             
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
-                um.aplicarEscalamentoUmbraxis();
+                
                 um.setProcessingDeath(false);
                 um.setAlive(true);
                 um.setCurrentHp(um.getMaxHp());

@@ -26,6 +26,7 @@ public class UmbraxisService {
     public GlobalBossUmbraxis createDefaultBoss() {
     	GlobalBossUmbraxis boss = new GlobalBossUmbraxis();
          boss.setName("UMBRA XIS");
+         aplicarEscalamentoUmbraxis(boss);
         // boss.setMaxHp(200_000);
         // boss.setCurrentHp(200_000);
          boss.setAlive(true);

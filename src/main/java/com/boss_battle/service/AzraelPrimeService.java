@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boss_battle.model.GlobalBossAzraelPrime;
-import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.repository.AzraelPrimeRepository;
 
 import jakarta.transaction.Transactional;
