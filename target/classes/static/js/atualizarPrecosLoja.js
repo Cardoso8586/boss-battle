@@ -42,7 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		   document.getElementById('preco-machado-dilacerador').textContent =
 				    `${dadosLoja.PrecoMachadoDilacerador.toLocaleString('pt-BR')} Boss Coins`;		  
 	   
-				   
+					
+		   document.getElementById('preco-arco-celestial').textContent =
+				  `${dadosLoja.precoArcoCelestial.toLocaleString('pt-BR')} Boss Coins`;		  
+				
+				  //looteboxes
+				  // Preenche cada card
+				          document.querySelector('.preco-lootbox-basica').textContent =
+				              `${dadosLoja.precoBasica.toLocaleString('pt-BR')} Boss Coins`;
+
+				          document.querySelector('.preco-lootbox-avancada').textContent =
+				              `${dadosLoja.precoAvancada.toLocaleString('pt-BR')} Boss Coins`;
+
+				          document.querySelector('.preco-lootbox-especial').textContent =
+				              `${dadosLoja.precoEspecial.toLocaleString('pt-BR')} Boss Coins`;
+
+				          document.querySelector('.preco-lootbox-lendaria').textContent =
+				              `${dadosLoja.precoLendaria.toLocaleString('pt-BR')} Boss Coins`;
+				  
         } catch (error) {
             console.error('Erro ao carregar preços da loja:', error);
         }

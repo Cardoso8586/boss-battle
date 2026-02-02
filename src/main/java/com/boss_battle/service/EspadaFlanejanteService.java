@@ -34,7 +34,7 @@ public class EspadaFlanejanteService {
             );
         }
         
-  	     // 🚫 BLOQUEIA SE ESPADA ATIVA
+  	     // 🚫 BLOQUEIA SE machado ATIVo
   	        if (usuario.getMachadoDilaceradorAtivo() > 0) {
   	            throw new RuntimeException(
   	                "Não é possível equipar Espada Flanejante enquanto um Machado Dilacerador estiver equipado"

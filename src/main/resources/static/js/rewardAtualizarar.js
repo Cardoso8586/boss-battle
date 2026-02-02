@@ -22,11 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		MACHADO_DILACERADOR:"Machado Dilacerador",
 	    GUERREIRO_BASICO: "Guerreiro Básico",
 	    EXP: "Experiência",
+		FLECHA_FERRO: "Flecha de ferro",   
+		FLECHA_FOGO:"Flecha de fogo",     
+		FLECHA_VENENO:"Flecha de veneno",   
+		FLECHA_DIAMANTE:"Flecha de Diamante",
 	    ATAQUE_SPECIAL: "Ataque Especial"
 	};
 
 
-	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL", "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR"];
+	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL",
+		 "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR", "FLECHA_FERRO", "FLECHA_FOGO", "FLECHA_VENENO",
+	 "FLECHA_DIAMANTE"];
 
 
     // Função para buscar e atualizar o preview

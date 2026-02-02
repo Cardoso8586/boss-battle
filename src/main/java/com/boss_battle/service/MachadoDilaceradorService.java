@@ -42,6 +42,13 @@ public class MachadoDilaceradorService {
             throw new RuntimeException("Machado dilacerador insuficientes no estoque");
         }
         
+     // 🚫 BLOQUEIA SE ESPADA ATIVA
+	        if (usuario.getEspadaFlanejanteAtiva() > 0) {
+	            throw new RuntimeException(
+	                "Não é possível equipar O Machado enquanto uma Espadada Flanejante estiver equipada"
+	            );
+	        }
+        
         // 🔥 desconta do estoque
         usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() - quantidade);
  

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    const machadoAtivo = status.qtdMachadoDilaceradorAtivo ?? 0;
 
 	    const espadaItem = espadaSpan?.closest('.nucleo-item-flanejante');
-		
+		const arcoAtivo= status.arcoAtivo;
 		
 	    // ITEM (estoque)
 	    if (espadaItem && espadaSpan) {
@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	        const mostrarBotao =
 	            estoque > 0 &&
 	            ativa === 0 &&
+				arcoAtivo === 0 &&
 	            podeAtivar &&
 	            machadoAtivo === 0; // 🚫 BLOQUEIA SE MACHADO ATIVO
 

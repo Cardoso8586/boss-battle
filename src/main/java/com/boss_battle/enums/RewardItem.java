@@ -8,6 +8,10 @@ public enum RewardItem {
     GUERREIRO_BASICO,
     GUERREIRO_RARO,
     ATAQUE_SPECIAL,
+    FLECHA_FERRO,    
+    FLECHA_FOGO,     
+    FLECHA_VENENO,   
+    FLECHA_DIAMANTE,
     EXP
     
     

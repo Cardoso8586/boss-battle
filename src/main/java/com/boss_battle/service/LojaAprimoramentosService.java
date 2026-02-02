@@ -17,6 +17,8 @@ public class LojaAprimoramentosService {
      * ⚠️ ESTE MÉTODO DEVE SER CHAMADO
      * SOMENTE APÓS UMA COMPRA
      */
+	
+	private final long PRECO_ARCO_CELESTIAL = 15_000;
     
  // ---> atualizar preço do guerreiro
     public void atualizarPrecoGuerreiro(UsuarioBossBattle usuario, int quantidade) {
@@ -262,6 +264,9 @@ public class LojaAprimoramentosService {
     	atualizarPrecoPocaoVigor(usuario);
     	
     }//atualizarPrecoLoja
+	public long getPRECO_ARCO_CELESTIAL() {
+		return PRECO_ARCO_CELESTIAL;
+	}
     
     
    

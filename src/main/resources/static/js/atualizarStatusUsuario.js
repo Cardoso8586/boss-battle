@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const machadoDilacerador = document.getElementById('machadoDilacerador');
 	const generatingImageAtaque =  document.getElementById('generating-image-ataque');
 	const generatingImage =  document.getElementById('generating-image');
-	
+	const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
+	const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador'); 
+   const btnEquiparArco = document.getElementById('btnEquiparArco');
 	
 	
     const meta = document.querySelector('meta[name="user-id"]');
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const percentualEnergia = Math.max(0, (energia / energiaMax) * 100);
             energiaBar.style.width = percentualEnergia + '%';
 
+			
+			
             // Liberar botão quando energia < 50%
             if (energia / energiaMax < 0.2) {
                 btnRecarregar.disabled = false;
@@ -57,6 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnRecarregar.disabled = true;
             }
 			
+			//======================================= status do arco =============================
+			
+			
+			 
 			
 			//==================================================================================
 			const container = document.getElementById('desgasteContainer');
@@ -71,6 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		    const desgasteMachado = data.desgasteMachadoDilacerador; // ex: 100 → 0
 			       
 			
+			//status arco
+			const arcoAtivo = data.arcoAtivo;
+		    const durabilidade = data.durabilidadeArco;
+		    const tipoAtivo = data.tipoFlecha || null;
+
 			
 		
 
@@ -106,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (ativa !== null && ativa > 0) {
 			    // 🗡️ ESPADA ATIVA
 			    container.classList.remove("hidden");
-
+				btnAtivarMachado.style.display = "none";
 			    const desgasteMax = 100;
 			    barra.max = desgasteMax;
 			    barra.value = desgaste;
@@ -118,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			} else if (ativaMachado !== null && ativaMachado > 0) {
 			    // 🪓 MACHADO ATIVO
 			    container.classList.remove("hidden");
-
+				btnAtivarEspada.style.display = "none";
 			    const desgasteMax = 200;
 			    barra.max = desgasteMax;
 			    barra.value = desgasteMachado;
@@ -127,7 +140,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			    guerreiroImage.src = "/icones/guerreiroPadrao_machadoDilacerador.webp";
 
-			} else {
+			} 
+			
+			else if (arcoAtivo !== null && arcoAtivo > 0) {
+			    // 🏹 Arco ativo
+			    container.classList.remove("hidden");
+			    btnEquiparArco.style.display = "none";
+
+			    const desgasteMax = 100;
+			    barra.max = desgasteMax;
+			    barra.value = durabilidade;
+
+			    texto.textContent = `${Math.round((durabilidade / desgasteMax) * 100)}%`;
+
+			    if (tipoAtivo) {
+			        switch (tipoAtivo) {
+			            case "FERRO":
+			                guerreiroImage.src = "icones/guerreiro_arco_flecha_ferro.webp";
+			                break;
+
+			            case "FOGO":
+			                guerreiroImage.src = "icones/guerreiro_arco_flecha_fogo.webp";
+			                break;
+
+			            case "VENENO":
+			                guerreiroImage.src = "icones/guerreiro_arco_flecha_veneno.webp";
+			                break;
+
+			            case "DIAMANTE":
+			                guerreiroImage.src = "icones/guerreiro_arco_flecha_diamante.webp";
+			                break;
+
+			            default:
+			                guerreiroImage.src = "icones/guerreiro_arco_padrao.webp";
+			        }
+			    }
+			}
+
+			
+			else {
 			    // ⚔️ SEM ARMA ATIVA → IMAGEM PADRÃO
 			    container.classList.add("hidden");
 

@@ -577,12 +577,10 @@ public class GlobalBossService {
         killAllBosses();
      
         
-       
         int choice = random.nextInt(26);
         BattleBoss newBoss;
 
         switch (choice) {
-        
         
             case 0 -> {
                 GlobalBossIgnorath ig = ignorathService.get();
@@ -867,11 +865,11 @@ public class GlobalBossService {
             	newBoss = ds;
             }
             
-           
+  
             
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
-                
+                um.aplicarEscalamentoUmbraxis();
                 um.setProcessingDeath(false);
                 um.setAlive(true);
                 um.setCurrentHp(um.getMaxHp());

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.GuerreiroAutoAttackService;
@@ -50,13 +51,26 @@ public class AtualizarStatusUsuarioController {
         	    
         	    Map.entry("machadoDilacerador", usuario.getMachadoDilacerador()),
         	    Map.entry("desgasteMachadoDilacerador", usuario.getMachadoDilaceradorDesgaste()),
-        	    Map.entry("ativarMachadoDilacerador", usuario.getMachadoDilaceradorAtivo())
+        	    Map.entry("ativarMachadoDilacerador", usuario.getMachadoDilaceradorAtivo()),
         	    
+        	    Map.entry("arcoInventario", usuario.getInventarioArco()),
+        	    Map.entry("arcoAtivo", usuario.getArcoAtivo()),
+        	    Map.entry("durabilidadeArco", usuario.getDurabilidadeArco()),
+        	    Map.entry("aljava", usuario.getAljava()), 
+        	    Map.entry("flechaFerro", usuario.getFlechaFerro()), 
+        	    Map.entry("flechaFogo", usuario.getFlechaFogo()), 
+        	    Map.entry("flechaDiamante", usuario.getFlechaDiamante()),
+        	    Map.entry("flechaVeneno", usuario.getFlechaVeneno()), 
+        	    Map.entry("tipoFlecha", TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva()).name())
+
+        	    
+        	  
         	    
         	);
 
     }
     
+
     @GetMapping("/api/atualizar/status/ajustes/{usuarioId}")
     public Map<String, Object> statusPocaoVigor(@PathVariable Long usuarioId) {
 
@@ -89,7 +103,7 @@ public class AtualizarStatusUsuarioController {
        long qtdMachadoDilaceradorAtivo   = usuario.getMachadoDilaceradorAtivo();
         //--------------------------------------------------------------
         
-        
+       long arcoAtivo = usuario.getArcoAtivo();
 
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("estoque", qtdEstoque);
@@ -110,7 +124,7 @@ public class AtualizarStatusUsuarioController {
        resultado.put("qtdMachadoDilaceradorEstoque", qtdMachadoDilaceradorEstoque);
        resultado.put("qtdMachadoDilaceradorAtivo", qtdMachadoDilaceradorAtivo);
     
-
+       resultado.put("arcoAtivo", arcoAtivo);
  
         return resultado;
     }

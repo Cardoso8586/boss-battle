@@ -29,8 +29,8 @@ public class AzraelPrimeService {
 
         boss.setName("AZRAEL PRIME");
         aplicarEscalamentoAzraelPrime(boss);
-      //  boss.setMaxHp(400_000L);
-       // boss.setCurrentHp(400_000L);
+        //  boss.setMaxHp(400_000L);
+        // boss.setCurrentHp(400_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
@@ -42,7 +42,6 @@ public class AzraelPrimeService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(14_400L); 
         boss.setSpawnCount(1);
-
         boss.setRewardBoss(150_000L);
         boss.setRewardExp(10_000L);
 

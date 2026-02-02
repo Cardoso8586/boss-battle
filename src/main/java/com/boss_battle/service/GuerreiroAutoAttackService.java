@@ -19,6 +19,10 @@ public class GuerreiroAutoAttackService {
 	private final long ESPADA_FLANEJANTE_PROCENTGEM = 20;
 	private final long MACHADO_DILACERADOR_PROCENTGEM = 10;
 
+	
+	@Autowired
+	private ArcoService arcoService;
+	
 	@Autowired
 	private EspadaFlanejanteService espadaFlanejanteService;
 
@@ -43,7 +47,10 @@ public class GuerreiroAutoAttackService {
 	    Long energia = usuario.getEnergiaGuerreiros();
 	    Long espadasAtivas = usuario.getEspadaFlanejanteAtiva();
 	    Long machadoDilaceradorAtivo = usuario.getMachadoDilaceradorAtivo();
-
+	    Long arcoAtivo = usuario.getArcoAtivo();
+	    Long aljava = usuario.getAljava();
+	    
+	    
 	    destruirArmasEmEstadoIlegal(usuario);
 	    BattleBoss boss = globalBossService.getActiveBoss();
         if (boss == null || !boss.isAlive()) return;
@@ -77,12 +84,26 @@ public class GuerreiroAutoAttackService {
 	        machadoDilaceradorService.usarMachadoDilacerador(usuario);
 	    }
 	    
+	    // ⚔️ bônus do arco com flecha ativa
+	 // ⚔️ Aplica bônus do arco se houver arco ativo e flecha
+	    if (usuario.getArcoAtivo() > 0 && usuario.getAljava() > 0) {
+	        int bonusPercentual = arcoService.usarArco(usuario); // retorna o poder da flecha ativa
+
+	        // ⚡ Ajusta dano final
+	        long bonusDano = (dano * (long) bonusPercentual) / 100L;
+	        dano += bonusDano;
+	    }
+
+
+	 
+	    
+	    
 	    globalBossService.tryHitBoss(boss.getBossName(), boss, usuario, dano);
 	    
 	   System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Causou " + dano+"-"+ "Dano");
 	  
 	    // 🐲 ataca o boss
-	   // globalBossService.hitActiveBoss(usuario, dano);
+	 
 
 	    // 🔋 consome energia
 	    long energiaFinal = energia - dano;
@@ -94,7 +115,11 @@ public class GuerreiroAutoAttackService {
 
 	    repo.save(usuario);
 	}
-
+	
+	 
+//====================================================================================================
+	
+	
 	//================================  destruirArmasEmEstadoIlegal  ===================================
 	
 	public void destruirArmasEmEstadoIlegal(UsuarioBossBattle usuario) {

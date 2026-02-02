@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const espadaFlanejanteAtiva = data.ativaEspadaFlanejante;
 			const machadoDilaceradorAtivo = data.ativarMachadoDilacerador;
             const ataquePorMinuto = data.ataquePorMinuto;
-           
+			const tipoFlecha = data.tipoFlecha;
+			const arcoAtivo = data.arcoAtivo;
           
             let valor = ataquePorMinuto;
             // Verifica se há energia
@@ -31,6 +32,46 @@ document.addEventListener('DOMContentLoaded', () => {
 			 if (machadoDilaceradorAtivo) {
 			    valor *= 1.1;
 			 }
+			
+			 if (arcoAtivo > 0) {
+			     const bonusFlecha = {
+			         FERRO: 0.03,
+			         FOGO: 0.05,
+			         VENENO: 0.07,
+			         DIAMANTE: 0.10
+			     };
+
+			     const bonus = bonusFlecha[tipoFlecha] || 0;
+			     valor *= 1 + bonus;
+			 }
+/**7
+ * 
+ *  // Se arco está ativo
+			 if (arcoAtivo > 0) {
+
+			     switch(tipoFlecha) {
+			         case "FERRO":
+			             valor *= 1.03; // +3%
+			             break;
+			         case "FOGO":
+			             valor *= 1.05; // +5%
+			             break;
+			         case "VENENO":
+			             valor *= 1.08; // +8%
+			             break;
+			         case "DIAMANTE":
+			             valor *= 1.10; // +10%
+			             break;
+			         default:
+			             // Nenhum tipo válido → sem multiplicador
+			             break;
+			     }
+
+			 }
+
+ */
+			
+			 
 
             // Cria e exibe o dano flutuante
             const dmg = document.createElement("span");

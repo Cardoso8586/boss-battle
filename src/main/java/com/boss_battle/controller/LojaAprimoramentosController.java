@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.LojaAprimoramentosService;
+import com.boss_battle.service.LootboxService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,8 @@ public class LojaAprimoramentosController {
 	@Autowired
 	LojaAprimoramentosService lojaAprimoramentosService;
 	
+	@Autowired
+	LootboxService lootboxService;
 	
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
@@ -32,19 +35,19 @@ public class LojaAprimoramentosController {
         
         long precoPocaoVigor = usuario.getPrecoPocaoVigor();
         if (precoPocaoVigor <= 0) {
-            precoPocaoVigor = 5_000L;
+            precoPocaoVigor = 1_000L;
             usuario.setPrecoPocaoVigor(precoPocaoVigor);
             usuarioRepository.save(usuario);
         }
         long precoEspadaFlanejante = usuario.getPrecoEspadaFlanejante();
         if (precoEspadaFlanejante <= 0) {
-        	precoEspadaFlanejante = 5_000L;
+        	precoEspadaFlanejante = 1_000L;
             usuario.setPrecoEspadaFlanejante(precoEspadaFlanejante);
             usuarioRepository.save(usuario);
         }
         long precoMachadoDilacerador = usuario.getPrecoMachadoDilacerador();
         if (precoMachadoDilacerador <= 0) {
-        	precoMachadoDilacerador = 5_000L;
+        	precoMachadoDilacerador = 2_000L;
             usuario.setPrecoMachadoDilacerador(precoMachadoDilacerador);
             usuarioRepository.save(usuario);
         }
@@ -70,15 +73,53 @@ public class LojaAprimoramentosController {
               usuarioRepository.save(usuario);
         }
       
+        Long precoArcoCelestial = lojaAprimoramentosService.getPRECO_ARCO_CELESTIAL();
+        if (precoArcoCelestial <= 0) {
+        	precoArcoCelestial = 15_000L;
+           
+        }
+        
+      
+       
+       
+       
+        Long precoBasica = lootboxService.getPrecoBasica();
+        if (precoBasica <= 0) {
+        	precoBasica = 1_000L;
+           
+        }
+        Long precoAvancada = lootboxService.getPrecoAvancada();
+        if (precoAvancada <= 0) {
+        	precoAvancada = 2_000L;
+           
+        }
+        
+        Long precoEspecial = lootboxService.getPrecoEspecial();
+        if (precoEspecial <= 0) {
+        	precoEspecial = 3_000L;
+           
+        }
+        
+        Long precoLendaria = lootboxService.getPrecoLendaria();
+        if (precoLendaria <= 0) {
+        	precoLendaria = 5_000L;
+           
+        }
+      
         //-------------------------------------------------------------------------------------------------
-          Map<String, Object> loja = new HashMap<>();
+         Map<String, Object> loja = new HashMap<>();
         loja.put("precoGuerreiros", precoGuerreiros);
         loja.put("precoEnergia", precoEnergia);
         loja.put("precoAtaqueEspecial", precoAtaqueEspecial);
         loja.put("PrecoPocaoAutomaticaVigor", precoPocaoVigor);
         loja.put("PrecoEspadaFlanejante", precoEspadaFlanejante);
         loja.put("PrecoMachadoDilacerador", precoMachadoDilacerador);
+        loja.put("precoArcoCelestial", precoArcoCelestial);
         
+        loja.put("precoBasica", precoBasica);
+        loja.put("precoAvancada", precoAvancada);
+        loja.put("precoEspecial", precoEspecial);
+        loja.put("precoLendaria", precoLendaria);
 
       
 /*

@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="/css/ResgatarRecompensas.css">
      <link rel="stylesheet" href="/css/ultimosAtaques.css">   
      <link rel="stylesheet" href="/css/rankingDano.css">
+      <link rel="stylesheet" href="/css/nucleoArco.css">   
+        <link rel="stylesheet" href="/css/section-promocoes.css">
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -141,6 +143,13 @@ gurações -->
 </li>
 
 <li>
+  <a href="#" data-section="section-promocoes">
+   <i class="fa-solid fa-tags"></i>Promoções  
+  </a>
+</li>
+
+
+<li>
   <a href="#" data-section="retirar">
     <i class="fa-solid fa-hand-holding-dollar"></i> Resgatar Recompensas
   </a>
@@ -148,7 +157,7 @@ gurações -->
 
 <li>
   <a href="#" data-section="perfil">
-    <i class="fa-solid fa-user"></i> Guerreiro
+    <i class="fa-solid fa-user-shield"></i> Guerreiro
   </a>
 </li>
 
@@ -160,9 +169,10 @@ gurações -->
 
 <li>
   <a href="#" data-section="help">
-    <i class="fa-solid fa-user-help"></i> Tutorial  
+    <i class="fa-solid fa-book-open"></i> Tutorial
   </a>
 </li>
+
 
 <li>
   <a href="/logout">
@@ -303,6 +313,7 @@ gurações -->
 </div>
 
 
+
 <!-- NÚCLEO DE BATALHA (LIVRE NA TELA) -->
 <div id="nucleoLivre">
 
@@ -397,12 +408,91 @@ gurações -->
 
 <!-- Ajustes de Batalha -->
 
+<!-- NÚCLEO ARCO & FLECHAS (LIVRE NA TELA) -->
+<!-- NÚCLEO ARCO & FLECHAS (INVISÍVEL POR PADRÃO) -->
+<div id="nucleoArco">
 
+    <!-- BOTÃO -->
+    <button id="btnNucleoArco" class="btn-nucleo-icon">
+        <img src="/icones/arco_flecha.webp" alt="Arco e Flechas">
+        <span class="nucleo-label">Arco & Flechas</span>
+    </button>
 
-                </div>
+    <!-- CARD -->
+    <div id="nucleoArcoCard" class="nucleo-card hidden">
 
-              
-            </div>
+        <button id="fecharNucleoArco" class="nucleo-close">✕</button>
+
+        <h2 class="card-title">Arco & Flechas</h2>
+
+        <!-- ARCO -->
+        <div class="nucleo-item">
+            <img src="icones/arco.webp" alt="Arco" class="icone-item">
+            Arco Disponiveis: <span id="arcoDisponiveis">0</span>
+        </div>
+        
+        <div class="nucleo-item">
+            <img src="icones/arco.webp" alt="Arco" class="icone-item">
+            Arco Ativo: <span id="arcoAtivo">0</span>
+        </div>
+
+        <div class="nucleo-item">
+            🔧 Durabilidade: <span id="durabilidadeArco">0</span>
+        </div>
+
+        <div class="arco-ativo-info nucleo-item highlight hidden">
+            ✔ Arco equipado
+        </div>
+
+        <button id="btnEquiparArco" class="btn-nucleo-acao hidden">
+            Equipar Arco
+        </button>
+
+         <!-- 
+        <button id="btnReativarArco" class="btn-nucleo-acao hidden">
+            Reativar Arco
+        </button>
+ -->
+        <!-- ALJAVA -->
+        <hr>
+
+        <div class="nucleo-item">
+            <img src="icones/aljava.webp" alt="Aljava" class="icone-item">
+            Flechas na Aljava: <span id="aljavaCount">0</span>
+        </div>
+
+        <div class="nucleo-item">
+            Tipo de Flecha: <span id="tipoFlechaAtiva">-</span>
+        </div>
+
+        <!-- BOTÕES DE FLECHA -->
+ <button id="btnColocarFlechaFerro" class="btn-nucleo-acao">
+  <img src="icones/flecha_ferro.webp" alt="Flecha de Ferro">
+  <span>Colocar Flecha de Ferro</span>
+</button>
+
+<button id="btnColocarFlechaFogo" class="btn-nucleo-acao">
+  <img src="icones/flecha_fogo.webp" alt="Flecha de Fogo">
+  <span>Colocar Flecha de Fogo</span>
+</button>
+
+<button id="btnColocarFlechaVeneno" class="btn-nucleo-acao">
+  <img src="icones/flecha_veneno.webp" alt="Flecha de Veneno">
+  <span>Colocar Flecha de Veneno</span>
+</button>
+
+<button id="btnColocarFlechaDiamante" class="btn-nucleo-acao">
+  <img src="icones/flecha_diamante.webp" alt="Flecha de Diamante">
+  <span>Colocar Flecha de Diamante</span>
+</button>
+
+    </div>
+</div>
+<!-- NÚCLEO ARCO & FLECHAS (LIVRE NA TELA) -->
+
+ </div>
+
+       </div>
 
             <hr class="card-divider">
 
@@ -591,9 +681,81 @@ Dano
     
 </div>
 
+<!-- Arco Celestial (Item Raro) -->
+<div class="loja-card">
+    <h3>Arco Celestial</h3>
 
-        
+    <!-- Imagem do item -->
+    <img src="icones/arco.webp" alt="Arco Celestial" class="arco-celestial-imagem" />
+
+    <p>Aumenta o ataque dependendo da Flecha equipada durante a vida útil do Arco. Durante o uso, o Arco se desgasta.</p>
+    <p>Preço por unidade: <span class="preco" id="preco-arco-celestial" data-preco-item="ArcoCelestal"></span></p>
+    
+    <label for="quantidade-arco-celestial">Quantidade que deseja comprar:</label>
+    <input type="number" id="quantidade-arco-celestial" class="quantidade-arco" min="1" value="1">
+    <button class="btn-comprar" data-item="arco-celestial">Comprar Arco Celestial</button>
+    
+</div>
+ 
     </div>
+    
+
+    
+</section>
+
+
+<!-- Seção Promoções -->
+<section id="section-promocoes">
+    <h2>Promoções</h2>
+    <p>Confira as promoções especiais do jogo! Aproveite lootboxes com descontos ou bônus extras.</p>
+<div class="loja-lootbox">
+    <div class="lootbox-card" data-tipo="basica">
+        <h3 class="nome-lootbox">Lootbox Básica</h3>
+         Aumenta o ataque <span class="lootbox-quantidade">3%</span>
+        <img src="/icones/lootbox_basica.webp" alt="Lootbox Básica" class="lootbox-img">
+      <span class="lootbox-descricao">
+       Contém de <span class="lootbox-quantidade">1 a 5</span> <span class="lootbox-tipo">flechas de Ferro</span>
+     </span>
+
+
+        <p class="preco-lootbox-basica"></p>
+        <button class="btn-lootbox">Abrir Lootbox</button>
+    </div>
+
+    <div class="lootbox-card" data-tipo="avancada">
+        <h3 class="nome-lootbox">Lootbox Avançada</h3>
+        <span class="lootbox-descricao">
+       Aumenta o ataque <span class="lootbox-quantidade">5%</span>
+        <img src="/icones/lootbox_avancada.webp" alt="Lootbox Avançada" class="lootbox-img">
+       <span class="lootbox-descricao">
+       Contém de <span class="lootbox-quantidade">1 a 10</span> <span class="lootbox-tipo">flechas de Fogo</span>
+     </span>
+        <p class="preco-lootbox-avancada"></p>
+        <button class="btn-lootbox">Abrir Lootbox</button>
+    </div>
+
+    <div class="lootbox-card" data-tipo="especial">
+        <h3 class="nome-lootbox">Lootbox Especial</h3>
+         Aumenta o ataque <span class="lootbox-quantidade">7%</span>
+        <img src="/icones/lootbox_especial.webp" alt="Lootbox Especial" class="lootbox-img">
+         <span class="lootbox-descricao">
+         Contém de <span class="lootbox-quantidade">1 a 15</span> <span class="lootbox-tipo">flechas de Veneno</span>
+        </span>
+        <p class="preco-lootbox-especial"></p>
+        <button class="btn-lootbox">Abrir Lootbox</button>
+    </div>
+
+    <div class="lootbox-card" data-tipo="lendaria">
+        <h3 class="nome-lootbox">Lootbox Lendária</h3>
+         Aumenta o ataque <span class="lootbox-quantidade">10%</span>
+        <img src="/icones/lootbox_lendaria.webp" alt="Lootbox Lendária" class="lootbox-img">
+        <span class="lootbox-descricao">
+         Contém de <span class="lootbox-quantidade">1 a 15</span> <span class="lootbox-tipo">flechas de Diamante</span>
+        </span>
+        <p class="preco-lootbox-lendaria"></p>
+        <button class="btn-lootbox">Abrir Lootbox</button>
+    </div>
+</div>
 </section>
 
 
@@ -991,6 +1153,9 @@ Dano
     <script src="/js/recarregarVigor.js"></script>  
     <script src="/js/atualizarStatusUsuario.js"></script>  
     <!-- loja --> 
+    
+     <script src="/js/abrirLootbox.js"></script>
+     <script src="/js/comprarArcoCelestial.js"></script>
     <script src="/js/atualizarPrecosLoja.js"></script>
     <script src="/js/comprarGuerreiro.js"></script>
     <script src="/js/comprarEspadaFlanejante.js" defer></script>
@@ -1014,10 +1179,13 @@ Dano
      <script src="/js/equiparMachadoDilacerador.js" defer></script>
      <script src="/js/ultimosPagamentos.js" defer></script>
      <script src="/js/resgatarRecompensas.js" defer></script>
+     <script src="/js/nucleoArco.js" defer></script>
+     <script src="/js/atualizarStatusArco.js" defer></script>
+     <script src="/js/ativarArco.js" defer></script>
+     <script src="/js/colocarFlechas.js" defer></script>
     
-    
-    
-    
+
+
    
    
     

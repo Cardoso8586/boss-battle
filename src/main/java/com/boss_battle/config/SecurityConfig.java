@@ -122,7 +122,12 @@ public class SecurityConfig {
                         "/api/faucetpay/saldo/**",
                         "/api/faucetpay/retirada/**",
                         "/api/faucetpay/historico/**",
-                        "/api/faucetpay/todos/**"
+                        "/api/faucetpay/todos/**",
+                        "/arco/equipar/**",
+                        "/aljava/colocar/**",
+                        "/arco/reativar/**",
+                        "/comprar/arco/celestial/**",
+                        "/lootbox/abrir/**"
                      
                         
                         

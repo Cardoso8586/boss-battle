@@ -88,8 +88,112 @@ public class UsuarioBossBattle  {
     @Column(name = "machado_dilacerador_desgaste", nullable = false)
     private long machadoDilaceradorDesgaste = 200 ;
     
-   
-    
+
+ //===============================================================
+            /// COFIGURAÇÕES DO ARCO E FLECHAS
+ //===========================================================
+@Column(name = "inventario_arco", nullable = false)
+private long inventarioArco = 0;
+
+@Column(name = "arco_ativo", nullable = false)
+private long arcoAtivo = 0;
+
+@Column(name = "durabilidade_arco", nullable = false)
+private long durabilidadeArco = 100;
+
+@Column(name = "flecha_fogo", nullable = false)
+private long flechaFogo = 0;
+
+@Column(name = "flecha_veneno", nullable = false)
+private long flechaVeneno = 0;
+
+@Column(name = "flecha_diamante", nullable = false)
+private long flechaDiamante = 0;
+
+@Column(name = "flecha_ferro", nullable = false)
+private long flechaFerro = 0;
+
+@Column(name = "aljava", nullable = false)
+private long aljava = 0;
+
+
+@Column(name = "aljava_flecha_ativa", nullable = false)
+private long aljavaFlechaAtiva = 0;
+
+
+public long getInventarioArco() {
+    return inventarioArco;
+}
+
+public void setInventarioArco(long inventarioArco) {
+    this.inventarioArco = inventarioArco;
+}
+
+public long getArcoAtivo() {
+    return arcoAtivo;
+}
+
+public void setArcoAtivo(long arcoAtivo) {
+    this.arcoAtivo = arcoAtivo;
+}
+
+public long getDurabilidadeArco() {
+    return durabilidadeArco;
+}
+
+public void setDurabilidadeArco(long durabilidadeArco) {
+    this.durabilidadeArco = durabilidadeArco;
+}
+
+public long getFlechaFogo() {
+    return flechaFogo;
+}
+
+public void setFlechaFogo(long flechaFogo) {
+    this.flechaFogo = flechaFogo;
+}
+
+public long getFlechaVeneno() {
+    return flechaVeneno;
+}
+
+public void setFlechaVeneno(long flechaVeneno) {
+    this.flechaVeneno = flechaVeneno;
+}
+
+public long getFlechaDiamante() {
+    return flechaDiamante;
+}
+
+public void setFlechaDiamante(long flechaDiamante) {
+    this.flechaDiamante = flechaDiamante;
+}
+
+public long getFlechaFerro() {
+    return flechaFerro;
+}
+
+public void setFlechaFerro(long flechaFerro) {
+    this.flechaFerro = flechaFerro;
+}
+
+public long getAljava() {
+    return aljava;
+}
+
+public void setAljava(long aljava) {
+    this.aljava = aljava;
+}
+
+public long getAljavaFlechaAtiva() {
+    return aljavaFlechaAtiva;
+}
+
+public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
+    this.aljavaFlechaAtiva = aljavaFlechaAtiva;
+}
+
+
    
     // getters / setters
     
@@ -268,13 +372,13 @@ public class UsuarioBossBattle  {
     private Long precoAtaqueEspecial = 1_000L;
     
    @Column(name = "preco_machado_dilacerador", nullable = false)
-   private Long precoMachadoDilacerador = 5_000L;
+   private Long precoMachadoDilacerador = 2_000L;
     
    @Column(name = "preco_pocao_vigor", nullable = false)
-   private Long precoPocaoVigor = 5_000L;
+   private Long precoPocaoVigor = 1_000L;
     
    @Column(name = "preco_espada_flanejante", nullable = false)
-   private Long precoEspadaFlanejante= 5_000L;
+   private Long precoEspadaFlanejante= 1_000L;
 
 
    

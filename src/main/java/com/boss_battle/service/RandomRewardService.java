@@ -60,7 +60,20 @@ public class RandomRewardService {
 
                 if (reward.getRewardItem() == RewardItem.MACHADO_DILACERADOR)
                     usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + reward.getAmount());
-            }
+                
+                if (reward.getRewardItem() == RewardItem.FLECHA_FERRO)
+                    usuario.setFlechaFerro(usuario.getFlechaFerro() + reward.getAmount());
+                
+                if (reward.getRewardItem() == RewardItem.FLECHA_FOGO)
+                    usuario.setFlechaFogo(usuario.getFlechaFogo() + reward.getAmount());
+                
+                if (reward.getRewardItem() == RewardItem.FLECHA_VENENO)
+                    usuario.setFlechaFogo(usuario.getFlechaVeneno() + reward.getAmount());
+                
+                if (reward.getRewardItem() == RewardItem.FLECHA_DIAMANTE)
+                    usuario.setFlechaDiamante(usuario.getFlechaDiamante() + reward.getAmount());
+                
+            }//CONSUMABLE
 
             case GUERREIRO -> {
                 if (reward.getRewardItem() == RewardItem.GUERREIRO_BASICO)
@@ -96,19 +109,19 @@ public class RandomRewardService {
         reward.setUserId(userId);
 
         int roll = random.nextInt(100); // 0 a 99
-        if (roll < 10) { // Guerreiro
+        if (roll < 5) { // Guerreiro
             reward.setRewardType(RewardType.GUERREIRO);
             reward.setRewardItem(RewardItem.GUERREIRO_BASICO);
             reward.setAmount(1);
             reward.setImageUrl("icones/guerreiro_padrao.webp");
 
-        } else if (roll < 20) { // Poção
+        } else if (roll < 10) { // Poção
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.POCAO_VIGOR);
             reward.setAmount(1);
             reward.setImageUrl("icones/pocao_vigor.webp");
 
-        } else if (roll < 30) { // ESPADA FLANEJANTE
+        } else if (roll < 20) { // ESPADA FLANEJANTE
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.ESPADA_FLANEJANTE);
             reward.setAmount(1);
@@ -116,7 +129,7 @@ public class RandomRewardService {
 
         }
         
-        else if (roll < 40) { // MACHADO DILACERADOR
+        else if (roll < 25) { // MACHADO DILACERADOR
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.MACHADO_DILACERADOR);
             reward.setAmount(1);
@@ -124,8 +137,39 @@ public class RandomRewardService {
 
         }
         
+        else if (roll < 30) { //FLECHA FERRO
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.FLECHA_FERRO);
+            reward.setAmount(30);
+            reward.setImageUrl("icones/flecha_ferro.webp");
+
+        }
         
-        else if (roll < 50) { // Ataque especial
+        else if (roll < 30) { //FLECHA FOGO
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.FLECHA_FOGO);
+            reward.setAmount(20);
+            reward.setImageUrl("icones/flecha_fogo.webp");
+
+        }
+        
+        else if (roll < 40) { //FLECHA VENENO
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.FLECHA_VENENO);
+            reward.setAmount(15);
+            reward.setImageUrl("icones/flecha_veneno.webp");
+
+        }
+        else if (roll < 50) { //FLECHA DIAMANTE
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.FLECHA_DIAMANTE);
+            reward.setAmount(10);
+            reward.setImageUrl("icones/flecha_diamante.webp");
+
+        }
+        
+        
+        else if (roll < 60) { // Ataque especial
             reward.setRewardType(RewardType.SPECIAL);
             reward.setRewardItem(RewardItem.ATAQUE_SPECIAL);
             reward.setAmount(5);

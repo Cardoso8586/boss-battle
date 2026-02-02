@@ -1,38 +1,34 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0f0f0f;
-    color: #fff;
-     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-
-/* Garantir que o cursor aparece no menu */
-nav, nav * {
-    cursor: url('assets/cursor.cur'), auto !important;
-}
-
-/* Caso o menu use <ul> e <li> */
-ul.menu, ul.menu *, li.menu, li.menu *, a, a * {
-    cursor: url('assets/cursor.cur'), pointer !important;
-}
-
-/* Cursor padrão do site inteiro */
-html, body, * {
+/* ==============================
+   CURSOR PERSONALIZADO GLOBAL
+================================ */
+body, html {
     cursor: url('assets/cursor.cur'), auto;
 }
 
-/* Exemplo: se quiser algum campo com cursor normal */
-input, textarea {
+/* ==============================
+   ELEMENTOS CLICÁVEIS
+================================ */
+button,
+a,
+label,
+input[type="checkbox"],
+input[type="radio"],
+.btn-nucleo-icon,
+.btn-nucleo-acao,
+.icone-item,
+nav,
+nav * {
+    cursor: url('assets/cursor.cur'), pointer !important;
+}
+
+/* ==============================
+   CAMPOS DE TEXTO
+================================ */
+input[type="text"],
+textarea,
+select {
     cursor: text !important;
 }
-
-button {
-    cursor: url('assets/cursor.cur'), pointer;
-}
-
 
 
 
