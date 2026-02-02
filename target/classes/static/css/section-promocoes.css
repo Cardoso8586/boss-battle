@@ -146,3 +146,86 @@
     background: linear-gradient(135deg, #ff7f50, #ffb400);
     transform: translateY(-2px);
 }
+/* ===============================
+   RESPONSIVIDADE - LOOTBOX
+================================ */
+
+/* Tablets e telas médias */
+@media (max-width: 1024px) {
+
+    .lootbox-card {
+        width: 180px;
+        padding: 14px;
+    }
+
+    .lootbox-img {
+        width: 160px;
+        height: 160px;
+    }
+
+    #section-promocoes h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+
+    .loja-lootbox {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .lootbox-card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .lootbox-img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .nome-lootbox {
+        font-size: 1rem;
+    }
+
+    .lootbox-descricao {
+        font-size: 0.95rem;
+    }
+
+    .btn-lootbox {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Celulares muito pequenos */
+@media (max-width: 480px) {
+
+    #section-promocoes h2 {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+
+    .lootbox-card {
+        max-width: 100%;
+    }
+
+    .lootbox-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .lootbox-descricao {
+        font-size: 0.9rem;
+        margin: 6px 0;
+    }
+
+    .preco-lootbox-basica,
+    .preco-lootbox-avancada,
+    .preco-lootbox-especial,
+    .preco-lootbox-lendaria {
+        font-size: 0.85rem;
+    }
+}
