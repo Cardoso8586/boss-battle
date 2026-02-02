@@ -199,33 +199,3 @@
         font-size: 0.95rem;
     }
 }
-
-/* Celulares muito pequenos */
-@media (max-width: 480px) {
-
-    #section-promocoes h2 {
-        font-size: 1.4rem;
-        letter-spacing: 1px;
-    }
-
-    .lootbox-card {
-        max-width: 100%;
-    }
-
-    .lootbox-img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .lootbox-descricao {
-        font-size: 0.9rem;
-        margin: 6px 0;
-    }
-
-    .preco-lootbox-basica,
-    .preco-lootbox-avancada,
-    .preco-lootbox-especial,
-    .preco-lootbox-lendaria {
-        font-size: 0.85rem;
-    }
-}

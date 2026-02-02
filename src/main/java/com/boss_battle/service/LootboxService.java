@@ -80,10 +80,24 @@ public class LootboxService {
 
         // Salva alterações
         usuarioRepository.save(usuario);
+        
+        //String flecha = (quantidade == 1) ? "Flecha" : "Flechas";
+        String flecha;
+        if (quantidade == 1) {
+            flecha = "Flecha";
+        } else {
+            flecha = "Flechas";
+        }
 
+        return "Você recebeu " + quantidade + " " + flecha + " de " +
+               tipoFlecha.name().toLowerCase();
+
+        
+/*
         return "Lootbox " + tipoLootbox + " aberta! Você recebeu " + quantidade +
                " flecha(s) de " + tipoFlecha.name().toLowerCase() +
                ". Preço: " + preco + " Boss Coins.";
+               */
     }
 
     
