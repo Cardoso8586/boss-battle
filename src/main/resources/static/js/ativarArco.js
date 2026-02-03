@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==============================
     // ELEMENTOS
-    // ==============================
-    const nucleoArco = document.getElementById('nucleoArco');
+    // =============================
     const arcoSpan = document.getElementById('arcoAtivo');
     const durabilidadeSpan = document.getElementById('durabilidadeArco');
     const aljavaSpan = document.getElementById('aljavaCount');
@@ -46,19 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const arcoEstoque = status.arcoInventario ?? 0;
         const arcoAtivo = status.arcoAtivo ?? 0;
         const durabilidade = status.durabilidadeArco ?? 0;
-
-        const flechasNaAljava = status.aljava ?? 0;
-        const tipoFlecha = status.tipoFlechaAtiva ?? '-';
-
-        const guerreiroAtivo = status.ativoGuerreiro ?? 0;
-        const espadaAtiva = status.ativaEspadaFlanejante ?? 0;
-        const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
-
-        // ==============================
-        // 🔒 NÚCLEO INTEIRO (só aparece se tiver flecha)
-        // ==============================
-       
-
+		
         // ==============================
         // UI BÁSICA
         // ==============================
@@ -75,35 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             div.classList.toggle('hidden', arcoAtivo === 0);
         });
 
-		// ==============================
-		// BOTÃO EQUIPAR ARCO — LÓGICA FINAL
-		// ==============================
-
-		// existe arco equipado se durabilidade > 0
-		const existeArco = durabilidade > 0;
-
-		const podeEquipar =
-					    arcoEstoque > 0 &&      // ✅ existe pelo menos 1 arco no inventário
-					    !existeArco &&          // ✅ NÃO há arco equipado (durabilidade = 0)
-					    arcoAtivo === 0 &&      // ✅ nenhum arco está ativo no momento
-					    flechasNaAljava > 0 &&  // ✅ existe pelo menos 1 flecha na aljava
-					    guerreiroAtivo > 0 &&   // ✅ guerreiro está ativo
-					    espadaAtiva === 0 &&    // ✅ nenhuma espada equipada
-					    machadoAtivo === 0;     // ✅ nenhum machado equipado
-						
-						
-		// estado base (sempre igual)
-		btnEquiparArco.classList.add('hidden');
-		btnEquiparArco.disabled = true;
-
-		// mostrar apenas se TODAS as condições forem verdadeiras
-		if (podeEquipar) {
-		    btnEquiparArco.classList.remove('hidden');
-		    btnEquiparArco.disabled = false;
-		}
-
-
-    }
+		
+}
 
     // ==============================
     // ATIVAR ARCO
@@ -134,19 +94,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	        }
 
 	        Swal.fire({
+				customClass: {title: 'swal-game-text'
+				},
 	            icon: 'success',
 	            title: 'Arco equipado!',
-	            text: 'O arco foi equipado com sucesso.',
+	            text: 'O Arco Celestial foi equipado com sucesso.',
 	            background: 'transparent',
 	            color: '#ffb400',
 	            timer: 4000,
 	            showConfirmButton: false
 	        });
 
-	        await atualizarUsuario();
+	      
 
 	    } catch (e) {
 	        Swal.fire({
+				customClass: { title: 'swal-game-error' },
 	            icon: 'error',
 	            title: 'Erro',
 	            text: e.message,
@@ -164,5 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // LOOP
     // ==============================
     atualizarUsuario();
-   
+	
 });

@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (quantidade <= 0 || isNaN(quantidade)) {
                 Swal.fire({
+					customClass: {
+				    title: 'swal-game-error'
+					},
                     icon: 'warning',
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
@@ -52,8 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) throw new Error('Saldo insuficiente');
 
                 Swal.fire({
-                    title: 'Compra realizada!',
-					html: `Você comprou ${quantidade} ${quantidade > 1 ? 'Arcos Celestiais' : 'Arco Celestial'}`,
+					customClass: {      
+					title: 'swal-game-text'
+					},
+					title: `Você comprou ${quantidade} ${quantidade > 1 ? 'Arcos Celestiais' : 'Arco Celestial'}`,
+					html: 'Compra realizada!',
+                    //title: 'Compra realizada!',
+					//html: `Você comprou ${quantidade} ${quantidade > 1 ? 'Arcos Celestiais' : 'Arco Celestial'}`,
                     imageUrl: '/icones/arco.webp',
                     imageWidth: 60,
                     imageHeight: 140,
@@ -70,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (err) {
                 Swal.fire({
+					customClass: {
+				    title: 'swal-game-error'
+					},
                     icon: 'error',
                     title: 'Erro na compra',
                     text: 'Saldo insuficiente ou erro no servidor.',

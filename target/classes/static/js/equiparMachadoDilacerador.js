@@ -122,6 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (ativoGuerreiro <= 0) {
 	                Swal.fire({
+						customClass: {      
+						title: 'swal-game-text'
+						},
 	                    icon: 'warning',
 	                    title: 'Ação bloqueada',
 	                    text: 'Você não pode equipar armas agora.',
@@ -137,6 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (espadaAtiva === 1) {
 	                Swal.fire({
+						customClass: {
+					    title: 'swal-game-error'
+					},
 	                    icon: 'warning',
 	                    title: 'Arma incompatível',
 	                    text: 'Desequipe a espada antes de equipar o machado.',
@@ -158,6 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	            if (!res.ok) {
 	                const erro = await res.text();
 	                Swal.fire({
+						customClass: {
+						title: 'swal-game-error'
+						},
 	                    icon: 'warning',
 	                    title: 'Erro',
 	                    text: erro,
@@ -172,6 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	            }
 
 	            Swal.fire({
+					customClass: {      
+					title: 'swal-game-text'
+					},
 	                icon: 'success',
 	                title: 'Machado equipado!',
 	                text: 'Seu Machado Dilacerador foi equipado com sucesso.',
@@ -188,6 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	            console.error(e);
 
 	            Swal.fire({
+					customClass: {
+					title: 'swal-game-error'
+					},
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar o machado.',

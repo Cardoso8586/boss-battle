@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (quantidade === 1) {
                         Swal.fire({
                             customClass: { title: 'swal-game-text' },
-                            title: 'Compra realizada!',
-                            html: `Você comprou ${quantidade} espada Flanejante.`,
+                            title: `Você comprou ${quantidade} espada Flanejante.`,
+                            html: 'Compra realizada!',
                             imageUrl: '/icones/espada_flanejante.webp',
                             imageWidth: 40,
                             imageHeight: 140,
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         Swal.fire({
                             customClass: { title: 'swal-game-text' },
-                            title: 'Compra realizada!',
-                            html: `Você comprou ${quantidade} espadas Flanejante.`,
+                            title: `Você comprou ${quantidade} espadas Flanejante.`,
+                            html: 'Compra realizada!',
                             imageUrl: '/icones/espada_flanejante.webp',
                             imageWidth: 40,
                             imageHeight: 140,

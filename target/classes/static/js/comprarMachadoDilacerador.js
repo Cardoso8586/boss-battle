@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (quantidade <= 0 || isNaN(quantidade)) {
                 Swal.fire({
+					customClass: {
+					title: 'swal-game-error'
+					},
                     icon: 'warning',
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
@@ -54,8 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) throw new Error('Saldo insuficiente');
 
                 Swal.fire({
-                    title: 'Compra realizada!',
-                    html: `Você comprou ${quantidade} machado${quantidade > 1 ? 's' : ''} dilacerador.`,
+					customClass: {      
+					title: 'swal-game-text'
+					},
+					title: `Você comprou ${quantidade} machado${quantidade > 1 ? 's' : ''} dilacerador.`,
+					html: 'Compra realizada!',
+                   // title: 'Compra realizada!',
+                    //html: `Você comprou ${quantidade} machado${quantidade > 1 ? 's' : ''} dilacerador.`,
                     imageUrl: '/icones/machado_dilacerador.webp',
                     imageWidth: 100,
                     imageHeight: 140,
@@ -71,6 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (err) {
                 Swal.fire({
+					customClass: {
+				    title: 'swal-game-error'
+					},
                     icon: 'error',
                     title: 'Erro na compra',
                     text: 'Saldo insuficiente ou erro no servidor.',

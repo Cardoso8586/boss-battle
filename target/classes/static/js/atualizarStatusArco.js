@@ -1,3 +1,143 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ===============================
+    // ELEMENTOS
+    // ===============================
+    const nucleo = document.getElementById("nucleoArco");
+
+    const btnFerro = document.getElementById("btnColocarFlechaFerro");
+    const btnFogo = document.getElementById("btnColocarFlechaFogo");
+    const btnVeneno = document.getElementById("btnColocarFlechaVeneno");
+    const btnDiamante = document.getElementById("btnColocarFlechaDiamante");
+
+    const btnEquiparArco = document.getElementById("btnEquiparArco");
+    const arcoAtivoSpan = document.getElementById("arcoAtivo");
+    const durabilidadeSpan = document.getElementById("durabilidadeArco");
+    const aljavaSpan = document.getElementById("aljavaCount");
+    const tipoFlechaSpan = document.getElementById("tipoFlechaAtiva");
+    const arcoDisponiveis = document.getElementById("arcoDisponiveis");
+
+    const meta = document.querySelector('meta[name="user-id"]');
+    const usuarioId = meta ? Number(meta.content) : null;
+
+    // Expondo atualizarStatus globalmente para o script de cliques
+    window.atualizarStatus = atualizarStatus;
+
+    // ===============================
+    // FUNÇÃO AUXILIAR: Atualiza botão de flecha
+    // ===============================
+    function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
+        const imagens = {
+            FERRO: "/icones/flecha_ferro.webp",
+            FOGO: "/icones/flecha_fogo.webp",
+            VENENO: "/icones/flecha_veneno.webp",
+            DIAMANTE: "/icones/flecha_diamante.webp"
+        };
+
+        const habilitar = temArcoDisponivel && quantidade > 0 && (!tipoAtivo || tipoAtivo.toUpperCase() === tipo.toUpperCase());
+
+        botao.disabled = !habilitar;
+        botao.style.opacity = habilitar ? "1" : "0.5";
+
+        botao.innerHTML = `
+            <div style="display:flex; align-items:center; gap:6px;">
+                <img src="${imagens[tipo]}" alt="${tipo}" style="width:24px; height:54px;">
+                <span>${texto} (${quantidade})</span>
+            </div>
+        `;
+		
+		
+    }
+
+    // ===============================
+    // FUNÇÃO PRINCIPAL: Atualiza Status
+    // ===============================
+    async function atualizarStatus() {
+        if (!usuarioId) return;
+
+        try {
+            const res = await fetch(`/api/atualizar/status/usuario/${usuarioId}`);
+            const data = await res.json();
+
+            // ===============================
+            // Atualiza textos na tela
+            // ===============================
+            arcoDisponiveis.textContent = data.arcoInventario;
+            arcoAtivoSpan.textContent = data.arcoAtivo;
+            durabilidadeSpan.textContent = data.durabilidadeArco;
+            aljavaSpan.textContent = data.aljava;
+            tipoFlechaSpan.textContent = data.aljava > 0 ? data.tipoFlecha : "-";
+
+            // ===============================
+            // Variáveis de estado
+            // ===============================
+            const durabilidade = data.durabilidadeArco;
+            const arcoInventario = data.arcoInventario;
+            const flechasNaAljava = data.aljava;
+            const guerreiroAtivo = data.guerreiros ?? 0;
+            const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
+            const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
+            const arcoAtivo = data.arcoAtivo;
+
+            const temArcoDisponivel = arcoInventario > 0 || durabilidade > 0;
+
+            // ===============================
+            // Estoque de flechas
+            // ===============================
+            const estoqueFlechas = {
+                FERRO: data.flechaFerro,
+                FOGO: data.flechaFogo,
+                VENENO: data.flechaVeneno,
+                DIAMANTE: data.flechaDiamante
+            };
+
+            const tipoAtivo = data.aljava > 0 ? (data.tipoFlecha ?? null) : null;
+            const temFlechas = Object.values(estoqueFlechas).some(qtd => qtd > 0);
+
+            // ===============================
+            // NÚCLEO
+            // ===============================
+            nucleo.classList.toggle("hidden", !(temArcoDisponivel || temFlechas));
+
+            // ===============================
+            // BOTÕES DE FLECHA
+            // ===============================
+            atualizarBotao(btnFerro, "FERRO", estoqueFlechas.FERRO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Ferro");
+            atualizarBotao(btnFogo, "FOGO", estoqueFlechas.FOGO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Fogo");
+            atualizarBotao(btnVeneno, "VENENO", estoqueFlechas.VENENO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Veneno");
+            atualizarBotao(btnDiamante, "DIAMANTE", estoqueFlechas.DIAMANTE, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Diamante");
+
+            // ===============================
+            // BOTÃO EQUIPAR ARCO
+			const podeEquipar =
+			    arcoInventario > 0 &&       // tem arco no inventário
+			   // arcoAtivo === 0 &&          // nenhum arco ativo
+			   // durabilidade === 0 &&       // arco atual está zerado
+			    flechasNaAljava > 0 &&
+			    //guerreiroAtivo > 0 &&
+			    espadaAtiva === 0 &&
+			    machadoAtivo === 0;
+
+			btnEquiparArco.classList.toggle("hidden", !podeEquipar);
+			btnEquiparArco.disabled = !podeEquipar;
+
+			
+        } catch (err) {
+            console.error("Erro ao atualizar status do arco:", err);
+        }
+    }
+
+    // ===============================
+    // EXECUÇÃO INICIAL E LOOP
+    // ===============================
+   
+ atualizarStatus();
+ setInterval(atualizarStatus, 5000);
+});
+
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const nucleo = document.getElementById("nucleoArco");
@@ -26,9 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(`/api/atualizar/status/usuario/${usuarioId}`);
             const data = await res.json();
 
-            /* ===============================
-               TEXTOS
-            =============================== */
+           
             arcoDisponiveis.textContent = data.arcoInventario;
             arcoAtivoSpan.textContent = data.arcoAtivo;
             durabilidadeSpan.textContent = data.durabilidadeArco;
@@ -65,14 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const temFlechas = Object.values(estoqueFlechas).some(qtd => qtd > 0);
 
-            /* ===============================
-               NÚCLEO
-            =============================== */
+         
             nucleo.classList.toggle("hidden", !(temArcoDisponivel || temFlechas));
 
-            /* ===============================
-               BOTÕES DE FLECHA
-            =============================== */
+          
             const tipoAtivo = data.tipoFlecha || null;
 
 			function atualizarBotao(botao, tipo, quantidade, texto) {
@@ -105,10 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarBotao(btnVeneno, "VENENO", estoqueFlechas.VENENO, "Colocar Flecha de Veneno");
             atualizarBotao(btnDiamante, "DIAMANTE", estoqueFlechas.DIAMANTE, "Colocar Flecha de Diamante");
 
-			
-            /* ===============================
-               BOTÕES DE ARCO (LÓGICA FINAL)
-            =============================== */
+		
 
             // Estado base — nunca sobra botão
             btnEquiparArco.classList.add("hidden");
@@ -137,15 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		   		    btnEquiparArco.classList.remove("hidden");
 		   		    btnEquiparArco.disabled = false;
 		   		}
-			
-          /**
- *
-            // 🔁 Reativar arco existente
-            if (podeReativar) {
-                btnReativarArco.classList.remove("hidden");
-                btnReativarArco.disabled = false;
-            } 
-          */
+		
 
         } catch (err) {
             console.error("Erro ao atualizar status do arco:", err);
@@ -157,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+*/
 /***
  *  document.addEventListener('DOMContentLoaded', () => {
 

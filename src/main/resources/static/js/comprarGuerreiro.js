@@ -65,8 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
 							customClass: {      
 												title: 'swal-game-text'
 												},
-										    title: 'Compra realizada!',
-										    html: `Você comprou ${quantidade} guerreiro.`,
+										    title: `Você comprou ${quantidade} guerreiro.`,
+										    html: 'Compra realizada!',
+										   // title: 'Compra realizada!',
+										   // html: `Você comprou ${quantidade} guerreiro.`,
 										    imageUrl: '/icones/guerreiro_padrao.webp', 
 										    imageWidth: 80,  
 										    imageHeight: 80,
@@ -82,8 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					    customClass: {      
 						title: 'swal-game-text'
 						},
-					    title: 'Compra realizada!',
-					    html: `Você comprou ${quantidade} guerreiros.`,
+						title:  `Você comprou ${quantidade} guerreiros.`,
+						html:'Compra realizada!',
+					   // title: 'Compra realizada!',
+					    //html: `Você comprou ${quantidade} guerreiros.`,
 					    imageUrl: '/icones/guerreiro_padrao.webp', 
 					    imageWidth: 80,   
 					    imageHeight: 80,

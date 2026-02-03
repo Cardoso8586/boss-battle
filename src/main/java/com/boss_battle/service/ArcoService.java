@@ -43,7 +43,7 @@ public class ArcoService {
             throw new RuntimeException("Espada equipada");
         }
 
-        if (durabilidadeArco <= 0) {
+        if (durabilidadeArco != 0) {
             throw new RuntimeException("Já existe um arco equipado");
         }
 
@@ -58,7 +58,7 @@ public class ArcoService {
         // =========================
         usuario.setInventarioArco(arcoInventario - 1);
         usuario.setArcoAtivo(1);
-        usuario.setDurabilidadeArco(100);
+        usuario.setDurabilidadeArco(2);
 
         usuarioRepository.save(usuario);
     }
