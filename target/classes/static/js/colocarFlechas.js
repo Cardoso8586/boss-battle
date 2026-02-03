@@ -91,16 +91,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 aljavaCount.textContent = data.aljava;
                 tipoFlechaAtiva.textContent = data.tipoFlecha || "-";
 
-                Swal.fire({
+				if(quantidade <=1){
+					Swal.fire({
+				    customClass: { title: 'swal-game-text' },
+					icon: 'success',
+					title: `Colocadas ${quantidade} flecha de ${tipo} na aljava!`,
+					text: 'Colocando na Aljava!',
+					// title: 'Colocando na Aljava!',
+				    //text: `Colocadas ${quantidade} flechas de ${tipo} na aljava!`,
+				    timer: 5000,
+					showConfirmButton: false,
+					background: 'transparent',
+					color: '#ffb400'
+			    });
+
+					
+				}else{
+					
+					Swal.fire({
                     customClass: { title: 'swal-game-text' },
                     icon: 'success',
-                    title: 'Colocando na Aljava!',
-                    text: `Colocadas ${quantidade} flechas de ${tipo} na aljava!`,
+					title: `Colocadas ${quantidade} flechas de ${tipo} na aljava!`,
+					text: 'Colocando na Aljava!',
+                   // title: 'Colocando na Aljava!',
+                    //text: `Colocadas ${quantidade} flechas de ${tipo} na aljava!`,
                     timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'
                 });
+				}
+				
+          
 
                 atualizarStatus();
 
@@ -179,7 +201,14 @@ document.addEventListener("DOMContentLoaded", () => {
         nucleo.classList.toggle("hidden", !(temFlechas || temArcoDisponivel));
 
         // 🔹 Equipar arco só se houver arco no inventário e arco não ativo
-        const podeEquipar = data.arcoInventario > 0 && data.arcoAtivo === 0;
+		// 🔹 Equipar arco só se NÃO existir arco equipado
+		
+		const podeEquipar =
+		    data.arcoInventario > 0 &&   // tem arco no inventário
+		    data.durabilidadeArco === 0 && // NÃO existe arco equipado
+		    data.arcoAtivo === 0;        // nenhum arco ativo
+
+		
         btnEquiparArco.classList.toggle("hidden", !podeEquipar);
         btnEquiparArco.disabled = !podeEquipar;
 

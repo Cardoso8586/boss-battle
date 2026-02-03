@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const arcoAtivo = status.arcoAtivo ?? 0;
         const durabilidade = status.durabilidadeArco ?? 0;
 
-        const aljava = status.aljava ?? 0;
+        const flechasNaAljava = status.aljava ?? 0;
         const tipoFlecha = status.tipoFlechaAtiva ?? '-';
 
         const guerreiroAtivo = status.ativoGuerreiro ?? 0;
@@ -57,12 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==============================
         // 🔒 NÚCLEO INTEIRO (só aparece se tiver flecha)
         // ==============================
-        if (aljava > 0) {
-            nucleoArco.classList.remove('hidden');
-        } else {
-            nucleoArco.classList.add('hidden');
-            return; // não faz mais nada
-        }
+       
 
         // ==============================
         // UI BÁSICA
@@ -75,23 +70,39 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==============================
         // INFO ATIVO
         // ==============================
-        arcoInfos.forEach(div => {
+       
+		 arcoInfos.forEach(div => {
             div.classList.toggle('hidden', arcoAtivo === 0);
         });
 
-        // ==============================
-        // BOTÃO EQUIPAR ARCO
-        // ==============================
-        const podeEquipar =
-            arcoEstoque > 0 &&
-            arcoAtivo === 0 &&
-            aljava > 0 &&
-            guerreiroAtivo > 0 &&
-            espadaAtiva === 0 &&
-            machadoAtivo === 0;
+		// ==============================
+		// BOTÃO EQUIPAR ARCO — LÓGICA FINAL
+		// ==============================
 
-        btnEquiparArco.classList.toggle('hidden', !podeEquipar);
-        btnEquiparArco.disabled = !podeEquipar;
+		// existe arco equipado se durabilidade > 0
+		const existeArco = durabilidade > 0;
+
+		const podeEquipar =
+					    arcoEstoque > 0 &&      // ✅ existe pelo menos 1 arco no inventário
+					    !existeArco &&          // ✅ NÃO há arco equipado (durabilidade = 0)
+					    arcoAtivo === 0 &&      // ✅ nenhum arco está ativo no momento
+					    flechasNaAljava > 0 &&  // ✅ existe pelo menos 1 flecha na aljava
+					    guerreiroAtivo > 0 &&   // ✅ guerreiro está ativo
+					    espadaAtiva === 0 &&    // ✅ nenhuma espada equipada
+					    machadoAtivo === 0;     // ✅ nenhum machado equipado
+						
+						
+		// estado base (sempre igual)
+		btnEquiparArco.classList.add('hidden');
+		btnEquiparArco.disabled = true;
+
+		// mostrar apenas se TODAS as condições forem verdadeiras
+		if (podeEquipar) {
+		    btnEquiparArco.classList.remove('hidden');
+		    btnEquiparArco.disabled = false;
+		}
+
+
     }
 
     // ==============================
@@ -119,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	        // 🔒 VALIDAÇÃO REAL (NÃO CONFIA SÓ NO HTTP)
 	        if (!res.ok || !resposta || resposta.success !== true) {
-	            throw new Error(resposta?.message || 'Não foi possível equipar o arco');
+	            throw new Error(resposta?.message || 'Já existe um arco equipado');
 	        }
 
 	        Swal.fire({

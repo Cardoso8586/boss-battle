@@ -15,58 +15,50 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ArcoService {
 
-	   private static final long DURABILIDADE_MAX_ARCO = 100;
-	   private static final long QUANTIDADE_MAX_ARCO_EQUIPADO = 1;
-	   private static final long QUANTIDADE_DESCONTAR_ARCO = 1;
+	 
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
+    
+    @Transactional
     public void equiparArco(UsuarioBossBattle usuario) {
 
-        // Verifica se possui arco no inventário
-        if (usuario.getInventarioArco() <= 0) {
+        long arcoInventario = usuario.getInventarioArco();
+        long machadoDilaceradorAtivo = usuario.getMachadoDilaceradorAtivo();
+        long espadaFlanejanteAtiva = usuario.getEspadaFlanejanteAtiva();
+        long durabilidadeArco = usuario.getDurabilidadeArco();
+        long flechasNaAljava = usuario.getAljava();
+
+        // =========================
+        // VALIDAÇÕES
+        // =========================
+        if (arcoInventario <= 0) {
             throw new RuntimeException("Usuário não possui arco no inventário");
         }
 
-        // Penalidade: tentou equipar sem flecha
-        if (usuario.getAljava() <= 0) {
-            // Remove arco do inventário ou aplica penalidade
-            usuario.setInventarioArco(usuario.getInventarioArco() - QUANTIDADE_DESCONTAR_ARCO);
+        if (machadoDilaceradorAtivo > 0) {
+            throw new RuntimeException("Machado equipado");
+        }
 
-            // Zera arco ativo e durabilidade
-            usuario.setArcoAtivo(0);
-            usuario.setDurabilidadeArco(0);
+        if (espadaFlanejanteAtiva > 0) {
+            throw new RuntimeException("Espada equipada");
+        }
 
-            usuarioRepository.save(usuario);
+        if (durabilidadeArco <= 0) {
+            throw new RuntimeException("Já existe um arco equipado");
+        }
 
+        if (flechasNaAljava <= 0) {
             throw new RuntimeException(
-                "Você tentou equipar o Arco Celestial sem flechas e perdeu 1 arco como penalidade!"
+                "Não é possível equipar o arco sem flechas na aljava"
             );
         }
 
-        // Bloqueia se outra arma estiver equipada
-        if (usuario.getMachadoDilaceradorAtivo() > 0) {
-            throw new RuntimeException(
-                "Não é possível equipar o arco enquanto um Machado Dilacerador estiver equipado"
-            );
-        }
-
-        if (usuario.getEspadaFlanejanteAtiva() > 0) {
-            throw new RuntimeException(
-                "Não é possível equipar o arco enquanto uma Espada Flanejante estiver equipada"
-            );
-        }
-
-        // Bloqueia se já existir arco em uso
-        if (usuario.getDurabilidadeArco() > 0) {
-            throw new RuntimeException(
-                "Já existe um arco equipado com durabilidade restante"
-            );
-        }
-
-        // Equipar normalmente
-        usuario.setInventarioArco(usuario.getInventarioArco() - QUANTIDADE_DESCONTAR_ARCO);
-        usuario.setArcoAtivo(QUANTIDADE_MAX_ARCO_EQUIPADO);
-        usuario.setDurabilidadeArco(DURABILIDADE_MAX_ARCO);
+        // =========================
+        // AÇÃO (SÓ SE PASSAR EM TUDO)
+        // =========================
+        usuario.setInventarioArco(arcoInventario - 1);
+        usuario.setArcoAtivo(1);
+        usuario.setDurabilidadeArco(100);
 
         usuarioRepository.save(usuario);
     }
@@ -104,7 +96,49 @@ public class ArcoService {
 
     
     //======================================================================
-   
+
+    public int usarArco(UsuarioBossBattle usuario) {
+
+        // 🚫 Arco inativo
+        if (usuario.getArcoAtivo() <= 0) {
+            throw new IllegalStateException("Nenhum arco ativo");
+        }
+
+        TipoFlecha flechaAtiva = TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva());
+
+        // 🚫 Sem flechas OU flecha inválida
+        if (usuario.getAljava() <= 0 || flechaAtiva == null) {
+            usuario.setArcoAtivo(0);
+            usuario.setAljavaFlechaAtiva(0);
+            return 0;
+        }
+
+        // 🔻 Consome flecha
+        usuario.setAljava(usuario.getAljava() - 1);
+
+        // 🔻 Desgasta arco
+        usuario.setDurabilidadeArco(usuario.getDurabilidadeArco() - 1);
+
+        int poder = flechaAtiva.getPoder();
+
+        // 💥 Arco quebrou
+        if (usuario.getDurabilidadeArco() <= 0) {
+            usuario.setDurabilidadeArco(0);
+            usuario.setArcoAtivo(0);
+            usuario.setAljavaFlechaAtiva(0);
+            return poder;
+        }
+
+        // 📴 Acabaram as flechas
+        if (usuario.getAljava() == 0) {
+            usuario.setArcoAtivo(0);
+            usuario.setAljavaFlechaAtiva(0);
+        }
+
+        return poder;
+    }
+
+    /*
     public int usarArco(UsuarioBossBattle usuario) {
 
         // 🚫 Arco inativo
@@ -155,6 +189,6 @@ public class ArcoService {
         // 🔥 Retorna o PODER da flecha ativa
         return flechaAtiva.getPoder();
     }
-
+*/
    
 }

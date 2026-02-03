@@ -84,9 +84,9 @@ public class GuerreiroAutoAttackService {
 	        machadoDilaceradorService.usarMachadoDilacerador(usuario);
 	    }
 	    
-	    // ⚔️ bônus do arco com flecha ativa
+	   
 	 // ⚔️ Aplica bônus do arco se houver arco ativo e flecha
-	    if (usuario.getArcoAtivo() > 0 && usuario.getAljava() > 0) {
+	    if (arcoAtivo > 0 && aljava > 0) {
 	        int bonusPercentual = arcoService.usarArco(usuario); // retorna o poder da flecha ativa
 
 	        // ⚡ Ajusta dano final
