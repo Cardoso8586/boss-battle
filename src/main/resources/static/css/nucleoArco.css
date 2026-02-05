@@ -58,9 +58,35 @@
 
 #nucleoArco .btn-nucleo-acao img {
     width: 54px;
-    height: 30px;
+    height: 50px;
     object-fit: contain;
     flex-shrink: 0;
+}
+
+/* ==============================
+   ESTADO INATIVO (SEM MATAR COR)
+================================ */
+.btn-nucleo-acao.flecha-inativa {
+    opacity: 0.55;
+    filter: grayscale(35%) brightness(0.9);
+    box-shadow: none !important;
+}
+
+/* ==============================
+   ESTADO ATIVO (DESTAQUE)
+================================ */
+.btn-nucleo-acao.flecha-ativa {
+    opacity: 2;
+    filter: brightness(1.55) saturate(1.2);
+    box-shadow: 0 0 18px rgba(0, 220, 255, 0.65);
+    transform: scale(1.05);
+}
+
+/* ==============================
+   DISABLED (SEM QUEBRAR COR)
+================================ */
+.btn-nucleo-acao:disabled {
+    cursor: not-allowed;
 }
 
 
@@ -197,6 +223,8 @@
 #nucleoArco.hidden {
     display: none !important;
 }
+
+
 
 /* ==============================
    RESPONSIVIDADE

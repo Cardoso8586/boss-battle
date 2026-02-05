@@ -3,6 +3,7 @@ package com.boss_battle.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boss_battle.enums.ResultadoAljava;
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
@@ -16,6 +17,66 @@ public class AljavaService {
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
 
+    @Transactional
+    public ResultadoAljava colocarFlechasNaAljava(
+            UsuarioBossBattle usuario,
+            TipoFlecha tipo,
+            int quantidade
+    ) {
+
+        // ❌ Quantidade inválida
+        if (quantidade <= 0) {
+            return ResultadoAljava.QUANTIDADE_INVALIDA;
+        }
+
+        // 🚫 Outra arma ativa
+        if (usuario.getMachadoDilaceradorAtivo() > 0 ||
+            usuario.getEspadaFlanejanteAtiva() > 0) {
+            return ResultadoAljava.OUTRA_ARMA_ATIVA;
+        }
+
+        long aljavaAtual = usuario.getAljava();
+        long flechaAtiva = usuario.getAljavaFlechaAtiva();
+
+        // 🔄 Tentativa de trocar tipo com aljava cheia
+        if (aljavaAtual > 0 && flechaAtiva != tipo.ordinal()) {
+            return ResultadoAljava.TROCA_TIPO_NAO_PERMITIDA;
+        }
+
+        // 🏹 Verifica estoque por tipo
+        boolean temFlechas = switch (tipo) {
+            case FERRO -> usuario.getFlechaFerro() >= quantidade;
+            case FOGO -> usuario.getFlechaFogo() >= quantidade;
+            case VENENO -> usuario.getFlechaVeneno() >= quantidade;
+            case DIAMANTE -> usuario.getFlechaDiamante() >= quantidade;
+        };
+
+        if (!temFlechas) {
+            return ResultadoAljava.FLECHAS_INSUFICIENTES;
+        }
+
+        // 🔻 Consome flechas do estoque
+        switch (tipo) {
+            case FERRO -> usuario.setFlechaFerro(usuario.getFlechaFerro() - quantidade);
+            case FOGO -> usuario.setFlechaFogo(usuario.getFlechaFogo() - quantidade);
+            case VENENO -> usuario.setFlechaVeneno(usuario.getFlechaVeneno() - quantidade);
+            case DIAMANTE -> usuario.setFlechaDiamante(usuario.getFlechaDiamante() - quantidade);
+        }
+
+        // 🔺 Atualiza aljava
+        usuario.setAljava(aljavaAtual + quantidade);
+        usuario.setAljavaFlechaAtiva(tipo.ordinal());
+
+        // ⚡ Ativa arco automaticamente se possível
+        if (usuario.getDurabilidadeArco() > 0 && usuario.getAljava() > 0) {
+            usuario.setArcoAtivo(1);
+        }
+
+        usuarioRepository.save(usuario);
+        return ResultadoAljava.SUCESSO;
+    }
+
+    /*
     public void colocarFlechasNaAljava(UsuarioBossBattle usuario, TipoFlecha tipo, int quantidade) {
 
         if (quantidade <= 0) {
@@ -81,4 +142,6 @@ public class AljavaService {
 
         usuarioRepository.save(usuario);
     }
+    
+    */
 }

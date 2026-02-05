@@ -54,6 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
         aljavaSpan.textContent = formatar(aljava);
         tipoFlechaSpan.textContent = tipoFlecha;
 
+		
+		btnEquiparArco.classList.toggle('hidden', 
+		    !(status.arcoInventario > 0 && status.arcoAtivo === 0 && status.durabilidadeArco === 0)
+		);
+		btnEquiparArco.disabled = status.arcoInventario === 0 || status.arcoAtivo > 0;
+
         // ==============================
         // INFO ATIVO
         // ==============================
@@ -71,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let emCooldown = false;
 
 	btnEquiparArco?.addEventListener('click', async () => {
-
+		
+		
 	    if (emCooldown || btnEquiparArco.disabled) return;
 
 	    emCooldown = true;

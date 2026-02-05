@@ -3,6 +3,8 @@ package com.boss_battle.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boss_battle.enums.ResultadoAcao;
+import com.boss_battle.enums.ResultadoEquipamento;
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
@@ -19,6 +21,36 @@ public class ArcoService {
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
     
+    @Transactional
+    public ResultadoEquipamento equiparArco(UsuarioBossBattle usuario) {
+
+        if (usuario.getInventarioArco() <= 0) {
+            return ResultadoEquipamento.SEM_ARCO_INVENTARIO;
+        }
+
+        if (usuario.getMachadoDilaceradorAtivo() > 0 ||
+            usuario.getEspadaFlanejanteAtiva() > 0) {
+            return ResultadoEquipamento.OUTRA_ARMA_ATIVA;
+        }
+
+        if (usuario.getDurabilidadeArco() > 0) {
+            return ResultadoEquipamento.ARCO_JA_EQUIPADO;
+        }
+
+        if (usuario.getAljava() <= 0) {
+            return ResultadoEquipamento.SEM_FLECHAS;
+        }
+
+        usuario.setInventarioArco(usuario.getInventarioArco() - 1);
+        usuario.setArcoAtivo(1);
+        usuario.setDurabilidadeArco(2);
+
+        usuarioRepository.save(usuario);
+
+        return ResultadoEquipamento.SUCESSO;
+    }
+
+    /*
     @Transactional
     public void equiparArco(UsuarioBossBattle usuario) {
 
@@ -62,36 +94,31 @@ public class ArcoService {
 
         usuarioRepository.save(usuario);
     }
-
+*/
    
-    public void reativarArco(UsuarioBossBattle usuario) {
+    public ResultadoAcao reativarArco(UsuarioBossBattle usuario) {
 
-
-        // 🚫 Já está ativo
         if (usuario.getArcoAtivo() > 0) {
-            throw new RuntimeException("O arco já está ativo");
+            return ResultadoAcao.ARCO_JA_ATIVO;
         }
 
-        // 🚫 Sem flechas
         if (usuario.getAljava() <= 0) {
-            throw new RuntimeException("Não é possível reativar o arco sem flechas na aljava");
+            return ResultadoAcao.SEM_FLECHAS;
         }
 
-        // 🚫 Arco inexistente ou quebrado
         if (usuario.getDurabilidadeArco() <= 0) {
-            throw new RuntimeException("O arco está quebrado e precisa ser reequipado");
+            return ResultadoAcao.ARCO_QUEBRADO;
         }
 
-        // 🚫 Conflito de armas
         if (usuario.getEspadaFlanejanteAtiva() > 0 ||
             usuario.getMachadoDilaceradorAtivo() > 0) {
-            throw new RuntimeException("Não é possível reativar o arco com outra arma ativa");
+            return ResultadoAcao.CONFLITO_ARMA;
         }
 
-        // 🔁 Reativa arco
         usuario.setArcoAtivo(1);
-
         usuarioRepository.save(usuario);
+
+        return ResultadoAcao.SUCESSO;
     }
 
     
@@ -100,9 +127,14 @@ public class ArcoService {
     public int usarArco(UsuarioBossBattle usuario) {
 
         // 🚫 Arco inativo
-        if (usuario.getArcoAtivo() <= 0) {
-            throw new IllegalStateException("Nenhum arco ativo");
+      
+        if (usuario.getArcoAtivo() <= 0 || usuario.getDurabilidadeArco() <= 0) {
+            usuario.setArcoAtivo(0);
+            usuario.setDurabilidadeArco(0);
+            usuario.setAljavaFlechaAtiva(0);
+            return 0;
         }
+
 
         TipoFlecha flechaAtiva = TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva());
 

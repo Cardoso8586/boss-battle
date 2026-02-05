@@ -80,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			       
 			
 			//status arco
-			const arcoAtivo = data.arcoAtivo;
+		   
 		    const durabilidade = data.durabilidadeArco;
 		    const tipoAtivo = data.tipoFlecha || null;
-
+            const arcoEquipado = durabilidade > 0;
 			
 		
 
@@ -142,10 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			} 
 			
-			else if (arcoAtivo !== null && arcoAtivo > 0) {
-			    // 🏹 Arco ativo
+			else if (arcoEquipado) {
+			    // 🏹 Arco equipado
 			    container.classList.remove("hidden");
-			    btnEquiparArco.style.display = "none";
+			    btnEquiparArco.classList.add("hidden");
 
 			    const desgasteMax = 100;
 			    barra.max = desgasteMax;
@@ -154,30 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			    texto.textContent = `${Math.round((durabilidade / desgasteMax) * 100)}%`;
 
 			    if (tipoAtivo) {
-			        switch (tipoAtivo) {
-			            case "FERRO":
-			                guerreiroImage.src = "icones/guerreiro_arco_flecha_ferro.webp";
-			                break;
+			        const imagens = {
+			            FERRO: "icones/guerreiro_arco_flecha_ferro.webp",
+			            FOGO: "icones/guerreiro_arco_flecha_fogo.webp",
+			            VENENO: "icones/guerreiro_arco_flecha_veneno.webp",
+			            DIAMANTE: "icones/guerreiro_arco_flecha_diamante.webp"
+			        };
 
-			            case "FOGO":
-			                guerreiroImage.src = "icones/guerreiro_arco_flecha_fogo.webp";
-			                break;
-
-			            case "VENENO":
-			                guerreiroImage.src = "icones/guerreiro_arco_flecha_veneno.webp";
-			                break;
-
-			            case "DIAMANTE":
-			                guerreiroImage.src = "icones/guerreiro_arco_flecha_diamante.webp";
-			                break;
-
-			            default:
-			                guerreiroImage.src = "icones/guerreiro_arco_padrao.webp";
-			        }
+			        guerreiroImage.src = imagens[tipoAtivo] ?? "icones/guerreiro_arco_padrao.webp";
 			    }
 			}
 
-			
 			else {
 			    // ⚔️ SEM ARMA ATIVA → IMAGEM PADRÃO
 			    container.classList.add("hidden");

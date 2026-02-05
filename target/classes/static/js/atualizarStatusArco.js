@@ -27,6 +27,64 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===============================
     // FUNÇÃO AUXILIAR: Atualiza botão de flecha
     // ===============================
+	function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
+	    const imagens = {
+	        FERRO: "/icones/flecha_ferro.webp",
+	        FOGO: "/icones/flecha_fogo.webp",
+	        VENENO: "/icones/flecha_veneno.webp",
+	        DIAMANTE: "/icones/flecha_diamante.webp"
+	    };
+
+	    const habilitar =
+	        temArcoDisponivel &&
+	        quantidade > 0 &&
+	        (!tipoAtivo || tipoAtivo.toUpperCase() === tipo);
+
+	    // estado do botão
+	    botao.disabled = !habilitar;
+	    botao.style.opacity = habilitar ? "1" : "0.5";
+
+	    // atualiza SOMENTE conteúdo interno (sem recriar DOM)
+	    const img = botao.querySelector("img");
+	    const span = botao.querySelector("span");
+
+	    if (img) {
+	        img.src = imagens[tipo];
+	        img.alt = `Flecha de ${tipo}`;
+	    }
+
+	    if (span) {
+	        span.textContent = `${texto} (${quantidade})`;
+	    }
+	}
+
+	/*
+	function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
+	    const imagens = {
+	        FERRO: "/icones/flecha_ferro.webp",
+	        FOGO: "/icones/flecha_fogo.webp",
+	        VENENO: "/icones/flecha_veneno.webp",
+	        DIAMANTE: "/icones/flecha_diamante.webp"
+	    };
+
+	    const habilitar =
+	        temArcoDisponivel &&
+	        quantidade > 0 &&
+	        (!tipoAtivo || tipoAtivo.toUpperCase() === tipo);
+
+	    botao.disabled = !habilitar;
+	    botao.style.opacity = habilitar ? "1" : "0.5";
+
+	    const img = botao.querySelector("img");
+	    const span = botao.querySelector("span");
+
+	    img.src = imagens[tipo];
+	    img.alt = tipo;
+	    span.textContent = `${texto} (${quantidade})`;
+	}
+	*/
+
+	/*
     function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
         const imagens = {
             FERRO: "/icones/flecha_ferro.webp",
@@ -49,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		
     }
+	*/
 
     // ===============================
     // FUNÇÃO PRINCIPAL: Atualiza Status
@@ -60,6 +119,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(`/api/atualizar/status/usuario/${usuarioId}`);
             const data = await res.json();
 
+			
+				//debug
+					/*
+						Swal.fire({
+						    title: "JSON RECEBIDO",
+						    html: `<pre style="text-align:left">${JSON.stringify(data, null, 2)}</pre>`,
+						    width: 600
+						});
+						*/
+					
+			/*
+						console.table({
+						    arcoInventario: data.arcoInventario,
+						    durabilidade: data.durabilidadeArco,
+						    flechasNaAljava: data.aljava,
+						    guerreiroAtivo: data.guerreiros,
+						    espadaAtiva: data.ativaEspadaFlanejante,
+						    machadoAtivo: data.ativarMachadoDilacerador,
+						    arcoAtivo: data.arcoAtivo
+						});
+			*/
             // ===============================
             // Atualiza textos na tela
             // ===============================
@@ -78,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const guerreiroAtivo = data.guerreiros ?? 0;
             const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
             const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
-            const arcoAtivo = data.arcoAtivo;
+          
 
             const temArcoDisponivel = arcoInventario > 0 || durabilidade > 0;
 
@@ -107,22 +187,20 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarBotao(btnFogo, "FOGO", estoqueFlechas.FOGO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Fogo");
             atualizarBotao(btnVeneno, "VENENO", estoqueFlechas.VENENO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Veneno");
             atualizarBotao(btnDiamante, "DIAMANTE", estoqueFlechas.DIAMANTE, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Diamante");
+			
+			const arcoEquipado = durabilidade > 0;
 
-            // ===============================
-            // BOTÃO EQUIPAR ARCO
 			const podeEquipar =
-			    arcoInventario > 0 &&       // tem arco no inventário
-			   // arcoAtivo === 0 &&          // nenhum arco ativo
-			   // durabilidade === 0 &&       // arco atual está zerado
+			    arcoInventario > 0 &&
+			    !arcoEquipado &&        // 👈 regra REAL
 			    flechasNaAljava > 0 &&
-			    //guerreiroAtivo > 0 &&
+			    guerreiroAtivo > 0 &&
 			    espadaAtiva === 0 &&
 			    machadoAtivo === 0;
 
 			btnEquiparArco.classList.toggle("hidden", !podeEquipar);
 			btnEquiparArco.disabled = !podeEquipar;
 
-			
         } catch (err) {
             console.error("Erro ao atualizar status do arco:", err);
         }
