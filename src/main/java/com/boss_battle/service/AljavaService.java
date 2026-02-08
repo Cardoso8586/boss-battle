@@ -35,6 +35,13 @@ public class AljavaService {
             );
         }
 
+     // 🔒 Arco quebrado + já tem flechas na aljava
+        if (usuario.getDurabilidadeArco() <= 0 && usuario.getAljava() > 0) {
+            throw new RuntimeException(
+                "O arco está quebrado. Repare o arco antes de adicionar mais flechas."
+            );
+        }
+
         // Verifica se já existe flecha na aljava e for outro tipo
         long aljavaAtual = usuario.getAljava();
         long flechaAtiva = usuario.getAljavaFlechaAtiva();
@@ -74,6 +81,7 @@ public class AljavaService {
         usuario.setAljava(aljavaAtual + quantidade);
         usuario.setAljavaFlechaAtiva(tipo.ordinal());
 
+        
         // ⚡ Só ativa arco se houver flechas na aljava
         if (usuario.getArcoAtivo() <= 0 && usuario.getAljava() > 0) {
             usuario.setArcoAtivo(1); // ativa arco automaticamente

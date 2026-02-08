@@ -22,6 +22,7 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossLyxara;
+import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
 import com.boss_battle.model.GlobalBossNightmare;
@@ -35,6 +36,7 @@ import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
 import com.boss_battle.model.GlobalBossThunderon;
+import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
 import com.boss_battle.model.GlobalBossVespera;
@@ -73,6 +75,8 @@ public class GlobalBossService {
     private final NoctharionService noctharionService;
     private final AzraelPrimeService azraelPrimeService;
     private final DestruidorService destruidorService;
+    private final TrigonBaphydraxService trigonBaphydraxService;
+    private final  MalphionService malphionService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -115,8 +119,8 @@ public class GlobalBossService {
             NoctharionService noctharionService,
             AzraelPrimeService azraelPrimeService,
             DestruidorService destruidorService,
-          
-            
+            TrigonBaphydraxService trigonBaphydraxService,
+            MalphionService malphionService,
             
         
             BossDamageLogRepository damageLogRepo,
@@ -166,6 +170,8 @@ public class GlobalBossService {
         this.noctharionService = noctharionService;
         this.azraelPrimeService = azraelPrimeService;
         this.destruidorService = destruidorService;
+        this.trigonBaphydraxService = trigonBaphydraxService;
+        this.malphionService = malphionService;
       
     }
 
@@ -199,7 +205,8 @@ public class GlobalBossService {
         if (noctharionService.get().isAlive()) return noctharionService.get();
         if (azraelPrimeService.get().isAlive()) return azraelPrimeService.get();
         if (destruidorService.get().isAlive()) return destruidorService.get();
-        
+        if (trigonBaphydraxService.get().isAlive()) return trigonBaphydraxService.get();
+        if (malphionService.get().isAlive()) return malphionService.get();
         
         return spawnRandomBoss();
     }
@@ -329,10 +336,16 @@ public class GlobalBossService {
         
         resultado = tryHitBoss("DESTRUIDOR", destruidorService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("TRÍGON BAPHYDRAX", trigonBaphydraxService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("MALPHION", malphionService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
         //===============================================================================
         //===============================================================================
 
-
+        
         // aplicar diminuir  o vigor
         usuario.setEnergiaGuerreiros(energia - damage);
         
@@ -393,7 +406,8 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossNoctharion) noctharionService.save((GlobalBossNoctharion) boss);
             if (boss instanceof GlobalBossAzraelPrime) azraelPrimeService.save((GlobalBossAzraelPrime) boss);
             if (boss instanceof GlobalBossDestruidor) destruidorService.save((GlobalBossDestruidor) boss);
-            
+            if (boss instanceof GlobalBossTrigonBaphydrax) trigonBaphydraxService.save((GlobalBossTrigonBaphydrax) boss);
+            if (boss instanceof GlobalBossMalphion) malphionService.save((GlobalBossMalphion) boss);
 
             registrarDano(bossName, usuario, damage);
 
@@ -865,6 +879,28 @@ public class GlobalBossService {
             	newBoss = ds;
             }
             
+            case 26 -> {
+            	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
+            	tb.aplicarEscalamentoTrigon();
+            	tb.setProcessingDeath(false);
+            	tb.setAlive(true);
+            	tb.setCurrentHp(tb.getMaxHp());
+            	tb.setSpawnedAt(LocalDateTime.now());
+            	trigonBaphydraxService.save(tb);
+            	newBoss = tb;
+            }
+            case 27 -> {
+            	GlobalBossMalphion mph = malphionService.get();
+            	malphionService.aplicarEscalamentoMalphion(mph);
+            	mph.setProcessingDeath(false);
+            	mph.setAlive(true);
+            	mph.setCurrentHp(mph.getMaxHp());
+            	mph.setSpawnedAt(LocalDateTime.now());
+            	malphionService.save(mph);
+            	newBoss = mph;
+
+            }
+            
   
             
             default -> {
@@ -910,7 +946,8 @@ public class GlobalBossService {
     	GlobalBossNoctharion nt = noctharionService.get();
     	GlobalBossAzraelPrime ap = azraelPrimeService.get();
     	GlobalBossDestruidor ds = destruidorService.get();
-    	
+    	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
+    	GlobalBossMalphion mph = malphionService.get();
     	
     	
     	
@@ -992,6 +1029,13 @@ public class GlobalBossService {
 
     	ds.setAlive(false);
     	ds.setProcessingDeath(false);
+    	
+    	tb.setAlive(false);
+    	tb.setProcessingDeath(false);
+    	
+    	mph.setAlive(false);
+    	mph.setProcessingDeath(false);
+    	
 
         ignorathService.save(ig);
         drakthorService.save(dr);
@@ -1019,7 +1063,8 @@ public class GlobalBossService {
         noctharionService.save(nt);
         azraelPrimeService.save(ap);
         destruidorService.save(ds);
-        
+        trigonBaphydraxService.save(tb);
+        malphionService.save(mph);
     }
 
     // =============================

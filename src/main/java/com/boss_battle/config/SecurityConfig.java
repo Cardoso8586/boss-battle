@@ -127,7 +127,9 @@ public class SecurityConfig {
                         "/aljava/colocar/**",
                         "/arco/reativar/**",
                         "/comprar/arco/celestial/**",
-                        "/lootbox/abrir/**"
+                        "/lootbox/abrir/**",
+                        "/promo/comprar/**",
+                        "/promo/preco/**"
                      
                         
                         

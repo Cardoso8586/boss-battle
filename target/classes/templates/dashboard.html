@@ -408,7 +408,7 @@ gurações -->
 
 <!-- Ajustes de Batalha -->
 
-<!-- NÚCLEO ARCO & FLECHAS (LIVRE NA TELA) -->
+
 <!-- NÚCLEO ARCO & FLECHAS (INVISÍVEL POR PADRÃO) -->
 <div id="nucleoArco">
 
@@ -706,9 +706,13 @@ Dano
 
 <!-- Seção Promoções -->
 <section id="section-promocoes">
-    <h2>Promoções</h2>
-    <p>Confira as promoções especiais do jogo! Aproveite lootboxes com descontos ou bônus extras.</p>
+    <h2>Promoções de Lootbox</h2>
+   <p class="promo-intro">
+    Confira as promoções especiais do jogo! Aproveite lootboxes com descontos ou bônus extras.
+</p>
+
 <div class="loja-lootbox">
+
     <div class="lootbox-card" data-tipo="basica">
         <h3 class="nome-lootbox">Lootbox Básica</h3>
          Aumenta o ataque <span class="lootbox-quantidade">3%</span>
@@ -756,6 +760,106 @@ Dano
         <button class="btn-lootbox">Abrir Lootbox</button>
     </div>
 </div>
+
+<!-- loja-promo  -->
+
+  <h2>Promoções de Pacotes</h2>
+  <p class="promo-intro">Confira as promoções especiais do jogo! Aproveite pacotes com descontos ou bônus extras.</p>
+<div class="loja-promo">
+
+    <div class="promo-card" data-tipo="normal">
+        <h3 class="nome-promo">Promoção Normal</h3>
+        <!--
+        <span class="promo-descricao">
+            Pacote inicial para aventureiros
+        </span>
+       -->
+        <img src="/icones/promo_normal.webp" alt="Promoção Normal" class="promo-img">
+
+        <!--  
+        <span class="promo-descricao">
+            Contém:
+            <span class="promo-quantidade">2</span> Guerreiros,
+            <span class="promo-quantidade">2</span> Poções de Vigor,
+            <span class="promo-quantidade">1</span> Espada Flanejante
+        </span>
+-->
+        <p class="preco-promo-normal"></p>
+        <button class="btn-promo">Comprar Promoção</button>
+    </div>
+
+    <div class="promo-card" data-tipo="avancada">
+        <h3 class="nome-promo">Promoção Avançada</h3>
+
+         <!--  
+        <span class="promo-descricao">
+            Pacote reforçado para batalhas médias
+        </span>
+        -->
+        <img src="/icones/promo_avancada.webp" alt="Promoção Avançada" class="promo-img">
+           <!--  
+        <span class="promo-descricao">
+            Contém:
+            <span class="promo-quantidade">4</span> Guerreiros,
+            <span class="promo-quantidade">3</span> Poções de Vigor,
+            <span class="promo-quantidade">2</span> Espadas Flanejantes,
+            <span class="promo-quantidade">1</span> Machado Dilacerador
+        </span>
+         -->
+        <p class="preco-promo-avancada"></p>
+        <button class="btn-promo">Comprar Promoção</button>
+    </div>
+
+    <div class="promo-card" data-tipo="especial">
+        <h3 class="nome-promo">Promoção Especial</h3>
+          <!-- 
+        <span class="promo-descricao">
+            Preparação completa para desafios intensos
+        </span>
+          -->
+        <img src="/icones/promo_especial.webp" alt="Promoção Especial" class="promo-img">
+          <!-- 
+        <span class="promo-descricao">
+            Contém:
+            <span class="promo-quantidade">6</span> Guerreiros,
+            <span class="promo-quantidade">5</span> Poções de Vigor,
+            <span class="promo-quantidade">3</span> Espadas Flanejantes,
+            <span class="promo-quantidade">2</span> Machados Dilaceradores
+        </span>
+         -->
+        <p class="preco-promo-especial"></p>
+        <button class="btn-promo">Comprar Promoção</button>
+    </div>
+
+    <div class="promo-card" data-tipo="lendaria">
+        <h3 class="nome-promo">Promoção Lendária</h3>
+
+          <!-- 
+        <span class="promo-descricao">
+            O pacote supremo para verdadeiros campeões
+        </span>
+          -->
+        <img src="/icones/promo_lendaria.webp" alt="Promoção Lendária" class="promo-img">
+
+          <!--  
+        <span class="promo-descricao">
+            Contém:
+            <span class="promo-quantidade">10</span> Guerreiros,
+            <span class="promo-quantidade">8</span> Poções de Vigor,
+            <span class="promo-quantidade">5</span> Espadas Flanejantes,
+            <span class="promo-quantidade">3</span> Machados Dilaceradores,
+            <span class="promo-quantidade">3</span> Arcos Celestiais
+        </span>
+         -->
+        <p class="preco-promo-lendaria"></p>
+        <button class="btn-promo">Comprar Pacote</button>
+    </div>
+
+</div>
+
+<!-- loja-promo  -->
+
+
 </section>
 
 
@@ -1212,6 +1316,9 @@ Dano
     <script src="/js/comprarEspadaFlanejante.js" defer></script>
     <script src="/js/comprarCapacidadeVigor.js"></script> 
     <script src="/js/comprarAtaqueEspecial.js"></script> 
+    <script src="/js/precoPromo.js" defer></script>
+    <script src="/js/comprarPromocoes.js" defer></script>
+     
     <!-- referidos -->
     <script src="/js/reivindicarReferidos.js" defer></script>  
      <script src="/js/ajustesBatalha.js" defer></script>          
@@ -1234,7 +1341,9 @@ Dano
      <script src="/js/atualizarStatusArco.js" defer></script>
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>
-    
+
+
+
 
 
    

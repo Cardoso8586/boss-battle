@@ -174,12 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const tipoAtivo = data.aljava > 0 ? (data.tipoFlecha ?? null) : null;
             const temFlechas = Object.values(estoqueFlechas).some(qtd => qtd > 0);
-
+			
             // ===============================
             // NÚCLEO
             // ===============================
             nucleo.classList.toggle("hidden", !(temArcoDisponivel || temFlechas));
 
+		
             // ===============================
             // BOTÕES DE FLECHA
             // ===============================
@@ -192,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const podeEquipar =
 			    arcoInventario > 0 &&
-			    !arcoEquipado &&        // 👈 regra REAL
+			    !arcoEquipado &&       
 			    flechasNaAljava > 0 &&
 			    guerreiroAtivo > 0 &&
 			    espadaAtiva === 0 &&

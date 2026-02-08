@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				Swal.fire({
 				                   customClass: { title: 'swal-game-error' },
 				                   icon: 'error',
-				                   title: 'Erro',
-								text: 'Não foi possível colocar as flechas. Verifique se há outra arma equipada ou flechas incompatíveis.',
+				                   title: 'Não foi possível colocar as flechas.',
+								   text: 'Verifique se há outra arma equipada, flechas incompatíveis ou se há Arco equipado.',
 								//text: 'Não foi possível colocar as flechas. Verifique se há outra arma equipada ou flechas incompatíveis.',
 				                   timer: 5000,
 				                   showConfirmButton: false,
@@ -138,6 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	        aljavaCount.textContent = data.aljava;
 	        tipoFlechaAtiva.textContent = data.aljava > 0 ? data.tipoFlecha : "-";
 
+			const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
+			const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
 	        // Atualiza estoque
 	        estoque.FERRO = data.flechaFerro || 0;
 	        estoque.FOGO = data.flechaFogo || 0;
@@ -145,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	        estoque.DIAMANTE = data.flechaDiamante || 0;
 
 			const tipoEquipado = data.tipoFlecha || null;
-
 			Object.entries(btnFlechas).forEach(([tipo, btn]) => {
 			    const container = btn.nextElementSibling;
 			    if (!container || !container.classList.contains("flecha-control")) return;
@@ -155,7 +156,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			    const quantidade = estoque[tipo];
 
-			    // ❌ Sem estoque → some tudo e NÃO atualiza input
+			    const durabilidade = data.durabilidadeArco ?? 0;
+			    const arcoQuebrado = durabilidade <= 0;
+
+			    const temAramasAtivas = espadaAtiva > 0 || machadoAtivo > 0;
+
+			    // 🔄 RESET
+			    btn.disabled = false;
+			    input.disabled = false;
+			    btn.classList.remove("flecha-ativa", "flecha-inativa", "hidden");
+			    container.classList.remove("hidden");
+
+			    // 🔒 Armas ativas → esconder tudo
+			    if (temAramasAtivas) {
+			        btn.classList.add("hidden");
+			        container.classList.add("hidden");
+			        btn.disabled = true;
+			        input.disabled = true;
+			        return;
+			    }
+
+			    // ❌ Sem estoque → esconder
+			    if (quantidade <= 0) {
+			        btn.classList.add("hidden");
+			        container.classList.add("hidden");
+			        btn.disabled = true;
+			        input.disabled = true;
+			        return;
+			    }
+
+			    // ✅ Tem estoque → mostrar
+			    input.max = quantidade;
+			    input.value = quantidade;
+			    maxLabel.textContent = ` / ${quantidade} disponíveis`;
+
+			    // 🔒 Arco quebrado → INATIVO mas visível
+			    if (arcoQuebrado && data.aljava > 0) {
+			        btn.disabled = true;
+			        input.disabled = true;
+
+			        btn.classList.add("flecha-inativa");
+			        btn.classList.remove("flecha-ativa");
+
+			      
+			        return;
+			    }
+
+			    // ✅ Arco OK → comportamento normal
+			    if (tipoEquipado) {
+			        const ativo = tipo === tipoEquipado;
+			        btn.disabled = !ativo;
+			        btn.classList.toggle("flecha-ativa", ativo);
+			        btn.classList.toggle("flecha-inativa", !ativo);
+			    } else {
+			        btn.disabled = false;
+			        btn.classList.remove("flecha-ativa", "flecha-inativa");
+			    }
+			});
+
+					
+			/*
+			Object.entries(btnFlechas).forEach(([tipo, btn]) => {
+			    const container = btn.nextElementSibling;
+			    if (!container || !container.classList.contains("flecha-control")) return;
+
+			    const input = container.querySelector("input");
+			    const maxLabel = container.querySelector("span");
+
+			    const quantidade = estoque[tipo];
+
+			    const temAramasAtivas = espadaAtiva > 0 || machadoAtivo > 0;
+
+			    // 🔒 Se tem armas ativas → esconder tudo
+			    if (temAramasAtivas) {
+			        btn.classList.add("hidden");
+			        container.classList.add("hidden");
+			        btn.disabled = true;
+			        return;
+			    }
+
+			    // ❌ Sem estoque
 			    if (quantidade <= 0) {
 			        btn.classList.add("hidden");
 			        container.classList.add("hidden");
@@ -163,43 +243,26 @@ document.addEventListener("DOMContentLoaded", () => {
 			        return;
 			    }
 
-			    // ✅ Tem estoque → mostra tudo
+			    // ✅ Tem estoque
 			    btn.classList.remove("hidden");
 			    container.classList.remove("hidden");
 
-			    // 🔹 Agora sim atualiza input e label
 			    input.max = quantidade;
 			    input.value = quantidade;
 			    maxLabel.textContent = ` / ${quantidade} disponíveis`;
-				
-				
-				if (tipoEquipado) {
-				    const ativo = tipo === tipoEquipado;
 
-				    btn.disabled = !ativo;
-				    btn.classList.toggle("flecha-ativa", ativo);
-				    btn.classList.toggle("flecha-inativa", !ativo);
-
-				} else {
-				    btn.disabled = false;
-				    btn.classList.remove("flecha-ativa", "flecha-inativa");
-				}
-
-				/*
-			    // 🔒 Controle de flecha equipada
 			    if (tipoEquipado) {
 			        const ativo = tipo === tipoEquipado;
 			        btn.disabled = !ativo;
-			        btn.style.opacity = ativo ? "1" : "0.5";
+			        btn.classList.toggle("flecha-ativa", ativo);
+			        btn.classList.toggle("flecha-inativa", !ativo);
 			    } else {
 			        btn.disabled = false;
-			        btn.style.opacity = "1";
+			        btn.classList.remove("flecha-ativa", "flecha-inativa");
 			    }
-				
-				*/
 			});
 
-			
+			*/
 		
 	        // Mostra núcleo apenas se houver flechas ou estoque
 	        nucleo.classList.toggle("hidden", !(data.aljava > 0 || Object.values(estoque).some(q => q > 0)));

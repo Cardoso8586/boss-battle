@@ -38,21 +38,6 @@ public class ArcoController {
         );
     }
 
-    /*
-    @PostMapping("/equipar")
-    public ResponseEntity<?> equiparArco(
-            @RequestParam Long usuarioId
-            
-    ) {
-        UsuarioBossBattle usuario = usuarioRepository
-                .findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        arcoService.equiparArco(usuario);
-
-        return ResponseEntity.ok("Arco equipado com sucesso");
-    }
-*/
  // 🔁 Reativar arco
     @PostMapping("/reativar/{usuarioId}")
     public ResponseEntity<?> reativarArco(

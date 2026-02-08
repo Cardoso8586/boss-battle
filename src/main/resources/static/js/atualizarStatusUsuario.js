@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			    container.classList.remove("hidden");
 			    btnEquiparArco.classList.add("hidden");
 
-			    const desgasteMax = 100;
+			    const desgasteMax = 200;
 			    barra.max = desgasteMax;
 			    barra.value = durabilidade;
 
