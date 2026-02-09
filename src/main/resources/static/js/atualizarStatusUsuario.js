@@ -80,11 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
 			       
 			
 			//status arco
-		   
+		    const arcoAtivo = data.arcoAtivo;
 		    const durabilidade = data.durabilidadeArco;
 		    const tipoAtivo = data.tipoFlecha || null;
-            const arcoEquipado = durabilidade > 0;
+            const arcoEquipado =  arcoAtivo > 0;
 			
+			              //debug JSON
+							/*
+									Swal.fire({
+									    title: "JSON RECEBIDO",
+									    html: `<pre style="text-align:left">${JSON.stringify(data, null, 2)}</pre>`,
+									    width: 600
+									});
+								
+								*/
+						
 		
 
 			const guerreiroImage = document.getElementById('guerreiro-image');
