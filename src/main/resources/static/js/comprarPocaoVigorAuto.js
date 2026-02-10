@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
     if (!usuarioId) return;
 
+	const pocaoVigorErroImg ="icones/erro_img/pocao_vigor_erro.webp";
+	const pocaoVigorOkImg ="icones/ok_img/pocao_vigor_ok.webp";
+    const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
     // ==============================
     // ELEMENTOS DA POÇÃO
     // ==============================
@@ -106,9 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 				    title: 'swal-game-error'
 				    },
-	                icon: 'warning',
+	             
 	                title: 'Quantidade inválida',
 	                text: 'Informe uma quantidade válida.',
+					imageUrl: pocaoVigorErroImg,							  
+					imageWidth: 90,											   
+					imageHeight: 120,
 	                confirmButtonText: 'Ok',
 					background: 'transparent',
 					color: '#ff3b3b '
@@ -124,14 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	        const textoOriginal = btnComprar.innerText;
 
 			btnComprar.innerText = `Comprando poção de Vigor...`;
-	        //btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
-
-	      //  const timer = setInterval(() => {
-	           /// tempoRestante--;
-		//btnComprar.innerText = `Comprando...`;
-	           // btnComprar.innerText = `Comprando... (${tempoRestante}s)`;
-	          //  if (tempoRestante <= 0) clearInterval(timer);
-	        //}, 1000);
+	     
 
 	        try {
 	            const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
@@ -149,9 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
 						  },
 						  title: `Você comprou <b>${quantidade}</b> poção de <b>Vigor Automático</b>.`,
 						  html: 'Compra realizada!',
-						  imageUrl: '/icones/pocao_vigor.webp',
-						  imageWidth: 70,
-						  imageHeight: 90,
+						  imageUrl: pocaoVigorOkImg,
+						  imageWidth: 90,   
+						  imageHeight: 120, 
 						  imageAlt: 'Poção de Vigor Automático',
 						  timer: 5000,
 						  showConfirmButton: false,
@@ -168,9 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
 												  },
 												  title: `Você comprou <b>${quantidade}</b> poções de <b>Vigor Automático</b>.`,
 												  html: 'Compra realizada!',
-												  imageUrl: '/icones/pocao_vigor.webp',
-												  imageWidth: 70,
-												  imageHeight: 90,
+												  imageUrl: pocaoVigorOkImg,
+												  imageWidth: 90,   
+												  imageHeight: 120,
 												  imageAlt: 'Poção de Vigor Automático',
 												  timer: 5000,
 												  showConfirmButton: false,
@@ -190,9 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
 						customClass: {
 											   title: 'swal-game-error'
 											 },
-	                    icon: 'warning',
+	                
 	                    title: 'Saldo insuficiente',
 	                    text: text || 'Não foi possível comprar.',
+						imageUrl: bossCoinErroImg,							  
+						imageWidth: 120,											   
+						imageHeight: 120,
 	                    timer: 5000,
 	                    showConfirmButton: false,
 						// background: '#0f0f0f',
@@ -209,10 +211,13 @@ document.addEventListener('DOMContentLoaded', () => {
 										 },
 	                icon: 'error',
 	                title: 'Erro',
-	                text: 'Erro ao tentar comprar Poção Automática de Vigor.',
+	                text: 'Erro ao tentar comprar Poção de Vigor.',
+					imageUrl: pocaoVigorErroImg,							  
+					imageWidth: 90,											   
+					imageHeight: 120,
 	                timer: 5000,
+					
 	                showConfirmButton: false,
-					// background: '#0f0f0f',
 					bbackground: 'transparent',
 					color: '#ff3b3b '
 	            });
@@ -240,18 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    const textoOriginal = btnAtivarPocao.innerText;
 		
 		btnAtivarPocao.innerText = `Ativando poção...`;
-	   // btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
-
-	   // const timer = setInterval(() => {
-	      //  tempoRestante--;
-			//btnAtivarPocao.innerText = `Ativando...`;
-	        //btnAtivarPocao.innerText = `Ativando... (${tempoRestante}s)`;
-
-	      //  if (tempoRestante <= 0) {
-	       //     clearInterval(timer);
-	      //  }
-	  //  }, 1000);
-
+	  
 	    try {
 			const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
 			if (!res1.ok) return;

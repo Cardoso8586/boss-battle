@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? Number(meta.content) : null;
     if (!usuarioId) return;
 
+	const machadoDilaceradorErroImg ="icones/erro_img/machado_dilacerador_erro.webp";
+	const machadoDilaceradorOkImg ="icones/ok_img/machado_dilacerador_ok.webp";
+	const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
     document.querySelectorAll('.btn-comprar').forEach(botao => {
 
         let emCooldown = false;
@@ -29,9 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 					title: 'swal-game-error'
 					},
-                    icon: 'warning',
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
+					imageUrl: machadoDilaceradorErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 160,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
@@ -62,11 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					title: `Você comprou ${quantidade} machado${quantidade > 1 ? 's' : ''} dilacerador.`,
 					html: 'Compra realizada!',
-                   // title: 'Compra realizada!',
-                    //html: `Você comprou ${quantidade} machado${quantidade > 1 ? 's' : ''} dilacerador.`,
-                    imageUrl: '/icones/machado_dilacerador.webp',
-                    imageWidth: 100,
-                    imageHeight: 140,
+					imageUrl: machadoDilaceradorOkImg,							  
+					imageWidth: 120,											   
+					imageHeight: 160,
                     timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
@@ -82,9 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 				    title: 'swal-game-error'
 					},
-                    icon: 'error',
+                   
                     title: 'Erro na compra',
                     text: 'Saldo insuficiente ou erro no servidor.',
+					imageUrl: bossCoinErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 120,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });

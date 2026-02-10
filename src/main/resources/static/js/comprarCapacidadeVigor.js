@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = document.querySelector('[data-item="energia"]');
     if (!btn) return;
 
+	
+	const capacidadeVigorErroImg ="icones/erro_img/capacidade_vigor_erro.webp";
+    const capacidadeVigorOkImg ="icones/ok_img/capacidade_vigor_ok.webp";
+	const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
+		
     let emCooldownEnergia = false;
     const tempoCompraEnergia = 5; // ⏱️ segundos
 
@@ -22,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!quantidade || quantidade <= 0) {
             Swal.fire({
 				customClass: {
-									   title: 'swal-game-error'
-									 },
-                icon: 'warning',
+			    title: 'swal-game-error' },
+              
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
+				imageUrl: capacidadeVigorErroImg,							  
+				imageWidth: 120,											   
+			    imageHeight: 120,
                 confirmButtonText: 'Ok',
 				background: 'transparent',
 			    color: '#ff3b3b'  
@@ -68,9 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
 																		},
 				    title: 'Capacidade aumentada!',
 				    html: `Você comprou ${quantidade} unidade de Vigor.`,
-				    imageUrl: '/icones/capacidade_vigor.webp',
-				    imageWidth: 80,   
-				    imageHeight: 80, 
+				    imageUrl: capacidadeVigorOkImg,
+				    imageWidth: 120,   
+				    imageHeight: 120, 
 				    imageAlt: 'Poção de Vigor',
 				    timer: 5000,
 				    showConfirmButton: false,
@@ -85,9 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
 																		},
 							    title: 'Capacidade aumentada!',
 							    html: `Você comprou ${quantidade} unidades de Vigor.`,
-							    imageUrl: '/icones/capacidade_vigor.webp',
-							    imageWidth: 80,   
-							    imageHeight: 80, 
+							    imageUrl: capacidadeVigorOkImg,
+							    imageWidth: 120,   
+							    imageHeight: 120, 
 							    imageAlt: 'Poção de Vigor',
 							    timer: 5000,
 							    showConfirmButton: false,
@@ -110,10 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 										   title: 'swal-game-error'
 										 },
-                    icon: 'warning',
+                  
                     title: 'Saldo insuficiente',
                     text: text || 'Não foi possível comprar.',
-                    timer: 5000,
+					imageUrl: bossCoinErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 120,
+					timer: 4000,
                     showConfirmButton: false,
 					background: 'transparent',
 				    color: '#ff3b3b'     
@@ -127,9 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				customClass: {
 									   title: 'swal-game-error'
 									 },
-                icon: 'error',
+               
                 title: 'Erro',
                 text: 'Erro ao tentar aumentar capacidade de vigor.',
+				imageUrl: capacidadeVigorErroImg,							  
+			    imageWidth: 120,											   
+				imageHeight: 120,
                 timer: 5000,
                 showConfirmButton: false,
 				background: 'transparent',

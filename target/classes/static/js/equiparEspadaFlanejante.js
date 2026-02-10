@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? parseInt(meta.getAttribute('content')) : null;
     if (!usuarioId) return;
 
+
     // ==============================
     // ELEMENTOS
     // ==============================
@@ -124,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (ativoGuerreiro <= 0) {
 	                Swal.fire({
+						stomClass: {title: 'swal-game-error'},
 	                    icon: 'warning',
 	                    title: 'Ação bloqueada',
 	                    text: 'Você não pode equipar armas agora.',
@@ -139,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (machadoAtivo === 1) {
 	                Swal.fire({
+						customClass: {title: 'swal-game-error'},
 	                    icon: 'info',
 	                    title: 'Machado já equipado',
 	                    text: 'Desequipe o machado antes de usar a espada.',
@@ -160,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            if (!res.ok) {
 	                const erro = await res.text();
 	                Swal.fire({
+						stomClass: {title: 'swal-game-error'},
 	                    icon: 'warning',
 	                    title: 'Erro',
 	                    text: erro,
@@ -174,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            }
 
 	            Swal.fire({
+					customClass: {title: 'swal-game-text'},
 	                icon: 'success',
 	                title: 'Espada equipada!',
 	                text: 'Sua Espada Flanejante foi equipada com sucesso.',
@@ -190,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            console.error(e);
 
 	            Swal.fire({
+					stomClass: {title: 'swal-game-error'},
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar espada.',

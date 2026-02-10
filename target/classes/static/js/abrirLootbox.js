@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
     if (!usuarioId) return;
 
+	const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+	
+	
     document.querySelectorAll('.btn-lootbox').forEach(botao => {
         botao.addEventListener('click', async () => {
             const card = botao.closest('.lootbox-card');
@@ -35,10 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 						customClass: {
 					title: 'swal-game-error'
 					},
-                        icon: 'warning',
+                       
                         title: 'Saldo insuficiente',
                         text: mensagem || 'Você não tem saldo suficiente para abrir esta lootbox.',
-                       // background: 'rgba(0,0,0,0.85)',
+						imageUrl: bossCoinErroImg,							  
+						imageWidth: 120,											   
+						imageHeight: 120,
 					    background: 'transparent',
                         color: '#ff3b3b' 
                     });

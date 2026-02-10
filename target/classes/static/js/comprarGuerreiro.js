@@ -5,7 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!usuarioId) return;
 
     const botoesComprar = document.querySelectorAll('.btn-comprar');
-
+	const guerreiroErroImg ="icones/erro_img/guerreiro_padrao_erro.webp";
+    const guerreiroOkImg ="icones/ok_img/guerreiro_padrao_ok_img.webp";
+	const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
     botoesComprar.forEach(botao => {
 
         let emCooldownCompra = false;
@@ -28,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					title: 'swal-game-error'
 					},
                     icon: 'warning',
+					imageUrl: guerreiroErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 120,
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
                     confirmButtonText: 'Ok',
@@ -69,9 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
 										    html: 'Compra realizada!',
 										   // title: 'Compra realizada!',
 										   // html: `Você comprou ${quantidade} guerreiro.`,
-										    imageUrl: '/icones/guerreiro_padrao.webp', 
-										    imageWidth: 80,  
-										    imageHeight: 80,
+										    imageUrl: guerreiroOkImg, 
+										    imageWidth: 120,  
+										    imageHeight: 120,
 										    imageAlt: 'Guerreiro',
 										    timer: 4000,
 										    showConfirmButton: false,
@@ -86,11 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
 						},
 						title:  `Você comprou ${quantidade} guerreiros.`,
 						html:'Compra realizada!',
-					   // title: 'Compra realizada!',
-					    //html: `Você comprou ${quantidade} guerreiros.`,
-					    imageUrl: '/icones/guerreiro_padrao.webp', 
-					    imageWidth: 80,   
-					    imageHeight: 80,
+						imageUrl: guerreiroOkImg, 
+						imageWidth: 120,  
+						imageHeight: 120,
 					    imageAlt: 'Guerreiro',
 					    timer: 4000,
 					    showConfirmButton: false,
@@ -113,14 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     const saldo = saldoElement
                         ? parseFloat(saldoElement.textContent.replace(/\D/g, ''))
                         : 0;
-
+						
                     Swal.fire({
 						customClass: {
 						title: 'swal-game-error'
 					    },
-                        icon: 'warning',
+                  
                         title: 'Saldo insuficiente',
                         text: `Custo estimado: ${custoEstimado.toLocaleString('pt-BR')} | Saldo: ${saldo.toLocaleString('pt-BR')}`,
+						imageUrl: bossCoinErroImg,							  
+						imageWidth: 90,											   
+						imageHeight: 90,
                         timer: 4000,
                         showConfirmButton: false,
 						background: 'transparent',
@@ -136,8 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 					   title: 'swal-game-error'
 					 },
-                    icon: 'error',
                     title: 'Erro',
+					imageUrl: guerreiroErroImg,							  
+				    imageWidth: 90,											   
+				    imageHeight: 120,
                     text: 'Erro ao tentar comprar.',
                     timer: 4000,
                     showConfirmButton: false,

@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? parseInt(meta.getAttribute('content')) : null;
     if (!usuarioId) return;
 
+	const epadaFlanejanteErroImg ="icones/erro_img/espada_flanejante_erro.webp";
+    const epadaFlanejanteOkImg ="icones/ok_img/espada_flanejante_ok.webp";
+    const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
     const botoesComprar = document.querySelectorAll('.btn-comprar');
 
     botoesComprar.forEach(botao => {
@@ -33,9 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!quantidade || quantidade <= 0) {
                 Swal.fire({
                     customClass: { title: 'swal-game-error' },
-                    icon: 'warning',
+                  
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
+					imageUrl: epadaFlanejanteErroImg,							  
+					imageWidth: 60,											   
+					imageHeight: 160,
                     confirmButtonText: 'Ok',
                     background: 'transparent',
                     color: '#ff3b3b'
@@ -74,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             customClass: { title: 'swal-game-text' },
                             title: `Você comprou ${quantidade} espada Flanejante.`,
                             html: 'Compra realizada!',
-                            imageUrl: '/icones/espada_flanejante.webp',
-                            imageWidth: 40,
-                            imageHeight: 140,
+							imageUrl: epadaFlanejanteOkImg,							  
+							imageWidth: 60,											   
+							imageHeight: 160,
                             imageAlt: 'Espada Flanejante',
                             timer: 5000,
                             showConfirmButton: false,
@@ -88,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             customClass: { title: 'swal-game-text' },
                             title: `Você comprou ${quantidade} espadas Flanejante.`,
                             html: 'Compra realizada!',
-                            imageUrl: '/icones/espada_flanejante.webp',
-                            imageWidth: 40,
-                            imageHeight: 140,
+							imageUrl: epadaFlanejanteOkImg,							  
+							imageWidth: 60,											   
+							imageHeight: 160,
                             imageAlt: 'Espada Flanejante',
                             timer: 5000,
                             showConfirmButton: false,
@@ -117,6 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         icon: 'warning',
                         title: 'Saldo insuficiente',
                         text: `Custo estimado: ${custoEstimado.toLocaleString('pt-BR')} | Saldo: ${saldo.toLocaleString('pt-BR')}`,
+						imageUrl: bossCoinErroImg,							  
+						imageWidth: 120,											   
+						imageHeight: 120,
                         timer: 5000,
                         showConfirmButton: false,
                         background: 'transparent',
@@ -129,9 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 Swal.fire({
                     customClass: { title: 'swal-game-error' },
-                    icon: 'error',
+                  
                     title: 'Erro',
                     text: 'Erro ao tentar comprar.',
+					imageUrl: epadaFlanejanteErroImg,							  
+					imageWidth: 60,											   
+					imageHeight: 160,
                     timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',

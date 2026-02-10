@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let emCooldownCompra = false;
     const tempoCompra = 5; // ⏱️ segundos
 
+	const ataqueEspecialErroImg ="icones/erro_img/ataque_especial_erro.webp";
+	const ataqueEspeciaOkImg ="icones/ok_img/ataque_especial_ok.webp";
+    const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
     btn.addEventListener('click', async () => {
 
         // 🔒 trava total
@@ -23,9 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				customClass: {
 				title: 'swal-game-error'
 				},
-                icon: 'warning',
+               
                 title: 'Quantidade inválida',
                 text: 'Informe uma quantidade válida.',
+				imageUrl: ataqueEspecialErroImg,							  
+				imageWidth: 120,											   
+				imageHeight: 120,
                 confirmButtonText: 'Ok',
 				background: 'transparent',
 				color: '#ff3b3b '      
@@ -41,14 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ⏳ TEXTO CORRETO
 		btn.innerText = `Aumentando Ataque Especial...`;
-       // btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
-
-       // const timer = setInterval(() => {
-           // restante--;
-           // btn.innerText = `Aumentando Ataque Especial...`;
-			//btn.innerText = `Aumentando Ataque Especial... (${restante}s)`;
-          //  if (restante <= 0) clearInterval(timer);
-      //  }, 1000);
+      
 
         const precoUnitario = parseFloat(
             card.querySelector('.preco').textContent.replace(/[^\d]/g, '')
@@ -74,9 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
 										},
 				    title: 'Ataque especial aprimorado!',
 				    html: `Você adquiriu <b>${quantidade}</b> unidade de ataque especial.`,
-				    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
-				    imageWidth: 90,
-				    imageHeight: 90,
+					imageUrl: ataqueEspeciaOkImg,
+					imageWidth: 120,   
+					imageHeight: 120, 
 				    imageAlt: 'Ataque Especial',
 				    timer: 5000,
 				    showConfirmButton: false,
@@ -92,9 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
 											},
 									    title: 'Ataque especial aprimorado!',
 									    html: `Você adquiriu <b>${quantidade}</b> unidades de ataque especial.`,
-									    imageUrl: '/icones/ataque_especial.webp', // troque pelo ícone que você usa
-									    imageWidth: 90,
-									    imageHeight: 90,
+										imageUrl: ataqueEspeciaOkImg,
+										imageWidth: 120,   
+										imageHeight: 120, 
 									    imageAlt: 'Ataque Especial',
 									    timer: 5000,
 									    showConfirmButton: false,
@@ -122,9 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 																   title: 'swal-game-error'
 																 },
-                    icon: 'warning',
+                  
                     title: 'Saldo insuficiente',
                     text: `Você precisa de ${custoEstimado.toLocaleString('pt-BR')} Boss Coins, mas só tem ${saldo.toLocaleString('pt-BR')} Boss Coins.`,
+					imageUrl: bossCoinErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 120,
                     timer: 5000,
                     showConfirmButton: false,
 					background: 'transparent',
@@ -140,10 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				customClass: {
 															   title: 'swal-game-error'
 															 },
-                icon: 'error',
+               
                 title: 'Erro',
                 text: 'Erro ao tentar comprar ataque especial.',
                 timer: 5000,
+				imageUrl: ataqueEspecialErroImg,							  
+				imageWidth: 120,											   
+				imageHeight: 120,
                 showConfirmButton: false,
 				background: 'transparent',
 			    color: '#ff3b3b '      

@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = meta ? Number(meta.content) : null;
     if (!usuarioId) return;
 
+	const arcoCelestialErroImg ="icones/erro_img/arco_celestial_erro.webp";
+    const arcoCelestialOkImg ="icones/ok_img/arco_celestial_ok.webp";
+    const bossCoinErroImg ="icones/erro_img/boss_coin_erro.webp";
+		
     document.querySelectorAll('.btn-comprar').forEach(botao => {
 
         let emCooldown = false;
@@ -28,9 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 				    title: 'swal-game-error'
 					},
-                    icon: 'warning',
+                   
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
+					imageUrl: arcoCelestialErroImg,							  
+					imageWidth: 60,											   
+					imageHeight: 140,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
@@ -60,11 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					title: `Você comprou ${quantidade} ${quantidade > 1 ? 'Arcos Celestiais' : 'Arco Celestial'}`,
 					html: 'Compra realizada!',
-                    //title: 'Compra realizada!',
-					//html: `Você comprou ${quantidade} ${quantidade > 1 ? 'Arcos Celestiais' : 'Arco Celestial'}`,
-                    imageUrl: '/icones/arco.webp',
-                    imageWidth: 60,
-                    imageHeight: 140,
+					imageUrl: arcoCelestialOkImg,							  
+					imageWidth: 60,											   
+					imageHeight: 140,
                     timer: 5000,
                     showConfirmButton: false,
                     background: 'transparent',
@@ -81,9 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					customClass: {
 				    title: 'swal-game-error'
 					},
-                    icon: 'error',
+                  
                     title: 'Erro na compra',
                     text: 'Saldo insuficiente ou erro no servidor.',
+					imageUrl: bossCoinErroImg,							  
+					imageWidth: 120,											   
+					imageHeight: 120,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
