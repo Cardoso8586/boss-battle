@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const arcoAtivoElem = document.getElementById("arcoAtivo");
     const aljavaCount = document.getElementById("aljavaCount");
     const tipoFlechaAtiva = document.getElementById("tipoFlechaAtiva");
-    const nucleo = document.getElementById("nucleoArco");
+  
 
     let estoque = { FERRO: 0, FOGO: 0, VENENO: 0, DIAMANTE: 0 };
 
@@ -264,8 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			*/
 		
-	        // Mostra núcleo apenas se houver flechas ou estoque
-	        nucleo.classList.toggle("hidden", !(data.aljava > 0 || Object.values(estoque).some(q => q > 0)));
+	    
+			
+			
 	    } catch (err) {
 	        console.error("Erro ao atualizar status:", err);
 	    }

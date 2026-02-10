@@ -158,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const guerreiroAtivo = data.guerreiros ?? 0;
             const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
             const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
-          
+            const arcoAtivo = data.arcoAtivo;
 
-            const temArcoDisponivel = arcoInventario > 0 || durabilidade > 0;
+           
 
             // ===============================
             // Estoque de flechas
@@ -171,7 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 VENENO: data.flechaVeneno,
                 DIAMANTE: data.flechaDiamante
             };
-
+			
+            const temArcoDisponivel = arcoInventario > 0 || durabilidade > 0 || arcoAtivo > 0 ;
             const tipoAtivo = data.aljava > 0 ? (data.tipoFlecha ?? null) : null;
             const temFlechas = Object.values(estoqueFlechas).some(qtd => qtd > 0);
 			
@@ -180,6 +181,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // ===============================
             nucleo.classList.toggle("hidden", !(temArcoDisponivel || temFlechas));
 
+			
+			/**
+			 * 
+			 * 			// NÚCLEO – aparece só se algo existir
+					// ===============================
+					const tudoZerado =
+					    data.arcoInventario === 0 &&
+					    data.arcoAtivo === 0 &&
+					    data.durabilidadeArco === 0 &&
+					    data.aljava === 0;
+
+					if (tudoZerado) {
+					    nucleo.classList.add("hidden");
+					} else {
+					    nucleo.classList.remove("hidden");
+					}
+			 */
+			
+			
 		
             // ===============================
             // BOTÕES DE FLECHA
