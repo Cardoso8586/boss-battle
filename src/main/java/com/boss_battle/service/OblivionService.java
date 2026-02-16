@@ -33,8 +33,8 @@ public class OblivionService {
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
-        boss.setAttackPower(200L);
-        boss.setAttackIntervalSeconds(160L);
+        boss.setAttackPower(160L);
+        boss.setAttackIntervalSeconds(200L);
 
         boss.setImageUrl("images/boss_oblivion.webp");
 

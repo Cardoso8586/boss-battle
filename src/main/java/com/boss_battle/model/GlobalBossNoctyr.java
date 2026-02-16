@@ -33,7 +33,7 @@ public class GlobalBossNoctyr implements BattleBoss {
 
     private long attackPower = 160L;
 
-    private long attackIntervalSeconds = 145L;
+    private long attackIntervalSeconds = 185L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

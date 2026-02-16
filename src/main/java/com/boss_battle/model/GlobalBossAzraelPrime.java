@@ -31,9 +31,9 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 400_000L;
 
-    private long attackPower = 2_400L;
+    private long attackPower = 400L;
 
-    private long attackIntervalSeconds = 146L;
+    private long attackIntervalSeconds = 180L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

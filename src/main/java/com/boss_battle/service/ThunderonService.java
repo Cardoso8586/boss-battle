@@ -33,6 +33,8 @@ public class ThunderonService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(6000L); 
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(220L);
+        boss.setAttackPower(160L);
         boss.setRewardBoss(140_000L);
         boss.setRewardExp(3600);
         return repo.save(boss);

@@ -31,7 +31,7 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
     // ⚔️ Ataque brutal
     private long attackPower = 180L;
 
-    private long attackIntervalSeconds = 145L;
+    private long attackIntervalSeconds = 185L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

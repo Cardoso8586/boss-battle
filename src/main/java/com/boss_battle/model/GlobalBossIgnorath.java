@@ -35,10 +35,10 @@ public class GlobalBossIgnorath implements BattleBoss {
 	    private long currentHp = 150_000L;
 
 	    // poder de ataque do boss (se ele atacar jogadores/pets)
-	    private long attackPower = 50L;
+	    private long attackPower = 75L;
 
 	    // intervalo de ataque automático do boss em segundos (se aplicável)
-	    private long attackIntervalSeconds = 160L;
+	    private long attackIntervalSeconds = 166L;
 
 	    // quando spawnou (ou re-spawnará)
 	    @Column(columnDefinition = "DATETIME")

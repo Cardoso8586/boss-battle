@@ -32,9 +32,9 @@ public class GlobalBossUmbraxis implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 200_000L;
 
-    private long attackPower = 250L;
+    private long attackPower = 150L;
 
-    private long attackIntervalSeconds = 145L; // mais rápido que Azurion
+    private long attackIntervalSeconds = 185L; // mais rápido que Azurion
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

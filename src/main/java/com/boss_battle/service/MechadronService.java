@@ -40,7 +40,8 @@ public class MechadronService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400L);
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(146L);
+        boss.setAttackPower(340L);
+        boss.setAttackIntervalSeconds(238L);
         boss.setRewardBoss(110_000L);
         boss.setRewardExp(2800L);
 

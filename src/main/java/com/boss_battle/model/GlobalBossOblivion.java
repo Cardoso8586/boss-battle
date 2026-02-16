@@ -31,9 +31,9 @@ public class GlobalBossOblivion implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 80_000L;
 
-    private long attackPower = 200L;
+    private long attackPower = 160L;
 
-    private long attackIntervalSeconds = 60L;
+    private long attackIntervalSeconds = 200L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

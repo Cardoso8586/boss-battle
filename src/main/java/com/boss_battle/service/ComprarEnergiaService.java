@@ -51,7 +51,7 @@ public class ComprarEnergiaService {
 
         // ⚡ regra do jogo: cada unidade = +5 energia
         long energiaAtual = usuario.getEnergiaGuerreirosPadrao();
-        long energiaComprada = quantidade * 5;
+        long energiaComprada = quantidade * 20;
 
         usuario.setEnergiaGuerreirosPadrao(
                 energiaAtual + energiaComprada

@@ -40,7 +40,8 @@ public class OblivarService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4200L); // 1 hora
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(146L);
+        boss.setAttackIntervalSeconds(148L);
+        boss.setAttackPower(120L);
         boss.setRewardBoss(30_000);
         boss.setRewardExp(1650);
 

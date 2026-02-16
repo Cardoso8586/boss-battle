@@ -19,6 +19,9 @@ public class LojaAprimoramentosService {
      */
 	
 	private final long PRECO_ARCO_CELESTIAL = 15_000;
+	private final long PRECO_MACHADO_DILACERADOR = 10_000;
+	private final long POCAO_VIGOR = 10_000;
+	private final long PRECO_ESPADA_FLANEJANTE = 10_000;
     
  // ---> atualizar preço do guerreiro
     public void atualizarPrecoGuerreiro(UsuarioBossBattle usuario, int quantidade) {
@@ -79,25 +82,25 @@ public class LojaAprimoramentosService {
         long precoEnergiaAtual = usuario.getPrecoEnergia();
         long capacidadeVigor = usuario.getEnergiaGuerreirosPadrao();
 
-        if (capacidadeVigor <= 1000) {
+        if (capacidadeVigor <= 2000) {
             aumentoCapacidadeVigor = 100;
         } 
-        else  if (capacidadeVigor <= 2000) {
+        else  if (capacidadeVigor <= 4000) {
             aumentoCapacidadeVigor = 200;
         }
-        else  if (capacidadeVigor <= 3000) {
+        else  if (capacidadeVigor <= 6000) {
             aumentoCapacidadeVigor = 300;
         }
-        else  if (capacidadeVigor <= 4000) {
+        else  if (capacidadeVigor <= 8000) {
             aumentoCapacidadeVigor = 400;
         }
-        else  if (capacidadeVigor <= 5000) {
+        else  if (capacidadeVigor <= 10000) {
             aumentoCapacidadeVigor = 500;
         }
-        else  if (capacidadeVigor <= 7000) {
+        else  if (capacidadeVigor <= 12000) {
             aumentoCapacidadeVigor = 700;
         }
-        else  if (capacidadeVigor <= 10000) {
+        else  if (capacidadeVigor <= 14000) {
             aumentoCapacidadeVigor = 1000;
         }
         
@@ -142,7 +145,7 @@ public class LojaAprimoramentosService {
         }
         
         else {
-        	aumentoPrecoAtaqueEspecial = 15000; // valor padrão acima de 10_000
+        	aumentoPrecoAtaqueEspecial = 15000; // valor padrão acima de 15_000
         }
 
         
@@ -256,7 +259,7 @@ public class LojaAprimoramentosService {
 
     
     //======================================
-    
+    /*
     public void atualizarPrecoLoja(UsuarioBossBattle usuario) {
     	
     	atualizarPrecoMachadoDilacerador(usuario);
@@ -264,8 +267,18 @@ public class LojaAprimoramentosService {
     	atualizarPrecoPocaoVigor(usuario);
     	
     }//atualizarPrecoLoja
+    */
 	public long getPRECO_ARCO_CELESTIAL() {
 		return PRECO_ARCO_CELESTIAL;
+	}
+	public long getPRECO_MACHADO_DILACERADOR() {
+		return PRECO_MACHADO_DILACERADOR;
+	}
+	public long getPOCAO_VIGOR() {
+		return POCAO_VIGOR;
+	}
+	public long getPRECO_ESPADA_FLANEJANTE() {
+		return PRECO_ESPADA_FLANEJANTE;
 	}
     
     

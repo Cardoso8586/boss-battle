@@ -35,7 +35,8 @@ public class NoctyrService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400);
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(156L);
+        boss.setAttackPower(160L);
+        boss.setAttackIntervalSeconds(185L);
         boss.setRewardBoss(55_000); 
         boss.setRewardExp(2200);
 

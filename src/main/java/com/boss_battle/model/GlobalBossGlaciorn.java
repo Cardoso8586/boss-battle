@@ -31,9 +31,9 @@ public class GlobalBossGlaciorn implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 180_000L;
 
-    private long attackPower = 280L; // forte, mas mais lento
+    private long attackPower = 175L; // forte, mas mais lento
 
-    private long attackIntervalSeconds = 140L;
+    private long attackIntervalSeconds = 180L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

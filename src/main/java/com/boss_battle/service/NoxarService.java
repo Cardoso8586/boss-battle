@@ -26,16 +26,17 @@ public class NoxarService {
 
     public GlobalBossNoxar createDefaultBoss() {
     	GlobalBossNoxar boss = new GlobalBossNoxar();
-         boss.setName("UMBRA XIS");
+         boss.setName("NOXAR");
          boss.setMaxHp(50_000L);
          boss.setCurrentHp(50_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
-         boss.setImageUrl("images/boss_umbraxis.webp");
+         boss.setImageUrl("images/boss_noxar.webp");
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(5400L);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(146L);
+         boss.setAttackIntervalSeconds(160L);
+         boss.setAttackPower(180L);
          boss.setRewardBoss(50_000L);
          boss.setRewardExp(2200L);
         return repo.save(boss);

@@ -36,8 +36,9 @@ public class AzurionService {
         boss.setImageUrl("images/boss_azurion.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(3600); // 1 hora
-        boss.setAttackIntervalSeconds(146L);
+        boss.setAttackPower(120L);
         boss.setSpawnCount(1);
+          boss.setAttackIntervalSeconds(160L);
         boss.setRewardBoss(35_000);
         boss.setRewardExp(1300);
 

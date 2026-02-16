@@ -34,7 +34,8 @@ public class InfernaxService {
         boss.setRespawnCooldownSeconds(7200); 
         boss.setSpawnCount(1);
         boss.setRewardBoss(180_000L);
-        boss.setAttackIntervalSeconds(170L);
+        boss.setAttackPower(420L);
+        boss.setAttackIntervalSeconds(190L);
         boss.setRewardExp(4200);
         return repo.save(boss);
     }

@@ -33,19 +33,23 @@ public class LojaAprimoramentosController {
         UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         
-        long precoPocaoVigor = usuario.getPrecoPocaoVigor();
+      //  long precoPocaoVigor = usuario.getPrecoPocaoVigor();
+        long precoPocaoVigor =  lojaAprimoramentosService.getPOCAO_VIGOR();
         if (precoPocaoVigor <= 0) {
             precoPocaoVigor = 1_000L;
             usuario.setPrecoPocaoVigor(precoPocaoVigor);
             usuarioRepository.save(usuario);
         }
-        long precoEspadaFlanejante = usuario.getPrecoEspadaFlanejante();
+       // long precoEspadaFlanejante = usuario.getPrecoEspadaFlanejante();
+        long precoEspadaFlanejante = lojaAprimoramentosService.getPRECO_ESPADA_FLANEJANTE();
+        
         if (precoEspadaFlanejante <= 0) {
         	precoEspadaFlanejante = 1_000L;
             usuario.setPrecoEspadaFlanejante(precoEspadaFlanejante);
             usuarioRepository.save(usuario);
         }
-        long precoMachadoDilacerador = usuario.getPrecoMachadoDilacerador();
+       // long precoMachadoDilacerador = usuario.getPrecoMachadoDilacerador();
+        long precoMachadoDilacerador = lojaAprimoramentosService.getPRECO_MACHADO_DILACERADOR();
         if (precoMachadoDilacerador <= 0) {
         	precoMachadoDilacerador = 2_000L;
             usuario.setPrecoMachadoDilacerador(precoMachadoDilacerador);

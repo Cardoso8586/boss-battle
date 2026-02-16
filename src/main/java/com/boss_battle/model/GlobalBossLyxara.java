@@ -33,7 +33,7 @@ public class GlobalBossLyxara implements BattleBoss {
 
     private long attackPower = 140L;
 
-    private long attackIntervalSeconds = 42L;
+    private long attackIntervalSeconds = 142L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

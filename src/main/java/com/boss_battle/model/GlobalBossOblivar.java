@@ -33,7 +33,7 @@ public class GlobalBossOblivar implements BattleBoss {
 
     private long attackPower = 120L;
 
-    private long attackIntervalSeconds = 48L;
+    private long attackIntervalSeconds = 148L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

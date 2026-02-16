@@ -314,11 +314,11 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
 
   
     @Column(name = "energia_guerreiros", nullable = false)
-    private Long energiaGuerreiros = 1000L;
+    private Long energiaGuerreiros = 2000L;
 
 
     @Column(name = "energia_guerreiros_padrao", nullable = false)
-    private Long energiaGuerreirosPadrao = 1000L;
+    private Long energiaGuerreirosPadrao = 2000L;
     
     
     // =======================  REFERIDOS ===============================

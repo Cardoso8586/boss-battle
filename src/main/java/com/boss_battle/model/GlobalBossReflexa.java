@@ -31,9 +31,9 @@ public class GlobalBossReflexa implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 170_000L;
 
-    private long attackPower = 300L;
+    private long attackPower = 200L;
 
-    private long attackIntervalSeconds = 135L;
+    private long attackIntervalSeconds = 235L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

@@ -33,7 +33,7 @@ public class GlobalBossMechadron implements BattleBoss {
 
     private long attackPower = 340L;
 
-    private long attackIntervalSeconds = 38L;
+    private long attackIntervalSeconds = 238L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

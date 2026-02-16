@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				    title: 'swal-game-error'
 					},
                    
-                    title: 'Erro na compra',
-                    text: 'Saldo insuficiente ou erro no servidor.',
+                    title: 'Saldo insuficiente.',
+                    text: 'Erro na compra',
 					imageUrl: bossCoinErroImg,							  
 					imageWidth: 120,											   
 					imageHeight: 120,

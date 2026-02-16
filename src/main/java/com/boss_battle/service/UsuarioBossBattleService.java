@@ -33,7 +33,7 @@ public class UsuarioBossBattleService {
             
          // 🎲 gera o próximo preview
             randomRewardService.onLevelUp(usuario);
-            lojaService.atualizarPrecoLoja(usuario);
+           // lojaService.atualizarPrecoLoja(usuario);
            
         }
 

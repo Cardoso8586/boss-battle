@@ -34,7 +34,8 @@ public class TenebrisService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(6600);
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(146L);
+        boss.setAttackIntervalSeconds(195L);
+        boss.setAttackPower(180L);
         boss.setRewardBoss(65_000); 
         boss.setRewardExp(2500);
 

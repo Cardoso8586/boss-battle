@@ -31,9 +31,9 @@ public class GlobalBossThunderon implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 260_000L;
 
-    private long attackPower = 360L;
+    private long attackPower = 160L;
 
-    private long attackIntervalSeconds = 120L;
+    private long attackIntervalSeconds = 220L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

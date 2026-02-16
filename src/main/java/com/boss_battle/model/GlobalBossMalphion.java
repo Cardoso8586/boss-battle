@@ -30,9 +30,9 @@ public class GlobalBossMalphion implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 380_000L;
 
-    private long attackPower = 2_200L;
+    private long attackPower = 200L;
 
-    private long attackIntervalSeconds = 119L;
+    private long attackIntervalSeconds = 190L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

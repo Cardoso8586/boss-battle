@@ -31,9 +31,9 @@ public class GlobalBossVespera implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 48_000L;
 
-    private long attackPower = 145L;
+    private long attackPower = 140L;
 
-    private long attackIntervalSeconds = 140L;
+    private long attackIntervalSeconds = 170L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
 
         const textoOriginal = btn.innerText;
-        let restante = tempoCompraEnergia;
+        //let restante = tempoCompraEnergia;
 
         // ⏳ TEXTO DO BOTÃO
         btn.innerText = `Aplicando capacidade de Vigor...`;

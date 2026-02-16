@@ -40,7 +40,8 @@ public class GlaciornService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4000L); // ~1h06
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(156L);
+        boss.setAttackIntervalSeconds(180L);
+        boss.setAttackPower(175L);
         boss.setRewardBoss(65_000L);
         boss.setRewardExp(1700L);
 

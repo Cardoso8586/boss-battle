@@ -33,7 +33,7 @@ public class GlobalBossInfernax implements BattleBoss {
 
     private long attackPower = 420L;
 
-    private long attackIntervalSeconds = 35L;
+    private long attackIntervalSeconds = 190L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

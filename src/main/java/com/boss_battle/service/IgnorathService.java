@@ -34,6 +34,7 @@ public class IgnorathService {
          boss.setRespawnCooldownSeconds(3600);
          boss.setSpawnCount(1);
          boss.setAttackIntervalSeconds(166L);
+         boss.setAttackPower(75L);
          boss.setRewardBoss(75_000);
          boss.setRewardExp(3000);
         return repo.save(boss);

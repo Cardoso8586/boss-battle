@@ -33,7 +33,7 @@ public class GlobalBossObliquo implements BattleBoss {
 
     private long attackPower = 140L;
 
-    private long attackIntervalSeconds = 50L;
+    private long attackIntervalSeconds = 170L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

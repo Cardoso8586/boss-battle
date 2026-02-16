@@ -34,8 +34,8 @@ public class AzraelPrimeService {
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
-        boss.setAttackPower(2_400L);
-        boss.setAttackIntervalSeconds(138L);
+        boss.setAttackPower(400L);
+        boss.setAttackIntervalSeconds(180L);
 
         boss.setImageUrl("images/boss_azrael_prime.webp");
 

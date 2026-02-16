@@ -28,7 +28,7 @@ public class GlobalBossDrakthor implements BattleBoss {
 
     private long attackPower = 120L;
 
-    private long attackIntervalSeconds = 155L;
+    private long attackIntervalSeconds = 195L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

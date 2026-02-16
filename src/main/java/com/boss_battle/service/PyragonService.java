@@ -39,7 +39,8 @@ public class PyragonService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(3600L); // 1 hora
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(166L);
+        boss.setAttackIntervalSeconds(210L);
+        boss.setAttackPower(220L);
         boss.setRewardBoss(75_000L);
         boss.setRewardExp(1800L);
 

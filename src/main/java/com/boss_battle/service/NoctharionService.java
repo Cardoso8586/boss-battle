@@ -32,13 +32,12 @@ public class NoctharionService {
         boss.setCurrentHp(180_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
-        boss.setAttackPower(420L);
-        boss.setAttackIntervalSeconds(30L);
         boss.setImageUrl("images/boss_noctharion.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400); // 80 minutos
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(46L);
+        boss.setAttackPower(320L);
+        boss.setAttackIntervalSeconds(230L);
         boss.setRewardBoss(120_000L);
         boss.setRewardExp(6200L);
 

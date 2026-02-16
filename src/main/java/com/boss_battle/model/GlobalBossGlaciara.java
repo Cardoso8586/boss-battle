@@ -33,7 +33,7 @@ public class GlobalBossGlaciara implements BattleBoss {
 
     private long attackPower = 175L;
 
-    private long attackIntervalSeconds = 150L;
+    private long attackIntervalSeconds = 190L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
