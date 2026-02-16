@@ -77,6 +77,16 @@ public class GlobalBossPyragon implements BattleBoss {
     private boolean rewardDistributed = false;
   
     // getters / setters
+    
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
+    
     public boolean isRewardDistributed() {
         return rewardDistributed;
     }

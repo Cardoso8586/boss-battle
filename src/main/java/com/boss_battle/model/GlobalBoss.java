@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,6 +57,14 @@ public class GlobalBoss implements BattleBoss {
     @Column(nullable = false)
     private boolean processingDeath = false;
 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     @Override
     public boolean isProcessingDeath() {
         return processingDeath;

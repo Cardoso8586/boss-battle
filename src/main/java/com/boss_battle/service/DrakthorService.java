@@ -33,6 +33,7 @@ public class DrakthorService {
         boss.setImageUrl("images/boss_drakthor.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(7200);
+        boss.setAttackIntervalSeconds(146L);
         boss.setSpawnCount(1);
         boss.setRewardBoss(35_000); 
         boss.setRewardExp(1500);
@@ -74,5 +75,8 @@ public class DrakthorService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss morrer
 }

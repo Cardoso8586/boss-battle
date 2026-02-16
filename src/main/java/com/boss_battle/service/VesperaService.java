@@ -32,6 +32,7 @@ public class VesperaService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600L);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(146L);
          boss.setRewardBoss(45_000L);
          boss.setRewardExp(1900L);
         return repo.save(boss);
@@ -73,6 +74,9 @@ public class VesperaService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 3);
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 

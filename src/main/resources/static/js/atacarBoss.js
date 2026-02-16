@@ -26,6 +26,11 @@ function showDamageFloating(value) {
     setTimeout(() => floatText.remove(), 8000);
 }
 
+
+function formatarNumero(numero) {
+    return new Intl.NumberFormat('pt-BR').format(numero);
+}
+
 // ---------------------------------------------------
 // ⚠️ WARNING AUTO
 function swalWarningAuto(texto, segundos = 10) {
@@ -123,7 +128,7 @@ async function bossEstaAtivo() {
 // ---------------------------------------------------
 // ⚔️ CLICK ATAQUE (COM TEMPORIZADOR DE ATAQUE)
 attackBtn.addEventListener("click", async () => {
-
+	
     // 🔒 trava absoluta
     if (ataqueEmAndamento || !bossVivo) return;
 
@@ -216,14 +221,18 @@ attackBtn.addEventListener("click", async () => {
 			floatText.textContent = `Derrotado`;
             return;
         }
+		if (dano !== undefined) {
+		    showDamageFloating(formatarNumero(dano));
+		}
 
+		/*
 		if (dano!== undefined) {
 		    showDamageFloating(dano);
 		 
 
 		  
 		}
-
+*/
 
 
 

@@ -35,7 +35,7 @@ public class AzraelPrimeService {
         boss.setAlive(true);
 
         boss.setAttackPower(2_400L);
-        boss.setAttackIntervalSeconds(18L);
+        boss.setAttackIntervalSeconds(138L);
 
         boss.setImageUrl("images/boss_azrael_prime.webp");
 
@@ -83,6 +83,10 @@ public class AzraelPrimeService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss morrer
 }

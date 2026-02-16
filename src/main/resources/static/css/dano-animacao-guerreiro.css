@@ -1,0 +1,66 @@
+#damageContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 9999;
+}
+.hidden {
+    display: none;
+}
+.dano-valor {
+    color: #ffd000;
+    font-weight: 200;
+    font-size: 15px;
+    text-shadow:
+        0 0 8px #ffae00,
+        0 0 18px #ff8000,
+        0 0 28px rgba(255, 140, 0, 0.8);
+}
+
+.boosName {
+    color: #ffd000;
+    font-weight: 200;
+    font-size: 15px;
+    text-shadow:
+        0 0 8px #ffae00,
+        0 0 18px #ff8000,
+        0 0 28px rgba(255, 140, 0, 0.8);
+}
+
+
+
+.damage-message {
+    font-size: 12px;
+    font-weight: 200;
+    color: #ff3c3c;
+    opacity: 0;
+    text-shadow:
+        0 0 6px rgba(255, 0, 0, 0.8),
+        0 0 12px rgba(255, 0, 0, 0.5);
+    animation: smoothDamage 4.5s ease-out forwards;
+}
+
+@keyframes smoothDamage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateY(0px) scale(1.1);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-25px) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+}
+

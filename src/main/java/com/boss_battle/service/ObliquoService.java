@@ -33,6 +33,7 @@ public class ObliquoService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4800); // 80 minutos
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(136L);
         boss.setRewardBoss(45_000L);
         boss.setRewardExp(2000);
         return repo.save(boss);
@@ -74,6 +75,10 @@ public class ObliquoService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 3);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

@@ -34,7 +34,7 @@ public class LyxaraService {
         boss.setAlive(true);
 
         boss.setAttackPower(140L);
-        boss.setAttackIntervalSeconds(42L);
+        boss.setAttackIntervalSeconds(142L);
 
         boss.setImageUrl("images/boss_lyxara.webp");
 
@@ -82,6 +82,10 @@ public class LyxaraService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
    

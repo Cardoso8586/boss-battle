@@ -32,7 +32,7 @@ public class GlobalBossMalphion implements BattleBoss {
 
     private long attackPower = 2_200L;
 
-    private long attackIntervalSeconds = 19L;
+    private long attackIntervalSeconds = 119L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -87,6 +87,14 @@ public class GlobalBossMalphion implements BattleBoss {
 
     public GlobalBossMalphion() {}
 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }

@@ -84,6 +84,15 @@ public class GlobalBossMechadron implements BattleBoss {
         this.rewardDistributed = rewardDistributed;
     }
  
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
+    
     public GlobalBossMechadron() {}
 
     public Long getId() { return id; }

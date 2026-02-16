@@ -28,7 +28,7 @@ public class GlobalBossDrakthor implements BattleBoss {
 
     private long attackPower = 120L;
 
-    private long attackIntervalSeconds = 55L;
+    private long attackIntervalSeconds = 155L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -82,6 +82,14 @@ public class GlobalBossDrakthor implements BattleBoss {
     
     public GlobalBossDrakthor() {}
 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     // --------------------------------------
     // GETTERS & SETTERS
     // --------------------------------------

@@ -33,7 +33,7 @@ public class GlobalBossMorvath implements BattleBoss {
 
     private long attackPower = 150L;
 
-    private long attackIntervalSeconds = 60L;
+    private long attackIntervalSeconds = 160L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -82,6 +82,15 @@ public class GlobalBossMorvath implements BattleBoss {
 
     public void setRewardDistributed(boolean rewardDistributed) {
         this.rewardDistributed = rewardDistributed;
+    }
+    
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
     }
  
     public GlobalBossMorvath() {}

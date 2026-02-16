@@ -2,21 +2,29 @@ package com.boss_battle.controller;
 
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.boss_battle.dto.AtaqueBossResponseDTO;
+import com.boss_battle.service.BossAutoAttackService;
 import com.boss_battle.service.GlobalBossService;
 @RestController
 @RequestMapping("/api/boss")
 public class GlobalBossController {
 
     private final GlobalBossService globalBossService;
+    private final BossAutoAttackService bossAutoAttackService;
 
-    public GlobalBossController(GlobalBossService globalBossService) {
+    public GlobalBossController(
+    		GlobalBossService globalBossService, 
+    		BossAutoAttackService bossAutoAttackService)
+    {
         this.globalBossService = globalBossService;
+        this.bossAutoAttackService = bossAutoAttackService;
     }
 
     @GetMapping("/active")
@@ -33,6 +41,20 @@ public class GlobalBossController {
     public Map<String, Object> cooldown(@RequestParam Long usuarioId) {
         return globalBossService.cooldown(usuarioId);
     }
+
+    @GetMapping("/ultimo-ataque")
+    public ResponseEntity<AtaqueBossResponseDTO> getUltimoAtaque() {
+
+        AtaqueBossResponseDTO ataque = bossAutoAttackService.getUltimoAtaque();
+
+        if (ataque == null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(ataque);
+    }
+
+
 
 
 }

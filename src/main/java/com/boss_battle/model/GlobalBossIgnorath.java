@@ -38,7 +38,7 @@ public class GlobalBossIgnorath implements BattleBoss {
 	    private long attackPower = 50L;
 
 	    // intervalo de ataque automático do boss em segundos (se aplicável)
-	    private long attackIntervalSeconds = 60L;
+	    private long attackIntervalSeconds = 160L;
 
 	    // quando spawnou (ou re-spawnará)
 	    @Column(columnDefinition = "DATETIME")
@@ -94,7 +94,14 @@ public class GlobalBossIgnorath implements BattleBoss {
 	    public void setRewardDistributed(boolean rewardDistributed) {
 	        this.rewardDistributed = rewardDistributed;
 	    }
-	 
+	    @Column(columnDefinition = "DATETIME")
+	    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	    private LocalDateTime lastAttackAt;
+
+	    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+	    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+	        this.lastAttackAt = lastAttackAt;
+	    }
 
 	    // getters/setters...
 	    

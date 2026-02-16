@@ -33,7 +33,7 @@ public class GlobalBossFlamor implements BattleBoss {
 
     private long attackPower = 100L; // ataque proporcional
 
-    private long attackIntervalSeconds = 50L; // intervalo de ataque
+    private long attackIntervalSeconds = 150L; // intervalo de ataque
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -84,7 +84,14 @@ public class GlobalBossFlamor implements BattleBoss {
         this.rewardDistributed = rewardDistributed;
     }
  
-    
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     
     public GlobalBossFlamor() {}
 

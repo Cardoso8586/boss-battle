@@ -33,7 +33,7 @@ public class GlobalBossNightmare implements BattleBoss {
 
     private long attackPower = 300L;
 
-    private long attackIntervalSeconds = 40L; // mais rápido
+    private long attackIntervalSeconds = 140L; // mais rápido
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -76,6 +76,16 @@ public class GlobalBossNightmare implements BattleBoss {
     private boolean rewardDistributed = false;
   
     // getters / setters
+    
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
+    
     public boolean isRewardDistributed() {
         return rewardDistributed;
     }

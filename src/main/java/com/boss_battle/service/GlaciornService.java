@@ -40,6 +40,7 @@ public class GlaciornService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4000L); // ~1h06
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(156L);
         boss.setRewardBoss(65_000L);
         boss.setRewardExp(1700L);
 
@@ -88,6 +89,10 @@ public class GlaciornService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	   //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
+
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
    

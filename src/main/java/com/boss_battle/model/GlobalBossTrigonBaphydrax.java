@@ -31,7 +31,7 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
     // ⚔️ Ataque brutal
     private long attackPower = 180L;
 
-    private long attackIntervalSeconds = 45L;
+    private long attackIntervalSeconds = 145L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -67,6 +67,14 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
 
     public GlobalBossTrigonBaphydrax() {}
 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     // --------------------------------------
     // GETTERS & SETTERS
     // --------------------------------------

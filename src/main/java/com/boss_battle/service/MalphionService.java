@@ -34,18 +34,12 @@ public class MalphionService  {
         boss.setCurrentHp(380_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
-        
-       
- 
         boss.setAttackPower(2_200L);
-        boss.setAttackIntervalSeconds(19L);
-
+        boss.setAttackIntervalSeconds(139L);
         boss.setImageUrl("images/boss_malphion.webp");
-
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(15_000L); 
         boss.setSpawnCount(1);
-
         boss.setRewardBoss(140_000L);
         boss.setRewardExp(9_000L);
 
@@ -70,15 +64,24 @@ public class MalphionService  {
     	long valorHpMax =  boss.getMaxHp();
     	long valorCur = boss.getCurrentHp();
     	
+    	//hp
     	boss.setMaxHp( valorHpMax + incrementarUp);
     	boss.setCurrentHp( valorCur + incrementarUp);
     	
+    	//recompensa
     	long valorXp =  boss.getRewardExp();
     	boss.setRewardExp(valorXp + 1);
-    	
     	long valorsetRewardBoss = boss.getRewardBoss();
  	    boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
+ 	   //ataque 
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
+        
+        //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
+        
        evoluirMalphion(boss);
  	   
     }

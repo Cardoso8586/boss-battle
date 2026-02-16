@@ -97,6 +97,7 @@ public class SecurityConfig {
                         "/api/boss/cooldown/**",
                         "/api/boss/guerreiros/ultimo-dano/**",
                         "/api/boss/ataques-recentes/**",
+                        "/api/boss/ultimo-ataque/**",
                         "/recarregar-energia/**",
                         "/api/atualizar/status/usuario/**",
                         "/comprar/guerreiro/**",

@@ -39,6 +39,7 @@ public class ReflexaService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4800L);
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(146L);
         boss.setRewardBoss(90_000L);
         boss.setRewardExp(2400L);
 
@@ -87,6 +88,10 @@ public class ReflexaService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 3);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

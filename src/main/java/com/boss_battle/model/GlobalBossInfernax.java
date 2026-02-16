@@ -84,6 +84,14 @@ public class GlobalBossInfernax implements BattleBoss {
         this.rewardDistributed = rewardDistributed;
     }
  
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     public GlobalBossInfernax() {}
 
     public Long getId() { return id; }

@@ -40,6 +40,7 @@ public class OblivarService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4200L); // 1 hora
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(146L);
         boss.setRewardBoss(30_000);
         boss.setRewardExp(1650);
 
@@ -88,6 +89,10 @@ public class OblivarService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 2);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

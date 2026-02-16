@@ -33,6 +33,7 @@ public class IgnorathService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(166L);
          boss.setRewardBoss(75_000);
          boss.setRewardExp(3000);
         return repo.save(boss);
@@ -74,6 +75,9 @@ public class IgnorathService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 2);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss for derrotado
    
 

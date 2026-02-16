@@ -33,5 +33,14 @@ public interface BattleBoss {
     
     boolean isRewardDistributed();
     void setRewardDistributed(boolean b);
+    // ⚔️ ATAQUE AUTOMÁTICO
+    long getAttackPower();
+    long getAttackIntervalSeconds();
+
+    LocalDateTime getSpawnedAt();
+    void setSpawnedAt(LocalDateTime time);
+
+    LocalDateTime getLastAttackAt();
+    void setLastAttackAt(LocalDateTime time);
 
 }

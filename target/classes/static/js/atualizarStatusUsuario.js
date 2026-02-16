@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const energia = Math.max(0, data.energiaGuerreiros);
             const energiaMax = data.energiaGuerreirosPadrao;
-			
-			
+			const damageContainer = document.getElementById("damageContainer");
+			const verificarEnergia = data.energiaGuerreiros;
 			
 			ganhosRef.textContent = formatarNumero(data.ganhosRef);
 			ataqueBase.textContent = formatarNumero(data.ataqueBase);
@@ -52,20 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const percentualEnergia = Math.max(0, (energia / energiaMax) * 100);
             energiaBar.style.width = percentualEnergia + '%';
 
-			
-			
-            // Liberar botão quando energia < 50%
+			//verificar se usuario esta ativo e esconder/ou bloquear o dano recebido
+						if (verificarEnergia <= 0) {
+						    damageContainer.classList.add("hidden");
+						} else {
+						    damageContainer.classList.remove("hidden");
+						}
+
+            // Liberar botão quando energia < 20%
             if (energia / energiaMax < 0.2) {
                 btnRecarregar.disabled = false;
             } else {
                 btnRecarregar.disabled = true;
             }
-			
-			//======================================= status do arco =============================
-			
-			
-			 
-			
+		
 			//==================================================================================
 			const container = document.getElementById('desgasteContainer');
 			const barra = document.getElementById('barradesgaste');

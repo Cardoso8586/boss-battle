@@ -33,7 +33,7 @@ public class GlobalBossAzraelPrime implements BattleBoss {
 
     private long attackPower = 2_400L;
 
-    private long attackIntervalSeconds = 18L;
+    private long attackIntervalSeconds = 146L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -87,6 +87,14 @@ public class GlobalBossAzraelPrime implements BattleBoss {
 
     public GlobalBossAzraelPrime() {}
 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }

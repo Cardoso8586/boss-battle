@@ -34,6 +34,7 @@ public class UmbraxisService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(7200);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(146L);
          boss.setRewardBoss(100_000);
          boss.setRewardExp(2500);
         return repo.save(boss);
@@ -75,6 +76,9 @@ public class UmbraxisService {
     	    	
     	    	long valorsetRewardBoss = boss.getRewardBoss();
     	    	boss.setRewardBoss(valorsetRewardBoss + 8);
+    	    	 //ataque respaw
+    	        boss.setAttackPower(boss.getAttackPower() + 2);
+    	        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     	 	   
     	    }//--->incrmentar hp, toda vez que o boss for derrotado
 

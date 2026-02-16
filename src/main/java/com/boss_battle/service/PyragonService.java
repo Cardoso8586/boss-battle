@@ -39,6 +39,7 @@ public class PyragonService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(3600L); // 1 hora
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(166L);
         boss.setRewardBoss(75_000L);
         boss.setRewardExp(1800L);
 
@@ -87,6 +88,9 @@ public class PyragonService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 4);
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

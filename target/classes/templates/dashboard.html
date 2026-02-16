@@ -26,10 +26,13 @@
     <link rel="stylesheet" href="/css/swal-game-error.css">
     <link rel="stylesheet" href="/css/profile.css">               
     <link rel="stylesheet" href="/css/ResgatarRecompensas.css">
-     <link rel="stylesheet" href="/css/ultimosAtaques.css">   
-     <link rel="stylesheet" href="/css/rankingDano.css">
-      <link rel="stylesheet" href="/css/nucleoArco.css">   
-        <link rel="stylesheet" href="/css/section-promocoes.css">
+    <link rel="stylesheet" href="/css/ultimosAtaques.css">   
+    <link rel="stylesheet" href="/css/rankingDano.css">
+    <link rel="stylesheet" href="/css/nucleoArco.css">   
+    <link rel="stylesheet" href="/css/section-promocoes.css">
+    <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">
+        
+       
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -261,7 +264,12 @@ gurações -->
 
             <div class="card-section">
                 <img id="guerreiro-image" src="" alt="guerreiro">
+              <div id="damageContainer"></div>
+
+               
                <p>
+    
+   
     
     <strong>Ataque:</strong>
     <span class="ataque-container">
@@ -285,7 +293,11 @@ gurações -->
                     </div>
                     
                     <p>
-<p style="position: relative;"> <strong></strong><span id="reparoRetaguarda"></span>
+<p style="position: relative;"><span id="reparoRetaguarda"></span></p>
+
+
+
+
 
     <p id="p">
     <strong>Retaguarda:</strong>
@@ -1340,6 +1352,7 @@ Dano
      <script src="/js/atualizarStatusArco.js" defer></script>
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>
+       <script src="/js/ultimoAtaqueBoss.js" defer></script>
 
 
 

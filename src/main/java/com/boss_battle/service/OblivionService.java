@@ -34,7 +34,7 @@ public class OblivionService {
         boss.setAlive(true);
 
         boss.setAttackPower(200L);
-        boss.setAttackIntervalSeconds(60L);
+        boss.setAttackIntervalSeconds(160L);
 
         boss.setImageUrl("images/boss_oblivion.webp");
 
@@ -83,5 +83,8 @@ public class OblivionService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 3);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

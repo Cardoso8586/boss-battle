@@ -35,6 +35,7 @@ public class NoctyrService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400);
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(156L);
         boss.setRewardBoss(55_000); 
         boss.setRewardExp(2200);
 
@@ -78,6 +79,10 @@ public class NoctyrService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 3);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

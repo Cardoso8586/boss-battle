@@ -75,5 +75,8 @@ public class ThunderonService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 2);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

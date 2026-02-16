@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
+import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossDestruidor;
@@ -77,6 +78,7 @@ public class GlobalBossService {
     private final DestruidorService destruidorService;
     private final TrigonBaphydraxService trigonBaphydraxService;
     private final  MalphionService malphionService;
+    private final AbyssarService abyssarService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -121,7 +123,7 @@ public class GlobalBossService {
             DestruidorService destruidorService,
             TrigonBaphydraxService trigonBaphydraxService,
             MalphionService malphionService,
-            
+            AbyssarService abyssarService,
         
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -172,6 +174,7 @@ public class GlobalBossService {
         this.destruidorService = destruidorService;
         this.trigonBaphydraxService = trigonBaphydraxService;
         this.malphionService = malphionService;
+        this. abyssarService = abyssarService ;
       
     }
 
@@ -207,6 +210,7 @@ public class GlobalBossService {
         if (destruidorService.get().isAlive()) return destruidorService.get();
         if (trigonBaphydraxService.get().isAlive()) return trigonBaphydraxService.get();
         if (malphionService.get().isAlive()) return malphionService.get();
+        if (abyssarService.get().isAlive()) return abyssarService.get();
         
         return spawnRandomBoss();
     }
@@ -342,6 +346,11 @@ public class GlobalBossService {
         
         resultado = tryHitBoss("MALPHION", malphionService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("ABYSSAR", abyssarService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        
         //===============================================================================
         //===============================================================================
 
@@ -408,7 +417,8 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossDestruidor) destruidorService.save((GlobalBossDestruidor) boss);
             if (boss instanceof GlobalBossTrigonBaphydrax) trigonBaphydraxService.save((GlobalBossTrigonBaphydrax) boss);
             if (boss instanceof GlobalBossMalphion) malphionService.save((GlobalBossMalphion) boss);
-
+            if (boss instanceof GlobalBossAbyssar) abyssarService.save((GlobalBossAbyssar) boss);
+            
             registrarDano(bossName, usuario, damage);
 
             return processReward(bossName, boss, usuario, damage);
@@ -591,7 +601,7 @@ public class GlobalBossService {
         killAllBosses();
      
         
-        int choice = random.nextInt(26);
+        int choice = random.nextInt(27);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -901,8 +911,20 @@ public class GlobalBossService {
 
             }
             
-  
+            case 28 -> {
+            	GlobalBossAbyssar aby = abyssarService.get();
+            	abyssarService.aplicarEscalamentoAbyssar(aby);
+            	aby.setProcessingDeath(false);
+            	aby.setAlive(true);
+            	aby.setCurrentHp(aby.getMaxHp());
+            	aby.setSpawnedAt(LocalDateTime.now());
+            	abyssarService.save(aby);
+            	newBoss = aby;
+
+            }
             
+            
+ 
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
                 um.aplicarEscalamentoUmbraxis();
@@ -948,7 +970,7 @@ public class GlobalBossService {
     	GlobalBossDestruidor ds = destruidorService.get();
     	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
     	GlobalBossMalphion mph = malphionService.get();
-    	
+    	GlobalBossAbyssar aby = abyssarService.get();
     	
     	
     	
@@ -1036,6 +1058,8 @@ public class GlobalBossService {
     	mph.setAlive(false);
     	mph.setProcessingDeath(false);
     	
+    	aby.setAlive(false);
+    	aby.setProcessingDeath(false);
 
         ignorathService.save(ig);
         drakthorService.save(dr);
@@ -1065,6 +1089,7 @@ public class GlobalBossService {
         destruidorService.save(ds);
         trigonBaphydraxService.save(tb);
         malphionService.save(mph);
+        abyssarService.save(aby);
     }
 
     // =============================

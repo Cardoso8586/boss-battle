@@ -33,6 +33,7 @@ public class FlamorService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600L);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(146L);
          boss.setRewardBoss(80_000L);
          boss.setRewardExp(2500L);
         return repo.save(boss);
@@ -74,6 +75,10 @@ public class FlamorService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss morrer
 

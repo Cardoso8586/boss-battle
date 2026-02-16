@@ -33,6 +33,7 @@ public class GlaciaraService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(6000L);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(140L);
          boss.setRewardBoss(60_000L);
          boss.setRewardExp(2400L);
         return repo.save(boss);
@@ -74,6 +75,10 @@ public class GlaciaraService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
    

@@ -40,7 +40,7 @@ public class DestruidorService  {
        
  
         boss.setAttackPower(2_400L);
-        boss.setAttackIntervalSeconds(18L);
+        boss.setAttackIntervalSeconds(148L);
 
         boss.setImageUrl("images/boss_destruidor.webp");
 
@@ -81,7 +81,9 @@ public class DestruidorService  {
     	long valorsetRewardBoss = boss.getRewardBoss();
  	    boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
- 	   
+ 	   //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }
     
    

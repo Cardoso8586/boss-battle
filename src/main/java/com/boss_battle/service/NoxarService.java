@@ -35,6 +35,7 @@ public class NoxarService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(5400L);
          boss.setSpawnCount(1);
+         boss.setAttackIntervalSeconds(146L);
          boss.setRewardBoss(50_000L);
          boss.setRewardExp(2200L);
         return repo.save(boss);
@@ -77,6 +78,9 @@ public class NoxarService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss for derrotado
 
 }

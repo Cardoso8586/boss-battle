@@ -34,6 +34,7 @@ public class TenebrisService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(6600);
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(146L);
         boss.setRewardBoss(65_000); 
         boss.setRewardExp(2500);
 
@@ -76,6 +77,9 @@ public class TenebrisService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 5);
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

@@ -41,6 +41,7 @@ public class NightmareService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(10800L); // 1 hora
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(166L);
         boss.setRewardBoss(150_000);
         boss.setRewardExp(3000);
 
@@ -90,6 +91,10 @@ public class NightmareService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 5);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

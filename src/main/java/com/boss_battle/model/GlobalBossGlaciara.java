@@ -33,7 +33,7 @@ public class GlobalBossGlaciara implements BattleBoss {
 
     private long attackPower = 175L;
 
-    private long attackIntervalSeconds = 50L;
+    private long attackIntervalSeconds = 150L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -84,7 +84,14 @@ public class GlobalBossGlaciara implements BattleBoss {
     public void setRewardDistributed(boolean rewardDistributed) {
         this.rewardDistributed = rewardDistributed;
     }
- 
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
     
     public GlobalBossGlaciara() {}
 

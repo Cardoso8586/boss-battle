@@ -33,6 +33,7 @@ public class MorvathService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400); // 90 minutos
         boss.setSpawnCount(1);
+        boss.setAttackIntervalSeconds(136L);
         boss.setRewardBoss(50_000L);
         boss.setRewardExp(2200);
         return repo.save(boss);
@@ -75,5 +76,8 @@ public class MorvathService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 4);
  	   
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

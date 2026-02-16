@@ -36,6 +36,7 @@ public class AzurionService {
         boss.setImageUrl("images/boss_azurion.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(3600); // 1 hora
+        boss.setAttackIntervalSeconds(146L);
         boss.setSpawnCount(1);
         boss.setRewardBoss(35_000);
         boss.setRewardExp(1300);
@@ -83,6 +84,10 @@ public class AzurionService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss morrer
 }

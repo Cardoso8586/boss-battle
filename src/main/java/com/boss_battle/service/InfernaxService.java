@@ -34,6 +34,7 @@ public class InfernaxService {
         boss.setRespawnCooldownSeconds(7200); 
         boss.setSpawnCount(1);
         boss.setRewardBoss(180_000L);
+        boss.setAttackIntervalSeconds(170L);
         boss.setRewardExp(4200);
         return repo.save(boss);
     }
@@ -74,6 +75,10 @@ public class InfernaxService {
     	
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 1);
+    	
+    	 //ataque respaw
+        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
    
