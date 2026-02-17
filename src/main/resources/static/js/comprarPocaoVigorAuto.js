@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						  customClass: {      
 						    title: 'swal-game-text'
 						  },
-						  title: `Você comprou <b>${quantidade}</b> poção de <b>Vigor Automático</b>.`,
+						  title: `Você comprou <b>${quantidade}</b> poção de <b>Vigor</b>.`,
 						  html: 'Compra realizada!',
 						  imageUrl: pocaoVigorOkImg,
 						  imageWidth: 90,   
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 												  customClass: {      
 												   title: 'swal-game-text'
 												  },
-												  title: `Você comprou <b>${quantidade}</b> poções de <b>Vigor Automático</b>.`,
+												  title: `Você comprou <b>${quantidade}</b> poções de <b>Vigor</b>.`,
 												  html: 'Compra realizada!',
 												  imageUrl: pocaoVigorOkImg,
 												  imageWidth: 90,   

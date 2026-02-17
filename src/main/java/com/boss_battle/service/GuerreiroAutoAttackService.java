@@ -34,7 +34,7 @@ public class GuerreiroAutoAttackService {
 	
 	
 	@Autowired
-	PocaoVigorService pocaoVigorService;
+	private PocaoVigorService pocaoVigorService;
 
 	@Autowired
 	GlobalBossService globalBossService;
@@ -106,7 +106,8 @@ public class GuerreiroAutoAttackService {
 	 
 
 	    // 🔋 consome energia
-	    long energiaFinal = energia - dano;
+	   // long energiaFinal = energia - dano;
+	    long energiaFinal = Math.max(0, energia - dano);
 	    if (energiaFinal < 0) energiaFinal = 0;
 	    usuario.setEnergiaGuerreiros(energiaFinal);
 

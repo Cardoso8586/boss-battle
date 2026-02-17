@@ -16,14 +16,17 @@ public class ComprarEspadaFlanejanteService {
 
     @Autowired
     private UsuarioBossBattleRepository repo;
-
+	@Autowired
+	LojaAprimoramentosService lojaAprimoramentosService;
     public boolean comprarEspadaFlanejante(Long usuarioId, int quantidade) {
 
         // 🔒 Busca com lock pessimista
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
+       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
+        BigDecimal precoUnitario = BigDecimal.valueOf( lojaAprimoramentosService.getPRECO_ESPADA_FLANEJANTE());
+       
         BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         // ❌ Saldo insuficiente

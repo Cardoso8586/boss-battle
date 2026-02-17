@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="/css/nucleoArco.css">   
     <link rel="stylesheet" href="/css/section-promocoes.css">
     <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">
-        
+   
        
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -284,6 +284,8 @@ gurações -->
                 </p>
 
                 <div class="energia-wrapper">
+               
+                
                     <div class="energia-header">⚡ Vigor: <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
                      <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
                     </div>
@@ -310,7 +312,7 @@ gurações -->
 
                     
                   <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
-                    
+                 
 <button id="btnRecarregar"
         th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
     ⚡ Recarregar Vigor
@@ -1352,8 +1354,8 @@ Dano
      <script src="/js/atualizarStatusArco.js" defer></script>
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>
-       <script src="/js/ultimoAtaqueBoss.js" defer></script>
-
+     <script src="/js/ultimoAtaqueBoss.js" defer></script>
+   
 
 
 

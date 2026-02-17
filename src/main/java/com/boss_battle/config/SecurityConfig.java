@@ -131,6 +131,7 @@ public class SecurityConfig {
                         "/lootbox/abrir/**",
                         "/promo/comprar/**",
                         "/promo/preco/**"
+                      
                      
                         
                         

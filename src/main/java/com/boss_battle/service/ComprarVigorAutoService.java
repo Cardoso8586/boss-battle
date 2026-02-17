@@ -15,7 +15,8 @@ public class ComprarVigorAutoService {
 
     @Autowired
     private UsuarioBossBattleRepository repo;
-
+	@Autowired
+	LojaAprimoramentosService lojaAprimoramentosService;
     /**
      * Compra automática de poção de vigor.
      */
@@ -27,7 +28,9 @@ public class ComprarVigorAutoService {
     	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         // Preço unitário da poção
-        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoPocaoVigor());
+       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoPocaoVigor());
+    	 BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPOCAO_VIGOR());
+    	
         BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         // Verifica se o usuário tem saldo suficiente

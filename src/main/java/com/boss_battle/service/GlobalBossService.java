@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.boss_battle.model.BattleBoss;
@@ -85,6 +86,8 @@ public class GlobalBossService {
     private final ReferidosRecompensaService referidosService;
     private final UsuarioBossBattleService usuarioService;
     private final BossAttackService bossAttackService;
+
+	private final PocaoVigorService pocaoVigorService;
     
     //private final BossService bossDamageLogService;
     
@@ -132,8 +135,8 @@ public class GlobalBossService {
             UsuarioBossBattleService usuarioService,
             BossAttackService bossAttackService,
             BossDamageLogService bossDamageLogService,
-            RetaguardaService retaguardaService
-           
+            RetaguardaService retaguardaService,
+            PocaoVigorService pocaoVigorService
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -147,7 +150,7 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
-      
+      this.pocaoVigorService = pocaoVigorService;
        
         //this.bossDamageLogService = bossDamageLogService;
         this.nightmareService = nightmareService;
@@ -254,11 +257,31 @@ public class GlobalBossService {
         }
 
         else {
-        	
+        	long ataqueBase = usuario.getAtaqueBase();
+        	long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
+
+        	long damage = ataqueBase + ataqueEspecial;
+
+        	System.out.println("Usuario -" + usuario.getUsername() +
+        	        " atacou -" + boss.getBossName() +
+        	        " causando " + damage + " de dano");
+
+        	// 🔥 garante que nunca fique negativo
+        	long novaEnergia = Math.max(0, energia - damage);
+        	usuario.setEnergiaGuerreiros(novaEnergia);
+
+        	/*
         long ataqueBase = usuario.getAtaqueBase();
         long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
         long damage = ataqueBase + ataqueEspecial;
         System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou com ataque especial" +"-"+  boss.getBossName()+"-"+  "Causou " + damage+"-"+ "Dano");
+        
+        
+        // aplicar diminuir  o vigor
+        usuario.setEnergiaGuerreiros(energia - damage);
+        */
+        // 🧪 poção automática
+	    pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
         // usar o valor retornado
         Object resultado = null;
 
@@ -354,10 +377,7 @@ public class GlobalBossService {
         //===============================================================================
         //===============================================================================
 
-        
-        // aplicar diminuir  o vigor
-        usuario.setEnergiaGuerreiros(energia - damage);
-        
+     
       
       
         

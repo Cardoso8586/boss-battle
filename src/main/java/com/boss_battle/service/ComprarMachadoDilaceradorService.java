@@ -14,6 +14,9 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarMachadoDilaceradorService {
 
+	@Autowired
+	LojaAprimoramentosService lojaAprimoramentosService;
+	
     @Autowired
     private UsuarioBossBattleRepository repo;
 
@@ -23,7 +26,8 @@ public class ComprarMachadoDilaceradorService {
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
+       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
+        BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPRECO_MACHADO_DILACERADOR());
         BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         // ❌ Saldo insuficiente

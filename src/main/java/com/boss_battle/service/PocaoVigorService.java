@@ -12,8 +12,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class PocaoVigorService {
 
-    private static final long LIMITE_ENERGIA = 10;
-    private static final int QTD_MINIMA_ATIVAR = 1; // 🔧 balanceável
+
+    private static final int QTD_MINIMA_ATIVAR = 1; 
 
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
@@ -60,6 +60,32 @@ public class PocaoVigorService {
 
     public boolean verificarEUsarPocaoSeAtiva(UsuarioBossBattle usuario) {
 
+        long energiaAtual = usuario.getEnergiaGuerreiros();
+        long energiaPadrao = usuario.getEnergiaGuerreirosPadrao();
+
+        long limiteAcionamento = energiaPadrao / 10; // 10%
+
+        // 🔥 ativa quando <= 10%
+        if (energiaAtual > limiteAcionamento) {
+            return false;
+        }
+
+        if (usuario.getPocaoVigorAtiva() <= 0) {
+            return false;
+        }
+
+        usuario.setPocaoVigorAtiva(usuario.getPocaoVigorAtiva() - 1);
+        usuario.setEnergiaGuerreiros(energiaPadrao);
+
+        System.out.println(usuario.getUsername() + " usou 1 poção!");
+
+        return true;
+    }
+
+
+    /*
+    public boolean verificarEUsarPocaoSeAtiva(UsuarioBossBattle usuario) {
+
         Long energia = usuario.getEnergiaGuerreiros();
 
         if (energia == null || energia > LIMITE_ENERGIA) return false;
@@ -81,7 +107,7 @@ public class PocaoVigorService {
         return true;
     }
 
-
+*/
 
 
 }
