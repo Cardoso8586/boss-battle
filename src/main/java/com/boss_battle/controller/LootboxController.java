@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.boss_battle.dto.ComprarLootboxDTO;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.LootboxService;
+import com.boss_battle.service.aprimoramentos_loja.LootboxService;
+
 
 @RestController
 @RequestMapping("/lootbox")

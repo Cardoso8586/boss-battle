@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.boss_battle.model.BossBattleTransactionHistory;
 import com.boss_battle.repository.BossBattleTransactionHistoryRepository;
-import com.boss_battle.service.FaucetPayService;
+import com.boss_battle.service.reconpensas_faucet_pay.FaucetPayService;
 
 import java.io.IOException;
 import java.math.BigDecimal;

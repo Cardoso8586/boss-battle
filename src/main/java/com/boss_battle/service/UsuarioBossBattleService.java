@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.UsuarioBossBattle;
+import com.boss_battle.service.aprimoramentos_loja.LojaAprimoramentosService;
 
 @Service
 @Transactional

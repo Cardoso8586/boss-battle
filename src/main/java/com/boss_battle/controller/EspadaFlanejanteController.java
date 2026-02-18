@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.service.EspadaFlanejanteService;
+import com.boss_battle.service.ativar_equipar.EspadaFlanejanteService;
+
+
 
 @RestController
 @RequestMapping("/api/espada-flanejante")

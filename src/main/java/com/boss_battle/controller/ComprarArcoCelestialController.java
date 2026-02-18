@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.dto.ComprarArcoCelestialDTO;
-import com.boss_battle.service.ComprarArcoCelestialService;
+import com.boss_battle.service.aprimoramentos_loja.ComprarArcoCelestialService;
+
 
 @RestController
 public class ComprarArcoCelestialController {

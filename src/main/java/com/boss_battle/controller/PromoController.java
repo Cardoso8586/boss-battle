@@ -5,15 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.dto.ComprarPromoDTO;
 import com.boss_battle.dto.PromoPrecoDTO;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.PromoService;
+import com.boss_battle.service.aprimoramentos_loja.PromoService;
+
 
 @RestController
 @RequestMapping("/promo")

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/dashboard-footer.css">  
     <link rel="stylesheet" href="/css/bossSection.css"> 
-    <link rel="stylesheet" href="/css/referidos.css">    
+    <link rel="stylesheet" href="/css/aliados.css">    
     <link rel="stylesheet" href="/css/dano-animacao.css">   
     <link rel="stylesheet" href="/css/user-info.css">  
     <link rel="stylesheet" href="/css/loja.css">  
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="/css/recuperacaoVigorAnimacao.css">   
     <link rel="stylesheet" href="/css/customClass.css">  
     <link rel="stylesheet" href="/css/swal-game-error.css">
-    <link rel="stylesheet" href="/css/profile.css">               
+    <link rel="stylesheet" href="/css/centralComando.css">               
     <link rel="stylesheet" href="/css/ResgatarRecompensas.css">
     <link rel="stylesheet" href="/css/ultimosAtaques.css">   
     <link rel="stylesheet" href="/css/rankingDano.css">
@@ -896,12 +896,12 @@ Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
       </h2>
 
       <p>ID: <strong th:text="${idUsuario}">0</strong></p>
-      <p>XP: <span id="xp" th:text="${xpUsuario}">0</span></p>
-      <p>Nível: <span id="nivel" th:text="${nivelUsuario}">0</span></p>
+      <p>XP: <span id="xp_comando" th:text="${xpUsuario}">0</span></p>
+      <p>Nível: <span id="nivel_comando" th:text="${nivelUsuario}">0</span></p>
 
       <div class="saldo-box">
         <span>BOSS:</span>
-        <strong id="boss_coins" th:text="${boss_coins}">0</strong>
+        <strong id="boss_coins_comando" th:text="${boss_coins}">0</strong>
       </div>
     </div>
 
@@ -969,35 +969,35 @@ Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
   
     <div class="ajuste-item">
     <span>Arco Celestial:</span>
-    <strong id="arco-celestial"
+    <strong id="arco_celestial"
     th:text="${quantidadeArcoCelestial}">
       0</strong><span>Arco</span>
     </div>  
 
    <div class="ajuste-item">
     <span>Flecha Diamante:</span>
-    <strong id="flecha-diamante"
+    <strong id="flecha_diamante"
     th:text="${quantidadeFlechaDiamante}">
       0</strong><span>Arco</span>
     </div>  
     
      <div class="ajuste-item">
     <span>Flecha Fogo:</span>
-    <strong id="flecha-fogo"
+    <strong id="flecha_fogo"
     th:text="${quantidadeFlechaFogo}">
       0</strong><span>Arco</span>
     </div>  
     
      <div class="ajuste-item">
     <span>Flecha veneno:</span>
-    <strong id="flecha-veneno"
+    <strong id="flecha_veneno"
     th:text="${quantidadeFlechaVeneno}">
       0</strong><span>Arco</span>
     </div>  
     
      <div class="ajuste-item">
     <span>Flecha Ferro:</span>
-    <strong id="flecha-ferro"
+    <strong id="flecha_ferro"
     th:text="${quantidadeFlechaFerro}">
       0</strong><span>Arco</span>
     </div>  

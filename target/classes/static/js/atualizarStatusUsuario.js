@@ -16,8 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
 	const generatingImage =  document.getElementById('generating-image');
 	const btnAtivarEspada = document.getElementById('btnAtivarEspadaFlanejante');
 	const btnAtivarMachado = document.getElementById('btnAtivarMachadoDilacerador'); 
-   const btnEquiparArco = document.getElementById('btnEquiparArco');
+    const btnEquiparArco = document.getElementById('btnEquiparArco');
 	
+	//Atualizr Central de Comando
+	const quantidade_guerreiros = document.getElementById('quantidade_guerreiros');
+	const capacidade_vigor = document.getElementById('capacidade_vigor');
+	const ataques_minutos = document.getElementById('ataques_minutos');
+	const ataque_especial = document.getElementById('ataque_especial');
+	const pocao_vigor = document.getElementById('pocao_vigor');
+	const espada_flanejante = document.getElementById('espada_flanejante');
+	const machado_dilacerador = document.getElementById('machado_dilacerador');
+	const arco_celestial = document.getElementById('arco_celestial');
+	const flecha_diamante = document.getElementById('flecha_diamante');
+	const flecha_fogo = document.getElementById('flecha_fogo');
+	const xpComando = document.getElementById('xp_comando');
+	const nivelComando = document.getElementById('nivel_comando');
+	const bossCoinComando = document.getElementById('boss_coins_comando');
+   
 	
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
@@ -49,6 +64,28 @@ document.addEventListener('DOMContentLoaded', () => {
             energiaAtual.textContent = formatarNumero(energia);
             energiaMaxima.textContent = formatarNumero(energiaMax);
 
+			
+			
+			  //Atualizar Central de Comando
+			
+			    xpComando.textContent = formatarNumero(data.xp);
+			    nivelComando.textContent = formatarNumero(data.nivel);
+	            bossCoinComando.textContent = formatarNumero(data.bossCoin);
+			    quantidade_guerreiros.textContent = formatarNumero(data.totalGuerreiros);
+				capacidade_vigor.textContent = formatarNumero(data.capacidadeVigor);
+				ataques_minutos.textContent = formatarNumero(data.ataquePorMinuto);
+				ataque_especial.textContent = formatarNumero(data.ataqueBase);
+				pocao_vigor.textContent = formatarNumero(data.pocaoVigor);
+				espada_flanejante.textContent = formatarNumero(data.espadaflanejante);
+			    machado_dilacerador.textContent = formatarNumero(data.machadoDilacerador);
+				arco_celestial.textContent = formatarNumero(data.arcoInventario);
+				flecha_diamante.textContent = formatarNumero(data.flechaDiamante);
+				flecha_fogo.textContent = formatarNumero(data.flechaFogo);
+				flecha_veneno.textContent = formatarNumero(data.flechaVeneno);
+				flecha_ferro.textContent = formatarNumero(data.flechaFerro);
+			
+				// FIM Atualizar Central de Comando
+			
             const percentualEnergia = Math.max(0, (energia / energiaMax) * 100);
             energiaBar.style.width = percentualEnergia + '%';
 

@@ -14,7 +14,7 @@ import com.boss_battle.dto.ColocarFlechasAljavaRequest;
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.AljavaService;
+import com.boss_battle.service.ativar_equipar.AljavaService;
 
 import jakarta.validation.Valid;
 

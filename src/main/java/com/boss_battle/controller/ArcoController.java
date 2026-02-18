@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.ArcoService;
+import com.boss_battle.service.ativar_equipar.ArcoService;
+
 
 @RestController
 @RequestMapping("/arco")

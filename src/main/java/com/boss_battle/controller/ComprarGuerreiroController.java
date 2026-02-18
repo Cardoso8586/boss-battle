@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.dto.ComprarGuerreiroDTO;
-import com.boss_battle.service.ComprarGuerreiroService;
+import com.boss_battle.service.aprimoramentos_loja.ComprarGuerreiroService;
+
 
 @RestController
 public class ComprarGuerreiroController {

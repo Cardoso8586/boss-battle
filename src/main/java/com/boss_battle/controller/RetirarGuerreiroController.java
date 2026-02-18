@@ -4,14 +4,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.service.EquiparGuerreiroService;
-import com.boss_battle.service.RetaguardaService;
+
+import com.boss_battle.service.ativar_equipar.EquiparGuerreiroService;
+import com.boss_battle.service.auto_ataque.RetaguardaService;
 @RestController
 @RequestMapping("/retirar")
 public class RetirarGuerreiroController {

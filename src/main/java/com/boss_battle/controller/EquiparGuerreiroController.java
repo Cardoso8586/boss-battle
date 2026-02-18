@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.boss_battle.service.EquiparGuerreiroService;
+import com.boss_battle.service.ativar_equipar.EquiparGuerreiroService;
+
 
 @RestController
 @RequestMapping("/equipar")

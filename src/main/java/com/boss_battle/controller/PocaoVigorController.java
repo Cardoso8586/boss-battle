@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.service.PocaoVigorService;
+import com.boss_battle.service.ativar_equipar.PocaoVigorService;
+
 
 @RestController
 @RequestMapping("/api/pocao-vigor")

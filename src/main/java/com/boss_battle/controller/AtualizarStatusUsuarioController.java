@@ -14,7 +14,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.GuerreiroAutoAttackService;
+import com.boss_battle.service.auto_ataque.GuerreiroAutoAttackService;
+
 
 @RestController
 public class AtualizarStatusUsuarioController {
@@ -33,6 +34,7 @@ public class AtualizarStatusUsuarioController {
       
         
         return Map.ofEntries(
+        	    Map.entry("totalGuerreiros", totalGuerreiros(usuarioId)),
         	    Map.entry("id", usuario.getId()),
         	    Map.entry("email", usuario.getEmail()),
         	    Map.entry("energiaGuerreiros", usuario.getEnergiaGuerreiros()),
@@ -48,6 +50,8 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("espadaflanejante", usuario.getEspadaFlanejante()),
         	    Map.entry("desgasteEspadaFlanejante", usuario.getEspadaFlanejanteDesgaste()),
         	    Map.entry("ativaEspadaFlanejante", usuario.getEspadaFlanejanteAtiva()),
+         	    Map.entry("capacidadeVigor", usuario.getEnergiaGuerreirosPadrao()),
+         	    Map.entry("pocaoVigor", usuario.getPocaoVigor()),
         	    
         	    Map.entry("machadoDilacerador", usuario.getMachadoDilacerador()),
         	    Map.entry("desgasteMachadoDilacerador", usuario.getMachadoDilaceradorDesgaste()),
@@ -69,6 +73,23 @@ public class AtualizarStatusUsuarioController {
         	);
 
     }
+    
+    //totalGuerreiros
+    private long totalGuerreiros(@PathVariable Long usuarioId) {
+  	  UsuarioBossBattle usuario = repo.findById(usuarioId)
+  	            .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
+  	  //aqtaque por minuto
+        
+  	long guerreiroAtaque = usuario.getGuerreiros();
+    long guerreiroRetaguarda = usuario.getGuerreirosRetaguarda();
+    long guerreiroInventario= usuario.getGuerreirosInventario();
+    long quantidadeTotalGuerriro = guerreiroAtaque + guerreiroRetaguarda + guerreiroInventario;
+    
+        //
+  	  
+  	  return quantidadeTotalGuerriro;
+  	  
+    }//---<
     
 
     @GetMapping("/api/atualizar/status/ajustes/{usuarioId}")

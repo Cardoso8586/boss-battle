@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.dto.ComprarVigorAutoDTO;
-import com.boss_battle.service.ComprarVigorAutoService;
+import com.boss_battle.service.aprimoramentos_loja.ComprarVigorAutoService;
+
 
 @RestController
 public class ComprarVigorAutoController {

@@ -46,6 +46,38 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.BossRewardLockRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.ativar_equipar.PocaoVigorService;
+import com.boss_battle.service.auto_ataque.BossAttackService;
+import com.boss_battle.service.auto_ataque.RetaguardaService;
+import com.boss_battle.service.bosses.AbyssarService;
+import com.boss_battle.service.bosses.AzraelPrimeService;
+import com.boss_battle.service.bosses.AzurionService;
+import com.boss_battle.service.bosses.DestruidorService;
+import com.boss_battle.service.bosses.DrakthorService;
+import com.boss_battle.service.bosses.FlamorService;
+import com.boss_battle.service.bosses.GlaciaraService;
+import com.boss_battle.service.bosses.GlaciornService;
+import com.boss_battle.service.bosses.IgnorathService;
+import com.boss_battle.service.bosses.InfernaxService;
+import com.boss_battle.service.bosses.LyxaraService;
+import com.boss_battle.service.bosses.MalphionService;
+import com.boss_battle.service.bosses.MechadronService;
+import com.boss_battle.service.bosses.MorvathService;
+import com.boss_battle.service.bosses.NightmareService;
+import com.boss_battle.service.bosses.NoctharionService;
+import com.boss_battle.service.bosses.NoctyrService;
+import com.boss_battle.service.bosses.NoxarService;
+import com.boss_battle.service.bosses.ObliquoService;
+import com.boss_battle.service.bosses.OblivarService;
+import com.boss_battle.service.bosses.OblivionService;
+import com.boss_battle.service.bosses.PyragonService;
+import com.boss_battle.service.bosses.ReflexaService;
+import com.boss_battle.service.bosses.TenebrisService;
+import com.boss_battle.service.bosses.ThunderonService;
+import com.boss_battle.service.bosses.TrigonBaphydraxService;
+import com.boss_battle.service.bosses.UmbrarService;
+import com.boss_battle.service.bosses.UmbraxisService;
+import com.boss_battle.service.bosses.VesperaService;
 
 
 @Service

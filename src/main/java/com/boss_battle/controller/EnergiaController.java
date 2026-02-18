@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.RecarregarEnergiaService;
+import com.boss_battle.service.ativar_equipar.RecarregarEnergiaService;
+
 
 @Controller
 public class EnergiaController {

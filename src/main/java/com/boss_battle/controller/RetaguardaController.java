@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.service.RetaguardaService;
+import com.boss_battle.service.auto_ataque.RetaguardaService;
+
+
 
 @RestController
 @RequestMapping("/retaguarda")

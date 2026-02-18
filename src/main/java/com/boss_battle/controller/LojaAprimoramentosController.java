@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.LojaAprimoramentosService;
-import com.boss_battle.service.LootboxService;
+
+
+import com.boss_battle.service.aprimoramentos_loja.LojaAprimoramentosService;
+import com.boss_battle.service.aprimoramentos_loja.LootboxService;
 
 import java.util.HashMap;
 import java.util.Map;
