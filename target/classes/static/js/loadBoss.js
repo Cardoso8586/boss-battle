@@ -72,6 +72,8 @@ function renderBossPlaceholder() {
     document.getElementById("boss-hp-text").innerText = "???? / ????";
     document.getElementById("boss-reward").innerText = "?";
     document.getElementById("boss-xp").innerText = "?";
+	document.getElementById("boss-ataque").innerText = "?";
+	document.getElementById("boss-tempo-ataque").innerText = "?";
 }
 
 // ===============================
@@ -94,6 +96,8 @@ function renderBoss(boss) {
     const hpTextEl = document.getElementById("boss-hp-text");
     const rewardEl = document.getElementById("boss-reward");
     const xpEl     = document.getElementById("boss-xp");
+	const ataque     = document.getElementById("boss-ataque");
+	const tempoEntreAtaques     = document.getElementById("boss-tempo-ataque");
 
     if (!boss || boss.alive === false) {
         nameEl.innerText = "Nenhum boss ativo!";
@@ -102,13 +106,19 @@ function renderBoss(boss) {
         hpTextEl.innerText = "";
         rewardEl.innerText = "0";
         xpEl.innerText = "0";
+		ataque.innerText = "0";
+		tempoEntreAtaques.innerText = "0";
         return;
     }
 
     nameEl.innerText = boss.bossName;
     rewardEl.innerText = formatarNumero(boss.rewardBoss);
     xpEl.innerText = formatarNumero(boss.rewardExp);
+	ataque.innerText = formatarNumero(boss.attackPower);
+	tempoEntreAtaques.innerText = formatarNumero(boss.attackIntervalSeconds ?? 0) + "s";
 
+
+	
     // 🧠 Atualiza HP apenas se mudar
     if (hpBarEl.dataset.lastHp !== String(boss.currentHp)) {
 

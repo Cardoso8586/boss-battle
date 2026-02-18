@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
 import com.boss_battle.model.GlobalBossAbyssar;

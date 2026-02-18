@@ -84,12 +84,33 @@ public class DashboardController {
 
         model.addAttribute("quantidadePocaoVigor", pocaoVigor);
 
+        
+        //espada
         long quantidadeEspadaFlamejante = usuario.getEspadaFlanejante();
         model.addAttribute("quantidadeEspadaFlanejante", df.format(quantidadeEspadaFlamejante));
         
-        
+        //machado
         long quantidadeMachadoDilacerador = usuario.getMachadoDilacerador();
         model.addAttribute("quantidadeMachadoDilacerador", df.format(quantidadeMachadoDilacerador));
+        
+        //arco
+        long quantidadeArcoCelestial = usuario.getInventarioArco();
+        model.addAttribute("quantidadeArcoCelestial", df.format(quantidadeArcoCelestial));
+        
+       //flechas
+        long quantidadeFlechaDiamante = usuario.getFlechaDiamante();
+        model.addAttribute("quantidadeFlechaDiamante", df.format(quantidadeFlechaDiamante));
+        
+        long quantidadeFlechaFogo= usuario.getFlechaFogo();
+        model.addAttribute("quantidadeFlechaFogo", df.format(quantidadeFlechaFogo));
+     
+        long quantidadeFlechaVeneno= usuario.getFlechaVeneno();
+        model.addAttribute("quantidadeFlechaVeneno", df.format(quantidadeFlechaVeneno));
+        
+        long quantidadeFlechaFerro= usuario.getFlechaFerro();
+        model.addAttribute("quantidadeFlechaFerro", df.format(quantidadeFlechaFerro));
+        //
+        
         
         /**
         //========================= atualizar preços de zero =============================================

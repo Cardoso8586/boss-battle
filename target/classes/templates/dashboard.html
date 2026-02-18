@@ -160,7 +160,7 @@ gurações -->
 
 <li>
   <a href="#" data-section="perfil">
-    <i class="fa-solid fa-user-shield"></i> Guerreiro
+    <i class="fa-solid fa-user-shield"></i>Central de Comando
   </a>
 </li>
 
@@ -535,6 +535,8 @@ Dano
         <!-- Card do Boss -->
         <div id="boss-container">
             <h2 id="boss-name"></h2>
+            <p>Poder de Ataque: <span id="boss-ataque"></span></p>
+            <p>Tempo entre Aatques: <span id="boss-tempo-ataque"></span></p>
 
             <img id="boss-image" src="" alt="Boss">
             
@@ -879,6 +881,11 @@ Dano
 <!-- seção perfil do usuario -->
 <section id="perfil">
 
+<h3>Central de Comando</h3>
+<p class="promo-intro">
+Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
+</p>
+
   <!-- TOPO: user-info + anuncio 1 -->
   <div class="perfil-linha">
     
@@ -958,7 +965,43 @@ Dano
       0
     </strong><span>Ajustes</span>
   </div>  
+  
+  
+    <div class="ajuste-item">
+    <span>Arco Celestial:</span>
+    <strong id="arco-celestial"
+    th:text="${quantidadeArcoCelestial}">
+      0</strong><span>Arco</span>
+    </div>  
 
+   <div class="ajuste-item">
+    <span>Flecha Diamante:</span>
+    <strong id="flecha-diamante"
+    th:text="${quantidadeFlechaDiamante}">
+      0</strong><span>Arco</span>
+    </div>  
+    
+     <div class="ajuste-item">
+    <span>Flecha Fogo:</span>
+    <strong id="flecha-fogo"
+    th:text="${quantidadeFlechaFogo}">
+      0</strong><span>Arco</span>
+    </div>  
+    
+     <div class="ajuste-item">
+    <span>Flecha veneno:</span>
+    <strong id="flecha-veneno"
+    th:text="${quantidadeFlechaVeneno}">
+      0</strong><span>Arco</span>
+    </div>  
+    
+     <div class="ajuste-item">
+    <span>Flecha Ferro:</span>
+    <strong id="flecha-ferro"
+    th:text="${quantidadeFlechaFerro}">
+      0</strong><span>Arco</span>
+    </div>  
+    
   </div>
 
   <!-- RANKING + ANUNCIO 2 -->
