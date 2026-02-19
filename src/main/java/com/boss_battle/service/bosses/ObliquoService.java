@@ -33,8 +33,8 @@ public class ObliquoService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4800); // 80 minutos
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(170L);
-        boss.setAttackPower(140L);
+        //boss.setAttackIntervalSeconds(170L);
+        //boss.setAttackPower(140L);
         boss.setRewardBoss(45_000L);
         boss.setRewardExp(2000);
         return repo.save(boss);

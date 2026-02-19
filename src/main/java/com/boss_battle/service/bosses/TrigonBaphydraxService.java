@@ -34,8 +34,8 @@ public class TrigonBaphydraxService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(7200);
         boss.setSpawnCount(1);
-        boss.setAttackPower(180L);
-        boss.setAttackIntervalSeconds(185L);
+        //boss.setAttackPower(180L);
+       // boss.setAttackIntervalSeconds(185L);
         boss.setRewardBoss(75_000); 
         boss.setRewardExp(3_500);
 

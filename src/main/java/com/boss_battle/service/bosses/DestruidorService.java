@@ -39,8 +39,8 @@ public class DestruidorService  {
         
        
  
-        boss.setAttackPower(400L);
-        boss.setAttackIntervalSeconds(180L);
+       // boss.setAttackPower(400L);
+       // boss.setAttackIntervalSeconds(180L);
 
         boss.setImageUrl("images/boss_destruidor.webp");
 

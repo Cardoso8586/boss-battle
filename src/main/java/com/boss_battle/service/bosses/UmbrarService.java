@@ -33,8 +33,8 @@ public class UmbrarService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(4500);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(150L);
-         boss.setAttackPower(130L);
+         //boss.setAttackIntervalSeconds(150L);
+         //boss.setAttackPower(130L);
          boss.setRewardBoss(40_000L);
          boss.setRewardExp(1800);
         return repo.save(boss);

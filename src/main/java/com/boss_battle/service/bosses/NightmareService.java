@@ -41,8 +41,8 @@ public class NightmareService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(10800L); // 1 hora
         boss.setSpawnCount(1);
-        boss.setAttackPower(240L);
-        boss.setAttackIntervalSeconds(180L);
+       // boss.setAttackPower(240L);
+        //boss.setAttackIntervalSeconds(180L);
         boss.setRewardBoss(150_000);
         boss.setRewardExp(3000);
 

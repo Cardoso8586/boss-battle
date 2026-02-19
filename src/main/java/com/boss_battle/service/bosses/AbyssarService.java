@@ -34,8 +34,8 @@ public class AbyssarService {
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
-        boss.setAttackPower(400L);
-        boss.setAttackIntervalSeconds(190L);
+        //boss.setAttackPower(400L);
+        //boss.setAttackIntervalSeconds(190L);
 
         boss.setImageUrl("images/boss_evolution/boss_abyssar/boss_abyssar.webp");
 

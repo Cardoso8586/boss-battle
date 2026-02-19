@@ -39,8 +39,8 @@ public class ReflexaService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4800L);
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(235L);
-        boss.setAttackPower(200L);
+       // boss.setAttackIntervalSeconds(235L);
+       // boss.setAttackPower(200L);
         boss.setRewardBoss(90_000L);
         boss.setRewardExp(2400L);
 

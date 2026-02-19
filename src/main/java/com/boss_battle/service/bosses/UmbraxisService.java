@@ -34,8 +34,8 @@ public class UmbraxisService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(7200);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(185L);
-         boss.setAttackPower(150L);
+        // boss.setAttackIntervalSeconds(185L);
+        // boss.setAttackPower(150L);
          boss.setRewardBoss(100_000);
          boss.setRewardExp(2500);
         return repo.save(boss);

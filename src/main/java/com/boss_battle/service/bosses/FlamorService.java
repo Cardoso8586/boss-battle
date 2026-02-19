@@ -33,8 +33,8 @@ public class FlamorService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600L);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(146L);
-         boss.setAttackPower(100L);
+        // boss.setAttackIntervalSeconds(146L);
+        // boss.setAttackPower(100L);
          boss.setRewardBoss(80_000L);
          boss.setRewardExp(2500L);
         return repo.save(boss);

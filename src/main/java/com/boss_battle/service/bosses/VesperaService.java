@@ -32,8 +32,8 @@ public class VesperaService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(3600L);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(170L);
-         boss.setAttackPower(140L);
+         //boss.setAttackIntervalSeconds(170L);
+         //boss.setAttackPower(140L);
          boss.setRewardBoss(45_000L);
          boss.setRewardExp(1900L);
         return repo.save(boss);

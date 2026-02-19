@@ -35,8 +35,8 @@ public class NoxarService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(5400L);
          boss.setSpawnCount(1);
-         boss.setAttackIntervalSeconds(160L);
-         boss.setAttackPower(180L);
+        // boss.setAttackIntervalSeconds(160L);
+        // boss.setAttackPower(180L);
          boss.setRewardBoss(50_000L);
          boss.setRewardExp(2200L);
         return repo.save(boss);

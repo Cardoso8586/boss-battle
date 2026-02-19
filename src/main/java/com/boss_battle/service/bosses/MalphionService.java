@@ -34,8 +34,8 @@ public class MalphionService  {
         boss.setCurrentHp(380_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
-        boss.setAttackPower(200L);
-        boss.setAttackIntervalSeconds(190L);
+       // boss.setAttackPower(200L);
+       // boss.setAttackIntervalSeconds(190L);
         boss.setImageUrl("images/boss_malphion.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(15_000L); 

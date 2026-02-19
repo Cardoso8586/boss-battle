@@ -33,8 +33,8 @@ public class DrakthorService {
         boss.setImageUrl("images/boss_drakthor.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(7200);
-        boss.setAttackIntervalSeconds(195L);
-        boss.setAttackPower(120L);
+       // boss.setAttackIntervalSeconds(195L);
+        //boss.setAttackPower(120L);
         boss.setSpawnCount(1);
         boss.setRewardBoss(35_000); 
         boss.setRewardExp(1500);

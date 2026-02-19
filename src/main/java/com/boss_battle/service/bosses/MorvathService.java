@@ -33,8 +33,8 @@ public class MorvathService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(5400); // 90 minutos
         boss.setSpawnCount(1);
-        boss.setAttackPower(340L);
-        boss.setAttackIntervalSeconds(238L);
+       // boss.setAttackPower(340L);
+        //boss.setAttackIntervalSeconds(238L);
         boss.setRewardBoss(50_000L);
         boss.setRewardExp(2200);
         return repo.save(boss);

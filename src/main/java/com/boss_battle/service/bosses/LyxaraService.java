@@ -33,8 +33,8 @@ public class LyxaraService {
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
-        boss.setAttackPower(140L);
-        boss.setAttackIntervalSeconds(142L);
+       // boss.setAttackPower(140L);
+        //boss.setAttackIntervalSeconds(142L);
 
         boss.setImageUrl("images/boss_lyxara.webp");
 

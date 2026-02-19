@@ -33,8 +33,8 @@ public class GlaciaraService {
          boss.setSpawnedAt(LocalDateTime.now());
          boss.setRespawnCooldownSeconds(6000L);
          boss.setSpawnCount(1);
-         boss.setAttackPower(175L);
-         boss.setAttackIntervalSeconds(190L);
+         //boss.setAttackPower(175L);
+        /// boss.setAttackIntervalSeconds(190L);
          boss.setRewardBoss(60_000L);
          boss.setRewardExp(2400L);
         return repo.save(boss);
