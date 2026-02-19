@@ -3,11 +3,15 @@ package com.boss_battle.model;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "global_boss_trigon_baphydrax")
@@ -186,22 +190,5 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
         return reward;
     }
 
-    // --------------------------------------
-    // ESCALAMENTO APÓS MORTE
-    // --------------------------------------
-    public void aplicarEscalamentoTrigon() {
-
-        Random random = new Random();
-
-        long incrementoHp = random.nextLong(80, 260);
-        long incrementoAtk = random.nextLong(2, 8);
-
-        setMaxHp(getMaxHp() + incrementoHp);
-        setCurrentHp(getMaxHp());
-
-        setAttackPower(getAttackPower() + incrementoAtk);
-
-        setRewardExp(getRewardExp() + 3);
-        setRewardBoss(getRewardBoss() + 5);
-    }
+  
 }

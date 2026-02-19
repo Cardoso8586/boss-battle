@@ -3,7 +3,6 @@ package com.boss_battle.model;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -185,30 +184,5 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     }
     
     
-    //===========================================================
-    //incrmentar hp, toda vez que o boss morrer
-    //===========================================================
-    
-    public void aplicarEscalamentoAzraelPrime () {
-
-
-        Random random = new Random();
-    	long min = 50;
-    	long max = 150;
-    	long incrementarUp = random.nextLong(min, max + 1);
-
-    	
-    	long valorHpMax =  getMaxHp();
-    	long valorCur = getCurrentHp();
-    	
-    	setMaxHp( valorHpMax + incrementarUp);
-    	setCurrentHp( valorCur + incrementarUp);
-    	
-    	long valorXp =  getRewardExp();
-    	setRewardExp(valorXp + 1);
-    	
-    	long valorsetRewardBoss = getRewardBoss();
- 	    setRewardBoss(valorsetRewardBoss + 1);
- 	   
-    }//--->incrmentar hp, toda vez que o boss morrer
+  
 }

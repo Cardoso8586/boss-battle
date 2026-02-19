@@ -3,11 +3,15 @@ package com.boss_battle.model;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "global_boss_drakthor")
@@ -160,33 +164,6 @@ public class GlobalBossDrakthor implements BattleBoss {
 
         return reward;
     }//==========================
-    
-    //===========================================================
-    //incrmentar hp, toda vez que o boss morrer
-    //===========================================================
-    
-    public void aplicarEscalamentoDrakthor() {
-
-
-        Random random = new Random();
-    	long min = 10;
-    	long max = 150;
-    	long incrementarUp = random.nextLong(min, max + 1);
-
-    	
-    	long valorHpMax =  getMaxHp();
-    	long valorCur = getCurrentHp();
-    	
-    	setMaxHp( valorHpMax + incrementarUp);
-    	setCurrentHp( valorCur + incrementarUp);
-    	
-    	long valorXp =  getRewardExp();
-    	setRewardExp(valorXp + 1);
-    	
-    	long valorsetRewardBoss = getRewardBoss();
- 	    setRewardBoss(valorsetRewardBoss + 1);
- 	   
-    }//--->incrmentar hp, toda vez que o boss morrer
     
     
     

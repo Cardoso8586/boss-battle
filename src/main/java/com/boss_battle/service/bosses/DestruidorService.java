@@ -82,8 +82,11 @@ public class DestruidorService  {
  	    boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
  	   //ataque respaw
-        boss.setAttackPower(boss.getAttackPower() + 2);
-        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
+     	long valorAtaque = boss.getAttackPower();
+     	boss.setAttackPower(valorAtaque+ 6);
+    	long valorIntervalSeconds= boss.getAttackIntervalSeconds();
+        boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+        
     }
     
    

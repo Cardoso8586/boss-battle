@@ -76,10 +76,11 @@ public class TrigonBaphydraxService {
     	long valorsetRewardBoss = boss.getRewardBoss();
     	boss.setRewardBoss(valorsetRewardBoss + 5);
     	
-    	 //ataque respaw
-        boss.setAttackPower(boss.getAttackPower() + 2);
-        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
-    
+    	//ataque respaw
+     	long valorAtaque = boss.getAttackPower();
+     	boss.setAttackPower(valorAtaque+ 4);
+    	long valorIntervalSeconds= boss.getAttackIntervalSeconds();
+        boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
  	   
     }//--->incrmentar hp, toda vez que o boss morrer
 }

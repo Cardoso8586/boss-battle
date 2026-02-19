@@ -76,14 +76,17 @@ public class MalphionService  {
  	    boss.setRewardBoss(valorsetRewardBoss + 1);
  	   
  	   //ataque 
-        boss.setAttackPower(boss.getAttackPower() + 2);
+        boss.setAttackPower(boss.getAttackPower() + 5);
         boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
         
-        //ataque respaw
-        boss.setAttackPower(boss.getAttackPower() + 2);
-        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 1);
         
-       evoluirMalphion(boss);
+   	    //ataque respaw
+     	long valorAtaque = boss.getAttackPower();
+     	boss.setAttackPower(valorAtaque+ 6);
+    	long valorIntervalSeconds= boss.getAttackIntervalSeconds();
+        boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+        
+        evoluirMalphion(boss);
  	   
     }
     

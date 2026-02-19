@@ -73,10 +73,13 @@ public class AbyssarService {
         //recompensa
         boss.setRewardExp(boss.getRewardExp() + 2);
         boss.setRewardBoss(boss.getRewardBoss() + 2);
-        //ataque respaw
-        boss.setAttackPower(boss.getAttackPower() + 2);
-        boss.setAttackIntervalSeconds(boss.getAttackIntervalSeconds() + 2);
 
+   	    //ataque respaw
+     	long valorAtaque = boss.getAttackPower();
+   	    boss.setAttackPower(valorAtaque+ 5);
+     	long valorIntervalSeconds= boss.getAttackIntervalSeconds();
+        boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+        
         evoluirAbyssar(boss);
     }
 
