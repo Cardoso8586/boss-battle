@@ -27,6 +27,7 @@ import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
+import com.boss_battle.model.GlobalBossNecrothar;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -63,6 +64,7 @@ import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
+import com.boss_battle.service.bosses.NecrotharService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -112,6 +114,7 @@ public class GlobalBossService {
     private final TrigonBaphydraxService trigonBaphydraxService;
     private final  MalphionService malphionService;
     private final AbyssarService abyssarService;
+    private final NecrotharService necrotharService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -130,6 +133,7 @@ public class GlobalBossService {
     private final Random random = new Random();
 
     public GlobalBossService(
+    		//Services dos boses--->
             IgnorathService ignorathService,
             DrakthorService drakthorService,
             AzurionService azurionService,
@@ -159,7 +163,9 @@ public class GlobalBossService {
             TrigonBaphydraxService trigonBaphydraxService,
             MalphionService malphionService,
             AbyssarService abyssarService,
+            NecrotharService necrotharService,
         
+            //Outros Services--->
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
             BossRewardLockRepository bossRewardLockRepo,
@@ -182,9 +188,7 @@ public class GlobalBossService {
         this.referidosService = referidosService;
         this.usuarioService = usuarioService;
         this.bossAttackService = bossAttackService;
-      this.pocaoVigorService = pocaoVigorService;
-       
-        //this.bossDamageLogService = bossDamageLogService;
+        this.pocaoVigorService = pocaoVigorService;
         this.nightmareService = nightmareService;
         this.flamorService = flamorService;
         this.oblivarService = oblivarService;
@@ -210,6 +214,7 @@ public class GlobalBossService {
         this.trigonBaphydraxService = trigonBaphydraxService;
         this.malphionService = malphionService;
         this. abyssarService = abyssarService ;
+        this.necrotharService = necrotharService;
       
     }
 
@@ -246,6 +251,7 @@ public class GlobalBossService {
         if (trigonBaphydraxService.get().isAlive()) return trigonBaphydraxService.get();
         if (malphionService.get().isAlive()) return malphionService.get();
         if (abyssarService.get().isAlive()) return abyssarService.get();
+        if (necrotharService.get().isAlive()) return necrotharService.get();
         
         return spawnRandomBoss();
     }
@@ -405,6 +411,10 @@ public class GlobalBossService {
         resultado = tryHitBoss("ABYSSAR", abyssarService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("NECROTHAR", necrotharService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        
         
         //===============================================================================
         //===============================================================================
@@ -470,6 +480,7 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossTrigonBaphydrax) trigonBaphydraxService.save((GlobalBossTrigonBaphydrax) boss);
             if (boss instanceof GlobalBossMalphion) malphionService.save((GlobalBossMalphion) boss);
             if (boss instanceof GlobalBossAbyssar) abyssarService.save((GlobalBossAbyssar) boss);
+            if (boss instanceof GlobalBossNecrothar) necrotharService.save((GlobalBossNecrothar) boss);
             
             registrarDano(bossName, usuario, damage);
 
@@ -653,7 +664,7 @@ public class GlobalBossService {
         killAllBosses();
      
         
-        int choice = random.nextInt(27);
+        int choice = random.nextInt(28);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -976,6 +987,18 @@ public class GlobalBossService {
 
             }
             
+            case 29 -> {
+            	GlobalBossNecrothar nthr = necrotharService.get();
+            	necrotharService.aplicarEscalamentoNecrothar(nthr);
+            	nthr.setProcessingDeath(false);
+            	nthr.setAlive(true);
+            	nthr.setCurrentHp(nthr.getMaxHp());
+            	nthr.setSpawnedAt(LocalDateTime.now());
+            	necrotharService.save(nthr);
+            	newBoss = nthr;
+
+            }
+            
             
  
             default -> {
@@ -1024,8 +1047,10 @@ public class GlobalBossService {
     	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
     	GlobalBossMalphion mph = malphionService.get();
     	GlobalBossAbyssar aby = abyssarService.get();
+    	GlobalBossNecrothar nthr = necrotharService.get();
     	
-    	
+    	nthr.setAlive(false);
+    	nthr.setProcessingDeath(false);
     	
     	ig.setAlive(false);
     	ig.setProcessingDeath(false);
@@ -1143,6 +1168,7 @@ public class GlobalBossService {
         trigonBaphydraxService.save(tb);
         malphionService.save(mph);
         abyssarService.save(aby);
+        necrotharService.save(nthr);
     }
 
     // =============================

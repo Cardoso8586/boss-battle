@@ -15,6 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class OblivarService {
 
+	private static final long MAX_ATTACK = 1800;
+	private static final long MAX_INTERVAL = 1100;
+	private static final long MAX_REWARD_BOSS = 1_200_000;
+	private static final long MAX_EXP = 25000;
+	private static final long MAX_HP = 15_000_000;
     @Autowired
     private OblivarRepository repo;
 
@@ -72,30 +77,63 @@ public class OblivarService {
     //===========================================================
     public void aplicarEscalamentoOblivar(GlobalBossOblivar boss) {
 
+    	  Random random = new Random();
+        	long min = 10;
+        	long max = 100;
+        	long incrementarUp = random.nextLong(min, max + 1);
+        	long valorHpMax =  boss.getMaxHp();
+        	long valorCur = boss.getCurrentHp();
+        	long valorAtaque = boss.getAttackPower();
+            long valorIntervalSeconds = boss.getAttackIntervalSeconds();
+            long valorsetRewardBoss = boss.getRewardBoss();
+            
+            
+            //Limitar hp
+            if(valorHpMax < MAX_HP) {
+            	boss.setMaxHp( valorHpMax + incrementarUp);
+            	boss.setCurrentHp( valorCur + incrementarUp);
+        	
+            }else {
+            	
+            	boss.setMaxHp(MAX_HP);
+            	boss.setCurrentHp(MAX_HP);
+            }
+        	
+        	//---> Limitar recompensa
+        	
+            if(valorsetRewardBoss < MAX_REWARD_BOSS) {
+            	
+            	boss.setRewardBoss(valorsetRewardBoss + 1);
+            }else {
+            	
+            	boss.setRewardBoss(MAX_REWARD_BOSS);
+            }
+       
+            //--->Limitar xp
+     	    long valorXp =  boss.getRewardExp();
+            if(valorXp < MAX_EXP) {
+               boss.setRewardExp(valorXp + 1);
+            }else {
+            	 boss.setRewardExp(MAX_EXP);
+            	
+            }
+            
+            // Limitar Evolução do ataque
+            if (valorAtaque < MAX_ATTACK) {
+                boss.setAttackPower(valorAtaque + 5);
+            } else {
+                boss.setAttackPower(MAX_ATTACK);
+            }
 
-        Random random = new Random();
-    	long min = 25;
-    	long max = 150;
-    	long incrementarUp = random.nextLong(min, max + 1);
+            // Limitar Evolução do intervalo
+            if (valorIntervalSeconds < MAX_INTERVAL) {
+                boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+            } else {
+                boss.setAttackIntervalSeconds(MAX_INTERVAL);
+            }
 
-    	
-    	long valorHpMax =  boss.getMaxHp();
-    	long valorCur = boss.getCurrentHp();
-    	
-    	boss.setMaxHp( valorHpMax + incrementarUp);
-    	boss.setCurrentHp( valorCur + incrementarUp);
-    	
-    	long valorXp =  boss.getRewardExp();
-    	boss.setRewardExp(valorXp + 2);
-    	
-    	long valorsetRewardBoss = boss.getRewardBoss();
-    	boss.setRewardBoss(valorsetRewardBoss + 2);
-    	
-    	//ataque respaw
-     	long valorAtaque = boss.getAttackPower();
-     	boss.setAttackPower(valorAtaque+ 4);
-    	long valorIntervalSeconds= boss.getAttackIntervalSeconds();
-        boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+          
+          
  	   
     }//--->incrmentar hp, toda vez que o boss for derrotado
 }

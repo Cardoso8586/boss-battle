@@ -285,7 +285,7 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     private Long guerreirosRetaguarda = 0L;
     
     @Column(name = "recuperacao_retaguarda", nullable = false)
-    private Long recuperacaoRetaguarda = 2L;
+    private Long recuperacaoRetaguarda = 3L;
     
     public Long getGuerreirosRetaguarda() {
         return guerreirosRetaguarda;
@@ -366,19 +366,19 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     private Long precoGuerreiros = 10_000L;
 
     @Column(name = "preco_energia", nullable = false)
-    private Long precoEnergia = 1_000L;
+    private Long precoEnergia = 5_000L;
 
     @Column(name = "preco_ataque_especial", nullable = false)
     private Long precoAtaqueEspecial = 1_000L;
     
    @Column(name = "preco_machado_dilacerador", nullable = false)
-   private Long precoMachadoDilacerador = 2_000L;
+   private Long precoMachadoDilacerador = 5_000L;
     
    @Column(name = "preco_pocao_vigor", nullable = false)
-   private Long precoPocaoVigor = 1_000L;
+   private Long precoPocaoVigor = 5_000L;
     
    @Column(name = "preco_espada_flanejante", nullable = false)
-   private Long precoEspadaFlanejante= 1_000L;
+   private Long precoEspadaFlanejante= 5_000L;
 
 
    

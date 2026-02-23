@@ -14,25 +14,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "global_boss_azrael_prime")
-public class GlobalBossAzraelPrime implements BattleBoss {
+@Table(name = "global_boss_necrothar_void_tyrant")
+public class GlobalBossNecrothar implements BattleBoss {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name = "AZRAEL PRIME";
+    private String name = "NECROTHAR, TIRANO DO ABISMO";
 
     @Column(nullable = false)
-    private long maxHp = 200_000L;
+    private long maxHp = 140_000L;
 
     @Column(nullable = false)
-    private long currentHp = 200_000L;
+    private long currentHp = 140_000L;
 
-    private long attackPower = 130L;
+    private long attackPower = 120L;
 
-    private long attackIntervalSeconds = 140L;
+    private long attackIntervalSeconds = 175L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -44,21 +44,31 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime respawnAt;
 
-    private long respawnCooldownSeconds = 14_400L;
+    private long respawnCooldownSeconds = 19_800L;
 
     private int spawnCount = 0;
-
+    
     @Column(nullable = true)
-    private String imageUrl = "images/boss_azrael_prime.webp";
+    private String imageUrl =
+        "images/boss_evolution/boss_necrothar/necrothar_phase1.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 150_000L;
+    private long rewardBoss = 260_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 10_000L;
+    private long rewardExp = 18_000L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;
+
+    @Column(columnDefinition = "DATETIME")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastAttackAt;
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
 
     @Override
     public boolean isProcessingDeath() {
@@ -69,12 +79,10 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     public void setProcessingDeath(boolean processingDeath) {
         this.processingDeath = processingDeath;
     }
-    
-    // ✅ CAMPO PERSISTIDO
+
     @Column(nullable = false)
     private boolean rewardDistributed = false;
-  
-    // getters / setters
+
     public boolean isRewardDistributed() {
         return rewardDistributed;
     }
@@ -82,22 +90,13 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     public void setRewardDistributed(boolean rewardDistributed) {
         this.rewardDistributed = rewardDistributed;
     }
- 
 
-    public GlobalBossAzraelPrime() {}
+    public GlobalBossNecrothar() {}
 
-    @Column(columnDefinition = "DATETIME")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime lastAttackAt;
-
-    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
-    public void setLastAttackAt(LocalDateTime lastAttackAt) {
-        this.lastAttackAt = lastAttackAt;
-    }
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) { return; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -142,8 +141,6 @@ public class GlobalBossAzraelPrime implements BattleBoss {
     public long getRewardExp() { return rewardExp; }
     public void setRewardExp(long rewardExp) { this.rewardExp = rewardExp; }
 
-    // ===== BattleBoss IMPLEMENTATION =====
-
     @Override
     public String getBossName() {
         return this.name;
@@ -156,6 +153,7 @@ public class GlobalBossAzraelPrime implements BattleBoss {
 
     @Override
     public Map<String, Long> applyDamage(long damage) {
+
         Map<String, Long> reward = new HashMap<>();
 
         if (!this.alive) {
@@ -171,7 +169,8 @@ public class GlobalBossAzraelPrime implements BattleBoss {
 
         if (finalHp == 0) {
             this.alive = false;
-            this.respawnAt = LocalDateTime.now().plusSeconds(respawnCooldownSeconds);
+            this.respawnAt =
+                LocalDateTime.now().plusSeconds(respawnCooldownSeconds);
 
             reward.put("bossReward", this.rewardBoss);
             reward.put("expReward", this.rewardExp);
@@ -182,7 +181,4 @@ public class GlobalBossAzraelPrime implements BattleBoss {
 
         return reward;
     }
-    
-    
-  
 }

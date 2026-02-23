@@ -49,9 +49,9 @@ public class ComprarEnergiaService {
                 usuario.getBossCoins().subtract(valorTotal)
         );
 
-        // ⚡ regra do jogo: cada unidade = +5 energia
+        // ⚡ regra do jogo: cada unidade = +50 energia
         long energiaAtual = usuario.getEnergiaGuerreirosPadrao();
-        long energiaComprada = quantidade * 20;
+        long energiaComprada = quantidade * 50;
 
         usuario.setEnergiaGuerreirosPadrao(
                 energiaAtual + energiaComprada
