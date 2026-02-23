@@ -1,5 +1,5 @@
-// Redireciona após ? minuto (120000 milissegundos)
-const SESSION_TIMEOUT = 120000;
+// Redireciona após 8 minutos (480000 milissegundos)
+const SESSION_TIMEOUT = 480000;
 
 let timeout;
 
