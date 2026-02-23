@@ -17,6 +17,8 @@ import jakarta.transaction.Transactional;
 @Service
 public class RetaguardaService {
 
+	private  long RECUPERACAO_RETAGUARDA = 3;
+
 
     @Autowired
     private UsuarioBossBattleRepository repo;
@@ -30,7 +32,7 @@ public class RetaguardaService {
         long energiaMaxima = usuario.getEnergiaGuerreirosPadrao();
         long energiaAtual = usuario.getEnergiaGuerreiros();
         Long guerreiros = usuario.getGuerreirosRetaguarda();
-        Long recuperacao = usuario.getRecuperacaoRetaguarda();
+        Long recuperacao = RECUPERACAO_RETAGUARDA;
         
      // energia zerada bloqueia recuperação automática
         if (energiaAtual <= 0) {
@@ -81,26 +83,6 @@ public class RetaguardaService {
         return guerreiros * multiplicador;
     }
     
-    /**
-    public long ataqueSurpresaRetaguarda(Long usuarioId) {
-
-        UsuarioBossBattle usuario = repo.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        
-        
-        
-        long guerreiros = usuario.getGuerreirosRetaguarda() != null
-                ? usuario.getGuerreirosRetaguarda()
-                : 0L;
-
-      //  long recuperacao = usuario.getRecuperacaoRetaguarda() != null
-               // ? usuario.getRecuperacaoRetaguarda()
-              //  : 0L;
-
-        return guerreiros * ATAQUE_SURPRESA_RETAGUARDA;
-    }
-*/
     
     @Scheduled(fixedRate = 80000)
     public void processarRetaguarda() {
@@ -116,39 +98,7 @@ public class RetaguardaService {
         }
     }
 
-    /**
-    // Executa a cada 1 minuto
-    @Scheduled(fixedRate = 80000)
-    @Transactional
-    public void processarRetaguarda() {
-
-        List<UsuarioBossBattle> usuarios = repo.findAll();
-
-        for (UsuarioBossBattle usuario : usuarios) {
-
-            long energiaMaxima = usuario.getEnergiaGuerreirosPadrao();
-            long energiaAtual = usuario.getEnergiaGuerreiros();
-
-            Long guerreiros = usuario.getGuerreirosRetaguarda();
-            Long recuperacao = usuario.getRecuperacaoRetaguarda();
-
-            if (guerreiros == null || recuperacao == null) continue;
-            if (guerreiros <= 0 || recuperacao <= 0) continue;
-
-            long totalRecuperacao = guerreiros * recuperacao;
-
-            // 🔒 trava no máximo
-            long novaEnergia = energiaAtual + totalRecuperacao;
-            if (novaEnergia > energiaMaxima) {
-                novaEnergia = energiaMaxima;
-            }
-
-            usuario.setEnergiaGuerreiros(novaEnergia);
-        }
-
-        repo.saveAll(usuarios);
-    }
-*/
+ 
     
  // ===============================
     // CONSULTAR REPARO (RETORNO)
@@ -162,7 +112,8 @@ public class RetaguardaService {
         long energiaMaxima = usuario.getEnergiaGuerreirosPadrao();
 
         long guerreiros = usuario.getGuerreirosRetaguarda();
-        long recuperacao = usuario.getRecuperacaoRetaguarda();
+       
+        long recuperacao = RECUPERACAO_RETAGUARDA;
 
         if (guerreiros <= 0 || recuperacao <= 0) {
             return Map.of("reparoEfetivo", 0);
@@ -222,6 +173,7 @@ public class RetaguardaService {
         return ataqueEfetivo;
     }
 
+	
 
 }
 

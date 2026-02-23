@@ -282,7 +282,7 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     
     //==============================================================
     @Column(name = "guerreiros_retaguarda", nullable = false)
-    private Long guerreirosRetaguarda = 0L;
+    private Long guerreirosRetaguarda = 1L;
     
     @Column(name = "recuperacao_retaguarda", nullable = false)
     private Long recuperacaoRetaguarda = 3L;
