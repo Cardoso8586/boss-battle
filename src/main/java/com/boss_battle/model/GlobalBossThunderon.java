@@ -30,7 +30,7 @@ public class GlobalBossThunderon implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 260_000L;
 
-    private long attackPower = 160L;
+    private long attackPower = 110L;
 
     private long attackIntervalSeconds = 220L;
 

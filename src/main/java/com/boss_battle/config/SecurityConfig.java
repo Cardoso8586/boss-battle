@@ -46,7 +46,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:8080",
-                "https://boss-battle.up.railway.app"
+                "https://boss-battle.up.railway.app",
+                "https://boss-battle-arena.com"
                 
         ));
 

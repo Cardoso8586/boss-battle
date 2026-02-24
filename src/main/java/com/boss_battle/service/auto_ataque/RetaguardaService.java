@@ -148,9 +148,26 @@ public class RetaguardaService {
         }
 
         // Retorno decrescente simples
+     // Retorno decrescente simples (por faixa)
+        double eficiencia;
+
+        if (guerreiros <= 1) eficiencia = 1.0;
+        else if (guerreiros <= 5) eficiencia = 0.9;
+        else if (guerreiros <= 10) eficiencia = 0.8;
+        else if (guerreiros <= 20) eficiencia = 0.7;
+        else if (guerreiros <= 30) eficiencia = 0.6;
+        else if (guerreiros <= 40) eficiencia = 0.5;
+        else eficiencia = 0.4;
+
+        long ataqueEfetivo = Math.round(guerreiros * recuperacao * eficiencia);
+        /*
         double eficiencia;
         if (guerreiros == 1) eficiencia = 1.0;
-        else if (guerreiros == 2) eficiencia = 0.7;
+        else if (guerreiros == 5) eficiencia = 0.9;
+        else if (guerreiros == 10) eficiencia = 0.8;
+        else if (guerreiros == 20) eficiencia = 0.7;
+        else if (guerreiros == 30) eficiencia = 0.6;
+        else if (guerreiros == 40) eficiencia = 0.5;
         else eficiencia = 0.4;
 
         long ataqueEfetivo = Math.round(guerreiros * recuperacao * eficiencia);

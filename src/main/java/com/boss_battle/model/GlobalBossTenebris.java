@@ -30,9 +30,9 @@ public class GlobalBossTenebris implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 70_000L;
 
-    private long attackPower = 180L;
+    private long attackPower = 80L;
 
-    private long attackIntervalSeconds = 195L;
+    private long attackIntervalSeconds = 95L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

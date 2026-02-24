@@ -30,9 +30,9 @@ public class GlobalBossNightmare implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 250_000L;
 
-    private long attackPower = 240L;
+    private long attackPower = 110L;
 
-    private long attackIntervalSeconds = 180L; // mais rápido
+    private long attackIntervalSeconds = 150L; // mais rápido
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

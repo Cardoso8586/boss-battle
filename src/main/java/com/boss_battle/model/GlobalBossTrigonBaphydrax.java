@@ -33,7 +33,7 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
     private long currentHp = 280_000L;
 
     // ⚔️ Ataque brutal
-    private long attackPower = 180L;
+    private long attackPower = 115L;
 
     private long attackIntervalSeconds = 185L;
 

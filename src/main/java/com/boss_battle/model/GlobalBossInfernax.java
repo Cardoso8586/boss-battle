@@ -30,7 +30,7 @@ public class GlobalBossInfernax implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 320_000L;
 
-    private long attackPower = 420L;
+    private long attackPower = 120L;
 
     private long attackIntervalSeconds = 190L;
 

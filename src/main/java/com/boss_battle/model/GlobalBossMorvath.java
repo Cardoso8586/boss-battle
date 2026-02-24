@@ -30,9 +30,9 @@ public class GlobalBossMorvath implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 50_000L;
 
-    private long attackPower = 340L;
+    private long attackPower = 100L;
 
-    private long attackIntervalSeconds = 238L;
+    private long attackIntervalSeconds = 160L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

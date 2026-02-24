@@ -148,7 +148,9 @@ public class DashboardController {
         // Constrói link de convite
         //String linkReferencia = "https://bossbattle.com/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());
 
-         String linkReferencia = "https://boss-battle.up.railway.app/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());
+       //String linkReferencia = "https://boss-battle.up.railway.app/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());
+        
+        String linkReferencia = "https://boss-battle-arena.com/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());
      //--------------------------------------------------------------------------------------------------------------------------------------------------------------
       // String linkReferencia = "http://localhost:8080/aliados?ref=" + Base64.getUrlEncoder().encodeToString(usuario.getId().toString().getBytes());
        model.addAttribute("linkReferencia", linkReferencia);

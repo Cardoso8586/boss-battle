@@ -30,9 +30,9 @@ public class GlobalBossPyragon implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 150_000L;
 
-    private long attackPower = 220L; // mais agressivo
+    private long attackPower = 120L; // mais agressivo
 
-    private long attackIntervalSeconds = 210L; // muito rápido
+    private long attackIntervalSeconds = 110L; // muito rápido
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
