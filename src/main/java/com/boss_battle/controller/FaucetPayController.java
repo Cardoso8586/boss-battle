@@ -49,7 +49,7 @@ public class FaucetPayController {
 
         if (request.getUserId() == null ||
             request.getMoeda() == null ||
-            request.geBossCoin() == null ||
+            request.getBossCoin() == null ||
             request.getEmail() == null) {
 
             return ResponseEntity.badRequest().body(
@@ -61,11 +61,12 @@ public class FaucetPayController {
             String respostaApi = faucetPayService.sendFunds(
                     request.getUserId(),
                     request.getMoeda(),
-                    request.geBossCoin(), // ✅ BossCoin real
+                    request.getBossCoin(), // ✅ BossCoin real
                     request.getEmail(),
                     request.getNota()      // ✅ pode ser null
+                  
             );
-
+  System.out.println("Valor recebido: " + request.getBossCoin());
             boolean sucesso = respostaApi.contains("\"status\":200");
 
             String mensagem;
@@ -130,7 +131,7 @@ public class FaucetPayController {
         public Long getUserId() { return userId; }
         public void setUserId(Long userId) { this.userId = userId; }
 
-        public BigDecimal geBossCoin() { return bossCoin; }
+        public BigDecimal getBossCoin() { return bossCoin; }
         public void setBossCoin(BigDecimal bossCoin) { this.bossCoin = bossCoin; }
         
         public String getMoeda() { return moeda; }

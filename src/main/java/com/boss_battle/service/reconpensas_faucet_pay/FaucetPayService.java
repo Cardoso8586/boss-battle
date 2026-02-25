@@ -117,9 +117,16 @@ public class FaucetPayService {
         BigDecimal multiplier = getMultiplier(currency);
         String amountConverted = valorMoeda
                 .multiply(multiplier)
-                .toBigInteger()
-                .toString();
-
+                .setScale(0, RoundingMode.DOWN)
+                .toPlainString();
+        //debug
+        /*
+        System.out.println("Boss: " + bossCoinParaSaque);
+        System.out.println("USDT: " + usdt);
+        System.out.println("Valor moeda: " + valorMoeda);
+        System.out.println("Amount FaucetPay: " + amountConverted);
+        */
+        
         MultipartEntityBuilder builder = MultipartEntityBuilder.create()
                 .addTextBody("api_key", apiKey)
                 .addTextBody("currency", currency)
@@ -214,7 +221,7 @@ public class FaucetPayService {
 
            
             case "USDT":
-                return new BigDecimal("1000000");
+                return new BigDecimal("100000000");
 
             default:
                 throw new RuntimeException("Moeda não suportada: " + currency);
