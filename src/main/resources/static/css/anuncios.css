@@ -1,0 +1,39 @@
+/* Desktop apenas */
+.anuncio-1,
+.anuncio-2,
+.anuncio-5,
+.anuncio-10 {
+    display: none;
+    gap: 50px;
+}
+
+@media (min-width: 1024px) {
+    .anuncio-1,
+    .anuncio-2,
+    .anuncio-5,
+    .anuncio-10 {
+        display: block;
+    }
+}
+
+
+/* Mobile por padrão */
+.anuncio-3,
+.anuncio-4,
+.anuncio-6,
+.anuncio-7,
+.anuncio-9 {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+}
+
+@media (min-width: 1024px) {
+    .anuncio-3,
+    .anuncio-4,
+    .anuncio-6,
+    .anuncio-7,
+    .anuncio-9 {
+        display: none;
+    }
+}
