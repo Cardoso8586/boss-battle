@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // =============================
   const BOSS_POR_USDT = 10_000_000;
   const BOSS_COIN_MINIMO = 100_000;
-  const BOSS_COIN_MAXIMO = 30_000_000;
+  const BOSS_COIN_MAXIMO = 20_000_000;
   // Preços em USDT (exemplo)
   const moedas = {
     USDT: 1,
@@ -167,9 +167,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function solicitarRetirada(moeda, valorMoeda, btn) {
-	btn.disabled = true;
-	
+      const allButtons = document.querySelectorAll('.btn-resgatar');
+
+      // Desativa todos os botões e sinaliza o botão clicado
+      allButtons.forEach(b => b.disabled = true);
+      btn.innerText = 'Processando...';
+
       if (saldoBossCoin < BOSS_COIN_MINIMO) {
+          allButtons.forEach(b => b.disabled = false); // reativa
+          btn.innerText = 'Resgatar';
           return Swal.fire({
               icon: 'error',
               title: 'Erro',
@@ -177,43 +183,41 @@ document.addEventListener('DOMContentLoaded', async () => {
           });
       }
 
-      // Ajustar valor do saque se ultrapassar o máximo
       let valorSaque = saldoBossCoin;
-	  let maxAtingido = '';
-	     if (saldoBossCoin > BOSS_COIN_MAXIMO) {
-	         valorSaque = BOSS_COIN_MAXIMO;
-			 // Array de mensagens diferentes
-			       const mensagensMax = [
-			           '⚠️ Atenção: seu máximo de saque foi atingido!',
-			           '💰 Limite máximo alcançado, não é possível sacar mais.',
-			           '🚫 Você atingiu o teto de saque permitido.',
-			           '🔔 O valor máximo de saque foi aplicado automaticamente.',
-			           '⚡ Apenas o máximo permitido pode ser sacado agora.'
-			       ];
+      let maxAtingido = '';
 
-			       // Escolhe uma mensagem aleatória
-			       maxAtingido = mensagensMax[Math.floor(Math.random() * mensagensMax.length)];
-	     }
+      if (saldoBossCoin > BOSS_COIN_MAXIMO) {
+          valorSaque = BOSS_COIN_MAXIMO;
+          const mensagensMax = [
+              '⚠️ Atenção: seu máximo de saque foi atingido!',
+              '💰 Limite máximo alcançado, não é possível sacar mais.',
+              '🚫 Você atingiu o teto de saque permitido.',
+              '🔔 O valor máximo de saque foi aplicado automaticamente.',
+              '⚡ Apenas o máximo permitido pode ser sacado agora.'
+          ];
+          maxAtingido = mensagensMax[Math.floor(Math.random() * mensagensMax.length)];
+      }
+
       // Converter para moeda específica
       valorMoeda = valorSaque / BOSS_POR_USDT / moedas[moeda];
 
-      // Solicitar e-mail do usuário
+      // Solicitar e-mail
       const { value: email } = await Swal.fire({
           customClass: { title: 'swal-game-text' },
-		  html: maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : '',
+          html: maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : '',
           title: `Retirar ${formatar(valorMoeda, moeda)} ${moeda}`,
           input: 'email',
           inputLabel: 'E-mail FaucetPay',
           inputValue: emailUsuario,
           showCancelButton: true,
-		  timer: 8000,
           background: '#0b0f14'
       });
 
-      if (!email) return;
-
-      btn.disabled = true;
-      btn.innerText = 'Processando...';
+      if (!email) {
+          allButtons.forEach(b => b.disabled = false); // reativa se cancelar
+          btn.innerText = 'Resgatar';
+          return;
+      }
 
       try {
           const res = await fetch('/api/faucetpay/retirada', {
@@ -222,13 +226,12 @@ document.addEventListener('DOMContentLoaded', async () => {
               body: JSON.stringify({
                   userId,
                   moeda,
-                  bossCoin: valorSaque, // envia apenas até o máximo
+                  bossCoin: valorSaque,
                   email
               })
           });
 
           const data = await res.json();
-
           if (!data.success) throw new Error(data.message);
 
           Swal.fire({
@@ -253,6 +256,10 @@ document.addEventListener('DOMContentLoaded', async () => {
               background: 'transparent',
               color: '#ff3b3b'
           });
+      } finally {
+          // Reativa todos os botões depois do processo
+          allButtons.forEach(b => b.disabled = false);
+          btn.innerText = 'Resgatar';
       }
   }
   // =============================
