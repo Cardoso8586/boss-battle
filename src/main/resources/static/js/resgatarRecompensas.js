@@ -184,6 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	    title: 'swal-game-text'
 	  },
 	  title: `Retirar ${formatar(valorMoeda, moeda)} ${moeda}`,
+
 	  input: 'email',
 	  inputLabel: 'E-mail FaucetPay',
 	  inputValue: emailUsuario, 
@@ -204,7 +205,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         body: JSON.stringify({
           userId,
           moeda,
-         // valor: valorMoeda.toString(),
 		  bossCoin: saldoBossCoin,
           email
         })
@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       icon: 'success',
       title: 'Sucesso',
       text: data.message,
+	  timer: 8000,
 	  background: 'transparent',
 	  color: '#ffb400'
       });
@@ -235,6 +236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         icon: 'error',
         title: 'Erro',
 		text: err.message,
+		timer: 8000,
 		background: 'transparent',
 		color: '#ff3b3b' 
       });
