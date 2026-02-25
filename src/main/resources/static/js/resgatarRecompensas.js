@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // =============================
   const BOSS_POR_USDT = 10_000_000;
   const BOSS_COIN_MINIMO = 100_000;
-
+  const BOSS_COIN_MAXIMO = 30_000_000;
   // Preços em USDT (exemplo)
   const moedas = {
     USDT: 1,
@@ -166,11 +166,104 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  async function solicitarRetirada(moeda, valorMoeda, btn) {
+	btn.disabled = true;
+	
+      if (saldoBossCoin < BOSS_COIN_MINIMO) {
+          return Swal.fire({
+              icon: 'error',
+              title: 'Erro',
+              text: `Saldo mínimo de ${BOSS_COIN_MINIMO.toLocaleString()} BossCoin`
+          });
+      }
+
+      // Ajustar valor do saque se ultrapassar o máximo
+      let valorSaque = saldoBossCoin;
+	  let maxAtingido = '';
+	     if (saldoBossCoin > BOSS_COIN_MAXIMO) {
+	         valorSaque = BOSS_COIN_MAXIMO;
+			 // Array de mensagens diferentes
+			       const mensagensMax = [
+			           '⚠️ Atenção: seu máximo de saque foi atingido!',
+			           '💰 Limite máximo alcançado, não é possível sacar mais.',
+			           '🚫 Você atingiu o teto de saque permitido.',
+			           '🔔 O valor máximo de saque foi aplicado automaticamente.',
+			           '⚡ Apenas o máximo permitido pode ser sacado agora.'
+			       ];
+
+			       // Escolhe uma mensagem aleatória
+			       maxAtingido = mensagensMax[Math.floor(Math.random() * mensagensMax.length)];
+	     }
+      // Converter para moeda específica
+      valorMoeda = valorSaque / BOSS_POR_USDT / moedas[moeda];
+
+      // Solicitar e-mail do usuário
+      const { value: email } = await Swal.fire({
+          customClass: { title: 'swal-game-text' },
+		  html: maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : '',
+          title: `Retirar ${formatar(valorMoeda, moeda)} ${moeda}`,
+          input: 'email',
+          inputLabel: 'E-mail FaucetPay',
+          inputValue: emailUsuario,
+          showCancelButton: true,
+		  timer: 8000,
+          background: '#0b0f14'
+      });
+
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.innerText = 'Processando...';
+
+      try {
+          const res = await fetch('/api/faucetpay/retirada', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  userId,
+                  moeda,
+                  bossCoin: valorSaque, // envia apenas até o máximo
+                  email
+              })
+          });
+
+          const data = await res.json();
+
+          if (!data.success) throw new Error(data.message);
+
+          Swal.fire({
+              customClass: { title: 'swal-game-text' },
+              icon: 'success',
+              title: 'Sucesso',
+              text: data.message,
+              timer: 8000,
+              background: 'transparent',
+              color: '#ffb400'
+          });
+
+          buscarSaldo();
+
+      } catch (err) {
+          Swal.fire({
+              customClass: { title: 'swal-game-error' },
+              icon: 'error',
+              title: 'Erro',
+              text: err.message,
+              timer: 8000,
+              background: 'transparent',
+              color: '#ff3b3b'
+          });
+      }
+  }
   // =============================
   // SOLICITAR RETIRADA
   // =============================
+  /*
   async function solicitarRetirada(moeda, valorMoeda, btn) {
-
+	
+	//const btn = card.querySelector('.btn-resgatar');
+	//btn.disabled = true;
+	
     if (saldoBossCoin < BOSS_COIN_MINIMO) {
       return Swal.fire({
         icon: 'error',
@@ -178,7 +271,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         text: 'Saldo mínimo de 100.000 BossCoin '
       });
     }
-
+	
+	if (saldoBossCoin > BOSS_COIN_MAXIMO) {
+		  
+		valorMoeda = BOSS_COIN_MAXIMO;
+     }
+		
 	const { value: email } = await Swal.fire({
 	  customClass: {
 	    title: 'swal-game-text'
@@ -242,7 +340,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
-
+*/
   // =============================
   // INIT
   // =============================
