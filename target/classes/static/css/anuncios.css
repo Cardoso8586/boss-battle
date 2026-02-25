@@ -2,7 +2,10 @@
 .anuncio-1,
 .anuncio-2,
 .anuncio-5,
-.anuncio-10 {
+.anuncio-10, 
+.anuncio-12,
+.anuncio-15
+{
     display: none;
     gap: 50px;
 }
@@ -11,7 +14,11 @@
     .anuncio-1,
     .anuncio-2,
     .anuncio-5,
-    .anuncio-10 {
+    .anuncio-10,
+    .anuncio-12,
+    .anuncio-16
+    
+     {
         display: block;
     }
 }
@@ -37,3 +44,5 @@
         display: none;
     }
 }
+
+
