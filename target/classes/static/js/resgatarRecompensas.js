@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // =============================
   const BOSS_POR_USDT = 10_000_000;
   const BOSS_COIN_MINIMO = 100_000;
-  const BOSS_COIN_MAXIMO = 20_000_000;
+  const BOSS_COIN_MAXIMO = 1_000_000;
   // Preços em USDT (exemplo)
   const moedas = {
     USDT: 1,

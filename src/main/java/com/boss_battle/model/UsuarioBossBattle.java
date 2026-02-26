@@ -278,7 +278,7 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     
   //coluna: quantidade de guerreiros
     @Column(name = "guerreiros_inventario", nullable = false)
-    private Long guerreirosInventario = 0L;
+    private Long guerreirosInventario = 1L;
     
     //==============================================================
     @Column(name = "guerreiros_retaguarda", nullable = false)

@@ -23,6 +23,7 @@ import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
+import com.boss_battle.model.GlobalBossKaelthor;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
@@ -60,6 +61,7 @@ import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
+import com.boss_battle.service.bosses.KaelthorService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
@@ -74,6 +76,7 @@ import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
+
 import com.boss_battle.service.bosses.TenebrisService;
 import com.boss_battle.service.bosses.ThunderonService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
@@ -115,6 +118,7 @@ public class GlobalBossService {
     private final  MalphionService malphionService;
     private final AbyssarService abyssarService;
     private final NecrotharService necrotharService;
+    private final KaelthorService kaelthorService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -164,7 +168,8 @@ public class GlobalBossService {
             MalphionService malphionService,
             AbyssarService abyssarService,
             NecrotharService necrotharService,
-        
+            KaelthorService kaelthorService,
+            
             //Outros Services--->
             BossDamageLogRepository damageLogRepo,
             UsuarioBossBattleRepository usuarioRepo,
@@ -215,6 +220,7 @@ public class GlobalBossService {
         this.malphionService = malphionService;
         this. abyssarService = abyssarService ;
         this.necrotharService = necrotharService;
+        this.kaelthorService = kaelthorService; 
       
     }
 
@@ -252,6 +258,9 @@ public class GlobalBossService {
         if (malphionService.get().isAlive()) return malphionService.get();
         if (abyssarService.get().isAlive()) return abyssarService.get();
         if (necrotharService.get().isAlive()) return necrotharService.get();
+        if (kaelthorService.get().isAlive()) return kaelthorService.get();
+        
+        
         
         return spawnRandomBoss();
     }
@@ -414,6 +423,8 @@ public class GlobalBossService {
         resultado = tryHitBoss("NECROTHAR", necrotharService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("KAELTHOR", kaelthorService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
         
         
         //===============================================================================
@@ -481,6 +492,9 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossMalphion) malphionService.save((GlobalBossMalphion) boss);
             if (boss instanceof GlobalBossAbyssar) abyssarService.save((GlobalBossAbyssar) boss);
             if (boss instanceof GlobalBossNecrothar) necrotharService.save((GlobalBossNecrothar) boss);
+            if (boss instanceof GlobalBossKaelthor) kaelthorService.save((GlobalBossKaelthor) boss);
+            
+            
             
             registrarDano(bossName, usuario, damage);
 
@@ -664,7 +678,7 @@ public class GlobalBossService {
         killAllBosses();
      
         
-        int choice = random.nextInt(28);
+        int choice = random.nextInt(29);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -998,7 +1012,17 @@ public class GlobalBossService {
             	newBoss = nthr;
 
             }
-            
+            case 30 -> {
+            	GlobalBossKaelthor kael = kaelthorService.get();
+            	kaelthorService.aplicarEscalamentoTempestade(kael);
+            	kael.setProcessingDeath(false);
+            	kael.setAlive(true);
+            	kael.setCurrentHp(kael.getMaxHp());
+            	kael.setSpawnedAt(LocalDateTime.now());
+            	kaelthorService.save(kael);
+            	newBoss = kael;
+
+            }
             
  
             default -> {
@@ -1048,6 +1072,11 @@ public class GlobalBossService {
     	GlobalBossMalphion mph = malphionService.get();
     	GlobalBossAbyssar aby = abyssarService.get();
     	GlobalBossNecrothar nthr = necrotharService.get();
+    	GlobalBossKaelthor kael = kaelthorService.get();
+    	
+    	
+    	kael.setAlive(false);
+    	kael.setProcessingDeath(false);
     	
     	nthr.setAlive(false);
     	nthr.setProcessingDeath(false);
@@ -1169,6 +1198,7 @@ public class GlobalBossService {
         malphionService.save(mph);
         abyssarService.save(aby);
         necrotharService.save(nthr);
+        kaelthorService.save(kael);
     }
 
     // =============================

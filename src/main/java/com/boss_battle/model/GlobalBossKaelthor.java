@@ -6,33 +6,29 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "global_boss_destruidor")
-public class GlobalBossDestruidor implements BattleBoss {
+@Table(name = "global_boss_kaelthor")
+public class GlobalBossKaelthor implements BattleBoss {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name = "DESTRUIDOR";
+    private String name = "KAELTHOR";
 
     @Column(nullable = false)
-    private long maxHp = 200_000L;
+    private long maxHp = 280_000L;
 
     @Column(nullable = false)
-    private long currentHp = 200_000L;
+    private long currentHp = 280_000L;
 
-    private long attackPower = 200L;
+    private long attackPower = 100L;
 
-    private long attackIntervalSeconds = 180L;
+    // ataca rápido
+    private long attackIntervalSeconds = 160L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -44,55 +40,32 @@ public class GlobalBossDestruidor implements BattleBoss {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime respawnAt;
 
-    private long respawnCooldownSeconds = 14_400L;
+    // respawn 2 horas
+    private long respawnCooldownSeconds = 7_200L;
 
     private int spawnCount = 0;
 
     @Column(nullable = true)
-    private String imageUrl = "images/boss_destruidor.webp";
+    private String imageUrl = "images/boss_kaelthor.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 100_000L;
+    private long rewardBoss = 180_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 5_000L;
+    private long rewardExp = 9_000L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;
 
-    @Override
-    public boolean isProcessingDeath() {
-        return processingDeath;
-    }
-
-    @Override
-    public void setProcessingDeath(boolean processingDeath) {
-        this.processingDeath = processingDeath;
-    }
-
-    // ✅ CAMPO PERSISTIDO
     @Column(nullable = false)
     private boolean rewardDistributed = false;
-  
-    // getters / setters
-    public boolean isRewardDistributed() {
-        return rewardDistributed;
-    }
-
-    public void setRewardDistributed(boolean rewardDistributed) {
-        this.rewardDistributed = rewardDistributed;
-    }
- 
-    public GlobalBossDestruidor() {}
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime lastAttackAt;
 
-    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
-    public void setLastAttackAt(LocalDateTime lastAttackAt) {
-        this.lastAttackAt = lastAttackAt;
-    }
+    public GlobalBossKaelthor() {}
+
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }
@@ -111,8 +84,8 @@ public class GlobalBossDestruidor implements BattleBoss {
     public void setAttackPower(long attackPower) { this.attackPower = attackPower; }
 
     public long getAttackIntervalSeconds() { return attackIntervalSeconds; }
-    public void setAttackIntervalSeconds(long attackIntervalSeconds) {
-        this.attackIntervalSeconds = attackIntervalSeconds;
+    public void setAttackIntervalSeconds(long value) {
+        this.attackIntervalSeconds = value;
     }
 
     public LocalDateTime getSpawnedAt() { return spawnedAt; }
@@ -125,12 +98,16 @@ public class GlobalBossDestruidor implements BattleBoss {
     public void setRespawnAt(LocalDateTime respawnAt) { this.respawnAt = respawnAt; }
 
     public long getRespawnCooldownSeconds() { return respawnCooldownSeconds; }
-    public void setRespawnCooldownSeconds(long respawnCooldownSeconds) {
-        this.respawnCooldownSeconds = respawnCooldownSeconds;
+    public void setRespawnCooldownSeconds(long value) {
+        this.respawnCooldownSeconds = value;
     }
 
     public long getSpawnCount() { return spawnCount; }
-    public void setSpawnCount(int spawnCount) { this.spawnCount = spawnCount; }
+
+    @Override
+    public void setSpawnCount(long value) {
+        this.spawnCount = Math.toIntExact(value);
+    }
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
@@ -141,7 +118,22 @@ public class GlobalBossDestruidor implements BattleBoss {
     public long getRewardExp() { return rewardExp; }
     public void setRewardExp(long rewardExp) { this.rewardExp = rewardExp; }
 
-    // ===== BattleBoss IMPLEMENTATION =====
+    public boolean isProcessingDeath() { return processingDeath; }
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
+
+    public boolean isRewardDistributed() { return rewardDistributed; }
+    public void setRewardDistributed(boolean rewardDistributed) {
+        this.rewardDistributed = rewardDistributed;
+    }
+
+    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public void setLastAttackAt(LocalDateTime lastAttackAt) {
+        this.lastAttackAt = lastAttackAt;
+    }
+
+    // ===== BattleBoss =====
 
     @Override
     public String getBossName() {
@@ -149,31 +141,28 @@ public class GlobalBossDestruidor implements BattleBoss {
     }
 
     @Override
-    public void setSpawnCount(long value) {
-        this.spawnCount = Math.toIntExact(value);
-    }
-
-    @Override
     public Map<String, Long> applyDamage(long damage) {
+
         Map<String, Long> reward = new HashMap<>();
 
-        if (!this.alive) {
+        if (!alive) {
             reward.put("bossReward", 0L);
             reward.put("expReward", 0L);
             return reward;
         }
 
-        long finalHp = this.currentHp - damage;
+        long finalHp = currentHp - damage;
         if (finalHp < 0) finalHp = 0;
 
-        this.currentHp = finalHp;
+        currentHp = finalHp;
 
         if (finalHp == 0) {
-            this.alive = false;
-            this.respawnAt = LocalDateTime.now().plusSeconds(respawnCooldownSeconds);
+            alive = false;
+            respawnAt = LocalDateTime.now()
+                    .plusSeconds(respawnCooldownSeconds);
 
-            reward.put("bossReward", this.rewardBoss);
-            reward.put("expReward", this.rewardExp);
+            reward.put("bossReward", rewardBoss);
+            reward.put("expReward", rewardExp);
         } else {
             reward.put("bossReward", 0L);
             reward.put("expReward", 0L);
@@ -181,7 +170,4 @@ public class GlobalBossDestruidor implements BattleBoss {
 
         return reward;
     }
-
-	 
-
 }
