@@ -13,7 +13,8 @@ import com.boss_battle.dto.AtaqueBossResponseDTO;
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.GlobalBossService;
+import com.boss_battle.service.global_boss.GlobalBossService;
+
 
 @Service
 @Transactional

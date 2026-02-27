@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.boss_battle.dto.AtaqueBossResponseDTO;
 
-import com.boss_battle.service.GlobalBossService;
+
 import com.boss_battle.service.auto_ataque.BossAutoAttackService;
+import com.boss_battle.service.global_boss.GlobalBossService;
 @RestController
 @RequestMapping("/api/boss")
 public class GlobalBossController {

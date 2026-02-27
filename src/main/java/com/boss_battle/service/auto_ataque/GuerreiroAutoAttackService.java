@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-import com.boss_battle.service.GlobalBossService;
+
 import com.boss_battle.service.ativar_equipar.ArcoService;
 import com.boss_battle.service.ativar_equipar.EspadaFlanejanteService;
 import com.boss_battle.service.ativar_equipar.MachadoDilaceradorService;
 import com.boss_battle.service.ativar_equipar.PocaoVigorService;
+import com.boss_battle.service.global_boss.GlobalBossService;
 
 import jakarta.transaction.Transactional;
 

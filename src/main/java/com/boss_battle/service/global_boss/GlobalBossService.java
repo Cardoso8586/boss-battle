@@ -1,11 +1,11 @@
 
-package com.boss_battle.service;
+package com.boss_battle.service.global_boss;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+//import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.BossDamageLog;
+import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzurion;
@@ -48,9 +49,13 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.BossRewardLockRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.BossDamageLogService;
+import com.boss_battle.service.ReferidosRecompensaService;
+import com.boss_battle.service.UsuarioBossBattleService;
 import com.boss_battle.service.ativar_equipar.PocaoVigorService;
 import com.boss_battle.service.auto_ataque.BossAttackService;
 import com.boss_battle.service.auto_ataque.RetaguardaService;
+import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
 import com.boss_battle.service.bosses.AzraelPrimeService;
 import com.boss_battle.service.bosses.AzurionService;
@@ -119,6 +124,7 @@ public class GlobalBossService {
     private final AbyssarService abyssarService;
     private final NecrotharService necrotharService;
     private final KaelthorService kaelthorService;
+    private final AbissalService abissalService;
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -128,13 +134,13 @@ public class GlobalBossService {
 
 	private final PocaoVigorService pocaoVigorService;
     
-    //private final BossService bossDamageLogService;
+    private final SpawRandomBossService spawRandomBossService;
     
    
     private final RetaguardaService retaguardaService;
 
     
-    private final Random random = new Random();
+   // private final Random random = new Random();
 
     public GlobalBossService(
     		//Services dos boses--->
@@ -169,6 +175,8 @@ public class GlobalBossService {
             AbyssarService abyssarService,
             NecrotharService necrotharService,
             KaelthorService kaelthorService,
+            AbissalService abissalService,
+          
             
             //Outros Services--->
             BossDamageLogRepository damageLogRepo,
@@ -179,7 +187,8 @@ public class GlobalBossService {
             BossAttackService bossAttackService,
             BossDamageLogService bossDamageLogService,
             RetaguardaService retaguardaService,
-            PocaoVigorService pocaoVigorService
+            PocaoVigorService pocaoVigorService,  
+            SpawRandomBossService spawRandomBossService
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -221,7 +230,8 @@ public class GlobalBossService {
         this. abyssarService = abyssarService ;
         this.necrotharService = necrotharService;
         this.kaelthorService = kaelthorService; 
-      
+        this.abissalService = abissalService;
+        this.spawRandomBossService = spawRandomBossService;
     }
 
     // =============================
@@ -259,10 +269,10 @@ public class GlobalBossService {
         if (abyssarService.get().isAlive()) return abyssarService.get();
         if (necrotharService.get().isAlive()) return necrotharService.get();
         if (kaelthorService.get().isAlive()) return kaelthorService.get();
+        if (abissalService.get().isAlive()) return abissalService.get();
         
         
-        
-        return spawnRandomBoss();
+        return spawRandomBossService.spawnRandomBoss();
     }
 
     // =============================
@@ -426,6 +436,9 @@ public class GlobalBossService {
         resultado = tryHitBoss("KAELTHOR", kaelthorService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("SOBERANO ABISSAL", abissalService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
         
         //===============================================================================
         //===============================================================================
@@ -493,7 +506,7 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossAbyssar) abyssarService.save((GlobalBossAbyssar) boss);
             if (boss instanceof GlobalBossNecrothar) necrotharService.save((GlobalBossNecrothar) boss);
             if (boss instanceof GlobalBossKaelthor) kaelthorService.save((GlobalBossKaelthor) boss);
-            
+            if (boss instanceof GlobalBossAbissal) abissalService.save((GlobalBossAbissal) boss);
             
             
             registrarDano(bossName, usuario, damage);
@@ -672,13 +685,13 @@ public class GlobalBossService {
     }
     
 
-
+/*
     public BattleBoss spawnRandomBoss() {
     	
         killAllBosses();
      
         
-        int choice = random.nextInt(29);
+        int choice = random.nextInt(30);
         BattleBoss newBoss;
 
         switch (choice) {
@@ -1024,6 +1037,19 @@ public class GlobalBossService {
 
             }
             
+            case 31 -> {
+            	GlobalBossAbissal abis = abissalService.get();
+            	abissalService.aplicarEscalamentoAbissal(abis);
+            	abis.setProcessingDeath(false);
+            	abis.setAlive(true);
+            	abis.setCurrentHp(abis.getMaxHp());
+            	abis.setSpawnedAt(LocalDateTime.now());
+            	abissalService.save(abis);
+            	newBoss = abis;
+
+            }
+            
+            
  
             default -> {
                 GlobalBossUmbraxis um = umbraxisService.get();
@@ -1040,7 +1066,9 @@ public class GlobalBossService {
         return newBoss;
     }
 
-  
+  */
+    
+    /*
     public void killAllBosses() {
         GlobalBossIgnorath ig = ignorathService.get();
         GlobalBossDrakthor dr = drakthorService.get();
@@ -1073,7 +1101,11 @@ public class GlobalBossService {
     	GlobalBossAbyssar aby = abyssarService.get();
     	GlobalBossNecrothar nthr = necrotharService.get();
     	GlobalBossKaelthor kael = kaelthorService.get();
+    	GlobalBossAbissal abis = abissalService.get();
     	
+    	
+    	abis.setAlive(false);
+    	abis.setProcessingDeath(false);
     	
     	kael.setAlive(false);
     	kael.setProcessingDeath(false);
@@ -1199,8 +1231,10 @@ public class GlobalBossService {
         abyssarService.save(aby);
         necrotharService.save(nthr);
         kaelthorService.save(kael);
+        abissalService.save(abis);
     }
-
+*/
+    
     // =============================
     // COOLDOWN
     // =============================
