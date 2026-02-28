@@ -16,7 +16,10 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class PromoService {
-
+	
+    DecimalFormat df = new DecimalFormat("0");
+    DecimalFormat moeda = new DecimalFormat("#,##0");
+    
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
 
@@ -25,7 +28,8 @@ public class PromoService {
 
     public String comprarPromo(UsuarioBossBattle usuario, String tipoPromo) {
 
-    	  DecimalFormat df = new DecimalFormat("#,##0");
+    	 // DecimalFormat df = new DecimalFormat("#,#0");
+    	
         // 🔒 Preços atuais
         long precoGuerreiro = usuario.getPrecoGuerreiros();
         long precoPocaoVigor = usuario.getPrecoPocaoVigor();
@@ -84,13 +88,16 @@ public class PromoService {
         BigDecimal precoFinal = BigDecimal.valueOf(valorBruto)
                 .multiply(BigDecimal.valueOf(1 - desconto))
                 .setScale(0, RoundingMode.DOWN);
-
-        // ✅ Verifica saldo
+        
+      
+       //verifica o saldo, e mostra se erro
         if (usuario.getBossCoins().compareTo(precoFinal) < 0) {
             throw new RuntimeException(
-                "Saldo insuficiente. Valor com desconto: " +  df.format(precoFinal));
+                "Saldo insuficiente. Valor com desconto: " 
+                + moeda.format(precoFinal.doubleValue())
+            );
         }
-
+      
         // 💰 Debita
         usuario.setBossCoins(usuario.getBossCoins().subtract(precoFinal));
 
@@ -129,8 +136,8 @@ public class PromoService {
         usuarioRepository.save(usuario);
 
         return "Promoção " + tipoPromo.toUpperCase()
-                + " comprada com sucesso! Você economizou "
-                + desconto * 100 + "%";
+        + " comprada! Você economizou "
+        + df.format(desconto * 100) + "%";
     }
     
     //=============================================================

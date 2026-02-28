@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const xpComando = document.getElementById('xp_comando');
 	const nivelComando = document.getElementById('nivel_comando');
 	const bossCoinComando = document.getElementById('boss_coins_comando');
-   
+   const ataqueEspecial  = document.getElementById('damage');
 	
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				flecha_fogo.textContent = formatarNumero(data.flechaFogo);
 				flecha_veneno.textContent = formatarNumero(data.flechaVeneno);
 				flecha_ferro.textContent = formatarNumero(data.flechaFerro);
-			
+				ataqueEspecial.textContent = formatarNumero(data.ataqueBase);
 				// FIM Atualizar Central de Comando
 			
             const percentualEnergia = Math.max(0, (energia / energiaMax) * 100);
