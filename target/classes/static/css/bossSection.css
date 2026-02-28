@@ -455,33 +455,3 @@ body {
     background: linear-gradient(90deg, #00ff88, #ffb400);
     border-radius: 10px;
 }
-
-
-@media (max-width:768px){
-
-    /* quebra o wrapper */
-    .boss-user-wrapper{
-        display: contents;
-    }
-
-    /* transforma a seção em coluna */
-    #jogo{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-    }
-
-    /* ordem visual */
-    #user-card{
-        order:1;
-    }
-
-    #boss-container{
-        order:2;
-    }
-
-    #ataque-especial{
-        order:3;
-    }
-}
-
