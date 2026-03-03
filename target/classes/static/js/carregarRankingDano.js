@@ -32,10 +32,10 @@ async function carregarRankingDano() {
             if (player.userId === usuarioId) {
                 li.classList.add('meu-ranking');
             }
-
+          //<span class="nome">${player.userName}</span>
             li.innerHTML = `
                 <span class="posicao">#${index + 1}</span>
-                <span class="nome">${player.userName}</span>
+				<span class="nome">${cortarNome(player.userName)}</span>
                 <span class="dano">${formatarNumero(player.damage)} Dano</span>
             `;
 
@@ -53,6 +53,11 @@ async function carregarRankingDano() {
     } catch (error) {
         console.error(error);
     }
+}
+function cortarNome(nome, max = 18) {
+    return nome.length > max
+        ? nome.substring(0, max) + "..."
+        : nome;
 }
 
 function formatarNumero(valor) {

@@ -61,12 +61,17 @@
 
 /* nome */
 #rankingDano .nome {
-  flex-grow: 1;
-  padding-left: 8px;  /* menos padding */
+  flex: 1;              /* ocupa só o espaço disponível */
+  padding-left: 8px;
   text-align: left;
   font-size: 0.95rem;
-}
 
+  /* ⭐ CORREÇÃO */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;         /* MUITO IMPORTANTE no flexbox */
+}
 /* dano */
 #rankingDano .dano {
   min-width: 80px;    /* menos largura */

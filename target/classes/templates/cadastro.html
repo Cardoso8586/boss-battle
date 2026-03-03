@@ -60,13 +60,26 @@
 
 <form id="registerForm">
 
+
+<input
+  type="text"
+  id="username"
+  placeholder="Digite seu usuário"
+  minlength="3"
+  maxlength="18"
+  pattern="[A-Za-z0-9_]+"
+  title="Use apenas letras, números ou _"
+  required
+>
+
+<!-- 
   <input
     type="text"
     id="username"
     placeholder="Digite seu usuário"
     required
   >
-
+- -->
 
   <input
     type="email"
