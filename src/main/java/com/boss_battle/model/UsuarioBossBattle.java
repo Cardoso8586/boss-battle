@@ -22,13 +22,36 @@ public class UsuarioBossBattle  {
     @Column(name = "created_at", columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
     
-    
+  //================================ boss_coins =======================================
+    @Column(name = "boss_coins", precision = 19, scale = 2)
+    private BigDecimal bossCoins = new BigDecimal("10000.00");
+    /*
     //================================ boss_coins =======================================
     @Column(name = "boss_coins", precision = 19, scale = 2)
     private BigDecimal bossCoins = BigDecimal.ZERO;
+    
+    */
    //
     public BigDecimal getBossCoins() { return bossCoins; }
     public void setBossCoins(BigDecimal bossCoins) { this.bossCoins = bossCoins; }
+    
+    
+    
+    public UsuarioBossBattle() {
+        this.bossCoins = new BigDecimal("10000.00");
+    }
+
+    public UsuarioBossBattle(String username, String email, BigDecimal saldoInicial) {
+        this.username = username;
+        this.email = email;
+        this.bossCoins = saldoInicial;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        if (this.bossCoins == null) this.bossCoins = new BigDecimal("10000.00");
+    }
    //================================ boss_coins =======================================
 
 
@@ -449,22 +472,7 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     // ==========================================
 
    
-    
-    public UsuarioBossBattle() {
-        this.bossCoins = BigDecimal.ZERO;
-    }
 
-    public UsuarioBossBattle(String username, String email, BigDecimal saldoInicial) {
-        this.username = username;
-        this.email = email;
-        this.bossCoins = saldoInicial;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        if (this.bossCoins == null) this.bossCoins = BigDecimal.ZERO;
-    }
 
 
     // ==========================================
