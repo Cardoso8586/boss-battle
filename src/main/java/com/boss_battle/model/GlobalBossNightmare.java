@@ -25,10 +25,10 @@ public class GlobalBossNightmare implements BattleBoss {
     private String name = "NIGHTMARE"; // nome chamativo
 
     @Column(nullable = false)
-    private long maxHp = 250_000L; // mais difícil que Umbraxis
+    private long maxHp = 50_000L; // mais difícil que Umbraxis
 
     @Column(nullable = false)
-    private long currentHp = 250_000L;
+    private long currentHp = 50_000L;
 
     private long attackPower = 110L;
 
@@ -55,7 +55,7 @@ public class GlobalBossNightmare implements BattleBoss {
     private long rewardBoss = 150_000L; // recompensa maior
 
     @Column(nullable = false)
-    private long rewardExp = 3000;
+    private long rewardExp = 13200;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

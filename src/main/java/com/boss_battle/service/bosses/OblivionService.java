@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class OblivionService {
 	
-	private static final long MAX_ATTACK = 1900;
+	private static final long MAX_ATTACK = 900;
 	private static final long MAX_INTERVAL = 1200;
-	private static final long MAX_REWARD_BOSS = 1_500_000;
-	private static final long MAX_EXP = 30000;
-	private static final long MAX_HP = 13_000_000;
+	private static final long MAX_REWARD_BOSS = 500_000;
+	private static final long MAX_EXP = 70000;
+	private static final long MAX_HP = 900_000;
 
     @Autowired
     private OblivionRepository repo;
@@ -34,8 +34,8 @@ public class OblivionService {
     	GlobalBossOblivion boss = new GlobalBossOblivion();
 
         boss.setName("OBLIVION");
-        boss.setMaxHp(80_000L);
-        boss.setCurrentHp(80_000L);
+        //boss.setMaxHp(80_000L);
+       // boss.setCurrentHp(80_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
@@ -48,8 +48,8 @@ public class OblivionService {
         boss.setRespawnCooldownSeconds(7200L); 
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(75_000L);
-        boss.setRewardExp(3000L);
+       // boss.setRewardBoss(75_000L);
+        //boss.setRewardExp(3000L);
 
         return repo.save(boss);
     }

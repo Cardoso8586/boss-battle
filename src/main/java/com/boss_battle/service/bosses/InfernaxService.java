@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class InfernaxService {
 
-	private static final long MAX_ATTACK = 5000;
-	private static final long MAX_INTERVAL = 1600;
-	private static final long MAX_REWARD_BOSS = 1_500_000;
-	private static final long MAX_EXP = 22000;
-	private static final long MAX_HP = 16_000_000;
+	private static final long MAX_ATTACK = 1000;
+	private static final long MAX_INTERVAL = 1100;
+	private static final long MAX_REWARD_BOSS = 500_000;
+	private static final long MAX_EXP = 72000;
+	private static final long MAX_HP = 900_000;
     @Autowired
     private InfernaxRepository repo;
 
@@ -30,18 +30,18 @@ public class InfernaxService {
     public GlobalBossInfernax createDefaultBoss() {
     	GlobalBossInfernax boss = new GlobalBossInfernax();
         boss.setName("INFERNAX");
-        boss.setMaxHp(320_000L);
-        boss.setCurrentHp(320_000L);
+        //boss.setMaxHp(320_000L);
+       // boss.setCurrentHp(320_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_infernax.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(7200); 
         boss.setSpawnCount(1);
-        boss.setRewardBoss(180_000L);
+       // boss.setRewardBoss(180_000L);
        // boss.setAttackPower(420L);
         //boss.setAttackIntervalSeconds(190L);
-        boss.setRewardExp(4200);
+       // boss.setRewardExp(4200);
         return repo.save(boss);
     }
 

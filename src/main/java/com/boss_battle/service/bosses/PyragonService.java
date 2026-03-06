@@ -16,11 +16,11 @@ import jakarta.transaction.Transactional;
 public class PyragonService {
 
 
-	private static final long MAX_ATTACK = 2200;
-	private static final long MAX_INTERVAL = 1100;
-	private static final long MAX_REWARD_BOSS = 1_500_000;
-	private static final long MAX_EXP = 30000;
-	private static final long MAX_HP = 10_000_000;
+	private static final long MAX_ATTACK = 600;
+	private static final long MAX_INTERVAL = 900;
+	private static final long MAX_REWARD_BOSS = 500_000;
+	private static final long MAX_EXP = 70000;
+	private static final long MAX_HP = 500_000;
 	
     @Autowired
     private PyragonRepository repo;
@@ -39,8 +39,8 @@ public class PyragonService {
         GlobalBossPyragon boss = new GlobalBossPyragon();
 
         boss.setName("PYRAGON");
-        boss.setMaxHp(150_000L);
-        boss.setCurrentHp(150_000L);
+        //boss.setMaxHp(150_000L);
+        //boss.setCurrentHp(150_000L);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_pyragon.webp");
         boss.setSpawnedAt(LocalDateTime.now());
@@ -48,8 +48,8 @@ public class PyragonService {
         boss.setSpawnCount(1);
         //boss.setAttackIntervalSeconds(210L);
        // boss.setAttackPower(220L);
-        boss.setRewardBoss(75_000L);
-        boss.setRewardExp(1800L);
+        //boss.setRewardBoss(75_000L);
+        //boss.setRewardExp(1800L);
 
         return repo.save(boss);
     }

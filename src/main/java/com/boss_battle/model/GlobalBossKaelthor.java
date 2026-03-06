@@ -20,15 +20,15 @@ public class GlobalBossKaelthor implements BattleBoss {
     private String name = "KAELTHOR";
 
     @Column(nullable = false)
-    private long maxHp = 280_000L;
+    private long maxHp = 80_000L;
 
     @Column(nullable = false)
-    private long currentHp = 280_000L;
+    private long currentHp = 80_000L;
 
-    private long attackPower = 100L;
+    private long attackPower = 50L;
 
     // ataca rápido
-    private long attackIntervalSeconds = 160L;
+    private long attackIntervalSeconds = 90L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -49,10 +49,10 @@ public class GlobalBossKaelthor implements BattleBoss {
     private String imageUrl = "images/boss_kaelthor.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 180_000L;
+    private long rewardBoss = 90_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 9_000L;
+    private long rewardExp = 19_000L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

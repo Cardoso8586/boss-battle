@@ -26,12 +26,12 @@ public class GlobalBossAzurion implements BattleBoss {
     private String name = "AZURION";
 
     @Column(nullable = false)
-    private long maxHp = 100_000L;
+    private long maxHp = 65_000L;
 
     @Column(nullable = false)
-    private long currentHp = 100_000L;
+    private long currentHp = 65_000L;
 
-    private long attackPower = 120L;
+    private long attackPower = 90L;
 
     private long attackIntervalSeconds = 160L;
 
@@ -53,10 +53,10 @@ public class GlobalBossAzurion implements BattleBoss {
     private String imageUrl = "images/boss_azurion.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 30_000L;
+    private long rewardBoss = 80_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 1300;
+    private long rewardExp = 7300;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

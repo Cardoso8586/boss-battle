@@ -25,12 +25,12 @@ public class GlobalBossPyragon implements BattleBoss {
     private String name = "PYRAGON"; // boss de fogo
 
     @Column(nullable = false)
-    private long maxHp = 150_000L;
+    private long maxHp = 70_000L;
 
     @Column(nullable = false)
-    private long currentHp = 150_000L;
+    private long currentHp = 70_000L;
 
-    private long attackPower = 120L; // mais agressivo
+    private long attackPower = 80L; // mais agressivo
 
     private long attackIntervalSeconds = 110L; // muito rápido
 
@@ -53,10 +53,10 @@ public class GlobalBossPyragon implements BattleBoss {
     private String imageUrl = "images/boss_pyragon.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 75_000L;
+    private long rewardBoss = 95_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 1800L;
+    private long rewardExp = 11800L;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NoctyrService {
 
-	private static final long MAX_ATTACK = 2700;
+	private static final long MAX_ATTACK = 700;
 	private static final long MAX_INTERVAL = 1100;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 68000;
+	private static final long MAX_HP = 600_000;
 	
     @Autowired
     private NoctyrRepository repo;
@@ -43,8 +43,8 @@ public class NoctyrService {
         boss.setSpawnCount(1);
         //boss.setAttackPower(160L);
        // boss.setAttackIntervalSeconds(185L);
-        boss.setRewardBoss(55_000); 
-        boss.setRewardExp(2200);
+       // boss.setRewardBoss(55_000); 
+        //boss.setRewardExp(2200);
 
         return repo.save(boss);
     }

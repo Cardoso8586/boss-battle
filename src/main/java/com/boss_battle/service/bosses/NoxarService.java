@@ -17,11 +17,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NoxarService {
 
-	private static final long MAX_ATTACK = 2000;
+	private static final long MAX_ATTACK = 800;
 	private static final long MAX_INTERVAL = 900;
-	private static final long MAX_REWARD_BOSS = 1_200_000;
-	private static final long MAX_EXP = 23000;
-	private static final long MAX_HP = 13_000_000;
+	private static final long MAX_REWARD_BOSS = 600_000;
+	private static final long MAX_EXP = 73000;
+	private static final long MAX_HP = 900_000;
 	
     @Autowired
     private NoxarRepository repo;
@@ -33,8 +33,8 @@ public class NoxarService {
     public GlobalBossNoxar createDefaultBoss() {
     	GlobalBossNoxar boss = new GlobalBossNoxar();
          boss.setName("NOXAR");
-         boss.setMaxHp(50_000L);
-         boss.setCurrentHp(50_000L);
+         //boss.setMaxHp(50_000L);
+         //boss.setCurrentHp(50_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_noxar.webp");
@@ -43,8 +43,8 @@ public class NoxarService {
          boss.setSpawnCount(1);
         // boss.setAttackIntervalSeconds(160L);
         // boss.setAttackPower(180L);
-         boss.setRewardBoss(50_000L);
-         boss.setRewardExp(2200L);
+         //boss.setRewardBoss(50_000L);
+         //boss.setRewardExp(2200L);
         return repo.save(boss);
     }
 

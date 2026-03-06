@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class UmbrarService {
 
-	private static final long MAX_ATTACK = 1800;
-	private static final long MAX_INTERVAL = 700;
+	private static final long MAX_ATTACK = 800;
+	private static final long MAX_INTERVAL = 900;
 	private static final long MAX_REWARD_BOSS = 900_000;
-	private static final long MAX_EXP = 25000;
-	private static final long MAX_HP = 8_000_000;
+	private static final long MAX_EXP = 85000;
+	private static final long MAX_HP = 770_000;
 	
     @Autowired
     private UmbrarRepository repo;
@@ -31,8 +31,8 @@ public class UmbrarService {
     public GlobalBossUmbrar createDefaultBoss() {
     	GlobalBossUmbrar boss = new GlobalBossUmbrar();
          boss.setName("UMBRAR");
-         boss.setMaxHp(42_000L);
-         boss.setCurrentHp(42_000L);
+        // boss.setMaxHp(42_000L);
+         //boss.setCurrentHp(42_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_umbrar.webp");
@@ -41,8 +41,8 @@ public class UmbrarService {
          boss.setSpawnCount(1);
          //boss.setAttackIntervalSeconds(150L);
          //boss.setAttackPower(130L);
-         boss.setRewardBoss(40_000L);
-         boss.setRewardExp(1800);
+        // boss.setRewardBoss(40_000L);
+        // boss.setRewardExp(1800);
         return repo.save(boss);
     }
 

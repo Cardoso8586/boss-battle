@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ReflexaService {
 
-	private static final long MAX_ATTACK = 2100;
-	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 20000;
-	private static final long MAX_HP = 12_000_000;
+	private static final long MAX_ATTACK = 600;
+	private static final long MAX_INTERVAL = 900;
+	private static final long MAX_REWARD_BOSS = 300_000;
+	private static final long MAX_EXP = 55000;
+	private static final long MAX_HP = 400_000;
 	
     @Autowired
     private ReflexaRepository repo;
@@ -47,8 +47,8 @@ public class ReflexaService {
         boss.setSpawnCount(1);
        // boss.setAttackIntervalSeconds(235L);
        // boss.setAttackPower(200L);
-        boss.setRewardBoss(90_000L);
-        boss.setRewardExp(2400L);
+       // boss.setRewardBoss(90_000L);
+       // boss.setRewardExp(2400L);
 
         return repo.save(boss);
     }

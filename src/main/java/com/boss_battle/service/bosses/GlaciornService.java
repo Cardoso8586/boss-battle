@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class GlaciornService {
 
-	private static final long MAX_ATTACK = 4000;
-	private static final long MAX_INTERVAL = 1500;
-	private static final long MAX_REWARD_BOSS = 1_000_000;
-	private static final long MAX_EXP = 19000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_ATTACK = 800;
+	private static final long MAX_INTERVAL = 500;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 69000;
+	private static final long MAX_HP = 900_000;
     @Autowired
     private GlaciornRepository repo;
 
@@ -37,18 +37,18 @@ public class GlaciornService {
         GlobalBossGlaciorn boss = new GlobalBossGlaciorn();
 
         boss.setName("GLACIORN");
-        boss.setMaxHp(120_000L);
-        boss.setCurrentHp(120_000L);
+       // boss.setMaxHp(120_000L);
+       // boss.setCurrentHp(120_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_glaciorn.webp");
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(4000L); // ~1h06
         boss.setSpawnCount(1);
-        boss.setAttackIntervalSeconds(180L);
-        boss.setAttackPower(175L);
-        boss.setRewardBoss(65_000L);
-        boss.setRewardExp(1700L);
+      //  boss.setAttackIntervalSeconds(180L);
+       // boss.setAttackPower(175L);
+       // boss.setRewardBoss(65_000L);
+      //  boss.setRewardExp(1700L);
 
         return repo.save(boss);
     }

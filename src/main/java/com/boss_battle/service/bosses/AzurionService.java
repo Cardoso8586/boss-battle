@@ -11,11 +11,11 @@ import com.boss_battle.repository.AzurionRepository;
 
 @Service
 public class AzurionService {
-	private static final long MAX_ATTACK = 3200;
-	private static final long MAX_INTERVAL = 1500;
-	private static final long MAX_REWARD_BOSS = 1_200_000;
-	private static final long MAX_EXP = 16000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_ATTACK = 1300;
+	private static final long MAX_INTERVAL = 900;
+	private static final long MAX_REWARD_BOSS = 200_000;
+	private static final long MAX_EXP = 80000;
+	private static final long MAX_HP = 900_000;
     @Autowired
     private AzurionRepository repo;
 
@@ -33,8 +33,8 @@ public class AzurionService {
         GlobalBossAzurion boss = new GlobalBossAzurion();
 
         boss.setName("AZURION");
-        boss.setMaxHp(100_000);
-        boss.setCurrentHp(100_000);
+        //boss.setMaxHp(65_000);
+       // boss.setCurrentHp(65_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_azurion.webp");
@@ -44,8 +44,8 @@ public class AzurionService {
         boss.setSpawnCount(1);
         //boss.setAttackPower(120L);
        // boss.setAttackIntervalSeconds(160L);
-        boss.setRewardBoss(35_000);
-        boss.setRewardExp(1300);
+       // boss.setRewardBoss(80_000);
+       // boss.setRewardExp(7300);
 
         return repo.save(boss);
     }
@@ -116,7 +116,7 @@ public class AzurionService {
           
           // Limitar Evolução do ataque
           if (valorAtaque < MAX_ATTACK) {
-              boss.setAttackPower(valorAtaque + 4);
+              boss.setAttackPower(valorAtaque + 1);
           } else {
               boss.setAttackPower(MAX_ATTACK);
           }

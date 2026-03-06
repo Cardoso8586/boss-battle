@@ -14,11 +14,11 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class DrakthorService {
-	private static final long MAX_ATTACK = 2500;
-	private static final long MAX_INTERVAL = 1500;
-	private static final long MAX_REWARD_BOSS = 1_000_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 12_000_000;
+	private static final long MAX_ATTACK = 500;
+	private static final long MAX_INTERVAL = 800;
+	private static final long MAX_REWARD_BOSS = 200_000;
+	private static final long MAX_EXP = 65000;
+	private static final long MAX_HP = 600_000;
     @Autowired
     private DrakthorRepository repo;
 
@@ -30,8 +30,8 @@ public class DrakthorService {
     public GlobalBossDrakthor createDefaultBoss() {
         GlobalBossDrakthor boss = new GlobalBossDrakthor();
         boss.setName("DRAKTHOR — O DEVORA-MUNDOS");
-        boss.setMaxHp(150_000);
-        boss.setCurrentHp(150_000);
+       // boss.setMaxHp(150_000);
+        //boss.setCurrentHp(150_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_drakthor.webp");
@@ -40,8 +40,8 @@ public class DrakthorService {
        // boss.setAttackIntervalSeconds(195L);
         //boss.setAttackPower(120L);
         boss.setSpawnCount(1);
-        boss.setRewardBoss(35_000); 
-        boss.setRewardExp(1500);
+       // boss.setRewardBoss(35_000); 
+       // boss.setRewardExp(1500);
 
         return repo.save(boss);
     }

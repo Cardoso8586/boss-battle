@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class MechadronService {
 
-	private static final long MAX_ATTACK = 2700;
+	private static final long MAX_ATTACK = 700;
 	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 800_000;
+	private static final long MAX_EXP = 78000;
+	private static final long MAX_HP = 880_000;
 	
     @Autowired
     private MechadronRepository repo;
@@ -38,8 +38,8 @@ public class MechadronService {
         GlobalBossMechadron boss = new GlobalBossMechadron();
 
         boss.setName("MECHADRON");
-        boss.setMaxHp(220_000L);
-        boss.setCurrentHp(220_000L);
+        //boss.setMaxHp(220_000L);
+        //boss.setCurrentHp(220_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_mechadron.webp");
@@ -48,8 +48,8 @@ public class MechadronService {
         boss.setSpawnCount(1);
         //boss.setAttackPower(340L);
        // boss.setAttackIntervalSeconds(238L);
-        boss.setRewardBoss(110_000L);
-        boss.setRewardExp(2800L);
+       // boss.setRewardBoss(110_000L);
+       // boss.setRewardExp(2800L);
 
         return repo.save(boss);
     }

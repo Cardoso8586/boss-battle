@@ -25,14 +25,14 @@ public class GlobalBossInfernax implements BattleBoss {
     private String name = "INFERNAX";
 
     @Column(nullable = false)
-    private long maxHp = 320_000L;
+    private long maxHp = 90_000L;
 
     @Column(nullable = false)
-    private long currentHp = 320_000L;
+    private long currentHp = 90_000L;
 
     private long attackPower = 120L;
 
-    private long attackIntervalSeconds = 190L;
+    private long attackIntervalSeconds = 100L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossInfernax implements BattleBoss {
     private String imageUrl = "images/boss_infernax.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 180_000L;
+    private long rewardBoss = 100_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 4200L;
+    private long rewardExp = 14200L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

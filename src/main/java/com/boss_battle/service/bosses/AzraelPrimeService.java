@@ -19,7 +19,7 @@ public class AzraelPrimeService {
 	private static final long MAX_INTERVAL = 1100;
 	private static final long MAX_REWARD_BOSS = 1_000_000;
 	private static final long MAX_EXP = 15000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_HP = 3_000_000;
 	
     @Autowired
     private AzraelPrimeRepository repo;
@@ -43,8 +43,8 @@ public class AzraelPrimeService {
         boss.setSpawnedAt(LocalDateTime.now());
         boss.setRespawnCooldownSeconds(14_400L); 
         boss.setSpawnCount(1);
-        boss.setRewardBoss(150_000L);
-        boss.setRewardExp(10_000L);
+        //boss.setRewardBoss(150_000L);
+       // boss.setRewardExp(10_000L);
 
         return repo.save(boss);
     }
@@ -111,7 +111,7 @@ public class AzraelPrimeService {
         
         // Limitar Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 1);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AbissalService {
 
-    private static final long MAX_ATTACK = 1500;
-    private static final long MAX_INTERVAL = 1500;
-    private static final long MAX_REWARD_BOSS = 2_000_000;
-    private static final long MAX_EXP = 30_000;
-    private static final long MAX_HP = 15_000_000;
+    private static final long MAX_ATTACK = 500;
+    private static final long MAX_INTERVAL = 500;
+    private static final long MAX_REWARD_BOSS = 500_000;
+    private static final long MAX_EXP = 70_000;
+    private static final long MAX_HP = 500_000;
 
     @Autowired
     private AbissalRepository repo;
@@ -41,8 +41,8 @@ public class AbissalService {
 
         boss.setName("SOBERANO ABISSAL");
 
-        boss.setMaxHp(100_000L);
-        boss.setCurrentHp(100_000L);
+       // boss.setMaxHp(80_000L);
+       // boss.setCurrentHp(80_000L);
 
         boss.setProcessingDeath(false);
         boss.setAlive(true);
@@ -56,8 +56,8 @@ public class AbissalService {
 
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(100_000L);
-        boss.setRewardExp(20_000L);
+       // boss.setRewardBoss(100_000L);
+       // boss.setRewardExp(10_000L);
 
         return repo.save(boss);
     }

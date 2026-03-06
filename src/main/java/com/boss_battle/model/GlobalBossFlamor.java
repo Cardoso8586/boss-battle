@@ -25,14 +25,14 @@ public class GlobalBossFlamor implements BattleBoss {
     private String name = "FLAMOR"; // nome chamativo
 
     @Column(nullable = false)
-    private long maxHp = 250_000L; // HP menor
+    private long maxHp = 50_000L; // HP menor
 
     @Column(nullable = false)
-    private long currentHp = 250_000L;
+    private long currentHp = 50_000L;
 
-    private long attackPower = 100L; // ataque proporcional
+    private long attackPower = 60L; // ataque proporcional
 
-    private long attackIntervalSeconds = 146L; // intervalo de ataque
+    private long attackIntervalSeconds = 100L; // intervalo de ataque
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossFlamor implements BattleBoss {
     private String imageUrl = "images/boss_flamor.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 80_000L; // recompensa proporcional
+    private long rewardBoss = 90_000L; // recompensa proporcional
 
     @Column(nullable = false)
-    private long rewardExp = 2500;
+    private long rewardExp = 8500;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

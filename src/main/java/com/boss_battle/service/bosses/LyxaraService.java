@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class LyxaraService {
 
-	private static final long MAX_ATTACK = 2200;
-	private static final long MAX_INTERVAL = 1200;
-	private static final long MAX_REWARD_BOSS = 1_300_000;
-	private static final long MAX_EXP = 22000;
-	private static final long MAX_HP = 12_000_000;
+	private static final long MAX_ATTACK = 1200;
+	private static final long MAX_INTERVAL = 1100;
+	private static final long MAX_REWARD_BOSS = 370_000;
+	private static final long MAX_EXP = 52000;
+	private static final long MAX_HP = 800_000;
 	
     @Autowired
     private LyxaraRepository repo;
@@ -34,8 +34,8 @@ public class LyxaraService {
         GlobalBossLyxara boss = new GlobalBossLyxara();
 
         boss.setName("LYXARA — A Soberana Sombria");
-        boss.setMaxHp(40_000L);
-        boss.setCurrentHp(40_000L);
+       // boss.setMaxHp(40_000L);
+       // boss.setCurrentHp(40_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
@@ -48,8 +48,8 @@ public class LyxaraService {
         boss.setRespawnCooldownSeconds(4800L); // 80 minutos
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(40_000L);
-        boss.setRewardExp(3000L);
+       // boss.setRewardBoss(40_000L);
+        //boss.setRewardExp(3000L);
 
         return repo.save(boss);
     }

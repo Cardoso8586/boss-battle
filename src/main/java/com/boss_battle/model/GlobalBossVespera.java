@@ -30,9 +30,9 @@ public class GlobalBossVespera implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 48_000L;
 
-    private long attackPower = 140L;
+    private long attackPower = 40L;
 
-    private long attackIntervalSeconds = 170L;
+    private long attackIntervalSeconds = 110L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossVespera implements BattleBoss {
     private String imageUrl = "images/boss_vespera.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 45_000L;
+    private long rewardBoss = 75_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 1900;
+    private long rewardExp = 11900;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

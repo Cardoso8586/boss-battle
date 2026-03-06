@@ -26,14 +26,14 @@ public class GlobalBossUmbraxis implements BattleBoss {
     private String name = "UMBRA XIS"; // nome chamativo e “show”
 
     @Column(nullable = false)
-    private long maxHp = 200_000L; // mais difícil que Azurion
+    private long maxHp = 90_000L; // mais difícil que Azurion
 
     @Column(nullable = false)
-    private long currentHp = 200_000L;
+    private long currentHp = 90_000L;
 
-    private long attackPower = 150L;
+    private long attackPower = 80L;
 
-    private long attackIntervalSeconds = 185L; // mais rápido que Azurion
+    private long attackIntervalSeconds = 125L; // mais rápido que Azurion
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -53,10 +53,10 @@ public class GlobalBossUmbraxis implements BattleBoss {
     private String imageUrl = "images/boss_umbraxis.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 100_000L; // recompensa maior
+    private long rewardBoss = 120_000L; // recompensa maior
 
     @Column(nullable = false)
-    private long rewardExp = 2500;
+    private long rewardExp = 22000;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

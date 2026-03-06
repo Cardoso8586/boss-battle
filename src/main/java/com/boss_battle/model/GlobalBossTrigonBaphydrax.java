@@ -27,15 +27,15 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
 
     // 💀 Vida colossal
     @Column(nullable = false)
-    private long maxHp = 280_000L;
+    private long maxHp = 80_000L;
 
     @Column(nullable = false)
-    private long currentHp = 280_000L;
+    private long currentHp = 80_000L;
 
     // ⚔️ Ataque brutal
-    private long attackPower = 115L;
+    private long attackPower = 95L;
 
-    private long attackIntervalSeconds = 185L;
+    private long attackIntervalSeconds = 125L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -57,10 +57,10 @@ public class GlobalBossTrigonBaphydrax implements BattleBoss {
 
     // 💰 Recompensas
     @Column(nullable = false)
-    private long rewardBoss = 75_000L;
+    private long rewardBoss = 105_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 3_500L;
+    private long rewardExp = 13_500L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

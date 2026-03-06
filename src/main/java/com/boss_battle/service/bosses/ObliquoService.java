@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ObliquoService {
 
-	private static final long MAX_ATTACK = 1500;
+	private static final long MAX_ATTACK = 500;
 	private static final long MAX_INTERVAL = 800;
-	private static final long MAX_REWARD_BOSS = 1_200_000;
-	private static final long MAX_EXP = 23000;
-	private static final long MAX_HP = 13_000_000;
+	private static final long MAX_REWARD_BOSS = 700_000;
+	private static final long MAX_EXP = 53000;
+	private static final long MAX_HP = 700_000;
 	
     @Autowired
     private ObliquoRepository repo;
@@ -31,18 +31,18 @@ public class ObliquoService {
     public GlobalBossObliquo createDefaultBoss() {
         GlobalBossObliquo boss = new GlobalBossObliquo();
         boss.setName("OBLÍQUO");
-        boss.setMaxHp(48_000L);
-        boss.setCurrentHp(48_000L);
+        //boss.setMaxHp(48_000L);
+       // boss.setCurrentHp(48_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_obliquo.webp");
         boss.setSpawnedAt(LocalDateTime.now());
-        boss.setRespawnCooldownSeconds(4800); // 80 minutos
+       // boss.setRespawnCooldownSeconds(4800); // 80 minutos
         boss.setSpawnCount(1);
         //boss.setAttackIntervalSeconds(170L);
         //boss.setAttackPower(140L);
-        boss.setRewardBoss(45_000L);
-        boss.setRewardExp(2000);
+       // boss.setRewardBoss(45_000L);
+       // boss.setRewardExp(2000);
         return repo.save(boss);
     }
 

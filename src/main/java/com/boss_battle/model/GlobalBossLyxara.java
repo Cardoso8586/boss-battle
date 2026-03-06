@@ -30,9 +30,9 @@ public class GlobalBossLyxara implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 40_000L;
 
-    private long attackPower = 140L;
+    private long attackPower = 40L;
 
-    private long attackIntervalSeconds = 142L;
+    private long attackIntervalSeconds = 100L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossLyxara implements BattleBoss {
     private String imageUrl = "images/boss_lyxara.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 40_000L;
+    private long rewardBoss = 80_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 3000;
+    private long rewardExp = 13000;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

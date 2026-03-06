@@ -30,9 +30,9 @@ public class GlobalBossOblivion implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 80_000L;
 
-    private long attackPower = 160L;
+    private long attackPower = 60L;
 
-    private long attackIntervalSeconds = 200L;
+    private long attackIntervalSeconds = 100L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossOblivion implements BattleBoss {
     private String imageUrl = "images/boss_oblivion.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 75_000L;
+    private long rewardBoss = 95_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 3000;
+    private long rewardExp = 13000;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

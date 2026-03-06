@@ -25,14 +25,14 @@ public class GlobalBossMechadron implements BattleBoss {
     private String name = "MECHADRON";
 
     @Column(nullable = false)
-    private long maxHp = 220_000L;
+    private long maxHp = 60_000L;
 
     @Column(nullable = false)
-    private long currentHp = 220_000L;
+    private long currentHp = 60_000L;
 
-    private long attackPower = 340L;
+    private long attackPower = 60L;
 
-    private long attackIntervalSeconds = 238L;
+    private long attackIntervalSeconds = 120L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -55,7 +55,7 @@ public class GlobalBossMechadron implements BattleBoss {
     private long rewardBoss = 110_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 2800L;
+    private long rewardExp = 11800L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

@@ -25,12 +25,12 @@ public class GlobalBossNoctharion implements BattleBoss {
     private String name = "NOCTHARION";
 
     @Column(nullable = false)
-    private long maxHp = 180_000L;
+    private long maxHp = 80_000L;
 
     @Column(nullable = false)
-    private long currentHp = 180_000L;
+    private long currentHp = 80_000L;
 
-    private long attackPower = 120L;
+    private long attackPower = 70L;
 
     private long attackIntervalSeconds = 130L;
 
@@ -52,10 +52,10 @@ public class GlobalBossNoctharion implements BattleBoss {
     private String imageUrl = "images/boss_noctharion.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 120_000L;
+    private long rewardBoss = 90_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 6200L;
+    private long rewardExp = 16200L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AbyssarService {
 
-	private static final long MAX_ATTACK = 3000;
-	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_000_000;
-	private static final long MAX_EXP = 15000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_ATTACK = 1000;
+	private static final long MAX_INTERVAL = 800;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 10000;
+	private static final long MAX_HP = 700_000;
 
     @Autowired
     private AbyssarRepository repo;
@@ -35,8 +35,8 @@ public class AbyssarService {
         GlobalBossAbyssar boss = new GlobalBossAbyssar();
 
         boss.setName("ABYSSAR DOMINATOR");
-        boss.setMaxHp(520_000L);
-        boss.setCurrentHp(520_000L);
+        //boss.setMaxHp(90_000L);
+       // boss.setCurrentHp(90_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
 
@@ -49,8 +49,8 @@ public class AbyssarService {
         boss.setRespawnCooldownSeconds(18_000L);
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(210_000L);
-        boss.setRewardExp(14_000L);
+        //boss.setRewardBoss(210_000L);
+       // boss.setRewardExp(14_000L);
 
         return repo.save(boss);
     }
@@ -107,7 +107,7 @@ public class AbyssarService {
           
           // Limitar Evolução do ataque
           if (valorAtaque < MAX_ATTACK) {
-              boss.setAttackPower(valorAtaque + 5);
+              boss.setAttackPower(valorAtaque + 1);
           } else {
               boss.setAttackPower(MAX_ATTACK);
           }
@@ -130,17 +130,17 @@ public class AbyssarService {
 
         long hp = boss.getMaxHp();
 
-        if (hp < 600_000L) {
+        if (hp < 200_000L) {
 
             boss.setName("ABYSSAR DOMINADOR");
             boss.setImageUrl("images/boss_evolution/boss_abyssar/boss_abyssar.webp");
 
-        } else if (hp < 850_000L) {
+        } else if (hp < 350_000L) {
 
             boss.setName("ABYSSAR, TIRANO DO VAZIO");
             boss.setImageUrl("images/boss_evolution/boss_abyssar/boss_abyssar_void.webp");
 
-        } else if (hp < 1_200_000L) {
+        } else if (hp < 500_000L) {
 
             boss.setName("ABYSSAR, MONARCA ABISSAL");
             boss.setImageUrl("images/boss_evolution/boss_abyssar/boss_abyssar_monarch.webp");

@@ -16,11 +16,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class KaelthorService {
 
-    private static final long MAX_ATTACK = 3_100;
-    private static final long MAX_INTERVAL = 1800; 
-    private static final long MAX_REWARD_BOSS = 2_000_000;
-    private static final long MAX_EXP = 25000;
-    private static final long MAX_HP = 15_000_000;
+    private static final long MAX_ATTACK = 1100;
+    private static final long MAX_INTERVAL = 1100; 
+    private static final long MAX_REWARD_BOSS = 600_000;
+    private static final long MAX_EXP = 75000;
+    private static final long MAX_HP = 950_000;
 
     @Autowired
     private KaelthorRepository repo;

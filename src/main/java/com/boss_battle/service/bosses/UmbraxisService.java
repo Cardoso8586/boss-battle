@@ -16,11 +16,11 @@ import com.boss_battle.repository.UmbraxisRepository;
 @Transactional
 public class UmbraxisService {
 
-	private static final long MAX_ATTACK = 1700;
-	private static final long MAX_INTERVAL = 600;
-	private static final long MAX_REWARD_BOSS = 1_300_000;
-	private static final long MAX_EXP = 25000;
-	private static final long MAX_HP = 9_000_000;
+	private static final long MAX_ATTACK = 700;
+	private static final long MAX_INTERVAL = 900;
+	private static final long MAX_REWARD_BOSS = 300_000;
+	private static final long MAX_EXP = 65000;
+	private static final long MAX_HP = 800_000;
 	
     @Autowired
     private UmbraxisRepository repo;
@@ -42,8 +42,8 @@ public class UmbraxisService {
          boss.setSpawnCount(1);
         // boss.setAttackIntervalSeconds(185L);
         // boss.setAttackPower(150L);
-         boss.setRewardBoss(100_000);
-         boss.setRewardExp(2500);
+         //boss.setRewardBoss(100_000);
+         //boss.setRewardExp(2500);
         return repo.save(boss);
     }
 

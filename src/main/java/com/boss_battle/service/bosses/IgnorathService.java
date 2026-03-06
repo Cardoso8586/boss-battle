@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class IgnorathService {
 
-	private static final long MAX_ATTACK = 2000;
+	private static final long MAX_ATTACK = 800;
 	private static final long MAX_INTERVAL = 1100;
-	private static final long MAX_REWARD_BOSS = 1_000_000;
-	private static final long MAX_EXP = 19000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 500_000;
+	private static final long MAX_EXP = 49000;
+	private static final long MAX_HP = 700_000;
 	
     @Autowired
     private IgnorathRepository repo;
@@ -31,8 +31,8 @@ public class IgnorathService {
     public GlobalBossIgnorath createDefaultBoss() {
     	 GlobalBossIgnorath boss = new GlobalBossIgnorath();
          boss.setName("IGNORATH");
-         boss.setMaxHp(150_000);
-         boss.setCurrentHp(150_000);
+       // boss.setMaxHp(150_000);
+        // boss.setCurrentHp(150_000);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_ignorath.webp");
@@ -41,8 +41,8 @@ public class IgnorathService {
          boss.setSpawnCount(1);
          //boss.setAttackIntervalSeconds(166L);
         // boss.setAttackPower(75L);
-         boss.setRewardBoss(75_000);
-         boss.setRewardExp(3000);
+        // boss.setRewardBoss(75_000);
+        // boss.setRewardExp(3000);
         return repo.save(boss);
     }
 

@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class TenebrisService {
 
-	private static final long MAX_ATTACK = 2100;
-	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 20000;
-	private static final long MAX_HP = 12_000_000;
+	private static final long MAX_ATTACK = 500;
+	private static final long MAX_INTERVAL = 800;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 50000;
+	private static final long MAX_HP = 600_000;
 	
     @Autowired
     private TenebrisRepository repo;
@@ -32,8 +32,8 @@ public class TenebrisService {
     public GlobalBossTenebris createDefaultBoss() {
     	GlobalBossTenebris boss = new GlobalBossTenebris();
         boss.setName("TENEBRIS");
-        boss.setMaxHp(70_000);
-        boss.setCurrentHp(70_000);
+        //boss.setMaxHp(70_000);
+       // boss.setCurrentHp(70_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_tenebris.webp");
@@ -42,8 +42,8 @@ public class TenebrisService {
         boss.setSpawnCount(1);
         //boss.setAttackIntervalSeconds(195L);
        // boss.setAttackPower(180L);
-        boss.setRewardBoss(65_000); 
-        boss.setRewardExp(2500);
+       // boss.setRewardBoss(65_000); 
+        //boss.setRewardExp(2500);
 
         return repo.save(boss);
     }

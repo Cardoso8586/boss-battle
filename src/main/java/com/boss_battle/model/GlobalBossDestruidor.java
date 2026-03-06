@@ -25,12 +25,12 @@ public class GlobalBossDestruidor implements BattleBoss {
     private String name = "DESTRUIDOR";
 
     @Column(nullable = false)
-    private long maxHp = 200_000L;
+    private long maxHp = 100_000L;
 
     @Column(nullable = false)
-    private long currentHp = 200_000L;
+    private long currentHp = 100_000L;
 
-    private long attackPower = 200L;
+    private long attackPower = 70L;
 
     private long attackIntervalSeconds = 180L;
 
@@ -55,7 +55,7 @@ public class GlobalBossDestruidor implements BattleBoss {
     private long rewardBoss = 100_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 5_000L;
+    private long rewardExp = 15_000L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

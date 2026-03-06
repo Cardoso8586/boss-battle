@@ -25,14 +25,14 @@ public class GlobalBossAbyssar implements BattleBoss {
     private String name = "ABYSSAR DOMINATOR";
 
     @Column(nullable = false)
-    private long maxHp = 520_000L;
+    private long maxHp = 90_000L;
 
     @Column(nullable = false)
-    private long currentHp = 520_000L;
+    private long currentHp = 90_000L;
 
     private long attackPower = 100L;
 
-    private long attackIntervalSeconds = 140L;
+    private long attackIntervalSeconds = 60L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

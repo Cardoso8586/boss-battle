@@ -52,10 +52,10 @@ public class GlobalBossTenebris implements BattleBoss {
     private String imageUrl = "images/boss_tenebris.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 65_000L;
+    private long rewardBoss = 85_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 2500;
+    private long rewardExp = 12500;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

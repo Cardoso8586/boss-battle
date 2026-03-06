@@ -25,12 +25,12 @@ public class GlobalBossReflexa implements BattleBoss {
     private String name = "REFLEXA";
 
     @Column(nullable = false)
-    private long maxHp = 170_000L;
+    private long maxHp = 70_000L;
 
     @Column(nullable = false)
-    private long currentHp = 170_000L;
+    private long currentHp = 70_000L;
 
-    private long attackPower = 100L;
+    private long attackPower = 80L;
 
     private long attackIntervalSeconds = 135L;
 
@@ -55,7 +55,7 @@ public class GlobalBossReflexa implements BattleBoss {
     private long rewardBoss = 90_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 2400L;
+    private long rewardExp = 12400L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

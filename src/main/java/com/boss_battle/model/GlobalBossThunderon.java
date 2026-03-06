@@ -25,14 +25,14 @@ public class GlobalBossThunderon implements BattleBoss {
     private String name = "THUNDERON";
 
     @Column(nullable = false)
-    private long maxHp = 260_000L;
+    private long maxHp = 60_000L;
 
     @Column(nullable = false)
-    private long currentHp = 260_000L;
+    private long currentHp = 60_000L;
 
-    private long attackPower = 110L;
+    private long attackPower = 90L;
 
-    private long attackIntervalSeconds = 220L;
+    private long attackIntervalSeconds = 120L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossThunderon implements BattleBoss {
     private String imageUrl = "images/boss_thunderon.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 140_000L;
+    private long rewardBoss = 100_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 3600L;
+    private long rewardExp = 13600L;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

@@ -25,14 +25,14 @@ public class GlobalBossMalphion implements BattleBoss {
     private String name = "MALPHION";
 
     @Column(nullable = false)
-    private long maxHp = 380_000L;
+    private long maxHp = 110_000L;
 
     @Column(nullable = false)
-    private long currentHp = 380_000L;
+    private long currentHp = 110_000L;
 
-    private long attackPower = 200L;
+    private long attackPower = 100L;
 
-    private long attackIntervalSeconds = 190L;
+    private long attackIntervalSeconds = 120L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -55,10 +55,10 @@ public class GlobalBossMalphion implements BattleBoss {
     //private String imageUrl = "images/boss_malphion_prime.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 140_000L;
+    private long rewardBoss = 150_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 9_000L;
+    private long rewardExp = 19_000L;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

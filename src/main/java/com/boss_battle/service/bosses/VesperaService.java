@@ -14,11 +14,11 @@ import com.boss_battle.repository.VesperaReposytory;
 @Transactional
 public class VesperaService {
 
-	private static final long MAX_ATTACK = 1500;
-	private static final long MAX_INTERVAL = 600;
-	private static final long MAX_REWARD_BOSS = 900_000;
-	private static final long MAX_EXP = 15000;
-	private static final long MAX_HP = 8_000_000;
+	private static final long MAX_ATTACK = 500;
+	private static final long MAX_INTERVAL = 900;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 65000;
+	private static final long MAX_HP = 300_000;
 	
 	
     @Autowired
@@ -31,8 +31,8 @@ public class VesperaService {
     public GlobalBossVespera createDefaultBoss() {
     	GlobalBossVespera boss = new GlobalBossVespera();
          boss.setName("VESPERA");
-         boss.setMaxHp(48_000L);
-         boss.setCurrentHp(48_000L);
+         //boss.setMaxHp(48_000L);
+        // boss.setCurrentHp(48_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_vespera.webp");
@@ -41,8 +41,8 @@ public class VesperaService {
          boss.setSpawnCount(1);
          //boss.setAttackIntervalSeconds(170L);
          //boss.setAttackPower(140L);
-         boss.setRewardBoss(45_000L);
-         boss.setRewardExp(1900L);
+        // boss.setRewardBoss(45_000L);
+        // boss.setRewardExp(1900L);
         return repo.save(boss);
     }
 

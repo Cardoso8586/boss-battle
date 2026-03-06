@@ -16,11 +16,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NightmareService {
 
-	private static final long MAX_ATTACK = 2000;
+	private static final long MAX_ATTACK = 1100;
 	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 600_000;
+	private static final long MAX_EXP = 58000;
+	private static final long MAX_HP = 800_000;
 	
     @Autowired
     private NightmareRepository repo;
@@ -39,8 +39,8 @@ public class NightmareService {
     	GlobalBossNightmare boss = new GlobalBossNightmare();
 
         boss.setName("NIGHTMARE");
-        boss.setMaxHp(250_000);
-        boss.setCurrentHp(250_000);
+        //boss.setMaxHp(250_000);
+       // boss.setCurrentHp(250_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_nightmare.webp");
@@ -49,8 +49,8 @@ public class NightmareService {
         boss.setSpawnCount(1);
        // boss.setAttackPower(240L);
         //boss.setAttackIntervalSeconds(180L);
-        boss.setRewardBoss(150_000);
-        boss.setRewardExp(3000);
+       // boss.setRewardBoss(150_000);
+       // boss.setRewardExp(3000);
 
         return repo.save(boss);
     }

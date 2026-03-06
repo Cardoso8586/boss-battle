@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class MorvathService {
 
-	private static final long MAX_ATTACK = 2700;
+	private static final long MAX_ATTACK = 700;
 	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 58000;
+	private static final long MAX_HP = 750_000;
 	
     @Autowired
     private MorvathRepository repo;
@@ -31,8 +31,8 @@ public class MorvathService {
     public GlobalBossMorvath createDefaultBoss() {
         GlobalBossMorvath boss = new GlobalBossMorvath();
         boss.setName("MORVATH");
-        boss.setMaxHp(50_000L);
-        boss.setCurrentHp(50_000L);
+        //boss.setMaxHp(50_000L);
+       // boss.setCurrentHp(50_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_morvath.webp");
@@ -41,8 +41,8 @@ public class MorvathService {
         boss.setSpawnCount(1);
        // boss.setAttackPower(340L);
         //boss.setAttackIntervalSeconds(238L);
-        boss.setRewardBoss(50_000L);
-        boss.setRewardExp(2200);
+       // boss.setRewardBoss(50_000L);
+        //boss.setRewardExp(2200);
         return repo.save(boss);
     }
 

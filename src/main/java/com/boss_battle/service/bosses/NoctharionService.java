@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NoctharionService {
 
-	private static final long MAX_ATTACK = 1700;
-	private static final long MAX_INTERVAL = 1000;
-	private static final long MAX_REWARD_BOSS = 1_100_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_ATTACK = 800;
+	private static final long MAX_INTERVAL = 1200;
+	private static final long MAX_REWARD_BOSS = 700_000;
+	private static final long MAX_EXP = 68000;
+	private static final long MAX_HP = 700_000;
     @Autowired
     private NoctharionRepository repo;
 
@@ -33,8 +33,8 @@ public class NoctharionService {
     	GlobalBossNoctharion boss = new GlobalBossNoctharion();
 
         boss.setName("NOCTHARION");
-        boss.setMaxHp(180_000L);
-        boss.setCurrentHp(180_000L);
+        //boss.setMaxHp(180_000L);
+        //boss.setCurrentHp(180_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_noctharion.webp");
@@ -43,8 +43,8 @@ public class NoctharionService {
         boss.setSpawnCount(1);
         //boss.setAttackPower(320L);
         //boss.setAttackIntervalSeconds(230L);
-        boss.setRewardBoss(120_000L);
-        boss.setRewardExp(6200L);
+       // boss.setRewardBoss(120_000L);
+        //boss.setRewardExp(6200L);
 
         return repo.save(boss);
     }

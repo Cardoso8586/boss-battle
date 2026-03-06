@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class GlaciaraService {
 
-	private static final long MAX_ATTACK = 3000;
+	private static final long MAX_ATTACK = 900;
 	private static final long MAX_INTERVAL = 1200;
-	private static final long MAX_REWARD_BOSS = 1_500_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 11_000_000;
+	private static final long MAX_REWARD_BOSS = 350_000;
+	private static final long MAX_EXP = 78000;
+	private static final long MAX_HP = 500_000;
 	
     @Autowired
     private GlaciaraRepository repo;
@@ -31,8 +31,8 @@ public class GlaciaraService {
     public GlobalBossGlaciara createDefaultBoss() {
     	GlobalBossGlaciara boss = new GlobalBossGlaciara();
          boss.setName("GLACIARA - RAINHA DO GELO");
-         boss.setMaxHp(65_000L);
-         boss.setCurrentHp(65_000L);
+         //boss.setMaxHp(65_000L);
+        // boss.setCurrentHp(65_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_glaciara.webp");
@@ -41,8 +41,8 @@ public class GlaciaraService {
          boss.setSpawnCount(1);
          //boss.setAttackPower(175L);
         /// boss.setAttackIntervalSeconds(190L);
-         boss.setRewardBoss(60_000L);
-         boss.setRewardExp(2400L);
+        // boss.setRewardBoss(60_000L);
+        // boss.setRewardExp(2400L);
         return repo.save(boss);
     }
 

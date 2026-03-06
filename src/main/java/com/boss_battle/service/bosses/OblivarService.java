@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class OblivarService {
 
-	private static final long MAX_ATTACK = 1800;
+	private static final long MAX_ATTACK = 800;
 	private static final long MAX_INTERVAL = 1100;
-	private static final long MAX_REWARD_BOSS = 1_200_000;
-	private static final long MAX_EXP = 25000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 65000;
+	private static final long MAX_HP = 800_000;
     @Autowired
     private OblivarRepository repo;
 
@@ -37,8 +37,8 @@ public class OblivarService {
     	GlobalBossOblivar boss = new GlobalBossOblivar();
 
         boss.setName("OBLIVAR");
-        boss.setMaxHp(35_000);
-        boss.setCurrentHp(35_000);
+        //boss.setMaxHp(35_000);
+        //boss.setCurrentHp(35_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_oblivar.webp");
@@ -47,8 +47,8 @@ public class OblivarService {
         boss.setSpawnCount(1);
         //boss.setAttackIntervalSeconds(148L);
         //boss.setAttackPower(120L);
-        boss.setRewardBoss(30_000);
-        boss.setRewardExp(1650);
+        //boss.setRewardBoss(30_000);
+        //boss.setRewardExp(1650);
 
         return repo.save(boss);
     }

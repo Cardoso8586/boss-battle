@@ -30,9 +30,9 @@ public class GlobalBossNoxar implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 50_000L;
 
-    private long attackPower = 80L;
+    private long attackPower = 50L;
 
-    private long attackIntervalSeconds = 140L;
+    private long attackIntervalSeconds = 90L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossNoxar implements BattleBoss {
     private String imageUrl = "images/boss_noxar.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 50_000L;
+    private long rewardBoss = 70_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 2200;
+    private long rewardExp = 12200;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

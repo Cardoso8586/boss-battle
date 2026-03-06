@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NecrotharService {
 
-    private static final long MAX_ATTACK = 1500;
+    private static final long MAX_ATTACK = 500;
     private static final long MAX_INTERVAL = 1000;
-    private static final long MAX_REWARD_BOSS = 1_100_000;
-    private static final long MAX_EXP = 19000;
-    private static final long MAX_HP = 12_000_000;
+    private static final long MAX_REWARD_BOSS = 500_000;
+    private static final long MAX_EXP = 79000;
+    private static final long MAX_HP = 950_000;
 
     @Autowired
     private NecrotharRepository repo;
@@ -39,8 +39,8 @@ public class NecrotharService {
         GlobalBossNecrothar boss = new GlobalBossNecrothar();
 
         boss.setName("NECROTHAR, TIRANO DO ABISMO");
-        boss.setMaxHp(640_000L);
-        boss.setCurrentHp(640_000L);
+       // boss.setMaxHp(640_000L);
+       // boss.setCurrentHp(640_000L);
 
         boss.setProcessingDeath(false);
         boss.setAlive(true);
@@ -52,8 +52,8 @@ public class NecrotharService {
         boss.setRespawnCooldownSeconds(19_800L);
         boss.setSpawnCount(1);
 
-        boss.setRewardBoss(260_000L);
-        boss.setRewardExp(18_000L);
+        //boss.setRewardBoss(260_000L);
+       // boss.setRewardExp(18_000L);
 
         return repo.save(boss);
     }

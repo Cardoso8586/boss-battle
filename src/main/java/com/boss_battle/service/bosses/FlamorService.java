@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class FlamorService {
 
-	private static final long MAX_ATTACK = 3700;
+	private static final long MAX_ATTACK = 700;
 	private static final long MAX_INTERVAL = 1100;
-	private static final long MAX_REWARD_BOSS = 1_300_000;
-	private static final long MAX_EXP = 18000;
-	private static final long MAX_HP = 9_000_000;
+	private static final long MAX_REWARD_BOSS = 300_000;
+	private static final long MAX_EXP = 46000;
+	private static final long MAX_HP = 850_000;
 	
     @Autowired
     private FlamorRepository repo;
@@ -31,8 +31,8 @@ public class FlamorService {
     public GlobalBossFlamor createDefaultBoss() {
     	GlobalBossFlamor boss = new GlobalBossFlamor();
          boss.setName("FLAMOR");
-         boss.setMaxHp(250_000L);
-         boss.setCurrentHp(250_000L);
+         //boss.setMaxHp(250_000L);
+        // boss.setCurrentHp(250_000L);
          boss.setProcessingDeath(false);
          boss.setAlive(true);
          boss.setImageUrl("images/boss_flamor.webp");
@@ -41,8 +41,8 @@ public class FlamorService {
          boss.setSpawnCount(1);
         // boss.setAttackIntervalSeconds(146L);
         // boss.setAttackPower(100L);
-         boss.setRewardBoss(80_000L);
-         boss.setRewardExp(2500L);
+        // boss.setRewardBoss(80_000L);
+        // boss.setRewardExp(2500L);
         return repo.save(boss);
     }
 

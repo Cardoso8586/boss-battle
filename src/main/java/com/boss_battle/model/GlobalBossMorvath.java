@@ -32,7 +32,7 @@ public class GlobalBossMorvath implements BattleBoss {
 
     private long attackPower = 100L;
 
-    private long attackIntervalSeconds = 160L;
+    private long attackIntervalSeconds = 110L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,10 +52,10 @@ public class GlobalBossMorvath implements BattleBoss {
     private String imageUrl = "images/boss_morvath.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 50_000L;
+    private long rewardBoss = 80_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 2200;
+    private long rewardExp = 12200;
 
     @Column(nullable = false)
     private boolean processingDeath = false;

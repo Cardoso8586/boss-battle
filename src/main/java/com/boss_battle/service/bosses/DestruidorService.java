@@ -16,11 +16,11 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class DestruidorService  {
-	private static final long MAX_ATTACK = 3500;
-	private static final long MAX_INTERVAL = 1500;
-	private static final long MAX_REWARD_BOSS = 1_300_000;
-	private static final long MAX_EXP = 16000;
-	private static final long MAX_HP = 10_000_000;
+	private static final long MAX_ATTACK = 800;
+	private static final long MAX_INTERVAL = 500;
+	private static final long MAX_REWARD_BOSS = 300_000;
+	private static final long MAX_EXP = 56000;
+	private static final long MAX_HP = 800_000;
     @Autowired
     private DestruidorRepository repo;
 

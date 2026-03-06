@@ -20,10 +20,10 @@ public class GlobalBossAbissal implements BattleBoss {
     private String name = "SOBERANO ABISSAL";
 
     @Column(nullable = false)
-    private long maxHp = 100_000L;
+    private long maxHp = 80_000L;
 
     @Column(nullable = false)
-    private long currentHp = 100_000L;
+    private long currentHp = 80_000L;
 
     private long attackPower = 90L;
 

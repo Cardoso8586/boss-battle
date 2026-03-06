@@ -31,9 +31,9 @@ public class GlobalBossUmbrar implements BattleBoss {
     @Column(nullable = false)
     private long currentHp = 42_000L;
 
-    private long attackPower = 130L;
+    private long attackPower = 30L;
 
-    private long attackIntervalSeconds = 150L;
+    private long attackIntervalSeconds = 90L;
 
     @Column(columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -53,10 +53,10 @@ public class GlobalBossUmbrar implements BattleBoss {
     private String imageUrl = "images/boss_umbrar.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 40_000L;
+    private long rewardBoss = 80_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 1800;
+    private long rewardExp = 11800;
     
     @Column(nullable = false)
     private boolean processingDeath = false;

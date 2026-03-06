@@ -16,11 +16,11 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class MalphionService  {
-	private static final long MAX_ATTACK = 4000;
-	private static final long MAX_INTERVAL = 1500;
-	private static final long MAX_REWARD_BOSS = 1_000_000;
-	private static final long MAX_EXP = 15000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_ATTACK = 1500;
+	private static final long MAX_INTERVAL = 1200;
+	private static final long MAX_REWARD_BOSS = 600_000;
+	private static final long MAX_EXP = 45000;
+	private static final long MAX_HP = 700_000;
     @Autowired
     private MalphionRepository repo;
 
@@ -34,8 +34,8 @@ public class MalphionService  {
     	GlobalBossMalphion boss = new GlobalBossMalphion();
 
         boss.setName("DESTRUIDOR");
-        boss.setMaxHp(380_000L);
-        boss.setCurrentHp(380_000L);
+        //boss.setMaxHp(380_000L);
+       // boss.setCurrentHp(380_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
        // boss.setAttackPower(200L);
@@ -45,8 +45,8 @@ public class MalphionService  {
         boss.setRespawnCooldownSeconds(15_000L); 
         boss.setSpawnCount(1);
         
-        boss.setRewardBoss(140_000L);
-        boss.setRewardExp(9_000L);
+        //boss.setRewardBoss(140_000L);
+        //boss.setRewardExp(9_000L);
 
         return repo.save(boss);
     }

@@ -34,7 +34,7 @@ public class FaucetPayService {
     private String apiKey;
 
     private static final BigDecimal BOSS_POR_USDT = new BigDecimal("10000000");
-    private static final BigDecimal BOSS_MINIMO = new BigDecimal("100000");
+    private static final BigDecimal BOSS_MINIMO = new BigDecimal("20000");
 
     private final UsuarioBossBattleRepository usuarioRepo;
     private final CoinPriceService coinPriceService;

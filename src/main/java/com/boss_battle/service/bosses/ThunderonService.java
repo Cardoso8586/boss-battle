@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ThunderonService {
 
-	private static final long MAX_ATTACK = 2300;
-	private static final long MAX_INTERVAL = 900;
-	private static final long MAX_REWARD_BOSS = 1_300_000;
-	private static final long MAX_EXP = 25000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_ATTACK = 1300;
+	private static final long MAX_INTERVAL = 1500;
+	private static final long MAX_REWARD_BOSS = 500_000;
+	private static final long MAX_EXP = 65000;
+	private static final long MAX_HP = 700_000;
 	
     @Autowired
     private ThunderonRepository repo;
@@ -31,8 +31,8 @@ public class ThunderonService {
     public GlobalBossThunderon createDefaultBoss() {
     	GlobalBossThunderon boss = new GlobalBossThunderon();
         boss.setName("THUNDERON");
-        boss.setMaxHp(260_000L);
-        boss.setCurrentHp(260_000L);
+        //boss.setMaxHp(260_000L);
+       // boss.setCurrentHp(260_000L);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_thunderon.webp");
@@ -41,8 +41,8 @@ public class ThunderonService {
         boss.setSpawnCount(1);
        // boss.setAttackIntervalSeconds(220L);
        // boss.setAttackPower(160L);
-        boss.setRewardBoss(140_000L);
-        boss.setRewardExp(3600);
+       // boss.setRewardBoss(140_000L);
+        //boss.setRewardExp(3600);
         return repo.save(boss);
     }
 

@@ -15,11 +15,11 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class TrigonBaphydraxService {
 
-	private static final long MAX_ATTACK = 2800;
+	private static final long MAX_ATTACK = 800;
 	private static final long MAX_INTERVAL = 1300;
-	private static final long MAX_REWARD_BOSS = 1_700_000;
-	private static final long MAX_EXP = 25000;
-	private static final long MAX_HP = 15_000_000;
+	private static final long MAX_REWARD_BOSS = 700_000;
+	private static final long MAX_EXP = 45000;
+	private static final long MAX_HP = 880_000;
     @Autowired
     private TrigonBaphydraxRepository repo;
 
@@ -31,8 +31,8 @@ public class TrigonBaphydraxService {
     public GlobalBossTrigonBaphydrax createDefaultBoss() {
     	GlobalBossTrigonBaphydrax boss = new GlobalBossTrigonBaphydrax();
         boss.setName("TRÍGON BAPHYDRAX");
-        boss.setMaxHp(280_000);
-        boss.setCurrentHp(280_000);
+       // boss.setMaxHp(280_000);
+        //boss.setCurrentHp(280_000);
         boss.setProcessingDeath(false);
         boss.setAlive(true);
         boss.setImageUrl("images/boss_trigon_baphydrax.webp");
@@ -41,8 +41,8 @@ public class TrigonBaphydraxService {
         boss.setSpawnCount(1);
         //boss.setAttackPower(180L);
        // boss.setAttackIntervalSeconds(185L);
-        boss.setRewardBoss(75_000); 
-        boss.setRewardExp(3_500);
+       // boss.setRewardBoss(75_000); 
+        //boss.setRewardExp(3_500);
 
         return repo.save(boss);
     }
