@@ -60,22 +60,22 @@ document.addEventListener("DOMContentLoaded", () => {
 			customClass: {      
 			title: 'swal-game-text'
 			},
+			
             title: 'Confirmar Reivindicação?',
-            text: `Você irá receber ${ganhosPendentes.toFixed(1)} Boss.`,
-            icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Sim, reivindicar!',
             cancelButtonText: 'Cancelar',
 			html: `
-								      <div class="modal-anuncio">
-								        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-								          width="468"
-								          height="60"
-								          scrolling="no"
-								          frameborder="0">
-								        </iframe>
-								      </div>
-								    `,
+			  Você irá receber ${formatarNumero(ganhosPendentes.toFixed(1))} Boss.
+			  <div class="modal-anuncio">
+			    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			      width="468"
+			      height="60"
+			      scrolling="no"
+			      frameborder="0">
+			    </iframe>
+			  </div>
+			`,
 			background: 'transparent',
 			color: '#ffb400'
         }).then(async (result) => {
@@ -103,6 +103,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				    title: 'Sucesso!',
 				    text: 'Seus ganhos foram reivindicados!',
 				    icon: 'success',
+					html: `
+													      <div class="modal-anuncio">
+													        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+													          width="468"
+													          height="60"
+													          scrolling="no"
+													          frameborder="0">
+													        </iframe>
+													      </div>
+													    `,
 					background: 'transparent',
 				    color: '#ffb400',
 				    confirmButtonColor: '#00ff88'

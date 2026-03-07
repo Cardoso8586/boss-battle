@@ -204,11 +204,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Solicitar e-mail
       const { value: email } = await Swal.fire({
           customClass: { title: 'swal-game-text' },
-          html: maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : '',
+         // html: maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : '', 
           title: `Retirar ${formatar(valorMoeda, moeda)} ${moeda}`,
           input: 'email',
           inputLabel: 'E-mail FaucetPay',
           inputValue: emailUsuario,
+		  html: `
+		    ${maxAtingido ? `<p style="color: #ffb400;">${maxAtingido}</p>` : ''}
+		    <div class="modal-anuncio">
+		      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+		        width="468"
+		        height="60"
+		        scrolling="no"
+		        frameborder="0">
+		      </iframe>
+		    </div>
+		  `,
           showCancelButton: true,
           background: '#0b0f14'
       });
@@ -239,6 +250,15 @@ document.addEventListener('DOMContentLoaded', async () => {
               icon: 'success',
               title: 'Sucesso',
               text: data.message,
+			  html: `
+			  <div class="modal-anuncio">
+			  <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			  width="468"
+			  height="60"
+			  scrolling="no"
+			  frameborder="0">
+			  </iframe>
+			  </div>`,
               timer: 8000,
               background: 'transparent',
               color: '#ffb400'
@@ -251,7 +271,15 @@ document.addEventListener('DOMContentLoaded', async () => {
               customClass: { title: 'swal-game-error' },
               icon: 'error',
               title: 'Erro',
-              text: err.message,
+			  html: err.message + `
+			  		  <div class="modal-anuncio">
+			  		  <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			  		  width="468"
+			  		  height="60"
+			  		  scrolling="no"
+			  		  frameborder="0">
+			  		  </iframe>
+			  		  </div>`,
               timer: 8000,
               background: 'transparent',
               color: '#ff3b3b'
