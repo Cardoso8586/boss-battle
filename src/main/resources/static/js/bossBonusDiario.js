@@ -180,11 +180,14 @@ function verificarBonus(usuarioId) {
     })
 
     .catch(() => {
-
+	  
       Swal.fire({
+		customClass: {title: 'swal-game-error'},
         icon: 'error',
         title: 'Erro',
-        text: 'Erro ao verificar bônus'
+        text: 'Erro ao verificar bônus',
+		background: 'transparent',
+	    color: '#ff3b3b'
       });
 
     });
@@ -296,9 +299,12 @@ function configurarBotaoBonus(usuarioId) {
         btn.innerText = "Coletar Bônus";
 
         Swal.fire({
+		 customClass: {title: 'swal-game-error'},
           icon: 'error',
           title: 'Erro',
-          text: 'Falha ao coletar bônus'
+          text: 'Falha ao coletar bônus',
+		  background: 'transparent',
+		  color: '#ff3b3b'
         });
 
       });

@@ -136,7 +136,7 @@ attackBtn.addEventListener("click", async () => {
     attackBtn.disabled = true;
 
     const textoOriginal = attackBtn.innerText;
-    const tempoAtaque = 6; // ⏱️ tempo "atacando" (segundos)
+    const tempoAtaque = 10; // ⏱️ tempo "atacando" (segundos)
     let restante = tempoAtaque;
 
     // ⏳ texto inicial
@@ -145,14 +145,23 @@ attackBtn.addEventListener("click", async () => {
 
 	
 	// abre o alerta UMA VEZ
-	Swal.fire({
+	  Swal.fire({
 	  title: `Preparando para atacar!`,
-	 // title: `Preparando para atacar! ${restante}s`,
 	  showConfirmButton: false,
 	  background: 'transparent',
 	  color: '#ffb400',
+	  html: `
+	    <div class="modal-anuncio">
+	      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+	        width="468"
+	        height="60"
+	        scrolling="no"
+	        frameborder="0">
+	      </iframe>
+	    </div>
+	  `,
 	  customClass: {
-	      title: 'swal-game-text'
+	  title: 'swal-game-text'
 	    },
 	  
 	  allowOutsideClick: false,

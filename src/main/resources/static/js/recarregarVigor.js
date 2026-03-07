@@ -41,6 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					icon: 'error',
 					title: 'Erro',
 					text: 'Não foi possível recarregar o Vigor.',
+					html: `
+					    <div class="modal-anuncio">
+					      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+					        width="468"
+					        height="60"
+					        scrolling="no"
+					        frameborder="0">
+					      </iframe>
+					    </div>
+					  `,
 					confirmButtonText: 'Ok',
 					background: 'transparent',
 					color: '#ff3b3b '      
@@ -59,10 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
 				      title: 'swal-game-text'
 				    },
 			  title: 'Vigor restaurado!',
+			  html: `
+			  		      <div class="modal-anuncio">
+			  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			  		          width="468"
+			  		          height="60"
+			  		          scrolling="no"
+			  		          frameborder="0">
+			  		        </iframe>
+			  		      </div>
+			  		    `,
 			  timer: 7000,
 			  showConfirmButton: false,
 			  background: 'transparent',
 			  color: '#ffb400'
+			
 			});
 
 
