@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="/css/section-promocoes.css">
     <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">  
     <link rel="stylesheet" href="/css/anuncios.css"> 
+    <link rel="stylesheet" href="/css/bossBonusDiario.css"> 
+   
    
        
  
@@ -40,6 +42,8 @@
     <meta name="user-id" th:content="${idUsuario}" />
 </head>
 <body>
+
+
     <!-- Barra de menu -->
     <header class="menu-bar">
         <div class="logo">
@@ -221,6 +225,8 @@ gurações -->
 
    -->      
     </header>
+
+
 
 <main>
 <!-- Seção do boss -->
@@ -1551,11 +1557,34 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
 
 </section>
 
+
+
+
+
+
     
 </main>
 
 
+<!-- Modal Bônus Diário -->
+<div id="bonusModal" class="modal">
 
+  <div class="modal-content">
+
+    <span class="close">&times;</span>
+
+    <h2>Recompensa Diária</h2>
+
+    <p id="bonusMensagem"></p>
+
+    <button id="btnColetarBonus">
+      ⚔️ Coletar Recompensa
+    </button>
+
+  </div>
+
+</div>
+<!-- Modal Bônus Diário -->
 
 
 
@@ -1567,8 +1596,9 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     </div>
 </footer>
 
-    <script src="/js/loading.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/bossBonusDiario.js" defer></script>
+    <script src="/js/loading.js"></script>
     <script src="/js/sessionTimeOut.js" defer></script>
     <script src="/js/loadBoss.js"></script>  
     <script src="/js/dashboard.js"></script>
@@ -1612,6 +1642,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>
      <script src="/js/ultimoAtaqueBoss.js" defer></script>
+   
    
 
 

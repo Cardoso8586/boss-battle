@@ -25,6 +25,7 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
+import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
@@ -67,6 +68,7 @@ import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
+import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
@@ -125,6 +127,8 @@ public class GlobalBossService {
     private final NecrotharService necrotharService;
     private final KaelthorService kaelthorService;
     private final AbissalService abissalService;
+    private final  LeviatanAbismoService leviatanAbismoService;
+    
     
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
@@ -176,7 +180,7 @@ public class GlobalBossService {
             NecrotharService necrotharService,
             KaelthorService kaelthorService,
             AbissalService abissalService,
-          
+            LeviatanAbismoService leviatanAbismoService,
             
             //Outros Services--->
             BossDamageLogRepository damageLogRepo,
@@ -231,6 +235,9 @@ public class GlobalBossService {
         this.necrotharService = necrotharService;
         this.kaelthorService = kaelthorService; 
         this.abissalService = abissalService;
+        this.leviatanAbismoService = leviatanAbismoService;
+        
+        
         this.spawRandomBossService = spawRandomBossService;
     }
 
@@ -270,6 +277,7 @@ public class GlobalBossService {
         if (necrotharService.get().isAlive()) return necrotharService.get();
         if (kaelthorService.get().isAlive()) return kaelthorService.get();
         if (abissalService.get().isAlive()) return abissalService.get();
+        if (leviatanAbismoService.get().isAlive()) return leviatanAbismoService.get();
         
         
         return spawRandomBossService.spawnRandomBoss();
@@ -439,6 +447,10 @@ public class GlobalBossService {
         resultado = tryHitBoss("SOBERANO ABISSAL", abissalService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("LEVIATÃ DO ABISMO", leviatanAbismoService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        
         
         //===============================================================================
         //===============================================================================
@@ -507,7 +519,7 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossNecrothar) necrotharService.save((GlobalBossNecrothar) boss);
             if (boss instanceof GlobalBossKaelthor) kaelthorService.save((GlobalBossKaelthor) boss);
             if (boss instanceof GlobalBossAbissal) abissalService.save((GlobalBossAbissal) boss);
-            
+            if (boss instanceof GlobalBossLeviatanAbismo) leviatanAbismoService.save((GlobalBossLeviatanAbismo) boss);
             
             registrarDano(bossName, usuario, damage);
 

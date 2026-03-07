@@ -15,6 +15,7 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
+import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
@@ -47,6 +48,7 @@ import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
+import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
@@ -105,7 +107,7 @@ public class KillAllBossesService {
 	    private final NecrotharService necrotharService;
 	    private final KaelthorService kaelthorService;
 	    private final AbissalService abissalService;
-	    
+	    private final  LeviatanAbismoService leviatanAbismoService;
 	 
 	  
 
@@ -142,8 +144,8 @@ public class KillAllBossesService {
 	            AbyssarService abyssarService,
 	            NecrotharService necrotharService,
 	            KaelthorService kaelthorService,
-	            AbissalService abissalService
-	            
+	            AbissalService abissalService,
+	            LeviatanAbismoService leviatanAbismoService
 	            
 	         
 	    ) {
@@ -181,6 +183,7 @@ public class KillAllBossesService {
 	        this.necrotharService = necrotharService;
 	        this.kaelthorService = kaelthorService; 
 	        this.abissalService = abissalService;
+	        this.leviatanAbismoService = leviatanAbismoService;
 	      
 	    }
 
@@ -217,7 +220,11 @@ public class KillAllBossesService {
 	    	GlobalBossNecrothar nthr = necrotharService.get();
 	    	GlobalBossKaelthor kael = kaelthorService.get();
 	    	GlobalBossAbissal abis = abissalService.get();
+	    	GlobalBossLeviatanAbismo levi = leviatanAbismoService.get();
 	    	
+	    	
+	    	levi.setAlive(false);
+	    	levi.setProcessingDeath(false);
 	    	
 	    	abis.setAlive(false);
 	    	abis.setProcessingDeath(false);
@@ -347,6 +354,7 @@ public class KillAllBossesService {
 	        necrotharService.save(nthr);
 	        kaelthorService.save(kael);
 	        abissalService.save(abis);
+	        leviatanAbismoService.save(levi);
 	    }
 
 	

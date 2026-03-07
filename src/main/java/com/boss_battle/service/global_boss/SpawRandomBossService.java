@@ -20,6 +20,7 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
+import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
@@ -52,6 +53,7 @@ import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
+import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
@@ -115,7 +117,7 @@ public class SpawRandomBossService {
 	    private final NecrotharService necrotharService;
 	    private final KaelthorService kaelthorService;
 	    private final AbissalService abissalService;
-	    
+	    private final  LeviatanAbismoService leviatanAbismoService;
 	 
 	    private final Random random = new Random();
 
@@ -155,7 +157,8 @@ public class SpawRandomBossService {
 	            AbyssarService abyssarService,
 	            NecrotharService necrotharService,
 	            KaelthorService kaelthorService,
-	            AbissalService abissalService
+	            AbissalService abissalService,
+	            LeviatanAbismoService leviatanAbismoService
 	            
 	            
 	           
@@ -195,6 +198,7 @@ public class SpawRandomBossService {
 	        this.necrotharService = necrotharService;
 	        this.kaelthorService = kaelthorService; 
 	        this.abissalService = abissalService;
+	        this.leviatanAbismoService = leviatanAbismoService;
 	      
 	    }
 
@@ -204,7 +208,7 @@ public class SpawRandomBossService {
 	      KillAllBossesService.killAllBosses();
 	     
 	        
-	        int choice = random.nextInt(30);
+	        int choice = random.nextInt(31);
 	        BattleBoss newBoss;
 
 	        switch (choice) {
@@ -558,6 +562,18 @@ public class SpawRandomBossService {
 	            	abis.setCurrentHp(abis.getMaxHp());
 	            	abis.setSpawnedAt(LocalDateTime.now());
 	            	abissalService.save(abis);
+	            	newBoss = abis;
+
+	            }
+	            
+	            case 32 -> {
+	            	GlobalBossLeviatanAbismo abis = leviatanAbismoService.get();
+	            	leviatanAbismoService.aplicarEscalamentoLeviatanAbismo(abis);
+	            	abis.setProcessingDeath(false);
+	            	abis.setAlive(true);
+	            	abis.setCurrentHp(abis.getMaxHp());
+	            	abis.setSpawnedAt(LocalDateTime.now());
+	            	leviatanAbismoService.save(abis);
 	            	newBoss = abis;
 
 	            }

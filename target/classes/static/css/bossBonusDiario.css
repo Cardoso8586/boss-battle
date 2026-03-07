@@ -1,0 +1,223 @@
+/* Fundo escuro do modal */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:9999;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.75);
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+.modal::after{
+  content:"";
+  position:absolute;
+  bottom:10px;
+  left:0;
+  width:100%;
+  height:40px;
+
+  background-image:
+   url("/icones/boss_coin.webp"),
+    url("/icones/boss_coin.webp"),
+    url("/icones/boss_coin.webp");
+
+  background-size:22px 22px;
+  background-repeat:no-repeat;
+
+  background-position:
+    40% 0,
+    50% 0,
+    60% 0;
+
+  animation:moedas 3s linear infinite;
+  opacity:0.4;
+}
+
+@keyframes moedas{
+
+  from{
+    transform:translateY(20px);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(-40px);
+    opacity:1;
+  }
+
+}
+
+
+.modal-content h2::before{
+  content:"";
+  display:inline-block;
+
+  width:70px;
+  height:22px;
+
+  margin-right:8px;
+
+  background-image:
+    url("/icones/boss_coin.webp"),
+    url("/icones/boss_coin.webp"),
+    url("/icones/boss_coin.webp");
+
+  background-size:22px 22px;
+  background-repeat:no-repeat;
+
+  background-position:
+    0 0,
+    24px 0,
+    48px 0;
+
+  animation:balanco 1s infinite alternate;
+}
+
+@keyframes balanco{
+ from{transform:rotate(-5deg)}
+ to{transform:rotate(5deg)}
+}
+/* quando o modal abre */
+.modal.show{
+  display:flex;
+}
+
+/* caixa do modal */
+.modal-content{
+  background:linear-gradient(180deg,#1e1e2f,#141421);
+  color:#fff;
+  padding:30px;
+  border-radius:12px;
+  text-align:center;
+  width:350px;
+  max-width:95%;
+  box-shadow:0 0 25px rgba(255,215,0,0.4);
+  animation:aparecer 0.4s ease, brilho 2s infinite alternate;
+}
+
+/* brilho estilo recompensa */
+@keyframes brilho{
+  from{
+    box-shadow:0 0 15px rgba(255,215,0,0.3);
+  }
+  to{
+    box-shadow:0 0 35px rgba(255,215,0,0.8);
+  }
+}
+
+/* título */
+.modal-content h2{
+  color:#ffd700;
+  font-size:26px;
+  margin-bottom:15px;
+}
+
+/* texto */
+#bonusMensagem{
+  font-size:16px;
+  line-height:1.4;
+}
+
+/* botão */
+#btnColetarBonus{
+  margin-top:20px;
+  padding:12px 20px;
+  background:linear-gradient(90deg,#ff8c00,#ffd700);
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+  font-size:16px;
+}
+
+#btnColetarBonus:hover{
+  transform:scale(1.05);
+}
+
+/* botão fechar */
+.close{
+  float:right;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* animação aparecer */
+@keyframes aparecer{
+  from{
+    transform:scale(0.7);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* animação quando coleta bônus */
+.bonus-coletado{
+  animation:pulse 0.5s ease;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+
+/* números destacados */
+.numero-destaque{
+  color:#FFD700;
+  font-weight:bold;
+  font-size:1.1em;
+}
+
+/* -------------------- */
+/* RESPONSIVO */
+/* -------------------- */
+
+/* celular */
+@media (max-width:480px){
+
+  .modal-content{
+    width:100%;
+    padding:22px;
+  }
+
+  .modal-content h2{
+    font-size:22px;
+  }
+
+  #bonusMensagem{
+    font-size:15px;
+  }
+
+  #btnColetarBonus{
+    width:100%;
+    padding:14px;
+    font-size:17px;
+  }
+
+}
+
+/* tablets */
+@media (max-width:768px){
+
+  .modal-content{
+    width:90%;
+  }
+
+}
+
+/* telas grandes */
+@media (min-width:1200px){
+
+  .modal-content{
+    width:380px;
+  }
+
+}

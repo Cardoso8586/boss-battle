@@ -2,6 +2,7 @@ package com.boss_battle.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,6 +22,17 @@ public class UsuarioBossBattle  {
 
     @Column(name = "created_at", columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
+    
+    private LocalDate dataUltimaColeta;
+    
+    // getters e setters para dataUltimaColeta
+    public LocalDate getDataUltimaColeta() {
+        return dataUltimaColeta;
+    }
+
+    public void setDataUltimaColeta(LocalDate dataUltimaColeta) {
+        this.dataUltimaColeta = dataUltimaColeta;
+    }
     
   //================================ boss_coins =======================================
     @Column(name = "boss_coins", precision = 19, scale = 2)
@@ -122,7 +134,7 @@ private long inventarioArco = 0;
 private long arcoAtivo = 0;
 
 @Column(name = "durabilidade_arco", nullable = false)
-private long durabilidadeArco = 100;
+private long durabilidadeArco = 0;
 
 @Column(name = "flecha_fogo", nullable = false)
 private long flechaFogo = 0;

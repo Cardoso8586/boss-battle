@@ -131,7 +131,9 @@ public class SecurityConfig {
                         "/comprar/arco/celestial/**",
                         "/lootbox/abrir/**",
                         "/promo/comprar/**",
-                        "/promo/preco/**"
+                        "/promo/preco/**",
+                        "/api/bonus/coletar/**",
+                        "/api/bonus/verificar/**"
                       
                      
                         
