@@ -87,18 +87,31 @@
 }
 
 /* caixa do modal */
+/* ajuste da largura para caber o banner */
 .modal-content{
   background:linear-gradient(180deg,#1e1e2f,#141421);
   color:#fff;
   padding:30px;
   border-radius:12px;
   text-align:center;
-  width:350px;
-  max-width:95%;
+  width:fit-content;        /* ajusta a largura ao conteúdo */
+  max-width:100%;            /* nunca ultrapassa a tela */
   box-shadow:0 0 25px rgba(255,215,0,0.4);
   animation:aparecer 0.4s ease, brilho 2s infinite alternate;
 }
 
+/* banner */
+.modal-anuncio{
+  display:flex;
+  justify-content:center;
+  margin-top:15px;          /* espaço entre botão e banner */
+}
+
+.modal-anuncio iframe{
+  width:100%;
+  max-width:468px;          /* tamanho original do banner */
+  height:60px;              /* altura do banner */
+}
 /* brilho estilo recompensa */
 @keyframes brilho{
   from{

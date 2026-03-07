@@ -134,7 +134,7 @@ private long inventarioArco = 0;
 private long arcoAtivo = 0;
 
 @Column(name = "durabilidade_arco", nullable = false)
-private long durabilidadeArco = 0;
+private long durabilidadeArco = 100;
 
 @Column(name = "flecha_fogo", nullable = false)
 private long flechaFogo = 0;

@@ -35,10 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (!res.ok) {
-                swalWarningAuto(
-                    'Não foi possível recarregar o Vigor.',
-                    4
-                );
+		
+					Swal.fire({
+					stomClass: {title: 'swal-game-error'},
+					icon: 'error',
+					title: 'Erro',
+					text: 'Não foi possível recarregar o Vigor.',
+					confirmButtonText: 'Ok',
+					background: 'transparent',
+					color: '#ffb400' 
+			});
+				
                 return;
             }
 
@@ -67,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error(err);
             Swal.fire({
-				customClass: {
-				      title: 'swal-game-text'
-				    },
+			   stomClass: {title: 'swal-game-error'},
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar recarregar energia.',
