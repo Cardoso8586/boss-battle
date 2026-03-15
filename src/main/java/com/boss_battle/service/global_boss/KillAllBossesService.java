@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossAzraelPrime;
-
+//import com.boss_battle.model.GlobalBossAzuragon;
 import com.boss_battle.model.GlobalBossAzurion;
-
+//import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossFlamor;
@@ -23,7 +23,7 @@ import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
 import com.boss_battle.model.GlobalBossNecrothar;
-
+//import com.boss_battle.model.GlobalBossNexarach;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -31,7 +31,8 @@ import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
-import com.boss_battle.model.GlobalBossPuppetrix;
+//import com.boss_battle.model.GlobalBossOculthar;
+//import com.boss_battle.model.GlobalBossPuppetrix;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
@@ -69,7 +70,6 @@ import com.boss_battle.service.bosses.NoxarService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
-import com.boss_battle.service.bosses.PuppetrixService;
 //import com.boss_battle.service.bosses.OcultharService;
 //import com.boss_battle.service.bosses.PuppetrixService;
 import com.boss_battle.service.bosses.PyragonService;
@@ -120,8 +120,6 @@ public class KillAllBossesService {
 	    private final KaelthorService kaelthorService;
 	    private final AbissalService abissalService;
 	    private final  LeviatanAbismoService leviatanAbismoService;
-	     private final PuppetrixService puppetrixService;
-	    
 	    
 	    /*
 	    private final ZargothService zargothService;
@@ -129,7 +127,7 @@ public class KillAllBossesService {
 	    private final CyberionService cyberionService;
 	    private final AzuragonService azuragonService;
 	    private final OcultharService ocultharService;
-	   
+	    private final PuppetrixService puppetrixService;
 
 */
 	    public KillAllBossesService(
@@ -166,15 +164,15 @@ public class KillAllBossesService {
 	            NecrotharService necrotharService,
 	            KaelthorService kaelthorService,
 	            AbissalService abissalService,
-	            LeviatanAbismoService leviatanAbismoService,
-	             PuppetrixService puppetrixService
+	            LeviatanAbismoService leviatanAbismoService
+	            
 	            /*
 	            ZargothService zargothService,
 	            NexarachService nexarachService,
 	            CyberionService cyberionService,
 	            AzuragonService azuragonService,
 	            OcultharService ocultharService,
-	           
+	            PuppetrixService puppetrixService
 	            */
 	         
 	    ) {
@@ -213,16 +211,14 @@ public class KillAllBossesService {
 	        this.kaelthorService = kaelthorService; 
 	        this.abissalService = abissalService;
 	        this.leviatanAbismoService = leviatanAbismoService;
-	        this.puppetrixService = puppetrixService;
-	         
-	         
+	        
 	        /*
 	        this.zargothService = zargothService;
 	        this.nexarachService = nexarachService;
 	        this.cyberionService = cyberionService;
 	        this.azuragonService = azuragonService;
 	        this.ocultharService = ocultharService;
-	       
+	        this.puppetrixService = puppetrixService;
 	      */
 	    }
 
@@ -260,8 +256,6 @@ public class KillAllBossesService {
 	    	GlobalBossKaelthor kael = kaelthorService.get();
 	    	GlobalBossAbissal abis = abissalService.get();
 	    	GlobalBossLeviatanAbismo levi = leviatanAbismoService.get();
-	    	GlobalBossPuppetrix pupp = puppetrixService.get();
-	    	
 	    	
 	    	/*
 	    	GlobalBossZargoth zarg = zargothService.get();
@@ -270,10 +264,11 @@ public class KillAllBossesService {
 	    	GlobalBossAzuragon azura = azuragonService.get();
 	    	GlobalBossOculthar ocult = ocultharService.get();
 	    	
-	    	
+	    	GlobalBossPuppetrix pupp = puppetrixService.get();
 	    
 	    	
-	    	
+	    	pupp.setAlive(false);
+	    	pupp.setProcessingDeath(false);
 	    	
 	    	ocult.setAlive(false);
 	    	ocult.setProcessingDeath(false);
@@ -292,8 +287,6 @@ public class KillAllBossesService {
 	    	zarg.setProcessingDeath(false);
 	    		*/
 	    	
-	    	pupp.setAlive(false);
-	    	pupp.setProcessingDeath(false);
 	    	
 	    	levi.setAlive(false);
 	    	levi.setProcessingDeath(false);
@@ -427,15 +420,14 @@ public class KillAllBossesService {
 	        kaelthorService.save(kael);
 	        abissalService.save(abis);
 	        leviatanAbismoService.save(levi);
-	         puppetrixService.save(pupp);
-	         
+	        
 	        /*
 	        zargothService.save(zarg);
 	        nexarachService.save(nexah);
 	        cyberionService.save(cyber);
 	        azuragonService.save(azura);
 	        ocultharService.save(ocult);
-	       
+	        puppetrixService.save(pupp);
 	      */
 	    }
 

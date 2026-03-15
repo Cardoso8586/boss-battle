@@ -36,7 +36,7 @@ import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
-import com.boss_battle.model.GlobalBossPuppetrix;
+
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
@@ -74,7 +74,7 @@ import com.boss_battle.service.bosses.NoxarService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
-import com.boss_battle.service.bosses.PuppetrixService;
+
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
 import com.boss_battle.service.bosses.TenebrisService;
@@ -129,9 +129,9 @@ public class SpawRandomBossService {
 	    private final KaelthorService kaelthorService;
 	    private final AbissalService abissalService;
 	    private final  LeviatanAbismoService leviatanAbismoService;
-	    private final PuppetrixService puppetrixService;
+	  
 	      
-	    /*
+	    /*  private final PuppetrixService puppetrixService;
 	    private final ZargothService zargothService;
 	    private final NexarachService nexarachService;
 	    private final CyberionService cyberionService;
@@ -180,10 +180,10 @@ public class SpawRandomBossService {
 	            NecrotharService necrotharService,
 	            KaelthorService kaelthorService,
 	            AbissalService abissalService,
-	            LeviatanAbismoService leviatanAbismoService,
-	            PuppetrixService puppetrixService
+	            LeviatanAbismoService leviatanAbismoService
+	           
 	            
-	            /*
+	            /* PuppetrixService puppetrixService
 	          //  ZargothService zargothService,
 	            NexarachService nexarachService,
 	            CyberionService cyberionService,
@@ -230,10 +230,10 @@ public class SpawRandomBossService {
 	        this.kaelthorService = kaelthorService; 
 	        this.abissalService = abissalService;
 	        this.leviatanAbismoService = leviatanAbismoService;
-	        this.puppetrixService = puppetrixService;
+	      
 	        
 	        
-	        /*
+	        /*  this.puppetrixService = puppetrixService;
 	      //  this.zargothService = zargothService;
 	        this.nexarachService = nexarachService;
 	        this.cyberionService = cyberionService;
@@ -250,8 +250,8 @@ public class SpawRandomBossService {
 	      KillAllBossesService.killAllBosses();
 	     
 	        
-	        int choice = random.nextInt(32);
-	        //int choice = random.nextInt(37);
+	        int choice = random.nextInt(31);
+	       
 	        BattleBoss newBoss;
 
 	        switch (choice) {
@@ -621,23 +621,21 @@ public class SpawRandomBossService {
 
 	            }
 	            
-	          
+	            /*
 	            case 33 -> {
 	            
-	                GlobalBossPuppetrix pupp = puppetrixService.get();
-	            	puppetrixService.aplicarEscalamentoPuppetrix(pupp);
-	            	pupp.setProcessingDeath(false);
-	            	pupp.setAlive(true);
-	            	pupp.setCurrentHp(pupp.getMaxHp());
-	            	pupp.setSpawnedAt(LocalDateTime.now());
-	            	puppetrixService.save(pupp);
-	            	newBoss = pupp;
-	            	
-	            	
-	            	
+	            
+	            	GlobalBossZargoth zarg = zargothService.get();
+	            	zargothService.aplicarEscalamentoZargoth(zarg);
+	            	zarg.setProcessingDeath(false);
+	            	zarg.setAlive(true);
+	            	zarg.setCurrentHp(zarg.getMaxHp());
+	            	zarg.setSpawnedAt(LocalDateTime.now());
+	            	zargothService.save(zarg);
+	            	newBoss = zarg;
 
 	            }
-	              /*
+	            
 	            case 34 -> {
 	            	GlobalBossNexarach nexah = nexarachService.get();
 	            	nexarachService.aplicarEscalamentoNexarach(nexah);
@@ -687,14 +685,7 @@ public class SpawRandomBossService {
 	            
 	            case 38 -> {
 	            	
-                    GlobalBossZargoth zarg = zargothService.get();
-	            	zargothService.aplicarEscalamentoZargoth(zarg);
-	            	zarg.setProcessingDeath(false);
-	            	zarg.setAlive(true);
-	            	zarg.setCurrentHp(zarg.getMaxHp());
-	            	zarg.setSpawnedAt(LocalDateTime.now());
-	            	zargothService.save(zarg);
-	            	newBoss = zarg;
+
 	            }
 	            
 	 */
