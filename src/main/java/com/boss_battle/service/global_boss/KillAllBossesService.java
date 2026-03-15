@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossAzraelPrime;
-import com.boss_battle.model.GlobalBossAzuragon;
+//import com.boss_battle.model.GlobalBossAzuragon;
 import com.boss_battle.model.GlobalBossAzurion;
-import com.boss_battle.model.GlobalBossCyberion;
+//import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossFlamor;
@@ -23,7 +23,7 @@ import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
 import com.boss_battle.model.GlobalBossNecrothar;
-import com.boss_battle.model.GlobalBossNexarach;
+//import com.boss_battle.model.GlobalBossNexarach;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -31,8 +31,8 @@ import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
-import com.boss_battle.model.GlobalBossOculthar;
-import com.boss_battle.model.GlobalBossPuppetrix;
+//import com.boss_battle.model.GlobalBossOculthar;
+//import com.boss_battle.model.GlobalBossPuppetrix;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
@@ -41,13 +41,13 @@ import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
 import com.boss_battle.model.GlobalBossVespera;
-import com.boss_battle.model.GlobalBossZargoth;
+//import com.boss_battle.model.GlobalBossZargoth;
 import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
 import com.boss_battle.service.bosses.AzraelPrimeService;
-import com.boss_battle.service.bosses.AzuragonService;
+//import com.boss_battle.service.bosses.AzuragonService;
 import com.boss_battle.service.bosses.AzurionService;
-import com.boss_battle.service.bosses.CyberionService;
+//import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.FlamorService;
@@ -62,7 +62,7 @@ import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
 import com.boss_battle.service.bosses.NecrotharService;
-import com.boss_battle.service.bosses.NexarachService;
+//import com.boss_battle.service.bosses.NexarachService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -70,8 +70,8 @@ import com.boss_battle.service.bosses.NoxarService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
-import com.boss_battle.service.bosses.OcultharService;
-import com.boss_battle.service.bosses.PuppetrixService;
+//import com.boss_battle.service.bosses.OcultharService;
+//import com.boss_battle.service.bosses.PuppetrixService;
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
 import com.boss_battle.service.bosses.TenebrisService;
@@ -80,7 +80,7 @@ import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
 import com.boss_battle.service.bosses.VesperaService;
-import com.boss_battle.service.bosses.ZargothService;
+//import com.boss_battle.service.bosses.ZargothService;
 
 @Service
 @Transactional
@@ -120,6 +120,8 @@ public class KillAllBossesService {
 	    private final KaelthorService kaelthorService;
 	    private final AbissalService abissalService;
 	    private final  LeviatanAbismoService leviatanAbismoService;
+	    
+	    /*
 	    private final ZargothService zargothService;
 	    private final NexarachService nexarachService;
 	    private final CyberionService cyberionService;
@@ -127,6 +129,7 @@ public class KillAllBossesService {
 	    private final OcultharService ocultharService;
 	    private final PuppetrixService puppetrixService;
 
+*/
 	    public KillAllBossesService(
 	    		//Services dos boses--->
 	            IgnorathService ignorathService,
@@ -161,14 +164,16 @@ public class KillAllBossesService {
 	            NecrotharService necrotharService,
 	            KaelthorService kaelthorService,
 	            AbissalService abissalService,
-	            LeviatanAbismoService leviatanAbismoService,
+	            LeviatanAbismoService leviatanAbismoService
+	            
+	            /*
 	            ZargothService zargothService,
 	            NexarachService nexarachService,
 	            CyberionService cyberionService,
 	            AzuragonService azuragonService,
 	            OcultharService ocultharService,
 	            PuppetrixService puppetrixService
-	            
+	            */
 	         
 	    ) {
 	    	
@@ -206,13 +211,15 @@ public class KillAllBossesService {
 	        this.kaelthorService = kaelthorService; 
 	        this.abissalService = abissalService;
 	        this.leviatanAbismoService = leviatanAbismoService;
+	        
+	        /*
 	        this.zargothService = zargothService;
 	        this.nexarachService = nexarachService;
 	        this.cyberionService = cyberionService;
 	        this.azuragonService = azuragonService;
 	        this.ocultharService = ocultharService;
 	        this.puppetrixService = puppetrixService;
-	      
+	      */
 	    }
 
 	    public void killAllBosses() {
@@ -249,6 +256,8 @@ public class KillAllBossesService {
 	    	GlobalBossKaelthor kael = kaelthorService.get();
 	    	GlobalBossAbissal abis = abissalService.get();
 	    	GlobalBossLeviatanAbismo levi = leviatanAbismoService.get();
+	    	
+	    	/*
 	    	GlobalBossZargoth zarg = zargothService.get();
 	    	GlobalBossNexarach nexah = nexarachService.get();
 	    	GlobalBossCyberion cyber = cyberionService.get();
@@ -256,7 +265,7 @@ public class KillAllBossesService {
 	    	GlobalBossOculthar ocult = ocultharService.get();
 	    	
 	    	GlobalBossPuppetrix pupp = puppetrixService.get();
-	    	
+	    
 	    	
 	    	pupp.setAlive(false);
 	    	pupp.setProcessingDeath(false);
@@ -276,6 +285,8 @@ public class KillAllBossesService {
 	    	
 	    	zarg.setAlive(false);
 	    	zarg.setProcessingDeath(false);
+	    		*/
+	    	
 	    	
 	    	levi.setAlive(false);
 	    	levi.setProcessingDeath(false);
@@ -409,13 +420,15 @@ public class KillAllBossesService {
 	        kaelthorService.save(kael);
 	        abissalService.save(abis);
 	        leviatanAbismoService.save(levi);
+	        
+	        /*
 	        zargothService.save(zarg);
 	        nexarachService.save(nexah);
 	        cyberionService.save(cyber);
 	        azuragonService.save(azura);
 	        ocultharService.save(ocult);
 	        puppetrixService.save(pupp);
-	      
+	      */
 	    }
 
 	
