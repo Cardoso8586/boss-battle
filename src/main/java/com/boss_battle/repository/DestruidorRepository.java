@@ -10,7 +10,7 @@ import com.boss_battle.model.GlobalBossDestruidor;
 public interface DestruidorRepository extends JpaRepository<GlobalBossDestruidor, Long> {
 	
 	
-	 List<GlobalBossDestruidor> findByAliveTrue();
+	   List<GlobalBossDestruidor> findByAliveTrue();
 
 	    Optional<GlobalBossDestruidor> findFirstByAliveTrue();
 

@@ -16,7 +16,9 @@ import com.boss_battle.model.BossDamageLog;
 import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossAzraelPrime;
+import com.boss_battle.model.GlobalBossAzuragon;
 import com.boss_battle.model.GlobalBossAzurion;
+import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossFlamor;
@@ -31,6 +33,7 @@ import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
 import com.boss_battle.model.GlobalBossNecrothar;
+import com.boss_battle.model.GlobalBossNexarach;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -38,6 +41,8 @@ import com.boss_battle.model.GlobalBossNoxar;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
+import com.boss_battle.model.GlobalBossOculthar;
+import com.boss_battle.model.GlobalBossPuppetrix;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
 import com.boss_battle.model.GlobalBossTenebris;
@@ -46,6 +51,7 @@ import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
 import com.boss_battle.model.GlobalBossVespera;
+import com.boss_battle.model.GlobalBossZargoth;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.BossRewardLockRepository;
@@ -59,7 +65,9 @@ import com.boss_battle.service.auto_ataque.RetaguardaService;
 import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
 import com.boss_battle.service.bosses.AzraelPrimeService;
+import com.boss_battle.service.bosses.AzuragonService;
 import com.boss_battle.service.bosses.AzurionService;
+import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.FlamorService;
@@ -74,6 +82,7 @@ import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
 import com.boss_battle.service.bosses.NecrotharService;
+import com.boss_battle.service.bosses.NexarachService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -81,6 +90,8 @@ import com.boss_battle.service.bosses.NoxarService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
+import com.boss_battle.service.bosses.OcultharService;
+import com.boss_battle.service.bosses.PuppetrixService;
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
 
@@ -90,6 +101,7 @@ import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
 import com.boss_battle.service.bosses.VesperaService;
+import com.boss_battle.service.bosses.ZargothService;
 
 
 @Service
@@ -128,8 +140,15 @@ public class GlobalBossService {
     private final KaelthorService kaelthorService;
     private final AbissalService abissalService;
     private final  LeviatanAbismoService leviatanAbismoService;
+    private final ZargothService zargothService;
+    private final NexarachService nexarachService;
+    private final CyberionService cyberionService;
+    private final AzuragonService azuragonService;
+    private final OcultharService ocultharService;
+    private final PuppetrixService puppetrixService;
     
     
+    //------------------------------------------------
     private final BossDamageLogRepository damageLogRepo;
     private final UsuarioBossBattleRepository usuarioRepo;
     private final ReferidosRecompensaService referidosService;
@@ -181,6 +200,12 @@ public class GlobalBossService {
             KaelthorService kaelthorService,
             AbissalService abissalService,
             LeviatanAbismoService leviatanAbismoService,
+            ZargothService zargothService,
+            NexarachService nexarachService,
+            CyberionService cyberionService,
+            AzuragonService azuragonService,
+            OcultharService ocultharService,
+            PuppetrixService puppetrixService,
             
             //Outros Services--->
             BossDamageLogRepository damageLogRepo,
@@ -236,6 +261,12 @@ public class GlobalBossService {
         this.kaelthorService = kaelthorService; 
         this.abissalService = abissalService;
         this.leviatanAbismoService = leviatanAbismoService;
+        this.zargothService = zargothService;
+        this.nexarachService = nexarachService;
+        this.cyberionService = cyberionService;
+        this.azuragonService = azuragonService;
+        this.ocultharService = ocultharService;
+        this.puppetrixService = puppetrixService;
         
         
         this.spawRandomBossService = spawRandomBossService;
@@ -278,6 +309,13 @@ public class GlobalBossService {
         if (kaelthorService.get().isAlive()) return kaelthorService.get();
         if (abissalService.get().isAlive()) return abissalService.get();
         if (leviatanAbismoService.get().isAlive()) return leviatanAbismoService.get();
+        if (zargothService.get().isAlive()) return zargothService.get();
+        if (nexarachService.get().isAlive()) return nexarachService.get();
+        if (cyberionService.get().isAlive()) return cyberionService.get();
+        if (azuragonService.get().isAlive()) return azuragonService.get();
+        if (ocultharService.get().isAlive()) return ocultharService.get();
+        if (puppetrixService.get().isAlive()) return puppetrixService.get();
+        
         
         
         return spawRandomBossService.spawnRandomBoss();
@@ -450,6 +488,24 @@ public class GlobalBossService {
         resultado = tryHitBoss("LEVIATÃ DO ABISMO", leviatanAbismoService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
+        resultado = tryHitBoss("ZARGOTH", zargothService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("NEXARACH", nexarachService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("CYBERION", cyberionService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("AZURAGON", azuragonService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("OCULTHAR", ocultharService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("PUPPETRIX", puppetrixService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
         
         
         //===============================================================================
@@ -520,6 +576,14 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossKaelthor) kaelthorService.save((GlobalBossKaelthor) boss);
             if (boss instanceof GlobalBossAbissal) abissalService.save((GlobalBossAbissal) boss);
             if (boss instanceof GlobalBossLeviatanAbismo) leviatanAbismoService.save((GlobalBossLeviatanAbismo) boss);
+            if (boss instanceof GlobalBossZargoth) zargothService.save((GlobalBossZargoth) boss);
+            if (boss instanceof GlobalBossNexarach) nexarachService.save((GlobalBossNexarach) boss);
+            if (boss instanceof GlobalBossCyberion) cyberionService.save((GlobalBossCyberion) boss);
+            if (boss instanceof GlobalBossAzuragon) azuragonService.save((GlobalBossAzuragon) boss);
+            if (boss instanceof GlobalBossOculthar) ocultharService.save((GlobalBossOculthar) boss);
+            if (boss instanceof GlobalBossPuppetrix) puppetrixService.save((GlobalBossPuppetrix) boss);
+            
+            
             
             registrarDano(bossName, usuario, damage);
 
@@ -697,555 +761,7 @@ public class GlobalBossService {
     }
     
 
-/*
-    public BattleBoss spawnRandomBoss() {
-    	
-        killAllBosses();
-     
-        
-        int choice = random.nextInt(30);
-        BattleBoss newBoss;
 
-        switch (choice) {
-        
-            case 0 -> {
-            	 GlobalBossIgnorath ig = ignorathService.get();
-            	 ignorathService.aplicarEscalamentoIgnorath(ig);
-                 ig.setProcessingDeath(false);
-                 ig.setAlive(true);
-                 ig.setCurrentHp(ig.getMaxHp());
-                 ig.setSpawnedAt(LocalDateTime.now());
-                 ignorathService.save(ig);
-                 newBoss = ig;
-            }
-            case 1 -> {
-                GlobalBossDrakthor dr = drakthorService.get();
-                drakthorService.aplicarEscalamentoDrakthor(dr);
-                dr.setProcessingDeath(false);
-                dr.setAlive(true);
-                dr.setCurrentHp(dr.getMaxHp());
-                dr.setSpawnedAt(LocalDateTime.now());
-                drakthorService.save(dr);
-                newBoss = dr;
-            }
-            case 2 -> {
-                GlobalBossAzurion az = azurionService.get();
-                azurionService.aplicarEscalamentoAzurion(az);
-                az.setProcessingDeath(false);
-                az.setAlive(true);
-                az.setCurrentHp(az.getMaxHp());
-                az.setSpawnedAt(LocalDateTime.now());
-                azurionService.save(az);
-                newBoss = az;
-            }
-            
-            case 3 -> {
-            	GlobalBossNightmare nm = nightmareService.get();
-            	nightmareService.aplicarEscalamentoNightmare(nm);
-            	nm.setProcessingDeath(false);
-            	nm.setAlive(true);
-            	nm.setCurrentHp(nm.getMaxHp());
-            	nm.setSpawnedAt(LocalDateTime.now());
-            	nightmareService.save(nm);
-                newBoss = nm;
-            }
-            
-            case 4 -> {
-            	GlobalBossFlamor fl = flamorService.get();
-            	flamorService.aplicarEscalamentoFlamor(fl);
-            	fl.setProcessingDeath(false);
-            	fl.setAlive(true);
-            	fl.setCurrentHp(fl.getMaxHp());
-            	fl.setSpawnedAt(LocalDateTime.now());
-                flamorService.save(fl);
-                newBoss = fl;
-            }
-            
-            case 5 -> {
-            	GlobalBossOblivar ob = oblivarService.get();
-            	oblivarService.aplicarEscalamentoOblivar(ob);
-            	ob.setProcessingDeath(false);
-            	ob.setAlive(true);
-            	ob.setCurrentHp(ob.getMaxHp());
-            	ob.setSpawnedAt(LocalDateTime.now());
-                oblivarService.save(ob);
-                newBoss = ob;
-            }
-            
-            case 6 -> {
-            	  GlobalBossUmbraxis um = umbraxisService.get();
-            	  umbraxisService.aplicarEscalamentoUmbraxis(um);
-            	  um.setProcessingDeath(false);
-                  um.setAlive(true);
-                  um.setCurrentHp(um.getMaxHp());
-                  um.setSpawnedAt(LocalDateTime.now());
-                  umbraxisService.save(um);
-                  newBoss = um;
-            }
-            
-            case 7 -> {
-            	GlobalBossLyxara lx = lyxaraService.get();
-            	lyxaraService.aplicarEscalamentoLyxara(lx);
-            	lx.setProcessingDeath(false);
-            	lx.setAlive(true);
-            	lx.setCurrentHp(lx.getMaxHp());
-            	lx.setSpawnedAt(LocalDateTime.now());
-            	lyxaraService.save(lx);
-                newBoss = lx;
-          }
-          
-            
-            case 8 -> {
-            	GlobalBossNoxar nx = noxarService.get();
-            	noxarService.aplicarEscalamentoNoxar(nx);
-            	nx.setProcessingDeath(false);
-            	nx.setAlive(true);
-            	nx.setCurrentHp(nx.getMaxHp());
-            	nx.setSpawnedAt(LocalDateTime.now());
-            	noxarService.save(nx);
-                newBoss = nx;
-          }
-          
-            case 9 -> {
-            	GlobalBossUmbrar ub = umbrarService.get();
-            	umbrarService.aplicarEscalamentoUmbrar(ub);
-            	ub.setProcessingDeath(false);
-            	ub.setAlive(true);
-            	ub.setCurrentHp(ub.getMaxHp());
-            	ub.setSpawnedAt(LocalDateTime.now());
-            	umbrarService.save(ub);
-                newBoss = ub;
-          }
-            
-            case 10 -> {
-            	GlobalBossMorvath mv = morvathService.get();
-            	morvathService.aplicarEscalamentoMorvat(mv);
-            	mv.setProcessingDeath(false);
-            	mv.setAlive(true);
-            	mv.setCurrentHp(mv.getMaxHp());
-            	mv.setSpawnedAt(LocalDateTime.now());
-            	morvathService.save(mv);
-                newBoss = mv;
-          }
-            
-            case 11 -> {
-            	GlobalBossObliquo oq = obliquoService.get();
-            	obliquoService.aplicarEscalamentoObliquo(oq);
-            	oq.setProcessingDeath(false);
-            	oq.setAlive(true);
-            	oq.setCurrentHp(oq.getMaxHp());
-            	oq.setSpawnedAt(LocalDateTime.now());
-            	obliquoService.save(oq);
-                newBoss = oq;
-          }
-            
-            case 12 -> {
-            	GlobalBossPyragon pg = pyragonService.get();
-            	pyragonService.aplicarEscalamentoPyragon(pg);
-            	pg.setProcessingDeath(false);
-            	pg.setAlive(true);
-            	pg.setCurrentHp(pg.getMaxHp());
-            	pg.setSpawnedAt(LocalDateTime.now());
-            	pyragonService.save(pg);
-                newBoss = pg;
-          }
-            
-            case 13-> {
-            	GlobalBossGlaciorn gc = glaciornService.get();
-            	glaciornService.aplicarEscalamentoGlaciorn(gc);
-            	gc.setProcessingDeath(false);
-            	gc.setAlive(true);
-            	gc.setCurrentHp(gc.getMaxHp());
-            	gc.setSpawnedAt(LocalDateTime.now());
-            	glaciornService.save(gc);
-                newBoss = gc;
-          }
-            
-            case 14-> {
-            	GlobalBossReflexa rx = reflexaService.get();
-            	reflexaService.aplicarEscalamentoReflexa(rx);
-            	rx.setProcessingDeath(false);
-            	rx.setAlive(true);
-            	rx.setCurrentHp(rx.getMaxHp());
-            	rx.setSpawnedAt(LocalDateTime.now());
-            	reflexaService.save(rx);
-                newBoss = rx;
-          }
-            
-            case 15-> {
-            	GlobalBossMechadron mc = mechadronService.get();
-            	mechadronService.aplicarEscalamentoMechadron(mc);
-            	mc.setProcessingDeath(false);
-            	mc.setAlive(true);
-            	mc.setCurrentHp(mc.getMaxHp());
-            	mc.setSpawnedAt(LocalDateTime.now());
-            	mechadronService.save(mc);
-                newBoss = mc;
-          }
-           
-            case 16-> {
-            	GlobalBossNoctyr nr = noctyrService.get();
-            	noctyrService.aplicarEscalamentoNoctyr(nr);
-            	nr.setProcessingDeath(false);
-            	nr.setAlive(true);
-            	nr.setCurrentHp(nr.getMaxHp());
-            	nr.setSpawnedAt(LocalDateTime.now());
-            	noctyrService.save(nr);
-                newBoss = nr;
-          }
-            
-            case 17-> {
-            	GlobalBossOblivion on = oblivionService.get();
-            	oblivionService.aplicarEscalamentoOblivion(on);
-            	on.setProcessingDeath(false);
-            	on.setAlive(true);
-            	on.setCurrentHp(on.getMaxHp());
-            	on.setSpawnedAt(LocalDateTime.now());
-            	oblivionService.save(on);
-                newBoss = on;
-          }
-            
-            case 18 -> {
-            	GlobalBossVespera vs = vesperaService.get();
-            	vesperaService.aplicarEscalamentoVespera(vs);
-            	vs.setProcessingDeath(false);
-            	vs.setAlive(true);
-            	vs.setCurrentHp(vs.getMaxHp());
-            	vs.setSpawnedAt(LocalDateTime.now());
-            	vesperaService.save(vs);
-            	newBoss = vs;
-            }
-            
-            case 19 -> {
-            	GlobalBossTenebris ts = tenebrisService.get();
-            	tenebrisService.aplicarEscalamentoTenebris(ts);
-            	ts.setProcessingDeath(false);
-            	ts.setAlive(true);
-            	ts.setCurrentHp(ts.getMaxHp());
-            	ts.setSpawnedAt(LocalDateTime.now());
-            	tenebrisService.save(ts);
-            	newBoss = ts;
-            }
-            
-            case 20 -> {
-            	GlobalBossGlaciara gl = glaciaraService.get();
-            	glaciaraService.aplicarEscalamentoGlaciara(gl);
-            	gl.setProcessingDeath(false);
-            	gl.setAlive(true);
-            	gl.setCurrentHp(gl.getMaxHp());
-            	gl.setSpawnedAt(LocalDateTime.now());
-            	glaciaraService.save(gl);
-            	newBoss = gl;
-            }
-            
-            case 21 -> {
-            	GlobalBossInfernax ix = infernaxService.get();
-            	infernaxService.aplicarEscalamentoInfernax(ix);
-            	ix.setProcessingDeath(false);
-            	ix.setAlive(true);
-            	ix.setCurrentHp(ix.getMaxHp());
-            	ix.setSpawnedAt(LocalDateTime.now());
-            	infernaxService.save(ix);
-            	newBoss = ix;
-            }
-            
-            case 22 -> {
-            	GlobalBossThunderon td = thunderonService.get();
-            	thunderonService.aplicarEscalamentoThunderon(td);
-            	td.setProcessingDeath(false);
-            	td.setAlive(true);
-            	td.setCurrentHp(td.getMaxHp());
-            	td.setSpawnedAt(LocalDateTime.now());
-            	thunderonService.save(td);
-            	newBoss = td;
-            }
-            
-            case 23 -> {
-            	GlobalBossNoctharion nt = noctharionService.get();
-            	noctharionService.aplicarEscalamentoNoctharion(nt);
-            	nt.setProcessingDeath(false);
-            	nt.setAlive(true);
-            	nt.setCurrentHp(nt.getMaxHp());
-            	nt.setSpawnedAt(LocalDateTime.now());
-            	noctharionService.save(nt);
-            	newBoss = nt;
-            }
-            
-            case 24 -> {
-            	GlobalBossAzraelPrime ap = azraelPrimeService.get();
-            	azraelPrimeService.aplicarEscalamentoAzraelPrime(ap);
-            	ap.setProcessingDeath(false);
-            	ap.setAlive(true);
-            	ap.setCurrentHp(ap.getMaxHp());
-            	ap.setSpawnedAt(LocalDateTime.now());
-            	azraelPrimeService.save(ap);
-            	newBoss = ap;
-            }
-            case 25 -> {
-            	GlobalBossDestruidor ds = destruidorService.get();
-            	destruidorService.aplicarEscalamentoDestruidor(ds);
-            	ds.setProcessingDeath(false);
-            	ds.setAlive(true);
-            	ds.setCurrentHp(ds.getMaxHp());
-            	ds.setSpawnedAt(LocalDateTime.now());
-            	destruidorService.save(ds);
-            	newBoss = ds;
-            }
-            
-            case 26 -> {
-            	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
-            	trigonBaphydraxService.aplicarEscalamentoTrigon(tb);
-            	tb.setProcessingDeath(false);
-            	tb.setAlive(true);
-            	tb.setCurrentHp(tb.getMaxHp());
-            	tb.setSpawnedAt(LocalDateTime.now());
-            	trigonBaphydraxService.save(tb);
-            	newBoss = tb;
-            }
-            case 27 -> {
-            	GlobalBossMalphion mph = malphionService.get();
-            	malphionService.aplicarEscalamentoMalphion(mph);
-            	mph.setProcessingDeath(false);
-            	mph.setAlive(true);
-            	mph.setCurrentHp(mph.getMaxHp());
-            	mph.setSpawnedAt(LocalDateTime.now());
-            	malphionService.save(mph);
-            	newBoss = mph;
-
-            }
-            
-            case 28 -> {
-            	GlobalBossAbyssar aby = abyssarService.get();
-            	abyssarService.aplicarEscalamentoAbyssar(aby);
-            	aby.setProcessingDeath(false);
-            	aby.setAlive(true);
-            	aby.setCurrentHp(aby.getMaxHp());
-            	aby.setSpawnedAt(LocalDateTime.now());
-            	abyssarService.save(aby);
-            	newBoss = aby;
-
-            }
-            
-            case 29 -> {
-            	GlobalBossNecrothar nthr = necrotharService.get();
-            	necrotharService.aplicarEscalamentoNecrothar(nthr);
-            	nthr.setProcessingDeath(false);
-            	nthr.setAlive(true);
-            	nthr.setCurrentHp(nthr.getMaxHp());
-            	nthr.setSpawnedAt(LocalDateTime.now());
-            	necrotharService.save(nthr);
-            	newBoss = nthr;
-
-            }
-            case 30 -> {
-            	GlobalBossKaelthor kael = kaelthorService.get();
-            	kaelthorService.aplicarEscalamentoTempestade(kael);
-            	kael.setProcessingDeath(false);
-            	kael.setAlive(true);
-            	kael.setCurrentHp(kael.getMaxHp());
-            	kael.setSpawnedAt(LocalDateTime.now());
-            	kaelthorService.save(kael);
-            	newBoss = kael;
-
-            }
-            
-            case 31 -> {
-            	GlobalBossAbissal abis = abissalService.get();
-            	abissalService.aplicarEscalamentoAbissal(abis);
-            	abis.setProcessingDeath(false);
-            	abis.setAlive(true);
-            	abis.setCurrentHp(abis.getMaxHp());
-            	abis.setSpawnedAt(LocalDateTime.now());
-            	abissalService.save(abis);
-            	newBoss = abis;
-
-            }
-            
-            
- 
-            default -> {
-                GlobalBossUmbraxis um = umbraxisService.get();
-                umbraxisService.aplicarEscalamentoUmbraxis(um);
-                um.setProcessingDeath(false);
-                um.setAlive(true);
-                um.setCurrentHp(um.getMaxHp());
-                um.setSpawnedAt(LocalDateTime.now());
-                umbraxisService.save(um);
-                newBoss = um;
-            }
-        }
-
-        return newBoss;
-    }
-
-  */
-    
-    /*
-    public void killAllBosses() {
-        GlobalBossIgnorath ig = ignorathService.get();
-        GlobalBossDrakthor dr = drakthorService.get();
-        GlobalBossAzurion az = azurionService.get();
-        GlobalBossUmbraxis um = umbraxisService.get();
-        GlobalBossNightmare nm = nightmareService.get();
-        GlobalBossFlamor fl = flamorService.get();
-        GlobalBossOblivar ob = oblivarService.get();
-        GlobalBossLyxara lx = lyxaraService.get();
-        GlobalBossNoxar nx  = noxarService.get();
-        GlobalBossUmbrar ub = umbrarService.get();
-    	GlobalBossMorvath mv = morvathService.get();
-    	GlobalBossObliquo oq = obliquoService.get();
-    	GlobalBossPyragon pg = pyragonService.get();
-    	GlobalBossGlaciorn gc = glaciornService.get();
-    	GlobalBossReflexa rx = reflexaService.get();
-    	GlobalBossMechadron mc = mechadronService.get();
-    	GlobalBossNoctyr nr = noctyrService.get();
-    	GlobalBossOblivion on = oblivionService.get();
-    	GlobalBossVespera vs = vesperaService.get();
-    	GlobalBossTenebris ts = tenebrisService.get();
-    	GlobalBossGlaciara gl = glaciaraService.get();
-    	GlobalBossInfernax ix = infernaxService.get();
-    	GlobalBossThunderon td = thunderonService.get();
-    	GlobalBossNoctharion nt = noctharionService.get();
-    	GlobalBossAzraelPrime ap = azraelPrimeService.get();
-    	GlobalBossDestruidor ds = destruidorService.get();
-    	GlobalBossTrigonBaphydrax tb = trigonBaphydraxService.get();
-    	GlobalBossMalphion mph = malphionService.get();
-    	GlobalBossAbyssar aby = abyssarService.get();
-    	GlobalBossNecrothar nthr = necrotharService.get();
-    	GlobalBossKaelthor kael = kaelthorService.get();
-    	GlobalBossAbissal abis = abissalService.get();
-    	
-    	
-    	abis.setAlive(false);
-    	abis.setProcessingDeath(false);
-    	
-    	kael.setAlive(false);
-    	kael.setProcessingDeath(false);
-    	
-    	nthr.setAlive(false);
-    	nthr.setProcessingDeath(false);
-    	
-    	ig.setAlive(false);
-    	ig.setProcessingDeath(false);
-
-    	dr.setAlive(false);
-    	dr.setProcessingDeath(false);
-
-    	az.setAlive(false);
-    	az.setProcessingDeath(false);
-
-    	um.setAlive(false);
-    	um.setProcessingDeath(false);
-
-    	nm.setAlive(false);
-    	nm.setProcessingDeath(false);
-
-    	fl.setAlive(false);
-    	fl.setProcessingDeath(false);
-
-    	ob.setAlive(false);
-    	ob.setProcessingDeath(false);
-
-    	lx.setAlive(false);
-    	lx.setProcessingDeath(false);
-
-    	nx.setAlive(false);
-    	nx.setProcessingDeath(false);
-
-    	ub.setAlive(false);
-    	ub.setProcessingDeath(false);
-
-    	mv.setAlive(false);
-    	mv.setProcessingDeath(false);
-
-    	oq.setAlive(false);
-    	oq.setProcessingDeath(false);
-
-    	pg.setAlive(false);
-    	pg.setProcessingDeath(false);
-
-    	gc.setAlive(false);
-    	gc.setProcessingDeath(false);
-
-    	rx.setAlive(false);
-    	rx.setProcessingDeath(false);
-
-    	mc.setAlive(false);
-    	mc.setProcessingDeath(false);
-
-    	nr.setAlive(false);
-    	nr.setProcessingDeath(false);
-
-    	on.setAlive(false);
-    	on.setProcessingDeath(false);
-
-    	vs.setAlive(false);
-    	vs.setProcessingDeath(false);
-
-    	ts.setAlive(false);
-    	ts.setProcessingDeath(false);
-
-    	gl.setAlive(false);
-    	gl.setProcessingDeath(false);
-
-    	ix.setAlive(false);
-    	ix.setProcessingDeath(false);
-
-    	td.setAlive(false);
-    	td.setProcessingDeath(false);
-
-    	nt.setAlive(false);
-    	nt.setProcessingDeath(false);
-
-    	ap.setAlive(false);
-    	ap.setProcessingDeath(false);
-
-    	ds.setAlive(false);
-    	ds.setProcessingDeath(false);
-    	
-    	tb.setAlive(false);
-    	tb.setProcessingDeath(false);
-    	
-    	mph.setAlive(false);
-    	mph.setProcessingDeath(false);
-    	
-    	aby.setAlive(false);
-    	aby.setProcessingDeath(false);
-
-        ignorathService.save(ig);
-        drakthorService.save(dr);
-        azurionService.save(az);
-        umbraxisService.save(um);
-        nightmareService.save(nm);
-        flamorService.save(fl);
-        oblivarService.save(ob);
-        lyxaraService.save(lx);
-        noxarService.save(nx);
-        umbrarService.save(ub);
-        morvathService.save(mv);
-        obliquoService.save(oq);
-        pyragonService.save(pg);
-        glaciornService.save(gc);
-        reflexaService.save(rx);
-        mechadronService.save(mc);
-        noctyrService.save(nr);
-        oblivionService.save(on);
-        vesperaService.save(vs);
-        tenebrisService.save(ts);
-        glaciaraService.save(gl);
-        infernaxService.save(ix);
-        thunderonService.save(td);
-        noctharionService.save(nt);
-        azraelPrimeService.save(ap);
-        destruidorService.save(ds);
-        trigonBaphydraxService.save(tb);
-        malphionService.save(mph);
-        abyssarService.save(aby);
-        necrotharService.save(nthr);
-        kaelthorService.save(kael);
-        abissalService.save(abis);
-    }
-*/
     
     // =============================
     // COOLDOWN
