@@ -14,15 +14,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "global_boss_zargoth")
-public class GlobalBossZargoth implements BattleBoss {
+@Table(name = "global_boss_cyberion")
+public class GlobalBossCyberion implements BattleBoss {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name = "ZARGOTH";
+    private String name = "CYBERION";
 
     @Column(nullable = false)
     private long maxHp = 50_000L;
@@ -49,7 +49,7 @@ public class GlobalBossZargoth implements BattleBoss {
     private int spawnCount = 0;
 
     @Column(nullable = true)
-    private String imageUrl = "images/boss_zargoth.webp";
+    private String imageUrl = "images/boss_cyberion.webp";
 
     @Column(nullable = false)
     private long rewardBoss = 100_000L;
@@ -67,64 +67,132 @@ public class GlobalBossZargoth implements BattleBoss {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime lastAttackAt;
 
-    public GlobalBossZargoth() {}
+    public GlobalBossCyberion() {}
 
     // ===== GETTERS & SETTERS =====
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public long getMaxHp() { return maxHp; }
-    public void setMaxHp(long maxHp) { this.maxHp = maxHp; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public long getCurrentHp() { return currentHp; }
-    public void setCurrentHp(long currentHp) { this.currentHp = currentHp; }
+    public long getMaxHp() {
+        return maxHp;
+    }
 
-    public long getAttackPower() { return attackPower; }
-    public void setAttackPower(long attackPower) { this.attackPower = attackPower; }
+    public void setMaxHp(long maxHp) {
+        this.maxHp = maxHp;
+    }
 
-    public long getAttackIntervalSeconds() { return attackIntervalSeconds; }
+    public long getCurrentHp() {
+        return currentHp;
+    }
+
+    public void setCurrentHp(long currentHp) {
+        this.currentHp = currentHp;
+    }
+
+    public long getAttackPower() {
+        return attackPower;
+    }
+
+    public void setAttackPower(long attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public long getAttackIntervalSeconds() {
+        return attackIntervalSeconds;
+    }
+
     public void setAttackIntervalSeconds(long attackIntervalSeconds) {
         this.attackIntervalSeconds = attackIntervalSeconds;
     }
 
-    public LocalDateTime getSpawnedAt() { return spawnedAt; }
-    public void setSpawnedAt(LocalDateTime spawnedAt) { this.spawnedAt = spawnedAt; }
+    public LocalDateTime getSpawnedAt() {
+        return spawnedAt;
+    }
 
-    public boolean isAlive() { return alive; }
-    public void setAlive(boolean alive) { this.alive = alive; }
+    public void setSpawnedAt(LocalDateTime spawnedAt) {
+        this.spawnedAt = spawnedAt;
+    }
 
-    public LocalDateTime getRespawnAt() { return respawnAt; }
-    public void setRespawnAt(LocalDateTime respawnAt) { this.respawnAt = respawnAt; }
+    public boolean isAlive() {
+        return alive;
+    }
 
-    public long getRespawnCooldownSeconds() { return respawnCooldownSeconds; }
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public LocalDateTime getRespawnAt() {
+        return respawnAt;
+    }
+
+    public void setRespawnAt(LocalDateTime respawnAt) {
+        this.respawnAt = respawnAt;
+    }
+
+    public long getRespawnCooldownSeconds() {
+        return respawnCooldownSeconds;
+    }
+
     public void setRespawnCooldownSeconds(long respawnCooldownSeconds) {
         this.respawnCooldownSeconds = respawnCooldownSeconds;
     }
 
-    public long getSpawnCount() { return spawnCount; }
-    public void setSpawnCount(int spawnCount) { this.spawnCount = spawnCount; }
+    public long getSpawnCount() {
+        return spawnCount;
+    }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setSpawnCount(int spawnCount) {
+        this.spawnCount = spawnCount;
+    }
 
-    public long getRewardBoss() { return rewardBoss; }
-    public void setRewardBoss(long rewardBoss) { this.rewardBoss = rewardBoss; }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-    public long getRewardExp() { return rewardExp; }
-    public void setRewardExp(long rewardExp) { this.rewardExp = rewardExp; }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-    public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+    public long getRewardBoss() {
+        return rewardBoss;
+    }
+
+    public void setRewardBoss(long rewardBoss) {
+        this.rewardBoss = rewardBoss;
+    }
+
+    public long getRewardExp() {
+        return rewardExp;
+    }
+
+    public void setRewardExp(long rewardExp) {
+        this.rewardExp = rewardExp;
+    }
+
+    public LocalDateTime getLastAttackAt() {
+        return lastAttackAt;
+    }
+
     public void setLastAttackAt(LocalDateTime lastAttackAt) {
         this.lastAttackAt = lastAttackAt;
     }
 
+    @Override
     public boolean isProcessingDeath() {
         return processingDeath;
     }
 
+    @Override
     public void setProcessingDeath(boolean processingDeath) {
         this.processingDeath = processingDeath;
     }
@@ -161,7 +229,10 @@ public class GlobalBossZargoth implements BattleBoss {
         }
 
         long finalHp = this.currentHp - damage;
-        if (finalHp < 0) finalHp = 0;
+
+        if (finalHp < 0) {
+            finalHp = 0;
+        }
 
         this.currentHp = finalHp;
 
@@ -181,6 +252,4 @@ public class GlobalBossZargoth implements BattleBoss {
 
         return reward;
     }
-
 }
-

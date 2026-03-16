@@ -14,23 +14,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "global_boss_azuragon")
-public class GlobalBossAzuragon implements BattleBoss {
+@Table(name = "global_boss_zargoth")
+public class GlobalBossZargoth implements BattleBoss {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name = "AZURAGON";
+    private String name = "ZARGOTH";
 
     @Column(nullable = false)
-    private long maxHp = 50_000L;
+    private long maxHp = 48_000L;
 
     @Column(nullable = false)
-    private long currentHp = 50_000L;
+    private long currentHp = 48_000L;
 
-    private long attackPower = 50L;
+    private long attackPower = 40L;
 
     private long attackIntervalSeconds = 100L;
 
@@ -44,21 +44,31 @@ public class GlobalBossAzuragon implements BattleBoss {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime respawnAt;
 
-    private long respawnCooldownSeconds = 18_000L;
+    private long respawnCooldownSeconds = 4800L;
 
     private int spawnCount = 0;
 
     @Column(nullable = true)
-    private String imageUrl = "images/boss_azuragon.webp";
+    private String imageUrl = "images/boss_zargoth.webp";
 
     @Column(nullable = false)
-    private long rewardBoss = 100_000L;
+    private long rewardBoss = 85_000L;
 
     @Column(nullable = false)
-    private long rewardExp = 15_000L;
+    private long rewardExp = 12000;
 
     @Column(nullable = false)
     private boolean processingDeath = false;
+
+    @Override
+    public boolean isProcessingDeath() {
+        return processingDeath;
+    }
+
+    @Override
+    public void setProcessingDeath(boolean processingDeath) {
+        this.processingDeath = processingDeath;
+    }
 
     @Column(nullable = false)
     private boolean rewardDistributed = false;
@@ -67,66 +77,10 @@ public class GlobalBossAzuragon implements BattleBoss {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime lastAttackAt;
 
-    public GlobalBossAzuragon() {}
-
-    // ===== GETTERS & SETTERS =====
-
-    public Long getId() { return id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public long getMaxHp() { return maxHp; }
-    public void setMaxHp(long maxHp) { this.maxHp = maxHp; }
-
-    public long getCurrentHp() { return currentHp; }
-    public void setCurrentHp(long currentHp) { this.currentHp = currentHp; }
-
-    public long getAttackPower() { return attackPower; }
-    public void setAttackPower(long attackPower) { this.attackPower = attackPower; }
-
-    public long getAttackIntervalSeconds() { return attackIntervalSeconds; }
-    public void setAttackIntervalSeconds(long attackIntervalSeconds) {
-        this.attackIntervalSeconds = attackIntervalSeconds;
-    }
-
-    public LocalDateTime getSpawnedAt() { return spawnedAt; }
-    public void setSpawnedAt(LocalDateTime spawnedAt) { this.spawnedAt = spawnedAt; }
-
-    public boolean isAlive() { return alive; }
-    public void setAlive(boolean alive) { this.alive = alive; }
-
-    public LocalDateTime getRespawnAt() { return respawnAt; }
-    public void setRespawnAt(LocalDateTime respawnAt) { this.respawnAt = respawnAt; }
-
-    public long getRespawnCooldownSeconds() { return respawnCooldownSeconds; }
-    public void setRespawnCooldownSeconds(long respawnCooldownSeconds) {
-        this.respawnCooldownSeconds = respawnCooldownSeconds;
-    }
-
-    public long getSpawnCount() { return spawnCount; }
-    public void setSpawnCount(int spawnCount) { this.spawnCount = spawnCount; }
-
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-    public long getRewardBoss() { return rewardBoss; }
-    public void setRewardBoss(long rewardBoss) { this.rewardBoss = rewardBoss; }
-
-    public long getRewardExp() { return rewardExp; }
-    public void setRewardExp(long rewardExp) { this.rewardExp = rewardExp; }
-
     public LocalDateTime getLastAttackAt() { return lastAttackAt; }
+
     public void setLastAttackAt(LocalDateTime lastAttackAt) {
         this.lastAttackAt = lastAttackAt;
-    }
-
-    public boolean isProcessingDeath() {
-        return processingDeath;
-    }
-
-    public void setProcessingDeath(boolean processingDeath) {
-        this.processingDeath = processingDeath;
     }
 
     public boolean isRewardDistributed() {
@@ -137,7 +91,63 @@ public class GlobalBossAzuragon implements BattleBoss {
         this.rewardDistributed = rewardDistributed;
     }
 
-    // ===== BattleBoss IMPLEMENTATION =====
+    public GlobalBossZargoth() {}
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public long getMaxHp() { return maxHp; }
+
+    public void setMaxHp(long maxHp) { this.maxHp = maxHp; }
+
+    public long getCurrentHp() { return currentHp; }
+
+    public void setCurrentHp(long currentHp) { this.currentHp = currentHp; }
+
+    public long getAttackPower() { return attackPower; }
+
+    public void setAttackPower(long attackPower) { this.attackPower = attackPower; }
+
+    public long getAttackIntervalSeconds() { return attackIntervalSeconds; }
+
+    public void setAttackIntervalSeconds(long attackIntervalSeconds) { this.attackIntervalSeconds = attackIntervalSeconds; }
+
+    public LocalDateTime getSpawnedAt() { return spawnedAt; }
+
+    public void setSpawnedAt(LocalDateTime spawnedAt) { this.spawnedAt = spawnedAt; }
+
+    public boolean isAlive() { return alive; }
+
+    public void setAlive(boolean alive) { this.alive = alive; }
+
+    public LocalDateTime getRespawnAt() { return respawnAt; }
+
+    public void setRespawnAt(LocalDateTime respawnAt) { this.respawnAt = respawnAt; }
+
+    public long getRespawnCooldownSeconds() { return respawnCooldownSeconds; }
+
+    public void setRespawnCooldownSeconds(long respawnCooldownSeconds) { this.respawnCooldownSeconds = respawnCooldownSeconds; }
+
+    public long getSpawnCount() { return spawnCount; }
+
+    public void setSpawnCount(int spawnCount) { this.spawnCount = spawnCount; }
+
+    public String getImageUrl() { return imageUrl; }
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public long getRewardBoss() { return rewardBoss; }
+
+    public void setRewardBoss(long rewardBoss) { this.rewardBoss = rewardBoss; }
+
+    public long getRewardExp() { return rewardExp; }
+
+    public void setRewardExp(long rewardExp) { this.rewardExp = rewardExp; }
 
     @Override
     public String getBossName() {
@@ -166,15 +176,12 @@ public class GlobalBossAzuragon implements BattleBoss {
         this.currentHp = finalHp;
 
         if (finalHp == 0) {
-
             this.alive = false;
             this.respawnAt = LocalDateTime.now().plusSeconds(respawnCooldownSeconds);
 
             reward.put("bossReward", this.rewardBoss);
             reward.put("expReward", this.rewardExp);
-
         } else {
-
             reward.put("bossReward", 0L);
             reward.put("expReward", 0L);
         }
