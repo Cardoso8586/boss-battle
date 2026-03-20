@@ -3,6 +3,7 @@ package com.boss_battle.service.reconpensas_faucet_pay;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
@@ -35,7 +36,7 @@ public class FaucetPayService {
 
     private static final BigDecimal BOSS_POR_USDT = new BigDecimal("10000000");
     private static final BigDecimal BOSS_MINIMO = new BigDecimal("20000");
-
+    private static final int DAILY_WITHDRAW_LIMIT = 3;
     private final UsuarioBossBattleRepository usuarioRepo;
     private final CoinPriceService coinPriceService;
     private final BossBattleTransactionHistoryRepository historyRepository;
@@ -101,6 +102,28 @@ public class FaucetPayService {
         BigDecimal saldoAtual = usuario.getBossCoins();
 
         // 🔐 Validações
+     
+        // 🔐 Normaliza quantidade de saques
+        int quantidadeSaquesHoje = usuario.getQuantidadeSaquesDiario() == null 
+                ? 0 
+                : usuario.getQuantidadeSaquesDiario();
+
+        // 🔐 Reset se virou o dia
+        if(usuario.getDataControleSaque() == null || 
+           !usuario.getDataControleSaque().equals(LocalDate.now())){
+
+            quantidadeSaquesHoje = 0;
+            usuario.setQuantidadeSaquesDiario(0);
+            usuario.setDataControleSaque(LocalDate.now());
+        }
+
+      
+        // 🔐 Validações
+
+        if(quantidadeSaquesHoje >= DAILY_WITHDRAW_LIMIT){
+            throw new RuntimeException("Limite diário de saques atingido");
+        }
+
         if (bossCoinParaSaque.compareTo(BOSS_MINIMO) < 0) {
             throw new RuntimeException("Saque mínimo: 100.000 BossCoin");
         }
@@ -108,7 +131,19 @@ public class FaucetPayService {
         if (saldoAtual.compareTo(bossCoinParaSaque) < 0) {
             throw new RuntimeException("Saldo insuficiente");
         }
+        /*
+        if(usuario.getQuantidadeSaquesDiario() >= DAILY_WITHDRAW_LIMIT){
+            throw new RuntimeException("Limite diário de saques atingido");
+        }
+        
+        if (bossCoinParaSaque.compareTo(BOSS_MINIMO) < 0) {
+            throw new RuntimeException("Saque mínimo: 100.000 BossCoin");
+        }
 
+        if (saldoAtual.compareTo(bossCoinParaSaque) < 0) {
+            throw new RuntimeException("Saldo insuficiente");
+        }
+*/
         // 🔁 Conversões reais
         BigDecimal usdt = bossParaUsdt(bossCoinParaSaque);
         BigDecimal valorMoeda = usdtParaMoeda(usdt, currency);
@@ -168,6 +203,8 @@ public class FaucetPayService {
         // 💰 Desconto FINAL (somente se aprovado)
         if (statusTx == FaucetPayStatus.APROVADO) {
             usuario.setBossCoins(saldoAtual.subtract(bossCoinParaSaque));
+            
+            usuario.setQuantidadeSaquesDiario(quantidadeSaquesHoje + 1);
             usuarioRepo.save(usuario);
         }
 

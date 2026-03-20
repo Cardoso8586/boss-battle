@@ -66,7 +66,34 @@ public class UsuarioBossBattle  {
     }
    //================================ boss_coins =======================================
 
+    
+    //=========================== limites de saque diario =========================
+    @Column(name = "quantidade_saques_diario")
+    private Integer quantidadeSaquesDiario;
 
+    @Column(name = "data_controle_saque")
+    private LocalDate dataControleSaque;
+
+    // GET quantidadeSaquesDiario
+    public Integer getQuantidadeSaquesDiario() {
+        return quantidadeSaquesDiario;
+    }
+
+    // SET quantidadeSaquesDiario
+    public void setQuantidadeSaquesDiario(Integer quantidadeSaquesDiario) {
+        this.quantidadeSaquesDiario = quantidadeSaquesDiario;
+    }
+
+    // GET dataControleSaque
+    public LocalDate getDataControleSaque() {
+        return dataControleSaque;
+    }
+
+    // SET dataControleSaque
+    public void setDataControleSaque(LocalDate dataControleSaque) {
+        this.dataControleSaque = dataControleSaque;
+    }
+    //=========================== limites de saque diario ======================
 
 
     // ===== ATRIBUTOS DO SISTEMA DE BATALHA =====

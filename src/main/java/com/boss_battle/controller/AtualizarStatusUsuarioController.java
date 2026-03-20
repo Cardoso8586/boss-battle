@@ -32,6 +32,16 @@ public class AtualizarStatusUsuarioController {
             .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
 
       
+     
+
+        Integer quantidadeSaques = usuario.getQuantidadeSaquesDiario() == null 
+                ? 0 
+                : usuario.getQuantidadeSaquesDiario();
+/*
+        String status = "Saques hoje: " + quantidadeSaquesHoje + "/" + DAILY_WITHDRAW_LIMIT +
+                        " | Restantes: " + saquesRestantes;
+        */
+        
         
         return Map.ofEntries(
         	    Map.entry("totalGuerreiros", totalGuerreiros(usuarioId)),
@@ -65,9 +75,9 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("flechaFogo", usuario.getFlechaFogo()), 
         	    Map.entry("flechaDiamante", usuario.getFlechaDiamante()),
         	    Map.entry("flechaVeneno", usuario.getFlechaVeneno()), 
-        	    Map.entry("tipoFlecha", TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva()).name())
+        	    Map.entry("tipoFlecha", TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva()).name()),
 
-        	    
+        	    Map.entry("quantidadeSaquesHoje", quantidadeSaques)
         	  
         	    
         	);

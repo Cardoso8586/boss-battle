@@ -84,6 +84,33 @@ document.addEventListener('DOMContentLoaded', () => {
 				flecha_veneno.textContent = formatarNumero(data.flechaVeneno);
 				flecha_ferro.textContent = formatarNumero(data.flechaFerro);
 				ataqueEspecial.textContent = formatarNumero(data.ataqueBase);
+				
+				
+				//--- limiye diario de saques
+				const limite = 3;
+
+				// valor que veio da API
+				const quantidadeSaquesHoje = data.quantidadeSaquesHoje ?? 0;
+
+				const restantes = limite - quantidadeSaquesHoje;
+
+				let mensagem = "";
+
+				if (restantes === 0) {
+
+				    mensagem = `Limite diário de saques atingido. (${quantidadeSaquesHoje}/${limite})`;
+
+				} else {
+
+				    const palavra = restantes === 1 ? "saque" : "saques";
+
+				    mensagem = `Você ainda pode fazer ${restantes} ${palavra} hoje. (${quantidadeSaquesHoje}/${limite})`;
+
+				}
+
+				document.getElementById("infoSaques").innerText = mensagem;
+				//--- limiye diario de saques
+			
 				// FIM Atualizar Central de Comando
 			
             const percentualEnergia = Math.max(0, (energia / energiaMax) * 100);
