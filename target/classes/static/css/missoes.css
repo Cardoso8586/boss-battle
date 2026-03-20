@@ -13,11 +13,8 @@
   color: #ffb400 !important;
 
   text-shadow:
-    0 0 10px rgba(255, 180, 0, 1),
-    0 0 20px rgba(255, 215, 0, 0.9),
-    0 0 30px rgba(255, 180, 0, 0.7) !important;
+    0 0 4px rgba(255, 180, 0, 0.4) !important;
 }
-
 /* Título OURO */
 #missoes h2 {
   font-size: 2rem !important;
