@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             loading.style.opacity = '0';
             setTimeout(() => loading.remove(), 300);
-        }, 3500); // meio segundo só
+        }, 7500); //7 meio segundo só
     }
 });
 /*
