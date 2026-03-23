@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
@@ -65,8 +68,32 @@ public class FaucetPayService {
             return EntityUtils.toString(client.execute(post).getEntity());
         }
     }
+    
 
-    /**
+    //====================== RESET AUTOMÁTICO ======================
+
+   
+
+
+    @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
+    @Transactional
+    public void resetarSaquesDiariosAutomaticamente() {
+    List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
+
+    LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
+    System.out.println("🔥 EXECUTOU AGORA: " + LocalDateTime.now());
+
+    for (UsuarioBossBattle usuario : usuarios) {
+        usuario.setQuantidadeSaquesDiario(0);
+        usuario.setDataControleSaque(hoje);
+    }
+
+    usuarioRepo.saveAll(usuarios);
+}
+
+
+
+	/**
      * Consulta saldo com cache
      */
     @Cacheable(value = "saldoCache", key = "#currency")
@@ -107,17 +134,6 @@ public class FaucetPayService {
         int quantidadeSaquesHoje = usuario.getQuantidadeSaquesDiario() == null 
                 ? 0 
                 : usuario.getQuantidadeSaquesDiario();
-
-        // 🔐 Reset se virou o dia
-        if(usuario.getDataControleSaque() == null || 
-           !usuario.getDataControleSaque().equals(LocalDate.now())){
-
-            quantidadeSaquesHoje = 0;
-            usuario.setQuantidadeSaquesDiario(0);
-            usuario.setDataControleSaque(LocalDate.now());
-        }
-
-      
         // 🔐 Validações
 
         if(quantidadeSaquesHoje >= DAILY_WITHDRAW_LIMIT){

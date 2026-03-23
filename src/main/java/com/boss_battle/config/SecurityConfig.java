@@ -133,12 +133,16 @@ public class SecurityConfig {
                         "/promo/comprar/**",
                         "/promo/preco/**",
                         "/api/bonus/coletar/**",
-                        "/api/bonus/verificar/**"
-                      
+                        "/api/bonus/verificar/**",
+                        "/api/missoes-diarias/missoes/**",
+                        "/api/missoes-diarias/*/resgatar/dano",
+                        "/api/missoes-diarias/*/resgatar/ataques",
+                        "/api/missoes-diarias/*/atualizar/dano",
+                        "/api/missoes-diarias/*/atualizar/ataques"
                      
                         
                         
-                       
+                        
                         
                         
                         

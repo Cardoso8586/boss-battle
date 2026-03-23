@@ -102,12 +102,14 @@ import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.ZargothService;
+import com.boss_battle.service.missoes.MissaoDiariaService;
 
 
 
 @Service
 @Transactional
 public class GlobalBossService {
+	
     private final IgnorathService ignorathService;
     private final DrakthorService drakthorService;
     private final AzurionService azurionService;
@@ -168,7 +170,7 @@ public class GlobalBossService {
     
    
     private final RetaguardaService retaguardaService;
-
+    private final MissaoDiariaService missaoDiariaService;
     
    // private final Random random = new Random();
 
@@ -229,7 +231,8 @@ public class GlobalBossService {
             BossDamageLogService bossDamageLogService,
             RetaguardaService retaguardaService,
             PocaoVigorService pocaoVigorService,  
-            SpawRandomBossService spawRandomBossService
+            SpawRandomBossService spawRandomBossService,
+            MissaoDiariaService missaoDiariaService
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -287,6 +290,10 @@ public class GlobalBossService {
         */
         
         this.spawRandomBossService = spawRandomBossService;
+        this.missaoDiariaService = missaoDiariaService;
+        
+        
+        
     }
 
     // =============================
@@ -385,11 +392,16 @@ public class GlobalBossService {
         	long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
 
         	long damage = ataqueBase + ataqueEspecial;
-
+        	
+            missaoDiariaService.atualizarProgressoDano(usuarioId, damage);
+            missaoDiariaService.atualizarProgressoQuantidade(usuarioId, 1);
+            
         	System.out.println("Usuario -" + usuario.getUsername() +
         	        " atacou -" + boss.getBossName() +
         	        " causando " + damage + " de dano");
-
+        	
+        	
+        	
         	// 🔥 garante que nunca fique negativo
         	long novaEnergia = Math.max(0, energia - damage);
         	usuario.setEnergiaGuerreiros(novaEnergia);

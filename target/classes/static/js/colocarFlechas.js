@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+	
+	
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? Number(meta.content) : null;
     if (!usuarioId) return;

@@ -20,6 +20,7 @@
     
      {
         display: block;
+         gap: 50px;
     }
 }
 
@@ -31,8 +32,10 @@
 .anuncio-7,
 .anuncio-9 {
     display: block;
+     gap: 50px;
     text-align: center;
     margin: 10px 0;
+    
 }
 
 @media (min-width: 1024px) {
@@ -41,8 +44,11 @@
     .anuncio-6,
     .anuncio-7,
     .anuncio-9 {
-        display: none;
+     
+        display: block;
+         gap: 50px;
     }
-}
+    }
+
 
 

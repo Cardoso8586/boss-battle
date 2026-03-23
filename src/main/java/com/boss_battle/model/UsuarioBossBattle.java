@@ -64,8 +64,77 @@ public class UsuarioBossBattle  {
         this.createdAt = LocalDateTime.now();
         if (this.bossCoins == null) this.bossCoins = new BigDecimal("10000.00");
     }
+    
    //================================ boss_coins =======================================
 
+    
+ // DIÁRIA
+
+    private long missaoDiariaDanoAtual = 0;
+    private int missaoDiariaNivelDano = 1;
+
+    private int missaoDiariaAtaquesEspeciaisAtual = 0;
+    private int missaoDiariaNivelAtaquesEspeciais = 1;
+
+    private LocalDate missaoDiariaDataReset;
+
+	
+	private boolean missaoDiariaDanoConcluida;
+	private boolean missaoDiariaAtaquesConcluida;
+    //================ DANO =================
+
+    public long getMissaoDiariaDanoAtual() {
+        return missaoDiariaDanoAtual;
+    }
+
+    public void setMissaoDiariaDanoAtual(long missaoDiariaDanoAtual) {
+        this.missaoDiariaDanoAtual = missaoDiariaDanoAtual;
+    }
+
+    public int getMissaoDiariaNivelDano() {
+        return missaoDiariaNivelDano;
+    }
+
+    public void setMissaoDiariaNivelDano(int missaoDiariaNivelDano) {
+        this.missaoDiariaNivelDano = missaoDiariaNivelDano;
+    }
+
+    //================ ATAQUES ESPECIAIS =================
+
+    public int getMissaoDiariaAtaquesEspeciaisAtual() {
+        return missaoDiariaAtaquesEspeciaisAtual;
+    }
+
+    public void setMissaoDiariaAtaquesEspeciaisAtual(int missaoDiariaAtaquesEspeciaisAtual) {
+        this.missaoDiariaAtaquesEspeciaisAtual = missaoDiariaAtaquesEspeciaisAtual;
+    }
+
+    public int getMissaoDiariaNivelAtaquesEspeciais() {
+        return missaoDiariaNivelAtaquesEspeciais;
+    }
+
+    public void setMissaoDiariaNivelAtaquesEspeciais(int missaoDiariaNivelAtaquesEspeciais) {
+        this.missaoDiariaNivelAtaquesEspeciais = missaoDiariaNivelAtaquesEspeciais;
+    }
+
+    //================ RESET =================
+
+    public LocalDate getMissaoDiariaDataReset() {
+        return missaoDiariaDataReset;
+    }
+
+    public void setMissaoDiariaDataReset(LocalDate missaoDiariaDataReset) {
+        this.missaoDiariaDataReset = missaoDiariaDataReset;
+    }
+
+    //======================================== MISSÕES ================================================
+       //Semanal
+       
+       
+       
+       //Surpresa
+       
+     //======================================== MISSÕES ================================================
     
     //=========================== limites de saque diario =========================
     @Column(name = "quantidade_saques_diario")
@@ -620,6 +689,22 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
 
 	public void setUltimoAtaqueBoss(LocalDateTime ultimoAtaqueBoss) {
 		this.ultimoAtaqueBoss = ultimoAtaqueBoss;
+	}
+
+	public boolean isMissaoDiariaDanoConcluida() {
+		return missaoDiariaDanoConcluida;
+	}
+
+	public void setMissaoDiariaDanoConcluida(boolean missaoDiariaDanoConcluida) {
+		this.missaoDiariaDanoConcluida = missaoDiariaDanoConcluida;
+	}
+
+	public boolean isMissaoDiariaAtaquesConcluida() {
+		return missaoDiariaAtaquesConcluida;
+	}
+
+	public void setMissaoDiariaAtaquesConcluida(boolean missaoDiariaAtaquesConcluida) {
+		this.missaoDiariaAtaquesConcluida = missaoDiariaAtaquesConcluida;
 	}
 
 

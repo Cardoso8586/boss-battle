@@ -29,6 +29,6 @@ window.addEventListener('load', () => {
         setTimeout(() => {
             loading.style.opacity = '0';
             setTimeout(() => loading.remove(), 1000);
-        }, 7000);
+        }, 5000);
     }
 });

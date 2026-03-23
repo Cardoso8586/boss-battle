@@ -1,3 +1,5 @@
+
+
 package com.boss_battle;
 
 
@@ -14,7 +16,7 @@ public class BossBattleApplication {
     public static void main(String[] args) {
         SpringApplication.run(BossBattleApplication.class, args);
         
-        
+       
 
         // ✅ Tenta carregar o .env apenas se existir (modo local)
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
@@ -33,3 +35,30 @@ public class BossBattleApplication {
     
     
 }
+/*
+package com.boss_battle;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
+@SpringBootApplication
+@EnableScheduling
+public class BossBattleApplication {
+
+    public static void main(String[] args) {
+
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+
+        dotenv.entries().forEach(entry -> {
+            if (System.getenv(entry.getKey()) == null) {
+                System.setProperty(entry.getKey(), entry.getValue());
+            }
+        });
+
+        SpringApplication.run(BossBattleApplication.class, args);
+    }
+}
+*/
