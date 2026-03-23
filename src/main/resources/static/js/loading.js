@@ -1,4 +1,34 @@
+const loadingMessages = [
+  "Indo pra arena...",
+  "Preparando os guerreiros...",
+  "Aquecendo as espadas...",
+  "O combate vai começar...",
+  "Entrando na batalha...",
+  "Forjando heróis...",
+  "Se preparando para a glória...",
+  "Carregando ação épica..."
+];
 
+function setRandomLoadingText() {
+    const textEl = document.getElementById('loading-text');
+    if (textEl) {
+        const message = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+        textEl.textContent = message;
+    }
+}
+
+setRandomLoadingText();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loading = document.getElementById('loading');
+    if (loading) {
+        setTimeout(() => {
+            loading.style.opacity = '0';
+            setTimeout(() => loading.remove(), 300);
+        }, 3500); // meio segundo só
+    }
+});
+/*
 // Lista de textos épicos
 const loadingMessages = [
   "Indo pra arena...",
@@ -32,3 +62,5 @@ window.addEventListener('load', () => {
         }, 5000);
     }
 });
+
+*/

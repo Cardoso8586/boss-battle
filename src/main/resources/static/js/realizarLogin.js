@@ -36,7 +36,8 @@ loginForm.addEventListener('submit', async (e) => {
     } catch (error) {
         loginMsg.textContent = "Erro ao conectar ao servidor.";
         loginMsg.style.color = 'red';
-        console.error(error);
+		//debug
+       // console.error(error);
     }
 });
 
