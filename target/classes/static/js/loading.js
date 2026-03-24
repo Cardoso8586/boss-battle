@@ -1,3 +1,5 @@
+
+/*
 const loadingMessages = [
   "Indo pra arena...",
   "Preparando os guerreiros...",
