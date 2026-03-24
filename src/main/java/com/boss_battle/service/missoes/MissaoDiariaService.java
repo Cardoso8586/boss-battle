@@ -34,6 +34,34 @@ public class MissaoDiariaService {
   //====================== RESET AUTOMÁTICO ======================
  // debug
 // @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
+    @Transactional
+    public void resetarMissoesDiariasAutomaticamente() {
+        ZoneId zone = ZoneId.of("America/Sao_Paulo");
+
+        try {
+            System.out.println("🔥 INICIOU: " + LocalDateTime.now(zone));
+
+            List<UsuarioBossBattle> usuarios = usuarioRepository.findAll();
+            LocalDate hoje = LocalDate.now(zone);
+
+            for (UsuarioBossBattle usuario : usuarios) {
+                resetarMissaoDiaria(usuario, hoje);
+            }
+
+            usuarioRepository.saveAll(usuarios);
+            usuarioRepository.flush();
+
+            System.out.println("✅ FINALIZOU: " + LocalDateTime.now(zone));
+            System.out.println("👥 RESETADOS: " + usuarios.size());
+
+        } catch (Exception e) {
+            System.out.println("❌ ERRO NO SCHEDULER");
+            e.printStackTrace();
+        }
+    }
+    
+    /*
  @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
  @Transactional
  public void resetarMissoesDiariasAutomaticamente() {
@@ -55,6 +83,7 @@ public class MissaoDiariaService {
          e.printStackTrace();
      }
  }
+ */
 
  public void resetarMissaoDiaria(UsuarioBossBattle usuario, LocalDate hoje) {
      usuario.setMissaoDiariaNivelDano(1);
@@ -71,7 +100,7 @@ public class MissaoDiariaService {
 //==============================================================================================
     public MissaoDiariaDTO buscarMissaoDiaria(Long usuarioId) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
-
+        validarResetDiario(usuario);
         MissaoDiariaDTO dto = new MissaoDiariaDTO();
         /*DEBUG QUSE FUNCIONOU
         System.out.println("RESGATAR ATAQUES -> usuario=" + usuarioId
@@ -122,6 +151,8 @@ public class MissaoDiariaService {
     public MissaoDiariaDTO resgatarMissaoDano(Long usuarioId) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
 
+        validarResetDiario(usuario);
+        
         int nivelAtual = usuario.getMissaoDiariaNivelDano();
 
         if (usuario.isMissaoDiariaDanoConcluida()) {
@@ -151,6 +182,8 @@ public class MissaoDiariaService {
     public MissaoDiariaDTO resgatarMissaoAtaques(Long usuarioId) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
 
+        validarResetDiario(usuario);
+        
         int nivelAtual = usuario.getMissaoDiariaNivelAtaquesEspeciais();
 
         // se já concluiu hoje, não explode erro
@@ -335,12 +368,24 @@ public class MissaoDiariaService {
         }
         return nivelMissao;
     }
+    
+    
+    private void validarResetDiario(UsuarioBossBattle usuario) {
+        LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
+
+        if (usuario.getMissaoDiariaDataReset() == null || !hoje.equals(usuario.getMissaoDiariaDataReset())) {
+            resetarMissaoDiaria(usuario, hoje);
+            usuarioRepository.saveAndFlush(usuario);
+        }
+    }
     //====================== ATUALIZAÇÕES ======================
 
     @Transactional
     public UsuarioBossBattle atualizarProgressoDano(Long usuarioId, long dano) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
 
+        validarResetDiario(usuario);
+        
         usuario.setMissaoDiariaDanoAtual(usuario.getMissaoDiariaDanoAtual() + dano);
 
         System.out.println("Usuario-" + usuario.getUsername() +
@@ -352,6 +397,8 @@ public class MissaoDiariaService {
     public UsuarioBossBattle atualizarProgressoQuantidade(Long usuarioId, int quantidade) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
 
+        validarResetDiario(usuario);
+        
         usuario.setMissaoDiariaAtaquesEspeciaisAtual(
                 usuario.getMissaoDiariaAtaquesEspeciaisAtual() + quantidade
         );
