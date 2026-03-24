@@ -1,4 +1,62 @@
 const SESSION_TIMEOUT = 900000; // produção (15 min)
+// const SESSION_TIMEOUT = 10000; // teste (10s)
+
+let timeout;
+
+// 🔥 frases do jogo
+const mensagensInatividade = [
+    "Você ficou tempo demais fora da arena... retornando ao acampamento.",
+    "Tempo demais fora da arena... retornando ao acampamento.",
+    "Você se ausentou da arena... retornando ao acampamento.",
+    "A arena foi abandonada... retornando ao acampamento.",
+    "Tempo esgotado na arena... retorno imediato ao acampamento.",
+    "O tempo passou... seus guerreiros estão retornando ao acampamento.",
+    "Sem ação na arena... as tropas recuam para o acampamento.",
+    "A batalha esfriou... retornando ao acampamento.",
+    "A arena ficou em silêncio... voltando ao acampamento.",
+    "Seus guerreiros aguardaram... mas você não voltou. Retornando ao acampamento."
+];
+
+// função de frase aleatória
+function getMensagemAleatoria() {
+    return mensagensInatividade[Math.floor(Math.random() * mensagensInatividade.length)];
+}
+
+function resetTimer() {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        Swal.fire({
+            customClass: { title: 'swal-game-text' },
+            icon: 'warning',
+            title: 'Atenção',
+            text: getMensagemAleatoria(), // 🔥 aqui muda
+            timer: 6000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            background: 'transparent',
+            color: '#ffb400'
+        }).then(() => {
+            window.location.href = "/logout";
+        });
+    }, SESSION_TIMEOUT);
+}
+
+// inicia
+document.addEventListener("DOMContentLoaded", () => {
+    resetTimer();
+});
+
+// eventos que resetam o tempo
+["click", "mousemove", "keydown", "scroll", "touchstart"].forEach(event => {
+    document.addEventListener(event, resetTimer);
+});
+
+/*
+const SESSION_TIMEOUT = 900000; // produção (15 min)
 //const SESSION_TIMEOUT = 10000;   // teste (10s)
 let timeout;
 
@@ -10,7 +68,7 @@ function resetTimer() {
             customClass: { title: 'swal-game-text' },
             icon: 'warning',
             title: 'Atenção',
-          text: "Você ficou tempo demais fora da arena... retornando ao acampamento.",
+           text: "Você ficou tempo demais fora da arena... retornando ao acampamento.",
             timer: 6000,
             timerProgressBar: true,
             showConfirmButton: false,
