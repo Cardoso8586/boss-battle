@@ -112,7 +112,7 @@ function renderizarMissoes(missao) {
             <div class="barra-progresso">
                 <div class="barra-preenchida" style="width: ${danoPercentual}%"></div>
             </div>
-            <p>Recompensa: ${formatarMoedaBR(missao.recompensaDano)} coins</p>
+            <p>Recompensa: ${formatarMoedaBR(missao.recompensaDano)} Boss coins</p>
             ${acaoDano}
         </div>
     `;
@@ -125,7 +125,7 @@ function renderizarMissoes(missao) {
             <div class="barra-progresso">
                 <div class="barra-preenchida" style="width: ${ataquesPercentual}%"></div>
             </div>
-            <p>Recompensa: ${formatarMoedaBR(missao.recompensaAtaques)} coins</p>
+            <p>Recompensa: ${formatarMoedaBR(missao.recompensaAtaques)} Boss coins</p>
             ${acaoAtaques}
         </div>
     `;
