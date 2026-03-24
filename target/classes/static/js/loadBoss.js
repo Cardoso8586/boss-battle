@@ -282,11 +282,24 @@ async function carregarBossInicial() {
     }
 
     await fetchBoss();
-
-    // Espera boss + guerreiro aparecerem
     await esperarImagensPrincipais(15000);
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     esconderLoading();
+}
+
+function esconderLoading() {
+    if (loadingFechado) return;
+    loadingFechado = true;
+
+    const loading = document.getElementById("loading");
+    if (!loading) return;
+
+    loading.classList.add("fade-out");
+
+    setTimeout(() => {
+        loading.remove();
+    }, 700);
 }
 
 // ===============================
