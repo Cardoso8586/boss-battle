@@ -23,16 +23,16 @@ public class LootboxService {
     private final Random random = new Random();
 
     // Preços das lootboxes
-    private final long precoBasica = 1_000L;    // exemplo: 50 moedas
-    private final long precoAvancada = 2_000L; // exemplo: 150 moedas
-    private final long precoEspecial = 3_000L; // exemplo: 300 moedas
-    private final long precoLendaria = 5_000L; // exemplo: 1000 moedas
+    private final long precoBasica = 500L;   
+    private final long precoAvancada = 800L; 
+    private final long precoEspecial = 1_000L; 
+    private final long precoLendaria = 1_50L;
 
     public String abrirLootboxPorNivel(UsuarioBossBattle usuario, String tipoLootbox) {
-        final int maxBasica = 5;
-        final int maxAvancada = 10;
-        final int maxEspecial = 15;
-        final int maxLendaria = 15;
+        final int maxBasica = 10;
+        final int maxAvancada = 15;
+        final int maxEspecial = 20;
+        final int maxLendaria = 25;
 
         int quantidade;
         TipoFlecha tipoFlecha;

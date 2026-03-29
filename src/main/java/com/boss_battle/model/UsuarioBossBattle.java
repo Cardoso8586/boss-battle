@@ -68,7 +68,9 @@ public class UsuarioBossBattle  {
    //================================ boss_coins =======================================
 
     
- // DIÁRIA
+    
+    //======================================== MISSÕES ================================================
+    // DIÁRIA
 
     private long missaoDiariaDanoAtual = 0;
     private int missaoDiariaNivelDano = 1;
@@ -127,12 +129,34 @@ public class UsuarioBossBattle  {
         this.missaoDiariaDataReset = missaoDiariaDataReset;
     }
 
-    //======================================== MISSÕES ================================================
-       //Semanal
+  
+       //SEMANAL
+      
+    //RANKING ATAQUES ESPECIAL
+    @Column(name = "quantidade_ataques_semanal")
+    private Integer quantidadeAtaquesSemanal = 0; // já com valor padrão
+
+    public Integer getQuantidadeAtaquesSemanal() {
+        return quantidadeAtaquesSemanal;
+    }
+
+    public void setQuantidadeAtaquesSemanal(Integer quantidadeAtaquesSemanal) {
+        this.quantidadeAtaquesSemanal = quantidadeAtaquesSemanal;
+    }
+
+	   @Column(name = "premio_especial_pendente")
+	    private BigDecimal premioEspecialPendente = BigDecimal.ZERO;
+
+	    public BigDecimal getPremioEspecialPendente() {
+	        return premioEspecialPendente;
+	    }
+
+	    public void setPremioEspecialPendente(BigDecimal premioEspecialPendente) {
+	        this.premioEspecialPendente = premioEspecialPendente;
+	    }
        
        
-       
-       //Surpresa
+       //SURPRESA
        
      //======================================== MISSÕES ================================================
     

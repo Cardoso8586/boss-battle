@@ -47,11 +47,58 @@
 }
 
 /* Label */
-.saldo-box span {
-    color: #ffc857;
-    font-weight: 600;
+.saldo-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
+/* número */
+#boss_coins {
+  font-weight: 900;
+  transition: transform 0.2s ease;
+}
+
+/* efeito pulse */
+.animar-saldo {
+  animation: pulseSaldo 0.5s ease;
+}
+
+@keyframes pulseSaldo {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* texto +valor */
+.ganho-boss {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  font-weight: bold;
+  color: #00ff88;
+  opacity: 0;
+  animation: subirGanho 1.5s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes subirGanho {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-40px) scale(1.05);
+  }
+}
 /* Valor */
 #boss_coins {
     color: #00ff9c;
@@ -95,3 +142,4 @@
         font-size: 0.95rem;
     }
 }
+

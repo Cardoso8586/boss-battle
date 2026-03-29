@@ -1,0 +1,157 @@
+.modal-premio {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 999999 !important;
+}
+
+.modal-premio.ativo {
+  display: flex !important;
+}
+
+.modal-premio-box {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(180deg, #1c1c1c 0%, #101010 100%);
+  border: 2px solid #ffb400;
+  border-radius: 18px;
+  box-shadow:
+    0 0 20px rgba(255, 180, 0, 0.25),
+    0 0 40px rgba(0, 0, 0, 0.65);
+  padding: 28px 22px;
+  text-align: center;
+  color: #fff;
+}
+
+.modal-topo {
+  margin-bottom: 20px;
+}
+
+.modal-topo i {
+  display: block;
+  font-size: 2.8rem;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.modal-topo h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffd700;
+}
+
+.modal-conteudo p {
+  margin: 0 0 18px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.premio-valor-box {
+  background: rgba(255, 180, 0, 0.08);
+  border: 1px solid rgba(255, 180, 0, 0.35);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.label-premio {
+  display: block;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.valor-premio {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffd700;
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.btn-receber-premio {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(180deg, #ffcc00 0%, #ff9900 100%);
+  color: #111;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 14px 26px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.btn-receber-premio:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.fechar-modal {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-anuncio {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.modal-anuncio iframe {
+  max-width: 100%;
+  border: 0;
+}
+
+.valor-com-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.icone-token {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* opcional: efeito glow no ícone */
+.icone-token {
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+}
+@media (max-width: 540px) {
+  .modal-premio-box {
+    max-width: 95%;
+    padding: 22px 14px;
+  }
+
+  .modal-anuncio iframe {
+    width: 100%;
+    max-width: 320px;
+    height: 50px;
+  }
+}

@@ -40,6 +40,136 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatarNumero(numero) {
         return new Intl.NumberFormat('pt-BR').format(numero);
     }
+	
+	
+	const bossCoinsEl = document.getElementById("boss_coins");
+	const saldoBox = document.querySelector(".saldo-box");
+
+	let valorAtualBoss = null;
+
+	function formatarNumeroBR(valor) {
+	  return Number(valor || 0).toLocaleString("pt-BR");
+	}
+
+	function mostrarGanho(valor) {
+	  if (!saldoBox || valor <= 0) return;
+
+	  const el = document.createElement("span");
+	  el.className = "ganho-boss";
+	  el.textContent = `+${formatarNumeroBR(valor)}`;
+
+	  saldoBox.appendChild(el);
+
+	  setTimeout(() => el.remove(), 1500);
+	}
+
+	function animarSaldo() {
+	  bossCoinsEl.classList.remove("animar-saldo");
+	  void bossCoinsEl.offsetWidth;
+	  bossCoinsEl.classList.add("animar-saldo");
+	}
+
+	function animarNumero(inicio, fim, duracao = 1600) {
+	  const start = performance.now();
+
+	  function update(time) {
+	    const progress = Math.min((time - start) / duracao, 1);
+	    const valor = Math.floor(inicio + (fim - inicio) * progress);
+
+	    bossCoinsEl.textContent = formatarNumeroBR(valor);
+
+	    if (progress < 1) {
+	      requestAnimationFrame(update);
+	    }
+	  }
+
+	  requestAnimationFrame(update);
+	}
+
+	function atualizarBossCoins(novoValor) {
+	  const novo = Number(novoValor || 0);
+
+	  // PRIMEIRA VEZ → NÃO ANIMA
+	  if (valorAtualBoss === null) {
+	    valorAtualBoss = novo;
+	    bossCoinsEl.textContent = formatarNumeroBR(novo);
+	    return;
+	  }
+
+	  const diff = novo - valorAtualBoss;
+
+	  if (diff > 0) {
+	    mostrarGanho(diff);
+	    animarSaldo();
+	    animarNumero(valorAtualBoss, novo);
+	  } else {
+	    bossCoinsEl.textContent = formatarNumeroBR(novo);
+	  }
+
+	  valorAtualBoss = novo;
+	}
+	
+	/**
+	 * function animarMoedaSubindo(quantidade = 1) {
+	  const container = document.querySelector(".saldo-box");
+
+	  if (!container) return;
+
+	  for (let i = 0; i < quantidade; i++) {
+	    const moeda = document.createElement("img");
+	    moeda.src = "/icones/boss_coin.webp";
+	    moeda.className = "moeda-animada";
+
+	    // leve variação lateral
+	    const offset = (Math.random() - 0.5) * 40;
+	    moeda.style.left = `calc(50% + ${offset}px)`;
+
+	    container.appendChild(moeda);
+
+	    setTimeout(() => {
+	      moeda.remove();
+	    }, 1400);
+	  }
+	}
+	
+	====== css do mesmo.. 
+	.moeda-animada {
+	  position: absolute;
+	  left: 50%;
+	  top: 0;
+	  transform: translateX(-50%) scale(0.8);
+	  width: 28px;
+	  height: 28px;
+	  pointer-events: none;
+	  opacity: 0;
+
+	  animation: subirMoeda 1.4s ease-out forwards;
+	  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.7));
+	}
+
+	@keyframes subirMoeda {
+	  0% {
+	    opacity: 0;
+	    transform: translateX(-50%) translateY(10px) scale(0.7) rotate(0deg);
+	  }
+
+	  20% {
+	    opacity: 1;
+	    transform: translateX(-50%) translateY(0) scale(1) rotate(10deg);
+	  }
+
+	  60% {
+	    transform: translateX(-50%) translateY(-20px) scale(1.1) rotate(-10deg);
+	  }
+
+	  100% {
+	    opacity: 0;
+	    transform: translateX(-50%) translateY(-45px) scale(0.9) rotate(15deg);
+	  }
+	}
+
+	 */
+	
 
     async function atualizarUsuario() {
         try {
@@ -53,7 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			ganhosRef.textContent = formatarNumero(data.ganhosRef);
 			ataqueBase.textContent = formatarNumero(data.ataqueBase);
-			bossCoin.textContent = formatarNumero(data.bossCoin);
+			
+			//bossCoin.textContent = formatarNumero(data.bossCoin);
+			atualizarBossCoins(data.bossCoin);
+			
+			
 			guerreiros.textContent = formatarNumero(data.guerreiros);
 			ataquePorMinuto.textContent = formatarNumero(data.ataquePorMinuto);
 			xp.textContent = formatarNumero(data.xp);

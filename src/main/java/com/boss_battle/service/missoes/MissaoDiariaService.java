@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.boss_battle.dto.MissaoDiariaDTO;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.ReferidosRecompensaService;
 
 @Service
 public class MissaoDiariaService {
@@ -25,9 +26,17 @@ public class MissaoDiariaService {
     //========================================================
 
     private final UsuarioBossBattleRepository usuarioRepository;
-
-    public MissaoDiariaService(UsuarioBossBattleRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    private final ReferidosRecompensaService referidosService;
+    
+    
+    
+    public MissaoDiariaService(
+    		UsuarioBossBattleRepository usuarioRepository, 
+    		ReferidosRecompensaService referidosService)
+    
+    {
+            this.usuarioRepository = usuarioRepository;
+            this.referidosService = referidosService;
     }
 
    
@@ -60,30 +69,6 @@ public class MissaoDiariaService {
             e.printStackTrace();
         }
     }
-    
-    /*
- @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
- @Transactional
- public void resetarMissoesDiariasAutomaticamente() {
-     try {
-         System.out.println("🔥 INICIOU: " + LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
-
-         List<UsuarioBossBattle> usuarios = usuarioRepository.findAll();
-         LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
-
-         for (UsuarioBossBattle usuario : usuarios) {
-             resetarMissaoDiaria(usuario, hoje);
-         }
-
-         usuarioRepository.saveAll(usuarios);
-
-         System.out.println("✅ FINALIZOU: " + LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
-     } catch (Exception e) {
-         System.out.println("❌ ERRO NO SCHEDULER");
-         e.printStackTrace();
-     }
- }
- */
 
  public void resetarMissaoDiaria(UsuarioBossBattle usuario, LocalDate hoje) {
      usuario.setMissaoDiariaNivelDano(1);
@@ -167,6 +152,8 @@ public class MissaoDiariaService {
         }
 
         usuario.setBossCoins(usuario.getBossCoins().add(BigDecimal.valueOf(recompensa)));
+        referidosService.adicionarGanho(usuario, BigDecimal.valueOf(recompensa));
+        
 
         if (nivelAtual < 5) {
             usuario.setMissaoDiariaNivelDano(nivelAtual + 1);

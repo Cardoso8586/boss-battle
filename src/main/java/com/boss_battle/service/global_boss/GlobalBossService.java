@@ -115,6 +115,7 @@ import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
 import com.boss_battle.service.bosses.ZargothService;
 import com.boss_battle.service.missoes.MissaoDiariaService;
+import com.boss_battle.service.missoes.RankingAtaqueEspecialService;
 
 
 
@@ -189,6 +190,8 @@ public class GlobalBossService {
     private final RetaguardaService retaguardaService;
     private final MissaoDiariaService missaoDiariaService;
     
+    private final RankingAtaqueEspecialService rankingAtaqueEspecialService;
+    
    // private final Random random = new Random();
 
     public GlobalBossService(
@@ -256,7 +259,8 @@ public class GlobalBossService {
             RetaguardaService retaguardaService,
             PocaoVigorService pocaoVigorService,  
             SpawRandomBossService spawRandomBossService,
-            MissaoDiariaService missaoDiariaService
+            MissaoDiariaService missaoDiariaService,
+            RankingAtaqueEspecialService rankingAtaqueEspecialService
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -322,7 +326,7 @@ public class GlobalBossService {
         
         this.spawRandomBossService = spawRandomBossService;
         this.missaoDiariaService = missaoDiariaService;
-        
+        this.rankingAtaqueEspecialService = rankingAtaqueEspecialService;
         
         
     }
@@ -437,6 +441,12 @@ public class GlobalBossService {
         	
             missaoDiariaService.atualizarProgressoDano(usuarioId, damage);
             missaoDiariaService.atualizarProgressoQuantidade(usuarioId, 1);
+            rankingAtaqueEspecialService.incrementarAtaquesSemanais(usuario);
+          
+            
+            	
+            	usuarioRepo.save(usuario);
+            
             
         	System.out.println("Usuario -" + usuario.getUsername() +
         	        " atacou -" + boss.getBossName() +

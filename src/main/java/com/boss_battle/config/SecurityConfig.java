@@ -138,7 +138,11 @@ public class SecurityConfig {
                         "/api/missoes-diarias/*/resgatar/dano",
                         "/api/missoes-diarias/*/resgatar/ataques",
                         "/api/missoes-diarias/*/atualizar/dano",
-                        "/api/missoes-diarias/*/atualizar/ataques"
+                        "/api/missoes-diarias/*/atualizar/ataques",
+                        "/api/ranking-ataques-especial",
+                        "/api/minha-posicao-ataques-especial",
+                        "/api/usuario/*/premio-pendente-ataque-especial",
+                        "/api/usuario/*/confirmar-premio-ataque-especial"
                      
                         
                         
