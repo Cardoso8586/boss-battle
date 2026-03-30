@@ -1,6 +1,5 @@
 
 const bossCoinsEl = document.getElementById("boss_coins");
-
 const frasesCarregando = [
     "Buscando dados...",
     "Carregando saldo...",
@@ -14,14 +13,23 @@ const frasesCarregando = [
     "Calculando saldo..."
 ];
 
-function sortearFrase(lista) {
-    const indice = Math.floor(Math.random() * lista.length);
+let ultimoIndice = -1;
+
+function sortearFraseSemRepetir(lista) {
+    if (lista.length === 1) return lista[0];
+
+    let indice;
+    do {
+        indice = Math.floor(Math.random() * lista.length);
+    } while (indice === ultimoIndice);
+
+    ultimoIndice = indice;
     return lista[indice];
 }
 
 function mostrarFraseAleatoria() {
     if (bossCoinsEl) {
-        bossCoinsEl.textContent = sortearFrase(frasesCarregando);
+       bossCoinsEl.textContent = sortearFraseSemRepetir(frasesCarregando);
     }
 }
 
@@ -29,16 +37,4 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarFraseAleatoria();
 });
 
-/* Exemplo de uso antes de buscar o saldo */
-function carregarBossCoins() {
-    mostrarFraseAleatoria();
 
-    fetch("/api/seu-endpoint")
-        .then(response => response.json())
-        .then(data => {
-            bossCoinsEl.textContent = data.bossCoins ?? 0;
-        })
-        .catch(() => {
-            bossCoinsEl.textContent = "Erro ao carregar";
-        });
-}
