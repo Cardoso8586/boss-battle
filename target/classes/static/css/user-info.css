@@ -1,130 +1,245 @@
+/* =========================================================
+   CARD DE INFORMAÇÕES DO USUÁRIO
+   ========================================================= */
 .user-info {
-	
     left: 15px;
-    background:#1b1b1b;
+    width: 320px;
+    padding: 16px 20px;
+
+    background: #1b1b1b;
     border: 1px solid #3a3a55;
     border-radius: 12px;
-    padding: 16px 20px;
-    width: 320px;
-    color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Título */
+/* Título principal */
 .user-info h2 {
     margin: 0 0 12px;
     font-size: 1.4rem;
     font-weight: 600;
 }
 
+/* Destaque no nome ou parte do título */
 .user-info h2 span {
     color: #00d1ff;
 }
 
-/* ID e XP */
+/* Textos de informações como ID, XP, etc */
 .user-info p {
     margin: 4px 0;
     font-size: 0.95rem;
     color: #d1d1e0;
 }
 
+/* Texto em negrito dentro da área do usuário */
 .user-info strong {
     color: #ffffff;
 }
 
 
-/* Caixa de saldo */
+/* =========================================================
+   CAIXA DE SALDO
+   ========================================================= */
 .saldo-box {
-    margin-top: 12px;
-    padding: 10px 14px;
-    background: rgba(0, 0, 0, 0.35);
-    border-radius: 8px;
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 18px;
-    font-size: 1rem;
+    gap: 8px;
+
+    margin-top: 12px;
+    padding: 10px 16px;
+
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 0 10px rgba(255, 180, 0, 0.2);
+
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease;
 }
 
-/* Label */
-.saldo-box {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+/* Efeito leve ao passar o mouse */
+.saldo-box:hover {
+    transform: scale(1.05);
 }
 
-/* número */
-#boss_coins {
-  font-weight: 900;
-  transition: transform 0.2s ease;
+/* Ícone do token */
+.saldo-box .icone-token {
+    width: 20px;
+    height: 20px;
 }
 
-/* efeito pulse */
-.animar-saldo {
-  animation: pulseSaldo 0.5s ease;
+/* Texto comum dentro da caixa */
+.saldo-box span {
+    color: #ddd;
 }
 
-@keyframes pulseSaldo {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
+
+/* =========================================================
+   VALORES DO SALDO
+   ========================================================= */
+
+/* Valor principal do saldo */
+#boss_coins,
+#boss_coins_comando {
+    font-weight: 800;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
 }
 
-/* texto +valor */
-.ganho-boss {
-  position: absolute;
-  left: 50%;
-  top: -10px;
-  transform: translateX(-50%);
-  font-size: 1rem;
-  font-weight: bold;
-  color: #00ff88;
-  opacity: 0;
-  animation: subirGanho 1.5s ease forwards;
-  pointer-events: none;
-}
-
-@keyframes subirGanho {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10px) scale(0.8);
-  }
-  20% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-40px) scale(1.05);
-  }
-}
-/* Valor */
+/* Estilo específico do saldo principal */
 #boss_coins {
     color: #00ff9c;
-    font-weight: 700;
-    font-size: 1.1rem;
+}
+
+/* Estilo alternativo dourado */
+#boss_coins_comando {
+    color: #ffd700;
+    text-shadow:
+        0 0 6px rgba(255, 215, 0, 0.6),
+        0 0 12px rgba(255, 180, 0, 0.4);
 }
 
 
-@media (max-width: 568px) {
+/* =========================================================
+   ANIMAÇÕES DE GANHO E PERDA
+   ========================================================= */
 
+/* Texto flutuante de ganho/perda */
+.ganho-boss,
+.perda-boss {
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    transform: translateX(-50%);
+
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+
+    animation: subirFade 1.5s ease-out forwards;
+}
+
+/* Cor do ganho */
+.ganho-boss {
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+}
+
+/* Cor da perda */
+.perda-boss {
+    color: #ff4d4f;
+    text-shadow: 0 0 8px rgba(255, 77, 79, 0.7);
+}
+
+
+/* =========================================================
+   CLASSES DE ANIMAÇÃO NO NÚMERO
+   ========================================================= */
+
+/* Animação quando aumenta saldo */
+.animar-saldo {
+    animation: pulseSaldo 0.6s ease;
+}
+
+/* Animação quando diminui saldo */
+.animar-perda {
+    animation: pulsePerda 0.6s ease;
+}
+
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+/* Texto sobe e desaparece */
+@keyframes subirFade {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+}
+
+/* Pulso de ganho */
+@keyframes pulseSaldo {
+    0% {
+        transform: scale(1);
+        color: inherit;
+    }
+
+    50% {
+        transform: scale(1.18);
+        color: #ffd700;
+        text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        color: inherit;
+    }
+}
+
+/* Pulso de perda */
+@keyframes pulsePerda {
+    0% {
+        transform: scale(1);
+        color: inherit;
+    }
+
+    50% {
+        transform: scale(1.18);
+        color: #ff4d4f;
+        text-shadow: 0 0 12px rgba(255, 77, 79, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        color: inherit;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE - TABLET / MOBILE
+   ========================================================= */
+@media (max-width: 768px) {
+    .saldo-box {
+        position: fixed;
+        top: 60px;
+        left: 20px;
+        z-index: 9999;
+    }
+}
+
+@media (max-width: 568px) {
     .user-info {
-     
-    left: 15px;
-    background:#1b1b1b;
-    border: 1px solid #3a3a55;
-    border-radius: 12px;
-    padding: 16px 20px;
-    width: 300px;
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        width: 300px;
+        padding: 16px 20px;
     }
 
     .user-info h2 {
-        font-size: 1.1rem;
         margin-bottom: 8px;
+        font-size: 1.1rem;
     }
 
     .user-info p {
@@ -138,8 +253,8 @@
         font-size: 0.85rem;
     }
 
-    #boss_coins {
+    #boss_coins,
+    #boss_coins_comando {
         font-size: 0.95rem;
     }
 }
-

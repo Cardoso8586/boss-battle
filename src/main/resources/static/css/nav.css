@@ -6,7 +6,7 @@
     nav {
         position: fixed;
         left: 15px;
-        top: 60px;
+        top: 70px;
 
         width: 330px;
         height: 100vh;
@@ -75,7 +75,7 @@
 
         position: fixed;
         left: 15px;
-        top: 100px;
+        top: 110px;
 
         z-index: 10001;
         cursor: pointer;

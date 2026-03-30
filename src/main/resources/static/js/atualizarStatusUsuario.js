@@ -37,11 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
 
-    function formatarNumero(numero) {
-        return new Intl.NumberFormat('pt-BR').format(numero);
-    }
-	
-	
+	function formatarNumero(numero) {
+	  return new Intl.NumberFormat('pt-BR').format(numero);
+	}
+
 	const bossCoinsEl = document.getElementById("boss_coins");
 	const saldoBox = document.querySelector(".saldo-box");
 
@@ -51,25 +50,36 @@ document.addEventListener('DOMContentLoaded', () => {
 	  return Number(valor || 0).toLocaleString("pt-BR");
 	}
 
-	function mostrarGanho(valor) {
+	function mostrarVariacao(valor, tipo = "ganho") {
 	  if (!saldoBox || valor <= 0) return;
 
 	  const el = document.createElement("span");
-	  el.className = "ganho-boss";
-	  el.textContent = `+${formatarNumeroBR(valor)}`;
+	  el.className = tipo === "perda" ? "perda-boss" : "ganho-boss";
+	  el.textContent = `${tipo === "perda" ? "-" : "+"}${formatarNumeroBR(valor)}`;
 
 	  saldoBox.appendChild(el);
 
-	  setTimeout(() => el.remove(), 1500);
+	  setTimeout(() => {
+	    el.remove();
+	  }, 1500);
 	}
 
-	function animarSaldo() {
-	  bossCoinsEl.classList.remove("animar-saldo");
+	function animarSaldo(tipo = "ganho") {
+	  if (!bossCoinsEl) return;
+
+	  bossCoinsEl.classList.remove("animar-saldo", "animar-perda");
 	  void bossCoinsEl.offsetWidth;
-	  bossCoinsEl.classList.add("animar-saldo");
+
+	  if (tipo === "perda") {
+	    bossCoinsEl.classList.add("animar-perda");
+	  } else {
+	    bossCoinsEl.classList.add("animar-saldo");
+	  }
 	}
 
 	function animarNumero(inicio, fim, duracao = 1600) {
+	  if (!bossCoinsEl) return;
+
 	  const start = performance.now();
 
 	  function update(time) {
@@ -80,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	    if (progress < 1) {
 	      requestAnimationFrame(update);
+	    } else {
+	      bossCoinsEl.textContent = formatarNumeroBR(fim);
 	    }
 	  }
 
@@ -87,6 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function atualizarBossCoins(novoValor) {
+	  if (!bossCoinsEl) return;
+
 	  const novo = Number(novoValor || 0);
 
 	  // PRIMEIRA VEZ → NÃO ANIMA
@@ -99,8 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	  const diff = novo - valorAtualBoss;
 
 	  if (diff > 0) {
-	    mostrarGanho(diff);
-	    animarSaldo();
+	    mostrarVariacao(diff, "ganho");
+	    animarSaldo("ganho");
+	    animarNumero(valorAtualBoss, novo);
+	  } else if (diff < 0) {
+	    mostrarVariacao(Math.abs(diff), "perda");
+	    animarSaldo("perda");
 	    animarNumero(valorAtualBoss, novo);
 	  } else {
 	    bossCoinsEl.textContent = formatarNumeroBR(novo);
@@ -108,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	  valorAtualBoss = novo;
 	}
-	
 	/**
 	 * function animarMoedaSubindo(quantidade = 1) {
 	  const container = document.querySelector(".saldo-box");
