@@ -58,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	        icon: 'warning',
 	        title: 'Ação inválida',
 	        html: `${texto}<br><b>Fechando em ${tempo}s</b>`,
+			html: `
+							  		      <div class="modal-anuncio">
+							  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+							  		          width="468"
+							  		          height="60"
+							  		          scrolling="no"
+							  		          frameborder="0">
+							  		        </iframe>
+							  		      </div>
+							  		    `,
 	        timer: segundos * 1000,
 	        timerProgressBar: true,
 	        showConfirmButton: false,
@@ -105,6 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Guerreiro retirado!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 						timer: 7000,
 						showConfirmButton: false,
 						 background: 'transparent',
@@ -126,6 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro do ataque.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					timer: 7000,
 					showConfirmButton: false,
 				    background: 'transparent',
@@ -175,6 +205,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'success',
 	                    title: 'Retaguarda recuada!',
 	                    text: 'O guerreiro voltou ao Acampamento.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 						timer: 7000,
 						showConfirmButton: false,
 						 background: 'transparent',
@@ -197,6 +237,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao retirar guerreiro da retaguarda.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					timer: 7000,
 					showConfirmButton: false,
 				    background: 'transparent',

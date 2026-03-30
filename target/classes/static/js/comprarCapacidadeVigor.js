@@ -35,6 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				imageUrl: capacidadeVigorErroImg,							  
 				imageWidth: 120,											   
 			    imageHeight: 120,
+				html: `
+								  		      <div class="modal-anuncio">
+								  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+								  		          width="468"
+								  		          height="60"
+								  		          scrolling="no"
+								  		          frameborder="0">
+								  		        </iframe>
+								  		      </div>
+								  		    `,
                 confirmButtonText: 'Ok',
 				background: 'transparent',
 			    color: '#ff3b3b'  
@@ -80,6 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageWidth: 120,   
 				    imageHeight: 120, 
 				    imageAlt: 'Poção de Vigor',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 				    timer: 5000,
 				    showConfirmButton: false,
 				    background: 'transparent',
@@ -97,6 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
 							    imageWidth: 120,   
 							    imageHeight: 120, 
 							    imageAlt: 'Poção de Vigor',
+								html: `
+												  		      <div class="modal-anuncio">
+												  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+												  		          width="468"
+												  		          height="60"
+												  		          scrolling="no"
+												  		          frameborder="0">
+												  		        </iframe>
+												  		      </div>
+												  		    `,
 							    timer: 5000,
 							    showConfirmButton: false,
 								background: 'transparent',
@@ -124,6 +154,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: bossCoinErroImg,							  
 					imageWidth: 120,											   
 					imageHeight: 120,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					timer: 4000,
                     showConfirmButton: false,
 					background: 'transparent',
@@ -145,6 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			    imageWidth: 120,											   
 				imageHeight: 120,
                 timer: 5000,
+				html: `
+								  		      <div class="modal-anuncio">
+								  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+								  		          width="468"
+								  		          height="60"
+								  		          scrolling="no"
+								  		          frameborder="0">
+								  		        </iframe>
+								  		      </div>
+								  		    `,
                 showConfirmButton: false,
 				background: 'transparent',
 				color: '#ff3b3b'      

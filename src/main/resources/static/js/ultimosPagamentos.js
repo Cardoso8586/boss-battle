@@ -1,4 +1,3 @@
-
 let ultimoHashHistorico = null;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +34,7 @@ function formatarValor(valor) {
 
 function gerarHash(lista) {
     return JSON.stringify(
-        lista.map(i => `${i.id || ""}-${i.status}-${i.amount}`)
+        lista.map(i => `${i.id || ""}-${i.status || ""}-${i.amount || ""}-${i.createdAt || ""}`)
     );
 }
 
@@ -64,13 +63,20 @@ async function carregarHistoricoSaques(primeiraVez = false) {
         if (!response.ok) throw new Error("Erro HTTP");
 
         const lista = await response.json();
-        const hashAtual = gerarHash(lista);
+
+        // 🔥 ORDENA PRIMEIRO (MAIS RECENTE)
+        lista.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        // 🔥 PEGA SÓ OS 30 MAIS RECENTES
+        const ultimos30 = lista.slice(0, 30);
+
+        const hashAtual = gerarHash(ultimos30);
 
         // 🔒 NÃO ATUALIZA SE NADA MUDOU
         if (hashAtual === ultimoHashHistorico) return;
 
         ultimoHashHistorico = hashAtual;
-        atualizarHistoricoReal(tbody, lista);
+        atualizarHistoricoReal(tbody, ultimos30);
 
     } catch (error) {
         console.error("Erro ao carregar histórico:", error);
@@ -104,10 +110,6 @@ function atualizarHistoricoReal(tbody, lista) {
         return;
     }
 
-    lista.sort((a, b) =>
-        new Date(b.createdAt) - new Date(a.createdAt)
-    );
-
     lista.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -120,5 +122,3 @@ function atualizarHistoricoReal(tbody, lista) {
         tbody.appendChild(tr);
     });
 }
-
-

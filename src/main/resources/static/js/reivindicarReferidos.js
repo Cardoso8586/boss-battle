@@ -134,6 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				    imageWidth: 90,
 				    imageHeight: 90,
 				    imageAlt: 'Erro',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					background: 'transparent',
 				    color: '#ff3b3b',
 				    confirmButtonColor: '#ff3c00'

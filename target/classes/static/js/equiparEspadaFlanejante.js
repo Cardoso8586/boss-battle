@@ -129,6 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Ação bloqueada',
 	                    text: 'Você não pode equipar armas agora.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ff3b3b'
 	                });
@@ -145,6 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'info',
 	                    title: 'Machado já equipado',
 	                    text: 'Desequipe o machado antes de usar a espada.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ffb400'
 	                });
@@ -167,6 +187,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Erro',
 	                    text: erro,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ff3b3b'
 	                });
@@ -182,6 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'success',
 	                title: 'Espada equipada!',
 	                text: 'Sua Espada Flanejante foi equipada com sucesso.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 	                timer: 7000,
 	                showConfirmButton: false,
 	                background: 'transparent',
@@ -199,6 +239,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar espada.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 	                background: 'transparent',
 	                color: '#ff3b3b'
 	            });

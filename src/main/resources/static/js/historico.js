@@ -29,7 +29,7 @@ function formatarValor(valor) {
 
 function gerarHash(lista) {
     return JSON.stringify(
-        lista.map(i => `${i.id || ""}-${i.status}-${i.amount}`)
+        lista.map(i => `${i.id || ""}-${i.status || ""}-${i.amount || ""}-${i.createdAt || ""}`)
     );
 }
 
@@ -46,7 +46,7 @@ async function carregarHistoricoGeral(primeiraVez = false) {
     }
 
     try {
-		const response = await fetch(`/api/faucetpay/todos`);
+        const response = await fetch(`/api/faucetpay/todos`);
 
         if (!response.ok) throw new Error("Erro HTTP " + response.status);
 
@@ -58,11 +58,17 @@ async function carregarHistoricoGeral(primeiraVez = false) {
             return;
         }
 
-        const hashAtual = gerarHash(lista);
+        // Ordena do mais recente para o mais antigo
+        lista.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        // Mantém somente os 30 mais recentes
+        const ultimos30 = lista.slice(0, 30);
+
+        const hashAtual = gerarHash(ultimos30);
         if (hashAtual === ultimoHashHistorico) return;
 
         ultimoHashHistorico = hashAtual;
-        atualizarHistoricoReal(tbody, lista);
+        atualizarHistoricoReal(tbody, ultimos30);
 
     } catch (error) {
         console.error("Erro ao carregar histórico:", error);
@@ -90,10 +96,6 @@ function atualizarHistoricoReal(tbody, lista) {
         return;
     }
 
-    lista.sort((a, b) =>
-        new Date(b.createdAt) - new Date(a.createdAt)
-    );
-
     lista.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -106,4 +108,3 @@ function atualizarHistoricoReal(tbody, lista) {
         tbody.appendChild(tr);
     });
 }
-

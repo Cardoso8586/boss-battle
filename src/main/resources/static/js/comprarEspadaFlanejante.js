@@ -43,6 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: epadaFlanejanteErroImg,							  
 					imageWidth: 60,											   
 					imageHeight: 160,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
                     confirmButtonText: 'Ok',
                     background: 'transparent',
                     color: '#ff3b3b'
@@ -85,7 +95,17 @@ document.addEventListener('DOMContentLoaded', () => {
 							imageWidth: 60,											   
 							imageHeight: 160,
                             imageAlt: 'Espada Flanejante',
-                            timer: 5000,
+							html: `
+											  		      <div class="modal-anuncio">
+											  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+											  		          width="468"
+											  		          height="60"
+											  		          scrolling="no"
+											  		          frameborder="0">
+											  		        </iframe>
+											  		      </div>
+											  		    `,
+                            timer: 8000,
                             showConfirmButton: false,
                             background: 'transparent',
                             color: '#ffb400'
@@ -99,7 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
 							imageWidth: 60,											   
 							imageHeight: 160,
                             imageAlt: 'Espada Flanejante',
-                            timer: 5000,
+							html: `
+											  		      <div class="modal-anuncio">
+											  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+											  		          width="468"
+											  		          height="60"
+											  		          scrolling="no"
+											  		          frameborder="0">
+											  		        </iframe>
+											  		      </div>
+											  		    `,
+                            timer: 8000,
                             showConfirmButton: false,
                             background: 'transparent',
                             color: '#ffb400'
@@ -127,7 +157,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						imageUrl: bossCoinErroImg,							  
 						imageWidth: 120,											   
 						imageHeight: 120,
-                        timer: 5000,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
+                        timer: 8000,
                         showConfirmButton: false,
                         background: 'transparent',
                         color: '#ff3b3b'
@@ -145,7 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: epadaFlanejanteErroImg,							  
 					imageWidth: 60,											   
 					imageHeight: 160,
-                    timer: 5000,
+                    timer: 8000,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ff3b3b'

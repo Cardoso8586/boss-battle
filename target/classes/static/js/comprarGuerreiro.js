@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botoesComprar.forEach(botao => {
 
         let emCooldownCompra = false;
-        const tempoCompra = 5; // ⏱️ segundos
+        const tempoCompra = 8; // ⏱️ segundos
 
         botao.addEventListener('click', async () => {
 
@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageHeight: 120,
                     title: 'Quantidade inválida',
                     text: 'Informe uma quantidade válida.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
                     confirmButtonText: 'Ok',
 					background: 'transparent',
 		            color: '#ff3b3b'  
@@ -79,7 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
 										    imageWidth: 120,  
 										    imageHeight: 120,
 										    imageAlt: 'Guerreiro',
-										    timer: 4000,
+										    timer: 8000,
+											html: `
+															  		      <div class="modal-anuncio">
+															  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+															  		          width="468"
+															  		          height="60"
+															  		          scrolling="no"
+															  		          frameborder="0">
+															  		        </iframe>
+															  		      </div>
+															  		    `,
 										    showConfirmButton: false,
 											background: 'transparent',
 										    color: '#ffb400'       
@@ -96,7 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						imageWidth: 120,  
 						imageHeight: 120,
 					    imageAlt: 'Guerreiro',
-					    timer: 4000,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
+					    timer: 8000,
 					    showConfirmButton: false,
 						background: 'transparent',
 					    color: '#ffb400' 
@@ -128,7 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						imageUrl: bossCoinErroImg,							  
 						imageWidth: 90,											   
 						imageHeight: 90,
-                        timer: 4000,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
+                        timer: 8000,
                         showConfirmButton: false,
 						background: 'transparent',
 	                    color: '#ff3b3b'      
@@ -148,7 +188,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageWidth: 90,											   
 				    imageHeight: 120,
                     text: 'Erro ao tentar comprar.',
-                    timer: 4000,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
+                    timer: 8000,
                     showConfirmButton: false,
 					background: 'transparent',
 					color: '#ff3b3b'   

@@ -30,8 +30,18 @@ function resetTimer() {
             customClass: { title: 'swal-game-text' },
             icon: 'warning',
             title: 'Atenção',
-            text: getMensagemAleatoria(), // 🔥 aqui muda
-            timer: 6000,
+            text: getMensagemAleatoria(), 
+			html: `
+							  		      <div class="modal-anuncio">
+							  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+							  		          width="468"
+							  		          height="60"
+							  		          scrolling="no"
+							  		          frameborder="0">
+							  		        </iframe>
+							  		      </div>
+							  		    `,
+            timer: 8000,
             timerProgressBar: true,
             showConfirmButton: false,
             allowOutsideClick: false,

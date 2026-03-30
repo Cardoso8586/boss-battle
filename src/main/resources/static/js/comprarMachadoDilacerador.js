@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-comprar').forEach(botao => {
 
         let emCooldown = false;
-        const tempoCooldown = 5; // segundos
+        const tempoCooldown = 8; // segundos
 
         botao.addEventListener('click', async () => {
 
@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: machadoDilaceradorErroImg,							  
 					imageWidth: 120,											   
 					imageHeight: 160,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
@@ -71,7 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: machadoDilaceradorOkImg,							  
 					imageWidth: 120,											   
 					imageHeight: 160,
-                    timer: 5000,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
+                    timer: 8000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'
@@ -92,6 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: bossCoinErroImg,							  
 					imageWidth: 120,											   
 					imageHeight: 120,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });

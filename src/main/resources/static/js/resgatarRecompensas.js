@@ -179,7 +179,17 @@ document.addEventListener('DOMContentLoaded', async () => {
           return Swal.fire({
               icon: 'error',
               title: 'Erro',
-              text: `Saldo mínimo de ${BOSS_COIN_MINIMO.toLocaleString()} BossCoin`
+              text: `Saldo mínimo de ${BOSS_COIN_MINIMO.toLocaleString()} BossCoin`,
+			  html: `
+			  				  		      <div class="modal-anuncio">
+			  				  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			  				  		          width="468"
+			  				  		          height="60"
+			  				  		          scrolling="no"
+			  				  		          frameborder="0">
+			  				  		        </iframe>
+			  				  		      </div>
+			  				  		    `,
           });
       }
 

@@ -128,6 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Ação bloqueada',
 	                    text: 'Você não pode equipar armas agora.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ff3b3b'
 	                });
@@ -146,6 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Arma incompatível',
 	                    text: 'Desequipe a espada antes de equipar o machado.',
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ff3b3b'
 	                });
@@ -170,6 +190,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    icon: 'warning',
 	                    title: 'Erro',
 	                    text: erro,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 	                    background: 'transparent',
 	                    color: '#ff3b3b'
 	                });
@@ -187,6 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'success',
 	                title: 'Machado equipado!',
 	                text: 'Seu Machado Dilacerador foi equipado com sucesso.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 	                timer: 7000,
 	                showConfirmButton: false,
 	                background: 'transparent',
@@ -206,6 +246,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'error',
 	                title: 'Erro',
 	                text: 'Erro ao tentar equipar o machado.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 	                background: 'transparent',
 	                color: '#ff3b3b'
 	            });

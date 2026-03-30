@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (btnComprar) {
 
 	    let emCooldownCompra = false;
-	    const tempoCooldownCompra = 5; // segundos
+	    const tempoCooldownCompra = 8; // segundos
 
 	    btnComprar.addEventListener('click', async () => {
 
@@ -115,6 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: pocaoVigorErroImg,							  
 					imageWidth: 90,											   
 					imageHeight: 120,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 	                confirmButtonText: 'Ok',
 					background: 'transparent',
 					color: '#ff3b3b '
@@ -152,7 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						  imageWidth: 90,   
 						  imageHeight: 120, 
 						  imageAlt: 'Poção de Vigor Automático',
-						  timer: 5000,
+						  html: `
+						  				  		      <div class="modal-anuncio">
+						  				  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+						  				  		          width="468"
+						  				  		          height="60"
+						  				  		          scrolling="no"
+						  				  		          frameborder="0">
+						  				  		        </iframe>
+						  				  		      </div>
+						  				  		    `,
+						  timer: 8000,
 						  showConfirmButton: false,
 						  background: 'transparent',
 						  color: '#ffb400'
@@ -171,7 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
 												  imageWidth: 90,   
 												  imageHeight: 120,
 												  imageAlt: 'Poção de Vigor Automático',
-												  timer: 5000,
+												  html: `
+												  				  		      <div class="modal-anuncio">
+												  				  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+												  				  		          width="468"
+												  				  		          height="60"
+												  				  		          scrolling="no"
+												  				  		          frameborder="0">
+												  				  		        </iframe>
+												  				  		      </div>
+												  				  		    `,
+												  timer: 8000,
 												  showConfirmButton: false,
 												  background: 'transparent',
 												  color: '#ffb400'
@@ -195,7 +225,17 @@ document.addEventListener('DOMContentLoaded', () => {
 						imageUrl: bossCoinErroImg,							  
 						imageWidth: 120,											   
 						imageHeight: 120,
-	                    timer: 5000,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
+	                    timer: 8000,
 	                    showConfirmButton: false,
 						// background: '#0f0f0f',
 						background: 'transparent',
@@ -215,8 +255,17 @@ document.addEventListener('DOMContentLoaded', () => {
 					imageUrl: pocaoVigorErroImg,							  
 					imageWidth: 90,											   
 					imageHeight: 120,
-	                timer: 5000,
-					
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
+	                timer: 8000,
 	                showConfirmButton: false,
 					bbackground: 'transparent',
 					color: '#ff3b3b '
@@ -269,6 +318,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	                icon: 'warning',
 	                title: 'Erro',
 	                text: erro,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					background: 'transparent',
 				    color: '#ff3b3b '
 	            });
@@ -282,7 +341,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	            icon: 'success',
 	            title: 'Poção ativada!',
 	            text: 'Sua poção foi ativada com sucesso.',
-				timer: 5000,
+				html: `
+								  		      <div class="modal-anuncio">
+								  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+								  		          width="468"
+								  		          height="60"
+								  		          scrolling="no"
+								  		          frameborder="0">
+								  		        </iframe>
+								  		      </div>
+								  		    `,
+				timer: 8000,
 				showConfirmButton: false,
 				background: 'transparent',
 								
@@ -300,6 +369,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	            icon: 'error',
 	            title: 'Erro',
 	            text: 'Erro ao tentar ativar poção.',
+				html: `
+								  		      <div class="modal-anuncio">
+								  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+								  		          width="468"
+								  		          height="60"
+								  		          scrolling="no"
+								  		          frameborder="0">
+								  		        </iframe>
+								  		      </div>
+								  		    `,
 				background: 'transparent',
 								
 				color: '#ff3b3b'
@@ -318,6 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ATUALIZAÇÃO PERIÓDICA
     // ==============================
     atualizarUsuario(); // primeira atualização imediata
-    setInterval(atualizarUsuario, 5000); // atualiza a cada 5 segundos
+   // setInterval(atualizarUsuario, 5000); // atualiza a cada 5 segundos
 });
 

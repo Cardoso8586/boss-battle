@@ -99,6 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: 'error',
                 title: 'Erro',
                 text: 'Erro ao tentar recarregar Vigor.',
+				html: `
+								  		      <div class="modal-anuncio">
+								  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+								  		          width="468"
+								  		          height="60"
+								  		          scrolling="no"
+								  		          frameborder="0">
+								  		        </iframe>
+								  		      </div>
+								  		    `,
                 confirmButtonText: 'Ok',
 				background: 'transparent',
 				color: '#ff3b3b '      

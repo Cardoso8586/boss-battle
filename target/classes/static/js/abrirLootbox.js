@@ -44,6 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
 						imageUrl: bossCoinErroImg,							  
 						imageWidth: 120,											   
 						imageHeight: 120,
+						html: `
+										  		      <div class="modal-anuncio">
+										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+										  		          width="468"
+										  		          height="60"
+										  		          scrolling="no"
+										  		          frameborder="0">
+										  		        </iframe>
+										  		      </div>
+										  		    `,
 					    background: 'transparent',
                         color: '#ff3b3b' 
                     });
@@ -64,6 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				    imageUrl: imagem,
 				    imageWidth: 120,
 				    imageHeight: 120,
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					background: 'transparent',
 				    //background: 'rgba(0,0,0,0.85)',
 				    color: '#ffb400'
@@ -76,6 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: 'error',
                     title: 'Erro inesperado',
                     text: 'Não foi possível abrir a lootbox agora.',
+					html: `
+									  		      <div class="modal-anuncio">
+									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+									  		          width="468"
+									  		          height="60"
+									  		          scrolling="no"
+									  		          frameborder="0">
+									  		        </iframe>
+									  		      </div>
+									  		    `,
 					background: 'transparent',
                   //  background: 'rgba(0,0,0,0.85)',
                     color: '#ff3b3b'
