@@ -32,6 +32,72 @@ public class LojaAprimoramentosService {
         long precoGuerreirosAtual = usuario.getPrecoGuerreiros();
         long quantidadeTotalGuerreiro = quantidadeTotalGuerreiro(usuario);
 
+   
+
+        if (quantidadeTotalGuerreiro <= 25) {
+            aumentoGuerreiro = 500;
+        } else if (quantidadeTotalGuerreiro <= 50) {
+            aumentoGuerreiro = 600;
+        } else if (quantidadeTotalGuerreiro <= 75) {
+            aumentoGuerreiro = 700;
+        } else if (quantidadeTotalGuerreiro <= 100) {
+            aumentoGuerreiro = 800;
+        } else if (quantidadeTotalGuerreiro <= 125) {
+            aumentoGuerreiro = 900;
+        } else if (quantidadeTotalGuerreiro <= 150) {
+            aumentoGuerreiro = 1000;
+        } else if (quantidadeTotalGuerreiro <= 175) {
+            aumentoGuerreiro = 1100;
+        } else if (quantidadeTotalGuerreiro <= 200) {
+            aumentoGuerreiro = 1200;
+        } else if (quantidadeTotalGuerreiro <= 225) {
+            aumentoGuerreiro = 1300;
+        } else if (quantidadeTotalGuerreiro <= 250) {
+            aumentoGuerreiro = 1000;
+        } else if (quantidadeTotalGuerreiro <= 275) {
+            aumentoGuerreiro = 1400;
+        } else if (quantidadeTotalGuerreiro <= 300) {
+            aumentoGuerreiro = 1500;
+        } else if (quantidadeTotalGuerreiro <= 325) {
+            aumentoGuerreiro = 1600;
+        } else if (quantidadeTotalGuerreiro <= 350) {
+            aumentoGuerreiro = 1700;
+        } else if (quantidadeTotalGuerreiro <= 375) {
+            aumentoGuerreiro = 1500;
+        } else if (quantidadeTotalGuerreiro <= 400) {
+            aumentoGuerreiro = 1800;
+        } else if (quantidadeTotalGuerreiro <= 425) {
+            aumentoGuerreiro = 1900;
+        } else if (quantidadeTotalGuerreiro <= 450) {
+            aumentoGuerreiro = 2000;
+        } else if (quantidadeTotalGuerreiro <= 475) {
+            aumentoGuerreiro = 2100;
+        } else if (quantidadeTotalGuerreiro <= 500) {
+            aumentoGuerreiro = 2200;
+        } else if (quantidadeTotalGuerreiro <= 600) {
+            aumentoGuerreiro = 2300;
+        } else if (quantidadeTotalGuerreiro <= 700) {
+            aumentoGuerreiro = 2800;
+        } else if (quantidadeTotalGuerreiro <= 800) {
+            aumentoGuerreiro = 3200;
+        } else if (quantidadeTotalGuerreiro <= 900) {
+            aumentoGuerreiro = 3600;
+        } else if (quantidadeTotalGuerreiro <= 1000) {
+            aumentoGuerreiro = 4000;
+        } else if (quantidadeTotalGuerreiro <= 1200) {
+            aumentoGuerreiro = 4800;
+        } else if (quantidadeTotalGuerreiro <= 1400) {
+            aumentoGuerreiro = 5600;
+        } else if (quantidadeTotalGuerreiro <= 1600) {
+            aumentoGuerreiro = 6400;
+        } else if (quantidadeTotalGuerreiro <= 1800) {
+            aumentoGuerreiro = 7200;
+        } else if (quantidadeTotalGuerreiro <= 2000) {
+            aumentoGuerreiro = 8000;
+        } else {
+            aumentoGuerreiro = 15000;
+        }
+        /*
         if (quantidadeTotalGuerreiro <= 100) {
             aumentoGuerreiro = 100;
         } 
@@ -53,7 +119,7 @@ public class LojaAprimoramentosService {
         else {
             aumentoGuerreiro = 15000; // valor para acima de 5000 (opcional)
         }
-
+*/
         // 🔼 aumento fixo e permanente
         usuario.setPrecoGuerreiros(
             precoGuerreirosAtual + (quantidade * aumentoGuerreiro)
@@ -84,6 +150,40 @@ public class LojaAprimoramentosService {
 
         if (capacidadeVigor <= 2000) {
             aumentoCapacidadeVigor = 100;
+        } else if (capacidadeVigor <= 4000) {
+            aumentoCapacidadeVigor = 200;
+        } else if (capacidadeVigor <= 6000) {
+            aumentoCapacidadeVigor = 300;
+        } else if (capacidadeVigor <= 8000) {
+            aumentoCapacidadeVigor = 400;
+        } else if (capacidadeVigor <= 10000) {
+            aumentoCapacidadeVigor = 500;
+        } else if (capacidadeVigor <= 12000) {
+            aumentoCapacidadeVigor = 700;
+        } else if (capacidadeVigor <= 14000) {
+            aumentoCapacidadeVigor = 1000;
+        } else if (capacidadeVigor <= 16000) {
+            aumentoCapacidadeVigor = 1300;
+        } else if (capacidadeVigor <= 18000) {
+            aumentoCapacidadeVigor = 1600;
+        } else if (capacidadeVigor <= 20000) {
+            aumentoCapacidadeVigor = 2000;
+        } else if (capacidadeVigor <= 22000) {
+            aumentoCapacidadeVigor = 2500;
+        } else if (capacidadeVigor <= 24000) {
+            aumentoCapacidadeVigor = 3000;
+        } else if (capacidadeVigor <= 26000) {
+            aumentoCapacidadeVigor = 3500;
+        } else if (capacidadeVigor <= 28000) {
+            aumentoCapacidadeVigor = 4000;
+        } else if (capacidadeVigor <= 30000) {
+            aumentoCapacidadeVigor = 5000;
+        } else {
+            aumentoCapacidadeVigor = 15000;
+        }
+        /*
+        if (capacidadeVigor <= 2000) {
+            aumentoCapacidadeVigor = 100;
         } 
         else  if (capacidadeVigor <= 4000) {
             aumentoCapacidadeVigor = 200;
@@ -107,7 +207,7 @@ public class LojaAprimoramentosService {
         else {
             aumentoCapacidadeVigor = 15000; // valor padrão acima de 10_000
         }
-
+*/
         usuario.setPrecoEnergia(
             precoEnergiaAtual + (quantidade * aumentoCapacidadeVigor)
         );
@@ -122,6 +222,44 @@ public class LojaAprimoramentosService {
         long precoAtaqueAtual = usuario.getPrecoAtaqueEspecial();
         long atqueEspecial = usuario.getAtaqueBase();
         
+        
+        if (atqueEspecial <= 1000) {
+            aumentoPrecoAtaqueEspecial = 100;
+        } else if (atqueEspecial <= 2000) {
+            aumentoPrecoAtaqueEspecial = 200;
+        } else if (atqueEspecial <= 3000) {
+            aumentoPrecoAtaqueEspecial = 300;
+        } else if (atqueEspecial <= 4000) {
+            aumentoPrecoAtaqueEspecial = 400;
+        } else if (atqueEspecial <= 5000) {
+            aumentoPrecoAtaqueEspecial = 500;
+        } else if (atqueEspecial <= 7000) {
+            aumentoPrecoAtaqueEspecial = 700;
+        } else if (atqueEspecial <= 10000) {
+            aumentoPrecoAtaqueEspecial = 1000;
+        } else if (atqueEspecial <= 12000) {
+            aumentoPrecoAtaqueEspecial = 1300;
+        } else if (atqueEspecial <= 14000) {
+            aumentoPrecoAtaqueEspecial = 1600;
+        } else if (atqueEspecial <= 16000) {
+            aumentoPrecoAtaqueEspecial = 2000;
+        } else if (atqueEspecial <= 18000) {
+            aumentoPrecoAtaqueEspecial = 2500;
+        } else if (atqueEspecial <= 20000) {
+            aumentoPrecoAtaqueEspecial = 3000;
+        } else if (atqueEspecial <= 25000) {
+            aumentoPrecoAtaqueEspecial = 4000;
+        } else if (atqueEspecial <= 30000) {
+            aumentoPrecoAtaqueEspecial = 5000;
+        } else if (atqueEspecial <= 40000) {
+            aumentoPrecoAtaqueEspecial = 7000;
+        } else if (atqueEspecial <= 50000) {
+            aumentoPrecoAtaqueEspecial = 9000;
+        } else {
+            aumentoPrecoAtaqueEspecial = 15000;
+        }
+        
+        /*
         if (atqueEspecial <= 1000) {
         	aumentoPrecoAtaqueEspecial = 100;
         } 
@@ -147,7 +285,7 @@ public class LojaAprimoramentosService {
         else {
         	aumentoPrecoAtaqueEspecial = 15000; // valor padrão acima de 15_000
         }
-
+*/
         
         // 🔼 aumento fixo e permanente
         usuario.setPrecoAtaqueEspecial(precoAtaqueAtual + ( quantidade* aumentoPrecoAtaqueEspecial) );

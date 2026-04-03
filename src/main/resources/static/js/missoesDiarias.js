@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function formatarMoedaBR(valor) {
     return new Intl.NumberFormat('pt-BR', {
-       
-        currency: 'BRL'
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
     }).format(valor);
 }
 //================ BUSCAR MISSÃO =================

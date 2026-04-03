@@ -216,19 +216,48 @@ public class MissaoDiariaService {
         long nivelUsuario = usuario.getNivel();
         long baseDano;
 
-        
-        if (nivelUsuario < 100) baseDano = 100L;
-        else if (nivelUsuario < 200) baseDano = 500L;
-        else if (nivelUsuario < 300) baseDano = 700L;
-        else if (nivelUsuario < 400) baseDano = 1_500L;
-        else if (nivelUsuario < 500) baseDano = 2_200L;
-        else if (nivelUsuario < 600) baseDano = 3_000L;
-        else if (nivelUsuario < 700) baseDano = 4_500L;
-        else if (nivelUsuario < 800) baseDano = 5_500L;
-        else if (nivelUsuario < 900) baseDano = 6_000L;
-        else if (nivelUsuario < 1_000) baseDano = 7_000L;
-        else if (nivelUsuario < 1_500) baseDano = 10_000L;
-        else baseDano = 15_000L;
+        if (nivelUsuario < 25) baseDano = 100L;
+        else if (nivelUsuario < 50) baseDano = 500L;
+        else if (nivelUsuario < 75) baseDano = 700L;
+        else if (nivelUsuario < 100) baseDano = 1_500L;
+        else if (nivelUsuario < 125) baseDano = 2_200L;
+        else if (nivelUsuario < 150) baseDano = 3_000L;
+        else if (nivelUsuario < 175) baseDano = 4_500L;
+        else if (nivelUsuario < 200) baseDano = 5_500L;
+        else if (nivelUsuario < 225) baseDano = 6_000L;
+        else if (nivelUsuario < 250) baseDano = 6_500L;
+        else if (nivelUsuario < 275) baseDano = 7_000L;
+        else if (nivelUsuario < 300) baseDano = 7_500L;
+        else if (nivelUsuario < 325) baseDano = 8_000L;
+        else if (nivelUsuario < 350) baseDano = 8_500L;
+        else if (nivelUsuario < 375) baseDano = 9_000L;
+        else if (nivelUsuario < 400) baseDano = 9_500L;
+        else if (nivelUsuario < 425) baseDano = 10_000L;
+        else if (nivelUsuario < 450) baseDano = 10_500L;
+        else if (nivelUsuario < 475) baseDano = 11_000L;
+        else if (nivelUsuario < 500) baseDano = 11_500L;
+        else if (nivelUsuario < 525) baseDano = 12_000L;
+        else if (nivelUsuario < 550) baseDano = 12_500L;
+        else if (nivelUsuario < 575) baseDano = 13_000L;
+        else if (nivelUsuario < 600) baseDano = 13_500L;
+        else if (nivelUsuario < 625) baseDano = 14_000L;
+        else if (nivelUsuario < 650) baseDano = 14_500L;
+        else if (nivelUsuario < 675) baseDano = 15_000L;
+        else if (nivelUsuario < 700) baseDano = 15_500L;
+        else if (nivelUsuario < 725) baseDano = 16_000L;
+        else if (nivelUsuario < 750) baseDano = 16_500L;
+        else if (nivelUsuario < 775) baseDano = 17_000L;
+        else if (nivelUsuario < 800) baseDano = 17_500L;
+        else if (nivelUsuario < 825) baseDano = 18_000L;
+        else if (nivelUsuario < 850) baseDano = 18_500L;
+        else if (nivelUsuario < 875) baseDano = 19_000L;
+        else if (nivelUsuario < 900) baseDano = 19_500L;
+        else if (nivelUsuario < 925) baseDano = 20_000L;
+        else if (nivelUsuario < 950) baseDano = 20_500L;
+        else if (nivelUsuario < 975) baseDano = 21_000L;
+        else if (nivelUsuario < 1_000) baseDano = 21_500L;
+
+        else baseDano = 25_000L;
 
         switch (nivelMissao) {
             case 1:
@@ -287,16 +316,48 @@ public class MissaoDiariaService {
         long nivelUsuario = usuario.getNivel();
         int base;
 
-        if (nivelUsuario < 100) base = 400;
-        else if (nivelUsuario < 200) base = 500;
-        else if (nivelUsuario < 300) base = 600;
-        else if (nivelUsuario < 400) base = 700;
-        else if (nivelUsuario < 500) base = 800;
-        else if (nivelUsuario < 600) base = 900;
-        else if (nivelUsuario < 700) base = 1_000;
-        else if (nivelUsuario < 800) base = 1_200;
-        else if (nivelUsuario < 900) base = 1_500;
-        else base = 2500;
+        if (nivelUsuario < 25) base = 400;
+        else if (nivelUsuario < 50) base = 450;
+        else if (nivelUsuario < 75) base = 500;
+        else if (nivelUsuario < 100) base = 550;
+        else if (nivelUsuario < 125) base = 600;
+        else if (nivelUsuario < 150) base = 650;
+        else if (nivelUsuario < 175) base = 700;
+        else if (nivelUsuario < 200) base = 750;
+        else if (nivelUsuario < 225) base = 800;
+        else if (nivelUsuario < 250) base = 850;
+        else if (nivelUsuario < 275) base = 900;
+        else if (nivelUsuario < 300) base = 950;
+        else if (nivelUsuario < 325) base = 1_000;
+        else if (nivelUsuario < 350) base = 1_050;
+        else if (nivelUsuario < 375) base = 1_100;
+        else if (nivelUsuario < 400) base = 1_150;
+        else if (nivelUsuario < 425) base = 1_200;
+        else if (nivelUsuario < 450) base = 1_250;
+        else if (nivelUsuario < 475) base = 1_300;
+        else if (nivelUsuario < 500) base = 1_350;
+        else if (nivelUsuario < 525) base = 1_400;
+        else if (nivelUsuario < 550) base = 1_450;
+        else if (nivelUsuario < 575) base = 1_500;
+        else if (nivelUsuario < 600) base = 1_550;
+        else if (nivelUsuario < 625) base = 1_600;
+        else if (nivelUsuario < 650) base = 1_650;
+        else if (nivelUsuario < 675) base = 1_700;
+        else if (nivelUsuario < 700) base = 1_750;
+        else if (nivelUsuario < 725) base = 1_800;
+        else if (nivelUsuario < 750) base = 1_850;
+        else if (nivelUsuario < 775) base = 1_900;
+        else if (nivelUsuario < 800) base = 1_950;
+        else if (nivelUsuario < 825) base = 2_000;
+        else if (nivelUsuario < 850) base = 2_050;
+        else if (nivelUsuario < 875) base = 2_100;
+        else if (nivelUsuario < 900) base = 2_150;
+        else if (nivelUsuario < 925) base = 2_200;
+        else if (nivelUsuario < 950) base = 2_250;
+        else if (nivelUsuario < 975) base = 2_300;
+        else if (nivelUsuario < 1_000) base = 2_350;
+
+        else base = 3_000;
 
         switch (nivelMissao) {
             case 1:

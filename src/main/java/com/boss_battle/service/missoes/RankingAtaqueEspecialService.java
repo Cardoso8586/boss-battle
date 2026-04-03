@@ -37,12 +37,13 @@ public class RankingAtaqueEspecialService {
 
     // Distribui prêmios semanais para os 5 melhores usuários
     public List<PremioUsuario> distribuirPremios() {
-        BigDecimal premioPrimeiroLugar = BigDecimal.valueOf(20000);
-        BigDecimal premioSegundoLugar  = BigDecimal.valueOf(15000);
-        BigDecimal premioTerceiroLugar = BigDecimal.valueOf(10000);
-        BigDecimal premioQuartoLugar   = BigDecimal.valueOf(5000);
-        BigDecimal premioQuintoLugar   = BigDecimal.valueOf(2500);
-
+        BigDecimal premioPrimeiroLugar = BigDecimal.valueOf(50000);
+        BigDecimal premioSegundoLugar  = BigDecimal.valueOf(30000);
+        BigDecimal premioTerceiroLugar = BigDecimal.valueOf(20000);
+        BigDecimal premioQuartoLugar   = BigDecimal.valueOf(10000);
+        BigDecimal premioQuintoLugar   = BigDecimal.valueOf(5000);
+        
+ 
         List<UsuarioBossBattle> top5 = usuarioRepo.findTop5ByOrderByQuantidadeAtaquesSemanalDesc();
         List<PremioUsuario> premiados = new ArrayList<>();
 
