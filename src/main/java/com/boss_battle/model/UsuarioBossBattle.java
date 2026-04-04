@@ -65,9 +65,18 @@ public class UsuarioBossBattle  {
         if (this.bossCoins == null) this.bossCoins = new BigDecimal("10000.00");
     }
     
-   //================================ boss_coins =======================================
+   //================================ ultimo valor recebido =======================================
 
-    
+    @Column(name = "ultimo_valor_recebido")
+    private BigDecimal ultimoValorRecebido = BigDecimal.ZERO;
+
+    public BigDecimal getUltimoValorRecebido() {
+        return ultimoValorRecebido;
+    }
+
+    public void setUltimoValorRecebido(BigDecimal ultimoValorRecebido) {
+        this.ultimoValorRecebido = ultimoValorRecebido;
+    }
     
     //======================================== MISSÕES ================================================
     // DIÁRIA

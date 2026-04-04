@@ -42,6 +42,9 @@ public class AtualizarStatusUsuarioController {
                         " | Restantes: " + saquesRestantes;
         */
         
+        BigDecimal ultimoGanho = usuario.getUltimoValorRecebido();
+        if (ultimoGanho == null) ultimoGanho = BigDecimal.ZERO;
+      
         
         return Map.ofEntries(
         	    Map.entry("totalGuerreiros", totalGuerreiros(usuarioId)),
@@ -77,8 +80,9 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("flechaVeneno", usuario.getFlechaVeneno()), 
         	    Map.entry("tipoFlecha", TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva()).name()),
 
-        	    Map.entry("quantidadeSaquesHoje", quantidadeSaques)
-        	  
+        	    Map.entry("quantidadeSaquesHoje", quantidadeSaques),
+        	    Map.entry("ultimoValorRecebido", ultimoGanho)
+        	    
         	    
         	);
 

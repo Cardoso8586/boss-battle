@@ -45,13 +45,19 @@ public class DashboardController {
         
         model.addAttribute("xpUsuario", usuario.getExp());
         
-        model.addAttribute("nivelUsuario", usuario.getNivel());
+        long nivel =  usuario.getNivel();
+        model.addAttribute("nivelUsuario", df.format(nivel));
         
         model.addAttribute("guerreirosUsuario", usuario.getGuerreiros());
         
         model.addAttribute("guerreirosUsuario", df.format(usuario.getGuerreiros()));
         
         model.addAttribute("guerreirosRetaguarda", df.format(usuario.getGuerreirosRetaguarda()));
+        
+        
+        BigDecimal ultimoGanho = usuario.getUltimoValorRecebido();
+        if (ultimoGanho == null) ultimoGanho = BigDecimal.ZERO;
+        model.addAttribute("ultimoGanho", df.format(ultimoGanho));
         
         long guerreiroAtaque = usuario.getGuerreiros();
         long guerreiroRetaguarda = usuario.getGuerreirosRetaguarda();

@@ -64,6 +64,7 @@ import com.boss_battle.repository.BossRewardLockRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.BossDamageLogService;
 import com.boss_battle.service.ReferidosRecompensaService;
+import com.boss_battle.service.UltimoValorRecebidoService;
 import com.boss_battle.service.UsuarioBossBattleService;
 import com.boss_battle.service.ativar_equipar.PocaoVigorService;
 import com.boss_battle.service.auto_ataque.BossAttackService;
@@ -191,6 +192,7 @@ public class GlobalBossService {
     private final MissaoDiariaService missaoDiariaService;
     
     private final RankingAtaqueEspecialService rankingAtaqueEspecialService;
+    private final UltimoValorRecebidoService ultimoValorRecebidoService;
     
    // private final Random random = new Random();
 
@@ -260,7 +262,8 @@ public class GlobalBossService {
             PocaoVigorService pocaoVigorService,  
             SpawRandomBossService spawRandomBossService,
             MissaoDiariaService missaoDiariaService,
-            RankingAtaqueEspecialService rankingAtaqueEspecialService
+            RankingAtaqueEspecialService rankingAtaqueEspecialService,
+            UltimoValorRecebidoService ultimoValorRecebidoService
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -327,7 +330,7 @@ public class GlobalBossService {
         this.spawRandomBossService = spawRandomBossService;
         this.missaoDiariaService = missaoDiariaService;
         this.rankingAtaqueEspecialService = rankingAtaqueEspecialService;
-        
+        this.ultimoValorRecebidoService = ultimoValorRecebidoService;
         
     }
 
@@ -815,7 +818,7 @@ public class GlobalBossService {
 
                 referidosService.adicionarGanho(u, BigDecimal.valueOf(rewardFinal));
                 usuarioService.adicionarExp(u, expFinal);
-
+                ultimoValorRecebidoService.setUltimoValorRecebido(u, BigDecimal.valueOf(rewardFinal));
              
 
             } catch (Exception e) {

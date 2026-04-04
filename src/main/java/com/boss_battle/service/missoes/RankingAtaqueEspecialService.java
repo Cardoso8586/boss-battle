@@ -13,6 +13,7 @@ import com.boss_battle.dto.UsuarioRankingAtaquesDTO;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.ReferidosRecompensaService;
+import com.boss_battle.service.UltimoValorRecebidoService;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,14 +26,17 @@ public class RankingAtaqueEspecialService {
 
     private final UsuarioBossBattleRepository usuarioRepo;
     private final ReferidosRecompensaService referidosService;
+    private final UltimoValorRecebidoService ultimoValorRecebidoService;
 
     public RankingAtaqueEspecialService(
     		UsuarioBossBattleRepository usuarioRepo,
-    		ReferidosRecompensaService referidosService
+    		ReferidosRecompensaService referidosService,
+    		UltimoValorRecebidoService ultimoValorRecebidoService
     		
     		) {
         this.usuarioRepo = usuarioRepo;
         this.referidosService = referidosService;
+        this.ultimoValorRecebidoService = ultimoValorRecebidoService;
     }
 
     // Distribui prêmios semanais para os 5 melhores usuários
@@ -97,6 +101,8 @@ public class RankingAtaqueEspecialService {
                         
                         
                         referidosService.adicionarGanho(u, (pendente));
+                        ultimoValorRecebidoService.setUltimoValorRecebido(u,pendente);
+                        
                         
                         usuarioRepo.save(u);
                         return true;

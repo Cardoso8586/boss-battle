@@ -112,21 +112,17 @@ gurações -->
  <span th:text="${usuario.username}"></span>!
  </h2>
 
- <p>
+<p id="id-box">
   ID: <strong th:text="${idUsuario}">0</strong>
- </p>
- <p>
- <p>
+</p>
+
+<p id="xp-box">
   XP: <span id="xp" th:text="${xpUsuario}">0</span>
- </p>
- <p>
+</p>
+
+<p id="nivel-box">
   Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
- </p>
-       
-
-
-
-
+</p>
 
 
 <div class="saldo-box">
@@ -136,6 +132,10 @@ gurações -->
 </div>
 
 
+ 
+<p id="ultimo-ganho-box">
+  Último Ganho <span id="ganho" th:text="${ultimoGanho}">0</span>
+</p>
     
     
 </div>
@@ -1036,6 +1036,7 @@ Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
   <!-- TOPO: user-info + anuncio 1 -->
   <div class="perfil-linha">
     
+    <!--  
     <div class="user-info">
       <h2>
         Bem-vindo, 
@@ -1053,7 +1054,7 @@ Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
       </div>
       
     </div>
-
+-->
 
 
   </div>
@@ -1160,7 +1161,7 @@ Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
   <div class="perfil-linha">
 
     <div class="ranking-box">
-      <div class="perfil-titulo">Ranking de Dano</div>
+      <div class="perfil-titulo">Ranking de Dano (Boss Atual)</div>
 
       <ul id="rankingDano" class="user-ajustes">
         <!-- JS -->

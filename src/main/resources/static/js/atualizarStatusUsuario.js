@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	const arco_celestial = document.getElementById('arco_celestial');
 	const flecha_diamante = document.getElementById('flecha_diamante');
 	const flecha_fogo = document.getElementById('flecha_fogo');
-	const xpComando = document.getElementById('xp_comando');
-	const nivelComando = document.getElementById('nivel_comando');
-	const bossCoinComando = document.getElementById('boss_coins_comando');
-   const ataqueEspecial  = document.getElementById('damage');
-	
+	//const xpComando = document.getElementById('xp_comando');
+	//const nivelComando = document.getElementById('nivel_comando');
+	//const bossCoinComando = document.getElementById('boss_coins_comando');
+    const ataqueEspecial  = document.getElementById('damage');
+	const ultimoGanho = document.getElementById('ganho');
+   
+   //=======================================================================
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
 
@@ -208,6 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			guerreiros.textContent = formatarNumero(data.guerreiros);
 			ataquePorMinuto.textContent = formatarNumero(data.ataquePorMinuto);
 			xp.textContent = formatarNumero(data.xp);
+			//ultimoGanho.textContent = formatarNumero(data.ultimoValorRecebido);
+			const valor = data.ultimoValorRecebido;
+
+			ultimoGanho.textContent = valor > 0 
+			    ? "+" + formatarNumero(valor) 
+			    : "0";
+				
 			guerreirosRetaguarda.textContent  = formatarNumero(data.guerreirosRetaguarda);
 			espadaFlanejante.textContent = formatarNumero(data.espadaflanejante);
 			machadoDilacerador.textContent = formatarNumero(data.machadoDilacerador);
@@ -219,9 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			  //Atualizar Central de Comando
 			
-			    xpComando.textContent = formatarNumero(data.xp);
-			    nivelComando.textContent = formatarNumero(data.nivel);
-	            bossCoinComando.textContent = formatarNumero(data.bossCoin);
+			   // xpComando.textContent = formatarNumero(data.xp);
+			   // nivelComando.textContent = formatarNumero(data.nivel);
+	           // bossCoinComando.textContent = formatarNumero(data.bossCoin);
 			    quantidade_guerreiros.textContent = formatarNumero(data.totalGuerreiros);
 				capacidade_vigor.textContent = formatarNumero(data.capacidadeVigor);
 				ataques_minutos.textContent = formatarNumero(data.ataquePorMinuto);

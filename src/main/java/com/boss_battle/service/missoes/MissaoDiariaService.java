@@ -14,6 +14,7 @@ import com.boss_battle.dto.MissaoDiariaDTO;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.ReferidosRecompensaService;
+import com.boss_battle.service.UltimoValorRecebidoService;
 
 @Service
 public class MissaoDiariaService {
@@ -27,16 +28,21 @@ public class MissaoDiariaService {
 
     private final UsuarioBossBattleRepository usuarioRepository;
     private final ReferidosRecompensaService referidosService;
-    
+    private final UltimoValorRecebidoService ultimoValorRecebidoService;
     
     
     public MissaoDiariaService(
     		UsuarioBossBattleRepository usuarioRepository, 
-    		ReferidosRecompensaService referidosService)
+    		ReferidosRecompensaService referidosService,
+    		UltimoValorRecebidoService ultimoValorRecebidoService
+    		
+    		)
+    
     
     {
             this.usuarioRepository = usuarioRepository;
             this.referidosService = referidosService;
+            this.ultimoValorRecebidoService = ultimoValorRecebidoService;
     }
 
    
@@ -153,6 +159,7 @@ public class MissaoDiariaService {
 
         usuario.setBossCoins(usuario.getBossCoins().add(BigDecimal.valueOf(recompensa)));
         referidosService.adicionarGanho(usuario, BigDecimal.valueOf(recompensa));
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario, BigDecimal.valueOf(recompensa));
         
 
         if (nivelAtual < 5) {
@@ -187,6 +194,8 @@ public class MissaoDiariaService {
 
         // paga primeiro
         usuario.setBossCoins(usuario.getBossCoins().add(BigDecimal.valueOf(recompensa)));
+        referidosService.adicionarGanho(usuario, BigDecimal.valueOf(recompensa));
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario, BigDecimal.valueOf(recompensa));
 
         if (nivelAtual < 5) {
             usuario.setMissaoDiariaNivelAtaquesEspeciais(nivelAtual + 1);

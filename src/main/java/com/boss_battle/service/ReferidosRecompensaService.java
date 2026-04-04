@@ -19,6 +19,8 @@ public class ReferidosRecompensaService {
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
 	
+    @Autowired
+    private UltimoValorRecebidoService ultimoValorRecebidoService;
 	
 
     public void adicionarGanho(UsuarioBossBattle usuario, BigDecimal valor) {
@@ -63,6 +65,9 @@ public class ReferidosRecompensaService {
 
         usuario.setBossCoins(usuario.getBossCoins().add(totalClaim));
         usuario.setGanhosPendentesReferral(BigDecimal.ZERO);
+        
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario,totalClaim);
+        
       //  usuarioRepository.save(usuario);
     }
 
