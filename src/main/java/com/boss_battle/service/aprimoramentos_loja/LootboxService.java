@@ -26,7 +26,7 @@ public class LootboxService {
     private final long precoBasica = 500L;   
     private final long precoAvancada = 800L; 
     private final long precoEspecial = 1_000L; 
-    private final long precoLendaria = 1_50L;
+    private final long precoLendaria = 1_500L;
 
     public String abrirLootboxPorNivel(UsuarioBossBattle usuario, String tipoLootbox) {
         final int maxBasica = 10;

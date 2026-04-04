@@ -1,54 +1,59 @@
-/* Desktop apenas */
+/* =========================================================
+   DESKTOP ONLY (escondido no mobile)
+========================================================= */
 .anuncio-1,
 .anuncio-2,
 .anuncio-5,
 .anuncio-10, 
 .anuncio-12,
-.anuncio-15
-{
+.anuncio-15 {
     display: none;
-    gap: 50px;
 }
 
+/* Mostrar no desktop */
 @media (min-width: 1024px) {
     .anuncio-1,
     .anuncio-2,
     .anuncio-5,
     .anuncio-10,
     .anuncio-12,
-    .anuncio-16
-    
-     {
+    .anuncio-15 {
         display: block;
-         gap: 50px;
     }
 }
 
 
-/* Mobile por padrão */
+/* =========================================================
+   MOBILE (visível por padrão)
+========================================================= */
 .anuncio-3,
 .anuncio-4,
 .anuncio-6,
 .anuncio-7,
-.anuncio-9 {
+.anuncio-9,
+.anuncio-20 {
     display: block;
-     gap: 50px;
     text-align: center;
     margin: 10px 0;
-    
 }
 
+
+/* =========================================================
+   AJUSTES PARA DESKTOP
+========================================================= */
 @media (min-width: 1024px) {
+
+    /* mantém visíveis */
     .anuncio-3,
     .anuncio-4,
     .anuncio-6,
     .anuncio-7,
     .anuncio-9 {
-     
         display: block;
-         gap: 50px;
-    }
     }
 
-
-
+    /* 🔥 ESCONDE O 20 NO DESKTOP */
+    .anuncio-20 {
+        display: none;
+    }
+}

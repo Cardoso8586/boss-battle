@@ -134,13 +134,13 @@
 /* Cor do ganho */
 .ganho-boss {
     color: #ffd700;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
 }
 
 /* Cor da perda */
 .perda-boss {
     color: #ff4d4f;
-    text-shadow: 0 0 8px rgba(255, 77, 79, 0.7);
+    text-shadow: 0 0 10px rgba(255, 77, 79, 0.7);
 }
 
 
@@ -150,12 +150,12 @@
 
 /* Animação quando aumenta saldo */
 .animar-saldo {
-    animation: pulseSaldo 0.6s ease;
+    animation: pulseSaldo 1.6s ease;
 }
 
 /* Animação quando diminui saldo */
 .animar-perda {
-    animation: pulsePerda 0.6s ease;
+    animation: pulsePerda 1.6s ease;
 }
 
 

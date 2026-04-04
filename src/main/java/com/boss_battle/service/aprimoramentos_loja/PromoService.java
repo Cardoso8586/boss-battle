@@ -48,7 +48,7 @@ public class PromoService {
                         (2 * precoGuerreiro) +
                         (2 * precoPocaoVigor) +
                         (1 * precoEspada);
-                desconto = 0.10;
+                desconto = 0.15;
             }
 
             case "AVANCADA" -> {
@@ -57,7 +57,7 @@ public class PromoService {
                         (3 * precoPocaoVigor) +
                         (2 * precoEspada) +
                         (1 * precoMachado);
-                desconto = 0.15;
+                desconto = 0.25;
             }
 
             case "ESPECIAL" -> {
@@ -66,7 +66,7 @@ public class PromoService {
                         (5 * precoPocaoVigor) +
                         (3 * precoEspada) +
                         (2 * precoMachado);
-                desconto = 0.20;
+                desconto = 0.35;
             }
 
             case "LENDARIA" -> {
@@ -76,7 +76,7 @@ public class PromoService {
                         (5 * precoEspada) +
                         (3 * precoMachado) +
                         (3 * precoArcoCelestial);
-                desconto = 0.30;
+                desconto = 0.50;
             }
 
             default -> {
@@ -102,12 +102,23 @@ public class PromoService {
         usuario.setBossCoins(usuario.getBossCoins().subtract(precoFinal));
 
         // 🎁 ENTREGA DOS ITENS
+        
+        
+        int quantidade = 0;
+       
+       
         switch (tipoPromo.toUpperCase()) {
 
             case "NORMAL" -> {
                 usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + 2);
                 usuario.setPocaoVigor(usuario.getPocaoVigor() + 2);
                 usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 1);
+                
+                
+                // 🔁 Recalcula preço (sem salvar usuário ainda)
+                quantidade = 2;
+                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
+                
             }
 
             case "AVANCADA" -> {
@@ -115,6 +126,11 @@ public class PromoService {
                 usuario.setPocaoVigor(usuario.getPocaoVigor() + 3);
                 usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 2);
                 usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 1);
+                
+                // 🔁 Recalcula preço (sem salvar usuário ainda)
+                quantidade = 4;
+                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
+                
             }
 
             case "ESPECIAL" -> {
@@ -122,6 +138,10 @@ public class PromoService {
                 usuario.setPocaoVigor(usuario.getPocaoVigor() + 5);
                 usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 3);
                 usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 2);
+                // 🔁 Recalcula preço (sem salvar usuário ainda)
+                quantidade = 6;
+                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
+                
             }
 
             case "LENDARIA" -> {
@@ -129,6 +149,11 @@ public class PromoService {
                 usuario.setPocaoVigor(usuario.getPocaoVigor() + 8);
                 usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 5);
                 usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 3);
+                
+                // 🔁 Recalcula preço (sem salvar usuário ainda)
+                quantidade = 10;
+                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
+                
             }
         }
 
@@ -164,7 +189,7 @@ public class PromoService {
                         (2 * precoGuerreiro) +
                         (2 * precoPocao) +
                         (1 * precoEspada);
-                descontoPercentual = 10;
+                descontoPercentual = 15;
             }
 
             case "AVANCADA" -> {
@@ -173,7 +198,7 @@ public class PromoService {
                         (3 * precoPocao) +
                         (2 * precoEspada) +
                         (1 * precoMachado);
-                descontoPercentual = 15;
+                descontoPercentual = 25;
             }
 
             case "ESPECIAL" -> {
@@ -182,7 +207,7 @@ public class PromoService {
                         (5 * precoPocao) +
                         (3 * precoEspada) +
                         (2 * precoMachado);
-                descontoPercentual = 20;
+                descontoPercentual = 35;
             }
 
             case "LENDARIA" -> {
@@ -192,7 +217,7 @@ public class PromoService {
                         (5 * precoEspada) +
                         (3 * precoMachado) +
                         (3 * precoArco);
-                descontoPercentual = 30;
+                descontoPercentual = 50;
             }
 
             default -> throw new RuntimeException("Promoção inválida");
