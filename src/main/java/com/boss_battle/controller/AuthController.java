@@ -90,6 +90,47 @@ public class AuthController {
 
     //===================================================================================
     
+    
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Map<String, String> payload, HttpSession session) {
+
+        try {
+            String emailOuUsuario = payload.get("loginUser");
+            String senha = payload.get("loginSenha");
+
+            // valida entrada
+            if (emailOuUsuario == null || senha == null) {
+                return ResponseEntity.badRequest().body("Dados inválidos!");
+            }
+
+            UsuarioBossBattle usuario = usuarioRepository
+                    .findByEmailOrUsername(emailOuUsuario, emailOuUsuario);
+
+            if (usuario == null) {
+                return ResponseEntity.badRequest().body("Usuário não encontrado!");
+            }
+
+            if (usuario.getSenha() == null) {
+                return ResponseEntity.badRequest().body("Erro interno no usuário!");
+            }
+
+            if (passwordEncoder.matches(senha, usuario.getSenha())) {
+
+                session.setAttribute("usuarioLogado", usuario);
+
+                return ResponseEntity.ok("Login realizado com sucesso!");
+            } else {
+                return ResponseEntity.badRequest().body("Email/Usuário ou senha inválidos!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 🔥 IMPORTANTE PRA DEBUG
+
+            return ResponseEntity.status(500)
+                    .body("Erro interno no servidor.");
+        }
+    }
+    /*
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> payload, HttpSession session) {
         String emailOuUsuario = payload.get("loginUser");
@@ -106,6 +147,6 @@ public class AuthController {
         }
     }
 
-    
+    */
 
 }

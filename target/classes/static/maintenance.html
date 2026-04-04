@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manutenção - Boss Battle Arena</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255, 180, 0, 0.12), transparent 35%),
+        linear-gradient(180deg, #0b0f16 0%, #111827 45%, #0a0d14 100%);
+      color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 180, 0, 0.5);
+      border-radius: 50%;
+      animation: subir 8s linear infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { left: 35%; animation-delay: 2s; }
+    .particle:nth-child(4) { left: 50%; animation-delay: 3s; }
+    .particle:nth-child(5) { left: 65%; animation-delay: 1.5s; }
+    .particle:nth-child(6) { left: 80%; animation-delay: 2.5s; }
+    .particle:nth-child(7) { left: 90%; animation-delay: 0.5s; }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(100vh) scale(0.7);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .maintenance-box {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid rgba(255, 180, 0, 0.25);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 0 30px rgba(255, 180, 0, 0.08),
+        inset 0 0 25px rgba(255, 180, 0, 0.03);
+      animation: pulseBox 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseBox {
+      from {
+        box-shadow:
+          0 0 20px rgba(255, 180, 0, 0.08),
+          inset 0 0 20px rgba(255, 180, 0, 0.03);
+      }
+      to {
+        box-shadow:
+          0 0 35px rgba(255, 180, 0, 0.14),
+          inset 0 0 28px rgba(255, 180, 0, 0.05);
+      }
+    }
+
+    .icon {
+      font-size: 64px;
+      margin-bottom: 18px;
+      color: #ffb400;
+      text-shadow:
+        0 0 10px rgba(255, 180, 0, 0.45),
+        0 0 20px rgba(255, 180, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #ffd700;
+      margin-bottom: 14px;
+      text-shadow:
+        0 1px 0 #000,
+        0 0 10px rgba(255, 215, 0, 0.25);
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: #d1d5db;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .status-box {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255, 180, 0, 0.12), rgba(255, 140, 0, 0.06));
+      border: 1px solid rgba(255, 180, 0, 0.22);
+      color: #ffd700;
+      font-size: 0.95rem;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      margin-bottom: 25px;
+      box-shadow:
+        0 0 10px rgba(255, 180, 0, 0.10),
+        inset 0 0 8px rgba(255, 180, 0, 0.04);
+    }
+
+    .info {
+      color: #9ca3af;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .btn-reload {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 180, 0, 0.30);
+      background: linear-gradient(135deg, #ffb400, #ff8c00);
+      color: #111827;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 14px rgba(255, 180, 0, 0.18);
+    }
+
+    .btn-reload:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 22px rgba(255, 180, 0, 0.28);
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 600px) {
+      .maintenance-box {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .subtitle {
+        font-size: 0.96rem;
+      }
+
+      .icon {
+        font-size: 54px;
+      }
+    }
+    
+    .icon img {
+    width: 80px;
+    height: auto;
+    
+    filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.5))
+            drop-shadow(0 0 18px rgba(255, 180, 0, 0.25));
+
+    animation: pulseIcon 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseIcon {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.08);
+    }
+}
+.coin {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+
+    animation: subirMoeda 8s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 180, 0, 0.4));
+}
+
+/* posições diferentes */
+.coin:nth-child(1) { left: 10%; animation-delay: 0s; }
+.coin:nth-child(2) { left: 20%; animation-delay: 1s; }
+.coin:nth-child(3) { left: 35%; animation-delay: 2s; }
+.coin:nth-child(4) { left: 50%; animation-delay: 3s; }
+.coin:nth-child(5) { left: 65%; animation-delay: 1.5s; }
+.coin:nth-child(6) { left: 80%; animation-delay: 2.5s; }
+.coin:nth-child(7) { left: 90%; animation-delay: 0.5s; }
+
+@keyframes subirMoeda {
+    0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.7);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(40vh) rotate(180deg) scale(1);
+    }
+    100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1.1);
+        opacity: 0;
+    }
+}
+  </style>
+</head>
+<body>
+
+ 
+  
+  <div class="particles">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+  <img class="coin" src="/icones/boss_coin.webp">
+</div>
+
+  <div class="maintenance-box">
+   <div class="icon">
+  <img src="/icones/ajustes.webp" alt="Boss Arena">
+</div>
+    <h1>Boss Battle Arena em Manutenção</h1>
+
+    <p class="subtitle">
+      Os guerreiros estão reforçando as muralhas, afiando as lâminas e preparando a arena
+      para a próxima batalha.
+    </p>
+
+    <div class="status-box">
+      Status: manutenção temporária
+    </div>
+
+    <p class="info">
+      Estamos realizando ajustes no sistema para melhorar sua experiência.
+      Volte novamente em alguns instantes.
+    </p>
+<!--  
+    <a href="/" class="btn-reload">Tentar Novamente</a>
+-->
+    <div class="footer">
+      © Boss Battle Arena - Todos os direitos reservados
+    </div>
+  </div>
+
+</body>
+</html>

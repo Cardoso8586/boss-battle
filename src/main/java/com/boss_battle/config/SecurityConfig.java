@@ -91,6 +91,7 @@ public class SecurityConfig {
                         "/aliados/**",
                         "/perfil/**",
                         "/index.html",
+                        "/maintenance.html",
                         "/dashboard/**",
                         "/api/auth/cadastro/**",
                         "/api/auth/login/**",
