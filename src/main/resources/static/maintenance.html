@@ -181,80 +181,22 @@
         font-size: 54px;
       }
     }
-    
-    .icon img {
-    width: 80px;
-    height: auto;
-    
-    filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.5))
-            drop-shadow(0 0 18px rgba(255, 180, 0, 0.25));
-
-    animation: pulseIcon 2s ease-in-out infinite alternate;
-}
-
-@keyframes pulseIcon {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.08);
-    }
-}
-.coin {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    opacity: 0.8;
-
-    animation: subirMoeda 8s linear infinite;
-    filter: drop-shadow(0 0 6px rgba(255, 180, 0, 0.4));
-}
-
-/* posições diferentes */
-.coin:nth-child(1) { left: 10%; animation-delay: 0s; }
-.coin:nth-child(2) { left: 20%; animation-delay: 1s; }
-.coin:nth-child(3) { left: 35%; animation-delay: 2s; }
-.coin:nth-child(4) { left: 50%; animation-delay: 3s; }
-.coin:nth-child(5) { left: 65%; animation-delay: 1.5s; }
-.coin:nth-child(6) { left: 80%; animation-delay: 2.5s; }
-.coin:nth-child(7) { left: 90%; animation-delay: 0.5s; }
-
-@keyframes subirMoeda {
-    0% {
-        transform: translateY(100vh) rotate(0deg) scale(0.7);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    50% {
-        transform: translateY(40vh) rotate(180deg) scale(1);
-    }
-    100% {
-        transform: translateY(-10vh) rotate(360deg) scale(1.1);
-        opacity: 0;
-    }
-}
   </style>
 </head>
 <body>
 
- 
-  
   <div class="particles">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-  <img class="coin" src="/icones/boss_coin.webp">
-</div>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
 
   <div class="maintenance-box">
-   <div class="icon">
-  <img src="/icones/ajustes.webp" alt="Boss Arena">
-</div>
+    <div class="icon">⚔️</div>
     <h1>Boss Battle Arena em Manutenção</h1>
 
     <p class="subtitle">
@@ -270,9 +212,9 @@
       Estamos realizando ajustes no sistema para melhorar sua experiência.
       Volte novamente em alguns instantes.
     </p>
-<!--  
+
     <a href="/" class="btn-reload">Tentar Novamente</a>
--->
+
     <div class="footer">
       © Boss Battle Arena - Todos os direitos reservados
     </div>
