@@ -63,5 +63,9 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     List<UsuarioBossBattle> findAllByOrderByQuantidadeAtaquesSemanalDesc();
     
     
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM UsuarioBossBattle u WHERE u.id = :id")
+    Optional<UsuarioBossBattle> buscarPorIdComLock(Long id);
+    
     
 }//---> fim repo

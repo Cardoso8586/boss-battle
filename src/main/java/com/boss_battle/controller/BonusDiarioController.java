@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.boss_battle.service.BonusDiarioService;
+import com.boss_battle.service.missoes.BonusDiarioService;
 
 
 

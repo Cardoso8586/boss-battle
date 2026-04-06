@@ -33,3 +33,63 @@
         gap: 10px;
     }
 }
+
+.dashboard-footer {
+  width: 100%;
+  padding: 18px 10px;
+  background: rgba(10, 15, 25, 0.95);
+  border-top: 1px solid rgba(255, 180, 0, 0.15);
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: #9aa4b2;
+}
+
+/* 🔥 suporte */
+.footer-suporte {
+  font-size: 14px;
+  color: #ffb400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-suporte i {
+  color: #ffb400;
+  text-shadow: 0 0 6px rgba(255, 180, 0, 0.6);
+}
+
+.footer-email {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.footer-email:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px #ffb400;
+}
+
+/* 💡 dica */
+.footer-dica {
+  font-size: 12px;
+  color: #7f8c9a;
+  margin-top: 4px;
+  transition: 0.2s;
+}
+
+.footer-dica:hover {
+  color: #cbd5e1;
+}

@@ -1799,6 +1799,8 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
         Você tem um prêmio disponível no ranking semanal de ataques especiais.
       </p>
 
+      <p id="statusPremioAtaqueEspecial" class="status-premio"></p>
+
       <div class="premio-valor-box">
         <span class="label-premio">Valor do Prêmio</span>
         <span id="valorPremioAtaqueEspecial" class="valor-premio">0,00</span>
@@ -1860,14 +1862,35 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
 <!-- Modal Bônus Diário -->
 
 
-
 <!-- Footer -->
 <footer class="dashboard-footer">
-    <div class="footer-content">
-        <p>© 2025 Boss Battle Arena . Todos os direitos reservados.</p>
-     
+  <div class="footer-content">
+
+    <p class="footer-copy">
+      © 2025 Boss Battle Arena · Todos os direitos reservados
+    </p>
+
+    <div class="footer-suporte">
+      <i class="fa-solid fa-envelope"></i>
+      <span>Suporte:</span>
+      
+      <a href="mailto:suportebossbattlearena@gmail.com"
+   id="emailSuporte"
+   class="footer-email">
+ suportebossbattlearena@gmail.com
+
+</a>
+
     </div>
+
+    <p class="footer-dica">
+      💡 Dúvidas, sugestões ou problemas? Fale conosco!
+    </p>
+
+  </div>
 </footer>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/bossBonusDiario.js" defer></script>
@@ -1919,7 +1942,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/rankingAtaques.js" defer></script>
      <script src="/js/receberRankingAtaqueEspecial.js" defer></script>
      <script src="/js/atualizarSaldoBox.js" defer></script>
-
+     <script src="/js/copiarEmail.js" defer></script>
 
 
    

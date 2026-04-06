@@ -1,4 +1,4 @@
-package com.boss_battle.service;
+package com.boss_battle.service.missoes;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,6 +12,7 @@ import com.boss_battle.model.BossBonusDiario;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BonusDiarioRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.UltimoValorRecebidoService;
 
 import jakarta.transaction.Transactional;
 
@@ -21,6 +22,9 @@ public class BonusDiarioService {
 
     private final Random random = new Random();
 
+    @Autowired
+    private UltimoValorRecebidoService ultimoValorRecebidoService;
+    
     @Autowired
     private BonusDiarioRepository bonusRepository;
 
@@ -86,6 +90,7 @@ public class BonusDiarioService {
         }
 
         usuario.setBossCoins(saldoAtual.add(valorBonus));
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario, valorBonus);
 
         usuarioRepository.save(usuario);
 

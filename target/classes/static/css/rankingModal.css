@@ -139,6 +139,25 @@
   object-fit: contain;
 }
 
+#statusPremioAtaqueEspecial {
+  min-height: 22px;
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#statusPremioAtaqueEspecial.carregando {
+  color: #ffb400;
+}
+
+#statusPremioAtaqueEspecial.sucesso {
+  color: #32d67a;
+}
+
+#statusPremioAtaqueEspecial.erro {
+  color: #ff4d4d;
+}
 /* opcional: efeito glow no ícone */
 .icone-token {
   filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
