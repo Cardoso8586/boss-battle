@@ -1,3 +1,5 @@
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const cards = document.querySelectorAll('.promo-card');
@@ -41,3 +43,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+*/

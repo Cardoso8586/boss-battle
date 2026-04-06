@@ -133,18 +133,123 @@
     width: 100%;
 }
 .btn-lootbox {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.btn-lootbox:hover {
+  transform: translateY(-2px);
+}
+
+.btn-lootbox:active {
+  transform: scale(0.96);
 }
 
 .btn-lootbox.animar {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #ffb400;
+  transform: scale(1.08);
+  box-shadow: 0 0 18px #ffb400;
 }
 
+.btn-lootbox-processando {
+  opacity: 0.92;
+  transform: scale(0.98);
+  box-shadow: 0 0 18px rgba(255, 180, 0, 0.35);
+}
 
-.btn-lootbox:hover {
-    background: linear-gradient(135deg, #ff7f50, #ffb400);
-    transform: translateY(-2px);
+.btn-lootbox-sucesso {
+  animation: pulseLootSucesso 0.7s ease;
+  box-shadow: 0 0 22px rgba(0, 255, 140, 0.45);
+}
+
+.btn-lootbox-erro {
+  animation: shakeLootErro 0.45s ease;
+  box-shadow: 0 0 22px rgba(255, 59, 59, 0.45);
+}
+
+.btn-lootbox-loader {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: girarLoader 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+.btn-lootbox::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+}
+
+.btn-lootbox.animar::after {
+  animation: brilhoLoot 0.8s ease;
+}
+
+@keyframes girarLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseLootSucesso {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.08);
+  }
+  60% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shakeLootErro {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes brilhoLoot {
+  0% {
+    left: -120%;
+  }
+  100% {
+    left: 120%;
+  }
 }
 /* ===============================
    RESPONSIVIDADE - LOOTBOX
@@ -329,9 +434,101 @@
     transform: translateY(-2px);
 }
 
-.btn-promo.animar {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #ffb400;
+.btn-promo-processando {
+    opacity: 0.92;
+    transform: scale(0.98);
+    box-shadow: 0 0 18px rgba(255, 180, 0, 0.35);
+}
+
+.btn-promo-sucesso {
+    animation: pulseSuccess 0.7s ease;
+    box-shadow: 0 0 22px rgba(0, 255, 140, 0.45);
+}
+
+.btn-promo-erro {
+    animation: shakeError 0.45s ease;
+    box-shadow: 0 0 22px rgba(255, 59, 59, 0.45);
+}
+
+.btn-promo-loader {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: girarLoader 0.8s linear infinite;
+    vertical-align: middle;
+}
+
+.preco-atualizando {
+    opacity: 0.55;
+    transition: opacity 0.25s ease;
+}
+
+.preco-atualizado {
+    animation: brilhoPreco 0.8s ease;
+}
+
+@keyframes girarLoader {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseSuccess {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.07);
+    }
+    60% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shakeError {
+    0% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-6px);
+    }
+    40% {
+        transform: translateX(6px);
+    }
+    60% {
+        transform: translateX(-4px);
+    }
+    80% {
+        transform: translateX(4px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes brilhoPreco {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.4);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
 }
 
 
