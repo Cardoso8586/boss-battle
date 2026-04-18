@@ -58,56 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    }
 	}
 
-	/*
-	function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
-	    const imagens = {
-	        FERRO: "/icones/flecha_ferro.webp",
-	        FOGO: "/icones/flecha_fogo.webp",
-	        VENENO: "/icones/flecha_veneno.webp",
-	        DIAMANTE: "/icones/flecha_diamante.webp"
-	    };
 
-	    const habilitar =
-	        temArcoDisponivel &&
-	        quantidade > 0 &&
-	        (!tipoAtivo || tipoAtivo.toUpperCase() === tipo);
-
-	    botao.disabled = !habilitar;
-	    botao.style.opacity = habilitar ? "1" : "0.5";
-
-	    const img = botao.querySelector("img");
-	    const span = botao.querySelector("span");
-
-	    img.src = imagens[tipo];
-	    img.alt = tipo;
-	    span.textContent = `${texto} (${quantidade})`;
-	}
-	*/
-
-	/*
-    function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
-        const imagens = {
-            FERRO: "/icones/flecha_ferro.webp",
-            FOGO: "/icones/flecha_fogo.webp",
-            VENENO: "/icones/flecha_veneno.webp",
-            DIAMANTE: "/icones/flecha_diamante.webp"
-        };
-
-        const habilitar = temArcoDisponivel && quantidade > 0 && (!tipoAtivo || tipoAtivo.toUpperCase() === tipo.toUpperCase());
-
-        botao.disabled = !habilitar;
-        botao.style.opacity = habilitar ? "1" : "0.5";
-
-        botao.innerHTML = `
-            <div style="display:flex; align-items:center; gap:6px;">
-                <img src="${imagens[tipo]}" alt="${tipo}" style="width:24px; height:54px;">
-                <span>${texto} (${quantidade})</span>
-            </div>
-        `;
-		
-		
-    }
-	*/
 
     // ===============================
     // FUNÇÃO PRINCIPAL: Atualiza Status
@@ -137,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 						    guerreiroAtivo: data.guerreiros,
 						    espadaAtiva: data.ativaEspadaFlanejante,
 						    machadoAtivo: data.ativarMachadoDilacerador,
-						    arcoAtivo: data.arcoAtivo
+						    arcoAtivo: data.arcoAtivo,
+							ativarEscudoPrimordial:data.ativarEscudoPrimordial
 						});
 			*/
             // ===============================
@@ -159,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
             const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
             const arcoAtivo = data.arcoAtivo;
-
+            const ativarEscudoPrimordial = data.ativarEscudoPrimordial;
            
 
             // ===============================
@@ -217,7 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			    flechasNaAljava > 0 &&
 			    guerreiroAtivo > 0 &&
 			    espadaAtiva === 0 &&
-			    machadoAtivo === 0;
+			    machadoAtivo === 0 &&
+				ativarEscudoPrimordial === 0;
 
 			btnEquiparArco.classList.toggle("hidden", !podeEquipar);
 			btnEquiparArco.disabled = !podeEquipar;

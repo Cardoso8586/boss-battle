@@ -25,6 +25,8 @@ public class UsuarioBossBattle  {
     
     private LocalDate dataUltimaColeta;
     
+    
+    
     // getters e setters para dataUltimaColeta
     public LocalDate getDataUltimaColeta() {
         return dataUltimaColeta;
@@ -227,12 +229,15 @@ public class UsuarioBossBattle  {
  //========================== FIM ATAQUE BASE =====================================
 
  //======================  quantidade em estoque ====================================
+    
+    //poção de vigor
     @Column(name = "pocao_vigor", nullable = false)
     private long pocaoVigor; // estoque total
 
     @Column(name = "pocao_vigor_ativa", nullable = false)
     private long pocaoVigorAtiva; // quantidade equipada
 
+    //espada flanejante
     @Column(name = "espada_flanejante", nullable = false)
     private long espadaFlanejante; // quantidade total
     
@@ -242,7 +247,7 @@ public class UsuarioBossBattle  {
     @Column(name = "espada_flanejante_desgaste", nullable = false)
     private long espadaFlanejanteDesgaste = 100 ;
     
-    
+    //machado dilacerador
     @Column(name = "machado_dilacerador", nullable = false)
     private long machadoDilacerador; // quantidade total
     
@@ -251,6 +256,21 @@ public class UsuarioBossBattle  {
     
     @Column(name = "machado_dilacerador_desgaste", nullable = false)
     private long machadoDilaceradorDesgaste = 200 ;
+    
+   
+   // Escudo Primordial
+    @Column(name = "escudo_primordial", nullable = false)
+    private long escudoPrimordial; // quantidade total
+
+    @Column(name = "escudo_primordial_ativo", nullable = false)
+    private long escudoPrimordialAtivo;
+
+    @Column(name = "escudo_primordial_desgaste", nullable = false)
+    private long escudoPrimordialDesgaste = 300;
+    
+    
+    
+    
     
 
  //===============================================================
@@ -363,6 +383,7 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     
     
    //-------------------------------------------------------------------- 
+    //machado dilacerador
     public long getMachadoDilacerador() {
         return machadoDilacerador;
     }
@@ -389,6 +410,8 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
 
     //-------------------------------------------------------------------
     
+    
+    //espada flanejante
     public long getEspadaFlanejanteDesgaste() {
         return espadaFlanejanteDesgaste;
     }
@@ -413,8 +436,41 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
     public void setEspadaFlanejanteAtiva(long espadaFlanejanteAtiva) {
         this.espadaFlanejanteAtiva = espadaFlanejanteAtiva;
     }
+    
+    
+    //-------------------------------------------------------------------
+    
+    //escudo primordial
+    
+    public long getEscudoPrimordial() {
+        return escudoPrimordial;
+    }
+
+    public void setEscudoPrimordial(long escudoPrimordial) {
+        this.escudoPrimordial = escudoPrimordial;
+    }
+
+    public long getEscudoPrimordialAtivo() {
+        return escudoPrimordialAtivo;
+    }
+
+    public void setEscudoPrimordialAtivo(long escudoPrimordialAtivo) {
+        this.escudoPrimordialAtivo = escudoPrimordialAtivo;
+    }
+
+    public long getEscudoPrimordialDesgaste() {
+        return escudoPrimordialDesgaste;
+    }
+
+    public void setEscudoPrimordialDesgaste(long escudoPrimordialDesgaste) {
+        this.escudoPrimordialDesgaste = escudoPrimordialDesgaste;
+    }
+    
+    
 
     //------------------------------------------------------------------
+    
+    //poção de vigor
     public long getPocaoVigor() {
         return pocaoVigor;
     }
@@ -544,11 +600,22 @@ public void setAljavaFlechaAtiva(long aljavaFlechaAtiva) {
    @Column(name = "preco_espada_flanejante", nullable = false)
    private Long precoEspadaFlanejante= 5_000L;
 
-
+   @Column(name = "preco_escudo_primordial", nullable = false)
+   private Long precoEscudoPrimordial= 10_000L;
    
   //===========================================
  // GETTERS E SETTERS - LOJA
  //===========================================
+   
+   public Long getPrecoEscudoPrimordial() {
+	    return precoEscudoPrimordial;
+	}
+
+	public void setPrecoEscudoPrimordial(Long precoEscudoPrimordial) {
+	    this.precoEscudoPrimordial = precoEscudoPrimordial;
+	}
+	
+	
    public Long getPrecoMachadoDilacerador() {
 	    return precoMachadoDilacerador;
 	}

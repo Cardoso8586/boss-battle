@@ -28,6 +28,7 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -73,8 +74,43 @@ public class FaucetPayService {
     //====================== RESET AUTOMÁTICO ======================
 
    
+    @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
+    @Transactional
+    public void resetarSaquesDiariosAutomaticamente() {
+        executarResetSeNecessario();
+    }
 
+    @PostConstruct
+    @Transactional
+    public void resetarAoSubirAplicacao() {
+        executarResetSeNecessario();
+    }
 
+    @Transactional
+    public void executarResetSeNecessario() {
+        List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
+        LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
+
+        for (UsuarioBossBattle usuario : usuarios) {
+            LocalDate ultimaData = usuario.getDataControleSaque();
+
+            if (ultimaData == null) {
+                usuario.setQuantidadeSaquesDiario(0);
+                usuario.setDataControleSaque(hoje);
+                continue;
+            }
+
+            while (ultimaData.isBefore(hoje)) {
+                usuario.setQuantidadeSaquesDiario(0);
+                ultimaData = ultimaData.plusDays(1);
+            }
+
+            usuario.setDataControleSaque(hoje);
+        }
+
+        usuarioRepo.saveAll(usuarios);
+    }
+/*
     @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
     @Transactional
     public void resetarSaquesDiariosAutomaticamente() {
@@ -90,7 +126,7 @@ public class FaucetPayService {
 
     usuarioRepo.saveAll(usuarios);
 }
-
+*/
 
 
 	/**

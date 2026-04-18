@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 									  		        </iframe>
 									  		      </div>
 									  		    `,
-                    timer: 5000,
+                    timer: 8000,
                     showConfirmButton: false,
                     background: 'transparent',
                     color: '#ffb400'

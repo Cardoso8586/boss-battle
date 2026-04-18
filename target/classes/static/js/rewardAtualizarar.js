@@ -26,13 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		FLECHA_FOGO:"Flecha de fogo",     
 		FLECHA_VENENO:"Flecha de veneno",   
 		FLECHA_DIAMANTE:"Flecha de Diamante",
-	    ATAQUE_SPECIAL: "Ataque Especial"
+	    ATAQUE_SPECIAL: "Ataque Especial",
+		ESCUDO_PRIMORDIAL:"Escudo Primordial",
+		ARCO_CELESTIAL:"Arco Celestial"
 	};
 
 
 	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL",
 		 "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR", "FLECHA_FERRO", "FLECHA_FOGO", "FLECHA_VENENO",
-	 "FLECHA_DIAMANTE"];
+	 "FLECHA_DIAMANTE", "ESCUDO_PRIMORDIAL", "ARCO_CELESTIAL"];
 
 
     // Função para buscar e atualizar o preview

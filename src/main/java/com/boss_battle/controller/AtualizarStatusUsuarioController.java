@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
@@ -81,8 +80,12 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("tipoFlecha", TipoFlecha.fromOrdinal(usuario.getAljavaFlechaAtiva()).name()),
 
         	    Map.entry("quantidadeSaquesHoje", quantidadeSaques),
-        	    Map.entry("ultimoValorRecebido", ultimoGanho)
+        	    Map.entry("ultimoValorRecebido", ultimoGanho),
         	    
+        	    
+        	    Map.entry("escudoPrimordial", usuario.getEscudoPrimordial()),
+        	    Map.entry("desgasteEscudoPrimordial", usuario.getEscudoPrimordialDesgaste()),
+        	    Map.entry("ativarEscudoPrimordial", usuario.getEscudoPrimordialAtivo())
         	    
         	);
 
@@ -160,6 +163,11 @@ public class AtualizarStatusUsuarioController {
        resultado.put("qtdMachadoDilaceradorAtivo", qtdMachadoDilaceradorAtivo);
     
        resultado.put("arcoAtivo", arcoAtivo);
+       
+       
+       resultado.put("escudoPrimordial", usuario.getEscudoPrimordial());
+       resultado.put("desgasteEscudoPrimordial", usuario.getEscudoPrimordialDesgaste());
+       resultado.put("ativarEscudoPrimordial", usuario.getEscudoPrimordialAtivo());
  
         return resultado;
     }

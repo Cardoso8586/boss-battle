@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		   document.getElementById('preco-machado-dilacerador').textContent =
 				    `${dadosLoja.PrecoMachadoDilacerador.toLocaleString('pt-BR')} Boss Coins`;		  
 	   
+					document.getElementById('preco-escudo-primordial').textContent =
+					    `${dadosLoja.PrecoEscudoPrimordial.toLocaleString('pt-BR')} Boss Coins`;
 					
 		   document.getElementById('preco-arco-celestial').textContent =
 				  `${dadosLoja.precoArcoCelestial.toLocaleString('pt-BR')} Boss Coins`;		  

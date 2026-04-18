@@ -179,6 +179,13 @@
 }
 
 
+.escudo-primordial-imagem {
+    width: 120px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
 .arco-celestial-imagem {
     width: 70px;
     height: auto;

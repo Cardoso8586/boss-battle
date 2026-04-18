@@ -111,6 +111,17 @@ public class LojaAprimoramentosController {
         	precoLendaria = 5_000L;
            
         }
+        
+        
+        
+       // long precoEscudo = usuario.getPrecoEscudoPrimordial();
+        Long precoEscudo = lojaAprimoramentosService.getPRECO_ESCUDO_PRIMORDIAL();
+        if (precoEscudo <= 0) {
+        	precoEscudo = 10_000L;
+            usuario.setPrecoEscudoPrimordial(precoEscudo);
+            usuarioRepository.save(usuario);
+        }
+        
       
         //-------------------------------------------------------------------------------------------------
          Map<String, Object> loja = new HashMap<>();
@@ -126,6 +137,8 @@ public class LojaAprimoramentosController {
         loja.put("precoAvancada", precoAvancada);
         loja.put("precoEspecial", precoEspecial);
         loja.put("precoLendaria", precoLendaria);
+        
+        loja.put("PrecoEscudoPrimordial", precoEscudo);
 
       
 /*

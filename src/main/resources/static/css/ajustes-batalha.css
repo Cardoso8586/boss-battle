@@ -391,3 +391,252 @@
 }
 
 
+/* ==============================
+   ESCUDO PRIMORDIAL
+================================ */
+
+.nucleo-item-escudo {
+    margin: 10px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+}
+
+#escudoPrimordial {
+    color: #00ff88;          /* verde padrão dos itens */
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(0,255,136,0.6);
+    font-size: 1.2rem;
+}
+
+/* STATUS ATIVO */
+.escudo-primordial-ativo-info {
+    color: #ffb400;
+    font-weight: bold;
+}
+
+/* ===============================
+   ESCUDO PRIMORDIAL — HUD STYLE
+================================ */
+
+/* texto: escudo equipado */
+.escudo-primordial-ativo-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin: 10px auto 8px auto;
+    padding: 8px 14px;
+    width: fit-content;
+    max-width: 100%;
+
+    border: 1px solid rgba(90, 180, 255, 0.45);
+    border-radius: 14px;
+
+    background:
+        linear-gradient(180deg, rgba(10, 18, 30, 0.92), rgba(6, 10, 18, 0.92));
+    box-shadow:
+        inset 0 0 12px rgba(110, 190, 255, 0.12),
+        0 0 14px rgba(0, 170, 255, 0.18),
+        0 0 26px rgba(0, 110, 255, 0.12);
+
+    color: #d8f3ff;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+
+    text-shadow:
+        0 0 4px rgba(255, 255, 255, 0.25),
+        0 0 8px rgba(75, 190, 255, 0.5);
+}
+
+/* título */
+.titulo-durabilidade-escudo {
+    display: block;
+    margin: 12px auto 8px auto;
+    text-align: center;
+
+    color: #cfeaff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 5px rgba(140, 210, 255, 0.35),
+        0 0 10px rgba(0, 140, 255, 0.18);
+}
+
+/* caixa externa da barra */
+.barra-wrapper-escudo {
+    position: relative;
+    width: min(260px, 92%);
+    margin: 0 auto 14px auto;
+    padding: 10px 12px;
+
+    border: 1px solid rgba(130, 200, 255, 0.28);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(180deg, rgba(14, 20, 32, 0.96), rgba(6, 9, 16, 0.96));
+    backdrop-filter: blur(6px);
+
+    box-shadow:
+        inset 0 0 18px rgba(140, 220, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 16px rgba(0, 140, 255, 0.14),
+        0 0 30px rgba(0, 70, 180, 0.12);
+}
+
+/* brilho decorativo superior */
+.barra-wrapper-escudo::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(190, 235, 255, 0.6),
+        transparent
+    );
+
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* moldura luminosa sutil */
+.barra-wrapper-escudo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 0 10px rgba(70, 170, 255, 0.10),
+        0 0 12px rgba(45, 150, 255, 0.08);
+}
+
+/* barra */
+#barradesgasteEscudo {
+    width: 100%;
+    height: 18px;
+    display: block;
+
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 999px;
+    overflow: hidden;
+
+    background: transparent;
+}
+
+/* fundo da barra */
+#barradesgasteEscudo::-webkit-progress-bar {
+    background:
+        linear-gradient(180deg, rgba(3, 6, 12, 0.95), rgba(18, 24, 36, 0.95));
+    border: 1px solid rgba(170, 220, 255, 0.08);
+    border-radius: 999px;
+
+    box-shadow:
+        inset 0 2px 6px rgba(0, 0, 0, 0.7),
+        inset 0 0 10px rgba(0, 140, 255, 0.08);
+}
+
+/* preenchimento chrome/blue crystal */
+#barradesgasteEscudo::-webkit-progress-value {
+    border-radius: 999px;
+    background:
+        linear-gradient(
+            180deg,
+            #dff6ff 0%,
+            #7ed7ff 12%,
+            #2ebcff 32%,
+            #0f87ff 58%,
+            #1452d8 82%,
+            #0a2a7c 100%
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -2px 4px rgba(0,0,0,0.35),
+        0 0 8px rgba(70, 190, 255, 0.7),
+        0 0 16px rgba(30, 120, 255, 0.35);
+
+    transition: width 0.35s ease;
+}
+
+/* firefox */
+#barradesgasteEscudo::-moz-progress-bar {
+    border-radius: 999px;
+    background:
+        linear-gradient(
+            180deg,
+            #dff6ff 0%,
+            #7ed7ff 12%,
+            #2ebcff 32%,
+            #0f87ff 58%,
+            #1452d8 82%,
+            #0a2a7c 100%
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -2px 4px rgba(0,0,0,0.35),
+        0 0 8px rgba(70, 190, 255, 0.7),
+        0 0 16px rgba(30, 120, 255, 0.35);
+}
+
+/* texto do percentual */
+#desgasteTextoEscudo {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #f3fbff;
+
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.9),
+        0 0 6px rgba(90, 210, 255, 0.45);
+    pointer-events: none;
+}
+
+/* estado crítico */
+.barra-wrapper-escudo.critico {
+    animation: pulsoEscudoCritico 1.1s infinite ease-in-out;
+    border-color: rgba(120, 210, 255, 0.55);
+}
+
+@keyframes pulsoEscudoCritico {
+    0% {
+        box-shadow:
+            inset 0 0 18px rgba(140, 220, 255, 0.05),
+            0 0 12px rgba(0, 140, 255, 0.18),
+            0 0 24px rgba(0, 90, 220, 0.10);
+    }
+    50% {
+        box-shadow:
+            inset 0 0 18px rgba(140, 220, 255, 0.10),
+            0 0 20px rgba(40, 180, 255, 0.28),
+            0 0 38px rgba(0, 110, 255, 0.18);
+    }
+    100% {
+        box-shadow:
+            inset 0 0 18px rgba(140, 220, 255, 0.05),
+            0 0 12px rgba(0, 140, 255, 0.18),
+            0 0 24px rgba(0, 90, 220, 0.10);
+    }
+}
+
+

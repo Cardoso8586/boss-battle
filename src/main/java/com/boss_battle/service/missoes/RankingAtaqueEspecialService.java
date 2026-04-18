@@ -24,6 +24,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
+
 @Service
 @Transactional
 public class RankingAtaqueEspecialService {
@@ -144,7 +147,7 @@ public class RankingAtaqueEspecialService {
     }
     
     */
-
+/*
     @Scheduled(cron = "0 0 0 * * SUN", zone = "America/Sao_Paulo")
     public void distribuirPremiosAgendado() {
         LocalDate hoje = LocalDate.now(ZONA_BR);
@@ -179,7 +182,68 @@ public class RankingAtaqueEspecialService {
             e.printStackTrace();
         }
     }
+*/
+    
 
+    @Scheduled(cron = "0 0 21 * * SAT", zone = "America/Sao_Paulo")
+    public void distribuirPremiosAgendado() {
+        executarPremiacaoSemanalSeNecessario();
+    }
+
+    //@Scheduled(fixedRate = 600000) // 10 minutos
+    @Scheduled(fixedRate = 3600000) // 1 hora
+    public void verificarPremiacaoPendente() {
+        executarPremiacaoSemanalSeNecessario();
+    }
+
+    public void executarPremiacaoSemanalSeNecessario() {
+        ZoneId zona = ZONA_BR;
+        LocalDateTime agora = LocalDateTime.now(zona);
+        LocalDate hoje = agora.toLocalDate();
+
+        try {
+            ControleSistema controle = controleSistemaRepository.findById(CONTROLE_ID)
+                    .orElseGet(() -> {
+                        ControleSistema novo = new ControleSistema();
+                        novo.setId(CONTROLE_ID);
+                        return novo;
+                    });
+
+            LocalDate ultimaExecucao = controle.getUltimaExecucaoRankingSemanal();
+
+            LocalDate sabadoDaSemana = hoje.with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
+            LocalDateTime horarioLiberado = sabadoDaSemana.atTime(21, 0);
+
+            if (agora.isBefore(horarioLiberado)) {
+                System.out.println("⏳ Ainda não chegou o horário da premiação semanal.");
+                return;
+            }
+
+            if (ultimaExecucao == null) {
+                System.out.println("ℹ️ Nenhuma execução anterior encontrada. Primeira execução será feita agora.");
+            } else if (!ultimaExecucao.isBefore(sabadoDaSemana)) {
+                System.out.println("⚠️ Premiação semanal já executada nesta semana: " + ultimaExecucao);
+                return;
+            }
+
+            System.out.println("🔥 EXECUTANDO PREMIAÇÃO SEMANAL: " + agora);
+
+            distribuirPremios();
+            System.out.println("✅ distribuiu premios");
+
+            resetarVisualizacoesSemanais();
+            System.out.println("✅ resetou semanal");
+
+            controle.setUltimaExecucaoRankingSemanal(hoje);
+            controleSistemaRepository.save(controle);
+
+            System.out.println("✅ controle semanal salvo no banco");
+
+        } catch (Exception e) {
+            System.out.println("❌ ERRO NO AGENDADO: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     public void distribuirPremiosAgendadoTeste() {
         LocalDate hoje = LocalDate.now(ZONA_BR);
 

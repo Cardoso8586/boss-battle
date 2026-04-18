@@ -40,6 +40,13 @@ public class EspadaFlanejanteService {
   	                "Não é possível equipar Espada Flanejante enquanto um Machado Dilacerador estiver equipado"
   	            );
   	        }
+  	        
+  	      // 🚫 BLOQUEIA SE ARCO ATIVO
+	        if (usuario.getArcoAtivo() > 0) {
+	            throw new RuntimeException(
+	                "Não é possível equipar O Machado enquanto um Arco estiver equipado"
+	            );
+	        }
 
         // ❌ estoque insuficiente
         if (usuario.getEspadaFlanejante() < quantidade) {

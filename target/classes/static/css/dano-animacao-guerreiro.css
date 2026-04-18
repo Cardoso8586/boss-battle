@@ -1,66 +1,107 @@
+/* ===============================
+   CONTAINER (FIXO E VISÍVEL)
+=============================== */
 #damageContainer {
     position: relative;
-    top: 50%;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
     z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
+
 .hidden {
     display: none;
 }
-.dano-valor {
-    color: #ffd000;
-    font-weight: 200;
-    font-size: 15px;
-    text-shadow:
-        0 0 8px #ffae00,
-        0 0 18px #ff8000,
-        0 0 28px rgba(255, 140, 0, 0.8);
-}
 
-.boosName {
-    color: #ffd000;
-    font-weight: 200;
-    font-size: 15px;
-    text-shadow:
-        0 0 8px #ffae00,
-        0 0 18px #ff8000,
-        0 0 28px rgba(255, 140, 0, 0.8);
-}
-
-
-
+/* ===============================
+   MENSAGEM BASE
+=============================== */
 .damage-message {
-    font-size: 12px;
-    font-weight: 200;
+    font-size: 14px;
+    font-weight: bold;
     color: #ff3c3c;
-    opacity: 0;
+
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+
     text-shadow:
-        0 0 6px rgba(255, 0, 0, 0.8),
-        0 0 12px rgba(255, 0, 0, 0.5);
-    animation: smoothDamage 4.5s ease-out forwards;
+        0 0 6px rgba(255, 0, 0, 0.9),
+        0 0 12px rgba(255, 0, 0, 0.6);
+
+    animation: smoothDamage 2.8s ease-out forwards;
 }
 
+/* ===============================
+   NOME DO BOSS 🔥
+=============================== */
+.bossName {
+    color: #ffd700;
+    font-weight: 900;
+    font-size: 15px;
+
+    text-shadow:
+        0 0 6px #ffcc00,
+        0 0 12px #ff9900,
+        0 0 20px rgba(255, 140, 0, 0.8);
+}
+
+/* ===============================
+   DANO 💥
+=============================== */
+.dano-valor {
+  color: #ffd700;
+    font-weight: 900;
+    font-size: 17px;
+
+    text-shadow:
+        0 0 6px #ff4d00,
+        0 0 12px #ff7a00,
+        0 0 20px rgba(255, 120, 0, 0.9),
+        0 0 30px rgba(255, 80, 0, 0.6);
+}
+/* ===============================
+   ESCUDO 🛡️
+=============================== */
+.escudo-ativo {
+    color: #4da6ff;
+    font-weight: bold;
+
+    text-shadow:
+        0 0 6px rgba(77,166,255,0.9),
+        0 0 12px rgba(77,166,255,0.7),
+        0 0 20px rgba(77,166,255,0.5);
+}
+
+/* ===============================
+   ANIMAÇÃO GAME
+=============================== */
 @keyframes smoothDamage {
     0% {
         opacity: 0;
-        transform: translateY(20px) scale(0.8);
+        transform: translateY(25px) scale(0.7);
     }
 
     20% {
         opacity: 1;
-        transform: translateY(0px) scale(1.1);
+        transform: translateY(0px) scale(1.2);
     }
 
-    70% {
+    60% {
         opacity: 1;
-        transform: translateY(-25px) scale(1);
+        transform: translateY(-20px) scale(1);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-50px) scale(0.95);
+        transform: translateY(-60px) scale(0.9);
     }
 }
-

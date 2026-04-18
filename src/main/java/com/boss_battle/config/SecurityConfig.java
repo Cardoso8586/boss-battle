@@ -130,6 +130,7 @@ public class SecurityConfig {
                         "/aljava/colocar/**",
                         "/arco/reativar/**",
                         "/comprar/arco/celestial/**",
+                        "/comprar/escudo/primordial/**",
                         "/lootbox/abrir/**",
                         "/promo/comprar/**",
                         "/promo/preco/**",
@@ -143,8 +144,9 @@ public class SecurityConfig {
                         "/api/ranking-ataques-especial",
                         "/api/minha-posicao-ataques-especial",
                         "/api/usuario/*/premio-pendente-ataque-especial",
-                        "/api/usuario/*/confirmar-premio-ataque-especial"
-                     
+                        "/api/usuario/*/confirmar-premio-ataque-especial",
+                        "/api/escudo-primordial/ativar/**",
+                        "/api/escudo-primordial/ativo/**"
                         
                         
                         

@@ -248,34 +248,37 @@ gurações -->
             
 <div id="desgasteContainer" class="hidden">
 
-<!-- Segundo lugar -->
-<div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
-    ✔ Espada equipada
-</div>
+    <div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+        ✔ Espada equipada
+    </div>
 
-<div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
-    ✔ Machado equipado
-</div>
+    <div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+        ✔ Machado equipado
+    </div>
+
     <strong class="titulo-durabilidade">Durabilidade</strong>
 
-<div class="barra-wrapper">
-    <progress id="barradesgaste"></progress>
-    <span id="desgasteTexto"></span>
-</div>
-
-<!--  
     <div class="barra-wrapper">
-        <progress id="barradesgaste" max="100" value="100"></progress>
-        <span id="desgasteTexto">100%</span>
+        <progress id="barradesgaste"></progress>
+        <span id="desgasteTexto"></span>
     </div>
-    -->
-    
-    
+
 </div>
 
+<!-- Escudo separado -->
+<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
+    ✔ Escudo equipado
+</div>
+
+<strong class="titulo-durabilidade-escudo hidden">Durabilidade</strong>
+
+<div class="barra-wrapper-escudo hidden">
+    <progress id="barradesgasteEscudo" max="300" value="0"></progress>
+    <span id="desgasteTextoEscudo"></span>
+</div>
             <div class="card-section">
                 <img id="guerreiro-image" src="" alt="guerreiro">
-              <div id="damageContainer"></div>
+            <div id="damageContainer"></div>
 
                
                <p>
@@ -398,7 +401,21 @@ gurações -->
     Ativar Machado Dilacerador
 </button>
 
+<!-- escudo primordial -->
+<div class="nucleo-item-escudo">
+    <img src="icones/escudo_primordial.webp" alt="Escudo Primordial" class="icone-item">
+    Escudo Primordial: <span id="escudoPrimordial">0</span>
+</div>
 
+<!-- Escudo ativo -->
+<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
+    ✔ Escudo equipado
+</div>
+
+<button id="btnAtivarEscudoPrimordial"
+        class="btn-nucleo-acao hidden">
+    Ativar Escudo Primordial
+</button>
 
 
         <!-- GUERREIRO -->
@@ -724,6 +741,11 @@ Dano
 </div>
 
 
+
+
+
+
+
 <!--  machado dilacerador (Item Raro) -->
 <div class="loja-card">
     <h3>Machado Dilacerador</h3>
@@ -755,7 +777,36 @@ Dano
     <button class="btn-comprar" data-item="arco-celestial">Comprar Arco Celestial</button>
     
 </div>
- 
+ <!-- Escudo Primordial (Item Raro) -->
+<div class="loja-card">
+    <h3>Escudo Primordial</h3>
+
+    <!-- Imagem do item -->
+    <img src="icones/escudo_primordial.webp" alt="Escudo Primordial" class="escudo-primordial-imagem" />
+
+    <p>Diminui o ataque do Boss em 40% durante a vida útil do escudo. Durante o uso, o escudo se desgasta.</p>
+    
+    <p>Preço por unidade: 
+        <span class="preco" id="preco-escudo-primordial" data-preco-item="EscudoPrimordial"></span>
+    </p>
+    
+    <label for="quantidade-escudo-primordial">Quantidade que deseja comprar:</label>
+    
+    <input 
+        type="number" 
+        id="quantidade-escudo-primordial" 
+        class="quantidade-escudo" 
+        min="1" 
+        value="1"
+    >
+
+    <button 
+        class="btn-comprar" 
+        data-item="escudo-primordial"
+    >
+        Comprar Escudo Primordial
+    </button>
+</div>
    <!-- ANUNCIO 10 -->
 <div class="anuncio-10">
 
@@ -1499,7 +1550,23 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     aplicando-se apenas aos ataques básicos (dano por minuto).
 </p>
 
+<h3>Machado Dilacerador</h3>
+<p>
+    O Machado Dilacerador é uma arma brutal empunhada pelos guerreiros na arena.
+    Ao equipá-lo, o guerreiro recebe <strong>+10% de ataque</strong>.
+    Esse bônus <strong>não afeta o Ataque Especial</strong>,
+    aplicando-se apenas aos ataques básicos (dano por minuto).
+</p>
 
+<h3>Escudo Primordial</h3>
+<p>
+    O Escudo Primordial é um equipamento defensivo raro utilizado pelos guerreiros na arena.
+    Ao equipá-lo, o guerreiro reduz em <strong>40% o dano recebido do boss</strong>.
+    Esse efeito <strong>não influencia ataques ou habilidades ofensivas</strong>,
+    aplicando-se exclusivamente à redução de dano.
+    O escudo possui <strong>durabilidade</strong>, que se desgasta a cada ataque recebido,
+    será destruído caso sua resistência chegue a 0%.
+</p>
 <h3>Arco & Flechas</h3>
 <p>
     O <strong>Arco</strong> é uma arma de longo alcance utilizada pelos guerreiros na arena.
@@ -1903,6 +1970,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     <script src="/js/lang-select.js"></script>
     <script src="/js/recarregarVigor.js"></script>  
     <script src="/js/atualizarStatusUsuario.js"></script>  
+     <script src="/js/ultimoAtaqueBoss.js" defer></script>
     <!-- loja --> 
     
      <script src="/js/abrirLootbox.js"></script>
@@ -1937,14 +2005,15 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/atualizarStatusArco.js" defer></script>
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>
-     <script src="/js/ultimoAtaqueBoss.js" defer></script>
+    
      <script src="/js/missoesDiarias.js" defer></script>
      <script src="/js/rankingAtaques.js" defer></script>
      <script src="/js/receberRankingAtaqueEspecial.js" defer></script>
      <script src="/js/atualizarSaldoBox.js" defer></script>
      <script src="/js/copiarEmail.js" defer></script>
-
-
+     <script src="/js/comprarEscudoPrimordial.js" defer></script>
+     <script src="/js/equiparEscudoPrimordial.js" defer></script>
+ 
    
    
     

@@ -13,6 +13,8 @@ import com.boss_battle.dto.AtaqueBossResponseDTO;
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.ativar_equipar.EscudoPrimordialService;
+import com.boss_battle.service.ativar_equipar.ResultadoDano;
 import com.boss_battle.service.global_boss.GlobalBossService;
 
 
@@ -22,18 +24,24 @@ public class BossAutoAttackService {
 	
 	private String ultimaMensagemAtaque;
 	private LocalDateTime ultimoAtaqueEm;
-
+	private String ultimoBossNome;
+	private Long ultimoDano;
+	
+	private final long ESCUDO_PRIMORDIAL_PORCENTAGEM = 40;
 
 
     private final GlobalBossService globalBossService;
     private final UsuarioBossBattleRepository usuarioRepo;
+    private final EscudoPrimordialService escudoPrimordialService;
 
     public BossAutoAttackService(
             GlobalBossService globalBossService,
-            UsuarioBossBattleRepository usuarioRepo
+            UsuarioBossBattleRepository usuarioRepo,
+            EscudoPrimordialService escudoPrimordialService 
     ) {
         this.globalBossService = globalBossService;
         this.usuarioRepo = usuarioRepo;
+        this.escudoPrimordialService = escudoPrimordialService;
     }
 
     @Scheduled(fixedRate = 3000)
@@ -62,9 +70,8 @@ public class BossAutoAttackService {
     }
     
     public AtaqueBossResponseDTO executarAtaque(BattleBoss boss) {
+        DecimalFormat df = new DecimalFormat("#,##0");
 
-    	 DecimalFormat df = new DecimalFormat("#,##0");
-    	 
         long dano = boss.getAttackPower();
 
         List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
@@ -73,13 +80,82 @@ public class BossAutoAttackService {
 
             if (u.getEnergiaGuerreiros() != null && u.getEnergiaGuerreiros() > 0) {
 
-                long novaEnergia = u.getEnergiaGuerreiros() - dano;
+                ResultadoDano resultado = calcularDanoRecebido(u, dano);
+
+                long novaEnergia = u.getEnergiaGuerreiros() - resultado.getDanoFinal();
 
                 u.setEnergiaGuerreiros(Math.max(0, novaEnergia));
                 usuarioRepo.save(u);
+
+                if (resultado.isUsouEscudo()) {
+                    System.out.println("🛡️ Usuário " + u.getId()
+                            + " usou Escudo → recebeu " + resultado.getDanoFinal());
+                } else {
+                    System.out.println("💥 Usuário " + u.getId()
+                            + " recebeu " + resultado.getDanoFinal());
+                }
             }
         }
-        String boosName  = boss.getBossName();
+
+        String bossName = boss.getBossName();
+
+        System.out.println(bossName +
+                " atacou causando " + df.format(dano) + " de dano!");
+
+        String mensagem = "<span class='boosName'>" + bossName + "</span>"
+                + " atacou causando <span class='dano-valor'>"
+                + df.format(dano)
+                + "</span> de dano!";
+
+      
+        ultimoBossNome = bossName;
+        ultimoAtaqueEm = LocalDateTime.now();
+        ultimaMensagemAtaque = mensagem;
+        ultimoDano = dano;
+        
+
+        return new AtaqueBossResponseDTO(
+                ultimoBossNome,
+                ultimaMensagemAtaque,
+                ultimoDano,
+                ultimoAtaqueEm
+        );
+    }
+    
+    //-----------------------------------------------------------------
+    /*
+    public AtaqueBossResponseDTO executarAtaque(BattleBoss boss) {
+    	 DecimalFormat df = new DecimalFormat("#,##0");
+    	 
+    	 
+    	   long dano = boss.getAttackPower();
+
+        List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
+
+        for (UsuarioBossBattle u : usuarios) {
+
+            if (u.getEnergiaGuerreiros() != null && u.getEnergiaGuerreiros() > 0) {
+
+                ResultadoDano resultado = calcularDanoRecebido(u, dano);
+
+                long novaEnergia = u.getEnergiaGuerreiros() - resultado.getDanoFinal();
+
+                u.setEnergiaGuerreiros(Math.max(0, novaEnergia));
+                usuarioRepo.save(u);
+
+                if (resultado.isUsouEscudo()) {
+                    System.out.println("🛡️ Usuário " + u.getId()
+                            + " usou Escudo → recebeu " + resultado.getDanoFinal());
+                } else {
+                    System.out.println("💥 Usuário " + u.getId()
+                            + " recebeu " + resultado.getDanoFinal());
+                }
+            }
+        }
+        
+        
+        //-------------------------------------
+         String boosName  = boss.getBossName();
         
         System.out.println( boosName+
                 " atacou causando " + df.format(dano) + " de dano!");
@@ -90,10 +166,10 @@ public class BossAutoAttackService {
                 + df.format(dano)
                 + "</span> de dano!";
 
-        /*
+        
         String mensagem = boss.getBossName()
                 + " atacou causando " + df.format(dano) + " de dano!";
-*/
+
         ultimoAtaqueEm = LocalDateTime.now();
         ultimaMensagemAtaque = mensagem;
 
@@ -102,9 +178,45 @@ public class BossAutoAttackService {
                 dano,
                 LocalDateTime.now()
         );
+    }
+    
+   */ 
 
+private ResultadoDano calcularDanoRecebido(UsuarioBossBattle usuario, long danoBase) {
+
+    boolean usouEscudo = escudoPrimordialService.usarEscudoPrimordial(usuario);
+    
+    /*
+     * debud
+    System.out.println("Usuário: " + usuario.getId()
+    + " | Escudo ativo: " + usuario.getEscudoPrimordialAtivo()
+    + " | Desgaste: " + usuario.getEscudoPrimordialDesgaste()
+    + " | Usou escudo: " + usouEscudo);
+*/
+
+    if (usouEscudo) {
+        long reducao = (danoBase * ESCUDO_PRIMORDIAL_PORCENTAGEM) / 100;
+        long danoFinal = Math.max(0, danoBase - reducao);
+
+        return new ResultadoDano(danoFinal, true);
     }
 
+    return new ResultadoDano(danoBase, false);
+}
+
+public AtaqueBossResponseDTO getUltimoAtaque() {
+
+    if (ultimoAtaqueEm == null) return null;
+
+    return new AtaqueBossResponseDTO(
+            ultimoBossNome,
+            ultimaMensagemAtaque,
+            ultimoDano,
+            ultimoAtaqueEm
+    );
+}
+
+/*
     public AtaqueBossResponseDTO getUltimoAtaque() {
 
         if (ultimoAtaqueEm == null) return null;
@@ -116,7 +228,7 @@ public class BossAutoAttackService {
         );
     }
 
-
+*/
     //getters / setters
     public String getUltimaMensagem() {
         return ultimaMensagemAtaque;
@@ -125,7 +237,19 @@ public class BossAutoAttackService {
     public LocalDateTime getUltimoAtaqueEm() {
         return ultimoAtaqueEm;
     }
+    
+    
+    
+    
+    
+    
 }//BossAutoAttackService
+
+
+
+
+
+
     /*
     public AtaqueBossResponseDTO executarAtaque(BattleBoss boss) {
 

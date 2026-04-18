@@ -22,6 +22,7 @@ public class LojaAprimoramentosService {
 	private final long PRECO_MACHADO_DILACERADOR = 10_000;
 	private final long POCAO_VIGOR = 10_000;
 	private final long PRECO_ESPADA_FLANEJANTE = 10_000;
+	private final long PRECO_ESCUDO_PRIMORDIAL = 20_000;
     
  // ---> atualizar preço do guerreiro
     public void atualizarPrecoGuerreiro(UsuarioBossBattle usuario, int quantidade) {
@@ -396,6 +397,47 @@ public class LojaAprimoramentosService {
     }
 
     
+    //Atualizar o preço do escudo
+    public void atualizarPrecoEscudoPrimordial(UsuarioBossBattle usuario, int quantidade) {
+    	
+  
+          // 🔒 Usa sempre o preço atual como base
+          long precoEscudoAtual = usuario.getPrecoEscudoPrimordial();
+         
+     
+          if (precoEscudoAtual <= 0) {
+        	  precoEscudoAtual = 10_000L;
+          }
+
+          long nivel = usuario.getNivel();
+
+          long aumento;
+
+          if (nivel <= 10) aumento = 500;
+          else if (nivel <= 20) aumento = 700;
+          else if (nivel <= 30) aumento = 1_000;
+          else if (nivel <= 40) aumento = 1_200;
+          else if (nivel <= 50) aumento = 1_500;
+          else if (nivel <= 70) aumento = 1_700;
+          else if (nivel <= 100) aumento = 2_000;
+          else if (nivel <= 200) aumento = 2_200;
+          else if (nivel <= 300) aumento = 2_500;
+          else if (nivel <= 400) aumento = 2_700;
+          else if (nivel <= 500) aumento = 3_000;
+          else if (nivel <= 600) aumento = 3_300;
+          else if (nivel <= 700) aumento = 3_700;
+          else if (nivel <= 800) aumento = 4_000;
+          else if (nivel <= 900) aumento = 4_500;
+          else if (nivel <= 1_000) aumento = 5_000;
+          else aumento = 10_000;
+          // 🔼 aumento fixo e permanente
+          usuario.setPrecoPocaoVigor(precoEscudoAtual + aumento);
+          
+          
+          
+    	
+    }//atualizarPrecoEscudoPrimordial
+    
     //======================================
     /*
     public void atualizarPrecoLoja(UsuarioBossBattle usuario) {
@@ -417,6 +459,9 @@ public class LojaAprimoramentosService {
 	}
 	public long getPRECO_ESPADA_FLANEJANTE() {
 		return PRECO_ESPADA_FLANEJANTE;
+	}
+	public long getPRECO_ESCUDO_PRIMORDIAL() {
+		return PRECO_ESCUDO_PRIMORDIAL;
 	}
     
     

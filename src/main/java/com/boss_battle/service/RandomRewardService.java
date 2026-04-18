@@ -61,6 +61,12 @@ public class RandomRewardService {
                 if (reward.getRewardItem() == RewardItem.MACHADO_DILACERADOR)
                     usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + reward.getAmount());
                 
+                if (reward.getRewardItem() == RewardItem.ESCUDO_PRIMORDIAL)
+                    usuario.setEscudoPrimordial(usuario.getEscudoPrimordial() + reward.getAmount());
+                
+                if (reward.getRewardItem() == RewardItem.ARCO_CELESTIAL)
+                    usuario.setInventarioArco(usuario.getInventarioArco() + reward.getAmount());
+                
                 if (reward.getRewardItem() == RewardItem.FLECHA_FERRO)
                     usuario.setFlechaFerro(usuario.getFlechaFerro() + reward.getAmount());
                 
@@ -109,7 +115,7 @@ public class RandomRewardService {
         reward.setUserId(userId);
 
         int roll = random.nextInt(100); // 0 a 99
-        if (roll < 5) { // Guerreiro
+        if (roll < 3) { // Guerreiro
             reward.setRewardType(RewardType.GUERREIRO);
             reward.setRewardItem(RewardItem.GUERREIRO_BASICO);
             reward.setAmount(1);
@@ -129,7 +135,7 @@ public class RandomRewardService {
 
         }
         
-        else if (roll < 25) { // MACHADO DILACERADOR
+        else if (roll < 30) { // MACHADO DILACERADOR
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.MACHADO_DILACERADOR);
             reward.setAmount(1);
@@ -137,7 +143,27 @@ public class RandomRewardService {
 
         }
         
-        else if (roll < 30) { //FLECHA FERRO
+        else if (roll < 25) { // ESCUDO PRIMORDIAL
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.ESCUDO_PRIMORDIAL);
+            reward.setAmount(1);
+            reward.setImageUrl("icones/escudo_primordial.webp");
+
+        }
+        
+        
+        else if (roll < 30) { // ARCO CELESTIAL
+            reward.setRewardType(RewardType.CONSUMABLE);
+            reward.setRewardItem(RewardItem.ARCO_CELESTIAL);
+            reward.setAmount(1);
+            reward.setImageUrl("icones/arco.webp");
+
+        }
+        
+        
+        
+        
+        else if (roll < 40) { //FLECHA FERRO
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.FLECHA_FERRO);
             reward.setAmount(30);
@@ -145,7 +171,7 @@ public class RandomRewardService {
 
         }
         
-        else if (roll < 30) { //FLECHA FOGO
+        else if (roll < 50) { //FLECHA FOGO
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.FLECHA_FOGO);
             reward.setAmount(20);
@@ -153,14 +179,14 @@ public class RandomRewardService {
 
         }
         
-        else if (roll < 40) { //FLECHA VENENO
+        else if (roll < 60) { //FLECHA VENENO
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.FLECHA_VENENO);
             reward.setAmount(15);
             reward.setImageUrl("icones/flecha_veneno.webp");
 
         }
-        else if (roll < 50) { //FLECHA DIAMANTE
+        else if (roll < 70) { //FLECHA DIAMANTE
             reward.setRewardType(RewardType.CONSUMABLE);
             reward.setRewardItem(RewardItem.FLECHA_DIAMANTE);
             reward.setAmount(10);
@@ -169,13 +195,13 @@ public class RandomRewardService {
         }
         
         
-        else if (roll < 60) { // Ataque especial
+        else if (roll < 80) { // Ataque especial
             reward.setRewardType(RewardType.SPECIAL);
             reward.setRewardItem(RewardItem.ATAQUE_SPECIAL);
             reward.setAmount(5);
             reward.setImageUrl("icones/ataque_especial.webp");
 
-        } else if (roll < 70) { // Moedas
+        } else if (roll < 90) { // Moedas
             reward.setRewardType(RewardType.CURRENCY);
             reward.setRewardItem(RewardItem.BOSS_COIN);
             reward.setAmount(200 + random.nextInt(500));

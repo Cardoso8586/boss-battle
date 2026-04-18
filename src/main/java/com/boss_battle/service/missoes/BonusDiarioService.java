@@ -35,13 +35,13 @@ public class BonusDiarioService {
     private BigDecimal getValorBonusPorStreak(int streak) {
 
         switch (streak) {
-            case 1: return new BigDecimal("300");
-            case 2: return new BigDecimal("400");
-            case 3: return new BigDecimal("500");
-            case 4: return new BigDecimal("600");
-            case 5: return new BigDecimal("700");
-            case 6: return new BigDecimal("800");
-            case 7: return new BigDecimal("1000");
+            case 1: return new BigDecimal("200");
+            case 2: return new BigDecimal("300");
+            case 3: return new BigDecimal("400");
+            case 4: return new BigDecimal("500");
+            case 5: return new BigDecimal("600");
+            case 6: return new BigDecimal("700");
+            case 7: return new BigDecimal("800");
             default: return new BigDecimal("1000");
         }
     }
@@ -107,9 +107,9 @@ public class BonusDiarioService {
         if (streak == 7) {
 
             String[] mensagens = {
-                "🔥 Guerreiro lendário! 7 dias seguidos enfrentando batalhas!",
-                "⚔️ Você provou seu valor! 7 dias de batalhas contra os bosses!",
-                "🏆 Vitória épica! 7 dias consecutivos!",
+                "🔥 Guerreiro lendário!",
+                "⚔️ Você provou seu valor!",
+                "🏆 Vitória épica!",
                 "🛡️ Determinação de campeão!",
                 "👑 Herói verdadeiro!",
                 "💀 Nem os bosses te pararam!",

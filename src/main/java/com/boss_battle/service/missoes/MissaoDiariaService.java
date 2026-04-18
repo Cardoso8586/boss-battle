@@ -389,16 +389,55 @@ public class MissaoDiariaService {
         long nivelUsuario = usuario.getNivel();
         int base;
 
-        if (nivelUsuario < 100) base = 200;
-        else if (nivelUsuario < 200) base = 300;
-        else if (nivelUsuario < 300) base = 400;
-        else if (nivelUsuario < 400) base = 500;
-        else if (nivelUsuario < 500) base = 600;
-        else if (nivelUsuario < 600) base = 700;
-        else if (nivelUsuario < 700) base = 800;
-        else if (nivelUsuario < 800) base = 900;
-        else if (nivelUsuario < 900) base = 1000;
-        else base = 1200;
+        if (nivelUsuario < 25) base = 100;
+        else if (nivelUsuario < 50) base = 150;
+        else if (nivelUsuario < 75) base = 200;
+        else if (nivelUsuario < 100) base = 250;
+        else if (nivelUsuario < 125) base = 300;
+        else if (nivelUsuario < 150) base = 350;
+        else if (nivelUsuario < 175) base = 400;
+        else if (nivelUsuario < 200) base = 450;
+        else if (nivelUsuario < 225) base = 500;
+        else if (nivelUsuario < 250) base = 550;
+        else if (nivelUsuario < 275) base = 600;
+        else if (nivelUsuario < 300) base = 650;
+        else if (nivelUsuario < 325) base = 700;
+        else if (nivelUsuario < 350) base = 750;
+        else if (nivelUsuario < 375) base = 800;
+        else if (nivelUsuario < 400) base = 850;
+        else if (nivelUsuario < 425) base = 900;
+        else if (nivelUsuario < 450) base = 950;
+        else if (nivelUsuario < 475) base = 1000;
+        else if (nivelUsuario < 500) base = 1050;
+        else if (nivelUsuario < 525) base = 1100;
+        else if (nivelUsuario < 550) base = 1150;
+        else if (nivelUsuario < 575) base = 1200;
+        else if (nivelUsuario < 600) base = 1250;
+        else if (nivelUsuario < 625) base = 1300;
+        else if (nivelUsuario < 650) base = 1350;
+        else if (nivelUsuario < 675) base = 1400;
+        else if (nivelUsuario < 700) base = 1450;
+        else if (nivelUsuario < 725) base = 1500;
+        else if (nivelUsuario < 750) base = 1550;
+        else if (nivelUsuario < 775) base = 1600;
+        else if (nivelUsuario < 800) base = 1650;
+        else if (nivelUsuario < 825) base = 1700;
+        else if (nivelUsuario < 850) base = 1750;
+        else if (nivelUsuario < 875) base = 1800;
+        else if (nivelUsuario < 900) base = 1850;
+        else if (nivelUsuario < 925) base = 1900;
+        else if (nivelUsuario < 950) base = 1950;
+        else if (nivelUsuario < 975) base = 2000;
+        else if (nivelUsuario < 1000) base = 2050;
+
+        // segue o mesmo padrão (+50 a cada 25 níveis)
+
+        else if (nivelUsuario < 1500) base = 3050;
+        else if (nivelUsuario < 2000) base = 4050;
+        else if (nivelUsuario < 2500) base = 5050;
+        else if (nivelUsuario < 3000) base = 6050;
+
+        else base = 7000;
 
         switch (nivelMissao) {
             case 1:
