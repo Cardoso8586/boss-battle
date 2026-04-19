@@ -24,7 +24,9 @@ import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
+import com.boss_battle.model.GlobalBossDrakzhor;
 import com.boss_battle.model.GlobalBossFlamor;
+import com.boss_battle.model.GlobalBossGatalicos;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
@@ -33,6 +35,7 @@ import com.boss_battle.model.GlobalBossKaelthor;
 import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalevola;
+import com.boss_battle.model.GlobalBossMalgryth;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
@@ -50,13 +53,19 @@ import com.boss_battle.model.GlobalBossOculthar;
 import com.boss_battle.model.GlobalBossPuppetrix;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
+import com.boss_battle.model.GlobalBossSHemogarth;
 import com.boss_battle.model.GlobalBossTenebris;
+import com.boss_battle.model.GlobalBossTharvok;
 import com.boss_battle.model.GlobalBossThunderon;
 import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
+import com.boss_battle.model.GlobalBossVZurvio;
 import com.boss_battle.model.GlobalBossVespera;
 import com.boss_battle.model.GlobalBossVesta;
+import com.boss_battle.model.GlobalBossVorgathon;
+import com.boss_battle.model.GlobalBossVorlath;
+import com.boss_battle.model.GlobalBossXarvokth;
 import com.boss_battle.model.GlobalBossZargoth;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
@@ -80,7 +89,9 @@ import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
+import com.boss_battle.service.bosses.DrakzhorService;
 import com.boss_battle.service.bosses.FlamorService;
+import com.boss_battle.service.bosses.GatalicosService;
 import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
@@ -89,6 +100,7 @@ import com.boss_battle.service.bosses.KaelthorService;
 import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalevolaService;
+import com.boss_battle.service.bosses.MalgrythService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
@@ -106,14 +118,19 @@ import com.boss_battle.service.bosses.OcultharService;
 import com.boss_battle.service.bosses.PuppetrixService;
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
-
+import com.boss_battle.service.bosses.SHemogarthService;
 import com.boss_battle.service.bosses.TenebrisService;
+import com.boss_battle.service.bosses.TharvokService;
 import com.boss_battle.service.bosses.ThunderonService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
+import com.boss_battle.service.bosses.VZurvioService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
+import com.boss_battle.service.bosses.VorgathonService;
+import com.boss_battle.service.bosses.VorlathService;
+import com.boss_battle.service.bosses.XarvokthService;
 import com.boss_battle.service.bosses.ZargothService;
 import com.boss_battle.service.missoes.MissaoDiariaService;
 import com.boss_battle.service.missoes.RankingAtaqueEspecialService;
@@ -163,13 +180,25 @@ public class GlobalBossService {
     private final AzuragonService azuragonService;
     private final OcultharService ocultharService;
     private final PuppetrixService puppetrixService;
-    
      private final AbaddonService abaddonService;
      private final VestaService vestaService;
      private final MalevolaService malevolaService;
      private final ObraserkerService obraserkerService;
      private final CryophantasmService cryophantasmService;
      private final ArenascorService arenascorService;
+     
+     //
+     private final VorgathonService vorgathonService;
+     private final DrakzhorService drakzhorService;
+     private final XarvokthService xarvokthService;
+     private final MalgrythService malgrythService;
+     private final TharvokService tharvokService;
+     private final VorlathService vorlathService;
+     private final VZurvioService vZurvioService;
+     private final GatalicosService gatalicosService;
+     private final SHemogarthService sHemogarthService;
+     
+     
      
     /*
   
@@ -237,13 +266,24 @@ public class GlobalBossService {
             AzuragonService azuragonService,
             OcultharService ocultharService,
             PuppetrixService puppetrixService,
-            
             AbaddonService abaddonService,
             VestaService vestaService,
             MalevolaService malevolaService,
             ObraserkerService obraserkerService,
             CryophantasmService cryophantasmService,
             ArenascorService arenascorService,
+            
+            //
+            VorgathonService vorgathonService,
+            DrakzhorService drakzhorService,
+            XarvokthService xarvokthService,
+            MalgrythService malgrythService,
+            TharvokService tharvokService,
+            VorlathService vorlathService,
+            VZurvioService vZurvioService,
+            GatalicosService gatalicosService,
+            SHemogarthService sHemogarthService,
+            
             
             /*
          
@@ -313,14 +353,23 @@ public class GlobalBossService {
         this.azuragonService = azuragonService;
         this.ocultharService = ocultharService;
         this.puppetrixService = puppetrixService;
-        
-        
         this.abaddonService = abaddonService;
         this.vestaService = vestaService;
         this.malevolaService = malevolaService;
         this.obraserkerService = obraserkerService;
         this.cryophantasmService = cryophantasmService;
         this.arenascorService = arenascorService;
+        
+        //
+        this.vorgathonService = vorgathonService;
+        this.drakzhorService = drakzhorService;
+        this.xarvokthService = xarvokthService;
+        this.malgrythService = malgrythService;
+        this.tharvokService = tharvokService;
+        this.vorlathService = vorlathService;
+        this.vZurvioService = vZurvioService;
+        this.gatalicosService = gatalicosService;
+        this.sHemogarthService = sHemogarthService;
         
         /*
         
@@ -377,14 +426,23 @@ public class GlobalBossService {
         if (azuragonService.get().isAlive()) return azuragonService.get();
         if (ocultharService.get().isAlive()) return ocultharService.get();
         if (puppetrixService.get().isAlive()) return puppetrixService.get();
-        
-        
         if (abaddonService.get().isAlive()) return abaddonService.get();
         if (vestaService.get().isAlive()) return vestaService.get();
         if (malevolaService.get().isAlive()) return malevolaService.get();
         if (obraserkerService.get().isAlive()) return obraserkerService.get();
         if (cryophantasmService.get().isAlive()) return cryophantasmService.get();
         if (arenascorService.get().isAlive()) return arenascorService.get();
+        
+        
+        if (vorgathonService.get().isAlive()) return vorgathonService.get();
+        if (drakzhorService.get().isAlive()) return drakzhorService.get();
+        if (xarvokthService.get().isAlive()) return xarvokthService.get();
+        if (malgrythService.get().isAlive()) return malgrythService.get();
+        if (tharvokService.get().isAlive()) return tharvokService.get();
+        if (vorlathService.get().isAlive()) return vorlathService.get();
+        if (vZurvioService.get().isAlive()) return vZurvioService.get();
+        if (gatalicosService.get().isAlive()) return gatalicosService.get();
+        if (sHemogarthService.get().isAlive()) return sHemogarthService.get();
         
         
         
@@ -613,7 +671,37 @@ public class GlobalBossService {
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
         
-
+        //
+        resultado = tryHitBoss("VORGATHON", vorgathonService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("DRAKZHOR", drakzhorService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("XARVOKTH", xarvokthService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("MALGRYTH", malgrythService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("THARVOK", tharvokService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("VORLATH", vorlathService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("V-ZURVIO", vZurvioService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("GATALICOS", gatalicosService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        resultado = tryHitBoss("S-HEMOGARTH", sHemogarthService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        
+        
+        
+        
         /*
        
         
@@ -695,7 +783,6 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossAzuragon) azuragonService.save((GlobalBossAzuragon) boss);
             if (boss instanceof GlobalBossOculthar) ocultharService.save((GlobalBossOculthar) boss);
             if (boss instanceof GlobalBossPuppetrix) puppetrixService.save((GlobalBossPuppetrix) boss);
-            
             if (boss instanceof GlobalBossAbaddon) abaddonService.save((GlobalBossAbaddon) boss);
             if (boss instanceof GlobalBossVesta) vestaService.save((GlobalBossVesta) boss);
             if (boss instanceof GlobalBossMalevola) malevolaService.save((GlobalBossMalevola) boss);
@@ -703,7 +790,20 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossCryophantasm) cryophantasmService.save((GlobalBossCryophantasm) boss);
             if (boss instanceof GlobalBossArenascor) arenascorService.save((GlobalBossArenascor) boss);
             
-       
+            
+            //
+            if (boss instanceof GlobalBossVorgathon) vorgathonService.save((GlobalBossVorgathon) boss);
+            if (boss instanceof GlobalBossDrakzhor) drakzhorService.save((GlobalBossDrakzhor) boss);
+            if (boss instanceof GlobalBossXarvokth) xarvokthService.save((GlobalBossXarvokth) boss);
+            if (boss instanceof GlobalBossMalgryth) malgrythService.save((GlobalBossMalgryth) boss);
+            if (boss instanceof GlobalBossTharvok) tharvokService.save((GlobalBossTharvok) boss);
+            if (boss instanceof GlobalBossVorlath) vorlathService.save((GlobalBossVorlath) boss);
+            if (boss instanceof GlobalBossVZurvio) vZurvioService.save((GlobalBossVZurvio) boss);
+            if (boss instanceof GlobalBossGatalicos) gatalicosService.save((GlobalBossGatalicos) boss);
+            if (boss instanceof GlobalBossSHemogarth) sHemogarthService.save((GlobalBossSHemogarth) boss);
+            
+            
+            
             /*
           
             

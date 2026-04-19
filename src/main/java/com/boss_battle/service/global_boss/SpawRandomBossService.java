@@ -17,7 +17,9 @@ import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
+import com.boss_battle.model.GlobalBossDrakzhor;
 import com.boss_battle.model.GlobalBossFlamor;
+import com.boss_battle.model.GlobalBossGatalicos;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
@@ -26,6 +28,7 @@ import com.boss_battle.model.GlobalBossKaelthor;
 import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalevola;
+import com.boss_battle.model.GlobalBossMalgryth;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
@@ -43,13 +46,19 @@ import com.boss_battle.model.GlobalBossOculthar;
 import com.boss_battle.model.GlobalBossPuppetrix;
 import com.boss_battle.model.GlobalBossPyragon;
 import com.boss_battle.model.GlobalBossReflexa;
+import com.boss_battle.model.GlobalBossSHemogarth;
 import com.boss_battle.model.GlobalBossTenebris;
+import com.boss_battle.model.GlobalBossTharvok;
 import com.boss_battle.model.GlobalBossThunderon;
 import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
+import com.boss_battle.model.GlobalBossVZurvio;
 import com.boss_battle.model.GlobalBossVespera;
 import com.boss_battle.model.GlobalBossVesta;
+import com.boss_battle.model.GlobalBossVorgathon;
+import com.boss_battle.model.GlobalBossVorlath;
+import com.boss_battle.model.GlobalBossXarvokth;
 import com.boss_battle.model.GlobalBossZargoth;
 import com.boss_battle.service.bosses.AbaddonService;
 import com.boss_battle.service.bosses.AbissalService;
@@ -62,7 +71,9 @@ import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
+import com.boss_battle.service.bosses.DrakzhorService;
 import com.boss_battle.service.bosses.FlamorService;
+import com.boss_battle.service.bosses.GatalicosService;
 import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
@@ -71,6 +82,7 @@ import com.boss_battle.service.bosses.KaelthorService;
 import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalevolaService;
+import com.boss_battle.service.bosses.MalgrythService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
@@ -88,13 +100,19 @@ import com.boss_battle.service.bosses.OcultharService;
 import com.boss_battle.service.bosses.PuppetrixService;
 import com.boss_battle.service.bosses.PyragonService;
 import com.boss_battle.service.bosses.ReflexaService;
+import com.boss_battle.service.bosses.SHemogarthService;
 import com.boss_battle.service.bosses.TenebrisService;
+import com.boss_battle.service.bosses.TharvokService;
 import com.boss_battle.service.bosses.ThunderonService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
+import com.boss_battle.service.bosses.VZurvioService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
+import com.boss_battle.service.bosses.VorgathonService;
+import com.boss_battle.service.bosses.VorlathService;
+import com.boss_battle.service.bosses.XarvokthService;
 import com.boss_battle.service.bosses.ZargothService;
 
 
@@ -148,14 +166,26 @@ public class SpawRandomBossService {
 	    private final CyberionService cyberionService;
 	    private final AzuragonService azuragonService;
 	    private final OcultharService ocultharService;
-	    
-	    
 	    private final AbaddonService abaddonService;
 	    private final VestaService vestaService;
 	    private final MalevolaService malevolaService;
 	    private final ObraserkerService obraserkerService;
 	    private final CryophantasmService cryophantasmService;
 	    private final ArenascorService arenascorService;
+	    
+	    
+	    //
+	    private final VorgathonService vorgathonService;
+	    private final DrakzhorService drakzhorService;
+	    private final XarvokthService xarvokthService;
+	    private final MalgrythService malgrythService;
+	    private final TharvokService tharvokService;
+	    private final VorlathService vorlathService;
+	    private final VZurvioService vZurvioService;
+	    private final GatalicosService gatalicosService;
+	    private final SHemogarthService sHemogarthService;
+	    
+	    
 	    
 	    
 	    /* 
@@ -209,14 +239,26 @@ public class SpawRandomBossService {
 		        CyberionService cyberionService,
 		        AzuragonService azuragonService,
 		        OcultharService ocultharService,
-		            
-		        
 		        AbaddonService abaddonService,
 		        VestaService vestaService,
 		        MalevolaService malevolaService,
 		        ObraserkerService obraserkerService,
 		        CryophantasmService cryophantasmService,
-		        ArenascorService arenascorService
+		        ArenascorService arenascorService,
+		        
+		        
+		       // 
+		        VorgathonService vorgathonService,
+		        DrakzhorService drakzhorService,
+		        XarvokthService xarvokthService,
+		        MalgrythService malgrythService,
+		        TharvokService tharvokService,
+		        VorlathService vorlathService,
+		        VZurvioService vZurvioService,
+		        GatalicosService gatalicosService,
+		        SHemogarthService sHemogarthService
+		        
+		        
 	            /* 
 	          
 	            */
@@ -264,14 +306,27 @@ public class SpawRandomBossService {
 		    this.nexarachService = nexarachService;
 		    this.cyberionService = cyberionService;
 		    this.azuragonService = azuragonService;
-		    this.ocultharService = ocultharService;
-		        
+		    this.ocultharService = ocultharService;   
 		    this.abaddonService = abaddonService;
 		    this.vestaService = vestaService;
 		    this.malevolaService = malevolaService;
 		    this.obraserkerService = obraserkerService;
 		    this.cryophantasmService = cryophantasmService;
 		    this.arenascorService = arenascorService;
+		    
+		    
+		    //
+		    
+		    this.vorgathonService = vorgathonService;
+		    this.drakzhorService = drakzhorService;
+		    this.xarvokthService = xarvokthService;
+		    this.malgrythService = malgrythService;
+		    this.tharvokService = tharvokService;
+		    this.vorlathService = vorlathService;
+		    this.vZurvioService = vZurvioService;
+		    this.gatalicosService = gatalicosService;
+		    this.sHemogarthService = sHemogarthService;
+		    
 		    
 	        /* 
 	        
@@ -284,7 +339,7 @@ public class SpawRandomBossService {
 	      KillAllBossesService.killAllBosses();
 	     
 	        
-	        int choice = random.nextInt(43);
+	        int choice = random.nextInt(52);
 	      
 	        BattleBoss newBoss;
 
@@ -803,6 +858,112 @@ public class SpawRandomBossService {
 	               newBoss = arena;
 	            }
                
+               case 45 -> {
+	            	
+            	   GlobalBossVorgathon vorgat = vorgathonService.get();
+            	   vorgathonService.aplicarEscalamentoVorgathon(vorgat);
+            	   vorgat.setProcessingDeath(false);
+            	   vorgat.setAlive(true);
+            	   vorgat.setCurrentHp(vorgat.getMaxHp());
+            	   vorgat.setSpawnedAt(LocalDateTime.now());
+            	   vorgathonService.save(vorgat);
+	               newBoss = vorgat;
+	            }
+               
+               case 46 -> {
+	            	
+            	   GlobalBossDrakzhor drakz = drakzhorService.get();
+            	   drakzhorService.aplicarEscalamentoDrakzhor(drakz);
+            	   drakz.setProcessingDeath(false);
+            	   drakz.setAlive(true);
+            	   drakz.setCurrentHp(drakz.getMaxHp());
+            	   drakz.setSpawnedAt(LocalDateTime.now());
+            	   drakzhorService.save(drakz);
+	               newBoss = drakz;
+	            }
+               
+               case 47 -> {
+	            	
+            	   GlobalBossXarvokth xarvo = xarvokthService.get();
+            	   xarvokthService.aplicarEscalamentoXarvokth(xarvo);
+            	   xarvo.setProcessingDeath(false);
+            	   xarvo.setAlive(true);
+            	   xarvo.setCurrentHp(xarvo.getMaxHp());
+            	   xarvo.setSpawnedAt(LocalDateTime.now());
+            	   xarvokthService.save(xarvo);
+	               newBoss = xarvo;
+	            }
+               case 48 -> {
+	            	
+            	   GlobalBossMalgryth malgry = malgrythService.get();
+            	   malgrythService.aplicarEscalamentoMalgryth(malgry);
+            	   malgry.setProcessingDeath(false);
+            	   malgry.setAlive(true);
+            	   malgry.setCurrentHp(malgry.getMaxHp());
+            	   malgry.setSpawnedAt(LocalDateTime.now());
+            	   malgrythService.save(malgry);
+	               newBoss = malgry;
+	            }
+               
+               case 49 -> {
+	            	
+            	   GlobalBossTharvok tharvo = tharvokService.get();
+            	   tharvokService.aplicarEscalamentoTharvok(tharvo);
+            	   tharvo.setProcessingDeath(false);
+            	   tharvo.setAlive(true);
+            	   tharvo.setCurrentHp(tharvo.getMaxHp());
+            	   tharvo.setSpawnedAt(LocalDateTime.now());
+            	   tharvokService.save(tharvo);
+	               newBoss = tharvo;
+	            }
+               
+               case 50 -> {
+	            	
+            	   GlobalBossVorlath vorla = vorlathService.get();
+            	   vorlathService.aplicarEscalamentoVorlath(vorla);
+            	   vorla.setProcessingDeath(false);
+            	   vorla.setAlive(true);
+            	   vorla.setCurrentHp(vorla.getMaxHp());
+            	   vorla.setSpawnedAt(LocalDateTime.now());
+            	   vorlathService.save(vorla);
+	               newBoss = vorla;
+	            }
+               case 51 -> {
+	            	
+            	   GlobalBossVZurvio vzrur = vZurvioService.get();
+            	   vZurvioService.aplicarEscalamentoVZurvio(vzrur);
+            	   vzrur.setProcessingDeath(false);
+            	   vzrur.setAlive(true);
+            	   vzrur.setCurrentHp(vzrur.getMaxHp());
+            	   vzrur.setSpawnedAt(LocalDateTime.now());
+            	   vZurvioService.save(vzrur);
+	               newBoss = vzrur;
+	            }
+               
+               case 52 -> {
+	            	
+            	   GlobalBossGatalicos galat =  gatalicosService.get();
+            	   gatalicosService.aplicarEscalamentoGatalicos(galat);
+            	   galat.setProcessingDeath(false);
+            	   galat.setAlive(true);
+            	   galat.setCurrentHp(galat.getMaxHp());
+            	   galat.setSpawnedAt(LocalDateTime.now());
+            	   gatalicosService.save(galat);
+	               newBoss = galat;
+	            }
+               case 53 -> {
+	            	
+            	   GlobalBossSHemogarth shemo =  sHemogarthService.get();
+            	   sHemogarthService.aplicarEscalamentoSHemogarth(shemo);
+            	   shemo.setProcessingDeath(false);
+            	   shemo.setAlive(true);
+            	   shemo.setCurrentHp(shemo.getMaxHp());
+            	   shemo.setSpawnedAt(LocalDateTime.now());
+            	   sHemogarthService.save(shemo);
+	               newBoss = shemo;
+	            }
+               
+             
 	            default -> {
 	                GlobalBossUmbraxis um = umbraxisService.get();
 	                umbraxisService.aplicarEscalamentoUmbraxis(um);
