@@ -242,9 +242,10 @@ window.resgatarDano = async function (botao) {
                     </iframe>
                 </div>
             `,
-            confirmButtonText: 'Ok',
-            background: '#111827',
-            color: '#ffb400'
+			  timer: 8000,
+					  					    showConfirmButton: false,
+					  						background: 'transparent',
+			            color: '#ffb400'
         });
 
         setTimeout(() => {
@@ -279,9 +280,10 @@ window.resgatarDano = async function (botao) {
                     </iframe>
                 </div>
             `,
-            confirmButtonText: 'Ok',
-            background: '#111827',
-            color: '#ff3b3b'
+			                                timer: 8000,
+					  					    showConfirmButton: false,
+					  						background: 'transparent',
+                                            color: '#ff3b3b'
         });
     }
 };
@@ -303,29 +305,28 @@ window.resgatarAtaques = async function (botao) {
 
         // 🔥 Swal de sucesso com anúncio
         Swal.fire({
-            customClass: {
-                title: 'swal-game-text'
-            },
+			customClass: {
+			               title: 'swal-game-text'
+			           },
             icon: 'success',
             title: 'Recompensa resgatada!',
-            html: `
-                <div style="margin-bottom:10px;">
-                    Você resgatou sua missão de ataques.
-                </div>
-
-                <div class="modal-anuncio">
-                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                        width="468"
-                        height="60"
-                        scrolling="no"
-                        frameborder="0"
-                        style="max-width:100%; border:0;">
-                    </iframe>
-                </div>
-            `,
-            confirmButtonText: 'Ok',
-            background: '#111827',
-            color: '#ffb400'
+			showConfirmButton: false,
+			background: 'transparent',
+			  color: '#ffb400',
+			  html: `
+			    <div class="modal-anuncio">
+			      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+			        width="468"
+			        height="60"
+			        scrolling="no"
+			        frameborder="0">
+			      </iframe>
+			    </div>
+			  `,
+			                         timer: 8000,
+			  					    showConfirmButton: false,
+			  						background: 'transparent',
+			  					     color: '#ffb400'
         });
 
         setTimeout(() => {
@@ -360,10 +361,11 @@ window.resgatarAtaques = async function (botao) {
                         style="max-width:100%; border:0;">
                     </iframe>
                 </div>
-            `,
-            confirmButtonText: 'Ok',
-            background: '#111827',
-            color: '#ff3b3b'
+            `,				  timer: 8000,
+						  					    showConfirmButton: false,
+						  						background: 'transparent',
+						  
+							color: '#ff3b3b'
         });
     }
 };
