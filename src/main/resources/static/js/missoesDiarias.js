@@ -207,7 +207,6 @@ function renderizarMissoes(missao) {
 
 window.resgatarDano = async function (botao) {
     try {
-        // 🔒 trava botão
         botao.disabled = true;
         const textoOriginal = botao.innerText;
         botao.innerText = "Resgatando...";
@@ -222,7 +221,32 @@ window.resgatarDano = async function (botao) {
 
         await carregarMissoes();
 
-        // ⏱️ pequena pausa antes de voltar
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-text'
+            },
+            icon: 'success',
+            title: 'Recompensa resgatada!',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Você resgatou sua missão de dano.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            confirmButtonText: 'Ok',
+            background: '#111827',
+            color: '#ffb400'
+        });
+
         setTimeout(() => {
             botao.disabled = false;
             botao.innerText = textoOriginal;
@@ -231,9 +255,34 @@ window.resgatarDano = async function (botao) {
     } catch (error) {
         console.error("Erro ao resgatar dano:", error);
 
-        // volta normal se der erro
         botao.disabled = false;
         botao.innerText = "Resgatar";
+
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-error'
+            },
+            icon: 'error',
+            title: 'Erro',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Não foi possível resgatar a recompensa de dano.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            confirmButtonText: 'Ok',
+            background: '#111827',
+            color: '#ff3b3b'
+        });
     }
 };
 window.resgatarAtaques = async function (botao) {
@@ -252,6 +301,33 @@ window.resgatarAtaques = async function (botao) {
 
         await carregarMissoes();
 
+        // 🔥 Swal de sucesso com anúncio
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-text'
+            },
+            icon: 'success',
+            title: 'Recompensa resgatada!',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Você resgatou sua missão de ataques.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            confirmButtonText: 'Ok',
+            background: '#111827',
+            color: '#ffb400'
+        });
+
         setTimeout(() => {
             botao.disabled = false;
             botao.innerText = textoOriginal;
@@ -262,6 +338,33 @@ window.resgatarAtaques = async function (botao) {
 
         botao.disabled = false;
         botao.innerText = "Resgatar";
+
+        // 🔴 Swal de erro com anúncio
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-error'
+            },
+            icon: 'error',
+            title: 'Erro',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Não foi possível resgatar a recompensa de ataques.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            confirmButtonText: 'Ok',
+            background: '#111827',
+            color: '#ff3b3b'
+        });
     }
 };
 /*

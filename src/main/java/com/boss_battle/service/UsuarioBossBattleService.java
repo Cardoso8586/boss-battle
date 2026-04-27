@@ -104,63 +104,7 @@ public class UsuarioBossBattleService {
             randomRewardService.onLevelUp(usuario);
         }
     }
-    /*
-    public void adicionarExp(UsuarioBossBattle usuario, long expGanha) {
 
-        // ➕ Adiciona XP
-        usuario.setExp(usuario.getExp() + expGanha);
-        
-        long xpPorNivel = 1000 ;
-        long nivelUsuario = usuario.getNivel();
-        
-        if(nivelUsuario < 100) {
-        	xpPorNivel = 1000;
-        }else if(nivelUsuario < 200) {
-        	xpPorNivel = 1100;
-        }else if(nivelUsuario < 300) {
-        	xpPorNivel = 1200;
-        }else if(nivelUsuario < 300) {
-        	xpPorNivel = 1300;
-        }else if(nivelUsuario < 400) {
-        	xpPorNivel = 1400;
-        }else if(nivelUsuario < 500) {
-        	xpPorNivel = 1500;
-        }else if(nivelUsuario < 600) {
-        	xpPorNivel = 1600;
-        }else if(nivelUsuario < 700) {
-        	xpPorNivel = 1700;
-        }else if(nivelUsuario < 800) {
-        	xpPorNivel = 1800;
-        }else if(nivelUsuario < 900) {
-        	xpPorNivel = 1900;
-        }else if(nivelUsuario < 2000) {
-        	xpPorNivel = 2500;
-        }else if(nivelUsuario < 3000) {
-        	xpPorNivel = 3000;
-        }else if(nivelUsuario < 4000) {
-        	xpPorNivel = 3500;
-        }
-        
-        
-        
-        // 🔁 Sobe nível se necessário
-        while (usuario.getExp() >= xpPorNivel) {
-            usuario.setExp(usuario.getExp() - xpPorNivel);
-            usuario.setNivel(usuario.getNivel() + 1);
-
-            // Buffs por nível
-            usuario.setAtaqueBase(usuario.getAtaqueBase() + 1);
-            
-            
-         // 🎲 gera o próximo preview
-            randomRewardService.onLevelUp(usuario);
-           // lojaService.atualizarPrecoLoja(usuario);
-           
-        }
-
-       // repo.save(usuario);
-    }
-    */
     
     
 }
