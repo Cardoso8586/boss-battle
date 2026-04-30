@@ -36,7 +36,10 @@
    
     <link rel="stylesheet" href="/css/missoes.css"> 
     <link rel="stylesheet" href="/css/rankingAtaqueEspecial.css"> 
-    <link rel="stylesheet" href="/css/rankingModal.css">   
+    <link rel="stylesheet" href="/css/rankingModal.css">  
+    
+      <link rel="stylesheet" href="/css/modalAnuncio.css">  
+     
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -591,6 +594,12 @@ Dano
 
     </div>
     
+    <!-- 
+  <button id="btnAbrirAnuncio" class="btn-anuncio">
+   Ver anúncio e ganhar recompensa
+</button>
+ -->
+
   <div class="ataques-e-anuncio">
 
   <div class="ataques-recentes">
@@ -2069,8 +2078,63 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     
 </main>
 
+<!-- MODAL 
+<div id="modalAnuncioRecompensa" class="modal-anuncio">
+    <div class="modal-anuncio-conteudo">
 
+        <button id="fecharModalAnuncio" class="fechar-modal">×</button>
 
+        <h2>🎁 Recompensa por anúncio</h2>
+
+        <p id="textoTempoAnuncio">
+            Assista ao anúncio por <strong id="contadorAnuncio">20</strong> segundos para liberar sua recompensa.
+        </p>
+
+     
+        <div class="area-banner-anuncio banner-grande">
+            <script>
+                var atOptions = {
+                    'key' : '159108d30fc2d96573f42996d2971f92',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/159108d30fc2d96573f42996d2971f92/invoke.js"></script>
+        </div>
+
+       
+        <div class="area-banner-anuncio banner-pequeno">
+            <script>
+                var atOptions = {
+                    'key' : '0a3b52a54a7a4d065b759366194e5a20',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+        </div>
+
+    
+        <button id="btnReceberRecompensaAnuncio" class="btn-receber-recompensa" disabled>
+            Aguarde...
+        </button>
+
+     
+        <div id="resultadoRecompensa" class="resultado-recompensa" style="display:none;">
+            <img id="imgRecompensa" src="" alt="Recompensa" class="img-recompensa">
+
+            <p id="textoRecompensa" class="texto-recompensa"></p>
+
+            <p id="textoStreak" class="texto-streak"></p>
+        </div>
+
+    </div>
+</div>
+    -->
 
 <!-- Modal Bônus Diário -->
 <div id="bonusModal" class="modal">
@@ -2183,7 +2247,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/comprarEscudoPrimordial.js" defer></script>
      <script src="/js/equiparEscudoPrimordial.js" defer></script>
  
-   
+     <script src="/js/modalAnuncio.js" defer></script>
    
     
     

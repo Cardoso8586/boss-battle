@@ -508,11 +508,11 @@ public class GlobalBossService {
             	
             	usuarioRepo.save(usuario);
             
-            
+            /*
         	System.out.println("Usuario -" + usuario.getUsername() +
         	        " atacou -" + boss.getBossName() +
         	        " causando " + damage + " de dano");
-        	
+        	*/
         	
         	
         	// 🔥 garante que nunca fique negativo
@@ -926,6 +926,7 @@ public class GlobalBossService {
                 
 
                 System.out.println("Erro ao creditar reward para user {}"+ u.getId() + e);
+                
                 throw e; // força rollback visível
             }
 
@@ -934,6 +935,7 @@ public class GlobalBossService {
             usuarioRepo.save(u);
 
             //logs
+            /*
             System.out.println(
                 "O usuario " + u.getUsername() +
                 " recebeu " + rewardFinal + " Boss Coin"
@@ -943,6 +945,7 @@ public class GlobalBossService {
                     "O usuario " + u.getUsername() +
                     " recebeu " + expFinal + " exp"
                 );
+                */
         }
 
         // ✅ FINALIZA O BOSS UMA ÚNICA VEZ

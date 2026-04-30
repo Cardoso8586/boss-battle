@@ -224,6 +224,31 @@ public class UsuarioBossBattle  {
     }
     
     
+    //============================================== recompensas anuncios
+    
+    @Column(name = "streak_anuncios", nullable = false)
+    private int streakAnuncios = 0;
+
+    @Column(name = "ultimo_anuncio_assistido")
+    private LocalDateTime ultimoAnuncioAssistido;
+    
+    public int getStreakAnuncios() {
+        return streakAnuncios;
+    }
+
+    public void setStreakAnuncios(int streakAnuncios) {
+        this.streakAnuncios = streakAnuncios;
+    }
+
+    public LocalDateTime getUltimoAnuncioAssistido() {
+        return ultimoAnuncioAssistido;
+    }
+
+    public void setUltimoAnuncioAssistido(LocalDateTime ultimoAnuncioAssistido) {
+        this.ultimoAnuncioAssistido = ultimoAnuncioAssistido;
+    }
+    //==================================================================
+    
     
     
  //========================== FIM ATAQUE BASE =====================================

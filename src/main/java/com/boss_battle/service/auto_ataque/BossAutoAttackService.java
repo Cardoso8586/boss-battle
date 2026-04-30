@@ -88,20 +88,25 @@ public class BossAutoAttackService {
                 usuarioRepo.save(u);
 
                 if (resultado.isUsouEscudo()) {
+                	/*
                     System.out.println("🛡️ Usuário " + u.getId()
                             + " usou Escudo → recebeu " + resultado.getDanoFinal());
+                            /*
                 } else {
+                /*
                     System.out.println("💥 Usuário " + u.getId()
                             + " recebeu " + resultado.getDanoFinal());
+                            */
                 }
             }
         }
 
         String bossName = boss.getBossName();
 
+        /*
         System.out.println(bossName +
                 " atacou causando " + df.format(dano) + " de dano!");
-
+*/
         String mensagem = "<span class='boosName'>" + bossName + "</span>"
                 + " atacou causando <span class='dano-valor'>"
                 + df.format(dano)

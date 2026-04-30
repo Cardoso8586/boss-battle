@@ -106,7 +106,7 @@ public class GuerreiroAutoAttackService {
 	    
 	    globalBossService.tryHitBoss(boss.getBossName(), boss, usuario, dano);
 	    
-	   System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Causou " + dano+"-"+ "Dano");
+	   //System.out.println("Usario" +"-"+ usuario.getUsername()+"-"+  "Atacou" +"-"+  boss.getBossName()+"-"+  "Causou " + dano+"-"+ "Dano");
 	  
 	    // 🐲 ataca o boss
 	 

@@ -204,6 +204,7 @@ function renderizarMissoes(missao) {
 */
 
 //================ RESGATAR =================
+//================ RESGATAR =================
 
 window.resgatarDano = async function (botao) {
     try {
@@ -242,10 +243,10 @@ window.resgatarDano = async function (botao) {
                     </iframe>
                 </div>
             `,
-			  timer: 8000,
-					  					    showConfirmButton: false,
-					  						background: 'transparent',
-			            color: '#ffb400'
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ffb400'
         });
 
         setTimeout(() => {
@@ -280,13 +281,14 @@ window.resgatarDano = async function (botao) {
                     </iframe>
                 </div>
             `,
-			                                timer: 8000,
-					  					    showConfirmButton: false,
-					  						background: 'transparent',
-                                            color: '#ff3b3b'
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ff3b3b'
         });
     }
 };
+
 window.resgatarAtaques = async function (botao) {
     try {
         botao.disabled = true;
@@ -303,30 +305,31 @@ window.resgatarAtaques = async function (botao) {
 
         await carregarMissoes();
 
-        // 🔥 Swal de sucesso com anúncio
         Swal.fire({
-			customClass: {
-			               title: 'swal-game-text'
-			           },
+            customClass: {
+                title: 'swal-game-text'
+            },
             icon: 'success',
             title: 'Recompensa resgatada!',
-			showConfirmButton: false,
-			background: 'transparent',
-			  color: '#ffb400',
-			  html: `
-			    <div class="modal-anuncio">
-			      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-			        width="468"
-			        height="60"
-			        scrolling="no"
-			        frameborder="0">
-			      </iframe>
-			    </div>
-			  `,
-			                         timer: 8000,
-			  					    showConfirmButton: false,
-			  						background: 'transparent',
-			  					     color: '#ffb400'
+            html: `
+                <div style="margin-bottom:10px;">
+                    Você resgatou sua missão de ataques.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ffb400'
         });
 
         setTimeout(() => {
@@ -340,7 +343,6 @@ window.resgatarAtaques = async function (botao) {
         botao.disabled = false;
         botao.innerText = "Resgatar";
 
-        // 🔴 Swal de erro com anúncio
         Swal.fire({
             customClass: {
                 title: 'swal-game-error'
@@ -361,11 +363,11 @@ window.resgatarAtaques = async function (botao) {
                         style="max-width:100%; border:0;">
                     </iframe>
                 </div>
-            `,				  timer: 8000,
-						  					    showConfirmButton: false,
-						  						background: 'transparent',
-						  
-							color: '#ff3b3b'
+            `,
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ff3b3b'
         });
     }
 };
