@@ -74,7 +74,8 @@ public class BossAutoAttackService {
 
         long dano = boss.getAttackPower();
 
-        List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
+       // List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
+        List<UsuarioBossBattle> usuarios = usuarioRepo.findByEnergiaGuerreirosGreaterThan(0L);
 
         for (UsuarioBossBattle u : usuarios) {
 
@@ -85,39 +86,22 @@ public class BossAutoAttackService {
                 long novaEnergia = u.getEnergiaGuerreiros() - resultado.getDanoFinal();
 
                 u.setEnergiaGuerreiros(Math.max(0, novaEnergia));
-                usuarioRepo.save(u);
-
-                if (resultado.isUsouEscudo()) {
-                	/*
-                    System.out.println("🛡️ Usuário " + u.getId()
-                            + " usou Escudo → recebeu " + resultado.getDanoFinal());
-                            /*
-                } else {
-                /*
-                    System.out.println("💥 Usuário " + u.getId()
-                            + " recebeu " + resultado.getDanoFinal());
-                            */
-                }
             }
         }
 
+        usuarioRepo.saveAll(usuarios);
+
         String bossName = boss.getBossName();
 
-        /*
-        System.out.println(bossName +
-                " atacou causando " + df.format(dano) + " de dano!");
-*/
         String mensagem = "<span class='boosName'>" + bossName + "</span>"
                 + " atacou causando <span class='dano-valor'>"
                 + df.format(dano)
                 + "</span> de dano!";
 
-      
         ultimoBossNome = bossName;
         ultimoAtaqueEm = LocalDateTime.now();
         ultimaMensagemAtaque = mensagem;
         ultimoDano = dano;
-        
 
         return new AtaqueBossResponseDTO(
                 ultimoBossNome,

@@ -147,7 +147,8 @@ public class SecurityConfig {
                         "/api/usuario/*/confirmar-premio-ataque-especial",
                         "/api/escudo-primordial/ativar/**",
                         "/api/escudo-primordial/ativo/**",
-                        "/api/anuncio-recompensa/receber/**"
+                        "/api/anuncio-recompensa/receber/**",
+                        "/api/anuncio-recompensa/status/**"
                         
                         
                         

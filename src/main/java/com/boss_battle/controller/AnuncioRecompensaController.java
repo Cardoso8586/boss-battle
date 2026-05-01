@@ -17,7 +17,7 @@ public class AnuncioRecompensaController {
 
     @Autowired
     private AnuncioRecompensaService anuncioRecompensaService;
-
+//--------------------------------------------------------------------------
     @PostMapping("/receber/{usuarioId}")
     public ResponseEntity<?> receberRecompensa(@PathVariable Long usuarioId) {
 
@@ -33,5 +33,25 @@ public class AnuncioRecompensaController {
                     "message", e.getMessage()
             ));
         }
-    }
-}
+    }//--->receberRecompensa
+    
+    //-----------------------------------------------------------------
+    @GetMapping("/status/{usuarioId}")
+    public ResponseEntity<?> statusAnuncio(@PathVariable Long usuarioId) {
+
+        try {
+            Map<String, Object> status =
+                    anuncioRecompensaService.verificarStatusAnuncio(usuarioId);
+
+            return ResponseEntity.ok(status);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "success", false,
+                    "message", e.getMessage()
+            ));
+        }
+    }//--->statusAnuncio
+    
+    
+}//--->AnuncioRecompensaController

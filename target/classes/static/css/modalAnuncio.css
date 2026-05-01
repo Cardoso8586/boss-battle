@@ -1,4 +1,6 @@
+/* BOTÃO */
 .btn-anuncio {
+    display: none;
     position: relative;
     background: linear-gradient(135deg, #ffb400, #ff7b00);
     color: #1b1b1b;
@@ -22,6 +24,7 @@
     animation: brilhoInterno 2.8s infinite;
 }
 
+/* MODAL */
 .modal-anuncio {
     display: none;
     position: fixed;
@@ -68,6 +71,7 @@
     cursor: pointer;
 }
 
+/* ÁREA DO ANÚNCIO PEQUENO */
 .area-banner-anuncio {
     margin: 10px auto;
     display: flex;
@@ -76,21 +80,26 @@
     overflow: visible;
 }
 
-.banner-grande {
-    width: 300px;
-    height: 250px;
+/* 320x50 */
+.banner-320x50 {
+    width: 320px;
+    height: 50px;
 }
 
-.banner-pequeno {
+/* 468x60 */
+.banner-468x60 {
     width: 468px;
     height: 60px;
 }
 
 .area-banner-anuncio iframe {
-    max-width: 100%;
     display: block;
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
 }
 
+/* BOTÃO RECEBER */
 .btn-receber-recompensa {
     margin-top: 10px;
     background: #28a745;
@@ -107,6 +116,7 @@
     cursor: not-allowed;
 }
 
+/* RESULTADO */
 .resultado-recompensa {
     margin-top: 12px;
     padding: 12px;
@@ -135,6 +145,7 @@
     font-size: 13px;
 }
 
+/* ANIMAÇÕES */
 @keyframes brilhoInterno {
     0% { opacity: 0; }
     50% { opacity: 0.6; }
@@ -175,6 +186,7 @@
     }
 }
 
+/* MOBILE */
 @media (max-width: 520px) {
     .modal-anuncio-conteudo {
         max-width: 95%;
@@ -182,10 +194,15 @@
         padding: 14px;
     }
 
-    .banner-pequeno {
-        width: 300px;
-        height: 60px;
+    .banner-468x60 {
+        width: 320px;
+        height: 50px;
         overflow: hidden;
+    }
+
+    .banner-320x50 {
+        width: 320px;
+        height: 50px;
     }
 
     .btn-anuncio {
@@ -201,4 +218,56 @@
     body {
         padding-bottom: 80px;
     }
+}
+
+.popup-bonus-especial {
+  border: 2px solid #ffd700;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+}
+
+.titulo-bonus-especial {
+  color: #ffd700;
+  text-shadow: 0 0 12px #ffb400;
+}
+
+.bonus-especial-15 {
+  text-align: center;
+  animation: brilhoBonus15 1.5s infinite alternate;
+}
+
+.bau-bonus {
+  font-size: 70px;
+  animation: pularBau 0.8s infinite alternate;
+}
+
+.texto-premio {
+  color: #00ff99;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@keyframes pularBau {
+  from {
+    transform: scale(1) translateY(0);
+  }
+  to {
+    transform: scale(1.15) translateY(-10px);
+  }
+}
+
+@keyframes brilhoBonus15 {
+  from {
+    filter: drop-shadow(0 0 8px #ffd700);
+  }
+  to {
+    filter: drop-shadow(0 0 25px #ff7b00);
+  }
+}
+.texto-apoio-anuncio {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #ffd700;
+    opacity: 0.85;
+    text-align: center;
 }

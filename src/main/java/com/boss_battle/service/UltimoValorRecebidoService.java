@@ -20,7 +20,7 @@ public class UltimoValorRecebidoService {
 		        valor != null ? valor : BigDecimal.ZERO
 		    );
 		    
-		    System.out.println( usuario.getUsername() + " " + "Recebeu + :" + usuario.getUltimoValorRecebido() + "  Boss Coins");
+		  //  System.out.println( usuario.getUsername() + " " + "Recebeu + :" + usuario.getUltimoValorRecebido() + "  Boss Coins");
 
 		    //usuarioRepository.saveAndFlush(usuario);
 		}

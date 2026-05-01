@@ -120,7 +120,7 @@ public class GuerreiroAutoAttackService {
 	    // 🧪 poção automática
 	    pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
 
-	    repo.save(usuario);
+	   // repo.save(usuario);
 	}
 	
 	 
@@ -150,8 +150,23 @@ public class GuerreiroAutoAttackService {
 	    }
 	}
 
+	@Scheduled(fixedRate = 60000)
+	@Transactional
+	public void ataqueAutomatico() {
 
+	    List<UsuarioBossBattle> usuarios = repo.buscarUsuariosAtivos();
 
+	    for (UsuarioBossBattle usuario : usuarios) {
+	        try {
+	            processarAtaqueUsuario(usuario);
+	        } catch (Exception e) {
+	            System.out.println("Erro ao processar ataque do usuário " + usuario.getId());
+	        }
+	    }
+
+	    repo.saveAll(usuarios);
+	}
+/*
 @Scheduled(fixedRate = 60000)
 public void ataqueAutomatico() {
 
@@ -166,6 +181,7 @@ public void ataqueAutomatico() {
         }
     }
 }
+*/
 
 }
 

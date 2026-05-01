@@ -132,78 +132,7 @@ function renderizarMissoes(missao) {
 
     container.innerHTML = danoHTML + ataqueHTML;
 }
-/*
-function renderizarMissoes(missao) {
-    const container = document.getElementById("diarias");
-    const mensagem = document.getElementById("mensagem-diarias");
 
-    if (!container || !mensagem) {
-        console.error("Elementos da missão não encontrados no HTML");
-        return;
-    }
-
-    container.innerHTML = "";
-
-    if (!missao) {
-        mensagem.style.display = "block";
-        return;
-    }
-
-    mensagem.style.display = "none";
-
-    const danoPercentual = missao.danoObjetivo > 0
-        ? Math.min((missao.danoAtual / missao.danoObjetivo) * 100, 100)
-        : 0;
-
-    const ataquesPercentual = missao.ataquesObjetivo > 0
-        ? Math.min((missao.ataquesAtual / missao.ataquesObjetivo) * 100, 100)
-        : 0;
-
-    const podeResgatarDanoReal =
-        missao.danoObjetivo > 0 && missao.danoAtual >= missao.danoObjetivo;
-
-    const podeResgatarAtaquesReal =
-        missao.ataquesObjetivo > 0 && missao.ataquesAtual >= missao.ataquesObjetivo;
-
-    const acaoDano = podeResgatarDanoReal
-        ? `<button class="btn-missao" onclick="resgatarDano()">Resgatar</button>`
-        : `<span class="status-missao">Em andamento</span>`;
-
-    const acaoAtaques = podeResgatarAtaquesReal
-        ? `<button class="btn-missao" onclick="resgatarAtaques()">Resgatar</button>`
-        : `<span class="status-missao">Em andamento</span>`;
-
-    const danoHTML = `
-        <div class="card-missao">
-         <h3>🔥 Dano Massivo (use ataque especial)</h3>
-            <p>Nível: ${missao.nivelDano}</p>
-            <p>${formatarMoedaBR(missao.danoAtual)} / ${formatarMoedaBR(missao.danoObjetivo)}</p>
-            <div class="barra-progresso">
-                <div class="barra-preenchida" style="width: ${danoPercentual}%"></div>
-            </div>
-            <p>Recompensa: ${formatarMoedaBR(missao.recompensaDano)} coins</p>
-            ${acaoDano}
-        </div>
-    `;
-
-    const ataqueHTML = `
-        <div class="card-missao">
-            <h3>⚔️ Ataques Especiais</h3>
-            <p>Nível: ${missao.nivelAtaques}</p>
-            <p>${missao.ataquesAtual} / ${missao.ataquesObjetivo}</p>
-            <div class="barra-progresso">
-                <div class="barra-preenchida" style="width: ${ataquesPercentual}%"></div>
-            </div>
-            <p>Recompensa: ${formatarMoedaBR(missao.recompensaAtaques)} coins</p>
-            ${acaoAtaques}
-        </div>
-    `;
-
-    container.innerHTML = danoHTML + ataqueHTML;
-}
-*/
-
-//================ RESGATAR =================
 //================ RESGATAR =================
 
 window.resgatarDano = async function (botao) {
@@ -305,32 +234,39 @@ window.resgatarAtaques = async function (botao) {
 
         await carregarMissoes();
 
-        Swal.fire({
-            customClass: {
-                title: 'swal-game-text'
-            },
-            icon: 'success',
-            title: 'Recompensa resgatada!',
-            html: `
-                <div style="margin-bottom:10px;">
-                    Você resgatou sua missão de ataques.
-                </div>
+		Swal.fire({
+		    customClass: {
+		        title: 'swal-game-text'
+		    },
+		    icon: 'success',
+		    title: 'Recompensa resgatada!',
+		    html: `
+		        <div style="margin-bottom:10px;">
+		            Você resgatou sua missão de ataques.
+		        </div>
 
-                <div class="modal-anuncio">
-                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                        width="468"
-                        height="60"
-                        scrolling="no"
-                        frameborder="0"
-                        style="max-width:100%; border:0;">
-                    </iframe>
-                </div>
-            `,
-            timer: 8000,
-            showConfirmButton: false,
-            background: 'transparent',
-            color: '#ffb400'
-        });
+		        <div id="areaAnuncioSwal" class="modal-anuncio"></div>
+		    `,
+		    timer: 8000,
+		    showConfirmButton: false,
+		    background: 'transparent',
+		    color: '#ffb400',
+		    didOpen: () => {
+		        const area = document.getElementById("areaAnuncioSwal");
+
+		        if (area) {
+		            area.innerHTML = `
+		                <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+		                    width="468"
+		                    height="60"
+		                    scrolling="no"
+		                    frameborder="0"
+		                    style="max-width:100%; border:0;">
+		                </iframe>
+		            `;
+		        }
+		    }
+		});
 
         setTimeout(() => {
             botao.disabled = false;

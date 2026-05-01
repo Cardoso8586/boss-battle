@@ -73,6 +73,7 @@ body {
 #boss-container {
 	 position: relative; /* FUNDAMENTAL */
     display: flex;
+       min-width: 0; /* 🔥 MUITO IMPORTANTE */
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -89,13 +90,28 @@ body {
  }
  
 #boss-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 🔥 3 linhas */
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+
+    max-width: 260px;
+
     font-size: 1.4rem;
     font-weight: 800;
     color: #ff3c00;
     margin-bottom: 10px;
-    text-shadow: 0 0 12px rgba(255,60,0,0.8);
-}
 
+    text-align: center;
+    line-height: 1.2;
+
+    text-shadow: 0 0 12px rgba(255,60,0,0.8);
+
+    /* quebra palavras grandes */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
 #boss-image {
     max-width: 300px;
     width: 90%;

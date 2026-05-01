@@ -85,7 +85,15 @@ public class FaucetPayService {
     public void resetarAoSubirAplicacao() {
         executarResetSeNecessario();
     }
+    @Transactional
+    public void executarResetSeNecessario() {
+        LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
 
+        int atualizados = usuarioRepo.resetarSaquesDiarios(hoje);
+
+        System.out.println("Reset diário de saques aplicado. Usuários atualizados: " + atualizados);
+    }
+    /*
     @Transactional
     public void executarResetSeNecessario() {
         List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
@@ -110,6 +118,8 @@ public class FaucetPayService {
 
         usuarioRepo.saveAll(usuarios);
     }
+    
+    /*
 /*
     @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
     @Transactional

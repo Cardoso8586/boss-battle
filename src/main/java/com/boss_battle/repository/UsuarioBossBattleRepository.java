@@ -1,13 +1,17 @@
 package com.boss_battle.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.boss_battle.model.UsuarioBossBattle;
 import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable; // ✅ import correto
 
@@ -66,6 +70,19 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT u FROM UsuarioBossBattle u WHERE u.id = :id")
     Optional<UsuarioBossBattle> buscarPorIdComLock(Long id);
+    
+    @Modifying
+    @Transactional
+    @Query("""
+        UPDATE UsuarioBossBattle u
+        SET u.quantidadeSaquesDiario = 0,
+            u.dataControleSaque = :hoje
+        WHERE u.dataControleSaque IS NULL
+           OR u.dataControleSaque < :hoje
+    """)
+    int resetarSaquesDiarios(@Param("hoje") LocalDate hoje);
+    
+    List<UsuarioBossBattle> findByEnergiaGuerreirosGreaterThan(Long energia);
     
     
 }//---> fim repo

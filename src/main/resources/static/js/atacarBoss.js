@@ -86,7 +86,14 @@ function iniciarCooldown(segundos) {
             return;
         }
 
-        attackBtn.innerText = `${restante}`;
+       // attackBtn.innerText = `${restante}`;
+		
+		const minutos = Math.floor(restante / 60);
+		const segundos = restante % 60;
+
+		attackBtn.innerText = `⏳ ${minutos}:${segundos.toString().padStart(2, '0')}`;
+		//attackBtn.innerText = `${minutos}:${segundos.toString().padStart(2, '0')}`;
+		
     }, 1000);
 }
 
