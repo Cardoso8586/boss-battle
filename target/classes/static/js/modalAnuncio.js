@@ -344,41 +344,7 @@ function animacaoBonusEspecial15() {
     });
 }
 
-async function verificarLimiteDiarioAnuncio() {
 
-    const usuarioId = document.querySelector('meta[name="user-id"]')?.content;
-
-    if (!usuarioId || !btnAbrirAnuncio) return;
-
-    try {
-        const res = await fetch(`/api/anuncio-recompensa/status/${usuarioId}`);
-        const dados = await res.json();
-
-        if (dados.limiteAtingido) {
-
-            clearInterval(intervaloCooldown);
-            clearInterval(intervaloAnuncio);
-            clearInterval(intervaloResetDiario);
-
-            btnAbrirAnuncio.style.display = "none";
-            btnAbrirAnuncio.disabled = true;
-
-            return;
-        }
-
-        clearInterval(intervaloResetDiario);
-
-        btnAbrirAnuncio.style.display = "block";
-        btnAbrirAnuncio.classList.remove("bloqueado");
-        btnAbrirAnuncio.disabled = false;
-
-        iniciarControleAnuncio();
-
-    } catch (e) {
-        console.error("Erro ao verificar status:", e);
-        iniciarControleAnuncio();
-    }
-}
 // =====================================
 // INIT
 // =====================================
