@@ -261,7 +261,7 @@ btnReceberRecompensa?.addEventListener("click", async () => {
 			           title: dados.message,
 			           html: `
 			               <div style="margin-bottom:10px;">
-			                   Não foi possível resgatar a recompensa de ataques.
+			                   Não foi possível resgatar a recompensa.
 			               </div>
 
 			               <div class="modal-anuncio">
