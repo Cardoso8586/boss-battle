@@ -66,6 +66,11 @@ form.addEventListener('submit', async (e) => {
 
                 return;
             } else {
+				// 👇 AQUI só roda quando der ERRO
+								    submitBtn.disabled = false;
+
+								     limparFormulario();
+				/*
                 Swal.fire({
 					
                     icon: 'error',
@@ -81,12 +86,18 @@ form.addEventListener('submit', async (e) => {
 
 					     limparFormulario();
 					});
-				
+				*/
 				
             }
         } else {
             const errorText = await response.text();
+			console.error(errorText);
+			// 👇 AQUI só roda quando der ERRO
+						    submitBtn.disabled = false;
 
+						   limparFormulario();
+			
+/*
             Swal.fire({
 				customClass: {
 								title: 'swal-game-error'
@@ -104,13 +115,18 @@ form.addEventListener('submit', async (e) => {
 
 				   limparFormulario();
 				});
-			
+			*/
 		
         }
 
     } catch (err) {
         console.error(err);
+		// 👇 AQUI só roda quando der ERRO
+				    submitBtn.disabled = false;
 
+				    
+				   limparFormulario();
+		/*
         Swal.fire({
 			customClass: {
 							title: 'swal-game-error'
@@ -129,7 +145,7 @@ form.addEventListener('submit', async (e) => {
 			    
 			   limparFormulario();
 			});
-
+*/
 		
     } finally {
         // 🔁 restaura botão se NÃO redirecionou

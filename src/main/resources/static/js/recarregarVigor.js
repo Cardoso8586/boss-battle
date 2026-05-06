@@ -94,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error(err);
-            Swal.fire({
+			
+			/*		*/
+			   Swal.fire({
 			   stomClass: {title: 'swal-game-error'},
                 icon: 'error',
                 title: 'Erro',
@@ -113,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				background: 'transparent',
 				color: '#ff3b3b '      
             });
+			
+	
         } finally {
             setTimeout(() => {
                 emCooldownRecarregar = false;

@@ -322,6 +322,7 @@ btnReceberRecompensa?.addEventListener("click", async () => {
 // POPUNDER + ANIMAÇÃO
 // =====================================
 
+
 function abrirPopunderRecompensa() {
 
     const script = document.createElement("script");
@@ -330,6 +331,7 @@ function abrirPopunderRecompensa() {
 
     document.body.appendChild(script);
 }
+
 function animacaoBonusEspecial15() {
     Swal.fire({
         title: '🎁 BÔNUS ESPECIAL!',
