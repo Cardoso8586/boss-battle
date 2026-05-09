@@ -88,6 +88,7 @@ public class SecurityConfig {
                         "/api/boss/hit/**",
                         "/login/**",
                         "/cadastro/**",
+                        "/anuncio-recompensa/**",
                         "/aliados/**",
                         "/perfil/**",
                         "/index.html",

@@ -1,0 +1,354 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top, rgba(251,191,36,0.12), transparent 55%),
+        linear-gradient(rgba(7,16,25,0.92), rgba(7,16,25,0.98));
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.pagina-anuncio {
+    width: 100%;
+    min-height: 100vh;
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.modal-anuncio-conteudo {
+    position: relative;
+    background: #1e2733;
+    color: #fff;
+    width: min(95vw, 680px);
+    padding: 16px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255, 180, 0, 0.45);
+}
+.pagina-anuncio-card {
+    overflow: visible;
+}
+
+.modal-anuncio-conteudo h2 {
+    color: #ffd700;
+    margin: 0 32px 8px;
+    font-size: clamp(18px, 5vw, 22px);
+}
+
+#textoTempoAnuncio {
+    margin: 8px 0;
+    font-size: clamp(13px, 3.8vw, 15px);
+}
+
+.texto-apoio-anuncio {
+    margin-top: 8px;
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 1.4;
+    color: #ffd700;
+    opacity: 0.85;
+    text-align: center;
+}
+
+.fechar-modal {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.ad-container {
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+.ad-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 4px;
+}
+
+.ad-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.ad-slot iframe {
+    display: block;
+    border: none;
+    max-width: 100%;
+}
+
+.ad-728x90 {
+    width: 728px;
+    height: 90px;
+}
+
+.ad-468x60 {
+    width: 468px;
+    height: 60px;
+}
+
+.ad-350x250 {
+    width: 350px;
+    height: 250px;
+}
+
+.ad-principal {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.btn-receber-recompensa {
+    width: min(100%, 320px);
+    margin-top: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 13px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-receber-recompensa:disabled {
+    background: #777;
+    cursor: not-allowed;
+}
+
+.resultado-recompensa {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(255, 180, 0, 0.08);
+    border: 1px solid rgba(255, 180, 0, 0.35);
+    text-align: center;
+}
+
+.img-recompensa {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 10px rgba(255, 180, 0, 0.8));
+}
+
+.texto-recompensa {
+    color: #ffd700;
+    font-weight: bold;
+    margin: 6px 0;
+    font-size: clamp(13px, 3.8vw, 16px);
+}
+
+.texto-streak {
+    color: #ffb400;
+    font-size: 13px;
+}
+
+/* BANNER DESKTOP/MOBILE */
+.banner-mobile {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .banner-desktop {
+        display: none;
+    }
+
+    .banner-mobile {
+        display: block;
+    }
+}
+
+/* TABLET E CELULAR */
+@media (max-width: 760px) {
+    .pagina-anuncio {
+        padding: 12px 8px;
+        gap: 10px;
+    }
+
+    .modal-anuncio-conteudo {
+        width: 100%;
+        max-width: 420px;
+        padding: 14px 10px;
+        border-radius: 14px;
+    }
+
+    .ad-728x90 {
+        width: 320px;
+        height: 50px;
+    }
+
+    .ad-468x60 {
+        width: 320px;
+        height: 50px;
+    }
+
+    .ad-350x250 {
+        width: 300px;
+        height: 250px;
+    }
+
+    .ad-728x90 iframe,
+    .ad-468x60 iframe {
+        width: 320px !important;
+        height: 50px !important;
+    }
+
+    .ad-350x250 iframe {
+        width: 300px !important;
+        height: 250px !important;
+    }
+}
+
+/* CELULAR PEQUENO */
+@media (max-width: 360px) {
+    .pagina-anuncio {
+        padding: 10px 6px;
+    }
+
+    .modal-anuncio-conteudo {
+        padding: 12px 8px;
+    }
+
+    .ad-728x90,
+    .ad-468x60 {
+        width: 300px;
+        height: 50px;
+    }
+
+    .ad-350x250 {
+        width: 300px;
+        height: 250px;
+    }
+
+    .ad-728x90 iframe,
+    .ad-468x60 iframe {
+        width: 300px !important;
+        height: 50px !important;
+    }
+}
+
+/* VALOR SUBINDO */
+.animacao-recompensa-flutuante {
+    position: fixed;
+    left: 50%;
+    bottom: 120px;
+    transform: translateX(-50%);
+    z-index: 999999;
+
+    max-width: 92vw;
+    white-space: normal;
+    text-align: center;
+
+    color: #ffcc33;
+    font-size: clamp(1.3rem, 7vw, 2.3rem);
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+
+    padding: 6px 16px;
+
+    background: linear-gradient(
+        180deg,
+        rgba(60,40,0,0.25),
+        rgba(20,15,0,0.1)
+    );
+
+    border: 1px solid rgba(255, 180, 0, 0.25);
+    border-radius: 10px;
+
+    text-shadow:
+        -2px -2px 0 #000,
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0 0 10px rgba(255, 180, 0, 0.6);
+
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+
+    animation: subirRecompensa 8.5s ease-out forwards;
+}
+
+@keyframes subirRecompensa {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0) scale(0.75);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px) scale(1);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-90px) scale(1.05);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-180px) scale(1.12);
+    }
+}
+
+.ads-300-linha {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.ad-300x250 {
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ad-300x250 iframe {
+    width: 300px !important;
+    height: 250px !important;
+    border: none;
+}
+
+/* MOBILE */
+@media (max-width: 760px) {
+
+    .ads-300-linha {
+        flex-direction: column;
+        align-items: center;
+    }
+}

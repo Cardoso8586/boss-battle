@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+  <meta name="user-id" th:content="${usuario.id}">
+   <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/anuncio-recompensa.css">
+    <link rel="stylesheet" href="/css/dashboard-footer.css">  
+         
+         
+    <title>Recompensa por Anúncio</title>
+  
+</head>
+<body>
+
+<div class="pagina-anuncio">
+
+    <!-- BANNER TOPO 728x90 -->
+    <div class="ad-container ad-topo">
+        <span class="ad-label">Publicidade</span>
+        <div class="ad-slot ad-728x90" id="bannerTopo728">
+            <!-- Cole aqui script da rede 1 - 728x90 -->
+            <!-- DESKTOP -->
+<div class="banner-desktop">
+    <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+</div>
+
+<!-- MOBILE -->
+<div class="banner-mobile">
+   <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
+ marginwidth="0" marginheight="0" width="468" height="60" scrolling="no" 
+ border="0" frameborder="0"></iframe>
+</div>
+        </div>
+    </div>
+
+    <div class="modal-anuncio-conteudo pagina-anuncio-card">
+
+        <button onclick="voltarJogo()" class="fechar-modal">×</button>
+
+        <h2>🎁 Recompensa por anúncio</h2>
+
+        <p id="textoTempoAnuncio">
+            Assista ao anúncio por <strong id="contadorAnuncio">20</strong> segundos para liberar sua recompensa.
+        </p>
+
+        <p class="texto-apoio-anuncio">
+            Assista anúncios. Quanto mais você evolui, maiores são as recompensas — e no último prêmio, você desbloqueia itens especiais exclusivos.
+        </p>
+
+        <!-- BANNER 468x60 -->
+        <div class="ad-container">
+            <span class="ad-label">Publicidade</span>
+            <div class="ad-slot ad-468x60" id="bannerMeio468">
+            <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+            
+     
+            </div>
+        </div>
+
+     <!-- DOIS BANNERS 300x250 -->
+<div class="ad-container ad-principal">
+
+    <span class="ad-label">Publicidade</span>
+
+    <div class="ads-300-linha">
+
+        <!-- PRIMEIRO -->
+        <div class="ad-slot ad-300x250">
+
+            <script>
+              atOptions = {
+                'key' : '159108d30fc2d96573f42996d2971f92',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+
+            <script src="https://www.highperformanceformat.com/159108d30fc2d96573f42996d2971f92/invoke.js"></script>
+
+        </div>
+
+        <!-- SEGUNDO -->
+        <div class="ad-slot ad-300x250">
+
+            <iframe
+                src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="300"
+                height="250"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+            </iframe>
+
+        </div>
+
+    </div>
+
+</div>
+        <button id="btnReceberRecompensaAnuncio" class="btn-receber-recompensa" disabled>
+            Aguarde...
+        </button>
+
+        <div id="resultadoRecompensa" class="resultado-recompensa" style="display:none;">
+            <img id="imgRecompensa" src="" alt="Recompensa" class="img-recompensa">
+            <p id="textoRecompensa" class="texto-recompensa"></p>
+            <p id="textoStreak" class="texto-streak"></p>
+        </div>
+
+    </div>
+
+    <!-- BANNER RODAPÉ 728x90 -->
+    <div class="ad-container ad-rodape">
+        <span class="ad-label">Publicidade</span>
+        <div class="ad-slot ad-728x90" id="bannerRodape728">
+            <!-- Cole aqui script da rede 2 - 728x90 -->
+            <!-- DESKTOP -->
+<div class="banner-desktop">
+   <script>
+  atOptions = {
+    'key' : 'c614ba3435fcc67ae8578e3072aece7d',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c614ba3435fcc67ae8578e3072aece7d/invoke.js"></script>
+
+</div>
+
+<!-- MOBILE -->
+<div class="banner-mobile">
+    <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+            
+</div>
+
+
+
+</div>
+
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+  <div class="footer-content">
+
+    <p class="footer-copy">
+      © 2025 Boss Battle Arena · Todos os direitos reservados
+    </p>
+
+
+  </div>
+</footer>
+
+<script src="/js/anuncio-recompensa.js"></script>
+</body>
+</html>

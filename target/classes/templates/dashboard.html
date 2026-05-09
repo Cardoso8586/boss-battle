@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <title>Dashboard - Boss Battle Arena</title>
     
-     
-    
     <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
-     <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/loading.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/nav.css">
-    <link rel="stylesheet" href="/css/dashboard-footer.css">  
+ 
     <link rel="stylesheet" href="/css/bossSection.css"> 
     <link rel="stylesheet" href="/css/aliados.css">    
     <link rel="stylesheet" href="/css/dano-animacao.css">   
@@ -33,17 +31,16 @@
     <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">  
     <link rel="stylesheet" href="/css/anuncios.css"> 
     <link rel="stylesheet" href="/css/bossBonusDiario.css"> 
-   
     <link rel="stylesheet" href="/css/missoes.css"> 
     <link rel="stylesheet" href="/css/rankingAtaqueEspecial.css"> 
     <link rel="stylesheet" href="/css/rankingModal.css">  
-    
-      <link rel="stylesheet" href="/css/modalAnuncio.css">  
+    <link rel="stylesheet" href="/css/botao-ver-anuncio.css">  
      
  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="user-id" th:content="${idUsuario}" />
+    
+    
 </head>
 <body>
 
@@ -606,12 +603,9 @@ Dano
 
     </div>
     
-    
-  <button id="btnAbrirAnuncio" class="btn-anuncio">
-   Ver anúncio e ganhar recompensa
-   
+<button id="btnAbrirAnuncio" class="btn-anuncio" onclick="abrirAnuncioRecompensa()">
+    🎁 Ver anúncio e ganhar recompensa
 </button>
-
 
 
   <div class="ataques-e-anuncio">
@@ -2122,7 +2116,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
   </div>
 </div>
 <!-- Modal Bônus Diário -->
-<!-- MODAL -->
+<!-- MODAL
 <div id="modalAnuncioRecompensa" class="modal-anuncio">
     <div class="modal-anuncio-conteudo">
 
@@ -2138,7 +2132,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
    Assista anúncios. Quanto mais você evolui, maiores são as recompensas — e no último prêmio, você desbloqueia itens especiais exclusivos.
 </p>
 
-        <!-- ANÚNCIO CARREGADO PELO JS -->
+    
         <div id="areaBannerAnuncio" class="area-banner-anuncio"></div>
 
          <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
@@ -2161,7 +2155,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
 </div>
 
 
-
+ -->
 
 
 <!-- Footer -->
@@ -2250,7 +2244,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/comprarEscudoPrimordial.js" defer></script>
      <script src="/js/equiparEscudoPrimordial.js" defer></script>
  
-     <script src="/js/modalAnuncio.js" defer></script>
+     <script src="/js/anuncio-recompensa.js" defer></script>
    
     
     
