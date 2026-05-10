@@ -1,6 +1,20 @@
 /* ==============================
    CURSOR PERSONALIZADO GLOBAL
 ================================ */
+.game-background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(rgba(3,5,10,0.70), rgba(3,5,10,0.88)),
+        url('/images/fundo-boss.webp') center center / cover no-repeat;
+
+    z-index: -999;
+
+    transform: translateZ(0);
+    will-change: transform;
+}
+
 body, html {
     cursor: url('assets/cursor.cur'), auto;
 }
@@ -96,13 +110,6 @@ main section.active {
     padding: 20px;
 }
 
-section {
-    margin-top: 20px;
-    background-color: #1b1b1b;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #222;
-}
 
 
 

@@ -113,7 +113,7 @@ public class FaucetPayController {
     // ---------------- HISTÓRICO GLOBAL ----------------
     @GetMapping("/todos")
     public ResponseEntity<List<BossBattleTransactionHistory>> historicoTodos() {
-        List<BossBattleTransactionHistory> historico = historyRepository.findAllByOrderByCreatedAtDesc();
+    	List<BossBattleTransactionHistory> historico = historyRepository.findTop20ByOrderByCreatedAtDesc();
         return ResponseEntity.ok(historico);
     }
 

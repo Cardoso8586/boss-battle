@@ -1,620 +1,411 @@
-/* Container geral da loja */
-/* ===============================
-   DESCRIÇÃO DE LOOTBOX - DETALHES
-================================ */
-.lootbox-descricao {
-    font-size: 1rem;
-    color: #fff;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0 0 6px rgba(255, 180, 0, 0.8);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: block; /* comporta como bloco para espaçamento */
-    text-align: center;
-    margin: 8px 0;
-}
+/* =========================================
+   LOOTBOX / PROMO TRANSPARENTE
+========================================= */
 
-/* Destaque para a quantidade */
-.lootbox-quantidade {
-    color: #ffb400;
-    font-weight: 900;
-    text-shadow:
-        0 0 5px rgba(255, 180, 0, 0.9),
-        0 0 10px rgba(255, 180, 0, 0.7);
-}
+.loja-lootbox,
+.loja-promo {
 
-/* Destaque para o tipo de flecha */
-.lootbox-tipo {
-    color: #a0ffb4;
-    font-weight: 700;
-    text-shadow:
-        0 0 3px rgba(0, 255, 180, 0.7);
-}
-
-/* Hover card: realça ainda mais */
-.lootbox-card:hover .lootbox-descricao .lootbox-quantidade {
-    color: #ffd700;
-    text-shadow: 0 0 12px rgba(255, 215, 0, 1);
-}
-
-.lootbox-card:hover .lootbox-descricao .lootbox-tipo {
-    color: #00ffcc;
-    text-shadow: 0 0 8px rgba(0, 255, 204, 1);
-}
-
-
-/* Título no estilo perfil-titulo */
-#section-promocoes h2 {
-    margin-bottom: 12px;
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: #ffb400;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0 0 10px rgba(255, 180, 0, 0.8);
-}
-
-
-
-.loja-lootbox {
     display: flex;
     flex-wrap: wrap;
+
     gap: 20px;
+
     justify-content: center;
+
     padding: 20px;
-    background: #1c1c1c; /* fundo escuro */
+
+    background: transparent;
 }
 
-/* Cada card da lootbox */
+/* =========================================
+   CARD LOOTBOX
+========================================= */
+
 .lootbox-card {
-    background: #2b2b2b;
-    border: 2px solid #444;
-    border-radius: 12px;
+
     width: 200px;
+
+    padding: 18px;
+
     text-align: center;
-    padding: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    border-radius: 22px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(18,18,18,0.20),
+    rgba(10,10,10,0.30));
+
+    border: 1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.12),
+    inset 0 0 10px rgba(255,180,0,0.015);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
-/* Efeito hover */
 .lootbox-card:hover {
+
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+
+    border-color: rgba(255,180,0,0.10);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.08);
 }
 
-/* Imagem da lootbox */
-.lootbox-img {
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 10px;
+/* =========================================
+   CARD PROMO
+========================================= */
+
+.promo-card {
+
+    width: 400px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 24px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(18,18,18,0.20),
+    rgba(10,10,10,0.30));
+
+    border: 1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.12),
+    inset 0 0 10px rgba(255,180,0,0.015);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
-/* Nome da lootbox */
-.nome-lootbox {
+.promo-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: rgba(255,180,0,0.10);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.08);
+}
+
+/* =========================================
+   TEXTOS
+========================================= */
+
+.nome-lootbox,
+.nome-promo {
+
     font-size: 1.1rem;
-    font-weight: bold;
+
+    font-weight: 800;
+
     color: #ffb400;
-    margin: 5px 0;
+
+    margin: 6px 0;
+
+    text-shadow:
+    0 0 10px rgba(255,180,0,0.35);
 }
 
-/* Preço da lootbox */
+.lootbox-descricao,
+.promo-descricao {
+
+    font-size: 1rem;
+
+    color: rgba(255,255,255,0.92);
+
+    font-weight: 600;
+
+    letter-spacing: 0.4px;
+
+    text-align: center;
+
+    margin: 8px 0;
+
+    text-shadow:
+    0 0 6px rgba(0,0,0,0.45);
+}
+
+.lootbox-quantidade,
+.promo-quantidade {
+
+    color: #ffb400;
+
+    font-weight: 900;
+
+    text-shadow:
+    0 0 10px rgba(255,180,0,0.45);
+}
+
+.lootbox-tipo {
+
+    color: #a0ffb4;
+
+    font-weight: 700;
+
+    text-shadow:
+    0 0 6px rgba(0,255,180,0.25);
+}
+
+/* =========================================
+   PREÇOS
+========================================= */
+
 .preco-lootbox-basica,
 .preco-lootbox-avancada,
 .preco-lootbox-especial,
-.preco-lootbox-lendaria {
-    font-size: 0.95rem;
-    color: #00ffb3;
-    margin-bottom: 10px;
-}
+.preco-lootbox-lendaria,
 
-/* Botão de abrir lootbox */
-.btn-lootbox {
-    background: linear-gradient(135deg, #ffb400, #ff7f50);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
-    width: 100%;
-}
-.btn-lootbox {
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.18s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-}
-
-.btn-lootbox:hover {
-  transform: translateY(-2px);
-}
-
-.btn-lootbox:active {
-  transform: scale(0.96);
-}
-
-.btn-lootbox.animar {
-  transform: scale(1.08);
-  box-shadow: 0 0 18px #ffb400;
-}
-
-.btn-lootbox-processando {
-  opacity: 0.92;
-  transform: scale(0.98);
-  box-shadow: 0 0 18px rgba(255, 180, 0, 0.35);
-}
-
-.btn-lootbox-sucesso {
-  animation: pulseLootSucesso 0.7s ease;
-  box-shadow: 0 0 22px rgba(0, 255, 140, 0.45);
-}
-
-.btn-lootbox-erro {
-  animation: shakeLootErro 0.45s ease;
-  box-shadow: 0 0 22px rgba(255, 59, 59, 0.45);
-}
-
-.btn-lootbox-loader {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-right: 8px;
-  border: 2px solid rgba(255,255,255,0.35);
-  border-top: 2px solid #fff;
-  border-radius: 50%;
-  animation: girarLoader 0.8s linear infinite;
-  vertical-align: middle;
-}
-
-.btn-lootbox::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.35),
-    transparent
-  );
-}
-
-.btn-lootbox.animar::after {
-  animation: brilhoLoot 0.8s ease;
-}
-
-@keyframes girarLoader {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulseLootSucesso {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.08);
-  }
-  60% {
-    transform: scale(0.98);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes shakeLootErro {
-  0% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(-6px);
-  }
-  40% {
-    transform: translateX(6px);
-  }
-  60% {
-    transform: translateX(-4px);
-  }
-  80% {
-    transform: translateX(4px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes brilhoLoot {
-  0% {
-    left: -120%;
-  }
-  100% {
-    left: 120%;
-  }
-}
-/* ===============================
-   RESPONSIVIDADE - LOOTBOX
-================================ */
-
-/* Tablets e telas médias */
-@media (max-width: 1024px) {
-
-    .lootbox-card {
-        width: 180px;
-        padding: 14px;
-    }
-
-    .lootbox-img {
-        width: 160px;
-        height: 160px;
-    }
-
-    #section-promocoes h2 {
-        font-size: 1.6rem;
-    }
-}
-
-/* Celulares */
-@media (max-width: 768px) {
-
-    .loja-lootbox {
-        padding: 15px;
-        gap: 15px;
-    }
-
-    .lootbox-card {
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .lootbox-img {
-        width: 140px;
-        height: 140px;
-    }
-
-    .nome-lootbox {
-        font-size: 1rem;
-    }
-
-    .lootbox-descricao {
-        font-size: 0.95rem;
-    }
-
-    .btn-lootbox {
-        padding: 10px;
-        font-size: 0.95rem;
-    }
-}
-
-
-/* ===============================
-   DESCRIÇÃO DE PROMO - DETALHES
-================================ */
-.promo-descricao {
-    font-size: 1rem;
-    color: #fff;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0 0 6px rgba(255, 180, 0, 0.8);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: block;
-    text-align: center;
-    margin: 8px 0;
-}
-
-/* Destaque para quantidades */
-.promo-quantidade {
-    color: #ffb400;
-    font-weight: 900;
-    text-shadow:
-        0 0 5px rgba(255, 180, 0, 0.9),
-        0 0 10px rgba(255, 180, 0, 0.7);
-}
-
-/* Hover: realce extra */
-.promo-card:hover .promo-descricao .promo-quantidade {
-    color: #ffd700;
-    text-shadow: 0 0 12px rgba(255, 215, 0, 1);
-}
-
-/* ===============================
-   TÍTULO DA SEÇÃO
-================================ */
-#section-promocoes h2 {
-    margin-bottom: 12px;
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: #ffb400;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0 0 10px rgba(255, 180, 0, 0.8);
-}
-
-/* ===============================
-   CONTAINER PROMO
-================================ */
-.loja-promo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-    background: #1c1c1c;
-}
-
-/* Card da promoção */
-.promo-card {
-    background: #2b2b2b;
-    border: 2px solid #444;
-    border-radius: 12px;
-    width: 400px;
-    text-align: center;
-    padding: 15px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Hover card */
-.promo-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-/* Imagem da promo */
-.promo-img {
-    width: 380px;
-    height: 380px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-/* Nome da promoção */
-.nome-promo {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffb400;
-    margin: 5px 0;
-}
-
-/* Preços */
 .preco-promo-normal,
 .preco-promo-avancada,
 .preco-promo-especial,
 .preco-promo-lendaria {
-    font-size: 0.95rem;
+
+    font-size: 1rem;
+
     color: #00ffb3;
+
+    margin-bottom: 12px;
+
+    text-shadow:
+    0 0 8px rgba(0,255,180,0.18);
+}
+
+.preco-bruto {
+
+    text-decoration: line-through;
+
+    color: rgba(255,255,255,0.45);
+
+    font-size: 0.9rem;
+}
+
+.preco-final {
+
+    color: #ffb400;
+
+    font-weight: 900;
+
+    font-size: 1.1rem;
+
+    text-shadow:
+    0 0 10px rgba(255,180,0,0.25);
+}
+
+.desconto {
+
+    color: #00ffb3;
+
+    font-weight: 700;
+
+    margin-left: 6px;
+}
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+.btn-lootbox,
+.btn-promo {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 10px 14px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    color: #fff;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,180,0,0.78),
+    rgba(255,127,80,0.72));
+
+    box-shadow:
+    0 0 14px rgba(255,180,0,0.12);
+
+    transition:
+    transform 0.18s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.btn-lootbox:hover,
+.btn-promo:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.18);
+}
+
+/* =========================================
+   INTRO PROMO
+========================================= */
+
+#section-promocoes .promo-intro {
+
+    max-width: 520px;
+
+    font-size: 1rem;
+
+    line-height: 1.6;
+
+    color: #ddd;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(0,0,0,0.14),
+    rgba(0,0,0,0.22));
+
+    padding: 12px 16px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,180,0,0.08);
+
+    backdrop-filter: blur(5px);
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,0.10);
+}
+
+/* =========================================
+   IMAGENS
+========================================= */
+
+.lootbox-img {
+
+    width: 180px;
+    height: 180px;
+
+    object-fit: contain;
+
     margin-bottom: 10px;
 }
 
-/* Botão */
-.btn-promo {
-    background: linear-gradient(135deg, #ffb400, #ff7f50);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 80%;
-    transition: background 0.3s, transform 0.2s;
+.promo-img {
+
+    width: 380px;
+    height: 380px;
+
+    object-fit: contain;
+
+    margin-bottom: 10px;
 }
 
-.btn-promo:hover {
-    background: linear-gradient(135deg, #ff7f50, #ffb400);
-    transform: translateY(-2px);
-}
+/* =========================================
+   RESPONSIVO
+========================================= */
 
-.btn-promo-processando {
-    opacity: 0.92;
-    transform: scale(0.98);
-    box-shadow: 0 0 18px rgba(255, 180, 0, 0.35);
-}
-
-.btn-promo-sucesso {
-    animation: pulseSuccess 0.7s ease;
-    box-shadow: 0 0 22px rgba(0, 255, 140, 0.45);
-}
-
-.btn-promo-erro {
-    animation: shakeError 0.45s ease;
-    box-shadow: 0 0 22px rgba(255, 59, 59, 0.45);
-}
-
-.btn-promo-loader {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-right: 8px;
-    border: 2px solid rgba(255,255,255,0.35);
-    border-top: 2px solid #fff;
-    border-radius: 50%;
-    animation: girarLoader 0.8s linear infinite;
-    vertical-align: middle;
-}
-
-.preco-atualizando {
-    opacity: 0.55;
-    transition: opacity 0.25s ease;
-}
-
-.preco-atualizado {
-    animation: brilhoPreco 0.8s ease;
-}
-
-@keyframes girarLoader {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes pulseSuccess {
-    0% {
-        transform: scale(1);
-    }
-    30% {
-        transform: scale(1.07);
-    }
-    60% {
-        transform: scale(0.98);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes shakeError {
-    0% {
-        transform: translateX(0);
-    }
-    20% {
-        transform: translateX(-6px);
-    }
-    40% {
-        transform: translateX(6px);
-    }
-    60% {
-        transform: translateX(-4px);
-    }
-    80% {
-        transform: translateX(4px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes brilhoPreco {
-    0% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
-    50% {
-        transform: scale(1.05);
-        filter: brightness(1.4);
-    }
-    100% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
-}
-
-
-/* ===============================
-   RESPONSIVIDADE PROMO
-================================ */
 @media (max-width: 1024px) {
 
-    .promo-card {
+    .lootbox-card {
+
         width: 180px;
-        padding: 14px;
     }
 
-    .promo-img {
+    .promo-card {
+
+        width: 320px;
+    }
+
+    .lootbox-img {
+
         width: 160px;
         height: 160px;
     }
 
-    #section-promocoes h2 {
-        font-size: 1.6rem;
+    .promo-img {
+
+        width: 260px;
+        height: 260px;
     }
 }
 
 @media (max-width: 768px) {
 
+    .loja-lootbox,
     .loja-promo {
+
         padding: 15px;
+
         gap: 15px;
     }
 
+    .lootbox-card,
     .promo-card {
+
         width: 100%;
         max-width: 320px;
     }
 
-    .promo-img {
-        width: 250px;
-        height: 320px;
+    .lootbox-img {
+
+        width: 140px;
+        height: 140px;
     }
 
+    .promo-img {
+
+        width: 240px;
+        height: 300px;
+    }
+
+    .nome-lootbox,
     .nome-promo {
+
         font-size: 1rem;
     }
 
+    .lootbox-descricao,
     .promo-descricao {
+
         font-size: 0.95rem;
     }
 
+    .btn-lootbox,
     .btn-promo {
+
+        width: 100%;
+
         padding: 10px;
-        font-size: 0.95rem;
     }
-}
-.preco-bruto {
-    text-decoration: line-through;
-    color: #aaa;
-    font-size: 0.9rem;
-}
-
-.preco-final {
-    color: #ffb400;
-    font-weight: 900;
-    font-size: 1.1rem;
-}
-
-.desconto {
-    color: #00ffb3;
-    font-weight: 700;
-    margin-left: 6px;
-}
-
-
-
-#section-promocoes .promo-intro {
-    max-width: 520px;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #ddd;
-
-  background: rgba(0, 0, 0, 0.45);
-  padding: 12px 16px;
-  border-radius: 10px;
-
-  border: 1px solid rgba(255, 180, 0, 0.25);
-
-  box-shadow:
-    0 0 8px rgba(0, 0, 0, 0.6),
-    inset 0 0 6px rgba(255, 180, 0, 0.1);
 }

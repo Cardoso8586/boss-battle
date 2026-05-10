@@ -1,34 +1,85 @@
-/* Footer */
+/* =========================================
+   FOOTER TRANSPARENTE
+========================================= */
+
 .footer {
-    background-color: #1b1b1b;
-    color: #fff;
     width: 100%;
-    padding: 15px 20px;
-    text-align: center;
-   position: relative; 
+
+    padding: 18px 20px;
+
+    position: relative;
     bottom: 0;
     left: 0;
+
     z-index: 1000;
+
+    color: #fff;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(10,15,25,0.20),
+    rgba(10,15,25,0.32));
+
+    border-top:
+    1px solid rgba(255,180,0,0.08);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    box-shadow:
+    0 -4px 20px rgba(0,0,0,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
-/* Conteúdo do footer */
+/* =========================================
+   CONTEÚDO
+========================================= */
+
 .footer-content {
     max-width: 1200px;
+
     margin: 0 auto;
+
     font-size: 14px;
-    opacity: 0.9;
+
+    color: rgba(255,255,255,0.72);
 
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     flex-wrap: wrap;
+
     gap: 10px;
 }
 
-/* Tablets */
+/* Links */
+
+.footer a {
+    color: #ffd700;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.footer a:hover {
+    color: #ffffff;
+
+    text-shadow:
+    0 0 8px rgba(255,180,0,0.45);
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
 @media (max-width: 768px) {
+
     .footer {
-        padding: 12px 15px;
+        padding: 14px 15px;
     }
 
     .footer-content {
@@ -36,16 +87,25 @@
     }
 }
 
-/* Celulares */
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 480px) {
+
     .footer {
-        position: relative; /* evita sobrepor conteúdo */
-        padding: 15px 10px;
+        position: relative;
+
+        padding: 16px 10px;
     }
 
     .footer-content {
         font-size: 12px;
+
         flex-direction: column;
+
         text-align: center;
+
+        gap: 8px;
     }
 }

@@ -1,0 +1,835 @@
+/* =========================================
+   RESET
+========================================= */
+
+.game-background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(rgba(3,5,10,0.30), rgba(3,5,10,0.45)),
+        url('/images/fundo-boss.webp') center center / cover no-repeat;
+
+    z-index: -999;
+
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body {
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    min-height:100vh;
+
+    font-family:'Segoe UI',sans-serif;
+    color:#f5f5f5;
+
+    background:
+    radial-gradient(circle at top,
+    rgba(255,180,0,0.08),
+    transparent 35%),
+
+    linear-gradient(
+    rgba(6,6,6,0.18),
+    rgba(6,6,6,0.28)),
+
+    url('/imagens/background_missoes.webp');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+
+/* =========================================
+   PAGE
+========================================= */
+
+.missoes-page{
+    position: relative;
+
+    width:100%;
+    max-width:1600px;
+
+    margin:0 auto;
+
+    padding:40px 25px 80px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.missoes-header{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.icone-header{
+    margin-bottom:20px;
+}
+
+.icone-header i{
+    font-size:70px;
+
+    color:#ffb400;
+
+    text-shadow:
+    0 0 10px rgba(255,180,0,0.5),
+    0 0 25px rgba(255,180,0,0.35);
+}
+
+.missoes-header h1{
+    font-size:3rem;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:4px;
+
+    color:#ffd700;
+
+    margin-bottom:20px;
+
+    text-shadow:
+    0 0 20px rgba(255,215,0,0.65),
+    0 0 40px rgba(255,180,0,0.35);
+}
+
+.missoes-header p{
+    max-width:850px;
+
+    margin:12px auto;
+
+    line-height:1.7;
+
+    color:#ffe7a3;
+
+    font-size:1rem;
+
+    text-shadow:
+    0 0 8px rgba(255,180,0,0.12);
+}
+
+/* =========================================
+   BLOCO
+========================================= */
+
+.bloco-missao,
+.bloco-ranking,
+.premios-ranking{
+    width:100%;
+    max-width:1450px;
+
+    margin:0 auto 50px;
+
+    padding:35px;
+
+    border-radius:28px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(18,18,18,0.28),
+    rgba(10,10,10,0.38));
+
+    border:1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+    0 0 18px rgba(0,0,0,0.18),
+    inset 0 0 12px rgba(255,180,0,0.015);
+
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+}
+
+/* =========================================
+   TITULOS
+========================================= */
+
+.titulo-bloco,
+.titulo-ranking,
+.titulo-premio{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+
+    margin-bottom:35px;
+}
+
+.titulo-bloco i,
+.titulo-ranking i,
+.titulo-premio i{
+    font-size:34px;
+    color:#ffb400;
+}
+
+.titulo-bloco h2,
+.titulo-ranking h2,
+.titulo-premio h2{
+    font-size:2rem;
+    font-weight:900;
+
+    text-transform:uppercase;
+    letter-spacing:2px;
+
+    color:#ffd700;
+
+    text-shadow:
+    0 0 15px rgba(255,215,0,0.45);
+}
+
+/* =========================================
+   LISTA MISSÕES
+========================================= */
+
+.lista-missoes{
+    width:100%;
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+
+    gap:28px;
+}
+
+/* =========================================
+   CARD MISSÃO
+========================================= */
+
+.card-missao{
+    width:100%;
+    max-width:480px;
+
+    padding:35px;
+
+    border-radius:22px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(255,255,255,0.018),
+    rgba(255,255,255,0.006));
+
+    border:1px solid rgba(255,255,255,0.03);
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,0.12);
+
+    transition:.25s ease;
+}
+
+.card-missao:hover{
+    transform:translateY(-6px);
+
+    border-color:rgba(255,180,0,0.10);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.08);
+}
+
+.topo-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:22px;
+}
+
+.icone-missao{
+    width:60px;
+    height:60px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,180,0,0.10),
+    rgba(255,120,0,0.04));
+
+    border:1px solid rgba(255,180,0,0.10);
+}
+
+.icone-missao i{
+    font-size:28px;
+    color:#ffb400;
+}
+
+.card-missao h3{
+    font-size:1.5rem;
+    margin-bottom:16px;
+
+    color:#fff;
+}
+
+.card-missao p{
+    margin:10px 0;
+
+    color:#d8d8d8;
+
+    line-height:1.6;
+}
+
+.card-missao strong{
+    color:#ffb400;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-missao{
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,180,0,0.08),
+    rgba(255,120,0,0.03));
+
+    border:1px solid rgba(255,180,0,0.08);
+
+    color:#ffd700;
+
+    font-size:0.85rem;
+    font-weight:700;
+}
+
+/* =========================================
+   BARRA
+========================================= */
+
+.barra-progresso{
+    width:100%;
+    height:14px;
+
+    margin-top:20px;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,0.04);
+}
+
+.barra-preenchida{
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(
+    90deg,
+    #ffd54f,
+    #ff9800);
+
+    box-shadow:
+    0 0 14px rgba(255,180,0,0.25);
+
+    transition:width .3s ease;
+}
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.btn-missao{
+    width:100%;
+
+    margin-top:22px;
+
+    padding:14px;
+
+    border:none;
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:14px;
+
+    font-size:1rem;
+    font-weight:800;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,152,0,0.75),
+    rgba(255,87,34,0.75));
+
+    transition:.2s ease;
+
+    box-shadow:
+    0 0 18px rgba(255,120,0,0.12);
+}
+
+.btn-missao:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 22px rgba(255,120,0,0.18);
+}
+
+/* =========================================
+   RANKING
+========================================= */
+
+.ranking-box{
+    width:100%;
+}
+
+.subtitulo-ranking{
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#ffe7a3;
+
+    font-size:1.1rem;
+}
+
+.ranking-lista{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.ranking-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,0.015),
+    rgba(255,255,255,0.004));
+
+    border:1px solid rgba(255,255,255,0.025);
+}
+
+/* =========================================
+   TOP 5 RANKING
+========================================= */
+
+/* TOP 1 */
+
+.ranking-item:nth-child(1){
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,215,0,0.18),
+    rgba(255,180,0,0.08));
+
+    border:
+    1px solid rgba(255,215,0,0.22);
+
+    box-shadow:
+    0 0 24px rgba(255,215,0,0.12);
+
+    transform: scale(1.02);
+}
+
+.ranking-item:nth-child(1) .ranking-posicao{
+    color:#ffd700;
+
+    text-shadow:
+    0 0 14px rgba(255,215,0,0.65);
+}
+
+/* TOP 2 */
+
+.ranking-item:nth-child(2){
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(220,220,220,0.12),
+    rgba(140,140,140,0.05));
+
+    border:
+    1px solid rgba(220,220,220,0.14);
+
+    box-shadow:
+    0 0 20px rgba(220,220,220,0.08);
+}
+
+.ranking-item:nth-child(2) .ranking-posicao{
+    color:#d6d6d6;
+
+    text-shadow:
+    0 0 12px rgba(255,255,255,0.35);
+}
+
+/* TOP 3 */
+
+.ranking-item:nth-child(3){
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(205,127,50,0.14),
+    rgba(120,70,25,0.06));
+
+    border:
+    1px solid rgba(205,127,50,0.16);
+
+    box-shadow:
+    0 0 18px rgba(205,127,50,0.08);
+}
+
+.ranking-item:nth-child(3) .ranking-posicao{
+    color:#cd7f32;
+
+    text-shadow:
+    0 0 12px rgba(205,127,50,0.35);
+}
+
+/* TOP 4 */
+
+.ranking-item:nth-child(4){
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(0,255,180,0.08),
+    rgba(0,140,120,0.03));
+
+    border:
+    1px solid rgba(0,255,180,0.10);
+}
+
+.ranking-item:nth-child(4) .ranking-posicao{
+    color:#00ffb3;
+
+    text-shadow:
+    0 0 10px rgba(0,255,180,0.25);
+}
+
+/* TOP 5 */
+
+.ranking-item:nth-child(5){
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(120,140,255,0.10),
+    rgba(60,80,180,0.04));
+
+    border:
+    1px solid rgba(120,140,255,0.12);
+}
+
+.ranking-item:nth-child(5) .ranking-posicao{
+    color:#8ea2ff;
+
+    text-shadow:
+    0 0 10px rgba(120,140,255,0.25);
+}
+
+/* EFEITO HOVER */
+
+.ranking-item:hover{
+
+    transform:
+    translateY(-3px);
+
+    transition:0.2s ease;
+}
+
+.ranking-posicao{
+    font-size:2rem;
+}
+
+.ranking-info{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.ranking-info strong{
+    font-size:1.1rem;
+    color:#fff;
+}
+
+.ranking-info span{
+    color:#c9c9c9;
+}
+
+.ranking-premio{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-weight:800;
+
+    color:#ffb400;
+}
+
+/* =========================================
+   PREMIAÇÃO
+========================================= */
+
+.lista-premiacao{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.lista-premios{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:18px 22px;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,0.015),
+    rgba(255,255,255,0.004));
+
+    border:1px solid rgba(255,255,255,0.025);
+
+    color:#f2f2f2;
+}
+
+.lista-premios strong{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#ffb400;
+}
+
+.info-premios{
+    margin-top:24px;
+
+    text-align:center;
+
+    color:#ffe7a3;
+
+    line-height:1.7;
+}
+
+/* =========================================
+   TOKEN
+========================================= */
+
+.icone-token{
+    width:22px;
+    height:22px;
+}
+
+/* =========================================
+   ADS
+========================================= */
+
+.anuncio-12,
+.anuncio-13,
+.anuncio-8,
+.modal-anuncio{
+    width:100%;
+    max-width:100%;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-top:35px;
+}
+
+.anuncio-12 iframe,
+.anuncio-13 iframe,
+.anuncio-8 iframe,
+.modal-anuncio iframe{
+    max-width:100%;
+}
+
+/* =========================================
+   BOTÃO VOLTAR
+========================================= */
+
+.btn-voltar{
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:14px 22px;
+
+    border:none;
+    border-radius:18px;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    font-weight:800;
+    letter-spacing:1px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,180,0,0.10),
+    rgba(255,120,0,0.06));
+
+    border:1px solid rgba(255,180,0,0.08);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.18);
+
+    transition:.2s ease;
+}
+
+.btn-voltar:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.12);
+}
+
+.btn-voltar i{
+    color:#ffb400;
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media(max-width:992px){
+
+    .missoes-header h1{
+        font-size:2.2rem;
+    }
+
+    .titulo-bloco h2,
+    .titulo-ranking h2,
+    .titulo-premio h2{
+        font-size:1.5rem;
+    }
+
+    .card-missao{
+        width:100%;
+    }
+}
+
+@media(max-width:900px){
+
+    .missoes-page{
+        width:100%;
+        max-width:100%;
+
+        padding:30px 14px 70px;
+    }
+}
+
+@media(max-width:768px){
+
+    .missoes-page{
+        padding:30px 15px 60px;
+    }
+
+    .missoes-header h1{
+        font-size:1.8rem;
+        letter-spacing:2px;
+    }
+
+    .bloco-missao,
+    .bloco-ranking,
+    .premios-ranking{
+        padding:24px;
+    }
+
+    .ranking-item{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .lista-premios{
+        flex-direction:column;
+        gap:12px;
+
+        text-align:center;
+    }
+}
+
+@media(max-width:480px){
+
+    .missoes-header h1{
+        font-size:1.5rem;
+    }
+
+    .icone-header i{
+        font-size:52px;
+    }
+
+    .titulo-bloco h2,
+    .titulo-ranking h2,
+    .titulo-premio h2{
+        font-size:1.2rem;
+    }
+
+    .card-missao{
+        padding:24px;
+    }
+
+    .missoes-page{
+        padding:24px 10px 60px;
+    }
+
+    .bloco-missao,
+    .bloco-ranking,
+    .premios-ranking{
+        padding:20px 14px;
+        border-radius:18px;
+    }
+}

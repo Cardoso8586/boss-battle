@@ -317,7 +317,7 @@ function mostrarValorRecebidoAnimado(valor) {
 
     animacao.className = "animacao-recompensa-flutuante";
 
-    animacao.textContent = `+${valor}`;
+    animacao.textContent = `${valor}`;
 
     document.body.appendChild(animacao);
 

@@ -1,0 +1,157 @@
+.swal-game-popup {
+    background:
+    linear-gradient(
+    180deg,
+    rgba(18,18,18,0.88),
+    rgba(10,10,10,0.96)) !important;
+
+    border: 1px solid rgba(255,180,0,0.14) !important;
+    border-radius: 26px !important;
+
+    color: #fff !important;
+
+    box-shadow:
+    0 0 35px rgba(0,0,0,0.55),
+    inset 0 0 25px rgba(255,180,0,0.035) !important;
+
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.swal2-backdrop-show {
+    background: rgba(0,0,0,0.72) !important;
+}
+
+.swal-game-text {
+    color: #ffb400 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+
+    text-shadow:
+    0 0 12px rgba(255,180,0,0.55);
+}
+
+.swal2-input-label {
+    color: #ffe7a3 !important;
+    font-weight: 700 !important;
+}
+
+.swal2-input {
+    background:
+    linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.04)) !important;
+
+    color: #fff !important;
+
+    border: 1px solid rgba(255,180,0,0.18) !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+    inset 0 0 10px rgba(0,0,0,0.25) !important;
+}
+
+.swal2-input:focus {
+    border-color: rgba(255,180,0,0.45) !important;
+
+    box-shadow:
+    0 0 14px rgba(255,180,0,0.16),
+    inset 0 0 10px rgba(0,0,0,0.28) !important;
+}
+
+.swal-game-confirm,
+.swal-game-cancel {
+    min-width: 130px;
+
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.swal-game-confirm {
+    color: #1a1200;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ffd700,
+    #ffb400,
+    #ff7a18);
+
+    box-shadow:
+    0 0 18px rgba(255,180,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.swal-game-confirm:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+    0 0 26px rgba(255,180,0,0.42),
+    inset 0 1px 0 rgba(255,255,255,0.42);
+}
+
+.swal-game-cancel {
+    color: #fff;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(70,70,70,0.95),
+    rgba(35,35,35,0.95));
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.swal-game-cancel:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.12);
+
+    box-shadow:
+    0 0 20px rgba(255,255,255,0.12);
+}
+
+.modal-anuncio {
+    margin-top: 18px;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 8px;
+
+    border-radius: 16px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(0,0,0,0.38),
+    rgba(0,0,0,0.52));
+
+    border: 1px solid rgba(255,180,0,0.08);
+
+    overflow: hidden;
+}

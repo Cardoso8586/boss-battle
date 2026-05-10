@@ -1,43 +1,60 @@
-/* Fundo escuro do modal */
+/* =========================================
+   MODAL GLASS / TRANSPARENTE GAME STYLE
+========================================= */
+
+/* FUNDO ESCURO */
+
 .modal{
   display:none;
 
   position:fixed;
-  top:0;
-  left:0;
+
+  inset:0;
 
   width:100%;
   height:100%;
 
   z-index:9999;
 
-  background:rgba(0,0,0,0.75);
+  background:
+  rgba(0,0,0,0.72);
 
-  /* 🔥 CENTRALIZAÇÃO REAL */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
   justify-content:center;
   align-items:center;
 
   padding:15px;
 }
 
-/* 🔥 ABRIR MODAL */
+/* ABRIR MODAL */
+
 .modal.show{
-  display:flex !important; /* força flex */
+  display:flex !important;
 }
+
+/* MOEDAS FLUTUANDO */
+
 .modal::after{
+
   content:"";
+
   position:absolute;
+
   bottom:10px;
   left:0;
+
   width:100%;
   height:40px;
 
   background-image:
    url("/icones/boss_coin.webp"),
-    url("/icones/boss_coin.webp"),
-    url("/icones/boss_coin.webp");
+   url("/icones/boss_coin.webp"),
+   url("/icones/boss_coin.webp");
 
   background-size:22px 22px;
+
   background-repeat:no-repeat;
 
   background-position:
@@ -46,6 +63,7 @@
     60% 0;
 
   animation:moedas 3s linear infinite;
+
   opacity:0.4;
 }
 
@@ -60,18 +78,108 @@
     transform:translateY(-40px);
     opacity:1;
   }
-
 }
 
+/* =========================================
+   MODAL CONTENT
+========================================= */
+
+.modal-content{
+
+  position:relative;
+
+  overflow:hidden;
+
+  color:#fff;
+
+  padding:30px;
+
+  border-radius:26px;
+
+  text-align:center;
+
+  width:fit-content;
+
+  max-width:100%;
+
+  background:
+  linear-gradient(
+  180deg,
+  rgba(18,18,18,0.78),
+  rgba(10,10,10,0.88));
+
+  border:
+  1px solid rgba(255,180,0,0.10);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow:
+  0 0 35px rgba(0,0,0,0.45),
+  inset 0 0 20px rgba(255,180,0,0.02);
+
+  animation:
+  aparecer 0.35s ease,
+  brilho 2s infinite alternate;
+}
+
+/* BRILHO */
+
+@keyframes brilho{
+
+  from{
+    box-shadow:
+    0 0 18px rgba(255,215,0,0.15),
+    inset 0 0 18px rgba(255,180,0,0.015);
+  }
+
+  to{
+    box-shadow:
+    0 0 38px rgba(255,215,0,0.28),
+    inset 0 0 22px rgba(255,180,0,0.025);
+  }
+}
+
+/* =========================================
+   TITULO
+========================================= */
+
+.modal-content h2{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  color:#ffd700;
+
+  font-size:26px;
+
+  font-weight:900;
+
+  margin-bottom:15px;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+  text-shadow:
+  0 0 14px rgba(255,215,0,0.45);
+}
+
+/* MOEDAS NO TITULO */
 
 .modal-content h2::before{
+
   content:"";
+
   display:inline-block;
 
   width:70px;
   height:22px;
-
-  margin-right:8px;
 
   background-image:
     url("/icones/boss_coin.webp"),
@@ -79,6 +187,7 @@
     url("/icones/boss_coin.webp");
 
   background-size:22px 22px;
+
   background-repeat:no-repeat;
 
   background-position:
@@ -90,159 +199,252 @@
 }
 
 @keyframes balanco{
- from{transform:rotate(-5deg)}
- to{transform:rotate(5deg)}
-}
-/* quando o modal abre */
-.modal.show{
-  display:flex;
+
+ from{
+   transform:rotate(-5deg)
+ }
+
+ to{
+   transform:rotate(5deg)
+ }
 }
 
-/* caixa do modal */
-/* ajuste da largura para caber o banner */
-.modal-content{
-  background:linear-gradient(180deg,#1e1e2f,#141421);
-  color:#fff;
-  padding:30px;
-  border-radius:12px;
-  text-align:center;
-  width:fit-content;        /* ajusta a largura ao conteúdo */
-  max-width:100%;            /* nunca ultrapassa a tela */
-  box-shadow:0 0 25px rgba(255,215,0,0.4);
-  animation:aparecer 0.4s ease, brilho 2s infinite alternate;
-}
+/* =========================================
+   TEXTO
+========================================= */
 
-/* banner */
-.modal-anuncio{
-  display:flex;
-  justify-content:center;
-  margin-top:15px;          /* espaço entre botão e banner */
-}
-
-.modal-anuncio iframe{
-  width:100%;
-  max-width:468px;          /* tamanho original do banner */
-  height:60px;              /* altura do banner */
-}
-/* brilho estilo recompensa */
-@keyframes brilho{
-  from{
-    box-shadow:0 0 15px rgba(255,215,0,0.3);
-  }
-  to{
-    box-shadow:0 0 35px rgba(255,215,0,0.8);
-  }
-}
-
-/* título */
-.modal-content h2{
-  color:#ffd700;
-  font-size:26px;
-  margin-bottom:15px;
-}
-
-/* texto */
 #bonusMensagem{
+
   font-size:16px;
-  line-height:1.4;
+
+  line-height:1.5;
+
+  color:
+  rgba(255,255,255,0.92);
 }
 
-/* botão */
+/* =========================================
+   BOTÃO
+========================================= */
+
 #btnColetarBonus{
-  margin-top:20px;
-  padding:12px 20px;
-  background:linear-gradient(90deg,#ff8c00,#ffd700);
+
+  margin-top:22px;
+
+  padding:13px 22px;
+
   border:none;
-  border-radius:8px;
-  font-weight:bold;
+
+  border-radius:16px;
+
+  font-weight:900;
+
   cursor:pointer;
-  transition:0.2s;
+
   font-size:16px;
+
+  color:#1a1200;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #ffd700,
+  #ffb400,
+  #ff7a18);
+
+  box-shadow:
+  0 0 18px rgba(255,180,0,0.22),
+  inset 0 1px 0 rgba(255,255,255,0.35);
+
+  transition:
+  transform 0.2s ease,
+  box-shadow 0.2s ease,
+  filter 0.2s ease;
 }
 
 #btnColetarBonus:hover{
-  transform:scale(1.05);
+
+  transform:translateY(-2px);
+
+  filter:brightness(1.08);
+
+  box-shadow:
+  0 0 26px rgba(255,180,0,0.35),
+  inset 0 1px 0 rgba(255,255,255,0.45);
 }
 
-/* botão fechar */
+/* =========================================
+   FECHAR
+========================================= */
+
 .close{
-  float:right;
-  font-size:24px;
+
+  position:absolute;
+
+  top:14px;
+  right:16px;
+
+  font-size:26px;
+
+  color:
+  rgba(255,255,255,0.75);
+
   cursor:pointer;
+
+  transition:0.2s ease;
 }
 
-/* animação aparecer */
+.close:hover{
+
+  color:#ffb400;
+
+  transform:scale(1.08);
+}
+
+/* =========================================
+   ANÚNCIO
+========================================= */
+
+.modal-anuncio{
+
+  display:flex;
+
+  justify-content:center;
+
+  margin-top:18px;
+
+  padding:8px;
+
+  border-radius:16px;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+  180deg,
+  rgba(255,255,255,0.03),
+  rgba(255,255,255,0.015));
+
+  border:
+  1px solid rgba(255,255,255,0.04);
+
+  backdrop-filter: blur(5px);
+}
+
+.modal-anuncio iframe{
+
+  width:100%;
+
+  max-width:468px;
+
+  height:60px;
+}
+
+/* =========================================
+   APARECER
+========================================= */
+
 @keyframes aparecer{
+
   from{
-    transform:scale(0.7);
+    transform:scale(0.78);
     opacity:0;
   }
+
   to{
     transform:scale(1);
     opacity:1;
   }
 }
 
-/* animação quando coleta bônus */
+/* =========================================
+   BONUS COLETADO
+========================================= */
+
 .bonus-coletado{
   animation:pulse 0.5s ease;
 }
 
 @keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
+
+  0%{
+    transform:scale(1)
+  }
+
+  50%{
+    transform:scale(1.05)
+  }
+
+  100%{
+    transform:scale(1)
+  }
 }
 
-/* números destacados */
+/* =========================================
+   NUMEROS
+========================================= */
+
 .numero-destaque{
+
   color:#FFD700;
+
   font-weight:bold;
+
   font-size:1.1em;
+
+  text-shadow:
+  0 0 10px rgba(255,215,0,0.35);
 }
 
-/* -------------------- */
-/* RESPONSIVO */
-/* -------------------- */
+/* =========================================
+   RESPONSIVO
+========================================= */
 
-/* celular */
 @media (max-width:480px){
 
   .modal-content{
+
     width:100%;
-    padding:22px;
+
+    padding:24px 18px;
   }
 
   .modal-content h2{
+
     font-size:22px;
   }
 
   #bonusMensagem{
+
     font-size:15px;
   }
 
   #btnColetarBonus{
-    width:100%;
-    padding:14px;
-    font-size:17px;
-  }
 
+    width:100%;
+
+    padding:14px;
+
+    font-size:16px;
+  }
 }
 
-/* tablets */
 @media (max-width:768px){
 
   .modal-content{
-    width:90%;
-  }
 
+    width:92%;
+  }
 }
 
-/* telas grandes */
 @media (min-width:1200px){
 
   .modal-content{
-    width:380px;
-  }
 
+    width:420px;
+  }
 }

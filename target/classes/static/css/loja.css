@@ -2,193 +2,278 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
     gap: 20px;
 }
 
-/* Cada card ocupa no máximo 1/3 do container - 3 cards por linha */
-.loja-card {
-    background: linear-gradient(145deg, #1b1b1b, #2a2a2a);
-    border: 2px solid #f39c12;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* =========================================
+   CARD LOJA TRANSPARENTE
+========================================= */
 
-    flex: 0 1 calc((100% - 60px) / 3); /* 3 por linha, subtraindo gap */
+.loja-card {
+
+    flex: 0 1 calc((100% - 60px) / 3);
     max-width: calc((100% - 60px) / 3);
+
+    padding: 20px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(18,18,18,0.22),
+    rgba(10,10,10,0.32));
+
+    border: 1px solid rgba(255,180,0,0.08);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.14),
+    inset 0 0 10px rgba(255,180,0,0.015);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .loja-card:hover {
+
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+
+    border-color: rgba(255,180,0,0.14);
+
+    box-shadow:
+    0 0 22px rgba(255,180,0,0.08);
 }
+
+/* =========================================
+   TEXTOS
+========================================= */
 
 #loja > p {
     text-align: center;
 }
 
 .secao-titulo {
-  margin-bottom: 10px;
-  font-size: 1.9rem;
-  font-weight: 900;
-  color: #ffb400;
-  text-transform: uppercase;
-  letter-spacing: 2px;
 
-  text-shadow:
-    -1px -1px 0 #000,
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000,
-     0 0 12px rgba(255, 180, 0, 0.8);
+    margin-bottom: 10px;
+
+    font-size: 1.9rem;
+    font-weight: 900;
+
+    color: #ffb400;
+
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    text-shadow:
+    0 0 12px rgba(255,180,0,0.45);
 }
 
 .secao-descricao {
-  max-width: 520px;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #ddd;
 
-  background: rgba(0, 0, 0, 0.45);
-  padding: 12px 16px;
-  border-radius: 10px;
+    max-width: 520px;
 
-  border: 1px solid rgba(255, 180, 0, 0.25);
+    font-size: 1rem;
+    line-height: 1.6;
 
-  box-shadow:
-    0 0 8px rgba(0, 0, 0, 0.6),
-    inset 0 0 6px rgba(255, 180, 0, 0.1);
+    color: #ddd;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(0,0,0,0.16),
+    rgba(0,0,0,0.24));
+
+    padding: 12px 16px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255,180,0,0.08);
+
+    backdrop-filter: blur(5px);
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,0.12);
 }
-
 
 .loja-card p {
     color: #ecf0f1;
+
     margin: 8px 0;
 }
 
 .loja-card .preco {
+
     font-weight: bold;
-     font-size: 18px;
+
+    font-size: 18px;
+
     color: #00ff88;
+
+    text-shadow:
+    0 0 8px rgba(0,255,136,0.22);
 }
 
+/* =========================================
+   INPUTS
+========================================= */
+
 .loja-card label {
+
     display: block;
+
     margin-top: 10px;
+
     color: #f39c12;
 }
 
 .loja-card input[type="number"] {
+
     width: 80px;
+
     padding: 15px;
+
     margin: 25px 0 15px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
     text-align: center;
-    background-color: #222;
+
+    background:
+    rgba(255,255,255,0.04);
+
     color: #fff;
+
+    backdrop-filter: blur(4px);
 }
 
+/* =========================================
+   BOTÃO
+========================================= */
+
 .btn-comprar {
-    background-color: #f39c12;
-    color: #000;
+
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
     font-weight: bold;
+
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
+
+    color: #fff;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,152,0,0.78),
+    rgba(255,87,34,0.72));
+
+    box-shadow:
+    0 0 14px rgba(255,120,0,0.12);
+
+    transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .btn-comprar:hover {
-    background-color: #d68910;
-    transform: scale(1.05);
+
+    transform: scale(1.04);
+
+    box-shadow:
+    0 0 18px rgba(255,120,0,0.18);
 }
 
+/* =========================================
+   RESPONSIVO
+========================================= */
 
-
-
-/* Responsividade */
-@media (max-width: 900px) {
-    .lootbox-card {
-        width: 45%;
-    }
-}
-
-@media (max-width: 600px) {
-    .lootbox-card {
-        width: 90%;
-    }
-}
-
-
-/* Responsivo */
-@media (max-width: 800px) {
-    .lootbox-card {
-        width: 45%;
-    }
-}
-
-@media (max-width: 500px) {
-    .lootbox-card {
-        width: 100%;
-    }
-}
-
-/* Responsivo: 2 cards por linha em telas médias */
 @media (max-width: 1024px) {
+
     .loja-card {
+
         flex: 0 1 calc((100% - 30px) / 2);
         max-width: calc((100% - 30px) / 2);
     }
 }
 
-/* Responsivo: 1 card por linha em telas pequenas */
 @media (max-width: 700px) {
+
     .loja-wrapper {
+
         flex-direction: column;
+
         align-items: center;
     }
+
     .loja-card {
+
         flex: 0 1 90%;
         max-width: 90%;
     }
 }
 
+/* =========================================
+   IMAGENS
+========================================= */
 
 .card-imagem {
     width: 90px;
     height: auto;
+
     display: block;
+
     margin: 0 auto 10px auto;
 }
 
 .espada-flanejante-imagem {
     width: 40px;
     height: auto;
+
     display: block;
+
     margin: 0 auto 10px auto;
 }
 
 .machado-dilacerador-imagem {
     width: 120px;
     height: auto;
+
     display: block;
+
     margin: 0 auto 10px auto;
 }
-
 
 .escudo-primordial-imagem {
     width: 120px;
     height: auto;
+
     display: block;
+
     margin: 0 auto 10px auto;
 }
 
 .arco-celestial-imagem {
     width: 70px;
     height: auto;
+
     display: block;
+
     margin: 0 auto 10px auto;
 }

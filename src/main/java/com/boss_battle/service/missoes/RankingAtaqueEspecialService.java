@@ -306,6 +306,11 @@ public class RankingAtaqueEspecialService {
 
     public void incrementarAtaquesSemanais(UsuarioBossBattle usuario) {
         Integer atual = usuario.getQuantidadeAtaquesSemanal();
+        
+        
+        //SE USUARIO VIP.. ADD AQUI FUTURAMENTE...
+        
+        
         usuario.setQuantidadeAtaquesSemanal(Optional.ofNullable(atual).orElse(0) + 1);
         System.out.println("Quantidade ranking semanal: " + usuario.getQuantidadeAtaquesSemanal());
     }

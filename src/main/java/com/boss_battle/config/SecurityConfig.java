@@ -89,6 +89,10 @@ public class SecurityConfig {
                         "/login/**",
                         "/cadastro/**",
                         "/anuncio-recompensa/**",
+                        "/desafios/**",
+                        
+                        
+                        
                         "/aliados/**",
                         "/perfil/**",
                         "/index.html",
