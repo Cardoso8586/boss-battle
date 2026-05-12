@@ -1,4 +1,5 @@
 
+
 // ===========================================
 // LOADING FIX IMEDIATO
 // ===========================================
@@ -11,7 +12,6 @@ function setLoadingTextSeguro(mensagem) {
             document.getElementById("loading-text");
 
         if (textEl) {
-
             textEl.textContent = mensagem;
         }
     };
@@ -79,6 +79,33 @@ const loadingMessages = [
 ];
 
 // ===========================================
+// MENSAGENS DEMORADAS
+// ===========================================
+
+const loadingMessagesDemorado = [
+    "O boss está despertando...",
+    "Os portões da arena estão pesados...",
+    "Uma presença sombria se aproxima...",
+    "O chefe está reunindo poder...",
+    "As criaturas aguardam ordens...",
+    "Algo poderoso está surgindo...",
+    "O chão da arena está tremendo...",
+    "As sombras estão se movendo...",
+    "Os guerreiros aguardam o confronto...",
+    "A energia do boss está aumentando...",
+    "Uma batalha épica está prestes a começar...",
+    "O inimigo está preparando seu ataque...",
+    "A arena está sendo preparada...",
+    "Os ecos da batalha podem ser ouvidos...",
+    "O boss está quase pronto...",
+    "As forças inimigas estão se organizando...",
+    "A tensão cresce no campo de batalha...",
+    "O confronto lendário está chegando...",
+    "Os céus escurecem sobre a arena...",
+    "A presença do boss domina o ambiente..."
+];
+
+// ===========================================
 // CONFIG
 // ===========================================
 
@@ -86,8 +113,8 @@ const CACHE_KEY = "boss_active_cache";
 const CACHE_TTL = 30000;
 const UPDATE_INTERVAL = 15000;
 
-const LOADING_MIN_TIME = 1000;
-const LOADING_FORCE_TIME = 2500;
+const LOADING_MIN_TIME = 2500;
+const LOADING_FORCE_TIME = 1200;
 const LOADING_MAX_TIME = 7000;
 
 // ===========================================
@@ -115,36 +142,48 @@ function mostrarMensagemImediata(mensagem) {
     setLoadingTextSeguro(mensagem);
 }
 
+function pegarMensagemAleatoria(lista) {
+
+    return lista[
+        Math.floor(
+            Math.random() * lista.length
+        )
+    ];
+}
+
 function setRandomLoadingText() {
 
-    const message =
-        loadingMessages[
-            Math.floor(
-                Math.random() *
-                loadingMessages.length
-            )
-        ];
-
-    mostrarMensagemImediata(message);
+    mostrarMensagemImediata(
+        pegarMensagemAleatoria(
+            loadingMessages
+        )
+    );
 }
 
-// ===========================================
-// ROTACIONAR MENSAGENS
-// ===========================================
+function setRandomLoadingDemoradoText() {
 
-function iniciarRotacaoMensagens() {
-
-    // escolhe UMA frase aleatória
-    setRandomLoadingText();
-
-    // não fica trocando
+    mostrarMensagemImediata(
+        pegarMensagemAleatoria(
+            loadingMessagesDemorado
+        )
+    );
 }
-
-
 
 // ===========================================
 // LOADING
 // ===========================================
+
+function pararRotacaoMensagens() {
+
+    if (loadingMessageInterval) {
+
+        clearInterval(
+            loadingMessageInterval
+        );
+
+        loadingMessageInterval = null;
+    }
+}
 
 function esconderLoading() {
 
@@ -152,7 +191,7 @@ function esconderLoading() {
 
     loadingFechado = true;
 
-   
+    pararRotacaoMensagens();
 
     const loading =
         document.getElementById("loading");
@@ -189,15 +228,31 @@ function liberarLoadingSeguro() {
     }, tempoRestante);
 }
 
+// ===========================================
+// FORCE LOADING
+// ===========================================
+
 function forcarLoadingSeDemorar() {
 
     setTimeout(() => {
 
         if (loadingFechado) return;
 
-        mostrarMensagemImediata(
-            "Ainda carregando boss..."
-        );
+        setRandomLoadingDemoradoText();
+
+        loadingMessageInterval =
+            setInterval(() => {
+
+                if (loadingFechado) {
+
+                    pararRotacaoMensagens();
+
+                    return;
+                }
+
+                setRandomLoadingDemoradoText();
+
+            }, 2200);
 
     }, LOADING_FORCE_TIME);
 }
@@ -346,12 +401,7 @@ function renderBossPlaceholder() {
     if (nameEl) {
 
         nameEl.innerText =
-            frases[
-                Math.floor(
-                    Math.random() *
-                    frases.length
-                )
-            ];
+            pegarMensagemAleatoria(frases);
     }
 
     if (hpBarEl)
@@ -597,37 +647,33 @@ async function carregarBossInicial() {
         getBossFromCache();
 
     // ===========================================
-    // COM CACHE
+    // JÁ LOGADO / CACHE / RELOAD
     // ===========================================
 
-    if (cached) {
+	if (cached) {
 
-        mostrarMensagemImediata(
-            "Buscando boss..."
-        );
+	    mostrarMensagemImediata(
+	        "Preparando arena..."
+	    );
 
-        renderBoss(cached);
+	    renderBoss(cached);
 
-        preloadImagem(
-            cached.imageUrl
-        );
+	    preloadImagem(
+	        cached.imageUrl
+	    );
 
-        fetchBoss();
+	    fetchBoss();
 
-        liberarLoadingSeguro();
+	    liberarLoadingSeguro();
 
-        return;
-    }
+	    return;
+	}
 
     // ===========================================
-    // PRIMEIRA VEZ
+    // LOGIN / PRIMEIRA VEZ
     // ===========================================
 
-    mostrarMensagemImediata(
-        "Entrando na arena..."
-    );
-
-    iniciarRotacaoMensagens();
+    setRandomLoadingText();
 
     renderBossPlaceholder();
 
@@ -640,10 +686,6 @@ async function carregarBossInicial() {
 
         if (boss) {
 
-            mostrarMensagemImediata(
-                "Carregando imagem do boss..."
-            );
-
             await preloadImagemPromise(
                 boss.imageUrl
             );
@@ -651,10 +693,6 @@ async function carregarBossInicial() {
             saveBossToCache(boss);
 
             renderBoss(boss);
-
-            mostrarMensagemImediata(
-                "Boss carregado!"
-            );
 
         } else {
 
@@ -695,6 +733,7 @@ document.addEventListener(
         await carregarBossInicial();
     }
 );
+
 
 /*
 
