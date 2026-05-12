@@ -1,9 +1,16 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ===============================
+    // =========================================
+    // CACHE
+    // =========================================
+
+    const CACHE_KEY = "cache_status_arco";
+    const CACHE_TTL = 10000;
+
+    // =========================================
     // ELEMENTOS
-    // ===============================
+    // =========================================
+
     const nucleo = document.getElementById("nucleoArco");
 
     const btnFerro = document.getElementById("btnColocarFlechaFerro");
@@ -12,182 +19,355 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDiamante = document.getElementById("btnColocarFlechaDiamante");
 
     const btnEquiparArco = document.getElementById("btnEquiparArco");
+
     const arcoAtivoSpan = document.getElementById("arcoAtivo");
     const durabilidadeSpan = document.getElementById("durabilidadeArco");
     const aljavaSpan = document.getElementById("aljavaCount");
     const tipoFlechaSpan = document.getElementById("tipoFlechaAtiva");
     const arcoDisponiveis = document.getElementById("arcoDisponiveis");
 
-    const meta = document.querySelector('meta[name="user-id"]');
-    const usuarioId = meta ? Number(meta.content) : null;
+    const meta =
+        document.querySelector('meta[name="user-id"]');
 
-    // Expondo atualizarStatus globalmente para o script de cliques
+    const usuarioId =
+        meta ? Number(meta.content) : null;
+
+    if (!usuarioId) return;
+
+    // =========================================
+    // GLOBAL
+    // =========================================
+
     window.atualizarStatus = atualizarStatus;
 
-    // ===============================
-    // FUNÇÃO AUXILIAR: Atualiza botão de flecha
-    // ===============================
-	function atualizarBotao(botao, tipo, quantidade, tipoAtivo, temArcoDisponivel, texto) {
-	    const imagens = {
-	        FERRO: "/icones/flecha_ferro.webp",
-	        FOGO: "/icones/flecha_fogo.webp",
-	        VENENO: "/icones/flecha_veneno.webp",
-	        DIAMANTE: "/icones/flecha_diamante.webp"
-	    };
+    // =========================================
+    // CACHE HELPERS
+    // =========================================
 
-	    const habilitar =
-	        temArcoDisponivel &&
-	        quantidade > 0 &&
-	        (!tipoAtivo || tipoAtivo.toUpperCase() === tipo);
+    function salvarCache(data) {
 
-	    // estado do botão
-	    botao.disabled = !habilitar;
-	    botao.style.opacity = habilitar ? "1" : "0.5";
+        localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({
+                time: Date.now(),
+                data
+            })
+        );
+    }
 
-	    // atualiza SOMENTE conteúdo interno (sem recriar DOM)
-	    const img = botao.querySelector("img");
-	    const span = botao.querySelector("span");
-
-	    if (img) {
-	        img.src = imagens[tipo];
-	        img.alt = `Flecha de ${tipo}`;
-	    }
-
-	    if (span) {
-	        span.textContent = `${texto} (${quantidade})`;
-	    }
-	}
-
-
-
-    // ===============================
-    // FUNÇÃO PRINCIPAL: Atualiza Status
-    // ===============================
-    async function atualizarStatus() {
-        if (!usuarioId) return;
+    function pegarCache() {
 
         try {
-            const res = await fetch(`/api/atualizar/status/usuario/${usuarioId}`);
-            const data = await res.json();
 
-			
-				//debug
-					/*
-						Swal.fire({
-						    title: "JSON RECEBIDO",
-						    html: `<pre style="text-align:left">${JSON.stringify(data, null, 2)}</pre>`,
-						    width: 600
-						});
-						*/
-					
-			/*
-						console.table({
-						    arcoInventario: data.arcoInventario,
-						    durabilidade: data.durabilidadeArco,
-						    flechasNaAljava: data.aljava,
-						    guerreiroAtivo: data.guerreiros,
-						    espadaAtiva: data.ativaEspadaFlanejante,
-						    machadoAtivo: data.ativarMachadoDilacerador,
-						    arcoAtivo: data.arcoAtivo,
-							ativarEscudoPrimordial:data.ativarEscudoPrimordial
-						});
-			*/
-            // ===============================
-            // Atualiza textos na tela
-            // ===============================
-            arcoDisponiveis.textContent = data.arcoInventario;
-            arcoAtivoSpan.textContent = data.arcoAtivo;
-            durabilidadeSpan.textContent = data.durabilidadeArco;
-            aljavaSpan.textContent = data.aljava;
-            tipoFlechaSpan.textContent = data.aljava > 0 ? data.tipoFlecha : "-";
+            const cache =
+                JSON.parse(
+                    localStorage.getItem(CACHE_KEY)
+                );
 
-            // ===============================
-            // Variáveis de estado
-            // ===============================
-            const durabilidade = data.durabilidadeArco;
-            const arcoInventario = data.arcoInventario;
-            const flechasNaAljava = data.aljava;
-            const guerreiroAtivo = data.guerreiros ?? 0;
-            const espadaAtiva = data.ativaEspadaFlanejante ?? 0;
-            const machadoAtivo = data.ativarMachadoDilacerador ?? 0;
-            const arcoAtivo = data.arcoAtivo;
-            const ativarEscudoPrimordial = data.ativarEscudoPrimordial;
-           
+            if (!cache)
+                return null;
 
-            // ===============================
-            // Estoque de flechas
-            // ===============================
-            const estoqueFlechas = {
-                FERRO: data.flechaFerro,
-                FOGO: data.flechaFogo,
-                VENENO: data.flechaVeneno,
-                DIAMANTE: data.flechaDiamante
-            };
-			
-            const temArcoDisponivel = arcoInventario > 0 || durabilidade > 0 || arcoAtivo > 0 ;
-            const tipoAtivo = data.aljava > 0 ? (data.tipoFlecha ?? null) : null;
-            const temFlechas = Object.values(estoqueFlechas).some(qtd => qtd > 0);
-			
-            // ===============================
-            // NÚCLEO
-            // ===============================
-            nucleo.classList.toggle("hidden", !(temArcoDisponivel || temFlechas));
+            if (
+                Date.now() - cache.time > CACHE_TTL
+            ) {
 
-			
-			/**
-			 * 
-			 * 			// NÚCLEO – aparece só se algo existir
-					// ===============================
-					const tudoZerado =
-					    data.arcoInventario === 0 &&
-					    data.arcoAtivo === 0 &&
-					    data.durabilidadeArco === 0 &&
-					    data.aljava === 0;
+                localStorage.removeItem(CACHE_KEY);
 
-					if (tudoZerado) {
-					    nucleo.classList.add("hidden");
-					} else {
-					    nucleo.classList.remove("hidden");
-					}
-			 */
-			
-			
-		
-            // ===============================
-            // BOTÕES DE FLECHA
-            // ===============================
-            atualizarBotao(btnFerro, "FERRO", estoqueFlechas.FERRO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Ferro");
-            atualizarBotao(btnFogo, "FOGO", estoqueFlechas.FOGO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Fogo");
-            atualizarBotao(btnVeneno, "VENENO", estoqueFlechas.VENENO, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Veneno");
-            atualizarBotao(btnDiamante, "DIAMANTE", estoqueFlechas.DIAMANTE, tipoAtivo, temArcoDisponivel, "Colocar Flecha de Diamante");
-			
-			const arcoEquipado = durabilidade > 0;
+                return null;
+            }
 
-			const podeEquipar =
-			    arcoInventario > 0 &&
-			    !arcoEquipado &&       
-			    flechasNaAljava > 0 &&
-			    guerreiroAtivo > 0 &&
-			    espadaAtiva === 0 &&
-			    machadoAtivo === 0 &&
-				ativarEscudoPrimordial === 0;
+            return cache.data;
 
-			btnEquiparArco.classList.toggle("hidden", !podeEquipar);
-			btnEquiparArco.disabled = !podeEquipar;
+        } catch {
 
-        } catch (err) {
-            console.error("Erro ao atualizar status do arco:", err);
+            return null;
         }
     }
 
-    // ===============================
-    // EXECUÇÃO INICIAL E LOOP
-    // ===============================
-   
- atualizarStatus();
- setInterval(atualizarStatus, 5000);
-});
+    // =========================================
+    // BOTÕES
+    // =========================================
 
+    function atualizarBotao(
+        botao,
+        tipo,
+        quantidade,
+        tipoAtivo,
+        temArcoDisponivel,
+        texto
+    ) {
+
+        if (!botao) return;
+
+        const imagens = {
+
+            FERRO:
+                "/icones/flecha_ferro.webp",
+
+            FOGO:
+                "/icones/flecha_fogo.webp",
+
+            VENENO:
+                "/icones/flecha_veneno.webp",
+
+            DIAMANTE:
+                "/icones/flecha_diamante.webp"
+        };
+
+        const habilitar =
+            temArcoDisponivel &&
+            quantidade > 0 &&
+            (
+                !tipoAtivo ||
+                tipoAtivo.toUpperCase() === tipo
+            );
+
+        if (botao.disabled === habilitar) {
+            botao.disabled = !habilitar;
+        }
+
+        botao.style.opacity =
+            habilitar ? "1" : "0.5";
+
+        const img =
+            botao.querySelector("img");
+
+        const span =
+            botao.querySelector("span");
+
+        if (img && img.src !== imagens[tipo]) {
+
+            img.src = imagens[tipo];
+            img.alt = `Flecha ${tipo}`;
+        }
+
+        const novoTexto =
+            `${texto} (${quantidade})`;
+
+        if (
+            span &&
+            span.textContent !== novoTexto
+        ) {
+
+            span.textContent = novoTexto;
+        }
+    }
+
+    // =========================================
+    // RENDER
+    // =========================================
+
+    function renderizar(data) {
+
+        if (!data) return;
+
+        // TEXTOS
+        if (arcoDisponiveis)
+            arcoDisponiveis.textContent =
+                data.arcoInventario;
+
+        if (arcoAtivoSpan)
+            arcoAtivoSpan.textContent =
+                data.arcoAtivo;
+
+        if (durabilidadeSpan)
+            durabilidadeSpan.textContent =
+                data.durabilidadeArco;
+
+        if (aljavaSpan)
+            aljavaSpan.textContent =
+                data.aljava;
+
+        if (tipoFlechaSpan)
+            tipoFlechaSpan.textContent =
+                data.aljava > 0
+                    ? data.tipoFlecha
+                    : "-";
+
+        // ESTADO
+        const durabilidade =
+            data.durabilidadeArco;
+
+        const arcoInventario =
+            data.arcoInventario;
+
+        const flechasNaAljava =
+            data.aljava;
+
+        const guerreiroAtivo =
+            data.guerreiros ?? 0;
+
+        const espadaAtiva =
+            data.ativaEspadaFlanejante ?? 0;
+
+        const machadoAtivo =
+            data.ativarMachadoDilacerador ?? 0;
+
+        const arcoAtivo =
+            data.arcoAtivo;
+
+        const escudoAtivo =
+            data.ativarEscudoPrimordial;
+
+        // ESTOQUE
+        const estoqueFlechas = {
+
+            FERRO:
+                data.flechaFerro,
+
+            FOGO:
+                data.flechaFogo,
+
+            VENENO:
+                data.flechaVeneno,
+
+            DIAMANTE:
+                data.flechaDiamante
+        };
+
+        const temArcoDisponivel =
+            arcoInventario > 0 ||
+            durabilidade > 0 ||
+            arcoAtivo > 0;
+
+        const tipoAtivo =
+            data.aljava > 0
+                ? (data.tipoFlecha ?? null)
+                : null;
+
+        const temFlechas =
+            Object.values(
+                estoqueFlechas
+            ).some(qtd => qtd > 0);
+
+        // NUCLEO
+        if (nucleo) {
+
+            nucleo.classList.toggle(
+                "hidden",
+                !(temArcoDisponivel || temFlechas)
+            );
+        }
+
+        // BOTÕES
+        atualizarBotao(
+            btnFerro,
+            "FERRO",
+            estoqueFlechas.FERRO,
+            tipoAtivo,
+            temArcoDisponivel,
+            "Colocar Flecha de Ferro"
+        );
+
+        atualizarBotao(
+            btnFogo,
+            "FOGO",
+            estoqueFlechas.FOGO,
+            tipoAtivo,
+            temArcoDisponivel,
+            "Colocar Flecha de Fogo"
+        );
+
+        atualizarBotao(
+            btnVeneno,
+            "VENENO",
+            estoqueFlechas.VENENO,
+            tipoAtivo,
+            temArcoDisponivel,
+            "Colocar Flecha de Veneno"
+        );
+
+        atualizarBotao(
+            btnDiamante,
+            "DIAMANTE",
+            estoqueFlechas.DIAMANTE,
+            tipoAtivo,
+            temArcoDisponivel,
+            "Colocar Flecha de Diamante"
+        );
+
+        // EQUIPAR ARCO
+        const arcoEquipado =
+            durabilidade > 0;
+
+        const podeEquipar =
+            arcoInventario > 0 &&
+            !arcoEquipado &&
+            flechasNaAljava > 0 &&
+            guerreiroAtivo > 0 &&
+            espadaAtiva === 0 &&
+            machadoAtivo === 0 &&
+            escudoAtivo === 0;
+
+        if (btnEquiparArco) {
+
+            btnEquiparArco.classList.toggle(
+                "hidden",
+                !podeEquipar
+            );
+
+            btnEquiparArco.disabled =
+                !podeEquipar;
+        }
+    }
+
+    // =========================================
+    // FETCH
+    // =========================================
+
+    async function atualizarStatus() {
+
+        try {
+
+            const res =
+                await fetch(
+                    `/api/atualizar/status/usuario/${usuarioId}`,
+                    {
+                        cache: "force-cache"
+                    }
+                );
+
+            const data =
+                await res.json();
+
+            salvarCache(data);
+
+            requestAnimationFrame(() => {
+                renderizar(data);
+            });
+
+        } catch (err) {
+
+            console.error(
+                "Erro arco:",
+                err
+            );
+        }
+    }
+
+    // =========================================
+    // CACHE INICIAL
+    // =========================================
+
+    const cache =
+        pegarCache();
+
+    if (cache) {
+
+        renderizar(cache);
+    }
+
+    // =========================================
+    // UPDATE
+    // =========================================
+
+    atualizarStatus();
+
+    setInterval(
+        atualizarStatus,
+        5000
+    );
+});
 
 /*
 document.addEventListener('DOMContentLoaded', () => {

@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Desafios da Arena</title>
-
+    
+      <link rel="stylesheet" href="/css/loading.css">
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
     <meta name="user-id" th:content="${idUsuario}">
     <link rel="stylesheet" href="/css/user-info.css">  
      <link rel="stylesheet" href="/css/rankingModal.css"> 
@@ -19,6 +22,12 @@
 </head>
 
 <body>
+<!-- Spinner de carregamento com texto dinâmico -->
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <span id="loading-text" class="swal-game-text"></span>
+</div>
+
 
 <div class="game-background"></div>
 
@@ -234,6 +243,7 @@
 </footer>
 
 </main>
+   <script src="/js/loading.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/nav.js"></script>
 <script src="/js/missoesDiarias.js" defer></script>
