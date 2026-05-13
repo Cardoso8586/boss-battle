@@ -645,6 +645,9 @@ async function carregarBossInicial() {
 
     const cached =
         getBossFromCache();
+		
+		// força mensagens demoradas em qualquer caso
+		  forcarLoadingSeDemorar();
 
     // ===========================================
     // JÁ LOGADO / CACHE / RELOAD
