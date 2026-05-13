@@ -20,6 +20,9 @@ function abrirModalBonus() {
   const modal = document.getElementById("bonusModal");
 
   if (!modal) {
+	
+	console.error('Modal de bônus não encontrado');
+	/*
     Swal.fire({
       customClass: { title: 'swal-game-error' },
       icon: 'error',
@@ -28,6 +31,7 @@ function abrirModalBonus() {
       background: 'transparent',
       color: '#ff3b3b'
     });
+	*/
     return;
   }
 
@@ -154,6 +158,8 @@ function verificarBonus(usuarioId) {
     })
     .catch(() => {
 
+		console.error('Erro ao verificar bônus');
+		/*
       Swal.fire({
         customClass: { title: 'swal-game-error' },
         icon: 'error',
@@ -162,7 +168,7 @@ function verificarBonus(usuarioId) {
         background: 'transparent',
         color: '#ff3b3b'
       });
-
+*/
     });
 }
 
@@ -254,7 +260,8 @@ function configurarBotaoBonus(usuarioId) {
 
         btn.disabled = false;
         btn.innerText = "⚔️ Coletar Recompensa";
-
+		console.error('Falha ao coletar bônus');
+		/*
         Swal.fire({
           customClass: { title: 'swal-game-error' },
           icon: 'error',
@@ -263,7 +270,7 @@ function configurarBotaoBonus(usuarioId) {
           background: 'transparent',
           color: '#ff3b3b'
         });
-
+*/
       });
   });
 }
@@ -301,6 +308,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (!usuarioId) {
 
+	
+	console.error('Usuário não encontrado');
+	/*
     Swal.fire({
       customClass: { title: 'swal-game-error' },
       icon: 'error',
@@ -309,7 +319,7 @@ window.addEventListener("DOMContentLoaded", () => {
       background: 'transparent',
       color: '#ff3b3b'
     });
-
+*/
     return;
   }
 

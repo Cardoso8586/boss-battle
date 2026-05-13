@@ -105,151 +105,125 @@ gurações -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <nav>
+
     <div class="hamburger" id="mobile-menu">
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
 
-    <ul class="nav-list">
-    
-    
+    <!-- SALDO FORA DA NAV-LIST -->
+    <div class="saldo-box">
+        <img src="/icones/boss_coin.webp"
+             class="icone-token"
+             alt="Boss Coin">
 
+        <span>BOSS:</span>
 
- <div class="user-info">
- <h2>
-  Bem-vindo, 
- <span th:text="${usuario.username}"></span>!
- </h2>
-
-<p id="id-box">
-  ID: <strong th:text="${idUsuario}">0</strong>
-</p>
-
-<p id="xp-box">
-  XP: <span id="xp" th:text="${xpUsuario}">0</span>
-</p>
-
-<p id="nivel-box">
-  Nível: <span id="nivel" th:text="${nivelUsuario}">0</span>
-</p>
-
-
-<div class="saldo-box">
-    <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
-    <span>BOSS:</span>
-    <strong id="boss_coins"></strong>
-</div>
-
-
+        <strong id="boss_coins"></strong>
+        
+        
+    </div>
  
+
+    <ul class="nav-list">
+
+        <div class="user-info">
+
+            <h2>
+                Bem-vindo,
+                <span th:text="${usuario.username}"></span>!
+            </h2>
+
+            <p id="id-box">
+                ID:
+                <strong th:text="${idUsuario}">0</strong>
+            </p>
+
+            <p id="xp-box">
+                XP:
+                <span id="xp" th:text="${xpUsuario}">0</span>
+            </p>
+
+            <p id="nivel-box">
+                Nível:
+                <span id="nivel" th:text="${nivelUsuario}">0</span>
+            </p>
+
 <p id="ultimo-ganho-box">
   Último Ganho <span id="ganho" th:text="${ultimoGanho}">0</span>
 </p>
     
-    
-</div>
+        </div>
 
-<li>
-  <a href="#" data-section="jogo">
-    <i class="fa-solid fa-shield-alt"></i> Arena de Batalha
-  </a>
-</li>
+        <li>
+            <a href="#" data-section="jogo">
+                <i class="fa-solid fa-shield-alt"></i>
+                Arena de Batalha
+            </a>
+        </li>
 
-<li>
-  <a href="/desafios">
-    <i class="fa-solid fa-calendar-check"></i> Desafios da Arena
-  </a>
-</li>
+        <li>
+            <a href="/desafios">
+                <i class="fa-solid fa-calendar-check"></i>
+                Desafios da Arena
+            </a>
+        </li>
 
-<li>
-  <a href="#" data-section="loja">
-    <i class="fa-solid fa-shop"></i> Loja de Aprimoramentos
-  </a>
-</li>
+        <li>
+            <a href="#" data-section="loja">
+                <i class="fa-solid fa-shop"></i>
+                Loja de Aprimoramentos
+            </a>
+        </li>
 
-<li>
-  <a href="#" data-section="section-promocoes">
-   <i class="fa-solid fa-tags"></i> Promoções Especiais
-  </a>
-</li>
+        <li>
+            <a href="#" data-section="section-promocoes">
+                <i class="fa-solid fa-tags"></i>
+                Promoções Especiais
+            </a>
+        </li>
 
-<li>
-  <a href="#" data-section="retirar">
-    <i class="fa-solid fa-hand-holding-dollar"></i> Resgatar Recompensas
-  </a>
-</li>
+        <li>
+            <a href="#" data-section="retirar">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                Resgatar Recompensas
+            </a>
+        </li>
 
-<li>
-  <a href="#" data-section="perfil">
-    <i class="fa-solid fa-user-shield"></i> Central de Comando
-  </a>
-</li>
+        <li>
+            <a href="#" data-section="perfil">
+                <i class="fa-solid fa-user-shield"></i>
+                Central de Comando
+            </a>
+        </li>
 
+        <li>
+            <a href="#" data-section="referidos">
+                <i class="fa-solid fa-user-plus"></i>
+                Rede de Aliados
+            </a>
+        </li>
 
+        <li>
+            <a href="#" data-section="help">
+                <i class="fa-solid fa-book-open"></i>
+                Tutorial da Arena
+            </a>
+        </li>
 
-<li>
-  <a href="#" data-section="referidos">
-    <i class="fa-solid fa-user-plus"></i> Rede de Aliados
-  </a>
-</li>
+        <li>
+            <a href="/logout"
+               onclick="sessionStorage.removeItem('arena_loading_ok')">
 
-<li>
-  <a href="#" data-section="help">
-    <i class="fa-solid fa-book-open"></i> Tutorial da Arena
-  </a>
-</li>
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Retornar à Base
+            </a>
+        </li>
 
-
-
-<!-- 
-
-<li>
-  <a href="/loja">
-    <i class="fa-solid fa-shop"></i> Loja de Aprimoramentos
-  </a>
-</li>
-
-<li>
-  <a href="/promocoes">
-    <i class="fa-solid fa-tags"></i> Promoções Especiais
-  </a>
-</li>
-
-<li>
-  <a href="/recompensas">
-    <i class="fa-solid fa-hand-holding-dollar"></i> Resgatar Recompensas
-  </a>
-</li>
-
-<li>
-  <a href="/comando">
-    <i class="fa-solid fa-user-shield"></i> Central de Comando
-  </a>
-</li>
-
-<li>
-  <a href="/aliados">
-    <i class="fa-solid fa-user-plus"></i> Rede de Aliados
-  </a>
-</li>
-
-<li>
-  <a href="/tutorial">
-    <i class="fa-solid fa-book-open"></i> Tutorial da Arena
-  </a>
-</li>
- -->
-<li>
- <a href="/logout" onclick="sessionStorage.removeItem('arena_loading_ok')">
-    <i class="fa-solid fa-right-from-bracket"></i> Retornar à Base
-  </a>
-</li>
     </ul>
-  
+
 </nav>
-
-
  
     </header>
 
@@ -2011,7 +1985,9 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     <script src="/js/comprarEspadaFlanejante.js" defer></script>
     <script src="/js/comprarCapacidadeVigor.js"></script> 
     <script src="/js/comprarAtaqueEspecial.js"></script> 
+      <!-- 
     <script src="/js/precoPromo.js" defer></script>
+    -->
     <script src="/js/comprarPromocoes.js" defer></script>
      
     <!-- referidos -->

@@ -77,5 +77,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
     updateRewardPreview();
-    setInterval(updateRewardPreview, 10000);
+    setInterval(updateRewardPreview, 110000);
 });

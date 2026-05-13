@@ -9,32 +9,45 @@
     background: #1b1b1b;
     border: 1px solid #3a3a55;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.4);
 
     color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-family:
+        'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
 }
 
-/* Título principal */
+/* TÍTULO */
 .user-info h2 {
+
     margin: 0 0 12px;
+
     font-size: 1.4rem;
     font-weight: 600;
 }
 
-/* Destaque no nome ou parte do título */
+/* DESTAQUE */
 .user-info h2 span {
     color: #00d1ff;
 }
 
-/* Textos de informações como ID, XP, etc */
+/* TEXTOS */
 .user-info p {
+
     margin: 4px 0;
+
     font-size: 0.95rem;
+
     color: #d1d1e0;
 }
 
-/* Texto em negrito dentro da área do usuário */
+/* STRONG */
 .user-info strong {
     color: #ffffff;
 }
@@ -44,66 +57,65 @@
    CAIXA DE SALDO
    ========================================================= */
 .saldo-box {
-    position: relative;
+
     display: flex;
     align-items: center;
+
     gap: 8px;
 
     margin-top: 12px;
+
     padding: 10px 16px;
 
-    background: rgba(0, 0, 0, 0.75);
+    background:
+        rgba(0, 0, 0, 0.75);
+
     border-radius: 12px;
 
     color: #ffffff;
+
     font-size: 14px;
     font-weight: 500;
 
     box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.4),
         0 0 10px rgba(255, 180, 0, 0.2);
-
-    backdrop-filter: blur(4px);
-    transition: transform 0.2s ease;
 }
 
-/* Efeito leve ao passar o mouse */
-.saldo-box:hover {
-    transform: scale(1.05);
-}
-
-/* Ícone do token */
+/* ÍCONE */
 .saldo-box .icone-token {
+
     width: 20px;
     height: 20px;
 }
 
-/* Texto comum dentro da caixa */
+/* TEXTO */
 .saldo-box span {
     color: #ddd;
 }
 
 
 /* =========================================================
-   VALORES DO SALDO
+   VALORES
    ========================================================= */
-
-/* Valor principal do saldo */
 #boss_coins,
 #boss_coins_comando {
+
     font-weight: 800;
+
     font-size: 1.1rem;
-    transition: transform 0.2s ease;
 }
 
-/* Estilo específico do saldo principal */
+/* VERDE */
 #boss_coins {
     color: #00ff9c;
 }
 
-/* Estilo alternativo dourado */
+/* DOURADO */
 #boss_coins_comando {
+
     color: #ffd700;
+
     text-shadow:
         0 0 6px rgba(255, 215, 0, 0.6),
         0 0 12px rgba(255, 180, 0, 0.4);
@@ -111,49 +123,59 @@
 
 
 /* =========================================================
-   ANIMAÇÕES DE GANHO E PERDA
+   GANHO / PERDA
    ========================================================= */
-
-/* Texto flutuante de ganho/perda */
 .ganho-boss,
 .perda-boss {
+
     position: absolute;
+
     left: 50%;
     top: -10px;
-    transform: translateX(-50%);
+
+    transform:
+        translateX(-50%);
 
     font-size: 14px;
+
     font-weight: bold;
+
     opacity: 0;
+
     white-space: nowrap;
+
     pointer-events: none;
 
-    animation: subirFade 1.5s ease-out forwards;
+    animation:
+        subirFade 1.5s ease-out forwards;
 }
 
-/* Cor do ganho */
+/* GANHO */
 .ganho-boss {
+
     color: #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+
+    text-shadow:
+        0 0 10px rgba(255, 215, 0, 0.7);
 }
 
-/* Cor da perda */
+/* PERDA */
 .perda-boss {
+
     color: #ff4d4f;
-    text-shadow: 0 0 10px rgba(255, 77, 79, 0.7);
+
+    text-shadow:
+        0 0 10px rgba(255, 77, 79, 0.7);
 }
 
 
 /* =========================================================
-   CLASSES DE ANIMAÇÃO NO NÚMERO
+   ANIMAÇÕES
    ========================================================= */
-
-/* Animação quando aumenta saldo */
 .animar-saldo {
     animation: pulseSaldo 1.6s ease;
 }
 
-/* Animação quando diminui saldo */
 .animar-perda {
     animation: pulsePerda 1.6s ease;
 }
@@ -162,12 +184,15 @@
 /* =========================================================
    KEYFRAMES
    ========================================================= */
-
-/* Texto sobe e desaparece */
 @keyframes subirFade {
+
     0% {
+
         opacity: 0;
-        transform: translateX(-50%) translateY(0);
+
+        transform:
+            translateX(-50%)
+            translateY(0);
     }
 
     20% {
@@ -175,70 +200,115 @@
     }
 
     100% {
+
         opacity: 0;
-        transform: translateX(-50%) translateY(-30px);
+
+        transform:
+            translateX(-50%)
+            translateY(-30px);
     }
 }
 
-/* Pulso de ganho */
 @keyframes pulseSaldo {
+
     0% {
+
         transform: scale(1);
+
         color: inherit;
     }
 
     50% {
+
         transform: scale(1.18);
+
         color: #ffd700;
-        text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+
+        text-shadow:
+            0 0 12px rgba(255, 215, 0, 0.8);
     }
 
     100% {
+
         transform: scale(1);
+
         color: inherit;
     }
 }
 
-/* Pulso de perda */
 @keyframes pulsePerda {
+
     0% {
+
         transform: scale(1);
+
         color: inherit;
     }
 
     50% {
+
         transform: scale(1.18);
+
         color: #ff4d4f;
-        text-shadow: 0 0 12px rgba(255, 77, 79, 0.8);
+
+        text-shadow:
+            0 0 12px rgba(255, 77, 79, 0.8);
     }
 
     100% {
+
         transform: scale(1);
+
         color: inherit;
     }
 }
 
 
 /* =========================================================
-   RESPONSIVIDADE - TABLET / MOBILE
+   RESPONSIVO MOBILE
    ========================================================= */
 @media (max-width: 768px) {
+
     .saldo-box {
-        position: fixed;
-        top: 60px;
-        left: 20px;
-        z-index: 9999;
+
+        position: fixed !important;
+
+        top: 70px !important;
+
+        left: 15px !important;
+
+        z-index: 999999999 !important;
+
+        margin: 0 !important;
+
+        min-width: 180px;
+
+        padding: 10px 14px;
+
+        background: #111111;
+
+        border:
+            1px solid rgba(255,255,255,0.08);
+
+        backdrop-filter: none !important;
+
+        -webkit-backdrop-filter: none !important;
     }
 }
 
 @media (max-width: 568px) {
+
     .user-info {
+
         width: 300px;
+
         padding: 16px 20px;
     }
 
     .user-info h2 {
+
         margin-bottom: 8px;
+
         font-size: 1.1rem;
     }
 
@@ -247,30 +317,61 @@
     }
 
     .saldo-box {
-        margin-top: 8px;
-        padding: 8px 10px;
-        gap: 10px;
+
+        position: fixed !important;
+
+        top: 70px !important;
+
+        left: 12px !important;
+
+        z-index: 999999999 !important;
+
+        margin: 0 !important;
+
+        padding: 8px 12px;
+
+        gap: 8px;
+
         font-size: 0.85rem;
     }
 
     #boss_coins,
     #boss_coins_comando {
+
         font-size: 0.95rem;
     }
 }
 
+
+/* =========================================================
+   GANHO
+   ========================================================= */
 #ganho {
+
     display: inline-block;
+
     margin-left: 4px;
+
     padding: 2px 8px;
 
     color: #ffd700;
+
     font-size: 0.75rem;
+
     font-weight: 800;
+
     letter-spacing: 0.5px;
 
-    background: linear-gradient(135deg, rgba(255, 180, 0, 0.12), rgba(255, 140, 0, 0.06));
-    border: 1px solid rgba(255, 180, 0, 0.22);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 180, 0, 0.12),
+            rgba(255, 140, 0, 0.06)
+        );
+
+    border:
+        1px solid rgba(255, 180, 0, 0.22);
+
     border-radius: 8px;
 
     box-shadow:
@@ -282,20 +383,38 @@
         0 0 6px rgba(255, 200, 0, 0.18);
 }
 
+
+/* =========================================================
+   XP / NIVEL / ID
+   ========================================================= */
 #id-box strong,
 #xp,
 #nivel {
+
     display: inline-block;
+
     margin-left: 4px;
+
     padding: 2px 8px;
 
     color: #ffd700;
+
     font-size: 0.75rem;
+
     font-weight: 800;
+
     letter-spacing: 0.5px;
 
-    background: linear-gradient(135deg, rgba(255, 180, 0, 0.12), rgba(255, 140, 0, 0.06));
-    border: 1px solid rgba(255, 180, 0, 0.22);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 180, 0, 0.12),
+            rgba(255, 140, 0, 0.06)
+        );
+
+    border:
+        1px solid rgba(255, 180, 0, 0.22);
+
     border-radius: 8px;
 
     box-shadow:
