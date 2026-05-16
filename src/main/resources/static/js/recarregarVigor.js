@@ -1,84 +1,331 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const btnRecarregar = document.getElementById('btnRecarregar');
-    const energiaAtual = document.getElementById('energiaAtual');
-    const energiaMaxima = document.getElementById('energiaMaxima');
-    const energiaBar = document.getElementById('energiaBar');
+    const btnRecarregar =
+        document.getElementById(
+            'btnRecarregar'
+        );
 
-    const metaUserId = document.querySelector('meta[name="user-id"]');
+    const energiaAtual =
+        document.getElementById(
+            'energiaAtual'
+        );
 
-    if (!btnRecarregar || !energiaAtual || !energiaMaxima || !energiaBar || !metaUserId) {
+    const energiaMaxima =
+        document.getElementById(
+            'energiaMaxima'
+        );
+
+    const energiaBar =
+        document.getElementById(
+            'energiaBar'
+        );
+
+    const metaUserId =
+        document.querySelector(
+            'meta[name="user-id"]'
+        );
+
+    if (
+
+        !btnRecarregar ||
+
+        !energiaAtual ||
+
+        !energiaMaxima ||
+
+        !energiaBar ||
+
+        !metaUserId
+
+    ) {
+
         return;
     }
 
-    const usuarioId = parseInt(metaUserId.getAttribute('content'));
+    const usuarioId =
+        parseInt(
+            metaUserId.getAttribute(
+                'content'
+            )
+        );
 
-    let emCooldownRecarregar = false;
-    const tempoCooldownRecarregar = 4;
-    const textoOriginal = btnRecarregar.innerText;
+    // ==============================
+    // FORMATADOR
+    // ==============================
+    const formatarNumero = numero => {
 
+        return new Intl.NumberFormat(
+            'pt-BR'
+        ).format(
+            Number(numero || 0)
+        );
+    };
+
+    // ==============================
+    // CONTROLE
+    // ==============================
+    let emCooldownRecarregar =
+        false;
+
+    const textoOriginal =
+        btnRecarregar.innerText;
+
+    // ==============================
+    // BOTÃO
+    // ==============================
     function controlarBotaoRecarregar() {
 
-        const vigorAtual = Number(energiaAtual.textContent);
-        const vigorMaximo = Number(energiaMaxima.textContent);
+        const vigorAtual =
+            Number(
+                energiaAtual
+                    .textContent
+                    .replace(/\./g, '')
+                    .replace(',', '.')
+            );
 
-        // Só bloqueia quando estiver cheio
-        btnRecarregar.disabled = vigorAtual >= vigorMaximo;
+        const vigorMaximo =
+            Number(
+                energiaMaxima
+                    .textContent
+                    .replace(/\./g, '')
+                    .replace(',', '.')
+            );
+
+        btnRecarregar.disabled =
+
+            vigorAtual >= vigorMaximo;
     }
 
-    function atualizarBarra(vigorAtual, vigorMaximo) {
+    // ==============================
+    // BARRA
+    // ==============================
+    function atualizarBarra(
 
-        const percentual = vigorMaximo > 0
-            ? Math.min((vigorAtual * 100) / vigorMaximo, 100)
-            : 0;
+        vigorAtual,
 
-        energiaAtual.textContent = vigorAtual;
-        energiaMaxima.textContent = vigorMaximo;
-        energiaBar.style.width = percentual + '%';
+        vigorMaximo
+
+    ) {
+
+        const percentual =
+
+            vigorMaximo > 0
+
+                ? Math.min(
+                    (
+                        vigorAtual * 100
+                    ) / vigorMaximo,
+                    100
+                )
+
+                : 0;
+
+        // ==============================
+        // FORMATAÇÃO IGUAL BACKEND
+        // ==============================
+        energiaAtual.textContent =
+
+            formatarNumero(
+                vigorAtual
+            );
+
+        energiaMaxima.textContent =
+
+            formatarNumero(
+                vigorMaximo
+            );
+
+        energiaBar.style.width =
+
+            percentual + '%';
 
         controlarBotaoRecarregar();
     }
 
-    // Estado inicial do botão
+    // ==============================
+    // ESTADO INICIAL
+    // ==============================
     controlarBotaoRecarregar();
 
-    btnRecarregar.addEventListener('click', async () => {
+    // ==============================
+    // CLICK
+    // ==============================
+    btnRecarregar.addEventListener(
 
-        // Impede clique durante cooldown
-        if (emCooldownRecarregar) {
-            return;
-        }
+        'click',
 
-        // Verifica novamente se já está cheio
-        const vigorAtual = Number(energiaAtual.textContent);
-        const vigorMaximo = Number(energiaMaxima.textContent);
+        async () => {
 
-        if (vigorAtual >= vigorMaximo) {
-            return;
-        }
+            if (
+                emCooldownRecarregar
+            ) {
 
-        emCooldownRecarregar = true;
+                return;
+            }
 
-        btnRecarregar.disabled = true;
-        btnRecarregar.innerText = 'Recarregando Vigor...';
+            const vigorAtual =
+                Number(
+                    energiaAtual
+                        .textContent
+                        .replace(/\./g, '')
+                        .replace(',', '.')
+                );
 
-        try {
+            const vigorMaximo =
+                Number(
+                    energiaMaxima
+                        .textContent
+                        .replace(/\./g, '')
+                        .replace(',', '.')
+                );
 
-            const res = await fetch(
-                `/recarregar-energia?usuarioId=${usuarioId}`,
-                { method: 'POST' }
-            );
+            // ==============================
+            // JÁ CHEIO
+            // ==============================
+            if (
+                vigorAtual >= vigorMaximo
+            ) {
 
-            if (!res.ok) {
+                return;
+            }
+
+            emCooldownRecarregar =
+                true;
+
+            btnRecarregar.disabled =
+                true;
+
+            btnRecarregar.innerText =
+                'Recarregando Vigor...';
+
+            try {
+
+                const res =
+                    await fetch(
+                        `/recarregar-energia?usuarioId=${usuarioId}`,
+                        {
+                            method: 'POST'
+                        }
+                    );
+
+                // ==============================
+                // ERRO
+                // ==============================
+                if (!res.ok) {
+
+                    Swal.fire({
+
+                        customClass: {
+                            title:
+                                'swal-game-error'
+                        },
+
+                        icon: 'error',
+
+                        title: 'Erro',
+
+                        html: `
+                            <p>
+                                Não foi possível recarregar o Vigor.
+                            </p>
+
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        confirmButtonText:
+                            'Ok',
+
+                        background:
+                            'transparent',
+
+                        color:
+                            '#ff3b3b'
+                    });
+
+                    return;
+                }
+
+                // ==============================
+                // DATA
+                // ==============================
+                const data =
+                    await res.json();
+
+                atualizarBarra(
+
+                    Number(
+                        data.energiaGuerreiros
+                    ),
+
+                    Number(
+                        data.energiaGuerreirosPadrao
+                    )
+                );
+
+                // ==============================
+                // SUCESSO
+                // ==============================
+                Swal.fire({
+
+                    customClass: {
+                        title:
+                            'swal-game-text'
+                    },
+
+                    title:
+                        'Vigor restaurado!',
+
+                    html: `
+                        <div class="modal-anuncio">
+                            <iframe
+                                src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                width="468"
+                                height="60"
+                                scrolling="no"
+                                frameborder="0">
+                            </iframe>
+                        </div>
+                    `,
+
+                    timer: 7000,
+
+                    showConfirmButton:
+                        false,
+
+                    background:
+                        'transparent',
+
+                    color:
+                        '#ffb400'
+                });
+
+            } catch (err) {
+
+                console.error(err);
 
                 Swal.fire({
+
                     customClass: {
-                        title: 'swal-game-error'
+                        title:
+                            'swal-game-error'
                     },
+
                     icon: 'error',
+
                     title: 'Erro',
+
                     html: `
-                        <p>Não foi possível recarregar o Vigor.</p>
+                        <p>
+                            Erro ao tentar recarregar Vigor.
+                        </p>
 
                         <div class="modal-anuncio">
                             <iframe
@@ -90,85 +337,29 @@ document.addEventListener('DOMContentLoaded', () => {
                             </iframe>
                         </div>
                     `,
-                    confirmButtonText: 'Ok',
-                    background: 'transparent',
-                    color: '#ff3b3b'
+
+                    confirmButtonText:
+                        'Ok',
+
+                    background:
+                        'transparent',
+
+                    color:
+                        '#ff3b3b'
                 });
 
-                return;
-            }
+            } finally {
 
-            const data = await res.json();
+                emCooldownRecarregar =
+                    false;
 
-            atualizarBarra(
-                Number(data.energiaGuerreiros),
-                Number(data.energiaGuerreirosPadrao)
-            );
+                btnRecarregar.innerText =
+                    textoOriginal;
 
-            Swal.fire({
-                customClass: {
-                    title: 'swal-game-text'
-                },
-                title: 'Vigor restaurado!',
-                html: `
-                    <div class="modal-anuncio">
-                        <iframe
-                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                            width="468"
-                            height="60"
-                            scrolling="no"
-                            frameborder="0">
-                        </iframe>
-                    </div>
-                `,
-                timer: 7000,
-                showConfirmButton: false,
-                background: 'transparent',
-                color: '#ffb400'
-            });
-
-        } catch (err) {
-
-            console.error(err);
-
-            Swal.fire({
-                customClass: {
-                    title: 'swal-game-error'
-                },
-                icon: 'error',
-                title: 'Erro',
-                html: `
-                    <p>Erro ao tentar recarregar Vigor.</p>
-
-                    <div class="modal-anuncio">
-                        <iframe
-                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                            width="468"
-                            height="60"
-                            scrolling="no"
-                            frameborder="0">
-                        </iframe>
-                    </div>
-                `,
-                confirmButtonText: 'Ok',
-                background: 'transparent',
-                color: '#ff3b3b'
-            });
-
-        } finally {
-
-            setTimeout(() => {
-
-                emCooldownRecarregar = false;
-
-                btnRecarregar.innerText = textoOriginal;
-
-                // Atualiza estado do botão
                 controlarBotaoRecarregar();
-
-            }, tempoCooldownRecarregar * 1000);
+            }
         }
-    });
+    );
 });
 /*
 
