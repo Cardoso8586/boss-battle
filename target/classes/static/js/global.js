@@ -1,5 +1,5 @@
 // ======================================
-// AUTO RELOAD EXTREMO
+// AUTO RELOAD INTELIGENTE
 // ======================================
 
 (function () {
@@ -8,9 +8,13 @@
     // CONFIG
     // ======================================
 
-    const TEMPO_MAX_SEM_RESPOSTA = 8000;
+    // só recarrega após 10s sem resposta
+    const TEMPO_MAX_SEM_RESPOSTA =
+        10000;
 
-    const INTERVALO_VERIFICACAO = 1000;
+    // verifica a cada 10s
+    const INTERVALO_VERIFICACAO =
+        10000;
 
     // ======================================
     // STATE
@@ -19,19 +23,24 @@
     let ultimaResposta =
         Date.now();
 
-    let reloadando = false;
+    let reloadando =
+        false;
+
+    let paginaCarregada =
+        false;
 
     // ======================================
-    // MARCA VIDA
+    // VIDA
     // ======================================
 
     function registrarResposta() {
 
-        ultimaResposta = Date.now();
+        ultimaResposta =
+            Date.now();
     }
 
     // ======================================
-    // FETCH HOOK
+    // FETCH
     // ======================================
 
     const fetchOriginal =
@@ -43,7 +52,9 @@
             try {
 
                 const response =
-                    await fetchOriginal(...args);
+                    await fetchOriginal(
+                        ...args
+                    );
 
                 registrarResposta();
 
@@ -56,7 +67,7 @@
         };
 
     // ======================================
-    // XHR HOOK
+    // XHR
     // ======================================
 
     const openOriginal =
@@ -66,7 +77,9 @@
         function (...args) {
 
             this.addEventListener(
-                'load',
+
+                "load",
+
                 registrarResposta
             );
 
@@ -77,60 +90,70 @@
         };
 
     // ======================================
-    // DOM PRONTO
+    // DOM
     // ======================================
 
     document.addEventListener(
-        'DOMContentLoaded',
-        registrarResposta
+
+        "DOMContentLoaded",
+
+        () => {
+
+            registrarResposta();
+        }
     );
 
     // ======================================
-    // WINDOW LOAD
+    // LOAD
     // ======================================
 
     window.addEventListener(
-        'load',
-        registrarResposta
+
+        "load",
+
+        () => {
+
+            paginaCarregada =
+                true;
+
+            registrarResposta();
+        }
     );
 
     // ======================================
-    // BOSS RENDER
+    // VERIFICA BOSS
     // ======================================
 
-    setInterval(() => {
+    function bossCarregado() {
 
         const bossNome =
             document.getElementById(
-                'boss-name'
+                "boss-name"
             );
 
         const bossImagem =
             document.getElementById(
-                'boss-image'
+                "boss-image"
             );
 
-        if (
+        // nome carregou
+        const nomeOk =
 
             bossNome &&
-            bossNome.innerText.trim() !== ''
 
-        ) {
+            bossNome.innerText.trim() !== "";
 
-            registrarResposta();
-        }
-
-        if (
+        // imagem carregou
+        const imagemOk =
 
             bossImagem &&
-            bossImagem.complete
 
-        ) {
+            bossImagem.complete &&
 
-            registrarResposta();
-        }
+            bossImagem.src;
 
-    }, 1500);
+        return nomeOk || imagemOk;
+    }
 
     // ======================================
     // WATCHDOG
@@ -138,7 +161,26 @@
 
     setInterval(() => {
 
-        if (reloadando) {
+        // evita loop
+        if (reloadando)
+            return;
+
+        // aba minimizada
+        if (document.hidden)
+            return;
+
+        // página já carregou
+        if (paginaCarregada)
+            return;
+
+        // boss carregado
+        if (bossCarregado()) {
+
+            paginaCarregada =
+                true;
+
+            registrarResposta();
+
             return;
         }
 
@@ -146,10 +188,12 @@
             Date.now();
 
         const tempoSemResposta =
-            agora - ultimaResposta;
+
+            agora -
+            ultimaResposta;
 
         // ======================================
-        // SEM VIDA
+        // SEM RESPOSTA
         // ======================================
 
         if (
@@ -159,13 +203,13 @@
 
         ) {
 
-            reloadando = true;
+            reloadando =
+                true;
 
             console.warn(
-                'Página travada. Recarregando...'
+                "Página travada. Recarregando..."
             );
 
-            // hard reload
             window.location.reload();
         }
 
