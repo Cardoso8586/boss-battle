@@ -1,5 +1,3 @@
-
-
 // ===========================================
 // LOADING FIX IMEDIATO
 // ===========================================
@@ -7,17 +5,30 @@
 function setLoadingTextSeguro(mensagem) {
 
     const aplicar = () => {
-        const textEl = document.getElementById("loading-text");
+
+        const textEl =
+            document.getElementById(
+                "loading-text"
+            );
 
         if (textEl) {
-            textEl.textContent = mensagem;
+
+            textEl.textContent =
+                mensagem;
         }
     };
 
     aplicar();
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", aplicar);
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            aplicar
+        );
     }
 }
 
@@ -26,6 +37,7 @@ function setLoadingTextSeguro(mensagem) {
 // ===========================================
 
 const loadingMessages = [
+
     "Indo pra arena...",
     "Preparando os guerreiros...",
     "Aquecendo as espadas...",
@@ -73,6 +85,7 @@ const loadingMessages = [
 ];
 
 const loadingMessagesDemorado = [
+
     "O boss está despertando...",
     "Os portões da arena estão pesados...",
     "Uma presença sombria se aproxima...",
@@ -99,45 +112,93 @@ const loadingMessagesDemorado = [
 // CONFIG
 // ===========================================
 
-const CACHE_KEY = "boss_active_cache";
-const CACHE_TTL = 1000 * 60 * 60 * 24; // 24 horas
-const UPDATE_INTERVAL = 30000; // 30 segundos
+const CACHE_KEY =
+    "boss_active_cache";
 
-const LOADING_MIN_TIME = 1200;
-const LOADING_FORCE_TIME = 1200;
-const LOADING_MAX_TIME = 5000;
+const CACHE_TTL =
+    1000 * 60 * 60 * 24;
+
+// 1 minuto
+const UPDATE_INTERVAL =
+    60000;
+
+const LOADING_MIN_TIME =
+    1200;
+
+const LOADING_FORCE_TIME =
+    1200;
+
+const LOADING_MAX_TIME =
+    5000;
 
 // ===========================================
 // STATE
 // ===========================================
 
-let loadingFechado = false;
-let imagemAtual = null;
-let iniciouLoadingEm = Date.now();
-let loadingMessageInterval = null;
+let loadingFechado =
+    false;
+
+let imagemAtual =
+    null;
+
+let iniciouLoadingEm =
+    Date.now();
+
+let loadingMessageInterval =
+    null;
 
 // ===========================================
 // HELPERS
 // ===========================================
 
 function formatarNumero(numero) {
-    return new Intl.NumberFormat("pt-BR").format(Number(numero || 0));
+
+    return new Intl.NumberFormat(
+        "pt-BR"
+    ).format(
+        Number(numero || 0)
+    );
 }
 
-function mostrarMensagemImediata(mensagem) {
-    setLoadingTextSeguro(mensagem);
+function mostrarMensagemImediata(
+    mensagem
+) {
+
+    setLoadingTextSeguro(
+        mensagem
+    );
 }
 
-function pegarMensagemAleatoria(lista) {
-    return lista[Math.floor(Math.random() * lista.length)];
+function pegarMensagemAleatoria(
+    lista
+) {
+
+    return lista[
+        Math.floor(
+            Math.random() *
+            lista.length
+        )
+    ];
 }
 
 function setRandomLoadingText() {
-    mostrarMensagemImediata(pegarMensagemAleatoria(loadingMessages));
+
+    mostrarMensagemImediata(
+
+        pegarMensagemAleatoria(
+            loadingMessages
+        )
+    );
 }
 
 function setRandomLoadingDemoradoText() {
-    mostrarMensagemImediata(pegarMensagemAleatoria(loadingMessagesDemorado));
+
+    mostrarMensagemImediata(
+
+        pegarMensagemAleatoria(
+            loadingMessagesDemorado
+        )
+    );
 }
 
 // ===========================================
@@ -145,66 +206,105 @@ function setRandomLoadingDemoradoText() {
 // ===========================================
 
 function pararRotacaoMensagens() {
+
     if (loadingMessageInterval) {
-        clearInterval(loadingMessageInterval);
-        loadingMessageInterval = null;
+
+        clearInterval(
+            loadingMessageInterval
+        );
+
+        loadingMessageInterval =
+            null;
     }
 }
 
 function esconderLoading() {
-    if (loadingFechado) return;
 
-    loadingFechado = true;
+    if (loadingFechado)
+        return;
+
+    loadingFechado =
+        true;
 
     pararRotacaoMensagens();
 
-    const loading = document.getElementById("loading");
+    const loading =
+        document.getElementById(
+            "loading"
+        );
 
-    if (!loading) return;
+    if (!loading)
+        return;
 
-    loading.style.transition = "opacity 0.3s ease";
-    loading.style.opacity = "0";
+    loading.style.transition =
+        "opacity 0.3s ease";
+
+    loading.style.opacity =
+        "0";
 
     setTimeout(() => {
+
         loading.remove();
+
     }, 300);
 }
 
 function liberarLoadingSeguro() {
-    const tempoPassado = Date.now() - iniciouLoadingEm;
 
-    const tempoRestante = Math.max(
-        0,
-        LOADING_MIN_TIME - tempoPassado
-    );
+    const tempoPassado =
+
+        Date.now() -
+        iniciouLoadingEm;
+
+    const tempoRestante =
+
+        Math.max(
+            0,
+            LOADING_MIN_TIME -
+            tempoPassado
+        );
 
     setTimeout(() => {
+
         esconderLoading();
+
     }, tempoRestante);
 }
 
 function forcarLoadingSeDemorar() {
+
     setTimeout(() => {
-        if (loadingFechado) return;
+
+        if (loadingFechado)
+            return;
 
         setRandomLoadingDemoradoText();
 
-        loadingMessageInterval = setInterval(() => {
-            if (loadingFechado) {
-                pararRotacaoMensagens();
-                return;
-            }
+        loadingMessageInterval =
+            setInterval(() => {
 
-            setRandomLoadingDemoradoText();
+                if (loadingFechado) {
 
-        }, 2200);
+                    pararRotacaoMensagens();
+
+                    return;
+                }
+
+                setRandomLoadingDemoradoText();
+
+            }, 2200);
 
     }, LOADING_FORCE_TIME);
 }
 
-// segurança máxima
+// ===========================================
+// SEGURANÇA
+// ===========================================
+
 setTimeout(() => {
+
     esconderLoading();
+
 }, LOADING_MAX_TIME);
 
 // ===========================================
@@ -212,57 +312,124 @@ setTimeout(() => {
 // ===========================================
 
 function getBossFromCache() {
+
     try {
-        const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
 
-        if (!cached) return null;
+        const cached =
+            JSON.parse(
 
-        if (Date.now() - cached.time > CACHE_TTL) {
-            localStorage.removeItem(CACHE_KEY);
+                localStorage.getItem(
+                    CACHE_KEY
+                )
+            );
+
+        if (!cached)
+            return null;
+
+        if (
+
+            Date.now() -
+            cached.time >
+
+            CACHE_TTL
+
+        ) {
+
+            localStorage.removeItem(
+                CACHE_KEY
+            );
+
             return null;
         }
 
         return cached.data;
 
     } catch (e) {
-        console.error("Erro lendo cache do boss:", e);
+
+        console.error(
+            "Erro lendo cache do boss:",
+            e
+        );
+
         return null;
     }
 }
 
-function saveBossToCache(boss) {
-    if (!boss) return;
+function saveBossToCache(
+    boss
+) {
+
+    if (!boss)
+        return;
 
     const cacheData = {
+
         time: Date.now(),
+
         data: {
-            bossName: boss.bossName,
-            imageUrl: boss.imageUrl,
-            rewardBoss: boss.rewardBoss,
-            rewardExp: boss.rewardExp,
-            attackPower: boss.attackPower,
-            attackIntervalSeconds: boss.attackIntervalSeconds,
-            maxHp: boss.maxHp,
-            currentHp: boss.currentHp,
-            alive: boss.alive
+
+            bossName:
+                boss.bossName,
+
+            imageUrl:
+                boss.imageUrl,
+
+            rewardBoss:
+                boss.rewardBoss,
+
+            rewardExp:
+                boss.rewardExp,
+
+            attackPower:
+                boss.attackPower,
+
+            attackIntervalSeconds:
+                boss.attackIntervalSeconds,
+
+            maxHp:
+                boss.maxHp,
+
+            currentHp:
+                boss.currentHp,
+
+            alive:
+                boss.alive
         }
     };
 
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+    localStorage.setItem(
+
+        CACHE_KEY,
+
+        JSON.stringify(
+            cacheData
+        )
+    );
 }
 
 // ===========================================
-// IMAGE PRELOAD
+// PRELOAD IMAGEM
 // ===========================================
 
 function preloadImagem(src) {
-    if (!src) return;
 
-    const img = new Image();
+    if (!src)
+        return;
 
-    img.fetchPriority = "high";
-    img.loading = "eager";
-    img.src = src;
+    const img =
+        new Image();
+
+    img.decoding =
+        "async";
+
+    img.fetchPriority =
+        "high";
+
+    img.loading =
+        "eager";
+
+    img.src =
+        src;
 }
 
 // ===========================================
@@ -270,28 +437,54 @@ function preloadImagem(src) {
 // ===========================================
 
 function renderBossPlaceholder() {
+
     const frases = [
+
         "O chefe está se aproximando...",
+
         "Um chefe poderoso se aproxima...",
+
         "Prepare-se... o chefe está chegando.",
+
         "Algo terrível está prestes a aparecer...",
+
         "Um inimigo lendário se aproxima..."
     ];
 
-    const nameEl = document.getElementById("boss-name");
-    const hpBarEl = document.getElementById("boss-hp-bar");
-    const hpTextEl = document.getElementById("boss-hp-text");
+    const nameEl =
+        document.getElementById(
+            "boss-name"
+        );
+
+    const hpBarEl =
+        document.getElementById(
+            "boss-hp-bar"
+        );
+
+    const hpTextEl =
+        document.getElementById(
+            "boss-hp-text"
+        );
 
     if (nameEl) {
-        nameEl.innerText = pegarMensagemAleatoria(frases);
+
+        nameEl.innerText =
+
+            pegarMensagemAleatoria(
+                frases
+            );
     }
 
     if (hpBarEl) {
-        hpBarEl.style.width = "100%";
+
+        hpBarEl.style.width =
+            "100%";
     }
 
     if (hpTextEl) {
-        hpTextEl.innerText = "???? / ????";
+
+        hpTextEl.innerText =
+            "???? / ????";
     }
 }
 
@@ -300,71 +493,187 @@ function renderBossPlaceholder() {
 // ===========================================
 
 function renderBoss(boss) {
-    const nameEl = document.getElementById("boss-name");
-    const imgEl = document.getElementById("boss-image");
-    const hpBarEl = document.getElementById("boss-hp-bar");
-    const hpTextEl = document.getElementById("boss-hp-text");
-    const rewardEl = document.getElementById("boss-reward");
-    const xpEl = document.getElementById("boss-xp");
-    const ataqueEl = document.getElementById("boss-ataque");
-    const tempoEl = document.getElementById("boss-tempo-ataque");
 
-    if (!nameEl || !imgEl || !hpBarEl || !hpTextEl) return;
+    const nameEl =
+        document.getElementById(
+            "boss-name"
+        );
 
-    if (!boss || boss.alive === false) {
-        nameEl.innerText = "Nenhum boss ativo!";
-        imgEl.style.display = "none";
-        hpBarEl.style.width = "0%";
-        hpTextEl.innerText = "";
+    const imgEl =
+        document.getElementById(
+            "boss-image"
+        );
+
+    const hpBarEl =
+        document.getElementById(
+            "boss-hp-bar"
+        );
+
+    const hpTextEl =
+        document.getElementById(
+            "boss-hp-text"
+        );
+
+    const rewardEl =
+        document.getElementById(
+            "boss-reward"
+        );
+
+    const xpEl =
+        document.getElementById(
+            "boss-xp"
+        );
+
+    const ataqueEl =
+        document.getElementById(
+            "boss-ataque"
+        );
+
+    const tempoEl =
+        document.getElementById(
+            "boss-tempo-ataque"
+        );
+
+    if (
+
+        !nameEl ||
+
+        !imgEl ||
+
+        !hpBarEl ||
+
+        !hpTextEl
+
+    ) return;
+
+    if (
+
+        !boss ||
+
+        boss.alive === false
+
+    ) {
+
+        nameEl.innerText =
+            "Nenhum boss ativo!";
+
+        imgEl.style.display =
+            "none";
+
+        hpBarEl.style.width =
+            "0%";
+
+        hpTextEl.innerText =
+            "";
+
         return;
     }
 
-    nameEl.innerText = boss.bossName || "Boss";
+    nameEl.innerText =
+        boss.bossName || "Boss";
 
     if (rewardEl) {
-        rewardEl.innerText = formatarNumero(boss.rewardBoss);
+
+        rewardEl.innerText =
+
+            formatarNumero(
+                boss.rewardBoss
+            );
     }
 
     if (xpEl) {
-        xpEl.innerText = formatarNumero(boss.rewardExp);
+
+        xpEl.innerText =
+
+            formatarNumero(
+                boss.rewardExp
+            );
     }
 
     if (ataqueEl) {
-        ataqueEl.innerText = formatarNumero(boss.attackPower);
+
+        ataqueEl.innerText =
+
+            formatarNumero(
+                boss.attackPower
+            );
     }
 
     if (tempoEl) {
+
         tempoEl.innerText =
-            formatarNumero(boss.attackIntervalSeconds ?? 0) + "s";
+
+            formatarNumero(
+
+                boss.attackIntervalSeconds ?? 0
+
+            ) + "s";
     }
 
-    const maxHp = Number(boss.maxHp || 0);
-    const currentHp = Number(boss.currentHp || 0);
-
-    if (maxHp > 0) {
-        const percent = Math.max(
-            0,
-            Math.min(100, (currentHp / maxHp) * 100)
+    const maxHp =
+        Number(
+            boss.maxHp || 0
         );
 
-        hpBarEl.style.width = percent + "%";
+    const currentHp =
+        Number(
+            boss.currentHp || 0
+        );
+
+    if (maxHp > 0) {
+
+        const percent =
+            Math.max(
+
+                0,
+
+                Math.min(
+                    100,
+                    (
+                        currentHp /
+                        maxHp
+                    ) * 100
+                )
+            );
+
+        hpBarEl.style.width =
+            percent + "%";
 
         hpTextEl.innerText =
+
             `${formatarNumero(currentHp)} / ${formatarNumero(maxHp)}`;
     }
 
     if (boss.imageUrl) {
-        if (imagemAtual !== boss.imageUrl) {
-            imgEl.src = boss.imageUrl;
-            imagemAtual = boss.imageUrl;
+
+        if (
+            imagemAtual !==
+            boss.imageUrl
+        ) {
+
+            imgEl.decoding =
+                "async";
+
+            imgEl.loading =
+                "eager";
+
+            imgEl.fetchPriority =
+                "high";
+
+            imgEl.src =
+                boss.imageUrl;
+
+            imagemAtual =
+                boss.imageUrl;
         }
 
-        imgEl.loading = "eager";
-        imgEl.fetchPriority = "high";
-        imgEl.style.display = "block";
+        imgEl.style.display =
+            "block";
 
     } else {
-        imgEl.style.display = "none";
+
+        imgEl.style.display =
+            "none";
     }
 }
 
@@ -373,29 +682,55 @@ function renderBoss(boss) {
 // ===========================================
 
 async function fetchBossSemRenderizar() {
-    try {
-        const response = await fetch("/api/boss/active", {
-            cache: "no-store"
-        });
 
-        if (!response.ok) return null;
+    try {
+
+        const response =
+            await fetch(
+
+                "/api/boss/active",
+
+                {
+                    cache:
+                        "force-cache"
+                }
+            );
+
+        if (!response.ok)
+            return null;
 
         return await response.json();
 
     } catch (e) {
-        console.error("Erro ao buscar boss:", e);
+
+        console.error(
+            "Erro ao buscar boss:",
+            e
+        );
+
         return null;
     }
 }
 
 async function fetchBoss() {
-    const boss = await fetchBossSemRenderizar();
 
-    if (!boss) return null;
+    const boss =
+        await fetchBossSemRenderizar();
 
-    saveBossToCache(boss);
-    renderBoss(boss);
-    preloadImagem(boss.imageUrl);
+    if (!boss)
+        return null;
+
+    saveBossToCache(
+        boss
+    );
+
+    renderBoss(
+        boss
+    );
+
+    preloadImagem(
+        boss.imageUrl
+    );
 
     return boss;
 }
@@ -405,62 +740,107 @@ async function fetchBoss() {
 // ===========================================
 
 async function carregarBossInicial() {
-    const cached = getBossFromCache();
+
+    const cached =
+        getBossFromCache();
 
     forcarLoadingSeDemorar();
 
     if (cached) {
-        mostrarMensagemImediata("Preparando arena...");
 
-        renderBoss(cached);
-        preloadImagem(cached.imageUrl);
+        mostrarMensagemImediata(
+            "Preparando arena..."
+        );
+
+        renderBoss(
+            cached
+        );
+
+        preloadImagem(
+            cached.imageUrl
+        );
 
         liberarLoadingSeguro();
 
-        // atualiza em segundo plano, sem travar a tela
-        fetchBoss();
+        // atualiza depois
+        setTimeout(() => {
+
+            fetchBoss();
+
+        }, 5000);
 
         return;
     }
 
     setRandomLoadingText();
+
     renderBossPlaceholder();
 
     try {
-        const boss = await fetchBossSemRenderizar();
+
+        const boss =
+            await fetchBossSemRenderizar();
 
         if (boss) {
-            saveBossToCache(boss);
-            renderBoss(boss);
-            preloadImagem(boss.imageUrl);
+
+            saveBossToCache(
+                boss
+            );
+
+            renderBoss(
+                boss
+            );
+
+            preloadImagem(
+                boss.imageUrl
+            );
+
         } else {
-            renderBoss(null);
+
+            renderBoss(
+                null
+            );
         }
 
     } finally {
+
         liberarLoadingSeguro();
     }
 }
 
 // ===========================================
-// AUTO UPDATE
+// AUTO UPDATE LEVE
 // ===========================================
 
 setInterval(() => {
+
+    if (document.hidden)
+        return;
+
     fetchBoss();
+
 }, UPDATE_INTERVAL);
 
 // ===========================================
 // START
 // ===========================================
 
-document.addEventListener("DOMContentLoaded", async () => {
-    iniciouLoadingEm = Date.now();
+document.addEventListener(
 
-    mostrarMensagemImediata("Preparando arena...");
+    "DOMContentLoaded",
 
-    await carregarBossInicial();
-});
+    async () => {
+
+        iniciouLoadingEm =
+            Date.now();
+
+        mostrarMensagemImediata(
+            "Preparando arena..."
+        );
+
+        await carregarBossInicial();
+    }
+);
 
 /*
 

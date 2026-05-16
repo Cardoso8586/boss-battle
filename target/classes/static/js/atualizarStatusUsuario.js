@@ -1,5 +1,835 @@
 
+document.addEventListener('DOMContentLoaded', () => {
 
+    // ======================================
+    // CACHE
+    // ======================================
+
+    const CACHE_KEY_STATUS =
+        "usuario_status_cache";
+
+    const CACHE_IMAGEM_GUERREIRO =
+        "cache_imagem_guerreiro";
+
+    const CACHE_TTL =
+        1000 * 60 * 60 * 24;
+
+		// ======================================
+		// UPDATE
+		// ======================================
+
+		// 1 minuto
+		const UPDATE_INTERVAL =
+		    60000;
+
+    // ======================================
+    // USER
+    // ======================================
+
+    const meta =
+        document.querySelector(
+            'meta[name="user-id"]'
+        );
+
+    const usuarioId =
+        meta
+            ? parseInt(
+                meta.getAttribute(
+                    "content"
+                )
+            )
+            : null;
+
+    let ultimoStatus =
+        null;
+
+    let valorAtualBoss =
+        null;
+
+    // ======================================
+    // HELPERS
+    // ======================================
+
+    function el(id) {
+
+        return document.getElementById(
+            id
+        );
+    }
+
+    function formatarNumero(numero) {
+
+        return new Intl.NumberFormat(
+            'pt-BR'
+        ).format(
+            Number(numero || 0)
+        );
+    }
+
+    function setText(
+        id,
+        valor
+    ) {
+
+        const elemento =
+            el(id);
+
+        if (!elemento)
+            return;
+
+        const texto =
+            String(valor ?? "");
+
+        if (
+            elemento.textContent !== texto
+        ) {
+
+            elemento.textContent =
+                texto;
+        }
+    }
+
+    function setDisplay(
+        elemento,
+        display
+    ) {
+
+        if (!elemento)
+            return;
+
+        if (
+            elemento.style.display !== display
+        ) {
+
+            elemento.style.display =
+                display;
+        }
+    }
+
+    function setHidden(
+        elemento,
+        esconder
+    ) {
+
+        if (!elemento)
+            return;
+
+        if (esconder) {
+
+            elemento.classList.add(
+                "hidden"
+            );
+
+        } else {
+
+            elemento.classList.remove(
+                "hidden"
+            );
+        }
+    }
+
+    function setBarWidth(
+        id,
+        valor
+    ) {
+
+        const barra =
+            el(id);
+
+        if (!barra)
+            return;
+
+        const width =
+            valor + "%";
+
+        if (
+            barra.style.width !== width
+        ) {
+
+            barra.style.width =
+                width;
+        }
+    }
+
+    // ======================================
+    // CACHE IMAGEM
+    // ======================================
+
+    function salvarImagemCache(src) {
+
+        if (!src)
+            return;
+
+        localStorage.setItem(
+
+            CACHE_IMAGEM_GUERREIRO,
+
+            src
+        );
+    }
+
+    function pegarImagemCache() {
+
+        return localStorage.getItem(
+            CACHE_IMAGEM_GUERREIRO
+        );
+    }
+
+    // ======================================
+    // PRELOAD FORTE
+    // ======================================
+
+    function preloadImagem(src) {
+
+        return new Promise(resolve => {
+
+            if (!src) {
+
+                resolve();
+                return;
+            }
+
+            const img =
+                new Image();
+
+            img.decoding =
+                "async";
+
+            img.loading =
+                "eager";
+
+            img.fetchPriority =
+                "high";
+
+            img.onload =
+                () => resolve();
+
+            img.onerror =
+                () => resolve();
+
+            img.src =
+                src;
+        });
+    }
+
+    // ======================================
+    // TROCA IMAGEM
+    // ======================================
+
+    async function trocarImagemSemPiscar(
+        imgEl,
+        novaSrc
+    ) {
+
+        if (
+            !imgEl ||
+            !novaSrc
+        ) return;
+
+        const atual =
+            imgEl.getAttribute(
+                "src"
+            );
+
+        // evita recarregar igual
+        if (
+            atual &&
+            atual.includes(novaSrc)
+        ) {
+
+            return;
+        }
+
+        await preloadImagem(
+            novaSrc
+        );
+
+        const tempImg =
+            new Image();
+
+        tempImg.src =
+            novaSrc;
+
+        try {
+
+            await tempImg.decode();
+
+        } catch {}
+
+        requestAnimationFrame(() => {
+
+            imgEl.decoding =
+                "async";
+
+            imgEl.fetchPriority =
+                "high";
+
+            imgEl.loading =
+                "eager";
+
+            imgEl.src =
+                novaSrc;
+
+            salvarImagemCache(
+                novaSrc
+            );
+        });
+    }
+
+    // ======================================
+    // CACHE STATUS
+    // ======================================
+
+    function salvarCache(data) {
+
+        if (!data)
+            return;
+
+        localStorage.setItem(
+
+            CACHE_KEY_STATUS,
+
+            JSON.stringify({
+
+                time: Date.now(),
+
+                data: data
+            })
+        );
+    }
+
+    function pegarCache() {
+
+        try {
+
+            const cache =
+                JSON.parse(
+
+                    localStorage.getItem(
+                        CACHE_KEY_STATUS
+                    )
+                );
+
+            if (!cache)
+                return null;
+
+            if (
+
+                Date.now() -
+                cache.time >
+
+                CACHE_TTL
+
+            ) {
+
+                localStorage.removeItem(
+                    CACHE_KEY_STATUS
+                );
+
+                return null;
+            }
+
+            return cache.data;
+
+        } catch {
+
+            return null;
+        }
+    }
+
+    // ======================================
+    // COMPARAÇÃO
+    // ======================================
+
+    function dadosMudaram(
+        novo
+    ) {
+
+        return JSON.stringify(
+            ultimoStatus
+        ) !== JSON.stringify(
+            novo
+        );
+    }
+
+    // ======================================
+    // BOSS COINS
+    // ======================================
+
+    const bossCoinsEl =
+        el("boss_coins");
+
+    const saldoBox =
+        document.querySelector(
+            ".saldo-box"
+        );
+
+    function formatarNumeroBR(
+        valor
+    ) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+            "pt-BR"
+        );
+    }
+
+    function mostrarVariacao(
+        valor,
+        tipo = "ganho"
+    ) {
+
+        if (
+            !saldoBox ||
+            valor <= 0
+        ) return;
+
+        const span =
+            document.createElement(
+                "span"
+            );
+
+        span.className =
+
+            tipo === "perda"
+
+                ? "perda-boss"
+
+                : "ganho-boss";
+
+        span.textContent =
+
+            `${tipo === "perda" ? "-" : "+"}${formatarNumeroBR(valor)}`;
+
+        saldoBox.appendChild(
+            span
+        );
+
+        setTimeout(() => {
+
+            span.remove();
+
+        }, 1500);
+    }
+
+    function animarSaldo(
+        tipo = "ganho"
+    ) {
+
+        if (!bossCoinsEl)
+            return;
+
+        bossCoinsEl.classList.remove(
+
+            "animar-saldo",
+
+            "animar-perda"
+        );
+
+        void bossCoinsEl.offsetWidth;
+
+        bossCoinsEl.classList.add(
+
+            tipo === "perda"
+
+                ? "animar-perda"
+
+                : "animar-saldo"
+        );
+    }
+
+    function animarNumero(
+        inicio,
+        fim,
+        duracao = 1600
+    ) {
+
+        if (!bossCoinsEl)
+            return;
+
+        const start =
+            performance.now();
+
+        function update(time) {
+
+            const progress =
+                Math.min(
+
+                    (
+                        time - start
+                    ) / duracao,
+
+                    1
+                );
+
+            const valor =
+                Math.floor(
+
+                    inicio +
+
+                    (
+                        fim - inicio
+                    ) * progress
+                );
+
+            bossCoinsEl.textContent =
+
+                formatarNumeroBR(
+                    valor
+                );
+
+            if (progress < 1) {
+
+                requestAnimationFrame(
+                    update
+                );
+
+            } else {
+
+                bossCoinsEl.textContent =
+
+                    formatarNumeroBR(
+                        fim
+                    );
+            }
+        }
+
+        requestAnimationFrame(
+            update
+        );
+    }
+
+    function atualizarBossCoins(
+        novoValor
+    ) {
+
+        if (!bossCoinsEl)
+            return;
+
+        const novo =
+            Number(
+                novoValor || 0
+            );
+
+        if (
+            valorAtualBoss === null
+        ) {
+
+            valorAtualBoss =
+                novo;
+
+            bossCoinsEl.textContent =
+
+                formatarNumeroBR(
+                    novo
+                );
+
+            return;
+        }
+
+        const diff =
+            novo -
+            valorAtualBoss;
+
+        if (diff > 0) {
+
+            mostrarVariacao(
+                diff,
+                "ganho"
+            );
+
+            animarSaldo(
+                "ganho"
+            );
+
+            animarNumero(
+
+                valorAtualBoss,
+
+                novo
+            );
+
+        } else if (diff < 0) {
+
+            mostrarVariacao(
+
+                Math.abs(diff),
+
+                "perda"
+            );
+
+            animarSaldo(
+                "perda"
+            );
+
+            animarNumero(
+
+                valorAtualBoss,
+
+                novo
+            );
+
+        } else {
+
+            bossCoinsEl.textContent =
+
+                formatarNumeroBR(
+                    novo
+                );
+        }
+
+        valorAtualBoss =
+            novo;
+    }
+
+    // ======================================
+    // RENDER IMAGEM
+    // ======================================
+
+    async function renderizarImagemGuerreiro(
+        data
+    ) {
+
+        const guerreiroImage =
+            el("guerreiro-image");
+
+        if (!guerreiroImage)
+            return;
+
+        let novaImagem =
+            "/images/guerreiro_padrao.webp";
+
+        const espadaAtiva =
+            (data.ativaEspadaFlanejante ?? 0) > 0;
+
+        const machadoAtivo =
+            (data.ativarMachadoDilacerador ?? 0) > 0;
+
+        const escudoAtivo =
+            (data.ativarEscudoPrimordial ?? 0) > 0;
+
+        const arcoEquipado =
+            (data.arcoAtivo ?? 0) > 0;
+
+        const tipoAtivo =
+            data.tipoFlecha || null;
+
+        if (
+            escudoAtivo &&
+            espadaAtiva
+        ) {
+
+            novaImagem =
+                "/icones/guerreiro_escudo_espada.webp";
+
+        } else if (
+            escudoAtivo &&
+            machadoAtivo
+        ) {
+
+            novaImagem =
+                "/icones/guerreiro_escudo_machado.webp";
+
+        } else if (
+            escudoAtivo
+        ) {
+
+            novaImagem =
+                "/icones/guerreiro_escudo_ativo.webp";
+
+        } else if (
+            espadaAtiva
+        ) {
+
+            novaImagem =
+                "/icones/guerreiroPadrao_espadaFlanejante.webp";
+
+        } else if (
+            machadoAtivo
+        ) {
+
+            novaImagem =
+                "/icones/guerreiroPadrao_machadoDilacerador.webp";
+
+        } else if (
+            arcoEquipado
+        ) {
+
+            const imagens = {
+
+                FERRO:
+                    "/icones/guerreiro_arco_flecha_ferro.webp",
+
+                FOGO:
+                    "/icones/guerreiro_arco_flecha_fogo.webp",
+
+                VENENO:
+                    "/icones/guerreiro_arco_flecha_veneno.webp",
+
+                DIAMANTE:
+                    "/icones/guerreiro_arco_flecha_diamante.webp"
+            };
+
+            novaImagem =
+
+                imagens[tipoAtivo] ??
+
+                "/icones/guerreiro_arco_padrao.webp";
+        }
+
+        await trocarImagemSemPiscar(
+
+            guerreiroImage,
+
+            novaImagem
+        );
+    }
+
+    // ======================================
+    // RENDER STATUS
+    // ======================================
+
+    async function renderizarUsuario(
+        data
+    ) {
+
+        if (!data)
+            return;
+
+        setText(
+            "guerreiros",
+            formatarNumero(
+                data.guerreiros
+            )
+        );
+
+        setText(
+            "xp",
+            formatarNumero(
+                data.xp
+            )
+        );
+
+        atualizarBossCoins(
+            data.bossCoin
+        );
+
+        await renderizarImagemGuerreiro(
+            data
+        );
+
+        ultimoStatus =
+            data;
+    }
+
+    // ======================================
+    // FETCH
+    // ======================================
+
+    async function buscarUsuario() {
+
+        if (!usuarioId)
+            return;
+
+        try {
+
+            const res =
+                await fetch(
+
+                    `/api/atualizar/status/usuario/${usuarioId}`,
+
+                    {
+                        cache:
+                            "force-cache"
+                    }
+                );
+
+            if (!res.ok)
+                return;
+
+            const data =
+                await res.json();
+
+            salvarCache(
+                data
+            );
+
+            if (
+                dadosMudaram(data)
+            ) {
+
+                await renderizarUsuario(
+                    data
+                );
+            }
+
+        } catch (err) {
+
+            console.error(
+
+                "Erro ao atualizar usuário:",
+
+                err
+            );
+        }
+    }
+
+    // ======================================
+    // START
+    // ======================================
+
+    async function iniciarTela() {
+
+        // imagem instantânea
+        const guerreiroImage =
+            el("guerreiro-image");
+
+        const imagemCache =
+            pegarImagemCache();
+
+        if (
+            guerreiroImage &&
+            imagemCache
+        ) {
+
+            guerreiroImage.src =
+                imagemCache;
+        }
+
+        // status cache
+        const cache =
+            pegarCache();
+
+        if (cache) {
+
+            await renderizarUsuario(
+                cache
+            );
+        }
+
+		// primeira carga imediata
+		buscarUsuario();
+
+		// atualizações leves
+		setInterval(() => {
+
+		    // evita request desnecessário
+		    // quando aba estiver minimizada
+		    if (document.hidden) {
+		        return;
+		    }
+
+		    buscarUsuario();
+
+		}, UPDATE_INTERVAL);
+    }
+
+    iniciarTela();
+
+});
+
+/*
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -247,16 +1077,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setText("infoSaques", mensagem);
 
-		/*
-        const percentualEnergia = Math.max(0, Math.min(100, (energia / energiaMax) * 100));
-        setBarWidth("energiaBar", percentualEnergia);
 
-		
-        const btnRecarregar = el("btnRecarregar");
-        if (btnRecarregar) {
-            btnRecarregar.disabled = energia / energiaMax >= 0.2;
-        }
-*/
         const damageContainer = el("damageContainer");
         setHidden(damageContainer, data.energiaGuerreiros <= 0);
 
