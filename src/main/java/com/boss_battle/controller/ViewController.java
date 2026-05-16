@@ -98,6 +98,66 @@ public class ViewController {
     }
     
     //recarregar-vigor
+ // recarregar-vigor
+    @GetMapping("/recarregar-vigor")
+    public String recarregarVigor(
+            HttpSession session,
+            Model model) {
+
+        UsuarioBossBattle usuarioSessao =
+                (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+        if (usuarioSessao == null) {
+            return "redirect:/arena";
+        }
+
+        UsuarioBossBattle usuario =
+                usuarioRepository
+                        .findById(usuarioSessao.getId())
+                        .orElseThrow(() ->
+                                new RuntimeException("Usuário não encontrado")
+                        );
+
+        DecimalFormat df =
+                new DecimalFormat("#,##0");
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("idUsuario", usuario.getId());
+
+        model.addAttribute("xpUsuario", df.format(usuario.getExp()));
+        model.addAttribute("nivelUsuario", df.format(usuario.getNivel()));
+
+        BigDecimal coins = usuario.getBossCoins();
+
+        if (coins == null) {
+            coins = BigDecimal.ZERO;
+        }
+
+        model.addAttribute("boss_coins", df.format(coins));
+
+        long energiaGuerreiros =
+                usuario.getEnergiaGuerreiros();
+
+        long energiaMaxima =
+                usuario.getEnergiaGuerreirosPadrao();
+
+        if (energiaMaxima <= 0) {
+            energiaMaxima = 50L;
+        }
+
+        // valores numéricos para lógica
+        model.addAttribute("energiaGuerreiros", energiaGuerreiros);
+        model.addAttribute("energiaMaxima", energiaMaxima);
+        model.addAttribute("energiaGuerreirosPadrao", energiaMaxima);
+
+        // valores formatados para visual
+        model.addAttribute("energiaGuerreirosFormatado", df.format(energiaGuerreiros));
+        model.addAttribute("energiaMaximaFormatado", df.format(energiaMaxima));
+        model.addAttribute("energiaGuerreirosPadraoFormatado", df.format(energiaMaxima));
+
+        return "recarregar-vigor";
+    }
+    /*
     @GetMapping("/recarregar-vigor")
     public String recarregarVigor(
             HttpSession session,
@@ -164,6 +224,7 @@ public class ViewController {
 
         return "recarregar-vigor";
     }
+    */
   
     @GetMapping("/aprimoramentos")
     public String aprimoramentos(HttpSession session, Model model) {
