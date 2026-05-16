@@ -52,14 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==============================
     // FORMATADOR
     // ==============================
-    const formatarNumero = numero => {
+	const formatarNumero = numero => {
 
-        return new Intl.NumberFormat(
-            'pt-BR'
-        ).format(
-            Number(numero || 0)
-        );
-    };
+	    return Number(numero || 0)
+	        .toLocaleString('pt-BR');
+	};
 
     // ==============================
     // CONTROLE

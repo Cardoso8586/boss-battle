@@ -3,8 +3,10 @@ package com.boss_battle.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,9 +120,11 @@ public class ViewController {
                                 new RuntimeException("Usuário não encontrado")
                         );
 
-        DecimalFormat df =
-                new DecimalFormat("#,##0");
+        DecimalFormatSymbols symbols =
+                new DecimalFormatSymbols(new Locale("pt", "BR"));
 
+        DecimalFormat df =
+                new DecimalFormat("#,##0", symbols);
         model.addAttribute("usuario", usuario);
         model.addAttribute("idUsuario", usuario.getId());
 

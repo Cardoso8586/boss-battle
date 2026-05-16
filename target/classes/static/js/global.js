@@ -1,54 +1,174 @@
 // ======================================
-// AUTO RELOAD ANTI TRAVAMENTO
+// AUTO RELOAD EXTREMO
 // ======================================
 
 (function () {
 
-    let carregamentoFinalizado = false;
+    // ======================================
+    // CONFIG
+    // ======================================
 
-    window.addEventListener('load', () => {
+    const TEMPO_MAX_SEM_RESPOSTA = 8000;
 
-        carregamentoFinalizado = true;
+    const INTERVALO_VERIFICACAO = 1000;
 
-        sessionStorage.removeItem(
-            'AUTO_RELOAD_EXECUTADO'
-        );
-    });
+    // ======================================
+    // STATE
+    // ======================================
 
-    setTimeout(() => {
+    let ultimaResposta =
+        Date.now();
 
-        if (carregamentoFinalizado) {
-            return;
-        }
+    let reloadando = false;
 
-        const paginaCompleta =
-            document.readyState === 'complete';
+    // ======================================
+    // MARCA VIDA
+    // ======================================
 
-        if (paginaCompleta) {
-            return;
-        }
+    function registrarResposta() {
 
-        const jaRecarregou =
-            sessionStorage.getItem(
-                'AUTO_RELOAD_EXECUTADO'
+        ultimaResposta = Date.now();
+    }
+
+    // ======================================
+    // FETCH HOOK
+    // ======================================
+
+    const fetchOriginal =
+        window.fetch;
+
+    window.fetch =
+        async function (...args) {
+
+            try {
+
+                const response =
+                    await fetchOriginal(...args);
+
+                registrarResposta();
+
+                return response;
+
+            } catch (e) {
+
+                throw e;
+            }
+        };
+
+    // ======================================
+    // XHR HOOK
+    // ======================================
+
+    const openOriginal =
+        XMLHttpRequest.prototype.open;
+
+    XMLHttpRequest.prototype.open =
+        function (...args) {
+
+            this.addEventListener(
+                'load',
+                registrarResposta
             );
 
-        // evita loop infinito
-        if (jaRecarregou === 'true') {
+            return openOriginal.apply(
+                this,
+                args
+            );
+        };
+
+    // ======================================
+    // DOM PRONTO
+    // ======================================
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        registrarResposta
+    );
+
+    // ======================================
+    // WINDOW LOAD
+    // ======================================
+
+    window.addEventListener(
+        'load',
+        registrarResposta
+    );
+
+    // ======================================
+    // BOSS RENDER
+    // ======================================
+
+    setInterval(() => {
+
+        const bossNome =
+            document.getElementById(
+                'boss-name'
+            );
+
+        const bossImagem =
+            document.getElementById(
+                'boss-image'
+            );
+
+        if (
+
+            bossNome &&
+            bossNome.innerText.trim() !== ''
+
+        ) {
+
+            registrarResposta();
+        }
+
+        if (
+
+            bossImagem &&
+            bossImagem.complete
+
+        ) {
+
+            registrarResposta();
+        }
+
+    }, 1500);
+
+    // ======================================
+    // WATCHDOG
+    // ======================================
+
+    setInterval(() => {
+
+        if (reloadando) {
             return;
         }
 
-        console.warn(
-            'Página travou. Recarregando automaticamente...'
-        );
+        const agora =
+            Date.now();
 
-        sessionStorage.setItem(
-            'AUTO_RELOAD_EXECUTADO',
-            'true'
-        );
+        const tempoSemResposta =
+            agora - ultimaResposta;
 
-        location.reload();
+        // ======================================
+        // SEM VIDA
+        // ======================================
 
-    }, 10000);
+        if (
+
+            tempoSemResposta >=
+            TEMPO_MAX_SEM_RESPOSTA
+
+        ) {
+
+            reloadando = true;
+
+            console.warn(
+                'Página travada. Recarregando...'
+            );
+
+            // hard reload
+            window.location.reload();
+        }
+
+    }, INTERVALO_VERIFICACAO);
 
 })();
