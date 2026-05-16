@@ -1,4 +1,4 @@
-const SESSION_TIMEOUT = 900000; // produção (15 min)
+const SESSION_TIMEOUT = 1800000; // produção (15 min)
 // const SESSION_TIMEOUT = 10000; // teste (10s)
 
 let timeout;

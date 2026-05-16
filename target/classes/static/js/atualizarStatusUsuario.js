@@ -247,14 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setText("infoSaques", mensagem);
 
+		/*
         const percentualEnergia = Math.max(0, Math.min(100, (energia / energiaMax) * 100));
         setBarWidth("energiaBar", percentualEnergia);
 
+		
         const btnRecarregar = el("btnRecarregar");
         if (btnRecarregar) {
             btnRecarregar.disabled = energia / energiaMax >= 0.2;
         }
-
+*/
         const damageContainer = el("damageContainer");
         setHidden(damageContainer, data.energiaGuerreiros <= 0);
 

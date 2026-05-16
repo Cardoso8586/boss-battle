@@ -8,17 +8,12 @@
     <link rel="stylesheet" href="/css/footer.css">  
     <link rel="stylesheet" href="/css/auth.css">
     <link rel="stylesheet" href="/css/anuncios.css"> 
- <link rel="stylesheet" href="/css/loading.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 </head>
 <body>
 
-<!-- Spinner de carregamento com texto dinâmico -->
-<div id="loading" class="loading">
-  <div class="spinner"></div>
-  <span id="loading-text" class="swal-game-text"></span>
-</div>
 
 
        <!-- ANUNCIO 9 -->
@@ -87,7 +82,7 @@
 
     <!-- Cloudflare Turnstile   0x4AAAAAABeuEKIL4oQVYiXR -->
     <div class="cf-turnstile"
-        data-sitekey="0x4AAAAAAChnmI4Mo7t9Bgax"
+        data-sitekey="0x4AAAAAABeuEKIL4oQVYiXR"
         data-callback="onTurnstileSuccess"
         data-error-callback="onTurnstileError"
         data-expired-callback="onTurnstileExpired">
@@ -214,7 +209,9 @@ function onTurnstileError() {
        
     </div>
 </footer>
-<script src="/js/loading.js"></script>
+
+
+<script src="/js/global.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="/js/descricaoDinamica.js"></script>
 <script src="/js/auth.js"></script>

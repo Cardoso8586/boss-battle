@@ -64,6 +64,7 @@ public class RandomRewardService {
                 if (reward.getRewardItem() == RewardItem.ESCUDO_PRIMORDIAL)
                     usuario.setEscudoPrimordial(usuario.getEscudoPrimordial() + reward.getAmount());
                 
+                /*
                 if (reward.getRewardItem() == RewardItem.ARCO_CELESTIAL)
                     usuario.setInventarioArco(usuario.getInventarioArco() + reward.getAmount());
                 
@@ -78,7 +79,7 @@ public class RandomRewardService {
                 
                 if (reward.getRewardItem() == RewardItem.FLECHA_DIAMANTE)
                     usuario.setFlechaDiamante(usuario.getFlechaDiamante() + reward.getAmount());
-                
+                */
             }//CONSUMABLE
 
             case GUERREIRO -> {
@@ -150,7 +151,8 @@ public class RandomRewardService {
             reward.setImageUrl("icones/escudo_primordial.webp");
 
         }
-        
+              
+        /*
         
         else if (roll < 30) { // ARCO CELESTIAL
             reward.setRewardType(RewardType.CONSUMABLE);
@@ -160,8 +162,7 @@ public class RandomRewardService {
 
         }
         
-        
-        
+  
         
         else if (roll < 40) { //FLECHA FERRO
             reward.setRewardType(RewardType.CONSUMABLE);
@@ -193,7 +194,7 @@ public class RandomRewardService {
             reward.setImageUrl("icones/flecha_diamante.webp");
 
         }
-        
+        */
         
         else if (roll < 80) { // Ataque especial
             reward.setRewardType(RewardType.SPECIAL);

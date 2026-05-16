@@ -1,21 +1,23 @@
-package  com.boss_battle.enums;
+package com.boss_battle.enums;
 
 public enum RewardItem {
+
     BOSS_COIN,
     POCAO_VIGOR,
     ESPADA_FLANEJANTE,
     MACHADO_DILACERADOR,
     ESCUDO_PRIMORDIAL,
-    ARCO_CELESTIAL,
+
     GUERREIRO_BASICO,
     GUERREIRO_RARO,
     ATAQUE_SPECIAL,
-    FLECHA_FERRO,    
-    FLECHA_FOGO,     
-    FLECHA_VENENO,   
-    FLECHA_DIAMANTE,
-    EXP
-    
-    
-}
 
+    // itens desativados do sorteio
+    ARCO_CELESTIAL,
+    FLECHA_FERRO,
+    FLECHA_FOGO,
+    FLECHA_VENENO,
+    FLECHA_DIAMANTE,
+
+    EXP
+}

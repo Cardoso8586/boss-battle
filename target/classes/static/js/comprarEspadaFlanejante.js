@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 									  		        </iframe>
 									  		      </div>
 									  		    `,
-                    confirmButtonText: 'Ok',
+                      showConfirmButton: false,
+					  timer: 8000,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
@@ -176,7 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (err) {
                 console.error(err);
-
+				
+				/*
                 Swal.fire({
                     customClass: { title: 'swal-game-error' },
                   
@@ -200,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
+*/
 
             } finally {
                 setTimeout(() => {

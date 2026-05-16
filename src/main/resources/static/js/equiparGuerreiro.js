@@ -1,3 +1,292 @@
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const meta =
+        document.querySelector('meta[name="user-id"]');
+
+    const usuarioId =
+        meta
+            ? parseInt(meta.getAttribute("content"))
+            : null;
+
+    if (!usuarioId) return;
+
+    // ==============================
+    // ELEMENTOS
+    // ==============================
+    const guerreirosCountSpan =
+        document.getElementById(
+            'guerreirosCount'
+        );
+
+    const btnEquiparGuerreiro =
+        document.getElementById(
+            'btnEquiparGuerreiro'
+        );
+
+    const guerreiroAtivoInfos =
+        document.querySelectorAll(
+            '.guerreiro-ativo-info'
+        );
+
+    // ==============================
+    // FORMATAÇÃO
+    // ==============================
+    function formatarNumero(numero) {
+
+        return new Intl.NumberFormat(
+            'pt-BR'
+        ).format(numero);
+    }
+
+    // ==============================
+    // ATUALIZA NÚCLEO GUERREIRO
+    // ==============================
+    window.atualizarNucleoGuerreiro =
+        function(status) {
+
+            const estoqueGuerreiro =
+                status.estoqueGuerreiro || 0;
+
+            // ==============================
+            // CONTADOR
+            // ==============================
+            if (guerreirosCountSpan) {
+
+                guerreirosCountSpan.textContent =
+                    formatarNumero(
+                        estoqueGuerreiro
+                    );
+            }
+
+            // ==============================
+            // BOTÃO
+            // ==============================
+            if (btnEquiparGuerreiro) {
+
+                if (estoqueGuerreiro > 0) {
+
+                    btnEquiparGuerreiro
+                        .classList
+                        .remove('hidden');
+
+                    btnEquiparGuerreiro.disabled =
+                        false;
+
+                } else {
+
+                    btnEquiparGuerreiro
+                        .classList
+                        .add('hidden');
+                }
+            }
+
+            // ==============================
+            // INFO
+            // ==============================
+            guerreiroAtivoInfos.forEach(elem => {
+
+                if (estoqueGuerreiro > 0) {
+
+                    elem.classList.remove('hidden');
+
+                    elem.textContent =
+                        `✔ Guerreiro enviado prara frente de batalha`;
+
+                } else {
+
+                    elem.classList.add('hidden');
+                }
+            });
+        };
+
+    // ==============================
+    // BOTÃO EQUIPAR
+    // ==============================
+    if (btnEquiparGuerreiro) {
+
+        let emCooldownGuerreiro = false;
+
+        btnEquiparGuerreiro.addEventListener(
+            'click',
+            async () => {
+
+                if (emCooldownGuerreiro)
+                    return;
+
+                emCooldownGuerreiro = true;
+
+                btnEquiparGuerreiro.disabled =
+                    true;
+
+                const textoOriginal =
+                    btnEquiparGuerreiro.innerText;
+
+                btnEquiparGuerreiro.innerText =
+                    `Enviando...`;
+
+                try {
+
+                    const res =
+                        await fetch(
+                            `/equipar/guerreiro/${usuarioId}`,
+                            {
+                                method: 'POST'
+                            }
+                        );
+
+                    // ==============================
+                    // SUCESSO
+                    // ==============================
+                    if (res.ok) {
+
+                        Swal.fire({
+
+                            customClass: {
+                                title:
+                                    'swal-game-text'
+                            },
+
+                            icon: 'success',
+
+                            title:
+                                'Guerreiro enviado!',
+
+                            text:
+                                'Seu guerreiro foi enviado para frente de batalha com sucesso.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            timer: 7000,
+
+                            showConfirmButton: false,
+
+                            background: 'transparent',
+
+                            color: '#ffb400'
+                        });
+
+                    } else {
+
+                        // ==============================
+                        // ERRO RESPONSE
+                        // ==============================
+                        Swal.fire({
+
+                            customClass: {
+                                title:
+                                    'swal-game-error'
+                            },
+
+                            icon: 'error',
+
+                            title: 'Erro',
+
+                            text:
+                                'Erro ao tentar equipar guerreiro.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            timer: 7000,
+
+                            showConfirmButton: false,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+                    }
+
+                } catch (e) {
+
+                    console.error(e);
+
+                    // ==============================
+                    // ERRO CATCH
+                    // ==============================
+                    Swal.fire({
+
+                        customClass: {
+                            title:
+                                'swal-game-error'
+                        },
+
+                        icon: 'error',
+
+                        title: 'Erro',
+
+                        text:
+                            'Erro ao tentar equipar guerreiro.',
+
+                        html: `
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        timer: 7000,
+
+                        showConfirmButton: false,
+
+                        background: 'transparent',
+
+                        color: '#ff3b3b'
+                    });
+
+                } finally {
+
+                    // ==============================
+                    // UPDATE GLOBAL
+                    // ==============================
+                    await atualizarTudo(usuarioId);
+
+                    emCooldownGuerreiro =
+                        false;
+
+                    btnEquiparGuerreiro.disabled =
+                        false;
+
+                    btnEquiparGuerreiro.innerText =
+                        textoOriginal;
+                }
+            }
+        );
+    }
+
+    // ==============================
+    // PRIMEIRO LOAD
+    // ==============================
+    await atualizarTudo(usuarioId);
+
+});
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -30,29 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarNucleoGuerreiro(status);
 
         } catch (e) {
-            //console.error("Erro ao atualizar núcleo do guerreiro:", e);
-			Swal.fire({			
-			customClass: {
-			title: 'swal-game-error'
-			},
-			                icon: 'error',
-			                title: 'Erro',
-			                text: 'Erro ao atualizar núcleo do guerreiro:',
-							timer: 7000,
-							html: `
-											  		      <div class="modal-anuncio">
-											  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-											  		          width="468"
-											  		          height="60"
-											  		          scrolling="no"
-											  		          frameborder="0">
-											  		        </iframe>
-											  		      </div>
-											  		    `,
-							showConfirmButton: false,
-							 background: 'transparent',
-							color: '#ff3b3b' 
-			            });
+           console.error("Erro ao atualizar núcleo do guerreiro:", e);
+		   
+		
         }
     }
 	function atualizarNucleoGuerreiro(status) {
@@ -140,12 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            } else {
 	                // WARNING COM TIMER (4s)
-					/**
-	                swalWarningAuto(
-	                    'Não foi possível enviar o guerreiro.',
-	                    4
-	                );
-					 */
+					
 					Swal.fire({
 									customClass: {
 												title: 'swal-game-error'
@@ -172,29 +436,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	            }
 
 	        } catch (e) {
-	          //  console.error(e);
-	            Swal.fire({
-					customClass: {
-								title: 'swal-game-error'
-								},
-	                icon: 'error',
-	                title: 'Erro',
-	                text: 'Erro ao tentar equipar guerreiro.',
-					html: `
-									  		      <div class="modal-anuncio">
-									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-									  		          width="468"
-									  		          height="60"
-									  		          scrolling="no"
-									  		          frameborder="0">
-									  		        </iframe>
-									  		      </div>
-									  		    `,
-					timer: 7000,
-					showConfirmButton: false,
-					 background: 'transparent',
-					color: '#ff3b3b' 
-	            });
+	          console.error(e);
+			
 	        } finally {
 	            setTimeout(() => {
 	                emCooldownGuerreiro = false;
@@ -212,3 +455,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(atualizarGuerreiro, 10000); 
 
 });
+
+*/

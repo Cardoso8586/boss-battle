@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				
 
             } catch (err) {
+				console.error(e);
+				/*
                 Swal.fire({
 					customClass: {
 				    title: 'swal-game-error'
@@ -125,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
+				
+				*/
             } finally {
                 setTimeout(() => {
                     emCooldown = false;

@@ -3,35 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="user-id" th:content="${idUsuario}">
+     
     <title>Desafios da Arena</title>
     
-      <link rel="stylesheet" href="/css/loading.css">
-    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
-    <meta name="user-id" th:content="${idUsuario}">
-    <link rel="stylesheet" href="/css/user-info.css">  
-     <link rel="stylesheet" href="/css/rankingModal.css"> 
+
+  
+    <link rel="stylesheet" href="/css/rankingModal.css"> 
     <link rel="stylesheet" href="/css/desafios.css">
-       <link rel="stylesheet" href="/css/dashboard-footer.css">  
-       
-
-    <link rel="preload" as="image" href="/imagens/background_missoes.webp">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/customClass.css">  
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+    
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-<!-- Spinner de carregamento com texto dinâmico -->
-<div id="loading" class="loading">
-  <div class="spinner"></div>
-  <span id="loading-text" class="swal-game-text"></span>
-</div>
 
 
 <div class="game-background"></div>
 
-<a href="/dashboard" class="btn-voltar">
+<a href="/arena" class="btn-voltar">
     <i class="fa-solid fa-arrow-left"></i>
     <span>Voltar à Arena</span>
 </a>
@@ -230,20 +221,10 @@
 </section>
 
 
-<!-- Footer -->
-<footer class="dashboard-footer">
-  <div class="footer-content">
 
-    <p class="footer-copy">
-      © 2025 Boss Battle Arena · Todos os direitos reservados
-    </p>
-
-
-  </div>
-</footer>
 
 </main>
-   <script src="/js/loading.js"></script>
+  <script src="/js/global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/nav.js"></script>
 <script src="/js/missoesDiarias.js" defer></script>

@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', async (e) => {
         const text = await response.text();
 
         if (response.ok) {
-            window.location.href = '/dashboard';
+            window.location.href = '/arena';
         } else if (response.status === 502) {
             loginMsg.textContent = "Servidor temporariamente indisponível. Tente novamente em instantes.";
             loginMsg.style.color = 'red';

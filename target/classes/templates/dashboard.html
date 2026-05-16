@@ -26,7 +26,9 @@
     <link rel="stylesheet" href="/css/ResgatarRecompensas.css">
     <link rel="stylesheet" href="/css/ultimosAtaques.css">   
     <link rel="stylesheet" href="/css/rankingDano.css">
-    <link rel="stylesheet" href="/css/nucleoArco.css">   
+    <!-- 
+    <link rel="stylesheet" href="/css/nucleoArco.css"> 
+    -->
     <link rel="stylesheet" href="/css/section-promocoes.css">
     <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">  
     <link rel="stylesheet" href="/css/anuncios.css"> 
@@ -353,11 +355,17 @@ gurações -->
                     
                   <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
                  
+   <a href="/recarregar-vigor" class="btn-recarregar-vigor">
+    <i class="fa-solid fa-bolt"></i>
+    <span>Recarregar Vigor</span>
+</a>
+
+<!-- 
 <button id="btnRecarregar"
         th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
     ⚡ Recarregar Vigor
 </button>
-
+-->
   <div class="reward-card" id="rewardCard" style="display:none;">
     <div class="reward-level" id="rewardLevel">Próximo nível:</div> 
     <img id="rewardImage" src="" alt="Reward">
@@ -477,23 +485,22 @@ gurações -->
 <!-- Ajustes de Batalha -->
 
 
-<!-- NÚCLEO ARCO & FLECHAS (INVISÍVEL POR PADRÃO) -->
+<!-- 
 <div id="nucleoArco">
 
-    <!-- BOTÃO -->
+
     <button id="btnNucleoArco" class="btn-nucleo-icon">
         <img src="/icones/arco_flecha.webp" alt="Arco e Flechas">
         <span class="nucleo-label">Arco & Flechas</span>
     </button>
 
-    <!-- CARD -->
     <div id="nucleoArcoCard" class="nucleo-card hidden">
 
         <button id="fecharNucleoArco" class="nucleo-close">✕</button>
 
         <h2 class="card-title">Arco & Flechas</h2>
 
-        <!-- ARCO -->
+   
         <div class="nucleo-item">
             <img src="icones/arco.webp" alt="Arco" class="icone-item">
             Arco Disponiveis: <span id="arcoDisponiveis">0</span>
@@ -516,12 +523,7 @@ gurações -->
             Equipar Arco
         </button>
 
-         <!-- 
-        <button id="btnReativarArco" class="btn-nucleo-acao hidden">
-            Reativar Arco
-        </button>
- -->
-        <!-- ALJAVA -->
+
         <hr>
 
         <div class="nucleo-item">
@@ -533,7 +535,6 @@ gurações -->
             Tipo de Flecha: <span id="tipoFlechaAtiva">-</span>
         </div>
 
-        <!-- BOTÕES DE FLECHA -->
  <button id="btnColocarFlechaFerro" class="btn-nucleo-acao">
   <img src="icones/flecha_ferro.webp" alt="Flecha de Ferro">
   <span>Colocar Flecha de Ferro</span>
@@ -556,7 +557,7 @@ gurações -->
 
     </div>
 </div>
-<!-- NÚCLEO ARCO & FLECHAS (LIVRE NA TELA) -->
+ (LIVRE NA TELA) -->
 
  </div>
 
@@ -1973,7 +1974,7 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
     <script src="/js/nav.js"></script>
     <script src="/js/atacarBoss.js"></script> 
     <script src="/js/lang-select.js"></script>
-    <script src="/js/recarregarVigor.js"></script>  
+  
     <script src="/js/atualizarStatusUsuario.js"></script>  
      <script src="/js/ultimoAtaqueBoss.js" defer></script>
     <!-- loja --> 
@@ -2008,7 +2009,11 @@ Convide seus aliados, forme uma legião imbatível e marche rumo à vitória!
      <script src="/js/equiparMachadoDilacerador.js" defer></script>
      <script src="/js/ultimosPagamentos.js" defer></script>
      <script src="/js/resgatarRecompensas.js" defer></script>
+         <!-- 
      <script src="/js/nucleoArco.js" defer></script>
+    -->
+    
+     
      <script src="/js/atualizarStatusArco.js" defer></script>
      <script src="/js/ativarArco.js" defer></script>
      <script src="/js/colocarFlechas.js" defer></script>

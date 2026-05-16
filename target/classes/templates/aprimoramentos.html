@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+
+    <title>Aprimoramentos</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="/css/loja.css">
+    <link rel="stylesheet" href="/css/customClass.css">
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+      
+</head>
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<main class="pagina-loja">
+<section id="loja">
+
+    <h2 class="secao-titulo">Aprimoramentos</h2>
+
+    <p class="secao-descricao">
+        Aqui você pode comprar itens para fortalecer seu exército
+        e melhorar seu jogo.
+    </p>
+
+    <div class="loja-wrapper">
+
+        <!-- Card Guerreiros -->
+        <div class="loja-card">
+
+            <h3>Guerreiro</h3>
+
+            <img src="/images/guerreiro_padrao.webp"
+                 alt="Guerreiro"
+                 class="card-imagem" />
+
+            <p>Adicione mais guerreiros ao seu exército.</p>
+
+            <p>
+                Preço por 1 unidade:
+
+                <span class="preco"
+                      id="preco-guerreiros"
+                      th:text="${precoGuerreiros + ' Boss Coins'}"
+                      th:data-preco="${precoGuerreiros}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-guerreiros">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-guerreiros"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="guerreiros">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- Card Energia -->
+        <div class="loja-card">
+
+            <h3>Capacidade de Vigor</h3>
+
+            <img src="/icones/capacidade_vigor.webp"
+                 alt="Vigor"
+                 class="card-imagem" />
+
+            <p>
+                Aumente a capacidade máxima de vigor
+                dos seus guerreiros.
+            </p>
+
+            <p>
+                Preço por 50 unidades:
+
+                <span class="preco"
+                      id="preco-energia"
+                      th:text="${precoEnergia + ' Boss Coins'}"
+                      th:data-preco="${precoEnergia}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-energia">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-energia"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="energia">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- Card Ataque Especial -->
+        <div class="loja-card">
+
+            <h3>Ataque Especial</h3>
+
+            <img src="/icones/ataque_especial.webp"
+                 alt="Ataque Especial"
+                 class="card-imagem" />
+
+            <p>
+                Aumente o poder do seu ataque especial.
+            </p>
+
+            <p>
+                Preço por 5 unidades:
+
+                <span class="preco"
+                      id="preco-ataque-especial"
+                      th:text="${precoAtaqueEspecial + ' Boss Coins'}"
+                      th:data-preco="${precoAtaqueEspecial}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-ataque">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-ataque"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="ataqueEspecial">
+                Comprar
+            </button>
+
+        </div>
+
+        <!-- Poção -->
+        <div class="loja-card">
+
+            <h3>Poção de Vigor</h3>
+
+            <img src="/icones/pocao_vigor.webp"
+                 alt="Poção Automática de Vigor"
+                 class="card-imagem" />
+
+            <p>
+                Restaura completamente o vigor dos guerreiros automaticamente quando estiver abaixo do limite.
+            </p>
+
+            <p>
+                Preço por unidade:
+
+                <span class="preco"
+                      id="preco-auto-vigor"
+                      th:text="${precoPocaoVigor + ' Boss Coins'}"
+                      th:data-preco="${precoPocaoVigor}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-auto-vigor">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-auto-vigor"
+                   class="quantidade-item"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="PocaoAutomaticaVigor">
+                Comprar Poção
+            </button>
+
+        </div>
+
+        <!-- Espada -->
+        <div class="loja-card">
+
+            <h3>Espada Flanejante</h3>
+
+            <img src="/icones/espada_flanejante.webp"
+                 alt="Espada Flanejante"
+                 class="espada-flanejante-imagem" />
+
+            <p>
+                Aumenta o ataque em 20% durante a vida útil da espada.
+            </p>
+
+            <p>
+                Preço por unidade:
+
+                <span class="preco"
+                      id="preco-espada-flanejante"
+                      th:text="${precoEspadaFlanejante + ' Boss Coins'}"
+                      th:data-preco="${precoEspadaFlanejante}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-espada-flanejante">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-espada-flanejante"
+                   class="quantidade-espadas"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="espada-flanejante">
+                Comprar Espada
+            </button>
+
+        </div>
+
+        <!-- Machado -->
+        <div class="loja-card">
+
+            <h3>Machado Dilacerador</h3>
+
+            <img src="/icones/machado_dilacerador.webp"
+                 alt="Machado Dilacerador"
+                 class="machado-dilacerador-imagem" />
+
+            <p>
+                Aumenta o ataque em 10% durante a vida útil do machado.
+            </p>
+
+            <p>
+                Preço por unidade:
+
+                <span class="preco"
+                      id="preco-machado-dilacerador"
+                      th:text="${precoMachadoDilacerador + ' Boss Coins'}"
+                      th:data-preco="${precoMachadoDilacerador}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-machado-dilacerador">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-machado-dilacerador"
+                   class="quantidade-machado"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="machado-dilacerador">
+                Comprar Machado
+            </button>
+
+        </div>
+
+        <!-- Escudo -->
+        <div class="loja-card">
+
+            <h3>Escudo Primordial</h3>
+
+            <img src="/icones/escudo_primordial.webp"
+                 alt="Escudo Primordial"
+                 class="escudo-primordial-imagem" />
+
+            <p>
+                Diminui o ataque do Boss em 40%
+                durante a vida útil do escudo.
+            </p>
+
+            <p>
+                Preço por unidade:
+
+                <span class="preco"
+                      id="preco-escudo-primordial"
+                      th:text="${precoEscudoPrimordial + ' Boss Coins'}"
+                      th:data-preco="${precoEscudoPrimordial}">
+                </span>
+
+            </p>
+
+            <label for="quantidade-escudo-primordial">
+                Quantidade:
+            </label>
+
+            <input type="number"
+                   id="quantidade-escudo-primordial"
+                   class="quantidade-escudo"
+                   min="1"
+                   value="1">
+
+            <button class="btn-comprar"
+                    data-item="escudo-primordial">
+                Comprar Escudo Primordial
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ANUNCIO -->
+    <div class="anuncio-6">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="300"
+            height="250"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+
+    <!-- ANUNCIO -->
+    <div class="anuncio-7">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+
+</section>
+
+    
+      <!-- ANUNCIO 5 -->
+
+<div class="anuncio-5">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+
+
+
+</main>
+<script src="/js/global.js"></script>
+<script src="/js/atualizarPrecosLoja.js"></script>
+
+<script src="/js/comprarArcoCelestial.js"></script>
+<script src="/js/comprarGuerreiro.js"></script>
+<script src="/js/comprarEspadaFlanejante.js" defer></script>
+<script src="/js/comprarCapacidadeVigor.js"></script>
+<script src="/js/comprarAtaqueEspecial.js"></script>
+<script src="/js/comprarPocaoVigorAuto.js" defer></script>
+<script src="/js/comprarMachadoDilacerador.js" defer></script>
+<script src="/js/comprarEscudoPrimordial.js" defer></script>
+<script src="/js/comprarAtaqueEspecial.js" defer></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

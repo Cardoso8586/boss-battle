@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+    
+    <title>Resgatar Recompensas</title>
+
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/resgatarRecompensas.css}">
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+    <link rel="stylesheet" href="/css/swal2-popup.css">
+    
+    
+</head>
+
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+
+<section id="retirar">
+
+<div class="anuncio-8">
+
+  <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+
+</div>
+
+    <h2 class="secao-titulo recompensa-titulo">
+        Resgatar Recompensas
+    </h2>
+
+    <p class="secao-descricao recompensa-desc" id="infoSaques"></p>
+
+    <p class="secao-descricao recompensa-desc">
+        Mínimo de Retirada: 20.000 Boss Coin.
+    </p>
+
+    <div class="anuncio-11">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="468"
+                height="60"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+    <div class="moedas-grid">
+
+        <div class="moeda-card" data-moeda="USDT">
+            <h3>USDT</h3>
+            <p class="valor">
+                <img src="/icones/tether-usdt-logo.webp?v=002" alt="USDT">
+                <span class="quantidade"></span> USDT
+            </p>
+            <p class="equivalente">
+                ≈ <span class="boss"></span> BossCoin
+            </p>
+            <button class="btn-resgatar">Resgatar</button>
+        </div>
+
+        <div class="moeda-card" data-moeda="DOGE">
+            <h3>DOGE</h3>
+            <p class="valor">
+                <img src="/icones/doge.webp?v=002" alt="DOGE">
+                <span class="quantidade"></span> DOGE
+            </p>
+            <p class="equivalente">
+                ≈ <span class="boss"></span> BossCoin
+            </p>
+            <button class="btn-resgatar">Resgatar</button>
+        </div>
+
+        <div class="moeda-card" data-moeda="LTC">
+            <h3>LTC</h3>
+            <p class="valor">
+                <img src="/icones/ltc.webp?v=010" alt="LTC">
+                <span class="quantidade"></span> LTC
+            </p>
+            <p class="equivalente">
+                ≈ <span class="boss"></span> BossCoin
+            </p>
+            <button class="btn-resgatar">Resgatar</button>
+        </div>
+
+        <div class="moeda-card" data-moeda="TRX">
+            <h3>TRX</h3>
+            <p class="valor">
+                <img src="/icones/trx.webp?v=010" alt="TRX">
+                <span class="quantidade"></span> TRX
+            </p>
+            <p class="equivalente">
+                ≈ <span class="boss"></span> BossCoin
+            </p>
+            <button class="btn-resgatar">Resgatar</button>
+        </div>
+
+        <div class="moeda-card" data-moeda="DGB">
+            <h3>DGB</h3>
+            <p class="valor">
+                <img src="/icones/dgb.webp?v=001" alt="DGB">
+                <span class="quantidade"></span> DGB
+            </p>
+            <p class="equivalente">
+                ≈ <span class="boss"></span> BossCoin
+            </p>
+            <button class="btn-resgatar">Resgatar</button>
+        </div>
+
+
+    </div>
+
+    <h3 class="secao-titulo recompensa-titulo">
+        Histórico de Retiradas
+    </h3>
+
+    <p class="secao-descricao recompensa-desc">
+        Acompanhe seus últimos resgates no jogo
+    </p>
+
+    <div id="historico-container" class="historico-container">
+        <table class="historico-table">
+            <thead>
+                <tr>
+                    <th>Moeda</th>
+                    <th>Valor</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+
+            <tbody id="historicoRetirada">
+                <!-- JS carrega o histórico aqui -->
+            </tbody>
+        </table>
+    </div>
+        <div class="anuncio-1">
+            <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="300"
+                    height="250"
+                    scrolling="no"
+                    border="0"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+    <div class="anuncio-12">
+        <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="728"
+                height="90"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+
+
+</section>
+
+<script src="/js/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  src="/js/resgatarRecompensas.js" defer></script>
+ <script src="/js/ultimosPagamentos.js" defer></script>
+
+</body>
+</html>

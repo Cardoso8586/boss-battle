@@ -90,14 +90,18 @@ public class SecurityConfig {
                         "/cadastro/**",
                         "/anuncio-recompensa/**",
                         "/desafios/**",
-                        
+                        "/recarregar-vigor/**",
+                        "/aprimoramentos/**",
+                        "/central-comando/**",
+                        "/resgatar-recompensas/**",
+                        "/referidos/**",
                         
                         
                         "/aliados/**",
                         "/perfil/**",
                         "/index.html",
                         "/maintenance.html",
-                        "/dashboard/**",
+                        "/arena/**",
                         "/api/auth/cadastro/**",
                         "/api/auth/login/**",
                         "/api/saldoBossCoin/**",
@@ -168,7 +172,7 @@ public class SecurityConfig {
 
             .formLogin(form -> form
                     .loginPage("/login")
-                    .defaultSuccessUrl("/dashboard", true)
+                    .defaultSuccessUrl("/arena", true)
                     .permitAll()
             )
             .logout(logout -> logout

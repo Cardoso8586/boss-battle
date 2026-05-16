@@ -1,4 +1,443 @@
 
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const meta =
+        document.querySelector(
+            'meta[name="user-id"]'
+        );
+
+    const usuarioId =
+        meta
+            ? parseInt(
+                meta.getAttribute("content")
+            )
+            : null;
+
+    if (!usuarioId) return;
+
+    // ==============================
+    // BOTÕES
+    // ==============================
+    const btnRetirarAtaque =
+        document.getElementById(
+            'btnRetirarGuerreiro'
+        );
+
+    const btnRetirarRetaguarda =
+        document.getElementById(
+            'btnRetirarRetaguarda'
+        );
+
+    // ==============================
+    // STATUS BOTÕES
+    // ==============================
+    window.atualizarStatusBotoes =
+        function(status) {
+
+            const guerreirosAtivo =
+                status.ativoGuerreiro || 0;
+
+            const guerreirosRetaguarda =
+                status.guerreirosRetaguarda || 0;
+
+            // ==============================
+            // BOTÃO ATAQUE
+            // ==============================
+            if (btnRetirarAtaque) {
+
+                guerreirosAtivo > 0
+
+                    ? btnRetirarAtaque
+                        .classList
+                        .remove('hidden')
+
+                    : btnRetirarAtaque
+                        .classList
+                        .add('hidden');
+            }
+
+            // ==============================
+            // BOTÃO RETAGUARDA
+            // ==============================
+            if (btnRetirarRetaguarda) {
+
+                guerreirosRetaguarda > 0
+
+                    ? btnRetirarRetaguarda
+                        .classList
+                        .remove('hidden')
+
+                    : btnRetirarRetaguarda
+                        .classList
+                        .add('hidden');
+            }
+        };
+
+    // ==============================
+    // SWEET ALERT WARNING
+    // ==============================
+    function swalWarningAuto(
+        texto,
+        segundos = 4
+    ) {
+
+        Swal.fire({
+
+            customClass: {
+                title: 'swal-game-error'
+            },
+
+            icon: 'warning',
+
+            title: 'Ação inválida',
+
+            html: `
+                ${texto}
+                <br><br>
+
+                <div class="modal-anuncio">
+                    <iframe
+                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            `,
+
+            timer: segundos * 1000,
+
+            timerProgressBar: true,
+
+            showConfirmButton: false,
+
+            background: 'transparent',
+
+            color: '#ff3b3b'
+        });
+    }
+
+    // ==============================
+    // RETIRAR ATAQUE
+    // ==============================
+    if (btnRetirarAtaque) {
+
+        let emCooldownRetirarAtaque =
+            false;
+
+        btnRetirarAtaque
+            .addEventListener(
+                'click',
+                async () => {
+
+                    if (
+                        emCooldownRetirarAtaque
+                    ) return;
+
+                    emCooldownRetirarAtaque =
+                        true;
+
+                    btnRetirarAtaque.disabled =
+                        true;
+
+                    const textoOriginal =
+                        btnRetirarAtaque.innerText;
+
+                    btnRetirarAtaque.innerText =
+                        `Retirando...`;
+
+                    try {
+
+                        const res =
+                            await fetch(
+                                `/retirar/ataque/${usuarioId}`,
+                                {
+                                    method: 'POST'
+                                }
+                            );
+
+                        // ==============================
+                        // SUCESSO
+                        // ==============================
+                        if (res.ok) {
+
+                            Swal.fire({
+
+                                customClass: {
+                                    title:
+                                        'swal-game-text'
+                                },
+
+                                icon:
+                                    'success',
+
+                                title:
+                                    'Guerreiro retirado!',
+
+                                text:
+                                    'O guerreiro voltou ao Acampamento.',
+
+                                html: `
+                                    <div class="modal-anuncio">
+                                        <iframe
+                                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                            width="468"
+                                            height="60"
+                                            scrolling="no"
+                                            frameborder="0">
+                                        </iframe>
+                                    </div>
+                                `,
+
+                                timer: 7000,
+
+                                showConfirmButton:
+                                    false,
+
+                                background:
+                                    'transparent',
+
+                                color:
+                                    '#ffb400'
+                            });
+
+                        } else {
+
+                            swalWarningAuto(
+                                'Nenhum guerreiro no ataque.',
+                                4
+                            );
+                        }
+
+                    } catch (e) {
+
+                        console.error(e);
+
+                        Swal.fire({
+
+                            customClass: {
+                                title:
+                                    'swal-game-error'
+                            },
+
+                            icon: 'error',
+
+                            title: 'Erro',
+
+                            text:
+                                'Erro ao retirar guerreiro do ataque.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            timer: 7000,
+
+                            showConfirmButton:
+                                false,
+
+                            background:
+                                'transparent',
+
+                            color:
+                                '#ff3b3b'
+                        });
+
+                    } finally {
+
+                        // ==============================
+                        // UPDATE GLOBAL
+                        // ==============================
+                        await atualizarTudo(
+                            usuarioId
+                        );
+
+                        emCooldownRetirarAtaque =
+                            false;
+
+                        btnRetirarAtaque.disabled =
+                            false;
+
+                        btnRetirarAtaque.innerText =
+                            textoOriginal;
+                    }
+                }
+            );
+    }
+
+    // ==============================
+    // RETIRAR RETAGUARDA
+    // ==============================
+    if (btnRetirarRetaguarda) {
+
+        let emCooldownRetirarRetaguarda =
+            false;
+
+        btnRetirarRetaguarda
+            .addEventListener(
+                'click',
+                async () => {
+
+                    if (
+                        emCooldownRetirarRetaguarda
+                    ) return;
+
+                    emCooldownRetirarRetaguarda =
+                        true;
+
+                    btnRetirarRetaguarda.disabled =
+                        true;
+
+                    const textoOriginal =
+                        btnRetirarRetaguarda.innerText;
+
+                    btnRetirarRetaguarda.innerText =
+                        `Retirando...`;
+
+                    try {
+
+                        const res =
+                            await fetch(
+                                `/retirar/retaguarda/${usuarioId}`,
+                                {
+                                    method: 'POST'
+                                }
+                            );
+
+                        // ==============================
+                        // SUCESSO
+                        // ==============================
+                        if (res.ok) {
+
+                            Swal.fire({
+
+                                customClass: {
+                                    title:
+                                        'swal-game-text'
+                                },
+
+                                icon:
+                                    'success',
+
+                                title:
+                                    'Retaguarda recuada!',
+
+                                text:
+                                    'O guerreiro voltou ao Acampamento.',
+
+                                html: `
+                                    <div class="modal-anuncio">
+                                        <iframe
+                                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                            width="468"
+                                            height="60"
+                                            scrolling="no"
+                                            frameborder="0">
+                                        </iframe>
+                                    </div>
+                                `,
+
+                                timer: 7000,
+
+                                showConfirmButton:
+                                    false,
+
+                                background:
+                                    'transparent',
+
+                                color:
+                                    '#ffb400'
+                            });
+
+                        } else {
+
+                            swalWarningAuto(
+                                'Nenhum guerreiro na retaguarda.',
+                                4
+                            );
+                        }
+
+                    } catch (e) {
+
+                        console.error(e);
+
+                        Swal.fire({
+
+                            customClass: {
+                                title:
+                                    'swal-game-error'
+                            },
+
+                            icon: 'error',
+
+                            title: 'Erro',
+
+                            text:
+                                'Erro ao retirar guerreiro da retaguarda.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            timer: 7000,
+
+                            showConfirmButton:
+                                false,
+
+                            background:
+                                'transparent',
+
+                            color:
+                                '#ff3b3b'
+                        });
+
+                    } finally {
+
+                        // ==============================
+                        // UPDATE GLOBAL
+                        // ==============================
+                        await atualizarTudo(
+                            usuarioId
+                        );
+
+                        emCooldownRetirarRetaguarda =
+                            false;
+
+                        btnRetirarRetaguarda.disabled =
+                            false;
+
+                        btnRetirarRetaguarda.innerText =
+                            textoOriginal;
+                    }
+                }
+            );
+    }
+
+    // ==============================
+    // PRIMEIRO LOAD
+    // ==============================
+    await atualizarTudo(usuarioId);
+
+});
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -230,28 +669,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	        } catch (e) {
 	            console.error(e);
-	            Swal.fire({
-					customClass: {
-					      title: 'swal-game-text'
-					    },
-	                icon: 'error',
-	                title: 'Erro',
-	                text: 'Erro ao retirar guerreiro da retaguarda.',
-					html: `
-									  		      <div class="modal-anuncio">
-									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-									  		          width="468"
-									  		          height="60"
-									  		          scrolling="no"
-									  		          frameborder="0">
-									  		        </iframe>
-									  		      </div>
-									  		    `,
-					timer: 7000,
-					showConfirmButton: false,
-				    background: 'transparent',
-					color: '#ff3b3b'
-	            });
+				
+			
 	        } finally {
 	            setTimeout(() => {
 	                emCooldownRetirarRetaguarda = false;
@@ -269,4 +688,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(atualizarStatus, 10000);
 
 });
-
+*/

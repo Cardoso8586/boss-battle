@@ -67,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </iframe>
                         </div>
                     `,
+					timer: 8000,
+					showConfirmButton: false,
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
@@ -140,8 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         customClass: {
                             title: 'swal-game-error'
                         },
-                        title: 'Erro na compra',
-                        text: mensagem || 'Saldo insuficiente.',
+                        title: 'Saldo insuficiente.',
+                        text: mensagem || 'Erro na compra',
                         imageUrl: bossCoinErroImg,
                         imageWidth: 120,
                         imageHeight: 120,
@@ -155,6 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </iframe>
                             </div>
                         `,
+						timer: 8000,
+						showConfirmButton: false,
                         background: 'transparent',
                         color: '#ff3b3b'
                     });
@@ -163,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Erro ao comprar escudo primordial:', error);
 
+				/*
                 Swal.fire({
                     customClass: {
                         title: 'swal-game-error'
@@ -185,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     background: 'transparent',
                     color: '#ff3b3b'
                 });
+				
+				*/
             } finally {
                 setTimeout(() => {
                     emCooldown = false;

@@ -1,23 +1,68 @@
 /* =========================================
-   TITULO PADRÃO
+   BODY / FUNDO
+========================================= */
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    padding: 25px;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
+        url('/images/fundo-boss.webp') center center / cover no-repeat;
+
+    background-attachment: fixed;
+}
+
+/* =========================================
+   CONTAINER PRINCIPAL
+========================================= */
+
+#retirar {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,10,10,0.35),
+            rgba(5,5,5,0.45)
+        );
+
+    border: 1px solid rgba(255,215,0,0.08);
+    backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 0 25px rgba(0,0,0,0.22),
+        inset 0 0 20px rgba(255,180,0,0.03);
+}
+
+/* =========================================
+   TÍTULOS
 ========================================= */
 
 .secao-titulo {
-
     margin-bottom: 8px;
-
     font-size: 2rem;
-
     font-weight: 900;
-
     text-transform: uppercase;
-
     letter-spacing: 2px;
-
     color: #ffb400;
 
     text-shadow:
-    0 0 14px rgba(255,180,0,0.45);
+        0 0 14px rgba(255,180,0,0.45);
+}
+
+.recompensa-titulo {
+    color: #ffd700;
+
+    text-shadow:
+        0 0 18px rgba(255,215,0,0.55),
+        0 0 28px rgba(255,180,0,0.25);
 }
 
 /* =========================================
@@ -25,49 +70,30 @@
 ========================================= */
 
 .secao-descricao {
-
     margin-bottom: 18px;
-
     font-size: 1rem;
-
     color: rgba(255,231,163,0.92);
 
     text-shadow:
-    0 0 6px rgba(255,200,100,0.18);
+        0 0 6px rgba(255,200,100,0.18);
 
     background:
-    linear-gradient(
-    180deg,
-    rgba(0,0,0,0.14),
-    rgba(0,0,0,0.22));
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,0.14),
+            rgba(0,0,0,0.22)
+        );
 
     padding: 12px 16px;
-
     border-radius: 14px;
-
     border: 1px solid rgba(255,180,0,0.06);
-
     backdrop-filter: blur(5px);
 
     box-shadow:
-    0 0 10px rgba(0,0,0,0.10);
-}
-
-/* =========================================
-   RECOMPENSA
-========================================= */
-
-.recompensa-titulo {
-
-    color: #ffd700;
-
-    text-shadow:
-    0 0 18px rgba(255,215,0,0.55),
-    0 0 28px rgba(255,180,0,0.25);
+        0 0 10px rgba(0,0,0,0.10);
 }
 
 .recompensa-desc {
-
     color: rgba(255,242,179,0.92);
 }
 
@@ -76,15 +102,11 @@
 ========================================= */
 
 .moedas-grid {
-
     display: grid;
-
-    grid-template-columns:
-    repeat(auto-fit, minmax(220px, 1fr));
-
-    gap: 20px;
-
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
     margin-top: 25px;
+    align-items: start;
 }
 
 /* =========================================
@@ -92,156 +114,257 @@
 ========================================= */
 
 .moeda-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 230px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     padding: 20px;
-
     text-align: center;
-
     border-radius: 22px;
 
     background:
-    linear-gradient(
-    180deg,
-    rgba(18,18,18,0.20),
-    rgba(10,10,10,0.30));
+        linear-gradient(
+            180deg,
+            rgba(18,18,18,0.20),
+            rgba(10,10,10,0.30)
+        );
 
-    border:
-    1px solid rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.04);
 
     box-shadow:
-    0 0 14px rgba(0,0,0,0.12),
-    inset 0 0 10px rgba(255,180,0,0.015);
+        0 0 14px rgba(0,0,0,0.12),
+        inset 0 0 10px rgba(255,180,0,0.015);
 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 
     transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease;
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.moeda-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255,215,0,0.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
 }
 
 .moeda-card:hover {
-
     transform: translateY(-5px);
-
     border-color: rgba(255,180,0,0.10);
 
     box-shadow:
-    0 0 18px rgba(255,180,0,0.08);
+        0 0 18px rgba(255,180,0,0.08);
 }
 
 .moeda-card h3 {
-
-    margin-bottom: 10px;
-
-    font-size: 1.2rem;
-
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     color: #fff;
 }
 
+.moeda-card img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255,180,0,0.18));
+}
+
 .valor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 
     font-size: 1.4rem;
-
     font-weight: bold;
-
     color: #ffb400;
 
     text-shadow:
-    0 0 10px rgba(255,180,0,0.25);
+        0 0 10px rgba(255,180,0,0.25);
 }
 
 .equivalente {
-
     font-size: 0.9rem;
-
     color: rgba(255,255,255,0.55);
-
     margin-bottom: 15px;
 }
 
 /* =========================================
-   BOTÃO
+   BOTÃO RESGATAR
 ========================================= */
 
 .btn-resgatar {
+    width: 100%;
+    margin-top: auto;
 
     border: none;
-
-    padding: 10px 16px;
-
+    padding: 12px 18px;
     border-radius: 14px;
 
     cursor: pointer;
 
+    font-size: 0.95rem;
     font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 
     color: #fff;
 
     background:
-    linear-gradient(
-    135deg,
-    rgba(255,180,0,0.78),
-    rgba(255,127,80,0.72));
+        linear-gradient(
+            135deg,
+            rgba(255,180,0,0.78),
+            rgba(255,127,80,0.72)
+        );
 
     box-shadow:
-    0 0 14px rgba(255,180,0,0.12);
+        0 0 14px rgba(255,180,0,0.12);
 
     transition:
-    transform 0.18s ease,
-    box-shadow 0.25s ease;
+        transform 0.18s ease,
+        box-shadow 0.25s ease;
 }
 
 .btn-resgatar:hover {
-
     transform: translateY(-2px);
 
     box-shadow:
-    0 0 18px rgba(255,180,0,0.18);
+        0 0 18px rgba(255,180,0,0.18);
+}
+
+.btn-resgatar:active {
+    transform: scale(0.97);
 }
 
 /* =========================================
-   CONTAINER HISTÓRICO
+   BOTÃO VOLTAR
 ========================================= */
 
+.btn-voltar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 14px 22px;
+
+    border: none;
+    border-radius: 18px;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    color: #fff;
+
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,180,0,0.10),
+            rgba(255,120,0,0.06)
+        );
+
+    border: 1px solid rgba(255,180,0,0.08);
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 14px rgba(0,0,0,0.18);
+
+    transition: .2s ease;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(255,180,0,0.12);
+}
+
+.btn-voltar i {
+    color: #ffb400;
+}
+
+/* =========================================
+   ANÚNCIOS
+========================================= */
+
+.anuncio-1,
+.anuncio-11,
+.anuncio-12,
+.anuncio-13 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 22px 0;
+    overflow: hidden;
+}
+
+/* =========================================
+   HISTÓRICO
+========================================= */
+
+#historico-container {
+    margin-top: 18px;
+}
+
 .historico-container {
-
     max-height: 250px;
-
     overflow-y: auto;
 
     border-radius: 18px;
-
-    border:
-    1px solid rgba(255,215,0,0.08);
+    border: 1px solid rgba(255,215,0,0.08);
 
     background:
-    linear-gradient(
-    180deg,
-    rgba(10,10,10,0.22),
-    rgba(5,5,5,0.32));
+        linear-gradient(
+            180deg,
+            rgba(10,10,10,0.22),
+            rgba(5,5,5,0.32)
+        );
 
     backdrop-filter: blur(6px);
 
     box-shadow:
-    inset 0 0 12px rgba(255,180,0,0.015),
-    0 0 14px rgba(0,0,0,0.12);
+        inset 0 0 12px rgba(255,180,0,0.015),
+        0 0 14px rgba(0,0,0,0.12);
 }
 
-/* =========================================
-   SCROLL
-========================================= */
-
 .historico-container::-webkit-scrollbar {
-
     width: 6px;
 }
 
 .historico-container::-webkit-scrollbar-thumb {
-
     background:
-    linear-gradient(#ffd700, #ffb400);
+        linear-gradient(#ffd700, #ffb400);
 
     border-radius: 10px;
 }
@@ -251,67 +374,53 @@
 ========================================= */
 
 .historico-table {
-
     width: 100%;
-
     border-collapse: collapse;
 
     font-size: 0.9rem;
-
     color: rgba(255,231,163,0.92);
 }
 
 .historico-table thead {
-
     background:
-    linear-gradient(
-    180deg,
-    rgba(42,34,0,0.30),
-    rgba(21,17,0,0.18));
+        linear-gradient(
+            180deg,
+            rgba(42,34,0,0.30),
+            rgba(21,17,0,0.18)
+        );
 }
 
 .historico-table th {
-
     padding: 12px;
 
     text-transform: uppercase;
-
     font-size: 0.75rem;
-
     letter-spacing: 1px;
 
     color: #ffd700;
 
     text-shadow:
-    0 0 8px rgba(255,215,0,0.35);
+        0 0 8px rgba(255,215,0,0.35);
 
     border-bottom:
-    1px solid rgba(255,215,0,0.10);
+        1px solid rgba(255,215,0,0.10);
 }
 
 .historico-table td {
-
     padding: 10px;
-
     text-align: center;
 
     border-bottom:
-    1px solid rgba(255,215,0,0.04);
+        1px solid rgba(255,215,0,0.04);
 }
 
-/* =========================================
-   LINHAS
-========================================= */
-
 .historico-table tbody tr {
-
     transition: background 0.2s ease;
 }
 
 .historico-table tbody tr:hover {
-
     background:
-    rgba(255,215,0,0.025);
+        rgba(255,215,0,0.025);
 }
 
 /* =========================================
@@ -319,33 +428,27 @@
 ========================================= */
 
 .status-APROVADO {
-
     color: #00ff7f;
-
     font-weight: bold;
 
     text-shadow:
-    0 0 8px rgba(0,255,127,0.25);
+        0 0 8px rgba(0,255,127,0.25);
 }
 
 .status-PENDENTE {
-
     color: #ffb400;
-
     font-weight: bold;
 
     text-shadow:
-    0 0 8px rgba(255,180,0,0.25);
+        0 0 8px rgba(255,180,0,0.25);
 }
 
 .status-ERRO {
-
     color: #ff4d4d;
-
     font-weight: bold;
 
     text-shadow:
-    0 0 8px rgba(255,77,77,0.25);
+        0 0 8px rgba(255,77,77,0.25);
 }
 
 /* =========================================
@@ -353,30 +456,76 @@
 ========================================= */
 
 .moeda-tag {
-
     font-weight: bold;
-
     color: #ffd700;
 }
 
 .valor-tag {
-
     font-family: monospace;
-
     color: #fff2b3;
 }
 
 /* =========================================
-   MOBILE
+   RESPONSIVO
 ========================================= */
+
+@media (max-width: 900px) {
+
+    #retirar {
+        padding: 18px;
+    }
+
+    .moedas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .moeda-card {
+        min-height: auto;
+    }
+}
 
 @media (max-width: 600px) {
 
+    body {
+        padding: 12px;
+    }
+
+    #retirar {
+        padding: 14px;
+        border-radius: 18px;
+    }
+
+    .secao-titulo {
+        font-size: 1.4rem;
+    }
+
+    .secao-descricao {
+        font-size: 0.9rem;
+    }
+
+    .moeda-card {
+        padding: 18px;
+    }
+
+    .moeda-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .valor {
+        font-size: 1.1rem;
+    }
+
+    .historico-table {
+        font-size: 0.75rem;
+    }
+
     .historico-table th,
     .historico-table td {
-
         font-size: 0.75rem;
-
         padding: 8px;
+    }
+
+    iframe {
+        max-width: 100%;
     }
 }

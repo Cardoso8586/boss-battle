@@ -1,0 +1,279 @@
+
+
+
+.game-background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(rgba(3,5,10,0.30), rgba(3,5,10,0.45)),
+        url('/images/fundo-boss.webp') center center / cover no-repeat;
+
+    z-index: -999;
+
+    transform: translateZ(0);
+    will-change: transform;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            color: #f5f5f5;
+
+            background:
+                radial-gradient(circle at top, rgba(255,180,0,0.08), transparent 35%),
+                linear-gradient(rgba(6,6,6,0.18), rgba(6,6,6,0.28)),
+                url('/imagens/background_missoes.webp');
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .vigor-page {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 25px 80px;
+        }
+
+        .vigor-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .vigor-header i {
+            font-size: 70px;
+            color: #ffb400;
+            margin-bottom: 20px;
+
+            text-shadow:
+                0 0 10px rgba(255,180,0,0.5),
+                0 0 25px rgba(255,180,0,0.35);
+        }
+
+        .vigor-header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #ffd700;
+
+            text-shadow:
+                0 0 20px rgba(255,215,0,0.65),
+                0 0 40px rgba(255,180,0,0.35);
+        }
+
+        .vigor-header p {
+            margin-top: 16px;
+            color: #ffe7a3;
+            line-height: 1.7;
+        }
+
+        .vigor-card {
+            width: 100%;
+            padding: 38px;
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(18,18,18,0.28),
+                    rgba(10,10,10,0.38)
+                );
+
+            border: 1px solid rgba(255,255,255,0.04);
+
+            box-shadow:
+                0 0 18px rgba(0,0,0,0.18),
+                inset 0 0 12px rgba(255,180,0,0.015);
+
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .energia-wrapper {
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .energia-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+
+            margin-bottom: 18px;
+
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #ffd700;
+
+            text-shadow:
+                0 0 12px rgba(255,215,0,0.35);
+        }
+
+        .energia-bar-bg {
+            width: 100%;
+            height: 24px;
+
+            overflow: hidden;
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.04);
+
+            border: 1px solid rgba(255,180,0,0.08);
+
+            box-shadow:
+                inset 0 0 10px rgba(0,0,0,0.35),
+                0 0 12px rgba(255,180,0,0.08);
+        }
+
+        .energia-bar {
+            height: 100%;
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffd54f,
+                    #ff9800,
+                    #ff5722
+                );
+
+            box-shadow:
+                0 0 18px rgba(255,180,0,0.30);
+
+            transition: width .3s ease;
+        }
+
+        .acoes-vigor {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        #btnRecarregar {
+            width: 100%;
+            max-width: 360px;
+
+            padding: 16px 24px;
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+
+            border-radius: 16px;
+
+            color: #fff;
+
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,152,0,0.75),
+                    rgba(255,87,34,0.75)
+                );
+
+            box-shadow:
+                0 0 18px rgba(255,120,0,0.12);
+
+            transition: .2s ease;
+        }
+
+        #btnRecarregar:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(255,120,0,0.18);
+        }
+
+        #btnRecarregar:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
+        .btn-voltar {
+            position: fixed;
+
+            top: 20px;
+            left: 20px;
+
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 14px 22px;
+
+            border: none;
+            border-radius: 18px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            color: #fff;
+
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,180,0,0.10),
+                    rgba(255,120,0,0.06)
+                );
+
+            border: 1px solid rgba(255,180,0,0.08);
+
+            backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 0 14px rgba(0,0,0,0.18);
+
+            transition: .2s ease;
+        }
+
+        .btn-voltar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(255,180,0,0.12);
+        }
+
+        .btn-voltar i {
+            color: #ffb400;
+        }
+
+        @media(max-width: 768px) {
+            .vigor-page {
+                padding: 110px 15px 60px;
+            }
+
+            .vigor-header h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .vigor-card {
+                padding: 26px;
+            }
+
+            .energia-header {
+                font-size: 1.1rem;
+            }
+        }
+    

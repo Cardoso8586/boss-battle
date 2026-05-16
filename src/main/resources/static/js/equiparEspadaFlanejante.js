@@ -1,6 +1,448 @@
+
 /**
  * Espada Flanejante – Equipar
  */
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const meta =
+        document.querySelector('meta[name="user-id"]');
+
+    const usuarioId =
+        meta
+            ? parseInt(meta.getAttribute('content'))
+            : null;
+
+    if (!usuarioId) return;
+
+    // ==============================
+    // ELEMENTOS
+    // ==============================
+    const espadaSpan =
+        document.getElementById('espadaFlanejante');
+
+    const btnAtivarEspada =
+        document.getElementById(
+            'btnAtivarEspadaFlanejante'
+        );
+
+    const btnAtivarMachado =
+        document.getElementById(
+            'btnAtivarMachadoDilacerador'
+        );
+
+    const espadaInfos =
+        document.querySelectorAll(
+            '.espada-flanejante-ativa-info'
+        );
+
+    // ==============================
+    // FORMATAÇÃO
+    // ==============================
+    const formatarNumero = n =>
+        new Intl.NumberFormat('pt-BR')
+            .format(n);
+
+    // ==============================
+    // ATUALIZA ESPADA
+    // ==============================
+    window.atualizarEspadaFlanejante =
+        function(status) {
+
+            const estoque =
+                status.espadaFlanejanteEstoque ?? 0;
+
+            const ativa =
+                status.espadaFlanejanteAtiva ?? 0;
+
+            const podeAtivar =
+                status.podeAtivarEspadaFlanejante === true;
+
+            const machadoAtivo =
+                status.qtdMachadoDilaceradorAtivo ?? 0;
+
+            const arcoAtivo =
+                status.arcoAtivo ?? 0;
+
+            const espadaItem =
+                espadaSpan?.closest(
+                    '.nucleo-item-flanejante'
+                );
+
+            // ==============================
+            // ITEM
+            // ==============================
+            if (espadaItem && espadaSpan) {
+
+                if (estoque === 0) {
+
+                    espadaItem.classList.add('hidden');
+
+                } else {
+
+                    espadaItem.classList.remove('hidden');
+
+                    espadaSpan.textContent =
+                        formatarNumero(estoque);
+                }
+            }
+
+            // ==============================
+            // BOTÃO
+            // ==============================
+            if (btnAtivarEspada) {
+
+                const mostrarBotao =
+
+                    estoque > 0 &&
+                    ativa === 0 &&
+                    arcoAtivo === 0 &&
+                    podeAtivar &&
+                    machadoAtivo === 0;
+
+                btnAtivarEspada
+                    .classList
+                    .toggle(
+                        'hidden',
+                        !mostrarBotao
+                    );
+
+                btnAtivarEspada.disabled =
+                    !mostrarBotao;
+            }
+
+            // ==============================
+            // INFO
+            // ==============================
+            espadaInfos.forEach(div => {
+
+                if (ativa > 0) {
+
+                    div.classList.remove('hidden');
+
+                    div.textContent =
+                        `✔ Espada equipada (${ativa})`;
+
+                } else {
+
+                    div.classList.add('hidden');
+                }
+            });
+        };
+
+    // ==============================
+    // ATIVAR ESPADA
+    // ==============================
+    let emCooldown = false;
+
+    if (btnAtivarEspada) {
+
+        btnAtivarEspada.addEventListener(
+            'click',
+            async () => {
+
+                if (emCooldown) return;
+
+                emCooldown = true;
+
+                btnAtivarEspada.disabled = true;
+
+                // ==============================
+                // TRAVA MACHADO
+                // ==============================
+                btnAtivarMachado.style.pointerEvents =
+                    'none';
+
+                btnAtivarMachado.style.opacity =
+                    '0.5';
+
+                const textoOriginal =
+                    btnAtivarEspada.innerText;
+
+                btnAtivarEspada.innerText =
+                    'Ativando...';
+
+                try {
+
+                    // ==============================
+                    // STATUS
+                    // ==============================
+                    const res1 =
+                        await fetch(
+                            `/api/atualizar/status/ajustes/${usuarioId}`
+                        );
+
+                    if (!res1.ok) {
+
+                        btnAtivarMachado.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarMachado.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    const status =
+                        await res1.json();
+
+                    const ativoGuerreiro =
+                        status.ativoGuerreiro;
+
+                    const machadoAtivo =
+                        status.qtdMachadoDilaceradorAtivo ?? 0;
+
+                    // ==============================
+                    // BLOQUEIO
+                    // ==============================
+                    if (ativoGuerreiro <= 0) {
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-error'
+                            },
+
+                            icon: 'warning',
+
+                            title: 'Ação bloqueada',
+
+                            text:
+                                'Você não pode equipar armas agora.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+
+                        btnAtivarMachado.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarMachado.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // MACHADO EQUIPADO
+                    // ==============================
+                    if (machadoAtivo === 1) {
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-error'
+                            },
+
+                            icon: 'info',
+
+                            title: 'Machado já equipado',
+
+                            text:
+                                'Desequipe o machado antes de usar a espada.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ffb400'
+                        });
+
+                        btnAtivarMachado.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarMachado.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // EQUIPAR
+                    // ==============================
+                    const res =
+                        await fetch(
+                            `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
+                            {
+                                method: 'POST'
+                            }
+                        );
+
+                    // ==============================
+                    // ERRO
+                    // ==============================
+                    if (!res.ok) {
+
+                        const erro =
+                            await res.text();
+
+                        console.error(erro);
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-error'
+                            },
+
+                            icon: 'warning',
+
+                            title: 'Erro',
+
+                            text: erro,
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+
+                        btnAtivarMachado.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarMachado.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // SUCESSO
+                    // ==============================
+                    Swal.fire({
+
+                        customClass: {
+                            title: 'swal-game-text'
+                        },
+
+                        icon: 'success',
+
+                        title: 'Espada equipada!',
+
+                        text:
+                            'Sua Espada Flanejante foi equipada com sucesso.',
+
+                        html: `
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        timer: 7000,
+
+                        showConfirmButton: false,
+
+                        background: 'transparent',
+
+                        color: '#ffb400'
+                    });
+
+                } catch (e) {
+
+                    console.error(e);
+
+                    Swal.fire({
+
+                        customClass: {
+                            title: 'swal-game-error'
+                        },
+
+                        icon: 'error',
+
+                        title: 'Erro',
+
+                        text:
+                            'Erro ao tentar equipar espada.',
+
+                        html: `
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        background: 'transparent',
+
+                        color: '#ff3b3b'
+                    });
+
+                    btnAtivarMachado.style.pointerEvents =
+                        'auto';
+
+                    btnAtivarMachado.style.opacity =
+                        '1';
+
+                } finally {
+
+                    // ==============================
+                    // UPDATE GLOBAL
+                    // ==============================
+                    await atualizarTudo(usuarioId);
+
+                    emCooldown = false;
+
+                    btnAtivarEspada.disabled =
+                        false;
+
+                    btnAtivarEspada.innerText =
+                        textoOriginal;
+                }
+            }
+        );
+    }
+
+    // ==============================
+    // PRIMEIRO LOAD
+    // ==============================
+    await atualizarTudo(usuarioId);
+
+});
+
+/*
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -182,25 +624,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	            if (!res.ok) {
 	                const erro = await res.text();
-	                Swal.fire({
-						stomClass: {title: 'swal-game-error'},
-	                    icon: 'warning',
-	                    title: 'Erro',
-	                    text: erro,
-						html: `
-										  		      <div class="modal-anuncio">
-										  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-										  		          width="468"
-										  		          height="60"
-										  		          scrolling="no"
-										  		          frameborder="0">
-										  		        </iframe>
-										  		      </div>
-										  		    `,
-	                    background: 'transparent',
-	                    color: '#ff3b3b'
-	                });
-
+					console.error(erro);
+			
 	                // 🔄 destrava machado
 	                btnAtivarMachado.style.pointerEvents = 'auto';
 	                btnAtivarMachado.style.opacity = '1';
@@ -267,111 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    });
 	}
 
-	/**
-	 * 	 if (btnAtivarEspada) {
 
-	        btnAtivarEspada.addEventListener('click', async () => {
-	 	
-	            if (emCooldown) return;
-	 		
-
-	            emCooldown = true;
-	            btnAtivarEspada.disabled = true;
-
-	          //  let restante = tempoCooldown;
-	 	  
-	            const textoOriginal = btnAtivarEspada.innerText;
-
-	            btnAtivarEspada.innerText = `Ativando...`;
-	 	
-
-	            try {
-	 			const res1 = await fetch(`/api/atualizar/status/ajustes/${usuarioId}`);
-	 			if (!res1.ok) return;
-	 			const status = await res1.json();
-	 			const ativoGuerreiro = status.ativoGuerreiro;
-	 			const machadoAtivo = status.ativarMachadoDilacerador ?? 0;
-	 				
-	 			
-	 		//	if ( ativoGuerreiro <= 0  )return;
-	 		clearInterval(window.loopMachado);
-
-	                const res = await fetch(
-	                    `/api/espada-flanejante/ativar?usuarioId=${usuarioId}&quantidade=1`,
-	                    { method: 'POST' }
-	                );
-
-	 			if (ativoGuerreiro <= 0) {
-	 			    Swal.fire({
-	 			        icon: 'warning',
-	 			        title: 'Ação bloqueada',
-	 			        text: 'Você não pode equipar armas agora.',
-	 			        background: 'transparent',
-	 			        color: '#ff3b3b'
-	 			    });
-	 			    return;
-	 			}
-
-	 			if (machadoAtivo === 1) {
-	 			    Swal.fire({
-	 			        icon: 'info',
-	 			        title: 'Machado já equipado',
-	 			        text: 'Você já está usando o Machado Dilacerador.',
-	 			        background: 'transparent',
-	 			        color: '#ffb400'
-	 			    });
-	 			    return;
-	 			}
-
-
-	                if (!res.ok) {
-	                    const erro = await res.text();
-	                    Swal.fire({
-	                        customClass: { title: 'swal-game-error' },
-	                        icon: 'warning',
-	                        title: 'Erro',
-	                        text: erro,
-	                        background: 'transparent',
-	                        color: '#ff3b3b'
-	                    });
-	                    return;
-	                }
-
-	                Swal.fire({
-	                    customClass: { title: 'swal-game-text' },
-	                    icon: 'success',
-	                    title: 'Espada equipada!',
-	                    text: 'Sua Espada Flanejante foi equipada com sucesso.',
-	                    timer: 7000,
-	                    showConfirmButton: false,
-	                    background: 'transparent',
-	                    color: '#ffb400'
-	                });
-
-	                await atualizarUsuario();
-
-	            } catch (e) {
-	                console.error(e);
-	                Swal.fire({
-	                    customClass: { title: 'swal-game-error' },
-	                    icon: 'error',
-	                    title: 'Erro',
-	                    text: 'Erro ao tentar equipar espada.',
-	                    background: 'transparent',
-	                    color: '#ff3b3b'
-	                });
-	            } finally {
-	                setTimeout(() => {
-	                    emCooldown = false;
-	                    btnAtivarEspada.disabled = false;
-	                    btnAtivarEspada.innerText = textoOriginal;
-	                }, tempoCooldown * 1000);
-	            }
-	        });
-	    }
-	 * 
-	 */
-   
 
     // ==============================
     // LOOP
@@ -381,4 +702,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //setInterval(atualizarUsuario, 5000);
 });
-
+*/

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recarregar Vigor</title>
+    
+    <meta name="user-id" th:content="${idUsuario}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/swal2-popup.css">
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="/css/recarregar-vigor.css">
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+    
+</head>
+
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<main class="vigor-page">
+<div class="anuncio-8">
+
+  <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+
+</div>
+
+    <header class="vigor-header">
+        <i class="fa-solid fa-bolt"></i>
+        <h1>Recarregar Vigor</h1>
+        <p>Recupere o vigor dos seus guerreiros para continuar batalhando na arena.</p>
+    </header>
+
+    <section class="vigor-card">
+
+      <div class="energia-wrapper">
+
+    <div class="energia-header">
+        ⚡ Vigor:
+        <span id="energiaAtual"
+              th:text="${energiaGuerreiros}">0</span>
+        /
+        <span id="energiaMaxima"
+              th:text="${energiaMaxima}">50</span>
+    </div>
+
+    <div class="energia-bar-bg">
+        <div id="energiaBar"
+             class="energia-bar"
+             th:style="'width:' + (${energiaGuerreiros} * 100 / ${energiaMaxima}) + '%'">
+        </div>
+    </div>
+
+</div>
+
+        <form th:action="@{/guerreiros/recarregar-vigor}" method="post" class="acoes-vigor">
+            <button id="btnRecarregar"
+                    type="submit"
+                    th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
+                ⚡ Confirmar Recarregar Vigor
+            </button>
+        </form>
+        
+
+
+    </section>
+    
+             <!-- ANUNCIO -->
+    <div class="anuncio-6">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="300"
+            height="250"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+
+    <!-- ANUNCIO -->
+    <div class="anuncio-7">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+   
+         <!-- ANUNCIO 5 -->
+
+<div class="anuncio-5">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+        
+
+</main>
+
+</body>
+
+
+  <script src="/js/global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/recarregarVigor.js"></script>  
+  
+  
+</html>

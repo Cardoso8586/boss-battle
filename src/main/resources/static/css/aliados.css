@@ -1,15 +1,44 @@
-/* ===============================
-   SEÇÃO REFERIDOS - CENTRALIZADA / TRANSPARENTE
-================================ */
+/* =========================================
+   BODY / FUNDO
+========================================= */
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #fff;
+
+    padding: 25px;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.82),
+    rgba(0,0,0,0.88)),
+    url('/images/fundo-boss.webp') center center / cover no-repeat;
+
+    background-attachment: fixed;
+}
+
+/* =========================================
+   CONTAINER REFERIDOS
+========================================= */
 
 #referidos {
+
     width: calc(100% - 40px);
+
     max-width: 1100px;
 
     margin: 40px auto;
+
     padding: 24px;
 
     text-align: center;
+
     color: #fff;
 
     border-radius: 22px;
@@ -28,24 +57,28 @@
 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* TITULOS */
+/* =========================================
+   TITULOS
+========================================= */
 
 #referidos .secao-titulo {
+
     width: 100%;
+
     text-align: center;
 
     margin-bottom: 12px;
 
     font-size: 1.9rem;
+
     font-weight: 900;
 
     color: #ffb400;
 
     text-transform: uppercase;
+
     letter-spacing: 2px;
 
     text-shadow:
@@ -53,15 +86,33 @@
 }
 
 #referidos .aliados-titulo {
+
     color: #6ee7ff;
 
     text-shadow:
     0 0 12px rgba(110,231,255,0.45);
 }
 
-/* TEXTOS */
+.sub-titulo {
+
+    font-size: 1.2rem;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+    color: #ffd700;
+
+    text-shadow:
+    0 0 8px rgba(255,215,0,0.25);
+}
+
+/* =========================================
+   TEXTOS
+========================================= */
 
 #referidos p {
+
     text-align: center;
 
     font-size: 16px;
@@ -72,6 +123,7 @@
 }
 
 #referidos span {
+
     font-weight: bold;
 
     color: #ffcc00;
@@ -80,17 +132,21 @@
     0 0 8px rgba(255,204,0,0.25);
 }
 
-/* INTRO */
+/* =========================================
+   INTRO
+========================================= */
 
 #referidos .referidos-intro {
+
     width: 100%;
-    max-width: 620px;
+
+    max-width: 720px;
 
     margin: 0 auto 18px;
 
     font-size: 1rem;
 
-    line-height: 1.6;
+    line-height: 1.7;
 
     text-align: center;
 
@@ -102,7 +158,7 @@
     rgba(0,0,0,0.14),
     rgba(0,0,0,0.22));
 
-    padding: 12px 16px;
+    padding: 18px;
 
     border-radius: 16px;
 
@@ -115,29 +171,56 @@
     0 0 10px rgba(0,0,0,0.10);
 }
 
-/* LINK DE CONVITE */
+/* =========================================
+   BOXES
+========================================= */
 
-#referidos div {
-    margin-top: 20px;
+.referencia-box,
+.info-box,
+.aliados-box {
+
+    margin-top: 25px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(0,0,0,0.18),
+    rgba(0,0,0,0.28));
+
+    border: 1px solid rgba(255,255,255,0.05);
+
+    backdrop-filter: blur(6px);
+
+    box-shadow:
+    0 0 10px rgba(0,0,0,0.10);
 }
 
-#referidos h3 {
-    text-align: center;
+/* =========================================
+   LINK BOX
+========================================= */
 
-    font-size: 18px;
+.link-box {
 
-    margin-bottom: 10px;
+    display: flex;
 
-    color: #ffd700;
+    justify-content: center;
 
-    text-shadow:
-    0 0 8px rgba(255,215,0,0.25);
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
 }
 
-#referidos input[type="text"] {
+#linkConvite {
+
     width: min(100%, 520px);
 
-    padding: 11px 12px;
+    padding: 12px 14px;
 
     border-radius: 12px;
 
@@ -145,29 +228,37 @@
 
     outline: none;
 
-    font-size: 16px;
+    font-size: 15px;
 
     background: rgba(255,255,255,0.04);
 
     color: #fff;
 
-    margin: 0 10px 10px 0;
-
     text-align: center;
 
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+
+    transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-#referidos input[type="text"]:focus {
+#linkConvite:focus {
+
     border-color: rgba(255,180,0,0.18);
 
     box-shadow:
     0 0 10px rgba(255,180,0,0.10);
 }
 
-#referidos button#copyBtn {
-    padding: 11px 20px;
+/* =========================================
+   BOTÃO COPIAR
+========================================= */
+
+#copyBtn {
+
+    padding: 12px 20px;
 
     border: none;
 
@@ -193,95 +284,368 @@
     box-shadow 0.2s ease;
 }
 
-#referidos button#copyBtn:hover {
+#copyBtn:hover {
+
     transform: translateY(-2px);
 
     box-shadow:
     0 0 18px rgba(255,180,0,0.18);
 }
 
-/* CLAIM */
+#copyBtn:active {
 
-#claimForm {
-    margin-top: 15px;
-    text-align: center;
+    transform: scale(0.97);
 }
 
-#claimBtn {
-    color: #fff;
+/* =========================================
+   BONUS
+========================================= */
 
-    font-weight: 700;
-    font-size: 15px;
+.bonus-text {
 
-    padding: 11px 22px;
+    font-size: 1.1rem;
 
-    border: none;
+    font-weight: 600;
+}
 
-    border-radius: 14px;
+/* =========================================
+   CLAIM
+========================================= */
+#claimForm{
 
-    cursor: pointer;
+    margin-top:15px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ==============================
+   BOTÃO CLAIM MODERNO
+================================ */
+
+#claimBtn{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    width:100%;
+    max-width:320px;
+
+    padding:14px 22px;
+
+    border:none;
+    border-radius:18px;
+
+    cursor:pointer;
+
+    color:#ffffff;
+
+    font-size:1rem;
+    font-weight:800;
+    letter-spacing:1px;
 
     background:
     linear-gradient(
     135deg,
-    rgba(40,167,69,0.82),
-    rgba(30,126,52,0.72));
+    rgba(0,255,127,0.16),
+    rgba(0,180,120,0.10)
+    );
+
+    border:1px solid rgba(0,255,127,0.14);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
 
     box-shadow:
+    0 0 18px rgba(0,0,0,0.25),
     0 0 14px rgba(0,255,127,0.12);
 
     transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    opacity 0.22s ease;
+    transform .22s ease,
+    box-shadow .22s ease,
+    background .22s ease,
+    opacity .22s ease;
 }
 
-#claimBtn:hover {
+/* Hover */
+#claimBtn:hover:not(:disabled){
+
+    transform:translateY(-2px);
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(0,255,127,0.22),
+    rgba(0,180,120,0.14)
+    );
+
+    box-shadow:
+    0 0 22px rgba(0,255,127,0.18);
+}
+
+/* Clique */
+#claimBtn:active{
+
+    transform:scale(0.97);
+}
+
+/* Ícone */
+#claimBtn i{
+
+    color:#00ff99;
+
+    text-shadow:
+    0 0 10px rgba(0,255,127,0.45);
+}
+
+/* Desativado */
+#claimBtn:disabled{
+
+    opacity:0.45;
+
+    cursor:not-allowed;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.03)
+    );
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    color:rgba(255,255,255,0.55);
+
+    box-shadow:none;
+
+    transform:none;
+}
+/* =========================================
+   LISTA ALIADOS
+========================================= */
+
+.lista-aliados {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.lista-aliados li {
+
+    width: 100%;
+}
+
+.aliado-item {
+
+    width: 100%;
+
+    padding: 14px 18px;
+
+    border-radius: 14px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.02));
+
+    border: 1px solid rgba(255,255,255,0.05);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.aliado-item:hover {
+
+    transform: translateY(-2px);
+
+    border-color: rgba(110,231,255,0.15);
+
+    box-shadow:
+    0 0 12px rgba(110,231,255,0.08);
+}
+
+.aliado-nome {
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    color: #fff;
+}
+
+/* =========================================
+   ANÚNCIOS
+========================================= */
+
+.anuncio-11,
+.anuncio-12,
+.anuncio-13 {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin: 24px 0;
+
+    overflow: hidden;
+}
+
+/* =========================================
+   BOTÃO VOLTAR
+========================================= */
+
+.btn-voltar {
+
+    position: fixed;
+
+    top: 20px;
+
+    left: 20px;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 22px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    color: #fff;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,180,0,0.10),
+    rgba(255,120,0,0.06));
+
+    border: 1px solid rgba(255,180,0,0.08);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+    0 0 14px rgba(0,0,0,0.18);
+
+    transition: .2s ease;
+}
+
+.btn-voltar:hover {
+
     transform: translateY(-2px);
 
     box-shadow:
-    0 0 18px rgba(0,255,127,0.18);
+    0 0 18px rgba(255,180,0,0.12);
 }
 
-#claimBtn:active {
-    transform: scale(0.97);
-}
+/* =========================================
+   RESPONSIVO
+========================================= */
 
-#claimBtn:disabled {
-    background: rgba(255,255,255,0.12);
-
-    color: rgba(255,255,255,0.45);
-
-    cursor: not-allowed;
-
-    box-shadow: none;
-}
-
-/* RESPONSIVO */
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
     #referidos {
+
         width: calc(100% - 20px);
 
         padding: 18px;
-
-        margin: 30px auto;
     }
 
-    #referidos input[type="text"] {
+    .referidos-intro {
+
+        font-size: 0.95rem;
+    }
+
+    .link-box {
+
+        flex-direction: column;
+    }
+
+    #linkConvite {
+
         width: 100%;
-
-        margin-right: 0;
-        margin-bottom: 10px;
     }
 
-    #referidos button#copyBtn,
+    #copyBtn,
     #claimBtn {
+
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+
+        padding: 12px;
+    }
+
+    #referidos {
+
+        padding: 16px;
+
+        margin: 20px auto;
     }
 
     #referidos .secao-titulo {
+
         font-size: 1.5rem;
+    }
+
+    .sub-titulo {
+
+        font-size: 1rem;
+    }
+
+    .aliado-item {
+
+        padding: 12px;
+    }
+
+    .aliado-nome {
+
+        font-size: 0.9rem;
+    }
+
+    iframe {
+
+        max-width: 100%;
     }
 }

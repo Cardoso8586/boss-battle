@@ -191,7 +191,7 @@
         position: fixed;
 
         /* 🔥 canto superior direito */
-        top: 500px;
+        top: 300px;
         right: 16px;
         left: auto;
         bottom: auto;
@@ -213,11 +213,11 @@
         position: fixed;
 
         /* abre logo abaixo do botão */
-       top: 400px;
+       top: 180px;
         right: 16px;
         left: auto;
 
-        min-width: 260px;
+        min-width: 160px;
     }
 }
 

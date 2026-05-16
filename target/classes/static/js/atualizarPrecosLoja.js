@@ -1,3 +1,84 @@
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const metaUsuario = document.querySelector('meta[name="user-id"]');
+
+    if (!metaUsuario) {
+        console.error('Meta user-id não encontrada');
+        return;
+    }
+
+    const usuarioId = parseInt(metaUsuario.getAttribute('content'));
+
+    if (!usuarioId) {
+        console.error('Usuário não encontrado');
+        return;
+    }
+
+    function atualizarPreco(id, valor) {
+        const elemento = document.getElementById(id);
+
+        if (!elemento || valor === null || valor === undefined) {
+            return;
+        }
+
+        elemento.textContent =
+            `${Number(valor).toLocaleString('pt-BR')} Boss Coins`;
+
+        elemento.dataset.preco = valor;
+    }
+
+    function atualizarPrecoClasse(classe, valor) {
+        const elemento = document.querySelector(classe);
+
+        if (!elemento || valor === null || valor === undefined) {
+            return;
+        }
+
+        elemento.textContent =
+            `${Number(valor).toLocaleString('pt-BR')} Boss Coins`;
+
+        elemento.dataset.preco = valor;
+    }
+
+    async function atualizarPrecosLoja() {
+
+        try {
+            const response = await fetch(`/api/loja/${usuarioId}`);
+
+            if (!response.ok) {
+                console.error('Erro ao buscar preços da loja');
+                return;
+            }
+
+            const dadosLoja = await response.json();
+
+            atualizarPreco('preco-guerreiros', dadosLoja.precoGuerreiros);
+            atualizarPreco('preco-energia', dadosLoja.precoEnergia);
+            atualizarPreco('preco-ataque-especial', dadosLoja.precoAtaqueEspecial);
+            atualizarPreco('preco-auto-vigor', dadosLoja.PrecoPocaoAutomaticaVigor);
+            atualizarPreco('preco-espada-flanejante', dadosLoja.PrecoEspadaFlanejante);
+            atualizarPreco('preco-machado-dilacerador', dadosLoja.PrecoMachadoDilacerador);
+            atualizarPreco('preco-escudo-primordial', dadosLoja.PrecoEscudoPrimordial);
+            atualizarPreco('preco-arco-celestial', dadosLoja.precoArcoCelestial);
+
+            atualizarPrecoClasse('.preco-lootbox-basica', dadosLoja.precoBasica);
+            atualizarPrecoClasse('.preco-lootbox-avancada', dadosLoja.precoAvancada);
+            atualizarPrecoClasse('.preco-lootbox-especial', dadosLoja.precoEspecial);
+            atualizarPrecoClasse('.preco-lootbox-lendaria', dadosLoja.precoLendaria);
+
+        } catch (error) {
+            console.error('Erro ao carregar preços da loja:', error);
+        }
+    }
+
+    atualizarPrecosLoja();
+
+    setInterval(atualizarPrecosLoja, 10000);
+});
+/*
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const usuarioId = parseInt(
@@ -9,11 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    /* ===============================
-       FUNÇÃO: ATUALIZAR PREÇOS DA LOJA
-    =============================== */
+ 
     async function atualizarPrecosLoja() {
+
         try {
+
             const response = await fetch(`/api/loja/${usuarioId}`);
 
             if (!response.ok) {
@@ -23,60 +104,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const dadosLoja = await response.json();
 
-            document.getElementById('preco-guerreiros').textContent =
-                `${dadosLoja.precoGuerreiros.toLocaleString('pt-BR')} Boss Coins`;
+            // LOOTBOXES
 
-            document.getElementById('preco-energia').textContent =
-                `${dadosLoja.precoEnergia.toLocaleString('pt-BR')} Boss Coins`;
+            const lootboxBasica =
+                document.querySelector('.preco-lootbox-basica');
 
-            document.getElementById('preco-ataque-especial').textContent =
-                `${dadosLoja.precoAtaqueEspecial.toLocaleString('pt-BR')} Boss Coins`;
-				
-			document.getElementById('preco-auto-vigor').textContent =
-		   `${dadosLoja.PrecoPocaoAutomaticaVigor.toLocaleString('pt-BR')} Boss Coins`;
-							  
-					
-		   document.getElementById('preco-espada-flanejante').textContent =
-		   		   `${dadosLoja.PrecoEspadaFlanejante.toLocaleString('pt-BR')} Boss Coins`;		  
+            if (lootboxBasica) {
 
-		   document.getElementById('preco-machado-dilacerador').textContent =
-				    `${dadosLoja.PrecoMachadoDilacerador.toLocaleString('pt-BR')} Boss Coins`;		  
-	   
-					document.getElementById('preco-escudo-primordial').textContent =
-					    `${dadosLoja.PrecoEscudoPrimordial.toLocaleString('pt-BR')} Boss Coins`;
-					
-		   document.getElementById('preco-arco-celestial').textContent =
-				  `${dadosLoja.precoArcoCelestial.toLocaleString('pt-BR')} Boss Coins`;		  
-				
-				  //looteboxes
-				  // Preenche cada card
-				          document.querySelector('.preco-lootbox-basica').textContent =
-				              `${dadosLoja.precoBasica.toLocaleString('pt-BR')} Boss Coins`;
+                lootboxBasica.textContent =
+                    `${dadosLoja.precoBasica.toLocaleString('pt-BR')} Boss Coins`;
+            }
 
-				          document.querySelector('.preco-lootbox-avancada').textContent =
-				              `${dadosLoja.precoAvancada.toLocaleString('pt-BR')} Boss Coins`;
+            const lootboxAvancada =
+                document.querySelector('.preco-lootbox-avancada');
 
-				          document.querySelector('.preco-lootbox-especial').textContent =
-				              `${dadosLoja.precoEspecial.toLocaleString('pt-BR')} Boss Coins`;
+            if (lootboxAvancada) {
 
-				          document.querySelector('.preco-lootbox-lendaria').textContent =
-				              `${dadosLoja.precoLendaria.toLocaleString('pt-BR')} Boss Coins`;
-				  
+                lootboxAvancada.textContent =
+                    `${dadosLoja.precoAvancada.toLocaleString('pt-BR')} Boss Coins`;
+            }
+
+            const lootboxEspecial =
+                document.querySelector('.preco-lootbox-especial');
+
+            if (lootboxEspecial) {
+
+                lootboxEspecial.textContent =
+                    `${dadosLoja.precoEspecial.toLocaleString('pt-BR')} Boss Coins`;
+            }
+
+            const lootboxLendaria =
+                document.querySelector('.preco-lootbox-lendaria');
+
+            if (lootboxLendaria) {
+
+                lootboxLendaria.textContent =
+                    `${dadosLoja.precoLendaria.toLocaleString('pt-BR')} Boss Coins`;
+            }
+
         } catch (error) {
-            console.error('Erro ao carregar preços da loja:', error);
+
+            console.error(
+                'Erro ao carregar preços da loja:',
+                error
+            );
         }
     }
 
-    /* ===============================
-       CHAMADAS
-    =============================== */
 
-    // Atualiza ao entrar na página
+
     atualizarPrecosLoja();
 
-    // Atualiza automaticamente a cada 10 segundos
     setInterval(atualizarPrecosLoja, 10000);
 
 });
-
-
+*/

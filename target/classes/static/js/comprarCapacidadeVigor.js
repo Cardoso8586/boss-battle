@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (e) {
             console.error(e);
-
+/*
             Swal.fire({
 				customClass: {
 									   title: 'swal-game-error'
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				background: 'transparent',
 				color: '#ff3b3b'      
             });
-
+*/
         } finally {
             setTimeout(() => {
                 emCooldownEnergia = false;

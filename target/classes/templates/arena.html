@@ -1,0 +1,1107 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}" />
+    <title>Boss Battle Arena</title>
+    
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="/css/bossSection.css"> 
+    <link rel="stylesheet" href="/css/rankingDano.css">
+    <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/dashboard-footer.css">  
+    <link rel="stylesheet" href="/css/dano-animacao.css">   
+    <link rel="stylesheet" href="/css/user-info.css"> 
+    <link rel="stylesheet" href="/css/ajustes-batalha.css">
+    <link rel="stylesheet" href="/css/reward-card.css">
+    <link rel="stylesheet" href="/css/tutorial-arena.css">  
+    <link rel="stylesheet" href="/css/recuperacaoVigorAnimacao.css">  
+    <link rel="stylesheet" href="/css/customClass.css">  
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+    <link rel="stylesheet" href="/css/ultimosAtaques.css">  
+     
+   
+    <!-- 
+ 
+    
+    <link rel="stylesheet" href="/css/nucleoArco.css"> 
+    <link rel="stylesheet" href="/css/section-promocoes.css">
+    -->
+   
+    
+    
+    <link rel="stylesheet" href="/css/dano-animacao-guerreiro.css">  
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+    <link rel="stylesheet" href="/css/bossBonusDiario.css"> 
+    
+
+   
+    <!--  
+    <link rel="stylesheet" href="/css/botao-anuncio.css">  
+     -->
+ 
+ 
+    
+    
+</head>
+<body>
+<div class="game-background"></div>
+
+    <!-- Barra de menu -->
+    <header class="menu-bar">
+        <div class="logo">
+            <h1>Boss Battle Arena</h1>
+
+<!-- Confi
+<script>
+window.gtranslateSettings = {
+  default_language: "pt",
+  languages: ["pt","en","es"],
+  wrapper_selector: ".gtranslate_wrapper",
+  switcher_horizontal_position: "inline"
+}
+</script>
+
+
+<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
+
+<div class="gtranslate_wrapper"></div>
+
+<script>
+document.addEventListener("change", function (e) {
+  if (e.target.closest(".gtranslate_wrapper")) {
+    setTimeout(() => {
+      location.reload();
+    }, 300);
+  }
+});
+</script>
+
+gurações -->
+
+
+
+        </div>
+<!-- Spinner de carregamento com texto dinâmico -->
+<div id="loading" class="loading">
+
+    <div class="spinner"></div>
+
+    <span
+        id="loading-text"
+        class="swal-game-text">
+
+        Preparando arena...
+
+    </span>
+
+</div>
+
+
+
+
+     
+        
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<nav>
+
+    <div class="hamburger" id="mobile-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- SALDO FORA DA NAV-LIST -->
+    <div class="saldo-box">
+        <img src="/icones/boss_coin.webp"
+             class="icone-token"
+             alt="Boss Coin">
+
+        <span>BOSS:</span>
+
+      <strong id="boss_coins"
+        th:text="${boss_coins}">
+    0
+</strong>
+        
+        
+    </div>
+ 
+
+    <ul class="nav-list">
+
+        <div class="user-info">
+
+            <h2>
+                Bem-vindo,
+                <span th:text="${usuario.username}"></span>!
+            </h2>
+
+            <p id="id-box">
+                ID:
+                <strong th:text="${idUsuario}">0</strong>
+            </p>
+
+            <p id="xp-box">
+                XP:
+                <span id="xp" th:text="${xpUsuario}">0</span>
+            </p>
+
+            <p id="nivel-box">
+                Nível:
+                <span id="nivel" th:text="${nivelUsuario}">0</span>
+            </p>
+
+<p id="ultimo-ganho-box">
+  Último Ganho <span id="ganho" th:text="${ultimoGanho}">0</span>
+</p>
+    
+        </div>
+
+        <li>
+            <a href="#" data-section="jogo">
+                <i class="fa-solid fa-shield-alt"></i>
+                Arena de Batalha
+            </a>
+        </li>
+
+        <li>
+            <a href="/desafios">
+                <i class="fa-solid fa-calendar-check"></i>
+                Desafios da Arena
+            </a>
+        </li>
+
+        <li>
+            <a href="/aprimoramentos">
+                <i class="fa-solid fa-shop"></i>
+                Loja de Aprimoramentos
+            </a>
+        </li>
+        <!-- 
+        <li>
+            <a href="#" data-section="section-promocoes">
+                <i class="fa-solid fa-tags"></i>
+                Promoções Especiais
+            </a>
+        </li>
+ -->
+        <li>
+            <a href="/resgatar-recompensas">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                Resgatar Recompensas
+            </a>
+        </li>
+
+        <li>
+            <a href="/central-comando">
+                <i class="fa-solid fa-user-shield"></i>
+                Central de Comando
+            </a>
+        </li>
+
+        <li>
+            <a href="/referidos">
+                <i class="fa-solid fa-user-plus"></i>
+                Rede de Aliados
+            </a>
+        </li>
+
+        <li>
+            <a href="#" data-section="help">
+                <i class="fa-solid fa-book-open"></i>
+                Tutorial da Arena
+            </a>
+        </li>
+
+        <li>
+            <a href="/logout"
+               onclick="sessionStorage.removeItem('arena_loading_ok')">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Retornar à Base
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+ 
+    </header>
+
+
+
+<main>
+
+<!-- Seção do boss -->
+<section id="jogo" class="active">
+
+ <h2 class="jogo-title">  <div class="anuncio-8">
+ <!-- Seção 
+  <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+ do boss -->
+  <div style="display:flex; justify-content:center; margin:10px 0;">
+    <script>
+    window.atOptions = {
+        key: "d594127d103d7640e87b4b11c19bbb17",
+        format: "iframe",
+        height: 50,
+        width: 320,
+        params: {}
+    };
+    </script>
+    <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+</div>
+
+</div>⚔️ Arena de Batalha </h2>
+   
+
+    <div class="boss-user-wrapper">
+
+        <!-- Card do Usuário -->
+        <div id="user-card">
+
+            <!-- Guerreiros -->
+            <h2 class="card-title"> Meus Guerreiros</h2>
+            
+<div id="desgasteContainer" class="hidden">
+
+    <div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+        ✔ Espada equipada
+    </div>
+
+    <div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+        ✔ Machado equipado
+    </div>
+
+    <strong class="titulo-durabilidade">Durabilidade</strong>
+
+    <div class="barra-wrapper">
+        <progress id="barradesgaste"></progress>
+        <span id="desgasteTexto"></span>
+    </div>
+
+</div>
+
+<!-- Escudo separado -->
+<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
+    ✔ Escudo equipado
+</div>
+
+<strong class="titulo-durabilidade-escudo hidden">Durabilidade</strong>
+
+<div class="barra-wrapper-escudo hidden">
+    <progress id="barradesgasteEscudo" max="300" value="0"></progress>
+    <span id="desgasteTextoEscudo"></span>
+</div>
+            <div class="card-section">
+                <img id="guerreiro-image" src="" alt="guerreiro">
+            <div id="damageContainer"></div>
+
+               
+               <p>
+    
+   
+    
+    <strong>Ataque:</strong>
+    <span class="ataque-container">
+        <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
+        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+
+
+                <p class="highlight">
+                    Dano/min: <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
+                </p>
+
+                <div class="energia-wrapper">
+               
+                
+                    <div class="energia-header">⚡ Vigor: <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
+                     <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
+                    </div>
+                    <div class="energia-bar-bg">
+                        <div id="energiaBar" class="energia-bar" 
+                             th:style="'width:' + ${energiaGuerreiros} + '%'"></div>
+                    </div>
+                    
+                    <p>
+<p style="position: relative;"><span id="reparoRetaguarda"></span></p>
+
+
+
+
+
+    <p id="p">
+    <strong>Retaguarda:</strong>
+    <span class="retaguarda-container">
+        <span id="guerreirosRetaguarda" th:text="${guerreirosRetaguarda}">100</span>
+        <img id="generating-image" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+    
+
+                    
+                  <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
+                 
+   <a href="/recarregar-vigor" class="btn-recarregar-vigor">
+    <i class="fa-solid fa-bolt"></i>
+    <span>Recarregar Vigor</span>
+</a>
+
+<!-- 
+<button id="btnRecarregar"
+        th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
+    ⚡ Recarregar Vigor
+</button>
+-->
+  <div class="reward-card" id="rewardCard" style="display:none;">
+    <div class="reward-level" id="rewardLevel">Próximo nível:</div> 
+    <img id="rewardImage" src="" alt="Reward">
+    <div class="reward-title" id="rewardTitle"></div>
+    <div class="reward-amount" id="rewardAmount"></div>
+    <div class="reward-desc" id="rewardDesc"></div>
+</div>
+
+
+
+<!-- NÚCLEO DE BATALHA (LIVRE NA TELA) -->
+<div id="nucleoLivre">
+
+    <!-- BOTÃO -->
+    <button id="btnNucleo" class="btn-nucleo-icon">
+        <img src="/icones/ajustes.webp" alt="Ajustes de Batalha">
+        <span class="nucleo-label">Ajustes de Batalha</span>
+    </button>
+
+    <!-- CARD -->
+    <div id="nucleoCard" class="nucleo-card hidden">
+
+        <button id="fecharNucleo" class="nucleo-close">✕</button>
+
+        <h2 class="card-title">Ajustes de Batalha</h2>
+        
+        <!-- POÇÃO -->
+      <div class="nucleo-item-pocao">
+      <img src="icones/pocao_vigor.webp" alt="Poção de Vigor" class="icone-item">
+       Poção de Vigor: <span id="pocaoVigor">0</span>
+      </div>
+
+        <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
+        <button id="btnAtivarPocao" class="btn-nucleo-acao hidden"> Ativar Poção</button>
+
+
+  <!-- ESPADAS -->
+<div class="nucleo-item-flanejante">
+    <img src="icones/espada_flanejante.webp" alt="Espada Flanejante" class="icone-item">
+    Espada Flanejante: <span id="espadaFlanejante">0</span>
+</div>
+
+<!-- Primeiro lugar -->
+<div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+    ✔ Espada equipada
+</div>
+
+<button id="btnAtivarEspadaFlanejante"
+        class="btn-nucleo-acao hidden">
+    Ativar Espada
+</button>
+
+
+  <!-- machado dilacerador -->
+<div class="nucleo-item-dilacerador">
+    <img src="icones/machado_dilacerador.webp" alt="Machado Dilacerador" class="icone-item">
+    Machado Dilacerador: <span id="machadoDilacerador">0</span>
+</div>
+
+<!-- Primeiro lugar -->
+<div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+    ✔ Machado equipado
+</div>
+
+<button id="btnAtivarMachadoDilacerador"
+        class="btn-nucleo-acao hidden">
+    Ativar Machado Dilacerador
+</button>
+
+<!-- escudo primordial -->
+<div class="nucleo-item-escudo">
+    <img src="icones/escudo_primordial.webp" alt="Escudo Primordial" class="icone-item">
+    Escudo Primordial: <span id="escudoPrimordial">0</span>
+</div>
+
+<!-- Escudo ativo -->
+<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
+    ✔ Escudo equipado
+</div>
+
+<button id="btnAtivarEscudoPrimordial"
+        class="btn-nucleo-acao hidden">
+    Ativar Escudo Primordial
+</button>
+
+
+        <!-- GUERREIRO -->
+       <div class="nucleo-item">
+       <img src="icones/guerreiro_padrao.webp" alt="Guerreiro" class="icone-item">
+       Guerreiros Disponiveis: <span id="guerreirosCount">0</span>
+       
+       
+       
+       <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
+    Enviar ao Ataque
+</button>
+
+<button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
+    Enviar à Retaguarda
+</button>
+
+<button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
+    Retirar do Ataque
+</button>
+
+<button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
+    Retirar da Retaguarda
+</button>
+       
+      </div>
+
+   
+    </div>
+
+</div>
+
+<!-- Ajustes de Batalha -->
+
+
+<!-- 
+<div id="nucleoArco">
+
+
+    <button id="btnNucleoArco" class="btn-nucleo-icon">
+        <img src="/icones/arco_flecha.webp" alt="Arco e Flechas">
+        <span class="nucleo-label">Arco & Flechas</span>
+    </button>
+
+    <div id="nucleoArcoCard" class="nucleo-card hidden">
+
+        <button id="fecharNucleoArco" class="nucleo-close">✕</button>
+
+        <h2 class="card-title">Arco & Flechas</h2>
+
+   
+        <div class="nucleo-item">
+            <img src="icones/arco.webp" alt="Arco" class="icone-item">
+            Arco Disponiveis: <span id="arcoDisponiveis">0</span>
+        </div>
+        
+        <div class="nucleo-item">
+            <img src="icones/arco.webp" alt="Arco" class="icone-item">
+            Arco Ativo: <span id="arcoAtivo">0</span>
+        </div>
+
+        <div class="nucleo-item">
+            🔧 Durabilidade: <span id="durabilidadeArco">0</span>
+        </div>
+
+        <div class="arco-ativo-info nucleo-item highlight hidden">
+            ✔ Arco equipado
+        </div>
+
+        <button id="btnEquiparArco" class="btn-nucleo-acao hidden">
+            Equipar Arco
+        </button>
+
+
+        <hr>
+
+        <div class="nucleo-item">
+            <img src="icones/aljava.webp" alt="Aljava" class="icone-item">
+            Flechas na Aljava: <span id="aljavaCount">0</span>
+        </div>
+
+        <div class="nucleo-item">
+            Tipo de Flecha: <span id="tipoFlechaAtiva">-</span>
+        </div>
+
+ <button id="btnColocarFlechaFerro" class="btn-nucleo-acao">
+  <img src="icones/flecha_ferro.webp" alt="Flecha de Ferro">
+  <span>Colocar Flecha de Ferro</span>
+</button>
+
+<button id="btnColocarFlechaFogo" class="btn-nucleo-acao">
+  <img src="icones/flecha_fogo.webp" alt="Flecha de Fogo">
+  <span>Colocar Flecha de Fogo</span>
+</button>
+
+<button id="btnColocarFlechaVeneno" class="btn-nucleo-acao">
+  <img src="icones/flecha_veneno.webp" alt="Flecha de Veneno">
+  <span>Colocar Flecha de Veneno</span>
+</button>
+
+<button id="btnColocarFlechaDiamante" class="btn-nucleo-acao">
+  <img src="icones/flecha_diamante.webp" alt="Flecha de Diamante">
+  <span>Colocar Flecha de Diamante</span>
+</button>
+
+    </div>
+</div>
+ (LIVRE NA TELA) -->
+
+ </div>
+
+       </div>
+       
+       <!-- ataque-especial -->
+       <div id="ataque-especial">
+            <hr class="card-divider">
+
+            <!-- Ataque Manual -->
+            <h2 class="card-title">🔥 Ataque Especial</h2>
+            <div class="card-section">
+            <span id="damage" th:text="${ataque_base}">0</span>
+Dano 
+<span class="bonus">+ Ataque Surpresa da Retaguarda</span>
+            
+              <p>
+    <strong>Ataque Base:</strong><br>
+    <span class="damage-container">
+        <span id="damage" th:text="${ataque_base}">0</span> Dano
+        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
+    </span>
+</p>
+                <span id="aguarde"></span>
+                <button id="attackBtn">Atacar Boss</button>
+            
+                
+                </div>
+
+            </div>
+
+        </div> <!-- ataque-especial -->
+
+        <!-- Card do Boss -->
+        <div id="boss-container">
+            <h2 id="boss-name"></h2>
+            <p>Poder de Ataque: <span id="boss-ataque"></span></p>
+            <p>Tempo entre Ataques: <span id="boss-tempo-ataque"></span></p>
+
+            <img id="boss-image" src="" alt="Boss">
+            
+            <div id="damageFloatContainer"></div>
+            
+            <h3>Recompensa</h3>
+            <p>BOSS: <span id="boss-reward"></span></p>
+            <p>XP: <span id="boss-xp"></span></p>
+
+            <div class="hp-bar-bg">
+                <div id="boss-hp-bar"></div>
+            </div>
+
+            <p>HP: <span id="boss-hp-text"></span></p>
+
+            <div id="bossInfo"></div>
+        </div>
+
+    </div>
+    
+      <!-- 
+<button id="btnAbrirAnuncio" class="btn-anuncio" onclick="abrirAnuncioRecompensa()">
+    🎁 Ver anúncio e ganhar recompensa
+</button>
+-->
+
+  <div class="ataques-e-anuncio">
+
+  <div class="ataques-recentes">
+    <h2 class="ultimos-ataques">⚔️ Últimos ataques</h2>
+    <ul id="listaAtaques"></ul>
+  </div>
+
+  <!-- ANÚNCIO AO LADO -->
+  <div class="anuncio-1">
+    <!-- Futuro banner -->
+   <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783" 
+   marginwidth="0" marginheight="0" width="300" height="250" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+  </div>
+
+</div>
+
+      <!-- ANUNCIO
+      
+      <div class="anuncio-8">
+
+  <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+
+</div>
+ 8 -->
+ 
+<div class="anuncio-8">
+
+ <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
+ marginwidth="0" marginheight="0" width="468" height="60" scrolling="no" 
+ border="0" frameborder="0"></iframe>
+
+</div>
+  <!-- ANUNCIO 2 -->
+
+<div class="anuncio-2">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+
+  <!-- ANUNCIO  20 -->
+<div class="anuncio-20">
+
+  <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+   marginwidth="0" marginheight="0" width="300" height="250" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+  <!-- ANUNCIO  20 -->
+<div class="anuncio-20">
+
+<script>
+  atOptions = {
+    'key' : '159108d30fc2d96573f42996d2971f92',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/159108d30fc2d96573f42996d2971f92/invoke.js"></script>
+
+
+</div>
+
+
+</section>
+<!-- fim da seção Arena boss -->
+
+
+
+<!-- ======================================================================================================== -->
+
+<section id="help">
+
+    <h2 class="help-header"> <div class="anuncio-8">
+
+  <script>
+    atOptions = {
+      'key' : '0a3b52a54a7a4d065b759366194e5a20',
+      'format' : 'iframe',
+      'height' : 60,
+      'width' : 468,
+      'params' : {}
+    };
+  </script>
+
+  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+
+</div>Tutorial da Arena</h2>
+
+    <div class="help-card">
+
+        <p>Bem-vindo à arena! Aqui você enfrenta o boss junto com outros jogadores em batalhas contínuas.</p>
+
+        <h3>Objetivo</h3>
+        <p>Derrubar o boss. Quanto mais dano você causar durante a luta, maior será sua recompensa.</p>
+
+        <h3>Guerreiros</h3>
+        <ul>
+            <li>
+                <strong>Guerreiros no Ataque:</strong>
+                guerreiros enviados para o ataque causam dano direto ao boss.
+                Cada guerreiro no ataque é mais eficiente, mas consome vigor continuamente.
+            </li>
+            <li>
+                <strong>Guerreiros na Retaguarda:</strong>
+                atuam de forma estratégica:
+    ajudam a recuperar vigor e fortalecem o ataque especial com ataques surpresa.
+    Esses efeitos são divididos e possuem limites conforme a quantidade de guerreiros.
+            </li>
+        </ul>
+
+
+
+        <h3>Ataques</h3>
+        <ul>
+            <li>
+                <strong>Ataque de Guerreiros:</strong>
+                ocorre automaticamente enquanto houver vigor disponível.
+                Quanto mais guerreiros no ataque, maior o dano causado ao boss.
+            </li>
+           <li>
+    <strong>Ataque Especial:</strong>
+    é carregado ao longo do tempo.
+    Guerreiros na retaguarda contribuem com ataques surpresa,
+    aumentando gradativamente o poder do ataque especial,
+    respeitando limites conforme a quantidade de guerreiros.
+</li>
+
+        </ul>
+
+        <h3>Vigor</h3>
+        <p>
+            O vigor é um recurso limitado usado pelos guerreiros no ataque.
+            Guerreiros na retaguarda ajudam a recuperar vigor gradativamente,
+            permitindo manter o combate por mais tempo.
+            Equilibrar ataque e retaguarda é a chave para maximizar seu desempenho.
+        </p>
+
+        <h3>Poções</h3>
+        <ul>
+            <li>Poções podem aumentar temporariamente o vigor.</li>
+            <li>Algumas poções ajudam a recuperar vigor mais rapidamente.</li>
+        </ul>
+
+<h3>Espada Flanejante</h3>
+<p>
+    A Espada Flanejante é uma arma rara empunhada pelos guerreiros na arena.
+    Ao equipá-la, o guerreiro recebe <strong>+20% de ataque</strong>.
+    Esse bônus <strong>não afeta o Ataque Especial</strong>,
+    aplicando-se apenas aos ataques básicos (dano por minuto).
+</p>
+
+<h3>Machado Dilacerador</h3>
+<p>
+    O Machado Dilacerador é uma arma brutal empunhada pelos guerreiros na arena.
+    Ao equipá-lo, o guerreiro recebe <strong>+10% de ataque</strong>.
+    Esse bônus <strong>não afeta o Ataque Especial</strong>,
+    aplicando-se apenas aos ataques básicos (dano por minuto).
+</p>
+
+<h3>Escudo Primordial</h3>
+<p>
+    O Escudo Primordial é um equipamento defensivo raro utilizado pelos guerreiros na arena.
+    Ao equipá-lo, o guerreiro reduz em <strong>40% o dano recebido do boss</strong>.
+    Esse efeito <strong>não influencia ataques ou habilidades ofensivas</strong>,
+    aplicando-se exclusivamente à redução de dano.
+    O escudo possui <strong>durabilidade</strong>, que se desgasta a cada ataque recebido,
+    será destruído caso sua resistência chegue a 0%.
+</p>
+<h3>Arco & Flechas</h3>
+<p>
+    O <strong>Arco</strong> é uma arma de longo alcance utilizada pelos guerreiros na arena.
+    Para funcionar corretamente, o arco precisa estar <strong>equipado</strong> e possui
+    <strong>durabilidade</strong>.
+</p>
+
+<p>
+    A <strong>durabilidade do arco</strong> diminui conforme ele é utilizado em combate.
+    Quando a durabilidade chega a <strong>zero</strong>, o arco deixa de funcionar e precisa
+    ser <strong>reativado</strong> ou substituído por outro arco.
+</p>
+
+<p>
+    As <strong>flechas</strong> também são consumidas durante o combate.
+    Quando as flechas da <strong>aljava acabam</strong>, o arco é
+    <strong>desequipado automaticamente</strong>.
+</p>
+
+<p>
+    Caso ainda exista durabilidade no arco, ele poderá ser
+    <strong>reativado</strong> ao colocar novas flechas na aljava.
+    Se não houver durabilidade, será necessário
+    <strong>equipar outro arco</strong>.
+</p>
+
+
+<p>
+    O dano causado pelo arco depende diretamente do <strong>tipo de flecha equipada</strong>.
+    Cada flecha concede um <strong>bônus percentual de dano</strong> sobre os ataques básicos
+    do guerreiro.
+    Esse bônus <strong>não afeta ataques especiais</strong>, aplicando-se apenas ao dano normal.
+</p>
+
+<p>
+    <strong>Tipos de Flechas e seus bônus de dano:</strong>
+</p>
+
+<ul>
+    <li><strong>Flecha de Ferro:</strong> +3% de dano</li>
+    <li><strong>Flecha de Fogo:</strong> +5% de dano</li>
+    <li><strong>Flecha de Veneno:</strong> +7% de dano</li>
+    <li><strong>Flecha de Diamante:</strong> +10% de dano</li>
+</ul>
+
+<p>
+    Apenas <strong>um tipo de flecha</strong> pode estar equipado por vez.
+    Para trocar o tipo de flecha, o guerreiro deve possuir flechas disponíveis no inventário.
+</p>
+
+
+
+        <h3>Poções</h3>
+        <ul>
+            <li>Poções podem aumentar temporariamente o vigor.</li>
+            <li>Algumas poções ajudam a recuperar vigor mais rapidamente.</li>
+        </ul>
+
+
+        <h3>Recompensas</h3>
+        <p>
+            Após a derrota do boss, você recebe recompensas proporcionais ao dano causado.
+            Use-as para comprar itens, poções e contratar mais guerreiros,
+            fortalecendo seu exército para as próximas batalhas.
+        </p>
+        
+        
+        
+        <h3>Missões Diárias</h3>
+<p>
+    As <strong>Missões Diárias</strong> são desafios que se renovam todos os dias às
+    <strong>0:00 no horário do Brasil</strong>.
+    Elas possuem <strong>5 níveis</strong>, começando no <strong>nível 1</strong> e avançando
+    até o <strong>nível 5</strong>.
+</p>
+
+<p>
+    Em cada nível, o jogador precisa cumprir uma meta específica, como
+    <strong>causar uma quantidade de dano</strong> ou realizar uma
+    <strong>quantidade de ataques</strong>.
+    Ao completar a meta, uma <strong>recompensa em Boss Coin</strong> fica disponível para resgate.
+</p>
+
+<p>
+    Após resgatar a recompensa, a missão avança para o próximo nível, até chegar ao
+    <strong>nível 5</strong>.
+    Quando todos os níveis forem concluídos, será necessário aguardar o próximo reset diário
+    para iniciar novamente.
+</p>
+
+
+<h3>Ranking Semanal de Ataques Especiais</h3>
+<p>
+    O <strong>Ranking Semanal de Ataques Especiais</strong> registra os jogadores que mais utilizarem
+    <strong>ataques especiais</strong> ao longo da semana.
+    O ranking é <strong>resetado todo domingo às 0:00 no horário do Brasil</strong>.
+</p>
+
+<p>
+    Ao final de cada ciclo semanal, os <strong>5 primeiros colocados</strong> recebem
+    <strong>prêmios em Boss Coin</strong>, de acordo com sua posição no ranking.
+    Quanto maior a colocação, maior será a recompensa recebida.
+</p>
+
+<p>
+    Após o reset semanal, a contagem é reiniciada e todos os jogadores podem disputar novamente
+    as primeiras posições para conquistar os próximos prêmios.
+</p>
+
+    </div>
+    
+    
+    
+      <!-- ANUNCIO 13 -->
+<div class="anuncio-13">
+
+ <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
+ marginwidth="0" marginheight="0" width="468" height="60" scrolling="no" 
+ border="0" frameborder="0"></iframe>
+
+</div>  
+     <!-- ANUNCIO 12 -->
+
+<div class="anuncio-12">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+</div>
+
+
+
+
+</section>
+
+
+
+
+    
+</main>
+<!-- Modal Bônus Diário -->
+<div id="bonusModal" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close">&times;</span>
+
+    <h2>Recompensa Diária</h2>
+
+    <p id="bonusMensagem"></p>
+
+    <button id="btnColetarBonus">⚔️ Coletar Recompensa</button>
+
+ 
+ 
+    <div class="modal-anuncio">
+      <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
+        width="468" height="60" scrolling="no"
+        frameborder="0"></iframe>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Bônus Diário -->
+<!-- MODAL
+<div id="modalAnuncioRecompensa" class="modal-anuncio">
+    <div class="modal-anuncio-conteudo">
+
+        <button id="fecharModalAnuncio" class="fechar-modal">×</button>
+
+        <h2>🎁 Recompensa por anúncio</h2>
+
+ <p id="textoTempoAnuncio">
+    Assista ao anúncio por <strong id="contadorAnuncio">20</strong> segundos para liberar sua recompensa.
+</p>
+
+<p class="texto-apoio-anuncio">
+   Assista anúncios. Quanto mais você evolui, maiores são as recompensas — e no último prêmio, você desbloqueia itens especiais exclusivos.
+</p>
+
+    
+        <div id="areaBannerAnuncio" class="area-banner-anuncio"></div>
+
+         <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
+        width="468" height="60" scrolling="no"
+        frameborder="0"></iframe>
+
+
+        <button id="btnReceberRecompensaAnuncio" class="btn-receber-recompensa" disabled>
+            Aguarde...
+        </button>
+     
+
+        <div id="resultadoRecompensa" class="resultado-recompensa" style="display:none;">
+            <img id="imgRecompensa" src="" alt="Recompensa" class="img-recompensa">
+            <p id="textoRecompensa" class="texto-recompensa"></p>
+            <p id="textoStreak" class="texto-streak"></p>
+        </div>
+
+    </div>
+</div>
+
+
+ -->
+
+
+<!-- Footer -->
+<footer class="dashboard-footer">
+  <div class="footer-content">
+
+    <p class="footer-copy">
+      © 2025 Boss Battle Arena · Todos os direitos reservados
+    </p>
+
+    <div class="footer-suporte">
+      <i class="fa-solid fa-envelope"></i>
+      <span>Suporte:</span>
+      
+      <a href="mailto:suportebossbattlearena@gmail.com"
+   id="emailSuporte"
+   class="footer-email">
+ suportebossbattlearena@gmail.com
+
+</a>
+
+    </div>
+
+    <p class="footer-dica">
+      💡 Dúvidas, sugestões ou problemas? Fale conosco!
+    </p>
+
+  </div>
+</footer>
+
+
+    <script src="/js/global.js"></script>
+    <script src="/js/loadBoss.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/bossBonusDiario.js" defer></script>
+    <script src="/js/atualizarStatusUsuario.js"></script> 
+    <script src="/js/sessionTimeOut.js" defer></script>
+    <script src="/js/atacarBoss.js"></script> 
+    <script src="/js/ultimoAtaqueBoss.js" defer></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/nav.js"></script>
+        
+     <script src="/js/global-update.js" defer></script>   
+  
+     
+    <!--
+    
+    <script src="/js/lang-select.js"></script>
+    <script src="/js/precoPromo.js" defer></script>
+  
+    <script src="/js/missoesDiarias.js" defer></script>
+    <script src="/js/rankingAtaques.js" defer></script>
+    <script src="/js/receberRankingAtaqueEspecial.js" defer></script>
+    <script src="/js/atualizarSaldoBox.js" defer></script>
+     
+     <script src="/js/nucleoArco.js" defer></script>
+     <script src="/js/atualizarStatusArco.js" defer></script>
+     <script src="/js/ativarArco.js" defer></script>
+     <script src="/js/colocarFlechas.js" defer></script>
+     
+    -->
+    
+     <script src="/js/ajustesBatalha.js" defer></script>          
+      <!--  -->
+     <script src="/js/rewardAtualizarar.js" defer></script> 
+     
+     <script src="/js/equiparGuerreiro.js" defer></script> 
+     <script src="/js/ataquesRecentes.js" defer></script>
+     <script src="/js/equiparRetaguarda.js" defer></script>    
+     <script src="/js/retirarAtaqueRetaguarda.js" defer></script>       
+     <script src="/js/atualizarReparoRetaguarda.js" defer></script> 
+     <script src="/js/atualizarAtaquePorMinuto.js" defer></script>   
+   
+     <script src="/js/equiparEspadaFlanejante.js" defer></script>
+     <script src="/js/equiparMachadoDilacerador.js" defer></script>
+     <script src="/js/pocaoVigorStatus.js" defer></script>
+ 
+     <script src="/js/equiparEscudoPrimordial.js" defer></script>
+     <script src="/js/copiarEmail.js" defer></script>
+    <!-- 
+     <script src="/js/anuncio-recompensa.js" defer></script>
+         <script src="/js/comprarPromocoes.js" defer></script>
+ <script src="/js/ultimosPagamentos.js" defer></script>
+    <script src="/js/abrirLootbox.js"></script>
+         -->
+    
+    
+</body>
+</html>

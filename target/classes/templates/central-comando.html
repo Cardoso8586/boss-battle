@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+    
+    <title>Central de Comando</title>
+   
+     
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" href="/css/centralComando.css"> 
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+   
+   
+     <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<section id="perfil">
+
+    <h3>Central de Comando</h3>
+
+    <p class="promo-intro">
+        Monitore seu exército, analise suas armas e prepare sua estratégia de combate.
+    </p>
+
+    <div class="anuncio-11">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="468"
+                height="60"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+  
+
+    <div class="perfil-linha">
+
+
+<!-- 
+        <div class="user-info">
+            <h2>
+             
+                <span th:text="${usuario.username}">Usuário</span>!
+            </h2>
+
+            <p>ID: <strong th:text="${idUsuario}">0</strong></p>
+            <p>XP: <span id="xp_comando" th:text="${xpUsuario}">0</span></p>
+            <p>Nível: <span id="nivel_comando" th:text="${nivelUsuario}">0</span></p>
+
+            <div class="saldo-box">
+                <span>BOSS:</span>
+                <strong id="boss_coins_comando" th:text="${boss_coins}">0</strong>
+            </div>
+        </div>
+ -->
+    </div>
+
+    <div class="user-ajustes">
+
+        <div class="ajuste-item">
+            <span>Capacidade de Vigor</span>
+            <strong id="capacidade_vigor" th:text="${energiaGuerreirosPadrao}">0</strong>
+            <span>Cap Máx</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Ataques / minuto</span>
+            <strong id="ataques_minutos" th:text="${ataquePorMinutoUsuario}">0</strong>
+            <span>Dano</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Guerreiros</span>
+            <strong id="quantidade_guerreiros" th:text="${quantidadeTotalGuerriro}">0</strong>
+            <span>Total</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Ataque especial</span>
+            <strong id="ataque_especial" th:text="${ataque_base}">0</strong>
+            <span>Dano</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Poção Vigor</span>
+            <strong id="pocao_vigor" th:text="${quantidadePocaoVigor}">0</strong>
+            <span>Ajustes</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Espada Flanejante</span>
+            <strong id="espada_flanejante" th:text="${quantidadeEspadaFlanejante}">0</strong>
+            <span>Ajustes</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Machado Dilacerador</span>
+            <strong id="machado_dilacerador" th:text="${quantidadeMachadoDilacerador}">0</strong>
+            <span>Ajustes</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Arco Celestial</span>
+            <strong id="arco_celestial" th:text="${quantidadeArcoCelestial}">0</strong>
+            <span>Arco</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Flecha Diamante</span>
+            <strong id="flecha_diamante" th:text="${quantidadeFlechaDiamante}">0</strong>
+            <span>Arco</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Flecha Fogo</span>
+            <strong id="flecha_fogo" th:text="${quantidadeFlechaFogo}">0</strong>
+            <span>Arco</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Flecha Veneno</span>
+            <strong id="flecha_veneno" th:text="${quantidadeFlechaVeneno}">0</strong>
+            <span>Arco</span>
+        </div>
+
+        <div class="ajuste-item">
+            <span>Flecha Ferro</span>
+            <strong id="flecha_ferro" th:text="${quantidadeFlechaFerro}">0</strong>
+            <span>Arco</span>
+        </div>
+
+    </div>
+
+    <div class="anuncio-11">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="468"
+                height="60"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+    <div class="perfil-linha">
+
+        <div class="ranking-box">
+            <div class="perfil-titulo">Ranking de Dano Boss Atual</div>
+<ul id="rankingDano" class="ranking-lista">
+    <!-- JS -->
+</ul>
+
+            <div id="minhaPosicaoRanking" class="perfil-info"></div>
+        </div>
+
+    </div>
+
+    <div class="anuncio-12">
+        <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="728"
+                height="90"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+    <div class="anuncio-13">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="468"
+                height="60"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+
+</section>
+
+</body>
+
+<script src="/js/global.js"></script>
+   <script src="/js/carregarRankingDano.js" defer></script>  
+</html>

@@ -1,4 +1,320 @@
+document.addEventListener('DOMContentLoaded', async () => {
 
+    const meta =
+        document.querySelector('meta[name="user-id"]');
+
+    const usuarioId =
+        meta
+            ? parseInt(
+                meta.getAttribute("content")
+            )
+            : null;
+
+    if (!usuarioId) return;
+
+    // ==============================
+    // ELEMENTOS
+    // ==============================
+    const guerreirosRetaguardaSpan =
+        document.getElementById(
+            'guerreirosRetaguarda'
+        );
+
+    const btnEquiparRetaguarda =
+        document.getElementById(
+            'btnEquiparRetaguarda'
+        );
+
+    const retaguardaInfos =
+        document.querySelectorAll(
+            '.retaguarda-info'
+        );
+
+    // ==============================
+    // FORMATAÇÃO
+    // ==============================
+    function formatarNumero(numero) {
+
+        return new Intl.NumberFormat(
+            'pt-BR'
+        ).format(numero);
+    }
+
+    // ==============================
+    // ATUALIZA RETAGUARDA
+    // ==============================
+    window.atualizarNucleoRetaguarda =
+        function(status) {
+
+            const guerreirosRetaguarda =
+                status.guerreirosRetaguarda || 0;
+
+            const estoqueGuerreiro =
+                status.estoqueGuerreiro || 0;
+
+            // ==============================
+            // CONTADOR
+            // ==============================
+            if (guerreirosRetaguardaSpan) {
+
+                guerreirosRetaguardaSpan.textContent =
+                    formatarNumero(
+                        guerreirosRetaguarda
+                    );
+            }
+
+            // ==============================
+            // BOTÃO
+            // ==============================
+            if (btnEquiparRetaguarda) {
+
+                if (estoqueGuerreiro > 0) {
+
+                    btnEquiparRetaguarda
+                        .classList
+                        .remove('hidden');
+
+                    btnEquiparRetaguarda.disabled =
+                        false;
+
+                } else {
+
+                    btnEquiparRetaguarda
+                        .classList
+                        .add('hidden');
+                }
+            }
+
+            // ==============================
+            // INFO
+            // ==============================
+            retaguardaInfos.forEach(elem => {
+
+                if (
+                    guerreirosRetaguarda > 0
+                ) {
+
+                    elem.classList.remove(
+                        'hidden'
+                    );
+
+                    elem.textContent =
+                        `✔ ${formatarNumero(guerreirosRetaguarda)} em retaguarda`;
+
+                } else {
+
+                    elem.classList.add(
+                        'hidden'
+                    );
+                }
+            });
+        };
+
+    // ==============================
+    // BOTÃO RETAGUARDA
+    // ==============================
+    if (btnEquiparRetaguarda) {
+
+        let emCooldownRetaguarda =
+            false;
+
+        btnEquiparRetaguarda
+            .addEventListener(
+                'click',
+                async () => {
+
+                    if (
+                        emCooldownRetaguarda
+                    ) return;
+
+                    emCooldownRetaguarda =
+                        true;
+
+                    btnEquiparRetaguarda.disabled =
+                        true;
+
+                    const textoOriginal =
+                        btnEquiparRetaguarda.innerText;
+
+                    btnEquiparRetaguarda.innerText =
+                        `Enviando...`;
+
+                    try {
+
+                        const res =
+                            await fetch(
+                                `/equipar/retaguarda/${usuarioId}`,
+                                {
+                                    method: 'POST'
+                                }
+                            );
+
+                        // ==============================
+                        // SUCESSO
+                        // ==============================
+                        if (res.ok) {
+
+                            Swal.fire({
+
+                                customClass: {
+                                    title:
+                                        'swal-game-text'
+                                },
+
+                                icon:
+                                    'success',
+
+                                title:
+                                    'Enviado para retaguarda!',
+
+                                text:
+                                    'O guerreiro foi enviado à retaguarda com sucesso.',
+
+                                html: `
+                                    <div class="modal-anuncio">
+                                        <iframe
+                                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                            width="468"
+                                            height="60"
+                                            scrolling="no"
+                                            frameborder="0">
+                                        </iframe>
+                                    </div>
+                                `,
+
+                                timer: 7000,
+
+                                showConfirmButton:
+                                    false,
+
+                                background:
+                                    'transparent',
+
+                                color:
+                                    '#ffb400'
+                            });
+
+                        } else {
+
+                            // ==============================
+                            // ERRO RESPONSE
+                            // ==============================
+                            Swal.fire({
+
+                                customClass: {
+                                    title:
+                                        'swal-game-error'
+                                },
+
+                                icon:
+                                    'error',
+
+                                title:
+                                    'Erro',
+
+                                text:
+                                    'Não foi possível enviar o guerreiro para a retaguarda.',
+
+                                html: `
+                                    <div class="modal-anuncio">
+                                        <iframe
+                                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                            width="468"
+                                            height="60"
+                                            scrolling="no"
+                                            frameborder="0">
+                                        </iframe>
+                                    </div>
+                                `,
+
+                                timer: 7000,
+
+                                showConfirmButton:
+                                    false,
+
+                                background:
+                                    'transparent',
+
+                                color:
+                                    '#ff3b3b'
+                            });
+                        }
+
+                    } catch (e) {
+
+                        console.error(e);
+
+                        // ==============================
+                        // ERRO CATCH
+                        // ==============================
+                        Swal.fire({
+
+                            customClass: {
+                                title:
+                                    'swal-game-error'
+                            },
+
+                            icon: 'error',
+
+                            title: 'Erro',
+
+                            text:
+                                'Erro ao enviar para retaguarda.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            timer: 7000,
+
+                            showConfirmButton:
+                                false,
+
+                            background:
+                                'transparent',
+
+                            color:
+                                '#ff3b3b'
+                        });
+
+                    } finally {
+
+                        // ==============================
+                        // UPDATE GLOBAL
+                        // ==============================
+                        await atualizarTudo(
+                            usuarioId
+                        );
+
+                        emCooldownRetaguarda =
+                            false;
+
+                        btnEquiparRetaguarda.disabled =
+                            false;
+
+                        btnEquiparRetaguarda.innerText =
+                            textoOriginal;
+                    }
+                }
+            );
+    }
+
+    // ==============================
+    // PRIMEIRO LOAD
+    // ==============================
+    await atualizarTudo(usuarioId);
+
+});
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -118,13 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                atualizarRetaguarda();
 
 	            } else {
-	                // WARNING AUTOMÁTICO (4s)
-					/**
-	                swalWarningAuto(
-	                    'Não foi possível enviar o guerreiro para a retaguarda.',
-	                    4
-	                );
-					*/
+	              
 					Swal.fire({
 													customClass: {
 																title: 'swal-game-error'
@@ -152,28 +462,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	        } catch (e) {
 	            console.error(e);
-	            Swal.fire({
-					customClass: {
-					      title: 'swal-game-text'
-					    },
-	                icon: 'error',
-	                title: 'Erro',
-	                text: 'Erro ao tentar enviar para retaguarda.',
-					html: `
-									  		      <div class="modal-anuncio">
-									  		        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-									  		          width="468"
-									  		          height="60"
-									  		          scrolling="no"
-									  		          frameborder="0">
-									  		        </iframe>
-									  		      </div>
-									  		    `,
-					timer: 7000,
-					showConfirmButton: false,
-					background: 'transparent',
-					color: '#ffb400'
-	            });
+				
+				
 	        } finally {
 	            setTimeout(() => {
 	                emCooldownRetaguarda = false;
@@ -191,4 +481,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(atualizarRetaguarda, 10000); 
 
 });
-
+*/

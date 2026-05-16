@@ -1,4 +1,434 @@
 
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const meta = document.querySelector('meta[name="user-id"]');
+
+    const usuarioId =
+        meta ? Number(meta.content) : null;
+
+    if (!usuarioId) return;
+
+    // ==============================
+    // ELEMENTOS
+    // ==============================
+    const machadoSpan =
+        document.getElementById('machadoDilacerador');
+
+    const btnAtivarMachado =
+        document.getElementById('btnAtivarMachadoDilacerador');
+
+    const btnAtivarEspada =
+        document.getElementById('btnAtivarEspadaFlanejante');
+
+    const machadoInfos =
+        document.querySelectorAll(
+            '.machado-dilacerador-ativo-info'
+        );
+
+    // ==============================
+    // FORMATAÇÃO
+    // ==============================
+    const formatarNumero = n =>
+        new Intl.NumberFormat('pt-BR')
+            .format(n);
+
+    // ==============================
+    // ATUALIZA MACHADO
+    // ==============================
+    window.atualizarMachadoDilacerador =
+        function(status) {
+
+            const machadoEstoque =
+                status.qtdMachadoDilaceradorEstoque ?? 0;
+
+            const machadoAtivo =
+                status.qtdMachadoDilaceradorAtivo ?? 0;
+
+            const podeAtivar =
+                status.podeAtivarMachadoDilacerador === true;
+
+            const espadaAtiva =
+                status.espadaFlanejanteAtiva ?? 0;
+
+            const arcoAtivo =
+                status.arcoAtivo ?? 0;
+
+            const machadoItem =
+                machadoSpan?.closest(
+                    '.nucleo-item-dilacerador'
+                );
+
+            // ==============================
+            // ITEM
+            // ==============================
+            if (machadoItem && machadoSpan) {
+
+                if (machadoEstoque === 0) {
+
+                    machadoItem.classList.add('hidden');
+
+                } else {
+
+                    machadoItem.classList.remove('hidden');
+
+                    machadoSpan.textContent =
+                        formatarNumero(machadoEstoque);
+                }
+            }
+
+            // ==============================
+            // BOTÃO
+            // ==============================
+            if (btnAtivarMachado) {
+
+                const mostrarBotao =
+
+                    machadoEstoque > 0 &&
+                    machadoAtivo === 0 &&
+                    arcoAtivo === 0 &&
+                    podeAtivar &&
+                    espadaAtiva === 0;
+
+                btnAtivarMachado
+                    .classList
+                    .toggle(
+                        'hidden',
+                        !mostrarBotao
+                    );
+
+                btnAtivarMachado.disabled =
+                    !mostrarBotao;
+            }
+
+            // ==============================
+            // INFO
+            // ==============================
+            machadoInfos.forEach(div => {
+
+                if (machadoAtivo > 0) {
+
+                    div.classList.remove('hidden');
+
+                    div.textContent =
+                        `✔ Machado Dilacerador equipado (${machadoAtivo})`;
+
+                } else {
+
+                    div.classList.add('hidden');
+                }
+            });
+        };
+
+    // ==============================
+    // ATIVAR MACHADO
+    // ==============================
+    let emCooldown = false;
+
+    if (btnAtivarMachado) {
+
+        btnAtivarMachado.addEventListener(
+            'click',
+            async () => {
+
+                if (emCooldown) return;
+
+                emCooldown = true;
+
+                btnAtivarMachado.disabled = true;
+
+                // ==============================
+                // TRAVA ESPADA
+                // ==============================
+                btnAtivarEspada.style.pointerEvents =
+                    'none';
+
+                btnAtivarEspada.style.opacity =
+                    '0.5';
+
+                const textoOriginal =
+                    btnAtivarMachado.innerText;
+
+                btnAtivarMachado.innerText =
+                    'Ativando...';
+
+                try {
+
+                    // ==============================
+                    // STATUS
+                    // ==============================
+                    const res1 =
+                        await fetch(
+                            `/api/atualizar/status/ajustes/${usuarioId}`
+                        );
+
+                    if (!res1.ok) {
+
+                        btnAtivarEspada.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarEspada.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    const status =
+                        await res1.json();
+
+                    const ativoGuerreiro =
+                        status.ativoGuerreiro;
+
+                    const espadaAtiva =
+                        status.espadaFlanejanteAtiva ?? 0;
+
+                    // ==============================
+                    // BLOQUEIOS
+                    // ==============================
+                    if (ativoGuerreiro <= 0) {
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-text'
+                            },
+
+                            icon: 'warning',
+
+                            title: 'Ação bloqueada',
+
+                            text:
+                                'Você não pode equipar armas agora.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+
+                        btnAtivarEspada.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarEspada.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // ESPADA ATIVA
+                    // ==============================
+                    if (espadaAtiva === 1) {
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-error'
+                            },
+
+                            icon: 'warning',
+
+                            title: 'Arma incompatível',
+
+                            text:
+                                'Desequipe a espada antes de equipar o machado.',
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+
+                        btnAtivarEspada.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarEspada.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // EQUIPAR
+                    // ==============================
+                    const res =
+                        await fetch(
+                            `/api/machado-dilacerador/ativar?usuarioId=${usuarioId}&quantidade=1`,
+                            {
+                                method: 'POST'
+                            }
+                        );
+
+                    // ==============================
+                    // ERRO
+                    // ==============================
+                    if (!res.ok) {
+
+                        const erro =
+                            await res.text();
+
+                        Swal.fire({
+
+                            customClass: {
+                                title: 'swal-game-error'
+                            },
+
+                            icon: 'warning',
+
+                            title: 'Erro',
+
+                            text: erro,
+
+                            html: `
+                                <div class="modal-anuncio">
+                                    <iframe
+                                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                        width="468"
+                                        height="60"
+                                        scrolling="no"
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                            `,
+
+                            background: 'transparent',
+
+                            color: '#ff3b3b'
+                        });
+
+                        btnAtivarEspada.style.pointerEvents =
+                            'auto';
+
+                        btnAtivarEspada.style.opacity =
+                            '1';
+
+                        return;
+                    }
+
+                    // ==============================
+                    // SUCESSO
+                    // ==============================
+                    Swal.fire({
+
+                        customClass: {
+                            title: 'swal-game-text'
+                        },
+
+                        icon: 'success',
+
+                        title: 'Machado equipado!',
+
+                        text:
+                            'Seu Machado Dilacerador foi equipado com sucesso.',
+
+                        html: `
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        timer: 7000,
+
+                        showConfirmButton: false,
+
+                        background: 'transparent',
+
+                        color: '#ffb400'
+                    });
+
+                } catch (e) {
+
+                    console.error(e);
+
+                    Swal.fire({
+
+                        customClass: {
+                            title: 'swal-game-error'
+                        },
+
+                        icon: 'error',
+
+                        title: 'Erro',
+
+                        text:
+                            'Erro ao tentar equipar o machado.',
+
+                        html: `
+                            <div class="modal-anuncio">
+                                <iframe
+                                    src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                                    width="468"
+                                    height="60"
+                                    scrolling="no"
+                                    frameborder="0">
+                                </iframe>
+                            </div>
+                        `,
+
+                        background: 'transparent',
+
+                        color: '#ff3b3b'
+                    });
+
+                    btnAtivarEspada.style.pointerEvents =
+                        'auto';
+
+                    btnAtivarEspada.style.opacity =
+                        '1';
+
+                } finally {
+
+                    // ==============================
+                    // UPDATE GLOBAL
+                    // ==============================
+                    await atualizarTudo(usuarioId);
+
+                    emCooldown = false;
+
+                    btnAtivarMachado.disabled =
+                        false;
+
+                    btnAtivarMachado.innerText =
+                        textoOriginal;
+                }
+            }
+        );
+    }
+
+    // ==============================
+    // PRIMEIRO LOAD
+    // ==============================
+    await atualizarTudo(usuarioId);
+
+});
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -285,3 +715,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+*/

@@ -22,19 +22,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		MACHADO_DILACERADOR:"Machado Dilacerador",
 	    GUERREIRO_BASICO: "Guerreiro Básico",
 	    EXP: "Experiência",
+		ESCUDO_PRIMORDIAL:"Escudo Primordial"
+		/*
 		FLECHA_FERRO: "Flecha de ferro",   
 		FLECHA_FOGO:"Flecha de fogo",     
 		FLECHA_VENENO:"Flecha de veneno",   
 		FLECHA_DIAMANTE:"Flecha de Diamante",
-	    ATAQUE_SPECIAL: "Ataque Especial",
-		ESCUDO_PRIMORDIAL:"Escudo Primordial",
-		ARCO_CELESTIAL:"Arco Celestial"
+	    ATAQUE_SPECIAL: "Ataque Especial"
+	    ARCO_CELESTIAL:"Arco Celestial"
+		*/
+	
 	};
 
 
 	const allowedItems = ["BOSS_COIN", "POCAO_VIGOR", "GUERREIRO_BASICO", "EXP", "ATAQUE_SPECIAL",
-		 "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR", "FLECHA_FERRO", "FLECHA_FOGO", "FLECHA_VENENO",
-	 "FLECHA_DIAMANTE", "ESCUDO_PRIMORDIAL", "ARCO_CELESTIAL"];
+		 "ESPADA_FLANEJANTE", "MACHADO_DILACERADOR",
+		 /*
+		  "FLECHA_FERRO", "FLECHA_FOGO", "FLECHA_VENENO",
+	 "FLECHA_DIAMANTE",,"ARCO_CELESTIAL"*/ "ESCUDO_PRIMORDIAL" ];
 
 
     // Função para buscar e atualizar o preview

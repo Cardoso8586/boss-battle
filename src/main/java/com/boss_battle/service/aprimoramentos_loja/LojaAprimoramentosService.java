@@ -36,51 +36,51 @@ public class LojaAprimoramentosService {
    
 
         if (quantidadeTotalGuerreiro <= 25) {
-            aumentoGuerreiro = 500;
+            aumentoGuerreiro = 1000;
         } else if (quantidadeTotalGuerreiro <= 50) {
-            aumentoGuerreiro = 600;
-        } else if (quantidadeTotalGuerreiro <= 75) {
-            aumentoGuerreiro = 700;
-        } else if (quantidadeTotalGuerreiro <= 100) {
-            aumentoGuerreiro = 800;
-        } else if (quantidadeTotalGuerreiro <= 125) {
-            aumentoGuerreiro = 900;
-        } else if (quantidadeTotalGuerreiro <= 150) {
-            aumentoGuerreiro = 1000;
-        } else if (quantidadeTotalGuerreiro <= 175) {
-            aumentoGuerreiro = 1100;
-        } else if (quantidadeTotalGuerreiro <= 200) {
-            aumentoGuerreiro = 1200;
-        } else if (quantidadeTotalGuerreiro <= 225) {
-            aumentoGuerreiro = 1300;
-        } else if (quantidadeTotalGuerreiro <= 250) {
-            aumentoGuerreiro = 1000;
-        } else if (quantidadeTotalGuerreiro <= 275) {
-            aumentoGuerreiro = 1400;
-        } else if (quantidadeTotalGuerreiro <= 300) {
-            aumentoGuerreiro = 1500;
-        } else if (quantidadeTotalGuerreiro <= 325) {
             aumentoGuerreiro = 1600;
-        } else if (quantidadeTotalGuerreiro <= 350) {
+        } else if (quantidadeTotalGuerreiro <= 75) {
             aumentoGuerreiro = 1700;
-        } else if (quantidadeTotalGuerreiro <= 375) {
-            aumentoGuerreiro = 1500;
-        } else if (quantidadeTotalGuerreiro <= 400) {
+        } else if (quantidadeTotalGuerreiro <= 100) {
             aumentoGuerreiro = 1800;
-        } else if (quantidadeTotalGuerreiro <= 425) {
+        } else if (quantidadeTotalGuerreiro <= 125) {
             aumentoGuerreiro = 1900;
-        } else if (quantidadeTotalGuerreiro <= 450) {
+        } else if (quantidadeTotalGuerreiro <= 150) {
             aumentoGuerreiro = 2000;
-        } else if (quantidadeTotalGuerreiro <= 475) {
+        } else if (quantidadeTotalGuerreiro <= 175) {
             aumentoGuerreiro = 2100;
-        } else if (quantidadeTotalGuerreiro <= 500) {
+        } else if (quantidadeTotalGuerreiro <= 200) {
             aumentoGuerreiro = 2200;
-        } else if (quantidadeTotalGuerreiro <= 600) {
+        } else if (quantidadeTotalGuerreiro <= 225) {
             aumentoGuerreiro = 2300;
-        } else if (quantidadeTotalGuerreiro <= 700) {
+        } else if (quantidadeTotalGuerreiro <= 250) {
+            aumentoGuerreiro = 2000;
+        } else if (quantidadeTotalGuerreiro <= 275) {
+            aumentoGuerreiro = 2400;
+        } else if (quantidadeTotalGuerreiro <= 300) {
+            aumentoGuerreiro = 2500;
+        } else if (quantidadeTotalGuerreiro <= 325) {
+            aumentoGuerreiro = 2600;
+        } else if (quantidadeTotalGuerreiro <= 350) {
+            aumentoGuerreiro = 2700;
+        } else if (quantidadeTotalGuerreiro <= 375) {
+            aumentoGuerreiro = 2500;
+        } else if (quantidadeTotalGuerreiro <= 400) {
             aumentoGuerreiro = 2800;
-        } else if (quantidadeTotalGuerreiro <= 800) {
+        } else if (quantidadeTotalGuerreiro <= 425) {
+            aumentoGuerreiro = 2900;
+        } else if (quantidadeTotalGuerreiro <= 450) {
+            aumentoGuerreiro = 3000;
+        } else if (quantidadeTotalGuerreiro <= 475) {
+            aumentoGuerreiro = 3100;
+        } else if (quantidadeTotalGuerreiro <= 500) {
             aumentoGuerreiro = 3200;
+        } else if (quantidadeTotalGuerreiro <= 600) {
+            aumentoGuerreiro = 3300;
+        } else if (quantidadeTotalGuerreiro <= 700) {
+            aumentoGuerreiro = 3400;
+        } else if (quantidadeTotalGuerreiro <= 800) {
+            aumentoGuerreiro = 3500;
         } else if (quantidadeTotalGuerreiro <= 900) {
             aumentoGuerreiro = 3600;
         } else if (quantidadeTotalGuerreiro <= 1000) {
@@ -98,29 +98,7 @@ public class LojaAprimoramentosService {
         } else {
             aumentoGuerreiro = 15000;
         }
-        /*
-        if (quantidadeTotalGuerreiro <= 100) {
-            aumentoGuerreiro = 100;
-        } 
-        else if (quantidadeTotalGuerreiro <= 200) {
-            aumentoGuerreiro = 300;
-        } 
-        else if (quantidadeTotalGuerreiro <= 300) {
-            aumentoGuerreiro = 500;
-        } 
-        else if (quantidadeTotalGuerreiro <= 500) {
-            aumentoGuerreiro = 800;
-        } 
-        else if (quantidadeTotalGuerreiro <= 1000) {
-            aumentoGuerreiro = 1000;
-        } 
-        else if (quantidadeTotalGuerreiro <= 5000) {
-            aumentoGuerreiro = 10000;
-        } 
-        else {
-            aumentoGuerreiro = 15000; // valor para acima de 5000 (opcional)
-        }
-*/
+      
         // 🔼 aumento fixo e permanente
         usuario.setPrecoGuerreiros(
             precoGuerreirosAtual + (quantidade * aumentoGuerreiro)

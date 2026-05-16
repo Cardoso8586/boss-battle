@@ -2,6 +2,112 @@ async function carregarRankingDano() {
     const meta = document.querySelector('meta[name="user-id"]');
     const usuarioId = meta ? Number(meta.content) : null;
 
+    const lista = document.getElementById('rankingDano');
+    const minhaPosicaoEl = document.getElementById('minhaPosicaoRanking');
+
+    if (!lista) {
+        console.error('Elemento #rankingDano não encontrado');
+        return;
+    }
+
+    if (!usuarioId || isNaN(usuarioId)) {
+        console.error('Usuário não encontrado');
+        lista.innerHTML = '<li>Usuário não identificado.</li>';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/boss/ranking/dano/${usuarioId}`);
+
+        if (!response.ok) {
+            throw new Error('Erro ao carregar ranking');
+        }
+
+        const data = await response.json();
+
+        const ranking = Array.isArray(data.top10) ? data.top10 : [];
+        const minhaPosicao = data.minhaPosicao;
+
+        lista.innerHTML = '';
+
+        if (ranking.length === 0) {
+            lista.innerHTML = `
+                <li class="ranking-vazio">
+                    Nenhum dano registrado neste boss ainda.
+                </li>
+            `;
+
+            if (minhaPosicaoEl) {
+                minhaPosicaoEl.textContent = 'Você ainda não entrou no ranking';
+            }
+
+            return;
+        }
+
+        ranking.forEach((player, index) => {
+            const li = document.createElement('li');
+
+            const playerId = Number(player.userId);
+            const nome = player.userName || 'Jogador';
+            const dano = player.damage || 0;
+
+            if (playerId === usuarioId) {
+                li.classList.add('meu-ranking');
+            }
+
+            li.innerHTML = `
+                <span class="posicao">#${index + 1}</span>
+                <span class="nome">${cortarNome(nome)}</span>
+                <span class="dano">${formatarNumero(dano)} Dano</span>
+            `;
+
+            lista.appendChild(li);
+        });
+
+        if (minhaPosicaoEl) {
+            minhaPosicaoEl.textContent =
+                minhaPosicao && minhaPosicao !== 'Sem ranking'
+                    ? `Sua posição: ${minhaPosicao}`
+                    : 'Você ainda não entrou no ranking';
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        lista.innerHTML = `
+            <li class="ranking-erro">
+                Erro ao carregar ranking.
+            </li>
+        `;
+
+        if (minhaPosicaoEl) {
+            minhaPosicaoEl.textContent = '';
+        }
+    }
+}
+
+function cortarNome(nome, max = 18) {
+    nome = String(nome || 'Jogador');
+
+    return nome.length > max
+        ? nome.substring(0, max) + '...'
+        : nome;
+}
+
+function formatarNumero(valor) {
+    return Number(valor || 0).toLocaleString('pt-BR');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarRankingDano();
+	// 5 minutos
+	setInterval(carregarRankingDano, 300000);
+});
+
+/*
+    const meta = document.querySelector('meta[name="user-id"]');
+    const usuarioId = meta ? Number(meta.content) : null;
+
     if (!usuarioId || isNaN(usuarioId)) {
         console.error('Usuário não encontrado');
         return;
@@ -67,4 +173,4 @@ function formatarNumero(valor) {
 // carrega automaticamente
 document.addEventListener('DOMContentLoaded', carregarRankingDano);
 setInterval(carregarRankingDano, 13000);
-
+*/

@@ -187,16 +187,17 @@ public class AnuncioRecompensaService {
                     "icones/escudo_primordial.webp"
             );
 
-        } else if (roll < 80) {
+        } else {
             return new ItemAnuncio(
                     RewardItem.POCAO_VIGOR,
-                    "poção de vigor",
+                    "Poção de Vigor",
                     1,
                     "icones/pocao_vigor.webp"
             );
+        }
 
-        } 
-        
+        /*
+        // ARCO DESATIVADO TEMPORARIAMENTE
         else {
             return new ItemAnuncio(
                     RewardItem.ARCO_CELESTIAL,
@@ -205,8 +206,8 @@ public class AnuncioRecompensaService {
                     "icones/arco.webp"
             );
         }
-    }//--->sortearItemEspecialAnuncio
-    
+        */
+    }
     //--------------------------------------------------------------------------------------
     private void aplicarItem(UsuarioBossBattle usuario, ItemAnuncio item) {
 
@@ -221,11 +222,11 @@ public class AnuncioRecompensaService {
         if (item.getRewardItem() == RewardItem.ESCUDO_PRIMORDIAL) {
             usuario.setEscudoPrimordial(usuario.getEscudoPrimordial() + item.getQuantidade());
         }
-
+        /*
         if (item.getRewardItem() == RewardItem.ARCO_CELESTIAL) {
             usuario.setInventarioArco(usuario.getInventarioArco() + item.getQuantidade());
         }
-        
+        */
         if (item.getRewardItem() == RewardItem.POCAO_VIGOR) {
             usuario.setPocaoVigor(usuario.getPocaoVigor() + item.getQuantidade());
         }

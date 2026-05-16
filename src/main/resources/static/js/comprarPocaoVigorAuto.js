@@ -1,3 +1,116 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const meta = document.querySelector('meta[name="user-id"]');
+    const usuarioId = meta ? Number(meta.getAttribute("content")) : null;
+
+    if (!usuarioId) return;
+
+    const btnComprar = document.querySelector('[data-item="PocaoAutomaticaVigor"]');
+
+    if (!btnComprar) return;
+
+    const pocaoVigorErroImg = "/icones/erro_img/pocao_vigor_erro.webp";
+    const pocaoVigorOkImg = "/icones/ok_img/pocao_vigor_ok.webp";
+    const bossCoinErroImg = "/icones/erro_img/boss_coin_erro.webp";
+
+    let emCooldownCompra = false;
+    const tempoCooldownCompra = 8;
+
+    btnComprar.addEventListener('click', async () => {
+
+        if (emCooldownCompra) return;
+
+        const card = btnComprar.closest('.loja-card');
+        const quantidadeInput = card.querySelector('.quantidade-item');
+        const quantidade = Number(quantidadeInput.value);
+
+        if (!Number.isInteger(quantidade) || quantidade <= 0) {
+            Swal.fire({
+                customClass: { title: 'swal-game-error' },
+                title: 'Quantidade inválida',
+                text: 'Informe uma quantidade válida.',
+                imageUrl: pocaoVigorErroImg,
+                imageWidth: 90,
+                imageHeight: 120,
+                timer: 5000,
+                showConfirmButton: false,
+                background: 'transparent',
+                color: '#ff3b3b'
+            });
+
+            return;
+        }
+
+        emCooldownCompra = true;
+        btnComprar.disabled = true;
+
+        const textoOriginal = 'Comprar Poção';
+        btnComprar.innerText = 'Comprando poção de Vigor...';
+
+        try {
+            const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ quantidade })
+            });
+
+            if (res.ok) {
+                Swal.fire({
+                    customClass: { title: 'swal-game-text' },
+                    title: quantidade <= 1
+                        ? `Você comprou ${quantidade} poção de Vigor.`
+                        : `Você comprou ${quantidade} poções de Vigor.`,
+                    text: 'Compra realizada!',
+                    imageUrl: pocaoVigorOkImg,
+                    imageWidth: 90,
+                    imageHeight: 120,
+                    timer: 5000,
+                    showConfirmButton: false,
+                    background: 'transparent',
+                    color: '#ffb400'
+                });
+
+                if (typeof atualizarUsuario === 'function') {
+                    atualizarUsuario();
+                }
+
+                if (typeof atualizarPrecosLoja === 'function') {
+                    atualizarPrecosLoja();
+                }
+
+                return;
+            }
+
+            const erro = await res.text();
+
+            Swal.fire({
+                customClass: { title: 'swal-game-error' },
+                title: 'Saldo insuficiente',
+                text: erro || 'Não foi possível comprar.',
+                imageUrl: bossCoinErroImg,
+                imageWidth: 120,
+                imageHeight: 120,
+                timer: 5000,
+                showConfirmButton: false,
+                background: 'transparent',
+                color: '#ff3b3b'
+            });
+
+        } catch (e) {
+            console.error(e);
+
+        } finally {
+            setTimeout(() => {
+                emCooldownCompra = false;
+                btnComprar.disabled = false;
+                btnComprar.innerText = textoOriginal;
+            }, tempoCooldownCompra * 1000);
+        }
+    });
+});
+
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.querySelector('meta[name="user-id"]');
@@ -400,3 +513,146 @@ document.addEventListener('DOMContentLoaded', () => {
    // setInterval(atualizarUsuario, 5000); // atualiza a cada 5 segundos
 });
 
+/*
+document.addEventListener('DOMContentLoaded', () => {
+
+    const meta = document.querySelector('meta[name="user-id"]');
+    const usuarioId = meta ? Number(meta.getAttribute("content")) : null;
+
+    if (!usuarioId) {
+        console.error("Usuário não encontrado.");
+        return;
+    }
+
+    const btnComprar = document.querySelector('[data-item="PocaoAutomaticaVigor"]');
+
+    if (!btnComprar) {
+        return;
+    }
+
+    let emCooldownCompra = false;
+    const tempoCooldownCompra = 8;
+
+    const pocaoVigorErroImg = "/icones/erro_img/pocao_vigor_erro.webp";
+    const pocaoVigorOkImg = "/icones/ok_img/pocao_vigor_ok.webp";
+    const bossCoinErroImg = "/icones/erro_img/boss_coin_erro.webp";
+
+    btnComprar.addEventListener('click', async () => {
+
+        if (emCooldownCompra) return;
+
+        const card = btnComprar.closest('.loja-card');
+        const quantidadeInput = card.querySelector('.quantidade-item');
+        const quantidade = Number(quantidadeInput.value);
+
+        if (!Number.isInteger(quantidade) || quantidade <= 0) {
+            Swal.fire({
+                customClass: {
+                    title: 'swal-game-error'
+                },
+                title: 'Quantidade inválida',
+                text: 'Informe uma quantidade válida.',
+                imageUrl: pocaoVigorErroImg,
+                imageWidth: 90,
+                imageHeight: 120,
+                timer: 5000,
+                showConfirmButton: false,
+                background: 'transparent',
+                color: '#ff3b3b'
+            });
+
+            return;
+        }
+
+        emCooldownCompra = true;
+        btnComprar.disabled = true;
+
+        const textoOriginal = 'Comprar Poção';
+        btnComprar.innerText = 'Comprando poção de Vigor...';
+
+        try {
+            const res = await fetch(`/comprar/pocao-vigor/${usuarioId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    quantidade
+                })
+            });
+
+            if (res.ok) {
+                Swal.fire({
+                    customClass: {
+                        title: 'swal-game-text'
+                    },
+                    title: quantidade <= 1
+                        ? `Você comprou ${quantidade} poção de Vigor.`
+                        : `Você comprou ${quantidade} poções de Vigor.`,
+                    text: 'Compra realizada!',
+                    imageUrl: pocaoVigorOkImg,
+                    imageWidth: 90,
+                    imageHeight: 120,
+                    imageAlt: 'Poção de Vigor Automático',
+                    timer: 5000,
+                    showConfirmButton: false,
+                    background: 'transparent',
+                    color: '#ffb400'
+                });
+
+                if (typeof atualizarUsuario === 'function') {
+                    atualizarUsuario();
+                }
+
+                if (typeof atualizarPrecosLoja === 'function') {
+                    atualizarPrecosLoja();
+                }
+
+                return;
+            }
+
+            const erro = await res.text();
+
+            Swal.fire({
+                customClass: {
+                    title: 'swal-game-error'
+                },
+                title: 'Saldo insuficiente',
+                text: erro || 'Não foi possível comprar.',
+                imageUrl: bossCoinErroImg,
+                imageWidth: 120,
+                imageHeight: 120,
+                timer: 5000,
+                showConfirmButton: false,
+                background: 'transparent',
+                color: '#ff3b3b'
+            });
+
+        } catch (e) {
+            console.error(e);
+
+            Swal.fire({
+                customClass: {
+                    title: 'swal-game-error'
+                },
+                title: 'Erro',
+                text: 'Erro ao tentar comprar Poção de Vigor.',
+                imageUrl: pocaoVigorErroImg,
+                imageWidth: 90,
+                imageHeight: 120,
+                timer: 5000,
+                showConfirmButton: false,
+                background: 'transparent',
+                color: '#ff3b3b'
+            });
+
+        } finally {
+            setTimeout(() => {
+                emCooldownCompra = false;
+                btnComprar.disabled = false;
+                btnComprar.innerText = textoOriginal;
+            }, tempoCooldownCompra * 1000);
+        }
+    });
+});
+*/
