@@ -1,832 +1,560 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ======================================
-    // CACHE
-    // ======================================
+    const CACHE_KEY_STATUS = "usuario_status_cache";
+    const CACHE_IMAGEM_GUERREIRO = "cache_imagem_guerreiro";
+    const CACHE_TTL = 1000 * 60 * 60 * 24;
+    const UPDATE_INTERVAL = 60000;
 
-    const CACHE_KEY_STATUS =
-        "usuario_status_cache";
+    const meta = document.querySelector('meta[name="user-id"]');
+    const usuarioId = meta ? parseInt(meta.getAttribute("content")) : null;
 
-    const CACHE_IMAGEM_GUERREIRO =
-        "cache_imagem_guerreiro";
-
-    const CACHE_TTL =
-        1000 * 60 * 60 * 24;
-
-		// ======================================
-		// UPDATE
-		// ======================================
-
-		// 1 minuto
-		const UPDATE_INTERVAL =
-		    60000;
-
-    // ======================================
-    // USER
-    // ======================================
-
-    const meta =
-        document.querySelector(
-            'meta[name="user-id"]'
-        );
-
-    const usuarioId =
-        meta
-            ? parseInt(
-                meta.getAttribute(
-                    "content"
-                )
-            )
-            : null;
-
-    let ultimoStatus =
-        null;
-
-    let valorAtualBoss =
-        null;
-
-    // ======================================
-    // HELPERS
-    // ======================================
+    let ultimoStatus = null;
+    let valorAtualBoss = null;
 
     function el(id) {
-
-        return document.getElementById(
-            id
-        );
+        return document.getElementById(id);
     }
 
     function formatarNumero(numero) {
-
-        return new Intl.NumberFormat(
-            'pt-BR'
-        ).format(
-            Number(numero || 0)
-        );
+        return new Intl.NumberFormat('pt-BR').format(Number(numero || 0));
     }
 
-    function setText(
-        id,
-        valor
-    ) {
+    function setText(id, valor) {
+        const elemento = el(id);
+        if (!elemento) return;
 
-        const elemento =
-            el(id);
+        const texto = String(valor ?? "");
 
-        if (!elemento)
-            return;
-
-        const texto =
-            String(valor ?? "");
-
-        if (
-            elemento.textContent !== texto
-        ) {
-
-            elemento.textContent =
-                texto;
+        if (elemento.textContent !== texto) {
+            elemento.textContent = texto;
         }
     }
 
-    function setDisplay(
-        elemento,
-        display
-    ) {
+    function setDisplay(elemento, display) {
+        if (!elemento) return;
 
-        if (!elemento)
-            return;
-
-        if (
-            elemento.style.display !== display
-        ) {
-
-            elemento.style.display =
-                display;
+        if (elemento.style.display !== display) {
+            elemento.style.display = display;
         }
     }
 
-    function setHidden(
-        elemento,
+    function setHidden(elemento, esconder) {
+        if (!elemento) return;
+
         esconder
-    ) {
-
-        if (!elemento)
-            return;
-
-        if (esconder) {
-
-            elemento.classList.add(
-                "hidden"
-            );
-
-        } else {
-
-            elemento.classList.remove(
-                "hidden"
-            );
-        }
+            ? elemento.classList.add("hidden")
+            : elemento.classList.remove("hidden");
     }
-
-    function setBarWidth(
-        id,
-        valor
-    ) {
-
-        const barra =
-            el(id);
-
-        if (!barra)
-            return;
-
-        const width =
-            valor + "%";
-
-        if (
-            barra.style.width !== width
-        ) {
-
-            barra.style.width =
-                width;
-        }
-    }
-
-    // ======================================
-    // CACHE IMAGEM
-    // ======================================
 
     function salvarImagemCache(src) {
-
-        if (!src)
-            return;
-
-        localStorage.setItem(
-
-            CACHE_IMAGEM_GUERREIRO,
-
-            src
-        );
+        if (!src) return;
+        localStorage.setItem(CACHE_IMAGEM_GUERREIRO, src);
     }
 
     function pegarImagemCache() {
-
-        return localStorage.getItem(
-            CACHE_IMAGEM_GUERREIRO
-        );
+        return localStorage.getItem(CACHE_IMAGEM_GUERREIRO);
     }
 
-    // ======================================
-    // PRELOAD FORTE
-    // ======================================
-
     function preloadImagem(src) {
-
         return new Promise(resolve => {
-
             if (!src) {
-
                 resolve();
                 return;
             }
 
-            const img =
-                new Image();
-
-            img.decoding =
-                "async";
-
-            img.loading =
-                "eager";
-
-            img.fetchPriority =
-                "high";
-
-            img.onload =
-                () => resolve();
-
-            img.onerror =
-                () => resolve();
-
-            img.src =
-                src;
+            const img = new Image();
+            img.decoding = "async";
+            img.loading = "eager";
+            img.fetchPriority = "high";
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = src;
         });
     }
 
-    // ======================================
-    // TROCA IMAGEM
-    // ======================================
+    async function trocarImagemSemPiscar(imgEl, novaSrc) {
+        if (!imgEl || !novaSrc) return;
 
-    async function trocarImagemSemPiscar(
-        imgEl,
-        novaSrc
-    ) {
+        const atual = imgEl.getAttribute("src");
 
-        if (
-            !imgEl ||
-            !novaSrc
-        ) return;
+        if (atual && atual.includes(novaSrc)) return;
 
-        const atual =
-            imgEl.getAttribute(
-                "src"
-            );
+        await preloadImagem(novaSrc);
 
-        // evita recarregar igual
-        if (
-            atual &&
-            atual.includes(novaSrc)
-        ) {
-
-            return;
-        }
-
-        await preloadImagem(
-            novaSrc
-        );
-
-        const tempImg =
-            new Image();
-
-        tempImg.src =
-            novaSrc;
+        const tempImg = new Image();
+        tempImg.src = novaSrc;
 
         try {
-
             await tempImg.decode();
-
         } catch {}
 
         requestAnimationFrame(() => {
-
-            imgEl.decoding =
-                "async";
-
-            imgEl.fetchPriority =
-                "high";
-
-            imgEl.loading =
-                "eager";
-
-            imgEl.src =
-                novaSrc;
-
-            salvarImagemCache(
-                novaSrc
-            );
+            imgEl.decoding = "async";
+            imgEl.fetchPriority = "high";
+            imgEl.loading = "eager";
+            imgEl.src = novaSrc;
+            salvarImagemCache(novaSrc);
         });
     }
 
-    // ======================================
-    // CACHE STATUS
-    // ======================================
-
     function salvarCache(data) {
+        if (!data) return;
 
-        if (!data)
-            return;
-
-        localStorage.setItem(
-
-            CACHE_KEY_STATUS,
-
-            JSON.stringify({
-
-                time: Date.now(),
-
-                data: data
-            })
-        );
+        localStorage.setItem(CACHE_KEY_STATUS, JSON.stringify({
+            time: Date.now(),
+            data
+        }));
     }
 
     function pegarCache() {
-
         try {
+            const cache = JSON.parse(localStorage.getItem(CACHE_KEY_STATUS));
 
-            const cache =
-                JSON.parse(
+            if (!cache) return null;
 
-                    localStorage.getItem(
-                        CACHE_KEY_STATUS
-                    )
-                );
-
-            if (!cache)
-                return null;
-
-            if (
-
-                Date.now() -
-                cache.time >
-
-                CACHE_TTL
-
-            ) {
-
-                localStorage.removeItem(
-                    CACHE_KEY_STATUS
-                );
-
+            if (Date.now() - cache.time > CACHE_TTL) {
+                localStorage.removeItem(CACHE_KEY_STATUS);
                 return null;
             }
 
             return cache.data;
 
         } catch {
-
             return null;
         }
     }
 
-    // ======================================
-    // COMPARAÇÃO
-    // ======================================
-
-    function dadosMudaram(
-        novo
-    ) {
-
-        return JSON.stringify(
-            ultimoStatus
-        ) !== JSON.stringify(
-            novo
-        );
+    function dadosMudaram(novo) {
+        return JSON.stringify(ultimoStatus) !== JSON.stringify(novo);
     }
 
-    // ======================================
-    // BOSS COINS
-    // ======================================
+    const bossCoinsEl = el("boss_coins");
+    const saldoBox = document.querySelector(".saldo-box");
 
-    const bossCoinsEl =
-        el("boss_coins");
-
-    const saldoBox =
-        document.querySelector(
-            ".saldo-box"
-        );
-
-    function formatarNumeroBR(
-        valor
-    ) {
-
-        return Number(
-            valor || 0
-        ).toLocaleString(
-            "pt-BR"
-        );
+    function formatarNumeroBR(valor) {
+        return Number(valor || 0).toLocaleString("pt-BR");
     }
 
-    function mostrarVariacao(
-        valor,
-        tipo = "ganho"
-    ) {
+    function mostrarVariacao(valor, tipo = "ganho") {
+        if (!saldoBox || valor <= 0) return;
 
-        if (
-            !saldoBox ||
-            valor <= 0
-        ) return;
+        const span = document.createElement("span");
+        span.className = tipo === "perda" ? "perda-boss" : "ganho-boss";
+        span.textContent = `${tipo === "perda" ? "-" : "+"}${formatarNumeroBR(valor)}`;
 
-        const span =
-            document.createElement(
-                "span"
-            );
-
-        span.className =
-
-            tipo === "perda"
-
-                ? "perda-boss"
-
-                : "ganho-boss";
-
-        span.textContent =
-
-            `${tipo === "perda" ? "-" : "+"}${formatarNumeroBR(valor)}`;
-
-        saldoBox.appendChild(
-            span
-        );
+        saldoBox.appendChild(span);
 
         setTimeout(() => {
-
             span.remove();
-
         }, 1500);
     }
 
-    function animarSaldo(
-        tipo = "ganho"
-    ) {
+    function animarSaldo(tipo = "ganho") {
+        if (!bossCoinsEl) return;
 
-        if (!bossCoinsEl)
-            return;
-
-        bossCoinsEl.classList.remove(
-
-            "animar-saldo",
-
-            "animar-perda"
-        );
-
+        bossCoinsEl.classList.remove("animar-saldo", "animar-perda");
         void bossCoinsEl.offsetWidth;
 
         bossCoinsEl.classList.add(
-
-            tipo === "perda"
-
-                ? "animar-perda"
-
-                : "animar-saldo"
+            tipo === "perda" ? "animar-perda" : "animar-saldo"
         );
     }
 
-    function animarNumero(
-        inicio,
-        fim,
-        duracao = 1600
-    ) {
+    function animarNumero(inicio, fim, duracao = 1600) {
+        if (!bossCoinsEl) return;
 
-        if (!bossCoinsEl)
-            return;
-
-        const start =
-            performance.now();
+        const start = performance.now();
 
         function update(time) {
+            const progress = Math.min((time - start) / duracao, 1);
+            const valor = Math.floor(inicio + (fim - inicio) * progress);
 
-            const progress =
-                Math.min(
-
-                    (
-                        time - start
-                    ) / duracao,
-
-                    1
-                );
-
-            const valor =
-                Math.floor(
-
-                    inicio +
-
-                    (
-                        fim - inicio
-                    ) * progress
-                );
-
-            bossCoinsEl.textContent =
-
-                formatarNumeroBR(
-                    valor
-                );
+            bossCoinsEl.textContent = formatarNumeroBR(valor);
 
             if (progress < 1) {
-
-                requestAnimationFrame(
-                    update
-                );
-
+                requestAnimationFrame(update);
             } else {
-
-                bossCoinsEl.textContent =
-
-                    formatarNumeroBR(
-                        fim
-                    );
+                bossCoinsEl.textContent = formatarNumeroBR(fim);
             }
         }
 
-        requestAnimationFrame(
-            update
-        );
+        requestAnimationFrame(update);
     }
 
-    function atualizarBossCoins(
-        novoValor
-    ) {
+    function atualizarBossCoins(novoValor) {
+        if (!bossCoinsEl) return;
 
-        if (!bossCoinsEl)
-            return;
+        const novo = Number(novoValor || 0);
 
-        const novo =
-            Number(
-                novoValor || 0
-            );
-
-        if (
-            valorAtualBoss === null
-        ) {
-
-            valorAtualBoss =
-                novo;
-
-            bossCoinsEl.textContent =
-
-                formatarNumeroBR(
-                    novo
-                );
-
+        if (valorAtualBoss === null) {
+            valorAtualBoss = novo;
+            bossCoinsEl.textContent = formatarNumeroBR(novo);
             return;
         }
 
-        const diff =
-            novo -
-            valorAtualBoss;
+        const diff = novo - valorAtualBoss;
 
         if (diff > 0) {
-
-            mostrarVariacao(
-                diff,
-                "ganho"
-            );
-
-            animarSaldo(
-                "ganho"
-            );
-
-            animarNumero(
-
-                valorAtualBoss,
-
-                novo
-            );
+            mostrarVariacao(diff, "ganho");
+            animarSaldo("ganho");
+            animarNumero(valorAtualBoss, novo);
 
         } else if (diff < 0) {
-
-            mostrarVariacao(
-
-                Math.abs(diff),
-
-                "perda"
-            );
-
-            animarSaldo(
-                "perda"
-            );
-
-            animarNumero(
-
-                valorAtualBoss,
-
-                novo
-            );
+            mostrarVariacao(Math.abs(diff), "perda");
+            animarSaldo("perda");
+            animarNumero(valorAtualBoss, novo);
 
         } else {
-
-            bossCoinsEl.textContent =
-
-                formatarNumeroBR(
-                    novo
-                );
+            bossCoinsEl.textContent = formatarNumeroBR(novo);
         }
 
-        valorAtualBoss =
-            novo;
+        valorAtualBoss = novo;
     }
 
-    // ======================================
-    // RENDER IMAGEM
-    // ======================================
+    async function renderizarUsuario(data) {
+        if (!data) return;
 
-    async function renderizarImagemGuerreiro(
-        data
-    ) {
+        const energia = Math.max(0, data.energiaGuerreiros || 0);
+        const energiaMax = data.energiaGuerreirosPadrao || 1;
 
-        const guerreiroImage =
-            el("guerreiro-image");
+        setText("ganhosPendentesSpan", formatarNumero(data.ganhosRef));
+        setText("damage", formatarNumero(data.ataqueBase));
+        setText("guerreiros", formatarNumero(data.guerreiros));
+        setText("ataquePorMinuto", formatarNumero(data.ataquePorMinuto));
+        setText("xp", formatarNumero(data.xp));
 
-        if (!guerreiroImage)
+        const valor = data.ultimoValorRecebido;
+        setText("ganho", valor > 0 ? "+" + formatarNumero(valor) : "0");
+
+        setText("guerreirosRetaguarda", formatarNumero(data.guerreirosRetaguarda));
+        setText("espadaFlanejante", formatarNumero(data.espadaflanejante));
+        setText("machadoDilacerador", formatarNumero(data.machadoDilacerador));
+        setText("escudoPrimordial", formatarNumero(data.escudoPrimordial));
+
+        setText("energiaAtual", formatarNumero(energia));
+        setText("energiaMaxima", formatarNumero(energiaMax));
+
+        setText("quantidade_guerreiros", formatarNumero(data.totalGuerreiros));
+        setText("capacidade_vigor", formatarNumero(data.capacidadeVigor));
+        setText("ataques_minutos", formatarNumero(data.ataquePorMinuto));
+        setText("ataque_especial", formatarNumero(data.ataqueBase));
+        setText("pocao_vigor", formatarNumero(data.pocaoVigor));
+        setText("espada_flanejante", formatarNumero(data.espadaflanejante));
+        setText("machado_dilacerador", formatarNumero(data.machadoDilacerador));
+        setText("arco_celestial", formatarNumero(data.arcoInventario));
+        setText("flecha_diamante", formatarNumero(data.flechaDiamante));
+        setText("flecha_fogo", formatarNumero(data.flechaFogo));
+        setText("flecha_veneno", formatarNumero(data.flechaVeneno));
+        setText("flecha_ferro", formatarNumero(data.flechaFerro));
+
+        atualizarBossCoins(data.bossCoin);
+
+        const limite = 3;
+        const quantidadeSaquesHoje = data.quantidadeSaquesHoje ?? 0;
+        const restantes = limite - quantidadeSaquesHoje;
+
+        const mensagem = restantes <= 0
+            ? `Limite diário de saques atingido. (${quantidadeSaquesHoje}/${limite})`
+            : `Você ainda pode fazer ${restantes} ${restantes === 1 ? "saque" : "saques"} hoje. (${quantidadeSaquesHoje}/${limite})`;
+
+        setText("infoSaques", mensagem);
+
+        const energiaBar = el("energiaBar");
+        if (energiaBar) {
+            const percentualEnergia = Math.max(0, Math.min(100, (energia / energiaMax) * 100));
+            energiaBar.style.width = percentualEnergia + "%";
+        }
+
+        const btnRecarregar = el("btnRecarregar");
+        if (btnRecarregar) {
+            btnRecarregar.disabled = energia / energiaMax >= 0.2;
+        }
+
+        const damageContainer = el("damageContainer");
+        setHidden(damageContainer, data.energiaGuerreiros <= 0);
+
+        await renderizarImagemGuerreiro(data);
+
+        ultimoStatus = data;
+    }
+
+    async function renderizarImagemGuerreiro(data) {
+        const guerreiroImage = el("guerreiro-image");
+        const generatingImageAtaque = el("generating-image-ataque");
+        const generatingImage = el("generating-image");
+
+        const container = el("desgasteContainer");
+        const barra = el("barradesgaste");
+        const texto = el("desgasteTexto");
+
+        const barraEscudo = el("barradesgasteEscudo");
+        const textoEscudo = el("desgasteTextoEscudo");
+        const wrapperEscudo = document.querySelector('.barra-wrapper-escudo');
+        const tituloEscudo = document.querySelector('.titulo-durabilidade-escudo');
+
+        const btnAtivarEspada = el("btnAtivarEspadaFlanejante");
+        const btnAtivarMachado = el("btnAtivarMachadoDilacerador");
+        const btnEquiparArco = el("btnEquiparArco");
+
+        if (!guerreiroImage) return;
+
+        const quantGuerreirosPadrao = data.guerreiros ?? 0;
+        const quantGuerreirosRetaguarda = data.guerreirosRetaguarda ?? 0;
+
+        if (quantGuerreirosPadrao <= 0 && quantGuerreirosRetaguarda <= 0) {
+            setDisplay(guerreiroImage, "none");
+            setDisplay(generatingImageAtaque, "none");
+            setDisplay(generatingImage, "none");
+
+            setHidden(container, true);
+
+            if (barra) barra.value = 0;
+            if (texto) texto.textContent = "";
+
+            setHidden(wrapperEscudo, true);
+            setHidden(tituloEscudo, true);
+
+            if (barraEscudo) barraEscudo.value = 0;
+            if (textoEscudo) textoEscudo.textContent = "";
+
             return;
+        }
 
-        let novaImagem =
-            "/images/guerreiro_padrao.webp";
+        setDisplay(guerreiroImage, "block");
+        setDisplay(generatingImageAtaque, "block");
+        setDisplay(generatingImage, "block");
 
-        const espadaAtiva =
-            (data.ativaEspadaFlanejante ?? 0) > 0;
+        const espadaAtiva = (data.ativaEspadaFlanejante ?? 0) > 0;
+        const machadoAtivo = (data.ativarMachadoDilacerador ?? 0) > 0;
+        const escudoAtivo = (data.ativarEscudoPrimordial ?? 0) > 0;
+        const arcoEquipado = (data.arcoAtivo ?? 0) > 0;
 
-        const machadoAtivo =
-            (data.ativarMachadoDilacerador ?? 0) > 0;
+        const desgaste = data.desgasteEspadaFlanejante ?? 0;
+        const desgasteMachado = data.desgasteMachadoDilacerador ?? 0;
+        const desgasteEscudo = data.desgasteEscudoPrimordial ?? 0;
+        const durabilidade = data.durabilidadeArco ?? 0;
+        const tipoAtivo = data.tipoFlecha || null;
 
-        const escudoAtivo =
-            (data.ativarEscudoPrimordial ?? 0) > 0;
+        if (btnAtivarEspada) btnAtivarEspada.style.display = "block";
+        if (btnAtivarMachado) btnAtivarMachado.style.display = "block";
 
-        const arcoEquipado =
-            (data.arcoAtivo ?? 0) > 0;
+        setHidden(container, true);
 
-        const tipoAtivo =
-            data.tipoFlecha || null;
+        if (barra) {
+            barra.value = 0;
+            barra.max = 100;
+        }
 
-        if (
-            escudoAtivo &&
-            espadaAtiva
-        ) {
+        if (texto) texto.textContent = "";
 
-            novaImagem =
-                "/icones/guerreiro_escudo_espada.webp";
+        setHidden(wrapperEscudo, true);
+        setHidden(tituloEscudo, true);
 
-        } else if (
-            escudoAtivo &&
-            machadoAtivo
-        ) {
+        if (barraEscudo) {
+            barraEscudo.value = 0;
+            barraEscudo.max = 200;
+        }
 
-            novaImagem =
-                "/icones/guerreiro_escudo_machado.webp";
+        if (textoEscudo) textoEscudo.textContent = "";
 
-        } else if (
-            escudoAtivo
-        ) {
+        let novaImagem = "/images/guerreiro_padrao.webp";
 
-            novaImagem =
-                "/icones/guerreiro_escudo_ativo.webp";
+        if (escudoAtivo && espadaAtiva) {
+            setHidden(container, false);
 
-        } else if (
-            espadaAtiva
-        ) {
+            if (barra) {
+                barra.max = 100;
+                barra.value = desgaste;
+            }
 
-            novaImagem =
-                "/icones/guerreiroPadrao_espadaFlanejante.webp";
+            if (texto) {
+                texto.textContent = `${Math.round((desgaste / 100) * 100)}%`;
+            }
 
-        } else if (
-            machadoAtivo
-        ) {
+            setHidden(wrapperEscudo, false);
+            setHidden(tituloEscudo, false);
 
-            novaImagem =
-                "/icones/guerreiroPadrao_machadoDilacerador.webp";
+            if (barraEscudo) {
+                barraEscudo.value = desgasteEscudo;
+            }
 
-        } else if (
-            arcoEquipado
-        ) {
+            if (textoEscudo) {
+                textoEscudo.textContent = `${Math.round((desgasteEscudo / 200) * 100)}%`;
+            }
+
+            if (btnAtivarEspada) btnAtivarEspada.style.display = "none";
+            if (btnAtivarMachado) btnAtivarMachado.style.display = "none";
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
+
+            novaImagem = "/icones/guerreiro_escudo_espada.webp";
+
+        } else if (escudoAtivo && machadoAtivo) {
+            setHidden(container, false);
+
+            if (barra) {
+                barra.max = 200;
+                barra.value = desgasteMachado;
+            }
+
+            if (texto) {
+                texto.textContent = `${Math.round((desgasteMachado / 200) * 100)}%`;
+            }
+
+            setHidden(wrapperEscudo, false);
+            setHidden(tituloEscudo, false);
+
+            if (barraEscudo) {
+                barraEscudo.value = desgasteEscudo;
+            }
+
+            if (textoEscudo) {
+                textoEscudo.textContent = `${Math.round((desgasteEscudo / 200) * 100)}%`;
+            }
+
+            if (btnAtivarEspada) btnAtivarEspada.style.display = "none";
+            if (btnAtivarMachado) btnAtivarMachado.style.display = "none";
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
+
+            novaImagem = "/icones/guerreiro_escudo_machado.webp";
+
+        } else if (escudoAtivo) {
+            setHidden(wrapperEscudo, false);
+            setHidden(tituloEscudo, false);
+
+            if (barraEscudo) {
+                barraEscudo.max = 200;
+                barraEscudo.value = desgasteEscudo;
+            }
+
+            if (textoEscudo) {
+                textoEscudo.textContent = `${Math.round((desgasteEscudo / 200) * 100)}%`;
+            }
+
+            setHidden(container, true);
+
+            if (barra) {
+                barra.value = 0;
+                barra.max = 100;
+            }
+
+            if (texto) texto.textContent = "";
+
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
+
+            novaImagem = "/icones/guerreiro_escudo_ativo.webp";
+
+        } else if (espadaAtiva) {
+            setHidden(container, false);
+
+            if (barra) {
+                barra.max = 100;
+                barra.value = desgaste;
+            }
+
+            if (texto) {
+                texto.textContent = `${Math.round((desgaste / 100) * 100)}%`;
+            }
+
+            if (btnAtivarMachado) btnAtivarMachado.style.display = "none";
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
+
+            novaImagem = "/icones/guerreiroPadrao_espadaFlanejante.webp";
+
+        } else if (machadoAtivo) {
+            setHidden(container, false);
+
+            if (barra) {
+                barra.max = 200;
+                barra.value = desgasteMachado;
+            }
+
+            if (texto) {
+                texto.textContent = `${Math.round((desgasteMachado / 200) * 100)}%`;
+            }
+
+            if (btnAtivarEspada) btnAtivarEspada.style.display = "none";
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
+
+            novaImagem = "/icones/guerreiroPadrao_machadoDilacerador.webp";
+
+        } else if (arcoEquipado) {
+            setHidden(container, false);
+
+            if (barra) {
+                barra.max = 200;
+                barra.value = durabilidade;
+            }
+
+            if (texto) {
+                texto.textContent = `${Math.round((durabilidade / 200) * 100)}%`;
+            }
+
+            if (btnEquiparArco) btnEquiparArco.classList.add("hidden");
 
             const imagens = {
-
-                FERRO:
-                    "/icones/guerreiro_arco_flecha_ferro.webp",
-
-                FOGO:
-                    "/icones/guerreiro_arco_flecha_fogo.webp",
-
-                VENENO:
-                    "/icones/guerreiro_arco_flecha_veneno.webp",
-
-                DIAMANTE:
-                    "/icones/guerreiro_arco_flecha_diamante.webp"
+                FERRO: "/icones/guerreiro_arco_flecha_ferro.webp",
+                FOGO: "/icones/guerreiro_arco_flecha_fogo.webp",
+                VENENO: "/icones/guerreiro_arco_flecha_veneno.webp",
+                DIAMANTE: "/icones/guerreiro_arco_flecha_diamante.webp"
             };
 
-            novaImagem =
+            novaImagem = imagens[tipoAtivo] ?? "/icones/guerreiro_arco_padrao.webp";
 
-                imagens[tipoAtivo] ??
-
-                "/icones/guerreiro_arco_padrao.webp";
+        } else {
+            novaImagem = "/images/guerreiro_padrao.webp";
         }
 
-        await trocarImagemSemPiscar(
-
-            guerreiroImage,
-
-            novaImagem
-        );
+        await trocarImagemSemPiscar(guerreiroImage, novaImagem);
     }
-
-    // ======================================
-    // RENDER STATUS
-    // ======================================
-
-    async function renderizarUsuario(
-        data
-    ) {
-
-        if (!data)
-            return;
-
-        setText(
-            "guerreiros",
-            formatarNumero(
-                data.guerreiros
-            )
-        );
-
-        setText(
-            "xp",
-            formatarNumero(
-                data.xp
-            )
-        );
-
-        atualizarBossCoins(
-            data.bossCoin
-        );
-
-        await renderizarImagemGuerreiro(
-            data
-        );
-
-        ultimoStatus =
-            data;
-    }
-
-    // ======================================
-    // FETCH
-    // ======================================
 
     async function buscarUsuario() {
-
-        if (!usuarioId)
-            return;
+        if (!usuarioId) return;
 
         try {
+            const res = await fetch(`/api/atualizar/status/usuario/${usuarioId}`, {
+                cache: "no-store"
+            });
 
-            const res =
-                await fetch(
+            if (!res.ok) return;
 
-                    `/api/atualizar/status/usuario/${usuarioId}`,
+            const data = await res.json();
 
-                    {
-                        cache:
-                            "force-cache"
-                    }
-                );
+            salvarCache(data);
 
-            if (!res.ok)
-                return;
-
-            const data =
-                await res.json();
-
-            salvarCache(
-                data
-            );
-
-            if (
-                dadosMudaram(data)
-            ) {
-
-                await renderizarUsuario(
-                    data
-                );
+            if (dadosMudaram(data)) {
+                await renderizarUsuario(data);
             }
 
         } catch (err) {
-
-            console.error(
-
-                "Erro ao atualizar usuário:",
-
-                err
-            );
+            console.error("Erro ao atualizar usuário:", err);
         }
     }
 
-    // ======================================
-    // START
-    // ======================================
-
     async function iniciarTela() {
+        const guerreiroImage = el("guerreiro-image");
+        const imagemCache = pegarImagemCache();
 
-        // imagem instantânea
-        const guerreiroImage =
-            el("guerreiro-image");
-
-        const imagemCache =
-            pegarImagemCache();
-
-        if (
-            guerreiroImage &&
-            imagemCache
-        ) {
-
-            guerreiroImage.src =
-                imagemCache;
+        if (guerreiroImage && imagemCache) {
+            guerreiroImage.src = imagemCache;
         }
 
-        // status cache
-        const cache =
-            pegarCache();
+        const cache = pegarCache();
 
         if (cache) {
-
-            await renderizarUsuario(
-                cache
-            );
+            await renderizarUsuario(cache);
         }
 
-		// primeira carga imediata
-		buscarUsuario();
+        buscarUsuario();
 
-		// atualizações leves
-		setInterval(() => {
+        setInterval(() => {
+            if (document.hidden) return;
 
-		    // evita request desnecessário
-		    // quando aba estiver minimizada
-		    if (document.hidden) {
-		        return;
-		    }
+            buscarUsuario();
 
-		    buscarUsuario();
-
-		}, UPDATE_INTERVAL);
+        }, UPDATE_INTERVAL);
     }
 
     iniciarTela();
-
 });
 
 /*
