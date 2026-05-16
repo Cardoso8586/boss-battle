@@ -70,7 +70,7 @@ public class ViewController {
                 (UsuarioBossBattle) session.getAttribute("usuarioLogado");
 
         if (usuario == null) {
-            return "redirect:/login";
+            return "redirect:/arena";
         }
 
         DecimalFormat df = new DecimalFormat("#,##0");
@@ -105,7 +105,7 @@ public class ViewController {
                 (UsuarioBossBattle) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            return "redirect:/dashboard";
+            return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
@@ -154,7 +154,7 @@ public class ViewController {
                 (UsuarioBossBattle) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            return "redirect:/dashboard";
+            return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
@@ -212,7 +212,7 @@ public class ViewController {
                 (UsuarioBossBattle) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            return "redirect:/login";
+            return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
@@ -359,7 +359,7 @@ public class ViewController {
                 (UsuarioBossBattle) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            return "redirect:/login";
+            return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
@@ -385,7 +385,7 @@ public class ViewController {
                         session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            return "redirect:/login";
+            return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
