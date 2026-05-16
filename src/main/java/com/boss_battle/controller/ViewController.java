@@ -99,53 +99,71 @@ public class ViewController {
     
     //recarregar-vigor
     @GetMapping("/recarregar-vigor")
-    public String recarregarVigor(HttpSession session, Model model) {
+    public String recarregarVigor(
+            HttpSession session,
+            Model model) {
 
         UsuarioBossBattle usuarioSessao =
-                (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+            (UsuarioBossBattle)
+                session.getAttribute(
+                    "usuarioLogado"
+                );
 
         if (usuarioSessao == null) {
             return "redirect:/arena";
         }
 
         UsuarioBossBattle usuario =
-        		usuarioRepository
-                        .findById(usuarioSessao.getId())
-                        .orElseThrow(() ->
-                                new RuntimeException("Usuário não encontrado"));
+            usuarioRepository
+                .findById(
+                    usuarioSessao.getId()
+                )
+                .orElseThrow(() ->
+                    new RuntimeException(
+                        "Usuário não encontrado"
+                    )
+                );
 
-        session.setAttribute("usuarioLogado", usuario);
+        DecimalFormat df =
+            new DecimalFormat("#,##0");
 
-        DecimalFormat df = new DecimalFormat("#,##0");
+        model.addAttribute(
+            "usuario",
+            usuario
+        );
 
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("idUsuario", usuario.getId());
+        model.addAttribute(
+            "idUsuario",
+            usuario.getId()
+        );
 
-        model.addAttribute("xpUsuario", df.format(usuario.getExp()));
-        model.addAttribute("nivelUsuario", df.format(usuario.getNivel()));
+        long energiaGuerreiros =
+            usuario.getEnergiaGuerreiros();
 
-        BigDecimal coins = usuario.getBossCoins();
-
-        if (coins == null) {
-            coins = BigDecimal.ZERO;
-        }
-
-        model.addAttribute("boss_coins", df.format(coins));
-
-        long energiaGuerreiros = usuario.getEnergiaGuerreiros();
-        long energiaMaxima = usuario.getEnergiaGuerreirosPadrao();
+        long energiaMaxima =
+            usuario.getEnergiaGuerreirosPadrao();
 
         if (energiaMaxima <= 0) {
             energiaMaxima = 50L;
         }
 
-        model.addAttribute("energiaGuerreiros", df.format(energiaGuerreiros));
-        model.addAttribute("energiaMaxima", df.format(energiaMaxima));
-        model.addAttribute("energiaGuerreirosPadrao", df.format(energiaMaxima));
+        model.addAttribute(
+            "energiaGuerreiros",
+            energiaGuerreiros
+        );
+
+        model.addAttribute(
+            "energiaMaxima",
+            energiaMaxima
+        );
+
+        model.addAttribute(
+            "energiaGuerreirosPadrao",
+            energiaMaxima
+        );
 
         return "recarregar-vigor";
-    }//--->recarregar-vigor
-    
+    }
   
     @GetMapping("/aprimoramentos")
     public String aprimoramentos(HttpSession session, Model model) {
