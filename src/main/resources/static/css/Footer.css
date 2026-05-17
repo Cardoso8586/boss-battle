@@ -1,5 +1,5 @@
 /* =========================================
-   FOOTER TRANSPARENTE
+   FOOTER
 ========================================= */
 
 .footer {
@@ -8,28 +8,21 @@
     padding: 18px 20px;
 
     position: relative;
-    bottom: 0;
-    left: 0;
 
-    z-index: 1000;
+    z-index: 9999;
 
     color: #fff;
 
-    background:
-    linear-gradient(
-    180deg,
-    rgba(10,15,25,0.20),
-    rgba(10,15,25,0.32));
+    background: rgba(8, 12, 20, 0.88);
 
-    border-top:
-    1px solid rgba(255,180,0,0.08);
+    border-top: 1px solid rgba(255, 180, 0, 0.15);
 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 
     box-shadow:
-    0 -4px 20px rgba(0,0,0,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.02);
+    0 -5px 25px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 /* =========================================
@@ -41,24 +34,26 @@
 
     margin: 0 auto;
 
-    font-size: 14px;
-
-    color: rgba(255,255,255,0.72);
-
     display: flex;
 
     justify-content: center;
     align-items: center;
 
+    gap: 10px;
+
     flex-wrap: wrap;
 
-    gap: 10px;
+    text-align: center;
+
+    font-size: 14px;
+
+    color: rgba(255,255,255,0.78);
 }
 
-/* Links */
+/* LINKS */
 
 .footer a {
-    color: #ffd700;
+    color: #ffd54a;
 
     text-decoration: none;
 
@@ -66,20 +61,20 @@
 }
 
 .footer a:hover {
-    color: #ffffff;
+    color: #fff;
 
     text-shadow:
-    0 0 8px rgba(255,180,0,0.45);
+    0 0 10px rgba(255, 200, 0, 0.55);
 }
 
 /* =========================================
-   TABLETS
+   RESPONSIVO
 ========================================= */
 
 @media (max-width: 768px) {
 
     .footer {
-        padding: 14px 15px;
+        padding: 15px;
     }
 
     .footer-content {
@@ -87,24 +82,12 @@
     }
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 480px) {
 
-    .footer {
-        position: relative;
-
-        padding: 16px 10px;
-    }
-
     .footer-content {
-        font-size: 12px;
-
         flex-direction: column;
 
-        text-align: center;
+        font-size: 12px;
 
         gap: 8px;
     }

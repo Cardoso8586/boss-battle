@@ -5,42 +5,88 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  font-family: Arial, sans-serif;
+  color: #fff;
+
+  background:
+    radial-gradient(circle at top, rgba(240, 210, 106, 0.15), transparent 35%),
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.92)),
+    url('/icones/gameplay.webp') center/cover fixed no-repeat;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.layout {
+  flex: 1;
+
+  min-height: 100vh;
+
+  padding: 80px 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.layout::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(120deg, transparent, rgba(240, 210, 106, 0.06), transparent),
+    radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.65));
+
+  z-index: 0;
+}
+
+/* ===============================
+   CARD CADASTRO
+================================ */
+.auth-container {
+  width: 380px;
+
+  padding: 34px 30px;
+
+  position: relative;
+  z-index: 1;
+
+  text-align: center;
+
+  border-radius: 22px;
+
+  border: 1px solid rgba(240, 210, 106, 0.35);
 
   background:
     linear-gradient(
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.85)
-    ),
-    url('/icones/gameplay.webp') center/cover no-repeat;
+      180deg,
+      rgba(18, 24, 36, 0.88),
+      rgba(5, 8, 14, 0.92)
+    );
 
-  font-family: Arial, sans-serif;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-  justify-content: center;
-  align-items: center;
-}
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(240, 210, 106, 0.14),
+    inset 0 0 22px rgba(255, 255, 255, 0.035);
 
-label {
-  display: block;
-  text-align: left;
-  margin: 12px 0 4px;
-  font-size: 13px;
-  color: #f0d26a;
-  letter-spacing: 1px;
-  text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.8);
-}
-
-
-/* ===============================
-   AUTH WRAPPER (SEM CARD)
-================================ */
-.auth-container {
-  width: 320px;
-  text-align: center;
   animation: fadeUp 0.8s ease-out;
 }
 
@@ -48,15 +94,64 @@ label {
    TÍTULO
 ================================ */
 h2 {
-  margin-bottom: 25px;
+  margin: 0 0 28px;
+
   color: #f0d26a;
+
   font-size: 2rem;
-  letter-spacing: 2px;
+
+  letter-spacing: 3px;
+
   text-transform: uppercase;
 
   text-shadow:
-    0 0 8px rgba(240, 210, 106, 0.6),
-    0 0 20px rgba(240, 210, 106, 0.3);
+    0 0 10px rgba(240, 210, 106, 0.75),
+    0 0 28px rgba(240, 210, 106, 0.35);
+}
+
+h2::after {
+  content: "";
+
+  display: block;
+
+  width: 72px;
+  height: 3px;
+
+  margin: 14px auto 0;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #f0d26a,
+      transparent
+    );
+
+  box-shadow:
+    0 0 14px rgba(240, 210, 106, 0.8);
+}
+
+/* ===============================
+   LABELS
+================================ */
+label {
+  display: block;
+
+  margin: 13px 0 5px;
+
+  text-align: left;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  color: #f0d26a;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.9);
 }
 
 /* ===============================
@@ -64,29 +159,52 @@ h2 {
 ================================ */
 input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
 
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(240, 210, 106, 0.4);
-  border-radius: 6px;
+  padding: 14px 15px;
+
+  margin: 7px 0 10px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(240, 210, 106, 0.35);
+
+  background: rgba(0, 0, 0, 0.58);
 
   color: #fff;
+
   font-size: 15px;
 
+  transition: 0.25s ease;
+
   box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.8);
+    inset 0 0 12px rgba(0, 0, 0, 0.65),
+    0 0 8px rgba(0, 0, 0, 0.55);
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 input:focus {
   outline: none;
+
   border-color: #f0d26a;
+
+  background: rgba(0, 0, 0, 0.72);
+
   box-shadow:
-    0 0 15px rgba(240, 210, 106, 0.8);
+    0 0 0 3px rgba(240, 210, 106, 0.12),
+    0 0 18px rgba(240, 210, 106, 0.55);
+}
+
+/* ===============================
+   CAPTCHA
+================================ */
+.cf-turnstile {
+  margin: 14px 0 6px;
+
+  display: flex;
+  justify-content: center;
 }
 
 /* ===============================
@@ -94,62 +212,186 @@ input:focus {
 ================================ */
 button {
   width: 100%;
-  padding: 14px;
-  margin-top: 15px;
 
-  background: #f0d26a;
+  padding: 15px;
+
+  margin-top: 16px;
+
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
 
-  color: #1b1b1b;
+  background:
+    linear-gradient(
+      180deg,
+      #ffe58f,
+      #d7aa35
+    );
+
+  color: #161616;
+
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+
   cursor: pointer;
 
+  transition: 0.25s ease;
+
   box-shadow:
-    0 0 15px rgba(240, 210, 106, 0.6);
+    0 0 18px rgba(240, 210, 106, 0.58),
+    0 8px 0 rgba(120, 82, 10, 0.8);
 }
 
 button:hover {
-  background: #ffe28c;
+  transform: translateY(-2px);
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff0aa,
+      #efc34e
+    );
+
   box-shadow:
-    0 0 25px rgba(240, 210, 106, 0.9);
+    0 0 28px rgba(240, 210, 106, 0.95),
+    0 10px 0 rgba(120, 82, 10, 0.8);
+}
+
+button:active {
+  transform: translateY(3px);
+
+  box-shadow:
+    0 0 18px rgba(240, 210, 106, 0.6),
+    0 4px 0 rgba(120, 82, 10, 0.8);
 }
 
 button:disabled {
-  background: #555;
+  background:
+    linear-gradient(
+      180deg,
+      #666,
+      #3d3d3d
+    );
+
+  color: #aaa;
+
   cursor: not-allowed;
+
   box-shadow: none;
+
+  transform: none;
 }
 
 /* ===============================
    MENSAGENS
 ================================ */
-.msg {
+.msg,
+#cadastroMsg,
+#loginMsg {
   margin-top: 15px;
+
+  min-height: 18px;
+
   font-size: 14px;
+
   color: #fff;
 
   text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.9);
+    0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 /* ===============================
    LINKS
 ================================ */
 .link {
-  margin-top: 20px;
+  margin-top: 22px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 14px;
+
+  text-decoration: none;
+
+  font-weight: bold;
 }
 
 .link a {
   color: #f0d26a;
+
   text-decoration: none;
+
   font-weight: bold;
+
+  transition: 0.25s ease;
 }
 
 .link a:hover {
+  color: #ffe89a;
+
   text-shadow:
-    0 0 10px rgba(240, 210, 106, 0.9);
+    0 0 12px rgba(240, 210, 106, 0.9);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.footer {
+  width: 100%;
+
+  padding: 18px 20px;
+
+  position: relative;
+
+  z-index: 9999;
+
+  color: #fff;
+
+  background: rgba(8, 12, 20, 0.88);
+
+  border-top:
+    1px solid rgba(255, 180, 0, 0.12);
+
+  box-shadow:
+    0 -6px 25px rgba(0,0,0,0.35);
+}
+
+.footer-content {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: rgba(255,255,255,0.78);
+}
+
+.footer a {
+  color: #ffd54a;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.footer a:hover {
+  color: #fff;
+
+  text-shadow:
+    0 0 10px rgba(255, 200, 0, 0.55);
 }
 
 /* ===============================
@@ -158,8 +400,9 @@ button:disabled {
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -169,12 +412,42 @@ button:disabled {
 /* ===============================
    RESPONSIVO
 ================================ */
-@media (max-width: 420px) {
+@media (max-width: 768px) {
+
+  .layout {
+    padding: 50px 18px;
+  }
+
+  .footer {
+    padding: 15px;
+  }
+
+  .footer-content {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .layout {
+    padding: 35px 14px;
+  }
+
   .auth-container {
-    width: 90%;
+    width: 100%;
+
+    padding: 28px 20px;
   }
 
   h2 {
     font-size: 1.6rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+
+    font-size: 12px;
+
+    gap: 8px;
   }
 }
