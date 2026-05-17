@@ -5,45 +5,129 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.85)
-    ),
-    url('/icones/gameplay.webp') center/cover no-repeat;
+}
 
+body {
   font-family: Arial, sans-serif;
-
-  justify-content: center;
-  align-items: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at top, rgba(240, 210, 106, 0.15), transparent 35%),
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.92)),
+    url('/icones/gameplay.webp') center/cover fixed no-repeat;
 }
 
 /* ===============================
-   AUTH WRAPPER (SEM CARD)
+   LAYOUT PRINCIPAL
 ================================ */
+.layout {
+  min-height: 100vh;
+  padding: 80px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 110px;
+  position: relative;
+}
+
+.layout::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent, rgba(240, 210, 106, 0.06), transparent),
+    radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.65));
+  z-index: 0;
+}
+
+.layout-esquerdo,
+.layout-direito,
 .auth-container {
-  width: 320px;
-  text-align: center;
+  position: relative;
+  z-index: 1;
   animation: fadeUp 0.8s ease-out;
 }
 
 /* ===============================
-   TÍTULO
+   LADOS
 ================================ */
-h2 {
-  margin-bottom: 25px;
+.layout-esquerdo,
+.layout-direito {
+  max-width: 300px;
+  padding: 22px;
+  border: 1px solid rgba(240, 210, 106, 0.18);
+  border-radius: 18px;
+  background: rgba(8, 12, 20, 0.48);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    inset 0 0 25px rgba(240, 210, 106, 0.04);
+}
+
+.pagamento-info h1 {
+  font-size: 1.25rem;
+  color: #f0d26a;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 12px rgba(240, 210, 106, 0.7),
+    0 0 25px rgba(240, 210, 106, 0.35);
+}
+
+.pagamento-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #e9e9e9;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.95);
+}
+
+#descricao-dinamica {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* ===============================
+   CARD LOGIN
+================================ */
+.auth-container {
+  width: 360px;
+  padding: 34px 30px;
+  text-align: center;
+  border-radius: 22px;
+  border: 1px solid rgba(240, 210, 106, 0.35);
+  background:
+    linear-gradient(180deg, rgba(18, 24, 36, 0.88), rgba(5, 8, 14, 0.92));
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(240, 210, 106, 0.14),
+    inset 0 0 22px rgba(255, 255, 255, 0.035);
+}
+
+.auth-container h2 {
+  margin: 0 0 28px;
   color: #f0d26a;
   font-size: 2rem;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-
   text-shadow:
-    0 0 8px rgba(240, 210, 106, 0.6),
-    0 0 20px rgba(240, 210, 106, 0.3);
+    0 0 10px rgba(240, 210, 106, 0.75),
+    0 0 28px rgba(240, 210, 106, 0.35);
+}
+
+.auth-container h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 3px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #f0d26a, transparent);
+  box-shadow: 0 0 14px rgba(240, 210, 106, 0.8);
 }
 
 /* ===============================
@@ -51,29 +135,39 @@ h2 {
 ================================ */
 input {
   width: 100%;
-  padding: 12px;
+  padding: 14px 15px;
   margin: 10px 0;
-
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(240, 210, 106, 0.4);
-  border-radius: 6px;
-
+  border-radius: 10px;
+  border: 1px solid rgba(240, 210, 106, 0.35);
+  background: rgba(0, 0, 0, 0.58);
   color: #fff;
   font-size: 15px;
-
+  transition: 0.25s ease;
   box-shadow:
-    0 0 10px rgba(0, 0, 0, 0.8);
+    inset 0 0 12px rgba(0, 0, 0, 0.65),
+    0 0 8px rgba(0, 0, 0, 0.55);
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 input:focus {
   outline: none;
   border-color: #f0d26a;
+  background: rgba(0, 0, 0, 0.72);
   box-shadow:
-    0 0 15px rgba(240, 210, 106, 0.8);
+    0 0 0 3px rgba(240, 210, 106, 0.12),
+    0 0 18px rgba(240, 210, 106, 0.55);
+}
+
+/* ===============================
+   CAPTCHA
+================================ */
+.cf-turnstile {
+  margin: 14px 0 6px;
+  display: flex;
+  justify-content: center;
 }
 
 /* ===============================
@@ -81,52 +175,65 @@ input:focus {
 ================================ */
 button {
   width: 100%;
-  padding: 14px;
-  margin-top: 15px;
-
-  background: #f0d26a;
+  padding: 15px;
+  margin-top: 16px;
   border: none;
-  border-radius: 6px;
-
-  color: #1b1b1b;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffe58f, #d7aa35);
+  color: #161616;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
-
+  transition: 0.25s ease;
   box-shadow:
-    0 0 15px rgba(240, 210, 106, 0.6);
+    0 0 18px rgba(240, 210, 106, 0.58),
+    0 8px 0 rgba(120, 82, 10, 0.8);
 }
 
 button:hover {
-  background: #ffe28c;
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #fff0aa, #efc34e);
   box-shadow:
-    0 0 25px rgba(240, 210, 106, 0.9);
+    0 0 28px rgba(240, 210, 106, 0.95),
+    0 10px 0 rgba(120, 82, 10, 0.8);
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 0 18px rgba(240, 210, 106, 0.6),
+    0 4px 0 rgba(120, 82, 10, 0.8);
 }
 
 button:disabled {
-  background: #555;
+  background: linear-gradient(180deg, #666, #3d3d3d);
+  color: #aaa;
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
 /* ===============================
    MENSAGENS
 ================================ */
-.msg {
+.msg,
+#loginMsg {
   margin-top: 15px;
+  min-height: 18px;
   font-size: 14px;
   color: #fff;
-
-  text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.95);
 }
 
 /* ===============================
    LINKS
 ================================ */
 .link {
-  margin-top: 20px;
-   color: #555;
+  margin-top: 22px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -135,11 +242,52 @@ button:disabled {
   color: #f0d26a;
   text-decoration: none;
   font-weight: bold;
+  transition: 0.25s ease;
 }
 
 .link a:hover {
-  text-shadow:
-    0 0 10px rgba(240, 210, 106, 0.9);
+  color: #ffe89a;
+  text-shadow: 0 0 12px rgba(240, 210, 106, 0.9);
+}
+
+/* ===============================
+   IMAGENS MOEDAS / FAUCET
+================================ */
+.faucet-pay-moedas img {
+  width: 34px;
+  height: 34px;
+  margin: 5px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(240, 210, 106, 0.35));
+}
+
+.faucet-pay img {
+  max-width: 190px;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.18));
+}
+
+/* ===============================
+   ANÚNCIOS
+================================ */
+.anuncio-9,
+.anuncio-12 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 12px auto;
+}
+
+iframe {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.footer {
+  position: relative;
+  z-index: 2;
 }
 
 /* ===============================
@@ -148,7 +296,7 @@ button:disabled {
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -159,101 +307,40 @@ button:disabled {
 /* ===============================
    RESPONSIVO
 ================================ */
-@media (max-width: 420px) {
-  .auth-container {
-    width: 90%;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-  }
-}
-
-/* ===============================
-   LAYOUT LADO A LADO ESQUERDO
-================================ */
-/* ===============================
-   LAYOUT 3 COLUNAS
-================================ */
-.layout {
-	  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.85)
-    ),
-    url('/icones/gameplay.webp') center/cover no-repeat;
-
-  font-family: Arial, sans-serif;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 170px;
-  z-index: 1;
-}
-
-/* ===============================
-   LADOS (ESQ / DIR)
-================================ */
-.layout-esquerdo,
-.layout-direito {
-  max-width: 280px;
-  gap: 170px;
-  animation: fadeUp 0.8s ease-out;
-}
-
-/* ===============================
-   INFO (REUTILIZÁVEL)
-================================ */
-.pagamento-info h1 {
-  font-size: 1.2rem;
-  color: #f0d26a;
-  margin-bottom: 18px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-
-  text-shadow:
-    0 0 12px rgba(240, 210, 106, 0.7),
-    0 0 25px rgba(240, 210, 106, 0.4);
-}
-
-.pagamento-info p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #eee;
-
-  text-shadow:
-    0 0 10px rgba(0, 0, 0, 0.9);
-}
-
-/* ===============================
-   RESPONSIVO
-================================ */
 @media (max-width: 1100px) {
   .layout {
     flex-direction: column;
-    gap: 40px;
+    gap: 35px;
+    padding: 50px 18px;
     text-align: center;
   }
-}
 
-#descricao-dinamica {
-  transition: opacity 0.3s ease-in-out;
-}
-
-/* ===============================
-   RESPONSIVO
-================================ */
-@media (max-width: 420px) {
-  .auth-container {
-    width: 90%;
+  .layout-esquerdo,
+  .layout-direito {
+    max-width: 420px;
+    width: 100%;
   }
 
-  h2 {
+  .auth-container {
+    width: 100%;
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 420px) {
+  .layout {
+    padding: 35px 14px;
+  }
+
+  .auth-container {
+    padding: 28px 20px;
+  }
+
+  .auth-container h2 {
     font-size: 1.6rem;
+  }
+
+  .pagamento-info h1 {
+    font-size: 1.05rem;
   }
 }
