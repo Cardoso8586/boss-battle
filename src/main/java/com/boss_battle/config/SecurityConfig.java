@@ -95,6 +95,7 @@ public class SecurityConfig {
                         "/central-comando/**",
                         "/resgatar-recompensas/**",
                         "/referidos/**",
+                        "/ganhar-boss-coins/**",
                         
                         
                         "/aliados/**",

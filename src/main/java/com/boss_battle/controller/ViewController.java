@@ -2,6 +2,7 @@ package com.boss_battle.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Base64;
@@ -553,6 +554,41 @@ public class ViewController {
 
         return "referidos";
     }
+    
+ // =========================
+ // GANHAR BOSS COINS
+ // =========================
+ @GetMapping("/ganhar-boss-coins")
+ public String ganharBossCoins(HttpSession session, Model model) {
+
+     UsuarioBossBattle usuarioSessao =
+             (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+     if (usuarioSessao == null) {
+         return "redirect:/arena";
+     }
+
+     UsuarioBossBattle usuario = usuarioRepository
+             .findById(usuarioSessao.getId())
+             .orElseThrow(() ->
+                     new RuntimeException("Usuário não encontrado"));
+
+     // atualiza sessão
+     session.setAttribute("usuarioLogado", usuario);
+
+     // dados da tela
+     model.addAttribute("usuario", usuario);
+     model.addAttribute("idUsuario", usuario.getId());
+
+     // link zerads
+     String zeradsLink =
+             "https://zerads.com/ptc.php?ref=10783&user="
+                     + usuario.getUsername();
+
+     model.addAttribute("zeradsLink", zeradsLink);
+
+     return "ganhar-boss-coins";
+ }
     
     @GetMapping("/aliados")
     public String mostrarCadastro(@RequestParam(required = false) String ref, Model model) {

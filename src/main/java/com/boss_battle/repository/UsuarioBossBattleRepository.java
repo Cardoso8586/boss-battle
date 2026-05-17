@@ -24,6 +24,7 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     boolean existsByEmail(String email);
 
     UsuarioBossBattle findByEmailOrUsername(String email, String username);
+  
     
   
     @Query("""

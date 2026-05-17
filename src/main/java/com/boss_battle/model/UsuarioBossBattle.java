@@ -61,12 +61,30 @@ public class UsuarioBossBattle  {
         this.bossCoins = saldoInicial;
     }
 
+    @Column(name = "zerads_clicks", nullable = false)
+    private Integer zeradsClicks = 0;
+
+    public Integer getZeradsClicks() {
+        return zeradsClicks;
+    }
+
+    public void setZeradsClicks(Integer zeradsClicks) {
+        this.zeradsClicks = zeradsClicks;
+    }
+    
+    
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        if (this.bossCoins == null) this.bossCoins = new BigDecimal("10000.00");
+
+        if (this.bossCoins == null) {
+            this.bossCoins = new BigDecimal("10000.00");
+        }
+
+        if (this.zeradsClicks == null) {
+            this.zeradsClicks = 0;
+        }
     }
-    
    //================================ ultimo valor recebido =======================================
 
     @Column(name = "ultimo_valor_recebido")
@@ -79,6 +97,9 @@ public class UsuarioBossBattle  {
     public void setUltimoValorRecebido(BigDecimal ultimoValorRecebido) {
         this.ultimoValorRecebido = ultimoValorRecebido;
     }
+    
+    
+
     
     //======================================== MISSÕES ================================================
     // DIÁRIA

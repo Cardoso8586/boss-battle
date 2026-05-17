@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="user-id" th:content="${idUsuario}">
+
+    <title>Ganhar Boss Coins</title>
+    <link rel="stylesheet" href="/css/anuncios.css"> 
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/ganhar-boss-coins.css">
+</head>
+
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<div class="coins-page">
+
+
+
+
+    <!-- HEADER -->
+    <div class="coins-header">
+
+        <div class="icone-header">
+            <i class="fa-solid fa-coins"></i>
+        </div>
+
+        <h1>Ganhar Boss Coins</h1>
+
+        <p>
+            Complete anúncios PTC e receba recompensas automáticas diretamente
+            na sua conta do Boss Battle Arena.
+        </p>
+
+    </div>
+
+    <!-- CARD -->
+    <div class="reward-wrapper">
+
+        <div class="reward-card">
+
+            <div class="topo-card">
+
+                <div class="icone-reward">
+                    <i class="fa-solid fa-gem"></i>
+                </div>
+
+                <div class="status-reward">
+                    ZerAds Ativo
+                </div>
+
+            </div>
+
+            <h2>Recompensas por anúncios</h2>
+
+            <p>
+                Assista anúncios e ganhe <strong>Boss Coins</strong>
+                automaticamente após a confirmação da rede.
+            </p>
+
+            <!-- SALDO -->
+            <div class="saldo-box">
+
+                <span class="saldo-label">
+                    Seu saldo atual
+                </span>
+
+                <div class="saldo-valor">
+                 <span th:text="${#numbers.formatDecimal(usuario.bossCoins, 1, 'POINT', 2, 'COMMA')}">
+    0.00
+</span>
+                    <small>Boss Coins</small>
+                </div>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="info-box">
+
+                <div class="info-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Pagamento em até 5 minutos</span>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Recompensa automática</span>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Ganhe Boss Coins extras</span>
+                </div>
+
+            </div>
+
+            <!-- BOTÃO -->
+            <a class="btn-watch"
+               th:href="${zeradsLink}"
+               target="_blank">
+
+                <i class="fa-solid fa-play"></i>
+
+                <span>
+                    Assistir anúncios agora
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+     <!-- ANUNCIO -->
+    <div class="anuncio-6">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="300"
+            height="250"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+
+    <!-- ANUNCIO -->
+    <div class="anuncio-7">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+   
+         <!-- ANUNCIO 5 -->
+
+<div class="anuncio-5">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+        
+</div>
+
+</body>
+
+<script src="/js/global.js"></script>
+</html>
