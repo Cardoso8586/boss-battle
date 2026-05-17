@@ -96,6 +96,7 @@ public class SecurityConfig {
                         "/resgatar-recompensas/**",
                         "/referidos/**",
                         "/ganhar-boss-coins/**",
+                        "/zeradsptc/**",
                         
                         
                         "/aliados/**",
