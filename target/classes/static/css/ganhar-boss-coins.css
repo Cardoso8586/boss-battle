@@ -379,3 +379,136 @@ body{
         font-size:1.8rem;
     }
 }
+
+@media (max-width: 600px){
+
+    body{
+        background-attachment: scroll;
+    }
+
+    .coins-page{
+        padding: 90px 14px 35px;
+    }
+
+    .coins-header{
+        margin-bottom: 30px;
+    }
+
+    .icone-header i{
+        font-size: 48px;
+        margin-bottom: 14px;
+    }
+
+    .coins-header h1{
+        font-size: 1.65rem;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+
+    .coins-header p{
+        font-size: 0.95rem;
+        line-height: 1.6;
+        padding: 0 4px;
+    }
+
+    .reward-card{
+        padding: 22px 18px;
+        border-radius: 22px;
+        max-width: 100%;
+    }
+
+    .topo-card{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .icone-reward{
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+    }
+
+    .icone-reward i{
+        font-size: 28px;
+    }
+
+    .status-reward{
+        font-size: 0.78rem;
+        padding: 8px 12px;
+    }
+
+    .reward-card h2{
+        font-size: 1.45rem;
+        line-height: 1.25;
+    }
+
+    .reward-card p{
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .saldo-box{
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .saldo-label{
+        font-size: 0.9rem;
+    }
+
+    .saldo-valor{
+        font-size: 1.55rem;
+        word-break: break-word;
+    }
+
+    .saldo-valor small{
+        font-size: 0.85rem;
+    }
+
+    .info-box{
+        gap: 12px;
+    }
+
+    .info-item{
+        align-items: flex-start;
+        font-size: 0.92rem;
+        line-height: 1.4;
+    }
+
+    .btn-watch{
+        padding: 15px;
+        font-size: 0.95rem;
+        border-radius: 16px;
+        gap: 10px;
+    }
+
+    .btn-voltar{
+        top: 12px;
+        left: 12px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 380px){
+
+    .coins-header h1{
+        font-size: 1.35rem;
+        letter-spacing: 1px;
+    }
+
+    .reward-card{
+        padding: 18px 14px;
+    }
+
+    .saldo-valor{
+        font-size: 1.35rem;
+    }
+
+    .btn-watch{
+        font-size: 0.88rem;
+    }
+}

@@ -111,5 +111,41 @@ main section.active {
 }
 
 
+.banner-icon-link{
+    display:inline-block;
+
+    transition:.2s ease;
+}
+
+.banner-icon-link:hover{
+    transform:
+    scale(1.06)
+    translateY(-2px);
+}
 
 
+.banner-icon img{
+    width:48px;
+    height:48px;
+
+    object-fit:contain;
+
+    filter:none;
+
+    animation: bossCoinPulse 2s ease-in-out infinite;
+}
+
+@keyframes bossCoinPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.12);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
