@@ -39,10 +39,9 @@ public class ZerAdsBossController {
             return ResponseEntity.status(403).body("Senha inválida");
         }
 
-        // deixe comentado só para teste
-         if (!ZERADS_IP.equals(request.getRemoteAddr())) {
-            return ResponseEntity.status(403).body("IP inválido: " + request.getRemoteAddr());
-        }
+     // if (!ZERADS_IP.equals(request.getRemoteAddr())) {
+//      return ResponseEntity.status(403).body("IP inválido: " + request.getRemoteAddr());
+ // }
 
         BigDecimal recompensa = zerAdsBossService.creditarRecompensa(user, amount, clicks);
 

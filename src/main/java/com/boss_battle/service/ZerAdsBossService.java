@@ -16,7 +16,7 @@ public class ZerAdsBossService {
     private UltimoValorRecebidoService ultimoValorRecebidoService;
     private final UsuarioBossBattleRepository usuarioRepository;
 
-    private static final BigDecimal EXCHANGE = new BigDecimal("1000");
+    private static final BigDecimal EXCHANGE = new BigDecimal("2000");
 
     public ZerAdsBossService(UsuarioBossBattleRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
