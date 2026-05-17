@@ -85,4 +85,7 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     List<UsuarioBossBattle> findByEnergiaGuerreirosGreaterThan(Long energia);
     
     
+    @Query("SELECT u.id FROM UsuarioBossBattle u WHERE u.energiaGuerreiros > 0")
+    List<Long> buscarIdsUsuariosAtivos();
+    
 }//---> fim repo

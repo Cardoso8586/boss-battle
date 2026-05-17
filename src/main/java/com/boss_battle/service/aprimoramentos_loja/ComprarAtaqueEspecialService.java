@@ -27,38 +27,45 @@ public class ComprarAtaqueEspecialService {
    
     public boolean comprarAtaqueEspecial(Long usuarioId, int quantidade) {
 
-      //  UsuarioBossBattle usuario = repo.findById(usuarioId)
-               // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        if (quantidade <= 0) {
+            return false;
+        }
 
-        // ✅ preço unitário vem do USUÁRIO (não do front)
+        long limiteMaximoAtaque = 1000L;
+
+        long ataqueAtual = usuario.getAtaqueBase();
+
+        long aumentoAtaque = quantidade * 5L;
+
+        long novoAtaque = ataqueAtual + aumentoAtaque;
+
+        if (novoAtaque > limiteMaximoAtaque) {
+            return false;
+        }
+
         BigDecimal precoUnitario =
                 BigDecimal.valueOf(usuario.getPrecoAtaqueEspecial());
 
         BigDecimal valorTotal =
                 precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-        // ❌ saldo insuficiente
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 debita BossCoins
         usuario.setBossCoins(
                 usuario.getBossCoins().subtract(valorTotal)
         );
 
-        // ⚔️ cada unidade concede +5 ataque especial
-        long ataqueAtual = usuario.getAtaqueBase();
-        long novoAtaque = ataqueAtual + (quantidade * 5L);
         usuario.setAtaqueBase(novoAtaque);
 
-        // 🔁 recalcula preços da PRÓXIMA compra
         lojaService.atualizarPrecoAtaqueEspecial(usuario, quantidade);
 
         repo.save(usuario);
+
         return true;
     }
 }

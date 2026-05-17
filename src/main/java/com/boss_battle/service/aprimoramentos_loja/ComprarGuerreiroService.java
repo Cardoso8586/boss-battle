@@ -22,30 +22,49 @@ public class ComprarGuerreiroService {
 
     public boolean comprarGuerreiro(Long usuarioId, int quantidade) {
 
-        // 🔒 Busca usuário com lock pessimista para evitar race conditions
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if (quantidade <= 0) {
+            return false;
+        }
+
+        long limiteMaximoGuerreiros = 2000L;
+
+        long quantidadeTotalGuerreiro = quantidadeTotalGuerreiro(usuario);
+
+        if (quantidadeTotalGuerreiro + quantidade > limiteMaximoGuerreiros) {
+            return false;
+        }
 
         BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoGuerreiros());
         BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-        // ❌ Saldo insuficiente
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 Debita saldo
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // ⚔️ Adiciona guerreiros ao inventário
-        usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + quantidade);
+        usuario.setGuerreirosInventario(
+                usuario.getGuerreirosInventario() + quantidade
+        );
 
-        // 🔁 Recalcula preço (sem salvar usuário ainda)
         lojaService.atualizarPrecoGuerreiro(usuario, quantidade);
 
-        // ✅ Salva e força persistência imediata
-        repo.saveAndFlush(usuario);
+        repo.save(usuario);
 
         return true;
     }
+    
+    public long quantidadeTotalGuerreiro(UsuarioBossBattle usuario) {
+    	
+      	 //cria qiantidade total de guerreiro por usuario
+          long quantGuerreiros = usuario.getGuerreiros();
+          long estoqueGuerreiro = usuario.getGuerreirosInventario();
+          long  guerreirosRetaguarda = usuario.getGuerreirosRetaguarda();
+          long totalGuerreiro = quantGuerreiros + estoqueGuerreiro + guerreirosRetaguarda;
+      	
+          return totalGuerreiro;
+      }
 }

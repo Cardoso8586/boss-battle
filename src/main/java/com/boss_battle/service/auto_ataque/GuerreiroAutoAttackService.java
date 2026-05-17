@@ -149,7 +149,33 @@ public class GuerreiroAutoAttackService {
 	        usuario.setMachadoDilaceradorDesgaste(0);
 	    }
 	}
+	
+	@Scheduled(fixedRate = 60000)
+	public void ataqueAutomatico() {
 
+	    List<Long> usuariosIds = repo.buscarIdsUsuariosAtivos();
+
+	    for (Long usuarioId : usuariosIds) {
+	        try {
+	            processarAtaqueUsuarioTransacional(usuarioId);
+	        } catch (Exception e) {
+	            System.out.println("Erro ao processar ataque do usuário " + usuarioId);
+	        }
+	    }
+	}
+	
+	@Transactional
+	public void processarAtaqueUsuarioTransacional(Long usuarioId) {
+
+	    UsuarioBossBattle usuario = repo.findById(usuarioId)
+	            .orElseThrow();
+
+	    processarAtaqueUsuario(usuario);
+
+	    repo.save(usuario);
+	}
+
+	/*
 	@Scheduled(fixedRate = 60000)
 	@Transactional
 	public void ataqueAutomatico() {

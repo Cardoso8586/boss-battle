@@ -359,25 +359,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                             '#ff3b3b'
                     });
 
-                } finally {
+					} finally {
 
-                    // ==============================
-                    // UPDATE GLOBAL
-                    // ==============================
-                    await atualizarTudo(
-                        usuarioId
-                    );
+					    emCooldownCompra = false;
+					    botao.disabled = false;
+					    botao.innerText = textoOriginal;
 
-                    emCooldownCompra =
-                        false;
-
-                    botao.disabled =
-                        false;
-
-                    botao.innerText =
-                        textoOriginal;
-                }
-            }
+					    try {
+					        await atualizarTudo(usuarioId);
+					    } catch (erroAtualizar) {
+					        console.error("Erro ao atualizar dados após compra:", erroAtualizar);
+					    }
+					
+					}
+				
+				}
         );
     });
 

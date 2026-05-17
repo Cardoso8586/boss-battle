@@ -3,7 +3,9 @@ package com.boss_battle.service.auto_ataque;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -69,6 +71,60 @@ public class BossAutoAttackService {
         }
     }
     
+    @Transactional
+    public AtaqueBossResponseDTO executarAtaque(BattleBoss boss) {
+
+        DecimalFormat df = new DecimalFormat("#,##0");
+
+        long dano = boss.getAttackPower();
+
+        List<UsuarioBossBattle> usuarios =
+                usuarioRepo.findByEnergiaGuerreirosGreaterThan(0L);
+
+        List<UsuarioBossBattle> usuariosAlterados = new ArrayList<>();
+
+        for (UsuarioBossBattle u : usuarios) {
+
+            if (u.getEnergiaGuerreiros() == null || u.getEnergiaGuerreiros() <= 0) {
+                continue;
+            }
+
+            ResultadoDano resultado = calcularDanoRecebido(u, dano);
+
+            long novaEnergia = u.getEnergiaGuerreiros() - resultado.getDanoFinal();
+            long energiaFinal = Math.max(0, novaEnergia);
+
+            if (!Objects.equals(u.getEnergiaGuerreiros(), energiaFinal)) {
+                u.setEnergiaGuerreiros(energiaFinal);
+                usuariosAlterados.add(u);
+            }
+        }
+
+        if (!usuariosAlterados.isEmpty()) {
+            usuarioRepo.saveAll(usuariosAlterados);
+        }
+
+        String bossName = boss.getBossName();
+
+        String mensagem = "<span class='boosName'>" + bossName + "</span>"
+                + " atacou causando <span class='dano-valor'>"
+                + df.format(dano)
+                + "</span> de dano!";
+
+        ultimoBossNome = bossName;
+        ultimoAtaqueEm = LocalDateTime.now();
+        ultimaMensagemAtaque = mensagem;
+        ultimoDano = dano;
+
+        return new AtaqueBossResponseDTO(
+                ultimoBossNome,
+                ultimaMensagemAtaque,
+                ultimoDano,
+                ultimoAtaqueEm
+        );
+    }
+    
+    /*
     public AtaqueBossResponseDTO executarAtaque(BattleBoss boss) {
         DecimalFormat df = new DecimalFormat("#,##0");
 
@@ -110,6 +166,9 @@ public class BossAutoAttackService {
                 ultimoAtaqueEm
         );
     }
+    
+    */
+    
     
     //-----------------------------------------------------------------
     /*
