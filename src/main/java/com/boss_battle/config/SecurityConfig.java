@@ -79,9 +79,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
             		
             	    .requestMatchers(
-            	            new AntPathRequestMatcher("/api/nowpayments/ipn", "POST"),
-            	            new AntPathRequestMatcher("/api/nowpayments/teste", "POST"),
-            	            new AntPathRequestMatcher("/api/nowpayments/teste", "GET")
+            	            new AntPathRequestMatcher("/depositos/nowpayments/ipn", "POST"),
+            	            new AntPathRequestMatcher("/depositos/nowpayments/teste", "POST"),
+            	            new AntPathRequestMatcher("/depositos/nowpayments/teste", "GET")
             	        ).permitAll()
 
             		
@@ -108,7 +108,7 @@ public class SecurityConfig {
                         "/zeradsptc/**",
                         "/depositos/**",
                         "/depositos/criar/**",
-                      
+                        "/depositos/nowpayments/ipn/**",
                         
                         
                         "/aliados/**",

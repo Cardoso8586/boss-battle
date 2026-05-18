@@ -1,15 +1,22 @@
 package com.boss_battle.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boss_battle.model.DepositoBossCoins;
 import com.boss_battle.model.UsuarioBossBattle;
@@ -17,8 +24,10 @@ import com.boss_battle.repository.DepositoBossCoinsRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.NowPaymentsService;
 import com.boss_battle.service.UltimoValorRecebidoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 @Controller
 @RequestMapping("/depositos")
@@ -108,9 +117,8 @@ public class DepositoPageController {
         return "depositos";
     }
     //================================
- /*
+ 
     @PostMapping("/nowpayments/ipn")
-    @ResponseBody
     @Transactional
     public ResponseEntity<String> receberIpn(
             @RequestBody String rawBody,
@@ -121,7 +129,9 @@ public class DepositoPageController {
             System.out.println("=================================");
             System.out.println("IPN NOWPAYMENTS RECEBIDO");
             System.out.println("HEADERS:");
-            headers.forEach((k,v) -> System.out.println(k + " = " + v));
+
+            headers.forEach((k, v) ->
+                    System.out.println(k + " = " + v));
 
             System.out.println("BODY:");
             System.out.println(rawBody);
@@ -142,55 +152,54 @@ public class DepositoPageController {
 
                 System.out.println("PAYMENT ID NULL");
 
-                return ResponseEntity.ok("IGNORED");
+                return ResponseEntity.ok("NO_PAYMENT_ID");
             }
 
-            Optional<DepositoBossCoins> depositoOpt =
-                    depositoRepository.findByPaymentId(paymentId);
+            DepositoBossCoins deposito =
+                    depositoRepository
+                            .findByPaymentId(paymentId)
+                            .orElse(null);
 
-            if (depositoOpt.isEmpty()) {
+            if (deposito == null) {
 
                 System.out.println("DEPÓSITO NÃO ENCONTRADO");
 
-                return ResponseEntity.ok("NOT_FOUND");
+                return ResponseEntity.ok("DEPOSITO_NOT_FOUND");
             }
-
-            DepositoBossCoins deposito = depositoOpt.get();
 
             deposito.setStatus(status);
             deposito.setAtualizadoEm(LocalDateTime.now());
 
             boolean statusCreditavel =
                     "finished".equalsIgnoreCase(status)
-                 || "partially_paid".equalsIgnoreCase(status);
+                    || "partially_paid".equalsIgnoreCase(status);
 
             if (statusCreditavel && !deposito.isCreditado()) {
 
                 UsuarioBossBattle usuario =
                         usuarioRepository
                                 .findById(deposito.getUsuarioId())
-                                .orElseThrow();
+                                .orElseThrow(() ->
+                                        new RuntimeException("Usuário não encontrado"));
 
-                BigDecimal saldoAtual =
-                        usuario.getBossCoins() == null
-                        ? BigDecimal.ZERO
-                        : usuario.getBossCoins();
+                BigDecimal saldoAtual = usuario.getBossCoins();
+
+                if (saldoAtual == null) {
+                    saldoAtual = BigDecimal.ZERO;
+                }
 
                 BigDecimal valorUsdParaCreditar =
                         deposito.getValorUsd();
 
-                if ("partially_paid".equalsIgnoreCase(status)) {
+                Object valorPagoFiat =
+                        body.get("actually_paid_fiat");
 
-                    Object valorPagoFiat =
-                            body.get("actually_paid_fiat");
+                if (valorPagoFiat != null) {
 
-                    if (valorPagoFiat != null) {
-
-                        valorUsdParaCreditar =
-                                new BigDecimal(
-                                        String.valueOf(valorPagoFiat)
-                                );
-                    }
+                    valorUsdParaCreditar =
+                            new BigDecimal(
+                                    String.valueOf(valorPagoFiat)
+                            );
                 }
 
                 BigDecimal bossCoinsRecebidas =
@@ -204,15 +213,21 @@ public class DepositoPageController {
 
                 deposito.setCreditado(true);
 
+                usuarioRepository.save(usuario);
+
                 ultimoValorRecebidoService
                         .setUltimoValorRecebido(
                                 usuario,
                                 bossCoinsRecebidas
                         );
 
-                usuarioRepository.save(usuario);
-
-                System.out.println("USUÁRIO CREDITADO");
+                System.out.println("=================================");
+                System.out.println("SALDO CREDITADO");
+                System.out.println("USUARIO ID: " + usuario.getId());
+                System.out.println("STATUS: " + status);
+                System.out.println("VALOR USD: " + valorUsdParaCreditar);
+                System.out.println("BOSS COINS: " + bossCoinsRecebidas);
+                System.out.println("=================================");
             }
 
             depositoRepository.save(deposito);
@@ -226,5 +241,13 @@ public class DepositoPageController {
             return ResponseEntity.ok("ERROR");
         }
     }
-  */
+
+    @PostMapping("/teste")
+    public String teste() {
+
+        System.out.println("TESTE NOWPAYMENTS ONLINE");
+
+        return "NOWPAYMENTS ONLINE";
+    }
+  
 }

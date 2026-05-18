@@ -153,7 +153,7 @@ public class NowPaymentsIpnController {
         }
     }
 
-    @PostMapping("/teste")
+    @GetMapping("/teste")
     public String teste() {
 
         System.out.println("TESTE NOWPAYMENTS ONLINE");
