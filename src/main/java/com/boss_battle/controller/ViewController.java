@@ -420,6 +420,12 @@ public class ViewController {
                 "quantidadeFlechaFerro",
                 df.format(usuario.getFlechaFerro())
         );
+        
+        //get escudos
+	     model.addAttribute(""
+	     		+ "quantidadeEscudoPrimordial",
+	     		usuario.getEscudoPrimordial()
+	     );
 
         BigDecimal coins = usuario.getBossCoins();
 
