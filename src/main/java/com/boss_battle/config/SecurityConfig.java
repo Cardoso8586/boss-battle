@@ -76,11 +76,17 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
+            		
             		.requestMatchers(
-            			    "/depositos/nowpayments/ipn",
-            			    "/depositos/nowpayments/ipn/**",
-            			    "/depositos/teste-publico"
-            			).permitAll()
+            		        "/depositos",
+            		        "/depositos/**",
+            		        "/depositos/criar",
+            		        "/depositos/criar/**",
+            		        "/depositos/nowpayments/ipn",
+            		        "/depositos/nowpayments/ipn/**",
+            		        "/depositos/teste-post",
+            		        "/depositos/teste-post/**"
+            		).permitAll()
             		
                 .requestMatchers(
                         "/static/**",
@@ -105,7 +111,7 @@ public class SecurityConfig {
                         "/zeradsptc/**",
                         "/depositos/**",
                         "/depositos/criar/**",
-                      
+                        "/depositos/nowpayments/ipn/**",
                         
                         
                         "/aliados/**",
@@ -194,13 +200,7 @@ public class SecurityConfig {
                     .permitAll()
             )
 
-            .csrf(csrf -> csrf
-                    .ignoringRequestMatchers(
-                            "/depositos/nowpayments/ipn"
-                    
-            )
-            		
-            		);
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
