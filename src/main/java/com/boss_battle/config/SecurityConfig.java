@@ -76,6 +76,12 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
+            		
+            		.requestMatchers(
+            			    "/depositos/nowpayments/ipn",
+            			    "/depositos/nowpayments/ipn/**"
+            			).permitAll()
+            		
                 .requestMatchers(
                         "/static/**",
                         "/images/**",

@@ -103,8 +103,10 @@
 
     </div>
 
-    <div class="payment-result"
-         th:if="${pagamento != null}">
+ <div class="payment-result"
+     id="paymentResult"
+     th:attr="data-status=${pagamento.status}"
+     th:if="${pagamento != null}">
 
         <h2>Pagamento Gerado</h2>
 
@@ -269,5 +271,49 @@
     atualizarMinimo();
 </script>
 
+<script>
+
+    function verificarStatusPagamento() {
+
+        const paymentBox =
+            document.getElementById("paymentResult");
+
+        if (!paymentBox) {
+            return;
+        }
+
+        const status =
+            paymentBox.dataset.status;
+
+        if (
+            status === "waiting"
+            || status === "confirming"
+        ) {
+
+            setTimeout(() => {
+
+                window.location.reload();
+
+            }, 10000);
+        }
+
+        if (
+            status === "finished"
+            || status === "partially_paid"
+            || status === "failed"
+            || status === "expired"
+        ) {
+
+            paymentBox.style.display = "none";
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+    }
+
+    verificarStatusPagamento();
+
+</script>
 </body>
 </html>
