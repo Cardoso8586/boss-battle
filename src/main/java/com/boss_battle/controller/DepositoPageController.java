@@ -117,7 +117,7 @@ public class DepositoPageController {
         return "depositos";
     }
     //================================
- 
+ /*
     @PostMapping("/nowpayments/ipn")
     @ResponseBody
     @Transactional
@@ -235,5 +235,5 @@ public class DepositoPageController {
             return ResponseEntity.ok("ERROR");
         }
     }
-  
+  */
 }
