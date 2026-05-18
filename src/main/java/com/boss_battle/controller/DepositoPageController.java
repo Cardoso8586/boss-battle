@@ -186,5 +186,11 @@ public class DepositoPageController {
         return ResponseEntity.ok("OK");
     }
    
+    @PostMapping("/teste-post")
+    @ResponseBody
+    public String testePost(@RequestBody(required = false) String body) {
+        System.out.println("POST TESTE CHEGOU: " + body);
+        return "POST OK";
+    }
   
 }

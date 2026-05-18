@@ -194,7 +194,13 @@ public class SecurityConfig {
                     .permitAll()
             )
 
-            .csrf(csrf -> csrf.disable());
+            .csrf(csrf -> csrf
+                    .ignoringRequestMatchers(
+                            "/depositos/nowpayments/ipn"
+                    
+            )
+            		
+            		);
 
         return http.build();
     }

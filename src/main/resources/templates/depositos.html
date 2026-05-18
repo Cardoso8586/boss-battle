@@ -290,11 +290,11 @@
             || status === "confirming"
         ) {
 
-            setTimeout(() => {
+        	setTimeout(() => {
 
-                window.location.reload();
+        	    window.location.reload();
 
-            }, 10000);
+        	}, 60000);
         }
 
         if (
@@ -307,8 +307,10 @@
             paymentBox.style.display = "none";
 
             setTimeout(() => {
+
                 window.location.reload();
-            }, 2000);
+
+            }, 60000);
         }
     }
 
