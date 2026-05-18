@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.*;
 
 import com.boss_battle.service.CustomUserDetailsService;
@@ -77,16 +78,12 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
             		
-            		.requestMatchers(
-            		        "/depositos",
-            		        "/depositos/**",
-            		        "/depositos/criar",
-            		        "/depositos/criar/**",
-            		        "/depositos/nowpayments/ipn",
-            		        "/depositos/nowpayments/ipn/**",
-            		        "/depositos/teste-post",
-            		        "/depositos/teste-post/**"
-            		).permitAll()
+            	    .requestMatchers(
+            	            new AntPathRequestMatcher("/depositos/nowpayments/ipn", "POST"),
+            	            new AntPathRequestMatcher("/depositos/teste-post", "POST"),
+            	            new AntPathRequestMatcher("/depositos/teste-ipn", "GET")
+            	        ).permitAll()
+
             		
                 .requestMatchers(
                         "/static/**",
