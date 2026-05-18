@@ -147,15 +147,91 @@
 
 
 <div class="historico-depositos" th:if="${historico != null}">
+
     <h2>Histórico de Depósitos</h2>
 
-    <div class="historico-item" th:each="d : ${historico}">
-        <p><strong>ID:</strong> <span th:text="${d.paymentId}"></span></p>
-        <p><strong>Moeda:</strong> <span th:text="${d.moeda}"></span></p>
-        <p><strong>Valor USD:</strong> <span th:text="${d.valorUsd}"></span></p>
-        <p><strong>Status:</strong> <span th:text="${d.status}"></span></p>
-        <p><strong>Creditado:</strong> <span th:text="${d.creditado ? 'Sim' : 'Não'}"></span></p>
+    <div class="historico-scroll">
+
+        <div class="historico-item"
+             th:each="d : ${historico}">
+
+            <p>
+                <strong>ID:</strong>
+
+                <span th:text="${d.paymentId}"></span>
+            </p>
+
+            <p>
+                <strong>Moeda:</strong>
+
+                <span th:text="${d.moeda}"></span>
+            </p>
+
+            <p>
+                <strong>Valor USD:</strong>
+
+                <span th:text="${d.valorUsd}"></span>
+            </p>
+
+            <p>
+                <strong>Boss Coins:</strong>
+
+                <span th:text="${#numbers.formatDecimal(d.valorUsd * 10000000, 0, 'POINT', 0, 'COMMA')}">
+                </span>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                <span th:switch="${d.status}">
+
+                    <span th:case="'finished'"
+                          class="status-finalizado">
+                        Confirmado
+                    </span>
+
+                    <span th:case="'waiting'"
+                          class="status-pendente">
+                        Aguardando pagamento
+                    </span>
+
+                    <span th:case="'confirming'"
+                          class="status-pendente">
+                        Confirmando
+                    </span>
+
+                    <span th:case="'partially_paid'"
+                          class="status-parcial">
+                        Parcialmente pago
+                    </span>
+
+                    <span th:case="'failed'"
+                          class="status-falhou">
+                        Falhou
+                    </span>
+
+                    <span th:case="'expired'"
+                          class="status-falhou">
+                        Expirado
+                    </span>
+
+                    <span th:case="*"
+                          th:text="${d.status}">
+                    </span>
+
+                </span>
+            </p>
+
+            <p>
+                <strong>Creditado:</strong>
+
+                <span th:text="${d.creditado ? 'Sim' : 'Não'}"></span>
+            </p>
+
+        </div>
+
     </div>
+
 </div>
 </div>
 <script>

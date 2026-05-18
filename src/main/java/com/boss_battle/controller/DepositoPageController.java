@@ -21,6 +21,7 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.DepositoBossCoinsRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.NowPaymentsService;
+import com.boss_battle.service.UltimoValorRecebidoService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -28,6 +29,9 @@ import jakarta.transaction.Transactional;
 @Controller
 @RequestMapping("/depositos")
 public class DepositoPageController {
+	
+	@Autowired
+	private UltimoValorRecebidoService ultimoValorRecebidoService;
 	
 	
 	@Autowired
@@ -116,12 +120,11 @@ public class DepositoPageController {
     @Transactional
     public ResponseEntity<String> receberIpn(@RequestBody Map<String, Object> body) {
 
-    	
-    	    System.out.println("=================================");
-    	    System.out.println("IPN RECEBIDO NOWPAYMENTS");
-    	    System.out.println(body);
-    	    System.out.println("=================================");
-    	
+        System.out.println("=================================");
+        System.out.println("IPN RECEBIDO NOWPAYMENTS");
+        System.out.println(body);
+        System.out.println("=================================");
+
         String paymentId = String.valueOf(body.get("payment_id"));
         String status = String.valueOf(body.get("payment_status"));
 
@@ -131,7 +134,11 @@ public class DepositoPageController {
         deposito.setStatus(status);
         deposito.setAtualizadoEm(LocalDateTime.now());
 
-        if ("finished".equalsIgnoreCase(status) && !deposito.isCreditado()) {
+        boolean statusCreditavel =
+                "finished".equalsIgnoreCase(status)
+                || "partially_paid".equalsIgnoreCase(status);
+
+        if (statusCreditavel && !deposito.isCreditado()) {
 
             UsuarioBossBattle usuario = usuarioRepository.findById(deposito.getUsuarioId())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -142,12 +149,29 @@ public class DepositoPageController {
                 saldoAtual = BigDecimal.ZERO;
             }
 
-            BigDecimal bossCoinsRecebidas = deposito.getValorUsd()
+            BigDecimal valorUsdParaCreditar = deposito.getValorUsd();
+
+            if ("partially_paid".equalsIgnoreCase(status)) {
+                Object valorPagoFiat = body.get("actually_paid_fiat");
+
+                if (valorPagoFiat != null) {
+                    valorUsdParaCreditar = new BigDecimal(String.valueOf(valorPagoFiat));
+                } else {
+                    valorUsdParaCreditar = BigDecimal.ZERO;
+                }
+            }
+
+            BigDecimal bossCoinsRecebidas = valorUsdParaCreditar
                     .multiply(BigDecimal.valueOf(10_000_000));
 
             usuario.setBossCoins(saldoAtual.add(bossCoinsRecebidas));
 
             deposito.setCreditado(true);
+
+            ultimoValorRecebidoService.setUltimoValorRecebido(
+                    usuario,
+                    bossCoinsRecebidas
+            );
 
             usuarioRepository.save(usuario);
         }
@@ -156,7 +180,6 @@ public class DepositoPageController {
 
         return ResponseEntity.ok("OK");
     }
-    
    
     
 }

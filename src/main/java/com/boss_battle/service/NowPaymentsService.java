@@ -15,7 +15,10 @@ import com.boss_battle.repository.DepositoBossCoinsRepository;
 
 @Service
 public class NowPaymentsService {
-
+    
+	
+	
+	    
     @Autowired
     private DepositoBossCoinsRepository depositoRepository;
 
