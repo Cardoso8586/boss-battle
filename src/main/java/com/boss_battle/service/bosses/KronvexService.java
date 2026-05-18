@@ -6,71 +6,63 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boss_battle.model.GlobalBossApocalyx;
-import com.boss_battle.repository.ApocalyxRepository;
+import com.boss_battle.model.GlobalBossKronvex;
+import com.boss_battle.repository.KronvexRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class ApocalyxService {
+public class KronvexService {
 
-    private static final long MAX_ATTACK = 5000;
-    private static final long MAX_INTERVAL = 1000;
-    private static final long MAX_REWARD_BOSS = 500_000;
-    private static final long MAX_EXP = 300_000;
-    private static final long MAX_HP = 5_000_000;
+    private static final long MAX_ATTACK = 2_000L;
+    private static final long MAX_INTERVAL = 800L;
+    private static final long MAX_REWARD_BOSS = 500_000L;
+    private static final long MAX_EXP = 150_000L;
+    private static final long MAX_HP = 800_000L;
 
     @Autowired
-    private ApocalyxRepository repo;
+    private KronvexRepository repo;
 
-    public GlobalBossApocalyx get() {
+    public GlobalBossKronvex get() {
         return repo.findById(1L).orElseGet(() -> createDefaultBoss());
     }
 
-    public GlobalBossApocalyx createDefaultBoss() {
+    public GlobalBossKronvex createDefaultBoss() {
+        GlobalBossKronvex boss = new GlobalBossKronvex();
 
-        GlobalBossApocalyx boss = new GlobalBossApocalyx();
+        boss.setName("KRONVEX");
+        aplicarEscalamentoKronvex(boss);
 
-        boss.setName("APOCALYX");
         boss.setProcessingDeath(false);
         boss.setRewardDistributed(false);
         boss.setAlive(true);
-        boss.setImageUrl("images/boss_apocalyx.webp");
+
+        boss.setImageUrl("images/boss_kronvex.webp");
         boss.setSpawnedAt(LocalDateTime.now());
+        boss.setRespawnCooldownSeconds(64_800L);
         boss.setSpawnCount(1);
 
         return repo.save(boss);
     }
 
-    public GlobalBossApocalyx save(GlobalBossApocalyx boss) {
+    public GlobalBossKronvex save(GlobalBossKronvex boss) {
         return repo.save(boss);
     }
 
-    public GlobalBossApocalyx attack(long damage) {
-
-        var boss = repo.findById(1L)
-                .orElseThrow(() -> new RuntimeException("Boss not found"));
-
-        boss.applyDamage(damage);
-
-        return repo.save(boss);
-    }
-
-    public void aplicarEscalamentoApocalyx(GlobalBossApocalyx boss) {
-
+    public void aplicarEscalamentoKronvex(GlobalBossKronvex boss) {
         Random random = new Random();
 
-        long min = 300;
-        long max = 800;
-
+        long min = 300L;
+        long max = 800L;
         long incrementarUp = random.nextLong(min, max + 1);
 
         long valorHpMax = boss.getMaxHp();
         long valorCur = boss.getCurrentHp();
         long valorAtaque = boss.getAttackPower();
         long valorIntervalSeconds = boss.getAttackIntervalSeconds();
-        long valorsetRewardBoss = boss.getRewardBoss();
+        long valorRewardBoss = boss.getRewardBoss();
+        long valorXp = boss.getRewardExp();
 
         if (valorHpMax < MAX_HP) {
             boss.setMaxHp(valorHpMax + incrementarUp);
@@ -80,30 +72,34 @@ public class ApocalyxService {
             boss.setCurrentHp(MAX_HP);
         }
 
-        if (valorsetRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+        if (valorRewardBoss < MAX_REWARD_BOSS) {
+            boss.setRewardBoss(valorRewardBoss + 10L);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
 
-        long valorXp = boss.getRewardExp();
-
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 25L);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 5);
+            boss.setAttackPower(valorAtaque + 20L);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }
 
         if (valorIntervalSeconds < MAX_INTERVAL) {
-            boss.setAttackIntervalSeconds(valorIntervalSeconds + 1);
+            boss.setAttackIntervalSeconds(valorIntervalSeconds + 1L);
         } else {
             boss.setAttackIntervalSeconds(MAX_INTERVAL);
         }
+    }
+
+    public GlobalBossKronvex attack(long damage) {
+        GlobalBossKronvex boss = get();
+        boss.applyDamage(damage);
+        return repo.save(boss);
     }
 }

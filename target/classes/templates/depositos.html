@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+    <title>Depósitos - Boss Battle Arena</title>
+
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/depositos.css">
+</head>
+
+<body>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<div class="deposit-container">
+
+    <h1>Depósito</h1>
+
+    <p class="subtitle">
+        Adicione Boss Coins ao seu jogo usando criptomoedas
+    </p>
+
+    <div class="erro-deposito"
+         th:if="${erroDeposito != null}"
+         th:text="${erroDeposito}">
+    </div>
+
+    <div class="deposit-box"
+         th:if="${pagamento == null}">
+
+        <form th:action="@{/depositos/criar}" method="post">
+
+            <input type="hidden"
+                   name="usuarioId"
+                   th:value="${idUsuario}">
+
+            <label for="moeda">
+                Moeda para pagamento
+            </label>
+
+            <select id="moeda"
+                    name="moeda"
+                    required>
+
+                <option value="USDTTRC20" data-min="20">
+                    USDT TRC20
+                </option>
+
+                <option value="LTC" data-min="12">
+                    Litecoin
+                </option>
+
+                <option value="DOGE" data-min="12">
+                    Dogecoin
+                </option>
+
+            </select>
+
+            <div class="minimo-info">
+                Mínimo para esta moeda:
+                <strong id="valorMinimoTexto">US$ 20.00</strong>
+            </div>
+
+            <label for="valorUsd">
+                Valor em dólar
+            </label>
+
+            <input type="number"
+                   id="valorUsd"
+                   name="valorUsd"
+                   min="20"
+                   step="0.01"
+                   value="20"
+                   placeholder="Ex: 20.00"
+                   required>
+<div class="bosscoins-preview">
+    Você vai receber:
+    <strong id="bossCoinsTexto">200.000.000 Boss Coins</strong>
+</div>
+            <button type="submit">
+                Gerar Depósito
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="info"
+         th:if="${pagamento == null}">
+
+        Após gerar o depósito, envie exatamente o valor informado para o endereço exibido.
+        O saldo será creditado automaticamente após a confirmação do pagamento.
+
+    </div>
+
+    <div class="payment-result"
+         th:if="${pagamento != null}">
+
+        <h2>Pagamento Gerado</h2>
+
+        <div class="qr-area">
+            <img th:src="${pagamento.qrCode}"
+                 alt="QR Code Pagamento"
+                 class="qr-code">
+        </div>
+
+        <div class="payment-status">
+            <i class="fa-solid fa-clock"></i>
+            <span>Aguardando pagamento</span>
+        </div>
+
+        <div class="payment-info">
+            <strong>Moeda:</strong>
+            <span th:text="${pagamento.moeda}">USDT TRC20</span>
+        </div>
+
+        <div class="payment-info">
+            <strong>Valor a pagar:</strong>
+            <span th:text="${pagamento.valorPagar}">0.00</span>
+        </div>
+
+        <div class="wallet-box">
+            <strong>Endereço da carteira</strong>
+
+            <div class="wallet"
+                 th:text="${pagamento.enderecoCarteira}">
+                endereço-da-carteira
+            </div>
+        </div>
+
+        <div class="payment-id">
+            <strong>ID:</strong>
+            <span th:text="${pagamento.paymentId}">000000</span>
+        </div>
+
+    </div>
+
+
+<div class="historico-depositos" th:if="${historico != null}">
+    <h2>Histórico de Depósitos</h2>
+
+    <div class="historico-item" th:each="d : ${historico}">
+        <p><strong>ID:</strong> <span th:text="${d.paymentId}"></span></p>
+        <p><strong>Moeda:</strong> <span th:text="${d.moeda}"></span></p>
+        <p><strong>Valor USD:</strong> <span th:text="${d.valorUsd}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${d.status}"></span></p>
+        <p><strong>Creditado:</strong> <span th:text="${d.creditado ? 'Sim' : 'Não'}"></span></p>
+    </div>
+</div>
+</div>
+<script>
+    const moedaSelect = document.getElementById("moeda");
+    const valorInput = document.getElementById("valorUsd");
+    const valorMinimoTexto = document.getElementById("valorMinimoTexto");
+    const bossCoinsTexto = document.getElementById("bossCoinsTexto");
+
+    const BOSS_COINS_POR_DOLAR = 10000000;
+
+    function formatarNumero(valor) {
+        return new Intl.NumberFormat("pt-BR", {
+            maximumFractionDigits: 0
+        }).format(valor);
+    }
+
+    function atualizarBossCoins() {
+        const valorUsd = Number(valorInput.value || 0);
+        const bossCoins = valorUsd * BOSS_COINS_POR_DOLAR;
+
+        bossCoinsTexto.textContent =
+            formatarNumero(bossCoins) + " Boss Coins";
+    }
+
+    function atualizarMinimo() {
+        const optionSelecionada = moedaSelect.options[moedaSelect.selectedIndex];
+        const minimo = Number(optionSelecionada.getAttribute("data-min"));
+
+        valorInput.min = minimo;
+        valorInput.placeholder = "Ex: " + minimo.toFixed(2);
+        valorMinimoTexto.textContent = "US$ " + minimo.toFixed(2);
+
+        if (!valorInput.value || Number(valorInput.value) < minimo) {
+            valorInput.value = minimo;
+        }
+
+        atualizarBossCoins();
+    }
+
+    moedaSelect.addEventListener("change", atualizarMinimo);
+    valorInput.addEventListener("input", atualizarBossCoins);
+
+    atualizarMinimo();
+</script>
+
+</body>
+</html>

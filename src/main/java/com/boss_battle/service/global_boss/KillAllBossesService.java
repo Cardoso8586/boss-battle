@@ -8,11 +8,13 @@ import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossApocalyx;
 import com.boss_battle.model.GlobalBossArenascor;
+import com.boss_battle.model.GlobalBossAsterion;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzuragon;
 import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
+import com.boss_battle.model.GlobalBossCybraxus;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossDrakzhor;
@@ -25,19 +27,26 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
+import com.boss_battle.model.GlobalBossKronvex;
+import com.boss_battle.model.GlobalBossKryptar;
 import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalevola;
+import com.boss_battle.model.GlobalBossMalghor;
 import com.boss_battle.model.GlobalBossMalgryth;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
+import com.boss_battle.model.GlobalBossMorvyra;
 import com.boss_battle.model.GlobalBossNecrothar;
+import com.boss_battle.model.GlobalBossNeuroth;
 import com.boss_battle.model.GlobalBossNexarach;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
+import com.boss_battle.model.GlobalBossNovarok;
 import com.boss_battle.model.GlobalBossNoxar;
+import com.boss_battle.model.GlobalBossNyxara;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
@@ -69,11 +78,13 @@ import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
 import com.boss_battle.service.bosses.ApocalyxService;
 import com.boss_battle.service.bosses.ArenascorService;
+import com.boss_battle.service.bosses.AsterionService;
 import com.boss_battle.service.bosses.AzraelPrimeService;
 import com.boss_battle.service.bosses.AzuragonService;
 import com.boss_battle.service.bosses.AzurionService;
 import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
+import com.boss_battle.service.bosses.CybraxusService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.DrakzhorService;
@@ -86,19 +97,26 @@ import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
+import com.boss_battle.service.bosses.KronvexService;
+import com.boss_battle.service.bosses.KryptarService;
 import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalevolaService;
+import com.boss_battle.service.bosses.MalghorService;
 import com.boss_battle.service.bosses.MalgrythService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
+import com.boss_battle.service.bosses.MorvyraService;
 import com.boss_battle.service.bosses.NecrotharService;
+import com.boss_battle.service.bosses.NeurothService;
 import com.boss_battle.service.bosses.NexarachService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
+import com.boss_battle.service.bosses.NovarokService;
 import com.boss_battle.service.bosses.NoxarService;
+import com.boss_battle.service.bosses.NyxaraService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
@@ -185,9 +203,6 @@ public class KillAllBossesService {
 	    private final VZurvioService vZurvioService;
 	    private final GatalicosService gatalicosService;
 	    private final SHemogarthService sHemogarthService;
-	    
-	    
-	    //
 	    private final VexarothService vexarothService;
 	    private final TharzulService tharzulService;
 	    private final VorgrimService vorgrimService;
@@ -195,6 +210,19 @@ public class KillAllBossesService {
 	    private final ExodraxService exodraxService;
 	    private final ApocalyxService apocalyxService;
 	    private final EclypzorService eclypzorService;
+	    
+	    
+	    //
+	    private final CybraxusService cybraxusService;
+	    private final NeurothService neurothService;
+	    private final MalghorService malghorService;
+	    private final NovarokService novarokService;
+	    private final AsterionService asterionService;
+	    private final KronvexService kronvexService;
+	    private final KryptarService kryptarService;
+	    private final NyxaraService nyxaraService;
+	    private final MorvyraService morvyraService;
+	    
 	    
 	    /*
 	 
@@ -257,18 +285,26 @@ public class KillAllBossesService {
 	            VZurvioService vZurvioService,
 	            GatalicosService gatalicosService,
 	            SHemogarthService sHemogarthService,
-	            
-	            
-	            //
-	            
 	            VexarothService vexarothService,
 	            TharzulService tharzulService,
 	            VorgrimService vorgrimService,
 	            XaphironService xaphironService,
 	            ExodraxService exodraxService,
 	            ApocalyxService apocalyxService,
-	            EclypzorService eclypzorService
+	            EclypzorService eclypzorService,
 	            
+	            
+	            //
+
+	            CybraxusService cybraxusService,
+	            NeurothService neurothService,
+	            MalghorService malghorService,
+	            NovarokService novarokService,
+	            AsterionService asterionService,
+	            KronvexService kronvexService,
+	            KryptarService kryptarService,
+	            NyxaraService nyxaraService,
+	            MorvyraService morvyraService
 	            
 	            
 	            
@@ -334,10 +370,6 @@ public class KillAllBossesService {
 	        this.vZurvioService = vZurvioService;
 	        this.gatalicosService = gatalicosService;
 	        this.sHemogarthService = sHemogarthService;
-	        
-	        
-	        //
-	        
 	        this.vexarothService = vexarothService;   
 	        this.tharzulService = tharzulService;
 	        this.vorgrimService = vorgrimService;
@@ -345,6 +377,19 @@ public class KillAllBossesService {
 	        this.exodraxService = exodraxService;
 	        this.apocalyxService = apocalyxService;
 	        this.eclypzorService = eclypzorService;
+	        
+	        
+	        //
+	        this.cybraxusService = cybraxusService;
+	        this.neurothService = neurothService; 
+	        this.malghorService = malghorService; 
+	        this.novarokService = novarokService; 
+	        this.asterionService = asterionService; 
+	        this.kronvexService = kronvexService;  
+	        this.kryptarService = kryptarService;
+	        this.nyxaraService = nyxaraService;
+	        this.morvyraService = morvyraService;
+	        
 	        
 	        
 	        /*
@@ -408,8 +453,6 @@ public class KillAllBossesService {
 	    	GlobalBossVZurvio vzrur = vZurvioService.get();
 	    	GlobalBossGatalicos galat = gatalicosService.get();
 	    	GlobalBossSHemogarth shemo = sHemogarthService.get();
-	    	
-	    	//
 	    	GlobalBossVexaroth vexaro = vexarothService.get();
 	    	GlobalBossTharzul tharz = tharzulService.get();
 	    	GlobalBossVorgrim vorgrim = vorgrimService.get();
@@ -419,9 +462,49 @@ public class KillAllBossesService {
 	    	GlobalBossEclypzor eclypzor = eclypzorService.get();
 	    	
 	    	
+	    	//
+	    	GlobalBossCybraxus cybrax = cybraxusService.get();
+	    	GlobalBossNeuroth neuroth = neurothService.get();
+	    	GlobalBossMalghor malgho = malghorService.get();
+	    	GlobalBossNovarok novaro = novarokService.get();
+	    	GlobalBossAsterion aster = asterionService.get();
+	    	GlobalBossKronvex kronv = kronvexService.get();
+	    	GlobalBossKryptar krypt = kryptarService.get();
+	    	GlobalBossNyxara nyxara = nyxaraService.get();
+	    	GlobalBossMorvyra morvyra = morvyraService.get();
+	    	
+	    	
+	    	
+	    	
+	    	morvyra.setAlive(false);
+	    	morvyra.setProcessingDeath(false);
+	    	
+	    	nyxara.setAlive(false);
+	    	nyxara.setProcessingDeath(false);
+	    	
+	    	krypt.setAlive(false);
+	    	krypt.setProcessingDeath(false);
+	    	
+	    	kronv.setAlive(false);
+	    	kronv.setProcessingDeath(false);
+	    	
+	    	aster.setAlive(false);
+	    	aster.setProcessingDeath(false);
+	    	
+	    	novaro.setAlive(false);
+	    	novaro.setProcessingDeath(false);
+	    	
+	    	malgho.setAlive(false);
+	    	malgho.setProcessingDeath(false);
+	    	
+	    	neuroth.setAlive(false);
+	    	neuroth.setProcessingDeath(false);
+	    	
+	    	cybrax.setAlive(false);
+	    	cybrax.setProcessingDeath(false);
+	    	
 	    	eclypzor.setAlive(false);
 	    	eclypzor.setProcessingDeath(false);
-	    	
 	    	
 	    	apocal.setAlive(false);
 	    	apocal.setProcessingDeath(false);
@@ -660,9 +743,6 @@ public class KillAllBossesService {
 	        vorlathService.save(vorla);
 	        gatalicosService.save(galat);
 	        sHemogarthService.save(shemo);
-	        
-	        
-	         //
 	        vexarothService.save(vexaro);
 	        tharzulService.save(tharz);
 	        vorgrimService.save(vorgrim);
@@ -670,6 +750,20 @@ public class KillAllBossesService {
 	        exodraxService.save(exodrax);
 	        apocalyxService.save(apocal);
 	        eclypzorService.save(eclypzor);
+	        
+	        
+	        //
+	        cybraxusService.save(cybrax);
+	        neurothService.save(neuroth);
+	        malghorService.save(malgho);
+	        novarokService.save(novaro);
+	        asterionService.save(aster);
+	        kronvexService.save(kronv);
+	        kryptarService.save(krypt);
+	        nyxaraService.save(nyxara);
+	        morvyraService.save(morvyra);
+	        
+	        
 	        
 	        /*
 	       

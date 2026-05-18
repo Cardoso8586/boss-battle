@@ -11,11 +11,13 @@ import com.boss_battle.model.GlobalBossAbissal;
 import com.boss_battle.model.GlobalBossAbyssar;
 import com.boss_battle.model.GlobalBossApocalyx;
 import com.boss_battle.model.GlobalBossArenascor;
+import com.boss_battle.model.GlobalBossAsterion;
 import com.boss_battle.model.GlobalBossAzraelPrime;
 import com.boss_battle.model.GlobalBossAzuragon;
 import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
+import com.boss_battle.model.GlobalBossCybraxus;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossDrakzhor;
@@ -28,19 +30,26 @@ import com.boss_battle.model.GlobalBossGlaciorn;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
+import com.boss_battle.model.GlobalBossKronvex;
+import com.boss_battle.model.GlobalBossKryptar;
 import com.boss_battle.model.GlobalBossLeviatanAbismo;
 import com.boss_battle.model.GlobalBossLyxara;
 import com.boss_battle.model.GlobalBossMalevola;
+import com.boss_battle.model.GlobalBossMalghor;
 import com.boss_battle.model.GlobalBossMalgryth;
 import com.boss_battle.model.GlobalBossMalphion;
 import com.boss_battle.model.GlobalBossMechadron;
 import com.boss_battle.model.GlobalBossMorvath;
+import com.boss_battle.model.GlobalBossMorvyra;
 import com.boss_battle.model.GlobalBossNecrothar;
+import com.boss_battle.model.GlobalBossNeuroth;
 import com.boss_battle.model.GlobalBossNexarach;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
+import com.boss_battle.model.GlobalBossNovarok;
 import com.boss_battle.model.GlobalBossNoxar;
+import com.boss_battle.model.GlobalBossNyxara;
 import com.boss_battle.model.GlobalBossObliquo;
 import com.boss_battle.model.GlobalBossOblivar;
 import com.boss_battle.model.GlobalBossOblivion;
@@ -72,11 +81,13 @@ import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
 import com.boss_battle.service.bosses.ApocalyxService;
 import com.boss_battle.service.bosses.ArenascorService;
+import com.boss_battle.service.bosses.AsterionService;
 import com.boss_battle.service.bosses.AzraelPrimeService;
 import com.boss_battle.service.bosses.AzuragonService;
 import com.boss_battle.service.bosses.AzurionService;
 import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
+import com.boss_battle.service.bosses.CybraxusService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.DrakzhorService;
@@ -89,19 +100,26 @@ import com.boss_battle.service.bosses.GlaciornService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
+import com.boss_battle.service.bosses.KronvexService;
+import com.boss_battle.service.bosses.KryptarService;
 import com.boss_battle.service.bosses.LeviatanAbismoService;
 import com.boss_battle.service.bosses.LyxaraService;
 import com.boss_battle.service.bosses.MalevolaService;
+import com.boss_battle.service.bosses.MalghorService;
 import com.boss_battle.service.bosses.MalgrythService;
 import com.boss_battle.service.bosses.MalphionService;
 import com.boss_battle.service.bosses.MechadronService;
 import com.boss_battle.service.bosses.MorvathService;
+import com.boss_battle.service.bosses.MorvyraService;
 import com.boss_battle.service.bosses.NecrotharService;
+import com.boss_battle.service.bosses.NeurothService;
 import com.boss_battle.service.bosses.NexarachService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
+import com.boss_battle.service.bosses.NovarokService;
 import com.boss_battle.service.bosses.NoxarService;
+import com.boss_battle.service.bosses.NyxaraService;
 import com.boss_battle.service.bosses.ObliquoService;
 import com.boss_battle.service.bosses.OblivarService;
 import com.boss_battle.service.bosses.OblivionService;
@@ -195,9 +213,6 @@ public class SpawRandomBossService {
 	    private final VZurvioService vZurvioService;
 	    private final GatalicosService gatalicosService;
 	    private final SHemogarthService sHemogarthService;
-	    
-	    
-	    //
 	    private final VexarothService vexarothService;
 	    private final TharzulService tharzulService;
 	    private final VorgrimService vorgrimService;
@@ -205,6 +220,17 @@ public class SpawRandomBossService {
 	    private final ExodraxService exodraxService;
 	    private final ApocalyxService apocalyxService;
 	    private final EclypzorService eclypzorService;
+	    private final KronvexService kronvexService;
+	    
+	    //
+	    private final CybraxusService cybraxusService;
+	    private final NeurothService neurothService;
+	    private final MalghorService malghorService;
+	    private final NovarokService novarokService;
+	    private final AsterionService asterionService;
+	    private final KryptarService kryptarService;
+	    private final NyxaraService nyxaraService;
+	    private final MorvyraService morvyraService;
 	    
 	    
 	    /* 
@@ -273,20 +299,26 @@ public class SpawRandomBossService {
 		        VZurvioService vZurvioService,
 		        GatalicosService gatalicosService,
 		        SHemogarthService sHemogarthService,
-		        
-		        //
-		        
 		        VexarothService vexarothService,
 		        TharzulService tharzulService,
 		        VorgrimService vorgrimService,
 		        XaphironService xaphironService,
 		        ExodraxService exodraxService,
 		        ApocalyxService apocalyxService,
-		        EclypzorService eclypzorService
+		        EclypzorService eclypzorService,
 		        
 		        
 		        
-		        
+		        //
+		        CybraxusService cybraxusService,
+		        NeurothService neurothService,
+		        MalghorService malghorService,
+		        NovarokService novarokService,
+		        AsterionService asterionService,
+		        KronvexService kronvexService,
+		        KryptarService kryptarService,
+		        NyxaraService nyxaraService,
+		        MorvyraService morvyraService
 		        
 		        
 		        
@@ -353,9 +385,6 @@ public class SpawRandomBossService {
 		    this.vZurvioService = vZurvioService;
 		    this.gatalicosService = gatalicosService;
 		    this.sHemogarthService = sHemogarthService;
-		    
-		    //
-		    
 		    this.vexarothService = vexarothService;   
 		    this.tharzulService = tharzulService;
 		    this.vorgrimService = vorgrimService;
@@ -363,6 +392,19 @@ public class SpawRandomBossService {
 		    this.exodraxService = exodraxService;
 		    this.apocalyxService = apocalyxService;
 		    this.eclypzorService = eclypzorService;
+		    
+		    
+		    //
+		    this.cybraxusService = cybraxusService;
+		    this.neurothService = neurothService; 
+		    this.malghorService = malghorService; 
+		    this.novarokService = novarokService; 
+		    this.asterionService = asterionService; 
+		    this.kronvexService = kronvexService; 
+		    this.kryptarService = kryptarService;
+		    this.nyxaraService = nyxaraService;
+		    this.morvyraService = morvyraService;
+		    
 		    
 	        /* 
 	        
@@ -375,7 +417,7 @@ public class SpawRandomBossService {
 	      KillAllBossesService.killAllBosses();
 	     
 	        
-	        int choice = random.nextInt(59);
+	        int choice = random.nextInt(68);
 	      
 	        BattleBoss newBoss;
 
@@ -1081,6 +1123,113 @@ public class SpawRandomBossService {
             	   eclypzor.setSpawnedAt(LocalDateTime.now());
             	   eclypzorService.save(eclypzor);
 	               newBoss = eclypzor;
+	            }
+               
+               case 61 -> {
+	            	
+            	   GlobalBossCybraxus cybrax =  cybraxusService.get();
+            	   cybraxusService.aplicarEscalamentoCybraxus(cybrax);
+            	   cybrax.setProcessingDeath(false);
+            	   cybrax.setAlive(true);
+            	   cybrax.setCurrentHp(cybrax.getMaxHp());
+            	   cybrax.setSpawnedAt(LocalDateTime.now());
+            	   cybraxusService.save(cybrax);
+	               newBoss = cybrax;
+	            }
+               
+               case 62 -> {
+	            	
+            	   GlobalBossNeuroth neuroth =  neurothService.get();
+            	   neurothService.aplicarEscalamentoNeuroth(neuroth);
+            	   neuroth.setProcessingDeath(false);
+            	   neuroth.setAlive(true);
+            	   neuroth.setCurrentHp(neuroth.getMaxHp());
+            	   neuroth.setSpawnedAt(LocalDateTime.now());
+            	   neurothService.save(neuroth);
+	               newBoss = neuroth;
+	            }
+               case 63 -> {
+	            	
+            	   GlobalBossMalghor malgho =  malghorService.get();
+            	   malghorService.aplicarEscalamentoMalghor(malgho);
+            	   malgho.setProcessingDeath(false);
+            	   malgho.setAlive(true);
+            	   malgho.setCurrentHp(malgho.getMaxHp());
+            	   malgho.setSpawnedAt(LocalDateTime.now());
+            	   malghorService.save(malgho);
+	               newBoss = malgho;
+	            }
+               
+               case 64 -> {
+	            	
+            	   GlobalBossNovarok novaro =  novarokService.get();
+            	   novarokService.aplicarEscalamentoNovarok(novaro);
+            	   novaro.setProcessingDeath(false);
+            	   novaro.setAlive(true);
+            	   novaro.setCurrentHp(novaro.getMaxHp());
+            	   novaro.setSpawnedAt(LocalDateTime.now());
+            	   novarokService.save(novaro);
+	               newBoss = novaro;
+	            }
+               
+               case 65 -> {
+	            	
+            	   GlobalBossAsterion aster =  asterionService.get();
+            	   asterionService.aplicarEscalamentoAsterion(aster);
+            	   aster.setProcessingDeath(false);
+            	   aster.setAlive(true);
+            	   aster.setCurrentHp(aster.getMaxHp());
+            	   aster.setSpawnedAt(LocalDateTime.now());
+            	   asterionService.save(aster);
+	               newBoss = aster;
+	            }
+               case 66 -> {
+	            	
+            	   GlobalBossKronvex kronv =  kronvexService.get();
+            	   kronvexService.aplicarEscalamentoKronvex(kronv);
+            	   kronv.setProcessingDeath(false);
+            	   kronv.setAlive(true);
+            	   kronv.setCurrentHp(kronv.getMaxHp());
+            	   kronv.setSpawnedAt(LocalDateTime.now());
+            	   kronvexService.save(kronv);
+	               newBoss = kronv;
+	            }
+               
+               case 67 -> {
+	            	
+            	   GlobalBossKryptar krypt =  kryptarService.get();
+            	   kryptarService.aplicarEscalamentoKryptar(krypt);
+            	   krypt.setProcessingDeath(false);
+            	   krypt.setAlive(true);
+            	   krypt.setCurrentHp(krypt.getMaxHp());
+            	   krypt.setSpawnedAt(LocalDateTime.now());
+            	   kryptarService.save(krypt);
+	               newBoss = krypt;
+	            }
+               
+               case 68 -> {
+	            	
+            	   GlobalBossNyxara nyxara =  nyxaraService.get();
+            	   nyxaraService.aplicarEscalamentoNyxara(nyxara);
+            	   nyxara.setProcessingDeath(false);
+            	   nyxara.setAlive(true);
+            	   nyxara.setCurrentHp(nyxara.getMaxHp());
+            	   nyxara.setSpawnedAt(LocalDateTime.now());
+            	   nyxaraService.save(nyxara);
+	               newBoss = nyxara;
+	            }
+
+
+               case 69-> {
+	            	
+            	   GlobalBossMorvyra morvyra =  morvyraService.get();
+            	   morvyraService.aplicarEscalamentoMorvyra(morvyra);
+            	   morvyra.setProcessingDeath(false);
+            	   morvyra.setAlive(true);
+            	   morvyra.setCurrentHp(morvyra.getMaxHp());
+            	   morvyra.setSpawnedAt(LocalDateTime.now());
+            	   morvyraService.save(morvyra);
+	               newBoss = morvyra;
 	            }
                
                
