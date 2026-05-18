@@ -76,10 +76,10 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
-            		
             		.requestMatchers(
             			    "/depositos/nowpayments/ipn",
-            			    "/depositos/nowpayments/ipn/**"
+            			    "/depositos/nowpayments/ipn/**",
+            			    "/depositos/teste-publico"
             			).permitAll()
             		
                 .requestMatchers(
@@ -105,7 +105,7 @@ public class SecurityConfig {
                         "/zeradsptc/**",
                         "/depositos/**",
                         "/depositos/criar/**",
-                        "/depositos/nowpayments/ipn/**",
+                      
                         
                         
                         "/aliados/**",
