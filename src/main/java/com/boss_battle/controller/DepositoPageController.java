@@ -120,11 +120,16 @@ public class DepositoPageController {
     @Transactional
     public ResponseEntity<String> receberIpn(@RequestBody Map<String, Object> body) {
 
-        System.out.println("=================================");
-        System.out.println("IPN RECEBIDO NOWPAYMENTS");
-        System.out.println(body);
-        System.out.println("=================================");
+    	System.out.println("=================================");
+    	System.out.println("IPN RECEBIDO NOWPAYMENTS");
+    	System.out.println(body);
 
+    	body.forEach((k, v) -> {
+    	    System.out.println(k + " = " + v);
+    	});
+
+    	System.out.println("=================================");
+    	
         String paymentId = String.valueOf(body.get("payment_id"));
         String status = String.valueOf(body.get("payment_status"));
 

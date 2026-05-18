@@ -146,7 +146,9 @@
     </div>
 
 
-<div class="historico-depositos" th:if="${historico != null}">
+<div id="historicoDepositos"
+     class="historico-depositos"
+     th:if="${historico != null}">
 
     <h2>Histórico de Depósitos</h2>
 
@@ -180,60 +182,50 @@
                 </span>
             </p>
 
-            <p>
-                <strong>Status:</strong>
+           <p>
+    <strong>Status:</strong>
 
-                <span th:switch="${d.status}">
+    <span class="status-deposito"
+          th:attr="data-status=${d.status}"
+          th:switch="${d.status}">
 
-                    <span th:case="'finished'"
-                          class="status-finalizado">
-                        Confirmado
-                    </span>
+        <span th:case="'finished'">Confirmado</span>
+        <span th:case="'waiting'">Aguardando pagamento</span>
+        <span th:case="'confirming'">Confirmando</span>
+        <span th:case="'partially_paid'">Parcialmente pago</span>
+        <span th:case="'failed'">Falhou</span>
+        <span th:case="'expired'">Expirado</span>
+        <span th:case="*" th:text="${d.status}"></span>
 
-                    <span th:case="'waiting'"
-                          class="status-pendente">
-                        Aguardando pagamento
-                    </span>
-
-                    <span th:case="'confirming'"
-                          class="status-pendente">
-                        Confirmando
-                    </span>
-
-                    <span th:case="'partially_paid'"
-                          class="status-parcial">
-                        Parcialmente pago
-                    </span>
-
-                    <span th:case="'failed'"
-                          class="status-falhou">
-                        Falhou
-                    </span>
-
-                    <span th:case="'expired'"
-                          class="status-falhou">
-                        Expirado
-                    </span>
-
-                    <span th:case="*"
-                          th:text="${d.status}">
-                    </span>
-
-                </span>
-            </p>
-
-            <p>
-                <strong>Creditado:</strong>
-
-                <span th:text="${d.creditado ? 'Sim' : 'Não'}"></span>
-            </p>
-
+    </span>
+</p>
         </div>
 
     </div>
 
 </div>
 </div>
+<script>
+    function existeDepositoPendenteOuConfirmando() {
+        const statusList = document.querySelectorAll(".status-deposito");
+
+        for (const item of statusList) {
+            const status = item.dataset.status;
+
+            if (status === "waiting" || status === "confirming") {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    if (existeDepositoPendenteOuConfirmando()) {
+        setTimeout(() => {
+            window.location.reload();
+        }, 15000);
+    }
+</script>
 <script>
     const moedaSelect = document.getElementById("moeda");
     const valorInput = document.getElementById("valorUsd");
