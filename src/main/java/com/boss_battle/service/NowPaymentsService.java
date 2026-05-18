@@ -15,10 +15,7 @@ import com.boss_battle.repository.DepositoBossCoinsRepository;
 
 @Service
 public class NowPaymentsService {
-    
-	
-	
-	    
+
     @Autowired
     private DepositoBossCoinsRepository depositoRepository;
 
@@ -38,21 +35,23 @@ public class NowPaymentsService {
 
         Map<String, Object> body = new HashMap<>();
 
-        body.put("price_amount", valorUsd.doubleValue());
+        body.put("price_amount", valorUsd);
         body.put("price_currency", "usd");
-        body.put("pay_currency", moeda);
+        body.put("pay_currency", moeda.toLowerCase());
 
-        body.put(
-                "order_id",
-                "USER_" + usuarioId + "_" + System.currentTimeMillis()
-        );
+        String orderId = "USER_" + usuarioId + "_" + System.currentTimeMillis();
 
-        body.put(
-                "order_description",
-                "Deposito Boss Battle Arena"
-        );
-
+        body.put("order_id", orderId);
+        body.put("order_description", "Deposito Boss Battle Arena");
         body.put("ipn_callback_url", callbackUrl);
+
+        System.out.println("=================================");
+        System.out.println("CRIANDO PAGAMENTO NOWPAYMENTS");
+        System.out.println("CALLBACK URL: " + callbackUrl);
+        System.out.println("MOEDA: " + moeda);
+        System.out.println("BODY ENVIADO:");
+        System.out.println(body);
+        System.out.println("=================================");
 
         Map response = webClient.post()
                 .uri("/payment")
@@ -60,35 +59,33 @@ public class NowPaymentsService {
                 .header("Content-Type", "application/json")
                 .bodyValue(body)
                 .retrieve()
+                .onStatus(
+                        status -> status.isError(),
+                        clientResponse ->
+                                clientResponse.bodyToMono(String.class)
+                                        .map(errorBody -> {
+
+                                            System.out.println("=================================");
+                                            System.out.println("ERRO NOWPAYMENTS");
+                                            System.out.println(errorBody);
+                                            System.out.println("=================================");
+
+                                            return new RuntimeException(errorBody);
+                                        })
+                )
                 .bodyToMono(Map.class)
                 .block();
-
-        // =========================================
-        // SALVAR HISTÓRICO
-        // =========================================
 
         DepositoBossCoins deposito = new DepositoBossCoins();
 
         deposito.setUsuarioId(usuarioId);
-
-        deposito.setPaymentId(
-                String.valueOf(response.get("payment_id"))
-        );
-
-        deposito.setOrderId(
-                String.valueOf(response.get("order_id"))
-        );
-
-        deposito.setMoeda(
-                String.valueOf(response.get("pay_currency"))
-        );
-
+        deposito.setPaymentId(String.valueOf(response.get("payment_id")));
+        deposito.setOrderId(String.valueOf(response.get("order_id")));
+        deposito.setMoeda(String.valueOf(response.get("pay_currency")));
         deposito.setValorUsd(valorUsd);
 
         deposito.setValorCripto(
-                new BigDecimal(
-                        String.valueOf(response.get("pay_amount"))
-                )
+                new BigDecimal(String.valueOf(response.get("pay_amount")))
         );
 
         deposito.setEnderecoCarteira(
@@ -103,31 +100,13 @@ public class NowPaymentsService {
 
         depositoRepository.save(deposito);
 
-        // =========================================
-        // DTO TELA
-        // =========================================
-
         PagamentoDTO dto = new PagamentoDTO();
 
-        dto.setPaymentId(
-                String.valueOf(response.get("payment_id"))
-        );
-
-        dto.setStatus(
-                String.valueOf(response.get("payment_status"))
-        );
-
-        dto.setMoeda(
-                String.valueOf(response.get("pay_currency"))
-        );
-
-        dto.setValorPagar(
-                String.valueOf(response.get("pay_amount"))
-        );
-
-        dto.setEnderecoCarteira(
-                String.valueOf(response.get("pay_address"))
-        );
+        dto.setPaymentId(String.valueOf(response.get("payment_id")));
+        dto.setStatus(String.valueOf(response.get("payment_status")));
+        dto.setMoeda(String.valueOf(response.get("pay_currency")));
+        dto.setValorPagar(String.valueOf(response.get("pay_amount")));
+        dto.setEnderecoCarteira(String.valueOf(response.get("pay_address")));
 
         dto.setQrCode(
                 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
@@ -136,5 +115,4 @@ public class NowPaymentsService {
 
         return dto;
     }
-
 }
