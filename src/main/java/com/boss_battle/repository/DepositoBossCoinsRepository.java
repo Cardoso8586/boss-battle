@@ -1,5 +1,6 @@
 package com.boss_battle.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,8 @@ extends JpaRepository<DepositoBossCoins, Long> {
 Optional<DepositoBossCoins> findByPaymentId(String paymentId);
 
 List<DepositoBossCoins> findByUsuarioIdOrderByCriadoEmDesc(Long usuarioId);
+
+void deleteByStatusInAndCriadoEmBefore(List<String> status, LocalDateTime data);
+
+
 }

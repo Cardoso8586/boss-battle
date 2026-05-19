@@ -1,4 +1,4 @@
-package com.boss_battle.service;
+package com.boss_battle.service.now_payments;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

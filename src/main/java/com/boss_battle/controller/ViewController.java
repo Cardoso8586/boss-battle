@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.boss_battle.model.DepositoBossCoins;
 import com.boss_battle.model.UsuarioBossBattle;
+import com.boss_battle.repository.DepositoBossCoinsRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.aprimoramentos_loja.LojaAprimoramentosService;
 
@@ -24,7 +26,11 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ViewController {
+    
 
+	@Autowired
+	private DepositoBossCoinsRepository depositoRepository;
+	
 	@Autowired
 	LojaAprimoramentosService lojaAprimoramentosService;
     private final UsuarioBossBattleRepository usuarioRepository;
@@ -595,6 +601,46 @@ public class ViewController {
 
      return "ganhar-boss-coins";
  }
+ /*
+ 
+ @GetMapping("/depositar")
+ public String abrirDepositos(HttpSession session,
+                              Model model) {
+
+     UsuarioBossBattle usuarioSessao =
+             (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+     if (usuarioSessao == null) {
+         return "redirect:/arena";
+     }
+
+     UsuarioBossBattle usuario = usuarioRepository
+             .findById(usuarioSessao.getId())
+             .orElseThrow(() ->
+                     new RuntimeException("Usuário não encontrado"));
+
+     session.setAttribute("usuarioLogado", usuario);
+
+     model.addAttribute("usuario", usuario);
+     model.addAttribute("idUsuario", usuario.getId());
+
+     // =========================================
+     // HISTÓRICO
+     // =========================================
+
+     List<DepositoBossCoins> historico =
+             depositoRepository
+                     .findByUsuarioIdOrderByCriadoEmDesc(
+                             usuario.getId()
+                     );
+
+     model.addAttribute("historico", historico);
+
+     return "depositar";
+ }
+ */
+ //=========
+
     
     @GetMapping("/aliados")
     public String mostrarCadastro(@RequestParam(required = false) String ref, Model model) {

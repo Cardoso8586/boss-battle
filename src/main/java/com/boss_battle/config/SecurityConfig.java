@@ -107,9 +107,9 @@ public class SecurityConfig {
                         "/ganhar-boss-coins/**",
                         "/zeradsptc/**",
                         "/depositos/**",
-                        "/depositos/criar/**",
                         "/depositos/nowpayments/ipn/**",
-                        
+                        "/depositar/**",
+                        "/depositar/criar/**",
                         
                         "/aliados/**",
                         "/perfil/**",

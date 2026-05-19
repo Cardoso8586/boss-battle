@@ -24,7 +24,7 @@
 
 <div class="deposit-container">
 
-    <h1>Depósito</h1>
+    <h1>Depositar</h1>
 
     <p class="subtitle">
         Adicione Boss Coins ao seu jogo usando criptomoedas
@@ -38,7 +38,7 @@
     <div class="deposit-box"
          th:if="${pagamento == null}">
 
-        <form th:action="@{/depositos/criar}" method="post">
+        <form th:action="@{/depositar/criar}" method="post">
 
             <input type="hidden"
                    name="usuarioId"
@@ -103,9 +103,9 @@
 
     </div>
 
- <div class="payment-result"
+<div class="payment-result"
      id="paymentResult"
-     th:attr="data-status=${pagamento.status}"
+     th:attr="data-status=${pagamento.status}, data-payment-id=${pagamento.paymentId}"
      th:if="${pagamento != null}">
 
         <h2>Pagamento Gerado</h2>
@@ -207,115 +207,15 @@
 
 </div>
 </div>
-<script>
-    function existeDepositoPendenteOuConfirmando() {
-        const statusList = document.querySelectorAll(".status-deposito");
 
-        for (const item of statusList) {
-            const status = item.dataset.status;
 
-            if (status === "waiting" || status === "confirming") {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    if (existeDepositoPendenteOuConfirmando()) {
-        setTimeout(() => {
-            window.location.reload();
-        }, 15000);
-    }
-</script>
-<script>
-    const moedaSelect = document.getElementById("moeda");
-    const valorInput = document.getElementById("valorUsd");
-    const valorMinimoTexto = document.getElementById("valorMinimoTexto");
-    const bossCoinsTexto = document.getElementById("bossCoinsTexto");
-
-    const BOSS_COINS_POR_DOLAR = 10000000;
-
-    function formatarNumero(valor) {
-        return new Intl.NumberFormat("pt-BR", {
-            maximumFractionDigits: 0
-        }).format(valor);
-    }
-
-    function atualizarBossCoins() {
-        const valorUsd = Number(valorInput.value || 0);
-        const bossCoins = valorUsd * BOSS_COINS_POR_DOLAR;
-
-        bossCoinsTexto.textContent =
-            formatarNumero(bossCoins) + " Boss Coins";
-    }
-
-    function atualizarMinimo() {
-        const optionSelecionada = moedaSelect.options[moedaSelect.selectedIndex];
-        const minimo = Number(optionSelecionada.getAttribute("data-min"));
-
-        valorInput.min = minimo;
-        valorInput.placeholder = "Ex: " + minimo.toFixed(2);
-        valorMinimoTexto.textContent = "US$ " + minimo.toFixed(2);
-
-        if (!valorInput.value || Number(valorInput.value) < minimo) {
-            valorInput.value = minimo;
-        }
-
-        atualizarBossCoins();
-    }
-
-    moedaSelect.addEventListener("change", atualizarMinimo);
-    valorInput.addEventListener("input", atualizarBossCoins);
-
-    atualizarMinimo();
-</script>
-
-<script>
-
-    function verificarStatusPagamento() {
-
-        const paymentBox =
-            document.getElementById("paymentResult");
-
-        if (!paymentBox) {
-            return;
-        }
-
-        const status =
-            paymentBox.dataset.status;
-
-        if (
-            status === "waiting"
-            || status === "confirming"
-        ) {
-
-        	setTimeout(() => {
-
-        	    window.location.reload();
-
-        	}, 60000);
-        }
-
-        if (
-            status === "finished"
-            || status === "partially_paid"
-            || status === "failed"
-            || status === "expired"
-        ) {
-
-            paymentBox.style.display = "none";
-
-            setTimeout(() => {
-
-                window.location.reload();
-
-            }, 60000);
-        }
-    }
-
-    verificarStatusPagamento();
-
-</script>
+    <script src="/js/paymentResult.js" defer></script>
+    <script src="/js/moedaSelect.js" defer></script>
+    
+    
+    
+    
+  
+  
 </body>
 </html>
