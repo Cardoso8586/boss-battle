@@ -20,4 +20,9 @@ void deleteByStatusInAndCriadoEmBefore(List<String> status, LocalDateTime data);
 
 Optional<DepositoBossCoins> findByOrderId(String orderId);
 
+long countByStatusInAndCriadoEmBefore(
+        List<String> status,
+        LocalDateTime criadoEm
+);
+
 }

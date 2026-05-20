@@ -1,7 +1,11 @@
-const KEEP_ALIVE_INTERVAL = 240000; // 4 minutos
+// session-keepalive.js
+
+const KEEP_ALIVE_INTERVAL = 240000;
 
 async function manterSessaoAtiva() {
+
     try {
+
         await fetch("/api/session/ping", {
             method: "GET",
             credentials: "include"
@@ -10,12 +14,16 @@ async function manterSessaoAtiva() {
         console.log("Sessão ativa");
 
     } catch (e) {
-        console.log("Falha ao manter sessão ativa");
+
+        console.log("Falha keep alive");
+
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
     manterSessaoAtiva();
 
     setInterval(manterSessaoAtiva, KEEP_ALIVE_INTERVAL);
+
 });

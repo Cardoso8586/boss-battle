@@ -15,7 +15,7 @@ public class LimpezaDepositosService {
 
     @Autowired
     private DepositoBossCoinsRepository depositoRepository;
-
+/*
 
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
    // @Scheduled(fixedRate = 10000)
@@ -30,6 +30,39 @@ public class LimpezaDepositosService {
                 "expired",
                 "failed"
         );
+
+        depositoRepository.deleteByStatusInAndCriadoEmBefore(
+                statusNaoPagos,
+                limite
+        );
+
+        System.out.println("Limpeza executada: " + LocalDateTime.now());
+    }
+    */
+    
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Transactional
+    public void apagarDepositosAntigosNaoPagos() {
+
+        LocalDateTime limite = LocalDateTime.now().minusHours(24);
+
+        List<String> statusNaoPagos = List.of(
+                "WAITING",
+                "waiting",
+                "CONFIRMING",
+                "confirming",
+                "EXPIRED",
+                "expired",
+                "FAILED",
+                "failed"
+        );
+
+        long encontrados = depositoRepository.countByStatusInAndCriadoEmBefore(
+                statusNaoPagos,
+                limite
+        );
+
+        System.out.println("Depósitos encontrados para apagar: " + encontrados);
 
         depositoRepository.deleteByStatusInAndCriadoEmBefore(
                 statusNaoPagos,
