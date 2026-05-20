@@ -593,7 +593,7 @@ public class GlobalBossService {
 
         	long damage = ataqueBase + ataqueEspecial;
         	
-        	 missaoDiariaService.atualizarProgressoPtc(usuario.getId(), 1);
+        	
             missaoDiariaService.atualizarProgressoDano(usuarioId, damage);
             missaoDiariaService.atualizarProgressoQuantidade(usuarioId, 1);
             rankingAtaqueEspecialService.incrementarAtaquesSemanais(usuario);
