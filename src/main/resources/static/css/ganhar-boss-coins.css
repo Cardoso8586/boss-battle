@@ -512,3 +512,152 @@ body{
         font-size: 0.88rem;
     }
 }
+/* =========================================
+   MELHORIAS GERAIS RESPONSIVAS
+========================================= */
+
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+h1,h2,h3,p,span{
+    word-wrap:break-word;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width:1024px){
+
+    .coins-page{
+        max-width:900px;
+        padding:70px 20px;
+    }
+
+    .reward-card{
+        max-width:100%;
+    }
+
+    .coins-header h1{
+        font-size:2.4rem;
+    }
+
+    .reward-card h2{
+        font-size:1.8rem;
+    }
+}
+
+/* =========================================
+   MOBILE EXTRA
+========================================= */
+
+@media (max-width:480px){
+
+    .coins-page{
+        padding:85px 12px 30px;
+    }
+
+    .reward-wrapper{
+        width:100%;
+    }
+
+    .reward-card{
+        width:100%;
+        padding:16px;
+        border-radius:18px;
+
+        backdrop-filter:none;
+    }
+
+    .coins-header h1{
+        font-size:1.2rem;
+    }
+
+    .coins-header p{
+        font-size:0.88rem;
+    }
+
+    .reward-card h2{
+        font-size:1.2rem;
+    }
+
+    .reward-card p{
+        font-size:0.88rem;
+    }
+
+    .saldo-box{
+        padding:14px;
+    }
+
+    .saldo-valor{
+        font-size:1.2rem;
+    }
+
+    .btn-watch{
+        min-height:52px;
+        font-size:0.9rem;
+    }
+
+    .btn-voltar{
+        width:auto;
+        max-width:calc(100% - 20px);
+
+        font-size:0.78rem;
+
+        padding:8px 12px;
+
+        backdrop-filter:none;
+    }
+}
+
+/* =========================================
+   TELAS MUITO PEQUENAS
+========================================= */
+
+@media (max-width:320px){
+
+    .coins-header h1{
+        font-size:1rem;
+    }
+
+    .reward-card{
+        padding:14px 12px;
+    }
+
+    .saldo-valor{
+        font-size:1rem;
+    }
+
+    .btn-watch{
+        font-size:0.8rem;
+        padding:12px;
+    }
+
+    .btn-voltar{
+        font-size:0.72rem;
+        gap:6px;
+    }
+}
+
+/* =========================================
+   ULTRA WIDE
+========================================= */
+
+@media (min-width:1600px){
+
+    .coins-page{
+        max-width:1400px;
+    }
+
+    .reward-card{
+        max-width:750px;
+    }
+}
