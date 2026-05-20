@@ -18,4 +18,6 @@ List<DepositoBossCoins> findByUsuarioIdOrderByCriadoEmDesc(Long usuarioId);
 void deleteByStatusInAndCriadoEmBefore(List<String> status, LocalDateTime data);
 
 
+Optional<DepositoBossCoins> findByOrderId(String orderId);
+
 }

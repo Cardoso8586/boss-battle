@@ -130,7 +130,50 @@ function renderizarMissoes(missao) {
         </div>
     `;
 
-    container.innerHTML = danoHTML + ataqueHTML;
+ 
+	//================ PTC =================
+
+	const ptcPercentual = missao.ptcObjetivo > 0
+	    ? Math.min((missao.ptcAtual / missao.ptcObjetivo) * 100, 100)
+	    : 0;
+
+	const podeResgatarPtc = !!missao.podeResgatarPtc;
+
+	const ptcConcluido = !podeResgatarPtc
+	    && missao.ptcAtual >= missao.ptcObjetivo;
+
+	const acaoPtc = podeResgatarPtc
+	    ? `<button class="btn-missao" onclick="resgatarPtc(this)">Resgatar</button>`
+	    : ptcConcluido
+	        ? `<button class="btn-missao btn-concluida" disabled>Tarefa concluída</button>`
+	        : `<span class="status-missao">Em andamento</span>`;
+
+	const ptcHTML = `
+	    <div class="card-missao">
+	        <h3>📺 Visualizar PTC</h3>
+	        <p>Nível: ${missao.nivelPtc}</p>
+	        <p>${missao.ptcAtual} / ${missao.ptcObjetivo}</p>
+
+	        <div class="barra-progresso">
+	            <div class="barra-preenchida"
+	                style="width: ${ptcPercentual}%">
+	            </div>
+	        </div>
+
+	        <p>
+	            Recompensa:
+	            ${formatarMoedaBR(missao.recompensaPtc)}
+	            Boss coins
+	        </p>
+
+	        ${acaoPtc}
+	    </div>
+	`;
+
+	//================ ADICIONAR NO CONTAINER =================
+
+	container.innerHTML = danoHTML + ataqueHTML + ptcHTML;
+
 }
 
 //================ RESGATAR =================
@@ -342,7 +385,146 @@ window.resgatarAtaques = async function () {
     }
 };
 */
+
+
+//================ RESGATAR PTC =================
+
+window.resgatarPtc = async function (botao) {
+    try {
+
+        botao.disabled = true;
+
+        const textoOriginal = botao.innerText;
+
+        botao.innerText = "Resgatando...";
+
+        const response = await fetch(
+            `/api/missoes-diarias/${window.usuarioId}/resgatar/ptc`,
+            {
+                method: "POST"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        await carregarMissoes();
+
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-text'
+            },
+            icon: 'success',
+            title: 'Recompensa resgatada!',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Você resgatou sua missão PTC.
+                </div>
+
+                <div id="areaAnuncioSwal"
+                    class="modal-anuncio">
+                </div>
+            `,
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ffb400',
+
+            didOpen: () => {
+
+                const area =
+                    document.getElementById("areaAnuncioSwal");
+
+                if (area) {
+
+                    area.innerHTML = `
+                        <iframe
+                            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                            width="468"
+                            height="60"
+                            scrolling="no"
+                            frameborder="0"
+                            style="max-width:100%; border:0;">
+                        </iframe>
+                    `;
+                }
+            }
+        });
+
+        setTimeout(() => {
+
+            botao.disabled = false;
+
+            botao.innerText = textoOriginal;
+
+        }, 2000);
+
+    } catch (error) {
+
+        console.error("Erro ao resgatar ptc:", error);
+
+        botao.disabled = false;
+
+        botao.innerText = "Resgatar";
+
+        Swal.fire({
+            customClass: {
+                title: 'swal-game-error'
+            },
+            icon: 'error',
+            title: 'Erro',
+            html: `
+                <div style="margin-bottom:10px;">
+                    Não foi possível resgatar
+                    a recompensa PTC.
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe
+                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0"
+                        style="max-width:100%; border:0;">
+                    </iframe>
+                </div>
+            `,
+            timer: 8000,
+            showConfirmButton: false,
+            background: 'transparent',
+            color: '#ff3b3b'
+        });
+    }
+};
 //================ ATUALIZAR PROGRESSO =================
+//================ ATUALIZAR PTC =================
+
+window.adicionarPtc = async function () {
+
+    try {
+
+        const response = await fetch(
+            `/api/missoes-diarias/${window.usuarioId}/atualizar/ptc?quantidade=1`,
+            {
+                method: "POST"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        await carregarMissoes();
+
+    } catch (error) {
+
+        console.error("Erro ao adicionar ptc:", error);
+    }
+};
+
+//================ ATUALIZAR DANO =================
 window.adicionarDano = async function (valor) {
     try {
         const response = await fetch(`/api/missoes-diarias/${window.usuarioId}/atualizar/dano?valor=${valor}`, {
@@ -360,6 +542,7 @@ window.adicionarDano = async function (valor) {
     }
 };
 
+//================ ATUALIZAR ATAQUES =================
 window.adicionarAtaque = async function () {
     try {
         const response = await fetch(`/api/missoes-diarias/${window.usuarioId}/atualizar/ataques?quantidade=1`, {

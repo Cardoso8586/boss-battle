@@ -76,6 +76,13 @@ public class NowPaymentsService {
                 .bodyToMono(Map.class)
                 .block();
 
+        System.out.println("=================================");
+        System.out.println("RESPONSE NOWPAYMENTS:");
+        System.out.println(response);
+        System.out.println("PAYMENT_ID SALVO: [" + response.get("payment_id") + "]");
+        System.out.println("ORDER_ID SALVO: [" + response.get("order_id") + "]");
+        System.out.println("=================================");
+        
         DepositoBossCoins deposito = new DepositoBossCoins();
 
         deposito.setUsuarioId(usuarioId);

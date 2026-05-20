@@ -110,6 +110,14 @@ public class UsuarioBossBattle  {
     private int missaoDiariaAtaquesEspeciaisAtual = 0;
     private int missaoDiariaNivelAtaquesEspeciais = 1;
 
+    //================ PTC =================
+
+    private int missaoDiariaPtcAtual = 0;
+    private int missaoDiariaNivelPtc = 1;
+
+    private boolean missaoDiariaPtcConcluida;
+    
+    
     private LocalDate missaoDiariaDataReset;
 
 	
@@ -150,7 +158,34 @@ public class UsuarioBossBattle  {
     public void setMissaoDiariaNivelAtaquesEspeciais(int missaoDiariaNivelAtaquesEspeciais) {
         this.missaoDiariaNivelAtaquesEspeciais = missaoDiariaNivelAtaquesEspeciais;
     }
+    
+ 
 
+    //================ PTC =================
+
+    public int getMissaoDiariaPtcAtual() {
+        return missaoDiariaPtcAtual;
+    }
+
+    public void setMissaoDiariaPtcAtual(int missaoDiariaPtcAtual) {
+        this.missaoDiariaPtcAtual = missaoDiariaPtcAtual;
+    }
+
+    public int getMissaoDiariaNivelPtc() {
+        return missaoDiariaNivelPtc;
+    }
+
+    public void setMissaoDiariaNivelPtc(int missaoDiariaNivelPtc) {
+        this.missaoDiariaNivelPtc = missaoDiariaNivelPtc;
+    }
+
+    public boolean isMissaoDiariaPtcConcluida() {
+        return missaoDiariaPtcConcluida;
+    }
+
+    public void setMissaoDiariaPtcConcluida(boolean missaoDiariaPtcConcluida) {
+        this.missaoDiariaPtcConcluida = missaoDiariaPtcConcluida;
+    }
     //================ RESET =================
 
     public LocalDate getMissaoDiariaDataReset() {

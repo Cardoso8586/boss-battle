@@ -393,6 +393,45 @@ body{
     0 0 22px rgba(255,120,0,0.18);
 }
 
+.btn-concluida{
+    background:
+    linear-gradient(
+    135deg,
+    rgba(25,25,25,0.92),
+    rgba(8,8,8,0.96)
+    ) !important;
+
+    color:
+    rgba(255,255,255,0.28) !important;
+
+    border:
+    1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+    inset 0 0 12px rgba(0,0,0,0.65),
+    0 0 4px rgba(0,0,0,0.18);
+
+    cursor:not-allowed;
+
+    opacity:0.72;
+
+    filter:saturate(0.2);
+}
+
+.btn-concluida:hover{
+    transform:none !important;
+
+    box-shadow:
+    inset 0 0 12px rgba(0,0,0,0.65),
+    0 0 4px rgba(0,0,0,0.18);
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(25,25,25,0.92),
+    rgba(8,8,8,0.96)
+    ) !important;
+}
 /* =========================================
    RANKING
 ========================================= */

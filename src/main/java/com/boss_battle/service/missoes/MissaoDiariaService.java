@@ -49,94 +49,119 @@ public class MissaoDiariaService {
   //====================== RESET AUTOMÁTICO ======================
  // debug
 // @Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
-    @Transactional
-    public void resetarMissoesDiariasAutomaticamente() {
-        ZoneId zone = ZoneId.of("America/Sao_Paulo");
+  //====================== RESET AUTOMÁTICO ======================
+ // debug
+ // @Scheduled(fixedRate = 10000)
+ @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
+ @Transactional
+ public void resetarMissoesDiariasAutomaticamente() {
+     ZoneId zone = ZoneId.of("America/Sao_Paulo");
 
-        try {
-            System.out.println("🔥 INICIOU: " + LocalDateTime.now(zone));
+     try {
+         System.out.println("🔥 INICIOU: " + LocalDateTime.now(zone));
 
-            List<UsuarioBossBattle> usuarios = usuarioRepository.findAll();
-            LocalDate hoje = LocalDate.now(zone);
+         List<UsuarioBossBattle> usuarios = usuarioRepository.findAll();
+         LocalDate hoje = LocalDate.now(zone);
 
-            for (UsuarioBossBattle usuario : usuarios) {
-                resetarMissaoDiaria(usuario, hoje);
-            }
+         for (UsuarioBossBattle usuario : usuarios) {
+             resetarMissaoDiaria(usuario, hoje);
+         }
 
-            usuarioRepository.saveAll(usuarios);
-            usuarioRepository.flush();
+         usuarioRepository.saveAll(usuarios);
+         usuarioRepository.flush();
 
-            System.out.println("✅ FINALIZOU: " + LocalDateTime.now(zone));
-            System.out.println("👥 RESETADOS: " + usuarios.size());
+         System.out.println("✅ FINALIZOU: " + LocalDateTime.now(zone));
+         System.out.println("👥 RESETADOS: " + usuarios.size());
 
-        } catch (Exception e) {
-            System.out.println("❌ ERRO NO SCHEDULER");
-            e.printStackTrace();
-        }
-    }
+     } catch (Exception e) {
+         System.out.println("❌ ERRO NO SCHEDULER");
+         e.printStackTrace();
+     }
+ }
 
  public void resetarMissaoDiaria(UsuarioBossBattle usuario, LocalDate hoje) {
+
+     // missão de dano
      usuario.setMissaoDiariaNivelDano(1);
-     usuario.setMissaoDiariaNivelAtaquesEspeciais(1);
-
      usuario.setMissaoDiariaDanoAtual(0L);
-     usuario.setMissaoDiariaAtaquesEspeciaisAtual(0);
-
      usuario.setMissaoDiariaDanoConcluida(false);
+
+     // missão de ataques especiais
+     usuario.setMissaoDiariaNivelAtaquesEspeciais(1);
+     usuario.setMissaoDiariaAtaquesEspeciaisAtual(0);
      usuario.setMissaoDiariaAtaquesConcluida(false);
 
+     // missão PTC
+     usuario.setMissaoDiariaNivelPtc(1);
+     usuario.setMissaoDiariaPtcAtual(0);
+     usuario.setMissaoDiariaPtcConcluida(false);
+
+     // data reset
      usuario.setMissaoDiariaDataReset(hoje);
  }
+ //==============================================================================================
 //==============================================================================================
-    public MissaoDiariaDTO buscarMissaoDiaria(Long usuarioId) {
-        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
-        validarResetDiario(usuario);
-        MissaoDiariaDTO dto = new MissaoDiariaDTO();
-        /*DEBUG QUSE FUNCIONOU
-        System.out.println("RESGATAR ATAQUES -> usuario=" + usuarioId
-                + ", nivel=" + usuario.getMissaoDiariaNivelAtaquesEspeciais()
-                + ", concluida=" + usuario.isMissaoDiariaAtaquesConcluida()
-                + ", atual=" + usuario.getMissaoDiariaAtaquesEspeciaisAtual());
-       */
-        int nivelDano = normalizarNivelMissao(usuario.getMissaoDiariaNivelDano());
-        int nivelAtaques = normalizarNivelMissao(usuario.getMissaoDiariaNivelAtaquesEspeciais());
+ public MissaoDiariaDTO buscarMissaoDiaria(Long usuarioId) {
+	    UsuarioBossBattle usuario = buscarUsuario(usuarioId);
+	    validarResetDiario(usuario);
 
-        // corrige também no objeto, caso tenha vindo 0 do banco
-        usuario.setMissaoDiariaNivelDano(nivelDano);
-        usuario.setMissaoDiariaNivelAtaquesEspeciais(nivelAtaques);
-        usuarioRepository.save(usuario);
+	    MissaoDiariaDTO dto = new MissaoDiariaDTO();
 
-        long objetivoDano = calcularObjetivoDano(usuario, nivelDano);
-        int recompensaDano = calcularRecompensaDano(usuario, nivelDano);
+	    int nivelDano = normalizarNivelMissao(usuario.getMissaoDiariaNivelDano());
+	    int nivelAtaques = normalizarNivelMissao(usuario.getMissaoDiariaNivelAtaquesEspeciais());
+	    int nivelPtc = normalizarNivelMissao(usuario.getMissaoDiariaNivelPtc());
 
-        int objetivoAtaques = calcularObjetivoAtaque(usuario, nivelAtaques);
-        int recompensaAtaques = calcularRecompensaAtaque(usuario, nivelAtaques);
+	    // corrige também no objeto, caso tenha vindo 0 do banco
+	    usuario.setMissaoDiariaNivelDano(nivelDano);
+	    usuario.setMissaoDiariaNivelAtaquesEspeciais(nivelAtaques);
+	    usuario.setMissaoDiariaNivelPtc(nivelPtc);
 
-        dto.setDanoAtual(usuario.getMissaoDiariaDanoAtual());
-        dto.setDanoObjetivo(objetivoDano);
-        dto.setNivelDano(nivelDano);
-        dto.setRecompensaDano(recompensaDano);
-       // dto.setPodeResgatarDano(usuario.getMissaoDiariaDanoAtual() >= objetivoDano);
+	    usuarioRepository.save(usuario);
 
-        dto.setAtaquesAtual(usuario.getMissaoDiariaAtaquesEspeciaisAtual());
-        dto.setAtaquesObjetivo(objetivoAtaques);
-        dto.setNivelAtaques(nivelAtaques);
-        dto.setRecompensaAtaques(recompensaAtaques);
-       // dto.setPodeResgatarAtaques(usuario.getMissaoDiariaAtaquesEspeciaisAtual() >= objetivoAtaques);
-        
-        dto.setPodeResgatarDano(
-        	    !usuario.isMissaoDiariaDanoConcluida()
-        	    && usuario.getMissaoDiariaDanoAtual() >= objetivoDano
-        	);
+	    long objetivoDano = calcularObjetivoDano(usuario, nivelDano);
+	    int recompensaDano = calcularRecompensaDano(usuario, nivelDano);
 
-        	dto.setPodeResgatarAtaques(
-        	    !usuario.isMissaoDiariaAtaquesConcluida()
-        	    && usuario.getMissaoDiariaAtaquesEspeciaisAtual() >= objetivoAtaques
-        	);
+	    int objetivoAtaques = calcularObjetivoAtaque(usuario, nivelAtaques);
+	    int recompensaAtaques = calcularRecompensaAtaque(usuario, nivelAtaques);
 
-        return dto;
-    }
+	    int objetivoPtc = calcularObjetivoPtc(nivelPtc);
+	    int recompensaPtc = calcularRecompensaPtc(usuario, nivelPtc);
+
+	    // missão dano
+	    dto.setDanoAtual(usuario.getMissaoDiariaDanoAtual());
+	    dto.setDanoObjetivo(objetivoDano);
+	    dto.setNivelDano(nivelDano);
+	    dto.setRecompensaDano(recompensaDano);
+
+	    dto.setPodeResgatarDano(
+	            !usuario.isMissaoDiariaDanoConcluida()
+	            && usuario.getMissaoDiariaDanoAtual() >= objetivoDano
+	    );
+
+	    // missão ataques especiais
+	    dto.setAtaquesAtual(usuario.getMissaoDiariaAtaquesEspeciaisAtual());
+	    dto.setAtaquesObjetivo(objetivoAtaques);
+	    dto.setNivelAtaques(nivelAtaques);
+	    dto.setRecompensaAtaques(recompensaAtaques);
+
+	    dto.setPodeResgatarAtaques(
+	            !usuario.isMissaoDiariaAtaquesConcluida()
+	            && usuario.getMissaoDiariaAtaquesEspeciaisAtual() >= objetivoAtaques
+	    );
+
+	    // missão PTC
+	    dto.setPtcAtual(usuario.getMissaoDiariaPtcAtual());
+	    dto.setPtcObjetivo(objetivoPtc);
+	    dto.setNivelPtc(nivelPtc);
+	    dto.setRecompensaPtc(recompensaPtc);
+
+	    dto.setPodeResgatarPtc(
+	            !usuario.isMissaoDiariaPtcConcluida()
+	            && usuario.getMissaoDiariaPtcAtual() >= objetivoPtc
+	    );
+
+	    return dto;
+	}
     
     @Transactional
     public MissaoDiariaDTO resgatarMissaoDano(Long usuarioId) {
@@ -207,6 +232,39 @@ public class MissaoDiariaService {
         usuarioRepository.saveAndFlush(usuario);
         return buscarMissaoDiaria(usuarioId);
     }
+    
+    @Transactional
+    public MissaoDiariaDTO resgatarMissaoPtc(Long usuarioId) {
+        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
+
+        validarResetDiario(usuario);
+
+        int nivelAtual = normalizarNivelMissao(usuario.getMissaoDiariaNivelPtc());
+
+        if (usuario.isMissaoDiariaPtcConcluida()) {
+            return buscarMissaoDiaria(usuarioId);
+        }
+
+        int objetivo = calcularObjetivoPtc(nivelAtual);
+        int recompensa = calcularRecompensaPtc(usuario, nivelAtual);
+
+        if (usuario.getMissaoDiariaPtcAtual() < objetivo) {
+            throw new RuntimeException("Missão de visualizar PTC ainda não concluída.");
+        }
+
+        usuario.setBossCoins(usuario.getBossCoins().add(BigDecimal.valueOf(recompensa)));
+        referidosService.adicionarGanho(usuario, BigDecimal.valueOf(recompensa));
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario, BigDecimal.valueOf(recompensa));
+
+        if (nivelAtual < 5) {
+            usuario.setMissaoDiariaNivelPtc(nivelAtual + 1);
+        } else {
+            usuario.setMissaoDiariaPtcConcluida(true);
+        }
+
+        usuarioRepository.saveAndFlush(usuario);
+        return buscarMissaoDiaria(usuarioId);
+    }
     /*
    
     */
@@ -218,55 +276,137 @@ public class MissaoDiariaService {
     }
 
     //====================== OBJETIVOS ======================
+    private int calcularRecompensaPtc(UsuarioBossBattle usuario, int nivelMissao) {
+        nivelMissao = normalizarNivelMissao(nivelMissao);
 
+        long nivelUsuario = usuario.getNivel();
+        int base;
+
+        if (nivelUsuario < 25) base = 50;
+        else if (nivelUsuario < 50) base = 60;
+        else if (nivelUsuario < 75) base = 70;
+        else if (nivelUsuario < 100) base = 80;
+        else if (nivelUsuario < 125) base = 90;
+        else if (nivelUsuario < 150) base = 100;
+        else if (nivelUsuario < 175) base = 110;
+        else if (nivelUsuario < 200) base = 120;
+        else if (nivelUsuario < 225) base = 130;
+        else if (nivelUsuario < 250) base = 140;
+        else if (nivelUsuario < 275) base = 150;
+        else if (nivelUsuario < 300) base = 160;
+        else if (nivelUsuario < 325) base = 170;
+        else if (nivelUsuario < 350) base = 180;
+        else if (nivelUsuario < 375) base = 190;
+        else if (nivelUsuario < 400) base = 200;
+        else if (nivelUsuario < 425) base = 210;
+        else if (nivelUsuario < 450) base = 220;
+        else if (nivelUsuario < 475) base = 230;
+        else if (nivelUsuario < 500) base = 240;
+        else if (nivelUsuario < 525) base = 250;
+        else if (nivelUsuario < 550) base = 260;
+        else if (nivelUsuario < 575) base = 270;
+        else if (nivelUsuario < 600) base = 280;
+        else if (nivelUsuario < 625) base = 290;
+        else if (nivelUsuario < 650) base = 300;
+        else if (nivelUsuario < 675) base = 310;
+        else if (nivelUsuario < 700) base = 320;
+        else if (nivelUsuario < 725) base = 330;
+        else if (nivelUsuario < 750) base = 340;
+        else if (nivelUsuario < 775) base = 350;
+        else if (nivelUsuario < 800) base = 360;
+        else if (nivelUsuario < 825) base = 370;
+        else if (nivelUsuario < 850) base = 380;
+        else if (nivelUsuario < 875) base = 390;
+        else if (nivelUsuario < 900) base = 400;
+        else if (nivelUsuario < 925) base = 410;
+        else if (nivelUsuario < 950) base = 420;
+        else if (nivelUsuario < 975) base = 430;
+        else if (nivelUsuario < 1000) base = 440;
+
+        else base = 500;
+
+        switch (nivelMissao) {
+            case 1:
+                return base;
+            case 2:
+                return (int) (base * 1.5);
+            case 3:
+                return base * 2;
+            case 4:
+                return (int) (base * 2.5);
+            case 5:
+                return base * 3;
+            default:
+                return base;
+        }
+    }
+    
+    private int calcularObjetivoPtc(int nivelMissao) {
+        nivelMissao = normalizarNivelMissao(nivelMissao);
+
+        switch (nivelMissao) {
+            case 1:
+                return 10;
+            case 2:
+                return 20;
+            case 3:
+                return 30;
+            case 4:
+                return 20;
+            case 5:
+                return 40;
+            default:
+                return 50;
+        }
+    }///========================================================================
     private long calcularObjetivoDano(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
         long nivelUsuario = usuario.getNivel();
         long baseDano;
 
-        if (nivelUsuario < 25) baseDano = 100L;
-        else if (nivelUsuario < 50) baseDano = 300L;
-        else if (nivelUsuario < 75) baseDano = 500L;
-        else if (nivelUsuario < 100) baseDano = 700L;
-        else if (nivelUsuario < 125) baseDano = 900L;
-        else if (nivelUsuario < 150) baseDano = 1_000L;
-        else if (nivelUsuario < 175) baseDano = 1_200L;
-        else if (nivelUsuario < 200) baseDano = 1_500L;
-        else if (nivelUsuario < 225) baseDano = 1_700L;
-        else if (nivelUsuario < 250) baseDano = 1_900L;
-        else if (nivelUsuario < 275) baseDano = 2_100L;
-        else if (nivelUsuario < 300) baseDano = 2_500L;
-        else if (nivelUsuario < 325) baseDano = 3_000L;
-        else if (nivelUsuario < 350) baseDano = 3_500L;
-        else if (nivelUsuario < 375) baseDano = 4_000L;
-        else if (nivelUsuario < 400) baseDano = 4_500L;
-        else if (nivelUsuario < 425) baseDano = 5_000L;
-        else if (nivelUsuario < 450) baseDano = 5_500L;
-        else if (nivelUsuario < 475) baseDano = 6_000L;
-        else if (nivelUsuario < 500) baseDano = 6_500L;
-        else if (nivelUsuario < 525) baseDano = 7_000L;
-        else if (nivelUsuario < 550) baseDano = 7_500L;
-        else if (nivelUsuario < 575) baseDano = 8_000L;
-        else if (nivelUsuario < 600) baseDano = 8_500L;
-        else if (nivelUsuario < 625) baseDano = 9_000L;
-        else if (nivelUsuario < 650) baseDano = 9_500L;
-        else if (nivelUsuario < 675) baseDano = 10_000L;
-        else if (nivelUsuario < 700) baseDano = 10_500L;
-        else if (nivelUsuario < 725) baseDano = 11_000L;
-        else if (nivelUsuario < 750) baseDano = 11_500L;
-        else if (nivelUsuario < 775) baseDano = 12_000L;
-        else if (nivelUsuario < 800) baseDano = 12_500L;
-        else if (nivelUsuario < 825) baseDano = 13_000L;
-        else if (nivelUsuario < 850) baseDano = 13_500L;
-        else if (nivelUsuario < 875) baseDano = 14_000L;
-        else if (nivelUsuario < 900) baseDano = 14_500L;
-        else if (nivelUsuario < 925) baseDano = 15_000L;
-        else if (nivelUsuario < 950) baseDano = 15_500L;
-        else if (nivelUsuario < 975) baseDano = 16_000L;
-        else if (nivelUsuario < 1_000) baseDano = 16_500L;
+        if (nivelUsuario < 25) baseDano = 50L;
+        else if (nivelUsuario < 50) baseDano = 100L;
+        else if (nivelUsuario < 75) baseDano = 150L;
+        else if (nivelUsuario < 100) baseDano = 200L;
+        else if (nivelUsuario < 125) baseDano = 250L;
+        else if (nivelUsuario < 150) baseDano = 300L;
+        else if (nivelUsuario < 175) baseDano = 350L;
+        else if (nivelUsuario < 200) baseDano = 400L;
+        else if (nivelUsuario < 225) baseDano = 450L;
+        else if (nivelUsuario < 250) baseDano = 500L;
+        else if (nivelUsuario < 275) baseDano = 550L;
+        else if (nivelUsuario < 300) baseDano = 600L;
+        else if (nivelUsuario < 325) baseDano = 650L;
+        else if (nivelUsuario < 350) baseDano = 700L;
+        else if (nivelUsuario < 375) baseDano = 750L;
+        else if (nivelUsuario < 400) baseDano = 800L;
+        else if (nivelUsuario < 425) baseDano = 850L;
+        else if (nivelUsuario < 450) baseDano = 900L;
+        else if (nivelUsuario < 475) baseDano = 950L;
+        else if (nivelUsuario < 500) baseDano = 1_000L;
+        else if (nivelUsuario < 525) baseDano = 1_050L;
+        else if (nivelUsuario < 550) baseDano = 1_100L;
+        else if (nivelUsuario < 575) baseDano = 1_150L;
+        else if (nivelUsuario < 600) baseDano = 1_200L;
+        else if (nivelUsuario < 625) baseDano = 1_250L;
+        else if (nivelUsuario < 650) baseDano = 1_300L;
+        else if (nivelUsuario < 675) baseDano = 1_350L;
+        else if (nivelUsuario < 700) baseDano = 1_400L;
+        else if (nivelUsuario < 725) baseDano = 1_450L;
+        else if (nivelUsuario < 750) baseDano = 1_500L;
+        else if (nivelUsuario < 775) baseDano = 1_550L;
+        else if (nivelUsuario < 800) baseDano = 1_600L;
+        else if (nivelUsuario < 825) baseDano = 1_650L;
+        else if (nivelUsuario < 850) baseDano = 1_700L;
+        else if (nivelUsuario < 875) baseDano = 1_750L;
+        else if (nivelUsuario < 900) baseDano = 1_800L;
+        else if (nivelUsuario < 925) baseDano = 1_850L;
+        else if (nivelUsuario < 950) baseDano = 1_900L;
+        else if (nivelUsuario < 975) baseDano = 1_950L;
+        else if (nivelUsuario < 1000) baseDano = 2_000L;
 
-        else baseDano = 17_000L;
+        else baseDano = 2_500L;
 
         switch (nivelMissao) {
             case 1:
@@ -325,49 +465,48 @@ public class MissaoDiariaService {
         long nivelUsuario = usuario.getNivel();
         int base;
 
-        if (nivelUsuario < 25) base = 400;
-        else if (nivelUsuario < 50) base = 450;
-        else if (nivelUsuario < 75) base = 500;
-        else if (nivelUsuario < 100) base = 550;
-        else if (nivelUsuario < 125) base = 600;
-        else if (nivelUsuario < 150) base = 650;
-        else if (nivelUsuario < 175) base = 700;
-        else if (nivelUsuario < 200) base = 750;
-        else if (nivelUsuario < 225) base = 800;
-        else if (nivelUsuario < 250) base = 850;
-        else if (nivelUsuario < 275) base = 900;
-        else if (nivelUsuario < 300) base = 950;
-        else if (nivelUsuario < 325) base = 1_000;
-        else if (nivelUsuario < 350) base = 1_050;
-        else if (nivelUsuario < 375) base = 1_100;
-        else if (nivelUsuario < 400) base = 1_150;
-        else if (nivelUsuario < 425) base = 1_200;
-        else if (nivelUsuario < 450) base = 1_250;
-        else if (nivelUsuario < 475) base = 1_300;
-        else if (nivelUsuario < 500) base = 1_350;
-        else if (nivelUsuario < 525) base = 1_400;
-        else if (nivelUsuario < 550) base = 1_450;
-        else if (nivelUsuario < 575) base = 1_500;
-        else if (nivelUsuario < 600) base = 1_550;
-        else if (nivelUsuario < 625) base = 1_600;
-        else if (nivelUsuario < 650) base = 1_650;
-        else if (nivelUsuario < 675) base = 1_700;
-        else if (nivelUsuario < 700) base = 1_750;
-        else if (nivelUsuario < 725) base = 1_800;
-        else if (nivelUsuario < 750) base = 1_850;
-        else if (nivelUsuario < 775) base = 1_900;
-        else if (nivelUsuario < 800) base = 1_950;
-        else if (nivelUsuario < 825) base = 2_000;
-        else if (nivelUsuario < 850) base = 2_050;
-        else if (nivelUsuario < 875) base = 2_100;
-        else if (nivelUsuario < 900) base = 2_150;
-        else if (nivelUsuario < 925) base = 2_200;
-        else if (nivelUsuario < 950) base = 2_250;
-        else if (nivelUsuario < 975) base = 2_300;
-        else if (nivelUsuario < 1_000) base = 2_350;
+        if (nivelUsuario < 25) base = 30;
+        else if (nivelUsuario < 50) base = 40;
+        else if (nivelUsuario < 75) base = 50;
+        else if (nivelUsuario < 100) base = 60;
+        else if (nivelUsuario < 125) base = 70;
+        else if (nivelUsuario < 150) base = 80;
+        else if (nivelUsuario < 175) base = 90;
+        else if (nivelUsuario < 200) base = 100;
+        else if (nivelUsuario < 225) base = 110;
+        else if (nivelUsuario < 250) base = 120;
+        else if (nivelUsuario < 275) base = 130;
+        else if (nivelUsuario < 300) base = 140;
+        else if (nivelUsuario < 325) base = 150;
+        else if (nivelUsuario < 350) base = 160;
+        else if (nivelUsuario < 375) base = 170;
+        else if (nivelUsuario < 400) base = 180;
+        else if (nivelUsuario < 425) base = 190;
+        else if (nivelUsuario < 450) base = 200;
+        else if (nivelUsuario < 475) base = 210;
+        else if (nivelUsuario < 500) base = 220;
+        else if (nivelUsuario < 525) base = 230;
+        else if (nivelUsuario < 550) base = 240;
+        else if (nivelUsuario < 575) base = 250;
+        else if (nivelUsuario < 600) base = 260;
+        else if (nivelUsuario < 625) base = 270;
+        else if (nivelUsuario < 650) base = 280;
+        else if (nivelUsuario < 675) base = 290;
+        else if (nivelUsuario < 700) base = 300;
+        else if (nivelUsuario < 725) base = 310;
+        else if (nivelUsuario < 750) base = 320;
+        else if (nivelUsuario < 775) base = 330;
+        else if (nivelUsuario < 800) base = 340;
+        else if (nivelUsuario < 825) base = 350;
+        else if (nivelUsuario < 850) base = 360;
+        else if (nivelUsuario < 875) base = 370;
+        else if (nivelUsuario < 900) base = 380;
+        else if (nivelUsuario < 925) base = 390;
+        else if (nivelUsuario < 950) base = 400;
+        else if (nivelUsuario < 975) base = 410;
+        else if (nivelUsuario < 1000) base = 420;
 
-        else base = 3_000;
-
+        else base = 500;
         switch (nivelMissao) {
             case 1:
                 return base;
@@ -389,55 +528,55 @@ public class MissaoDiariaService {
         long nivelUsuario = usuario.getNivel();
         int base;
 
-        if (nivelUsuario < 25) base = 100;
-        else if (nivelUsuario < 50) base = 150;
-        else if (nivelUsuario < 75) base = 200;
-        else if (nivelUsuario < 100) base = 250;
-        else if (nivelUsuario < 125) base = 300;
-        else if (nivelUsuario < 150) base = 350;
-        else if (nivelUsuario < 175) base = 400;
-        else if (nivelUsuario < 200) base = 450;
-        else if (nivelUsuario < 225) base = 500;
-        else if (nivelUsuario < 250) base = 550;
-        else if (nivelUsuario < 275) base = 600;
-        else if (nivelUsuario < 300) base = 650;
-        else if (nivelUsuario < 325) base = 700;
-        else if (nivelUsuario < 350) base = 750;
-        else if (nivelUsuario < 375) base = 800;
-        else if (nivelUsuario < 400) base = 850;
-        else if (nivelUsuario < 425) base = 900;
-        else if (nivelUsuario < 450) base = 950;
-        else if (nivelUsuario < 475) base = 1000;
-        else if (nivelUsuario < 500) base = 1050;
-        else if (nivelUsuario < 525) base = 1100;
-        else if (nivelUsuario < 550) base = 1150;
-        else if (nivelUsuario < 575) base = 1200;
-        else if (nivelUsuario < 600) base = 1250;
-        else if (nivelUsuario < 625) base = 1300;
-        else if (nivelUsuario < 650) base = 1350;
-        else if (nivelUsuario < 675) base = 1400;
-        else if (nivelUsuario < 700) base = 1450;
-        else if (nivelUsuario < 725) base = 1500;
-        else if (nivelUsuario < 750) base = 1550;
-        else if (nivelUsuario < 775) base = 1600;
-        else if (nivelUsuario < 800) base = 1650;
-        else if (nivelUsuario < 825) base = 1700;
-        else if (nivelUsuario < 850) base = 1750;
-        else if (nivelUsuario < 875) base = 1800;
-        else if (nivelUsuario < 900) base = 1850;
-        else if (nivelUsuario < 925) base = 1900;
-        else if (nivelUsuario < 950) base = 1950;
-        else if (nivelUsuario < 975) base = 2000;
-        else if (nivelUsuario < 1000) base = 2050;
+        if (nivelUsuario < 25) base = 20;
+        else if (nivelUsuario < 50) base = 30;
+        else if (nivelUsuario < 75) base = 40;
+        else if (nivelUsuario < 100) base = 50;
+        else if (nivelUsuario < 125) base = 60;
+        else if (nivelUsuario < 150) base = 70;
+        else if (nivelUsuario < 175) base = 80;
+        else if (nivelUsuario < 200) base = 90;
+        else if (nivelUsuario < 225) base = 100;
+        else if (nivelUsuario < 250) base = 110;
+        else if (nivelUsuario < 275) base = 120;
+        else if (nivelUsuario < 300) base = 130;
+        else if (nivelUsuario < 325) base = 140;
+        else if (nivelUsuario < 350) base = 150;
+        else if (nivelUsuario < 375) base = 160;
+        else if (nivelUsuario < 400) base = 170;
+        else if (nivelUsuario < 425) base = 180;
+        else if (nivelUsuario < 450) base = 190;
+        else if (nivelUsuario < 475) base = 200;
+        else if (nivelUsuario < 500) base = 210;
+        else if (nivelUsuario < 525) base = 220;
+        else if (nivelUsuario < 550) base = 230;
+        else if (nivelUsuario < 575) base = 240;
+        else if (nivelUsuario < 600) base = 250;
+        else if (nivelUsuario < 625) base = 260;
+        else if (nivelUsuario < 650) base = 270;
+        else if (nivelUsuario < 675) base = 280;
+        else if (nivelUsuario < 700) base = 290;
+        else if (nivelUsuario < 725) base = 300;
+        else if (nivelUsuario < 750) base = 310;
+        else if (nivelUsuario < 775) base = 320;
+        else if (nivelUsuario < 800) base = 330;
+        else if (nivelUsuario < 825) base = 340;
+        else if (nivelUsuario < 850) base = 350;
+        else if (nivelUsuario < 875) base = 360;
+        else if (nivelUsuario < 900) base = 370;
+        else if (nivelUsuario < 925) base = 380;
+        else if (nivelUsuario < 950) base = 390;
+        else if (nivelUsuario < 975) base = 400;
+        else if (nivelUsuario < 1000) base = 410;
 
-        // segue o mesmo padrão (+50 a cada 25 níveis)
+        // reduzido também nos níveis altos
 
-        else if (nivelUsuario < 1500) base = 3050;
-        else if (nivelUsuario < 2000) base = 4050;
-        else if (nivelUsuario < 2500) base = 5050;
-        else if (nivelUsuario < 3000) base = 6050;
+        else if (nivelUsuario < 1500) base = 600;
+        else if (nivelUsuario < 2000) base = 800;
+        else if (nivelUsuario < 2500) base = 1000;
+        else if (nivelUsuario < 3000) base = 1200;
 
-        else base = 7000;
+        else base = 1500;
 
         switch (nivelMissao) {
             case 1:
@@ -475,7 +614,27 @@ public class MissaoDiariaService {
         }
     }
     //====================== ATUALIZAÇÕES ======================
+    @Transactional
+    public UsuarioBossBattle atualizarProgressoPtc(Long usuarioId, int quantidade) {
+        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
 
+        validarResetDiario(usuario);
+
+        int atualAntes = usuario.getMissaoDiariaPtcAtual();
+
+        usuario.setMissaoDiariaPtcAtual(atualAntes + quantidade);
+
+        UsuarioBossBattle salvo = usuarioRepository.saveAndFlush(usuario);
+
+        System.out.println("📺 PTC ATUALIZADO");
+        System.out.println("Usuário: " + salvo.getUsername());
+        System.out.println("Antes: " + atualAntes);
+        System.out.println("Somou: " + quantidade);
+        System.out.println("Depois: " + salvo.getMissaoDiariaPtcAtual());
+
+        return salvo;
+    }
+    
     @Transactional
     public UsuarioBossBattle atualizarProgressoDano(Long usuarioId, long dano) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);

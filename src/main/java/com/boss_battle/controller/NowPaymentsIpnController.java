@@ -47,10 +47,8 @@ public class NowPaymentsIpnController {
             @RequestHeader Map<String, String> headers) {
 
         try {
-
             System.out.println("=================================");
             System.out.println("IPN NOWPAYMENTS RECEBIDO");
-            System.out.println("HEADERS:");
 
             headers.forEach((k, v) ->
                     System.out.println(k + " = " + v));
@@ -60,20 +58,19 @@ public class NowPaymentsIpnController {
             System.out.println("=================================");
 
             ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> body = mapper.readValue(rawBody, Map.class);
 
-            Map<String, Object> body =
-                    mapper.readValue(rawBody, Map.class);
+            String paymentId = String.valueOf(body.get("payment_id"));
+            String status = String.valueOf(body.get("payment_status"));
 
-            String paymentId =
-                    String.valueOf(body.get("payment_id"));
+            Object orderIdObj = body.get("order_id");
+            String orderId = orderIdObj == null ? null : String.valueOf(orderIdObj);
 
-            String status =
-                    String.valueOf(body.get("payment_status"));
+            System.out.println("PAYMENT_ID RECEBIDO: [" + paymentId + "]");
+            System.out.println("ORDER_ID RECEBIDO: [" + orderId + "]");
+            System.out.println("STATUS RECEBIDO: [" + status + "]");
 
             if (paymentId == null || paymentId.equals("null")) {
-
-                System.out.println("PAYMENT ID NULL");
-
                 return ResponseEntity.ok("NO_PAYMENT_ID");
             }
 
@@ -82,10 +79,15 @@ public class NowPaymentsIpnController {
                             .findByPaymentId(paymentId)
                             .orElse(null);
 
+            if (deposito == null && orderId != null) {
+                deposito =
+                        depositoRepository
+                                .findByOrderId(orderId)
+                                .orElse(null);
+            }
+
             if (deposito == null) {
-
                 System.out.println("DEPÓSITO NÃO ENCONTRADO");
-
                 return ResponseEntity.ok("DEPOSITO_NOT_FOUND");
             }
 
@@ -110,18 +112,13 @@ public class NowPaymentsIpnController {
                     saldoAtual = BigDecimal.ZERO;
                 }
 
-                BigDecimal valorUsdParaCreditar =
-                        deposito.getValorUsd();
+                BigDecimal valorUsdParaCreditar = deposito.getValorUsd();
 
-                Object valorPagoFiat =
-                        body.get("actually_paid_fiat");
+                Object valorPagoFiat = body.get("actually_paid_fiat");
 
                 if (valorPagoFiat != null) {
-
                     valorUsdParaCreditar =
-                            new BigDecimal(
-                                    String.valueOf(valorPagoFiat)
-                            );
+                            new BigDecimal(String.valueOf(valorPagoFiat));
                 }
 
                 BigDecimal bossCoinsRecebidas =
@@ -137,11 +134,10 @@ public class NowPaymentsIpnController {
 
                 usuarioRepository.save(usuario);
 
-                ultimoValorRecebidoService
-                        .setUltimoValorRecebido(
-                                usuario,
-                                bossCoinsRecebidas
-                        );
+                ultimoValorRecebidoService.setUltimoValorRecebido(
+                        usuario,
+                        bossCoinsRecebidas
+                );
 
                 System.out.println("=================================");
                 System.out.println("SALDO CREDITADO");
@@ -157,9 +153,7 @@ public class NowPaymentsIpnController {
             return ResponseEntity.ok("OK");
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return ResponseEntity.ok("ERROR");
         }
     }

@@ -59,4 +59,23 @@ public class MissaoDiariaController {
         MissaoDiariaDTO dto = missaoDiariaService.buscarMissaoDiaria(usuarioId);
         return ResponseEntity.ok(dto);
     }
+    
+    
+ // Resgatar missão PTC
+    @PostMapping("/{usuarioId}/resgatar/ptc")
+    public ResponseEntity<MissaoDiariaDTO> resgatarMissaoPtc(@PathVariable Long usuarioId) {
+        MissaoDiariaDTO dto = missaoDiariaService.resgatarMissaoPtc(usuarioId);
+        return ResponseEntity.ok(dto);
+    }
+
+    // Atualizar visualização PTC
+    @PostMapping("/{usuarioId}/atualizar/ptc")
+    public ResponseEntity<MissaoDiariaDTO> atualizarPtc(
+            @PathVariable Long usuarioId,
+            @RequestParam int quantidade) {
+
+        missaoDiariaService.atualizarProgressoPtc(usuarioId, quantidade);
+        MissaoDiariaDTO dto = missaoDiariaService.buscarMissaoDiaria(usuarioId);
+        return ResponseEntity.ok(dto);
+    }
 }

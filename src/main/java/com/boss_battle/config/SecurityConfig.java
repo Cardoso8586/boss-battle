@@ -164,6 +164,10 @@ public class SecurityConfig {
                         "/api/missoes-diarias/*/resgatar/ataques",
                         "/api/missoes-diarias/*/atualizar/dano",
                         "/api/missoes-diarias/*/atualizar/ataques",
+                        
+                        "/api/missoes-diarias/*/resgatar/ptc",
+                        "/api/missoes-diarias/*/atualizar/ptc",
+                        
                         "/api/ranking-ataques-especial",
                         "/api/minha-posicao-ataques-especial",
                         "/api/usuario/*/premio-pendente-ataque-especial",
@@ -171,7 +175,8 @@ public class SecurityConfig {
                         "/api/escudo-primordial/ativar/**",
                         "/api/escudo-primordial/ativo/**",
                         "/api/anuncio-recompensa/receber/**",
-                        "/api/anuncio-recompensa/status/**"
+                        "/api/anuncio-recompensa/status/**",
+                        "/api/session/ping/**"
                         
                         
                         
