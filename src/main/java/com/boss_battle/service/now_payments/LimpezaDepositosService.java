@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,9 @@ public class LimpezaDepositosService {
     @Autowired
     private DepositoBossCoinsRepository depositoRepository;
 
+
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+   // @Scheduled(fixedRate = 10000)
     @Transactional
     public void apagarDepositosAntigosNaoPagos() {
 
@@ -31,27 +35,9 @@ public class LimpezaDepositosService {
                 statusNaoPagos,
                 limite
         );
+
+        System.out.println("Limpeza executada: " + LocalDateTime.now());
     }
-    
-    /*
-     * @Scheduled(fixedRate = 60 * 60 * 1000)
-@Transactional
-public void apagarDepositosAntigosNaoPagos() {
-    LocalDateTime limite = LocalDateTime.now().minusHours(24);
-
-    List<String> statusNaoPagos = List.of(
-            "waiting",
-            "confirming",
-            "expired",
-            "failed"
-    );
-
-    depositoRepository.deleteByStatusInAndCriadoEmBefore(
-            statusNaoPagos,
-            limite
-    );
-}
-*/
     
     
 }

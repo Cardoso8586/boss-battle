@@ -15,6 +15,7 @@ import com.boss_battle.model.DepositoBossCoins;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.DepositoBossCoinsRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.service.now_payments.LimpezaDepositosService;
 import com.boss_battle.service.now_payments.NowPaymentsService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/depositar")
 public class DepositarPageController {
 
+	 @Autowired
+	private LimpezaDepositosService  limpezaDepositosService;
     @Autowired
     private DepositoBossCoinsRepository depositoRepository;
 
@@ -53,6 +56,10 @@ public class DepositarPageController {
         model.addAttribute("usuario", usuario);
         model.addAttribute("idUsuario", usuario.getId());
 
+        
+        limpezaDepositosService.apagarDepositosAntigosNaoPagos();
+        
+        
         List<DepositoBossCoins> historico =
                 depositoRepository
                         .findByUsuarioIdOrderByCriadoEmDesc(

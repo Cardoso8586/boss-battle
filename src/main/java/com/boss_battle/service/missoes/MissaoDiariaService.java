@@ -352,9 +352,9 @@ public class MissaoDiariaService {
             case 3:
                 return 30;
             case 4:
-                return 20;
-            case 5:
                 return 40;
+            case 5:
+                return 50;
             default:
                 return 50;
         }

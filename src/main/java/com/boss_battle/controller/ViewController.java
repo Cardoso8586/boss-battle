@@ -2,7 +2,6 @@ package com.boss_battle.controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Base64;
@@ -16,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.boss_battle.model.DepositoBossCoins;
 import com.boss_battle.model.UsuarioBossBattle;
-import com.boss_battle.repository.DepositoBossCoinsRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.aprimoramentos_loja.LojaAprimoramentosService;
 
@@ -27,9 +24,6 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class ViewController {
     
-
-	@Autowired
-	private DepositoBossCoinsRepository depositoRepository;
 	
 	@Autowired
 	LojaAprimoramentosService lojaAprimoramentosService;
