@@ -141,17 +141,22 @@ public class NowPaymentsIpnController {
                                 BigDecimal.valueOf(10_000_000)
                         );
 
+                
+                
                 usuario.setBossCoins(
                         saldoAtual.add(bossCoinsRecebidas)
                 );
 
-                deposito.setCreditado(true);
-                
-                   ultimoValorRecebidoService
+                 ultimoValorRecebidoService
                         .setUltimoValorRecebido(
                                 usuario,
                                 bossCoinsRecebidas
                         );
+                 
+                 
+                deposito.setCreditado(true);
+                
+                  
 
                 usuarioRepository.save(usuario);
 
@@ -175,14 +180,7 @@ public class NowPaymentsIpnController {
         }
     }
 
-    @PostMapping("/teste")
-    public String teste() {
 
-        System.out.println("TESTE NOWPAYMENTS ONLINE");
-
-        return "NOWPAYMENTS ONLINE";
-    }
-    
     @GetMapping("/status/{paymentId}")
     public ResponseEntity<Map<String, Object>> statusPagamento(@PathVariable String paymentId) {
 

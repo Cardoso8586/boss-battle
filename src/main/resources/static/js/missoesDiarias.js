@@ -144,13 +144,18 @@ function renderizarMissoes(missao) {
 	    && missao.ptcAtual >= missao.ptcObjetivo;
 
 	const acaoPtc = podeResgatarPtc
-	    ? `<button class="btn-missao" onclick="resgatarPtc(this)">
-	            Resgatar
-	       </button>`
+	    ? `
+	    <button class="btn-missao"
+	            onclick="resgatarPtc(this)">
+	        🎁 Resgatar recompensa
+	    </button>
+	    `
 	    : ptcConcluido
-	        ? `<button class="btn-missao btn-concluida" disabled>
-	                Tarefa concluída
-	           </button>`
+	        ? `
+	        <button class="btn-missao btn-concluida" disabled>
+	            ✅ Tarefa concluída
+	        </button>
+	        `
 	        : `
 	        <a href="/ganhar-boss-coins"
 	           class="btn-ptc-link">
@@ -161,6 +166,7 @@ function renderizarMissoes(missao) {
 
 	const ptcHTML = `
 	    <div class="card-missao">
+
 	        <h3>📺 Visualizar PTC</h3>
 
 	        <p>Nível: ${missao.nivelPtc}</p>
@@ -182,6 +188,7 @@ function renderizarMissoes(missao) {
 	        </p>
 
 	        ${acaoPtc}
+
 	    </div>
 	`;
 	/*

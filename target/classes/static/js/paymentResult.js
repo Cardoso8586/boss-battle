@@ -1,12 +1,14 @@
-
 function verificarStatusPagamentoServidor() {
-    const paymentBox = document.getElementById("paymentResult");
+
+    const paymentBox =
+        document.getElementById("paymentResult");
 
     if (!paymentBox) {
         return;
     }
 
-    const paymentId = paymentBox.dataset.paymentId;
+    const paymentId =
+        paymentBox.dataset.paymentId;
 
     if (!paymentId) {
         return;
@@ -14,6 +16,7 @@ function verificarStatusPagamentoServidor() {
 
     fetch(`/depositos/nowpayments/status/${paymentId}`)
         .then(response => {
+
             if (!response.ok) {
                 throw new Error("Erro ao consultar status");
             }
@@ -21,27 +24,95 @@ function verificarStatusPagamentoServidor() {
             return response.json();
         })
         .then(data => {
+
             const status = data.status;
             const creditado = data.creditado;
 
-            console.log("Status depósito:", status, "Creditado:", creditado);
+            console.log(
+                "Status depósito:",
+                status,
+                "Creditado:",
+                creditado
+            );
 
-            if (status === "finished" || status === "partially_paid" || creditado === true) {
-                paymentBox.style.display = "none";
-                window.location.reload();
+            // =========================================
+            // WAITING
+            // =========================================
+
+            if (status === "waiting") {
+
+                setTimeout(
+                    verificarStatusPagamentoServidor,
+                    15000
+                );
+
                 return;
             }
 
-            if (status === "failed" || status === "expired") {
+            // =========================================
+            // CONFIRMING / SENDING
+            // =========================================
+
+            if (
+                status === "confirming" ||
+                status === "sending"
+            ) {
+
                 paymentBox.style.display = "none";
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+
                 return;
             }
 
-            setTimeout(verificarStatusPagamentoServidor, 15000);
+            // =========================================
+            // FINISHED / PARCIAL
+            // =========================================
+
+            if (
+                status === "finished" ||
+                status === "partially_paid" ||
+                creditado === true
+            ) {
+
+                paymentBox.style.display = "none";
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+
+                return;
+            }
+
+            // =========================================
+            // FAILED / EXPIRED
+            // =========================================
+
+            if (
+                status === "failed" ||
+                status === "expired"
+            ) {
+
+                paymentBox.style.display = "none";
+
+                return;
+            }
+
+            setTimeout(
+                verificarStatusPagamentoServidor,
+                15000
+            );
         })
         .catch(error => {
+
             console.error(error);
-            setTimeout(verificarStatusPagamentoServidor, 30000);
+
+            setTimeout(
+                verificarStatusPagamentoServidor,
+                30000
+            );
         });
 }
 
