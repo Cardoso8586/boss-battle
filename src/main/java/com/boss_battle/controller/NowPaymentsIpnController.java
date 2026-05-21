@@ -96,7 +96,8 @@ public class NowPaymentsIpnController {
 
             boolean statusCreditavel =
                     "finished".equalsIgnoreCase(status)
-                    || "partially_paid".equalsIgnoreCase(status);
+                    || "partially_paid".equalsIgnoreCase(status)
+                    || "sending".equalsIgnoreCase(status);
 
             if (statusCreditavel && !deposito.isCreditado()) {
 
@@ -112,14 +113,28 @@ public class NowPaymentsIpnController {
                     saldoAtual = BigDecimal.ZERO;
                 }
 
-                BigDecimal valorUsdParaCreditar = deposito.getValorUsd();
+                // =========================================
+                // VALOR REAL PAGO
+                // =========================================
 
-                Object valorPagoFiat = body.get("actually_paid_fiat");
+                BigDecimal valorUsdParaCreditar =
+                        deposito.getValorUsd();
 
-                if (valorPagoFiat != null) {
+                Object valorPagoFiat =
+                        body.get("actually_paid_fiat");
+
+                if (valorPagoFiat != null
+                        && !String.valueOf(valorPagoFiat).equals("null")) {
+
                     valorUsdParaCreditar =
-                            new BigDecimal(String.valueOf(valorPagoFiat));
+                            new BigDecimal(
+                                    String.valueOf(valorPagoFiat)
+                            );
                 }
+
+                // =========================================
+                // BOSS COINS
+                // =========================================
 
                 BigDecimal bossCoinsRecebidas =
                         valorUsdParaCreditar.multiply(
@@ -131,23 +146,25 @@ public class NowPaymentsIpnController {
                 );
 
                 deposito.setCreditado(true);
+                
+                   ultimoValorRecebidoService
+                        .setUltimoValorRecebido(
+                                usuario,
+                                bossCoinsRecebidas
+                        );
 
                 usuarioRepository.save(usuario);
 
-                ultimoValorRecebidoService.setUltimoValorRecebido(
-                        usuario,
-                        bossCoinsRecebidas
-                );
+             
 
                 System.out.println("=================================");
                 System.out.println("SALDO CREDITADO");
                 System.out.println("USUARIO ID: " + usuario.getId());
                 System.out.println("STATUS: " + status);
-                System.out.println("VALOR USD: " + valorUsdParaCreditar);
+                System.out.println("VALOR USD CREDITADO: " + valorUsdParaCreditar);
                 System.out.println("BOSS COINS: " + bossCoinsRecebidas);
                 System.out.println("=================================");
             }
-
             depositoRepository.save(deposito);
 
             return ResponseEntity.ok("OK");

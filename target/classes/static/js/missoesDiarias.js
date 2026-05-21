@@ -132,7 +132,59 @@ function renderizarMissoes(missao) {
 
  
 	//================ PTC =================
+	//================ PTC =================
 
+	const ptcPercentual = missao.ptcObjetivo > 0
+	    ? Math.min((missao.ptcAtual / missao.ptcObjetivo) * 100, 100)
+	    : 0;
+
+	const podeResgatarPtc = !!missao.podeResgatarPtc;
+
+	const ptcConcluido = !podeResgatarPtc
+	    && missao.ptcAtual >= missao.ptcObjetivo;
+
+	const acaoPtc = podeResgatarPtc
+	    ? `<button class="btn-missao" onclick="resgatarPtc(this)">
+	            Resgatar
+	       </button>`
+	    : ptcConcluido
+	        ? `<button class="btn-missao btn-concluida" disabled>
+	                Tarefa concluída
+	           </button>`
+	        : `
+	        <a href="/ganhar-boss-coins"
+	           class="btn-ptc-link">
+	            <span>📺</span>
+	            Visualizar PTC
+	        </a>
+	        `;
+
+	const ptcHTML = `
+	    <div class="card-missao">
+	        <h3>📺 Visualizar PTC</h3>
+
+	        <p>Nível: ${missao.nivelPtc}</p>
+
+	        <p>
+	            ${missao.ptcAtual} / ${missao.ptcObjetivo}
+	        </p>
+
+	        <div class="barra-progresso">
+	            <div class="barra-preenchida"
+	                 style="width: ${ptcPercentual}%">
+	            </div>
+	        </div>
+
+	        <p>
+	            Recompensa:
+	            ${formatarMoedaBR(missao.recompensaPtc)}
+	            Boss coins
+	        </p>
+
+	        ${acaoPtc}
+	    </div>
+	`;
+	/*
 	const ptcPercentual = missao.ptcObjetivo > 0
 	    ? Math.min((missao.ptcAtual / missao.ptcObjetivo) * 100, 100)
 	    : 0;
@@ -169,7 +221,7 @@ function renderizarMissoes(missao) {
 	        ${acaoPtc}
 	    </div>
 	`;
-
+*/
 	//================ ADICIONAR NO CONTAINER =================
 
 	container.innerHTML = danoHTML + ataqueHTML + ptcHTML;

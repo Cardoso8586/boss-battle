@@ -872,3 +872,44 @@ body{
         border-radius:18px;
     }
 }
+.btn-ptc-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px 18px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.btn-ptc-link:hover {
+    transform: translateY(-2px) scale(1.01);
+
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.btn-ptc-link span {
+    font-size: 18px;
+}
