@@ -122,4 +122,26 @@ public class NowPaymentsService {
 
         return dto;
     }
+    
+    public Map consultarPagamento(String paymentId) {
+
+        System.out.println("=================================");
+        System.out.println("CONSULTANDO NOWPAYMENTS");
+        System.out.println("PAYMENT_ID: " + paymentId);
+        System.out.println("=================================");
+
+        Map response = webClient.get()
+                .uri("/payment/" + paymentId)
+                .header("x-api-key", apiKey)
+                .retrieve()
+                .bodyToMono(Map.class)
+                .block();
+
+        System.out.println("=================================");
+        System.out.println("RESPOSTA CONSULTA NOWPAYMENTS");
+        System.out.println(response);
+        System.out.println("=================================");
+
+        return response;
+    }
 }

@@ -25,4 +25,6 @@ long countByStatusInAndCriadoEmBefore(
         LocalDateTime criadoEm
 );
 
+List<DepositoBossCoins> findByCreditadoFalse();
+
 }
