@@ -274,7 +274,6 @@ public class MissaoDiariaService {
         return usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + usuarioId));
     }
-
     //====================== OBJETIVOS ======================
     private int calcularRecompensaPtc(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);

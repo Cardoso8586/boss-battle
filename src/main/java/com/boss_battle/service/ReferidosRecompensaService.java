@@ -52,12 +52,18 @@ public class ReferidosRecompensaService {
 	
 	  // =========================================  claimGanhos ===============================================================
 
- 
-    public void claimGanhos(UsuarioBossBattle usuario) {
+    @Transactional
+    public void claimGanhos(Long usuarioId){
         BigDecimal totalClaim = BigDecimal.ZERO;
 
-      
-
+        UsuarioBossBattle usuario =
+        	    usuarioRepository.buscarPorIdComLock(usuarioId)
+        	    .orElseThrow();
+        if (usuario.getGanhosPendentesReferral() == null
+                || usuario.getGanhosPendentesReferral().compareTo(BigDecimal.ZERO) <= 0) {
+            return;
+        }
+        
         if (usuario.getGanhosPendentesReferral() != null) {
             totalClaim = totalClaim.add(usuario.getGanhosPendentesReferral());
             usuario.setGanhosPendentesReferral(BigDecimal.ZERO);

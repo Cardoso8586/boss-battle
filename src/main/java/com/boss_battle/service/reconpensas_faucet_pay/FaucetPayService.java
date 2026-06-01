@@ -169,7 +169,7 @@ public class FaucetPayService {
             String note
     ) throws IOException, ParseException {
 
-        UsuarioBossBattle usuario = usuarioRepo.findById(userId)
+        UsuarioBossBattle usuario = usuarioRepo.buscarPorIdComLock(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         BigDecimal saldoAtual = usuario.getBossCoins();

@@ -29,20 +29,15 @@ public class ReferidosRecompensaController {
 
     // Endpoint para o usuário "claimar" os ganhos acumulados
     @PostMapping("/claim-referidos")
-    public ResponseEntity<?> claimGanhos(@RequestBody ClaimRequestDTO dto) {
+    public ResponseEntity<?> claimGanhos(Authentication auth) {
 
-        if (dto.getUsuarioId() == null) {
-            return ResponseEntity.badRequest().body("Usuário inválido");
-        }
-
-        
         UsuarioBossBattle usuario = usuarioRepository
-            .findById(dto.getUsuarioId())
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .findByUsername(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário não encontrado"));
 
-        recompensaService.claimGanhos(usuario);
+        recompensaService.claimGanhos(usuario.getId());
 
         return ResponseEntity.ok().build();
     }
-
 }

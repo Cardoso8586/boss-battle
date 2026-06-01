@@ -128,7 +128,7 @@ public class BonusDiarioService {
     // Verifica se o usuário pode coletar hoje
     public boolean verificarDisponibilidade(Long usuarioId) {
 
-        UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
+        UsuarioBossBattle usuario = usuarioRepository.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         LocalDate hoje = LocalDate.now();

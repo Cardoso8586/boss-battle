@@ -89,4 +89,9 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
     @Query("SELECT u.id FROM UsuarioBossBattle u WHERE u.energiaGuerreiros > 0")
     List<Long> buscarIdsUsuariosAtivos();
     
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM UsuarioBossBattle u WHERE u.username = :username")
+    Optional<UsuarioBossBattle> findByUsernameForUpdate(@Param("username") String username);
+    
+    
 }//---> fim repo

@@ -150,10 +150,12 @@ public class SecurityConfig {
                         "/api/espada-flanejante/ativar/**",
                         "/api/machado-dilacerador/ativar/**",
                         "/comprar/machado/dilacerador/**",
+                        
                         "/api/faucetpay/saldo/**",
                         "/api/faucetpay/retirada/**",
                         "/api/faucetpay/historico/**",
                         "/api/faucetpay/todos/**",
+                        
                         "/arco/equipar/**",
                         "/aljava/colocar/**",
                         "/arco/reativar/**",

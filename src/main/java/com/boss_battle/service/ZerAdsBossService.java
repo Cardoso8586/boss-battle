@@ -33,43 +33,46 @@ public class ZerAdsBossService {
                                          BigDecimal amount,
                                          Integer clicks) {
 
-    	
-        UsuarioBossBattle usuario = usuarioRepository.findByUsername(username)
+        UsuarioBossBattle usuario = usuarioRepository.findByUsernameForUpdate(username)
                 .orElseThrow(() ->
                         new RuntimeException("Usuário não encontrado: " + username));
 
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("Valor inválido");
+        }
+
+        // proteção contra valores absurdos enviados no callback
+        if (amount.compareTo(new BigDecimal("0.15")) > 0) {
+            throw new RuntimeException("Amount inválido");
+        }
+
         BigDecimal recompensa = amount.multiply(EXCHANGE);
 
+        if (recompensa.compareTo(new BigDecimal("100")) > 0) {
+            throw new RuntimeException("Recompensa inválida");
+        }
         if (usuario.getBossCoins() == null) {
             usuario.setBossCoins(BigDecimal.ZERO);
         }
 
-        usuario.setBossCoins(
-                usuario.getBossCoins().add(recompensa)
-        );
+        usuario.setBossCoins(usuario.getBossCoins().add(recompensa));
 
         if (usuario.getZeradsClicks() == null) {
             usuario.setZeradsClicks(0);
         }
 
-        usuario.setZeradsClicks(
-                usuario.getZeradsClicks() + clicks
-        );
+        usuario.setZeradsClicks(usuario.getZeradsClicks() + 1);
 
         usuario.setUltimoValorRecebido(recompensa);
 
-        ultimoValorRecebidoService
-                .setUltimoValorRecebido(usuario, recompensa);
-        
+        ultimoValorRecebidoService.setUltimoValorRecebido(usuario, recompensa);
+
         missaoDiariaService.atualizarProgressoPtc(usuario.getId(), 1);
-        
-        // SALVA NO BANCO
+
         usuarioRepository.save(usuario);
 
         return recompensa;
     }
-    
  
-    
-    
+   
 }
