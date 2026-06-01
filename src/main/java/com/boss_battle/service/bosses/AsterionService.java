@@ -109,7 +109,7 @@ public class AsterionService {
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorRewardBoss + 5L);
+            boss.setRewardBoss(valorRewardBoss + 15L);
 
         } else {
 

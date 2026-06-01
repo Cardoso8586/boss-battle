@@ -122,7 +122,7 @@ public class KryptarService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 50L);
+            boss.setRewardExp(valorXp + 10L);
 
         } else {
 

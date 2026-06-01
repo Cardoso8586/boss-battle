@@ -63,7 +63,7 @@ public class ArenascorService {
     public void aplicarEscalamentoArenascor(GlobalBossArenascor boss) {
 
         Random random = new Random();
-        long min = 10;
+        long min = 50;
         long max = 100;
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -99,7 +99,7 @@ public class ArenascorService {
 
         // Limitar Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 20);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

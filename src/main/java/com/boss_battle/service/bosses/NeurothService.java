@@ -109,7 +109,7 @@ public class NeurothService {
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorRewardBoss + 2L);
+            boss.setRewardBoss(valorRewardBoss + 20L);
 
         } else {
 
@@ -122,7 +122,7 @@ public class NeurothService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 3L);
+            boss.setRewardExp(valorXp + 30L);
 
         } else {
 
@@ -135,7 +135,7 @@ public class NeurothService {
 
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 3L);
+            boss.setAttackPower(valorAtaque + 30L);
 
         } else {
 

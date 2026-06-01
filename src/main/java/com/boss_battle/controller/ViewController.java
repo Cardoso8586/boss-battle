@@ -13,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.repository.UsuarioGuerreiroRepository;
 import com.boss_battle.service.aprimoramentos_loja.LojaAprimoramentosService;
+import com.boss_battle.service.loja_guerreiros_elite.LojaGuerreiroEliteService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,13 +28,20 @@ import jakarta.servlet.http.HttpSession;
 public class ViewController {
     
 	
+	
+	@Autowired
+    private  UsuarioGuerreiroRepository usuarioGuerreiroRepository;
+	  
+	  
 	@Autowired
 	LojaAprimoramentosService lojaAprimoramentosService;
     private final UsuarioBossBattleRepository usuarioRepository;
-    
+    private final LojaGuerreiroEliteService lojaGuerreiroEliteService;
 
-    public ViewController(UsuarioBossBattleRepository usuarioRepository) {
+    public ViewController(UsuarioBossBattleRepository usuarioRepository,
+    		LojaGuerreiroEliteService lojaGuerreiroEliteService) {
         this.usuarioRepository = usuarioRepository;
+        this.lojaGuerreiroEliteService = lojaGuerreiroEliteService;
     }
 
 
@@ -326,20 +336,11 @@ public class ViewController {
         model.addAttribute("guerreirosRetaguarda",
                 df.format(usuario.getGuerreirosRetaguarda()));
 
-        long guerreiroAtaque = usuario.getGuerreiros();
-        long guerreiroRetaguarda = usuario.getGuerreirosRetaguarda();
-        long guerreiroInventario = usuario.getGuerreirosInventario();
-
-        long quantidadeTotalGuerriro =
-                guerreiroAtaque
-                + guerreiroRetaguarda
-                + guerreiroInventario;
-
+     
         model.addAttribute(
                 "quantidadeTotalGuerriro",
-                df.format(quantidadeTotalGuerriro)
+                df.format(quantidadeTotalGuerreiros(usuario))
         );
-
         long quantGuerreiros = usuario.getGuerreiros();
 
         long quantAtaqueBaseGuerreiros =
@@ -437,8 +438,33 @@ public class ViewController {
                 "boss_coins",
                 df.format(coins)
         );
+        
+        
+        
+        
 
         return "central-comando";
+    }
+    
+    //totalGuerreiros
+    public long quantidadeTotalGuerreiros(UsuarioBossBattle usuario) {
+
+        long antigos =
+                usuario.getGuerreiros()
+              + usuario.getGuerreirosRetaguarda()
+              + usuario.getGuerreirosInventario();
+
+        long elite =
+                usuarioGuerreiroRepository
+                        .findByUsuario(usuario)
+                        .stream()
+                        .mapToLong(ug ->
+                                ug.getQuantidade() == null
+                                        ? 0L
+                                        : ug.getQuantidade())
+                        .sum();
+
+        return antigos + elite;
     }
     
     //resgatar-recompensas
@@ -595,6 +621,52 @@ public class ViewController {
 
      return "ganhar-boss-coins";
  }
+ 
+ 
+ @GetMapping("/loja-guerreiros-elite")
+ public String guerreirosElite(HttpSession session, Model model) {
+
+     UsuarioBossBattle usuarioSessao =
+             (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+     if (usuarioSessao == null) {
+         return "redirect:/arena";
+     }
+
+     UsuarioBossBattle usuario =
+             usuarioRepository
+                     .findById(usuarioSessao.getId())
+                     .orElseThrow(() ->
+                             new RuntimeException("Usuário não encontrado"));
+
+     session.setAttribute("usuarioLogado", usuario);
+
+     DecimalFormatSymbols simbolosBR =
+    	        new DecimalFormatSymbols(new Locale("pt", "BR"));
+
+    	DecimalFormat df = new DecimalFormat("#,##0", simbolosBR);
+
+     BigDecimal coins = usuario.getBossCoins();
+
+     if (coins == null) {
+         coins = BigDecimal.ZERO;
+     }
+
+     model.addAttribute("usuario", usuario);
+     model.addAttribute("idUsuario", usuario.getId());
+
+     model.addAttribute("xpUsuario", df.format(usuario.getExp()));
+     model.addAttribute("nivelUsuario", df.format(usuario.getNivel()));
+     model.addAttribute("boss_coins", df.format(coins));
+
+     model.addAttribute(
+             "guerreiros",
+             lojaGuerreiroEliteService.listarGuerreirosLoja(usuario.getId())
+     );
+
+     return "loja-guerreiros-elite";
+ }
+ 
  /*
  
  @GetMapping("/depositar")

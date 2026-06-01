@@ -94,7 +94,7 @@ public class AzraelPrimeService {
     	
         if(valorsetRewardBoss < MAX_REWARD_BOSS) {
         	
-        	boss.setRewardBoss(valorsetRewardBoss + 1);
+        	boss.setRewardBoss(valorsetRewardBoss + 10);
         }else {
         	
         	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -111,7 +111,7 @@ public class AzraelPrimeService {
         
         // Limitar Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 10);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NecrotharService {
 
-    private static final long MAX_ATTACK = 500;
+    private static final long MAX_ATTACK = 1_500;
     private static final long MAX_INTERVAL = 1000;
     private static final long MAX_REWARD_BOSS = 500_000;
-    private static final long MAX_EXP = 79000;
+    private static final long MAX_EXP = 79_000;
     private static final long MAX_HP = 950_000;
 
     @Autowired
@@ -88,7 +88,7 @@ public class NecrotharService {
 
         // ===== REWARD =====
         if (rewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(rewardBoss + 2);
+            boss.setRewardBoss(rewardBoss + 20);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -96,14 +96,14 @@ public class NecrotharService {
         // ===== EXP =====
         long xp = boss.getRewardExp();
         if (xp < MAX_EXP) {
-            boss.setRewardExp(xp + 2);
+            boss.setRewardExp(xp + 20);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         // ===== ATAQUE =====
         if (ataque < MAX_ATTACK) {
-            boss.setAttackPower(ataque + 4);
+            boss.setAttackPower(ataque + 40);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

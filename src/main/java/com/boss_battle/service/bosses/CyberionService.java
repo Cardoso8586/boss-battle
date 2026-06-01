@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class CyberionService {
 
-    private static final long MAX_ATTACK = 700;
+    private static final long MAX_ATTACK = 1700;
     private static final long MAX_INTERVAL = 1000;
     private static final long MAX_REWARD_BOSS = 700_000;
     private static final long MAX_EXP = 53000;
@@ -63,8 +63,8 @@ public class CyberionService {
 
         Random random = new Random();
 
-        long min = 10;
-        long max = 100;
+        long min = 110;
+        long max = 200;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -89,7 +89,7 @@ public class CyberionService {
         // Limitar recompensa boss
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 10);
 
         } else {
 
@@ -101,7 +101,7 @@ public class CyberionService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 10);
 
         } else {
 
@@ -111,7 +111,7 @@ public class CyberionService {
         // Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 20);
 
         } else {
 

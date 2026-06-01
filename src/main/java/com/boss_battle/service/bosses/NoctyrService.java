@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class NoctyrService {
 
-	private static final long MAX_ATTACK = 700;
-	private static final long MAX_INTERVAL = 1100;
+	private static final long MAX_ATTACK = 1_700;
+	private static final long MAX_INTERVAL = 1_100;
 	private static final long MAX_REWARD_BOSS = 400_000;
-	private static final long MAX_EXP = 68000;
+	private static final long MAX_EXP = 68_000;
 	private static final long MAX_HP = 600_000;
 	
     @Autowired
@@ -70,8 +70,8 @@ public class NoctyrService {
 
 
     	  Random random = new Random();
-        	long min = 10;
-        	long max = 100;
+        	long min = 150;
+        	long max = 300;
         	long incrementarUp = random.nextLong(min, max + 1);
         	long valorHpMax =  boss.getMaxHp();
         	long valorCur = boss.getCurrentHp();
@@ -95,7 +95,7 @@ public class NoctyrService {
         	
             if(valorsetRewardBoss < MAX_REWARD_BOSS) {
             	
-            	boss.setRewardBoss(valorsetRewardBoss + 1);
+            	boss.setRewardBoss(valorsetRewardBoss + 17);
             }else {
             	
             	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -104,7 +104,7 @@ public class NoctyrService {
             //--->Limitar xp
      	    long valorXp =  boss.getRewardExp();
             if(valorXp < MAX_EXP) {
-               boss.setRewardExp(valorXp + 1);
+               boss.setRewardExp(valorXp + 17);
             }else {
             	 boss.setRewardExp(MAX_EXP);
             	
@@ -112,7 +112,7 @@ public class NoctyrService {
             
             // Limitar Evolução do ataque
             if (valorAtaque < MAX_ATTACK) {
-                boss.setAttackPower(valorAtaque + 5);
+                boss.setAttackPower(valorAtaque + 35);
             } else {
                 boss.setAttackPower(MAX_ATTACK);
             }

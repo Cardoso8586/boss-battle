@@ -40,7 +40,18 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.logo img {
+    max-width: 450px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
         .vigor-page {
             width: 100%;
             max-width: 900px;

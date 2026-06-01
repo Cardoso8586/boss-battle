@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class MalgrythService {
 
-    private static final long MAX_ATTACK = 700;
-    private static final long MAX_INTERVAL = 1000;
+    private static final long MAX_ATTACK = 1_700;
+    private static final long MAX_INTERVAL = 1_000;
     private static final long MAX_REWARD_BOSS = 700_000;
-    private static final long MAX_EXP = 53000;
+    private static final long MAX_EXP = 53_000;
     private static final long MAX_HP = 700_000;
 
     @Autowired
@@ -63,8 +63,8 @@ public class MalgrythService {
 
         Random random = new Random();
 
-        long min = 10;
-        long max = 100;
+        long min = 100;
+        long max = 300;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -83,7 +83,7 @@ public class MalgrythService {
         }
 
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 13);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -91,13 +91,13 @@ public class MalgrythService {
         long valorXp = boss.getRewardExp();
 
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 13);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 31);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,6 +88,7 @@ import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.BossRewardLockRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.repository.UsuarioGuerreiroRepository;
 import com.boss_battle.service.BossDamageLogService;
 import com.boss_battle.service.ReferidosRecompensaService;
 import com.boss_battle.service.UltimoValorRecebidoService;
@@ -263,7 +265,8 @@ public class GlobalBossService {
     
     private final SpawRandomBossService spawRandomBossService;
     
-   
+
+    private final UsuarioGuerreiroRepository usuarioGuerreiroRepository;
     private final RetaguardaService retaguardaService;
     private final MissaoDiariaService missaoDiariaService;
     
@@ -368,7 +371,8 @@ public class GlobalBossService {
             SpawRandomBossService spawRandomBossService,
             MissaoDiariaService missaoDiariaService,
             RankingAtaqueEspecialService rankingAtaqueEspecialService,
-            UltimoValorRecebidoService ultimoValorRecebidoService
+            UltimoValorRecebidoService ultimoValorRecebidoService,
+            UsuarioGuerreiroRepository usuarioGuerreiroRepository
             
     ) {
     	this.retaguardaService = retaguardaService;
@@ -460,6 +464,7 @@ public class GlobalBossService {
         this.missaoDiariaService = missaoDiariaService;
         this.rankingAtaqueEspecialService = rankingAtaqueEspecialService;
         this.ultimoValorRecebidoService = ultimoValorRecebidoService;
+        this.usuarioGuerreiroRepository = usuarioGuerreiroRepository;
         
     }
 
@@ -590,8 +595,16 @@ public class GlobalBossService {
         else {
         	long ataqueBase = usuario.getAtaqueBase();
         	long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
+        	long danoElite = calcularDanoElite(usuario);
 
-        	long damage = ataqueBase + ataqueEspecial;
+        	long damage =
+        	        ataqueBase
+        	      + ataqueEspecial
+        	      + danoElite;
+        	
+        
+
+        	
         	
         	
             missaoDiariaService.atualizarProgressoDano(usuarioId, damage);
@@ -871,6 +884,22 @@ public class GlobalBossService {
              
     }//fim hitActiveBoss
 
+    
+    public long calcularDanoElite(UsuarioBossBattle usuario) {
+
+        return usuarioGuerreiroRepository
+                .findByUsuario(usuario)
+                .stream()
+                .mapToLong(ug -> {
+
+                    if (ug.getQuantidade() == null) return 0L;
+                    if (ug.getGuerreiro() == null) return 0L;
+                    if (ug.getGuerreiro().getDanoBase() == null) return 0L;
+
+                    return ug.getQuantidade() * ug.getGuerreiro().getDanoBase();
+                })
+                .sum();
+    }
     //===========================  tryHitBoss ================================
 
     public Object tryHitBoss(String bossName, BattleBoss boss,

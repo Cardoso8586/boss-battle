@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ObraserkerService {
 
-    private static final long MAX_ATTACK = 500;              // ajuste se quiser
+    private static final long MAX_ATTACK = 1_500;              // ajuste se quiser
     private static final long MAX_INTERVAL = 200;            // ajuste se quiser
     private static final long MAX_REWARD_BOSS = 300_000;     // ajuste se quiser
     private static final long MAX_EXP = 50_000;              // ajuste se quiser
@@ -69,7 +69,7 @@ public class ObraserkerService {
 
         Random random = new Random();
 
-        long min = 10;
+        long min = 101;
         long max = 200;
 
         long incrementarUp = random.nextLong(min, max + 1);
@@ -91,7 +91,7 @@ public class ObraserkerService {
 
         // ================= REWARD =================
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 2);
+            boss.setRewardBoss(valorRewardBoss + 21);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -106,7 +106,7 @@ public class ObraserkerService {
 
         // ================= ATAQUE =================
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 21);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

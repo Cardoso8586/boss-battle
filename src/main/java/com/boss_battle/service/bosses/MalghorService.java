@@ -109,7 +109,7 @@ public class MalghorService {
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorRewardBoss + 3L);
+            boss.setRewardBoss(valorRewardBoss + 13L);
 
         } else {
 
@@ -122,7 +122,7 @@ public class MalghorService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 5L);
+            boss.setRewardExp(valorXp + 15L);
 
         } else {
 
@@ -135,7 +135,7 @@ public class MalghorService {
 
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 4L);
+            boss.setAttackPower(valorAtaque + 41L);
 
         } else {
 

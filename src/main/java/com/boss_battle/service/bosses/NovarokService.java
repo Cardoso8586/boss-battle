@@ -82,19 +82,19 @@ public class NovarokService {
         }
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 3L);
+            boss.setRewardBoss(valorRewardBoss + 13L);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
 
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 7L);
+            boss.setRewardExp(valorXp + 17L);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 5L);
+            boss.setAttackPower(valorAtaque + 35L);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class InfernaxService {
 
-	private static final long MAX_ATTACK = 1000;
-	private static final long MAX_INTERVAL = 1100;
+	private static final long MAX_ATTACK = 1_000;
+	private static final long MAX_INTERVAL = 1_100;
 	private static final long MAX_REWARD_BOSS = 500_000;
-	private static final long MAX_EXP = 72000;
+	private static final long MAX_EXP = 72_000;
 	private static final long MAX_HP = 900_000;
     @Autowired
     private InfernaxRepository repo;
@@ -64,8 +64,8 @@ public class InfernaxService {
     public void aplicarEscalamentoInfernax (GlobalBossInfernax boss) {
 
     	  Random random = new Random();
-        	long min = 10;
-        	long max = 100;
+        	long min = 100;
+        	long max = 200;
         	long incrementarUp = random.nextLong(min, max + 1);
         	long valorHpMax =  boss.getMaxHp();
         	long valorCur = boss.getCurrentHp();
@@ -89,7 +89,7 @@ public class InfernaxService {
         	
             if(valorsetRewardBoss < MAX_REWARD_BOSS) {
             	
-            	boss.setRewardBoss(valorsetRewardBoss + 1);
+            	boss.setRewardBoss(valorsetRewardBoss + 11);
             }else {
             	
             	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -98,7 +98,7 @@ public class InfernaxService {
             //--->Limitar xp
      	    long valorXp =  boss.getRewardExp();
             if(valorXp < MAX_EXP) {
-               boss.setRewardExp(valorXp + 1);
+               boss.setRewardExp(valorXp + 11);
             }else {
             	 boss.setRewardExp(MAX_EXP);
             	
@@ -106,7 +106,7 @@ public class InfernaxService {
             
             // Limitar Evolução do ataque
             if (valorAtaque < MAX_ATTACK) {
-                boss.setAttackPower(valorAtaque + 5);
+                boss.setAttackPower(valorAtaque + 15);
             } else {
                 boss.setAttackPower(MAX_ATTACK);
             }

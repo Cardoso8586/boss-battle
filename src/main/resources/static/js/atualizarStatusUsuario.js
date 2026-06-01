@@ -279,7 +279,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function renderizarImagemGuerreiro(data) {
-        const guerreiroImage = el("guerreiro-image");
+		const guerreiroImage =
+		    el("userGuerreiroImagem") || el("guerreiro-image");
+
+		if (!guerreiroImage) return;
+		
+		
         const generatingImageAtaque = el("generating-image-ataque");
         const generatingImage = el("generating-image");
 
@@ -296,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnAtivarMachado = el("btnAtivarMachadoDilacerador");
         const btnEquiparArco = el("btnEquiparArco");
 
-        if (!guerreiroImage) return;
+      
 
         const quantGuerreirosPadrao = data.guerreiros ?? 0;
         const quantGuerreirosRetaguarda = data.guerreirosRetaguarda ?? 0;

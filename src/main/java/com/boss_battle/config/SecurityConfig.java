@@ -81,7 +81,7 @@ public class SecurityConfig {
             	    .requestMatchers(
             	            new AntPathRequestMatcher("/depositos/nowpayments/ipn", "POST"),
             	            new AntPathRequestMatcher("/depositos/nowpayments/teste", "POST"),
-            	            new AntPathRequestMatcher("/depositos/nowpayments/teste", "GET")
+            	            new AntPathRequestMatcher("/depositos/nowpayments/status/**", "GET")
             	        ).permitAll()
 
             		
@@ -110,6 +110,11 @@ public class SecurityConfig {
                         "/depositos/nowpayments/ipn/**",
                         "/depositar/**",
                         "/depositar/criar/**",
+                        "/loja-guerreiros-elite/**",
+                        "/boss-battle/guerreiros-elite/comprar/**",
+                        
+                        "/guerreiros/usuario/**",
+                      
                         
                         "/aliados/**",
                         "/perfil/**",

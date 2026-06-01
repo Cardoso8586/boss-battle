@@ -119,6 +119,7 @@ public class PromoService {
                 quantidade = 2;
                 lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
                 
+                
             }
 
             case "AVANCADA" -> {

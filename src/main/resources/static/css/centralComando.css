@@ -83,7 +83,18 @@ body {
     color: #fff;
     padding: 20px;
 }
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.logo img {
+    max-width: 450px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
 #perfil {
     max-width: 1200px;
     margin: 0 auto;

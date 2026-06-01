@@ -99,7 +99,7 @@ public class AzurionService {
       	
           if(valorsetRewardBoss < MAX_REWARD_BOSS) {
           	
-          	boss.setRewardBoss(valorsetRewardBoss + 1);
+          	boss.setRewardBoss(valorsetRewardBoss + 10);
           }else {
           	
           	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -108,7 +108,7 @@ public class AzurionService {
           //--->Limitar xp
    	    long valorXp =  boss.getRewardExp();
           if(valorXp < MAX_EXP) {
-             boss.setRewardExp(valorXp + 1);
+             boss.setRewardExp(valorXp + 10);
           }else {
           	 boss.setRewardExp(MAX_EXP);
           	
@@ -116,7 +116,7 @@ public class AzurionService {
           
           // Limitar Evolução do ataque
           if (valorAtaque < MAX_ATTACK) {
-              boss.setAttackPower(valorAtaque + 1);
+              boss.setAttackPower(valorAtaque + 10);
           } else {
               boss.setAttackPower(MAX_ATTACK);
           }

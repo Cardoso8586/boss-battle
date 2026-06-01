@@ -9,8 +9,15 @@
     <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet" href="/css/anuncios.css"> 
     <link rel="stylesheet" href="/css/depositos.css">
+    
+    <link rel="preload"
+      href="/images/fundo-boss.webp"
+      as="image">
+     <link rel="preload"
+      href="/images/logo-boss-battle.webp"
+      as="image">
 </head>
 
 <body>
@@ -23,7 +30,10 @@
 </a>
 
 <div class="deposit-container">
-
+ <div class="logo">
+        <img src="/images/logo-boss-battle.webp"
+         alt="Boss Battle Arena">
+     </div>
     <h1>Depositar</h1>
 
     <p class="subtitle">
@@ -36,7 +46,8 @@
     </div>
 
     <div class="deposit-box"
-         th:if="${pagamento == null}">
+     id="depositFormBox"
+     th:if="${pagamento == null}">
 
         <form th:action="@{/depositar/criar}" method="post">
 
@@ -95,8 +106,9 @@
 
     </div>
 
-    <div class="info"
-         th:if="${pagamento == null}">
+<div class="info"
+     id="depositInfoBox"
+     th:if="${pagamento == null}">
 
         Após gerar o depósito, envie exatamente o valor informado para o endereço exibido.
         O saldo será creditado automaticamente após a confirmação do pagamento.

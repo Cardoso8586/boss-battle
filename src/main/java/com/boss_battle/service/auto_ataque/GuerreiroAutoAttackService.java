@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.boss_battle.model.BattleBoss;
 import com.boss_battle.model.UsuarioBossBattle;
+import com.boss_battle.repository.GuerreiroRepository;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-
+import com.boss_battle.repository.UsuarioGuerreiroRepository;
 import com.boss_battle.service.ativar_equipar.ArcoService;
 import com.boss_battle.service.ativar_equipar.EspadaFlanejanteService;
 import com.boss_battle.service.ativar_equipar.MachadoDilaceradorService;
@@ -26,6 +27,12 @@ public class GuerreiroAutoAttackService {
 	private final long MACHADO_DILACERADOR_PROCENTGEM = 10;
 
 	
+
+    
+    @Autowired
+    private  UsuarioGuerreiroRepository usuarioGuerreiroRepository;
+    
+    
 	@Autowired
 	private ArcoService arcoService;
 	
@@ -68,7 +75,12 @@ public class GuerreiroAutoAttackService {
 	    if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
 
 	    // ⚔️ dano base
+	     // ⚔️ dano base dos guerreiros antigos
 	    long dano = guerreiros * ataqueBase;
+
+	    // ⚔️ dano dos guerreiros elite
+	    long danoElite = calcularDanoElite(usuario);
+	    dano += danoElite;
 
 	    // ⚔️ bônus da espada (20%)
 	    if (espadasAtivas != null && espadasAtivas > 0) {
@@ -125,8 +137,21 @@ public class GuerreiroAutoAttackService {
 	
 	 
 //====================================================================================================
-	
-	
+	public long calcularDanoElite(UsuarioBossBattle usuario) {
+
+	    return usuarioGuerreiroRepository
+	            .findByUsuario(usuario)
+	            .stream()
+	            .mapToLong(ug -> {
+
+	                if (ug.getQuantidade() == null) return 0L;
+	                if (ug.getGuerreiro() == null) return 0L;
+	                if (ug.getGuerreiro().getDanoBase() == null) return 0L;
+
+	                return ug.getQuantidade() * ug.getGuerreiro().getDanoBase();
+	            })
+	            .sum();
+	}
 	//================================  destruirArmasEmEstadoIlegal  ===================================
 	
 	public void destruirArmasEmEstadoIlegal(UsuarioBossBattle usuario) {

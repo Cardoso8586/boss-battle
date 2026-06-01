@@ -14,14 +14,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-
+import com.boss_battle.repository.UsuarioGuerreiroRepository;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class DashboardController {
+	
+	
+	  @Autowired
+	  private  UsuarioGuerreiroRepository usuarioGuerreiroRepository;
+	  
+	  
 	 @Autowired
-	    private UsuarioBossBattleRepository repo;
+	 private UsuarioBossBattleRepository repo;
+	 
+	 
 	 @GetMapping("/arena")
 	 public String dashboard(HttpSession session, Model model) {
 
@@ -43,7 +51,11 @@ public class DashboardController {
 	     model.addAttribute("usuario", usuario);
 	     model.addAttribute("idUsuario", usuario.getId());
 
-	     model.addAttribute("ataque_base", df.format(usuario.getAtaqueBase()));
+	     long ataqueBaseTotal = calcularAtaqueBaseTotal(usuario);
+	   
+	     model.addAttribute("ataque_base", df.format(ataqueBaseTotal));
+	     
+	     
 	     model.addAttribute("xpUsuario", df.format(usuario.getExp()));
 	     model.addAttribute("nivelUsuario", df.format(usuario.getNivel()));
 
@@ -151,4 +163,29 @@ public class DashboardController {
 	     
 	     return "arena";
 	 }
-}
+	 
+	    public long calcularAtaqueBaseTotal(UsuarioBossBattle usuario) {
+
+	        long ataqueBaseJogador = Math.max(0L, usuario.getAtaqueBase());
+
+	        return ataqueBaseJogador + calcularAtaqueBaseElite(usuario);
+	    }
+	    
+	    public long calcularAtaqueBaseElite(UsuarioBossBattle usuario) {
+
+	        return usuarioGuerreiroRepository
+	                .findByUsuario(usuario)
+	                .stream()
+	                .mapToLong(ug -> {
+
+	                    if (ug.getQuantidade() == null) return 0L;
+	                    if (ug.getGuerreiro() == null) return 0L;
+	                    if (ug.getGuerreiro().getDanoBase() == null) return 0L;
+
+	                    return ug.getQuantidade() *
+	                            ug.getGuerreiro().getDanoBase();
+	                })
+	                .sum();
+	    }
+
+}// fim arena

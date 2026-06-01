@@ -15,9 +15,9 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ExodraxService {
 
-    private static final long MAX_ATTACK = 3200;
-    private static final long MAX_INTERVAL = 1000;
-    private static final long MAX_REWARD_BOSS = 8000_000;
+    private static final long MAX_ATTACK = 3_200;
+    private static final long MAX_INTERVAL = 1_000;
+    private static final long MAX_REWARD_BOSS = 800_000;
     private static final long MAX_EXP = 150_000;
     private static final long MAX_HP = 8_000_000;
 
@@ -90,7 +90,7 @@ public class ExodraxService {
         // Limitar recompensa boss
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 10);
 
         } else {
 
@@ -102,7 +102,7 @@ public class ExodraxService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 10);
 
         } else {
 
@@ -112,7 +112,7 @@ public class ExodraxService {
         // Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 50);
 
         } else {
 

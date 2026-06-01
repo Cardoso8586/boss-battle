@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class EclypzorService {
 
-    private static final long MAX_ATTACK = 3000;
+    private static final long MAX_ATTACK = 3_000;
     private static final long MAX_INTERVAL = 1000;
     private static final long MAX_REWARD_BOSS = 600_000;
     private static final long MAX_EXP = 400_000;
@@ -81,7 +81,7 @@ public class EclypzorService {
         }
 
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 10);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -89,13 +89,13 @@ public class EclypzorService {
         long valorXp = boss.getRewardExp();
 
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 10);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 30);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

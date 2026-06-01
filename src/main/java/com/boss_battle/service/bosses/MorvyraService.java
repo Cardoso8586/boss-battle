@@ -106,7 +106,7 @@ public class MorvyraService {
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorRewardBoss + 50L);
+            boss.setRewardBoss(valorRewardBoss + 10L);
 
         } else {
 
@@ -119,7 +119,7 @@ public class MorvyraService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 120L);
+            boss.setRewardExp(valorXp + 20L);
 
         } else {
 
@@ -132,7 +132,7 @@ public class MorvyraService {
 
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 50L);
+            boss.setAttackPower(valorAtaque + 30L);
 
         } else {
 

@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AbissalService {
 
-    private static final long MAX_ATTACK = 500;
+    private static final long MAX_ATTACK = 1500;
     private static final long MAX_INTERVAL = 500;
     private static final long MAX_REWARD_BOSS = 500_000;
     private static final long MAX_EXP = 70_000;
@@ -108,7 +108,7 @@ public class AbissalService {
 
         // ================= REWARD =================
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 2);
+            boss.setRewardBoss(valorRewardBoss + 20);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -124,7 +124,7 @@ public class AbissalService {
 
         // ================= ATAQUE =================
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 50);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

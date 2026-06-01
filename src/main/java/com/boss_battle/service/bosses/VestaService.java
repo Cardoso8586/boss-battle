@@ -15,8 +15,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class VestaService {
 
-    private static final long MAX_ATTACK = 600;           // ajuste se quiser
-    private static final long MAX_INTERVAL = 1000;         // ajuste se quiser
+    private static final long MAX_ATTACK = 1_600;           // ajuste se quiser
+    private static final long MAX_INTERVAL = 1_000;         // ajuste se quiser
     private static final long MAX_REWARD_BOSS = 550_000;   // ajuste se quiser
     private static final long MAX_EXP = 70_000;            // ajuste se quiser
     private static final long MAX_HP = 850_000;            // ajuste se quiser
@@ -91,7 +91,7 @@ public class VestaService {
 
         // ================= REWARD =================
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 2);
+            boss.setRewardBoss(valorRewardBoss + 12);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -100,14 +100,14 @@ public class VestaService {
         long valorXp = boss.getRewardExp();
 
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 2);
+            boss.setRewardExp(valorXp + 12);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         // ================= ATAQUE =================
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 15);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

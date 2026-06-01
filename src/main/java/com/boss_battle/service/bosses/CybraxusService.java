@@ -87,21 +87,21 @@ public class CybraxusService {
 
         // Limitar recompensa
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 500L);
+            boss.setRewardBoss(valorRewardBoss + 10L);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
 
         // Limitar XP
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 250L);
+            boss.setRewardExp(valorXp + 25L);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         // Limitar evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 5L);
+            boss.setAttackPower(valorAtaque + 15L);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

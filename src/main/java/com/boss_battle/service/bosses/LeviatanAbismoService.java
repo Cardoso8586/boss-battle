@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class LeviatanAbismoService {
 
-    private static final long MAX_ATTACK = 500;
+    private static final long MAX_ATTACK = 1_500;
     private static final long MAX_INTERVAL = 200; 
     private static final long MAX_REWARD_BOSS = 300_000;
     private static final long MAX_EXP = 50_000;
@@ -69,7 +69,7 @@ public class LeviatanAbismoService {
 
         Random random = new Random();
 
-        long min = 10;
+        long min = 80;
         long max = 200;
 
         long incrementarUp = random.nextLong(min, max + 1);
@@ -106,7 +106,7 @@ public class LeviatanAbismoService {
 
         // ================= ATAQUE =================
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 20);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

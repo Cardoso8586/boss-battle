@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class MalevolaService {
 
-    private static final long MAX_ATTACK = 500;           // ajuste se quiser
+    private static final long MAX_ATTACK = 1_500;           // ajuste se quiser
     private static final long MAX_INTERVAL = 1000;        // ajuste se quiser
     private static final long MAX_REWARD_BOSS = 500_000;  // ajuste se quiser
     private static final long MAX_EXP = 79_000;           // ajuste se quiser
@@ -82,7 +82,7 @@ public class MalevolaService {
 
         // ===== REWARD =====
         if (rewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(rewardBoss + 2);
+            boss.setRewardBoss(rewardBoss + 12);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -90,14 +90,14 @@ public class MalevolaService {
         // ===== EXP =====
         long xp = boss.getRewardExp();
         if (xp < MAX_EXP) {
-            boss.setRewardExp(xp + 2);
+            boss.setRewardExp(xp + 12);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         // ===== ATAQUE =====
         if (ataque < MAX_ATTACK) {
-            boss.setAttackPower(ataque + 1);
+            boss.setAttackPower(ataque + 15);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

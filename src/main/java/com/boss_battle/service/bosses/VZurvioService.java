@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class VZurvioService {
 
-    private static final long MAX_ATTACK = 700;
-    private static final long MAX_INTERVAL = 1000;
+    private static final long MAX_ATTACK = 1_700;
+    private static final long MAX_INTERVAL = 1_000;
     private static final long MAX_REWARD_BOSS = 400_000;
-    private static final long MAX_EXP = 53000;
+    private static final long MAX_EXP = 53_000;
     private static final long MAX_HP = 700_000;
 
     @Autowired
@@ -61,7 +61,7 @@ public class VZurvioService {
 
         Random random = new Random();
 
-        long min = 10;
+        long min = 60;
         long max = 100;
 
         long incrementarUp = random.nextLong(min, max + 1);
@@ -85,7 +85,7 @@ public class VZurvioService {
 
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 11);
 
         } else {
 
@@ -96,7 +96,7 @@ public class VZurvioService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 11);
 
         } else {
 
@@ -105,7 +105,7 @@ public class VZurvioService {
 
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 21);
 
         } else {
 

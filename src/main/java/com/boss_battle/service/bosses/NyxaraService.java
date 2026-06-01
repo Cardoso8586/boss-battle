@@ -109,7 +109,7 @@ public class NyxaraService {
 
         if (valorRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorRewardBoss + 50L);
+            boss.setRewardBoss(valorRewardBoss + 20L);
 
         } else {
 
@@ -122,7 +122,7 @@ public class NyxaraService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 75L);
+            boss.setRewardExp(valorXp + 25L);
 
         } else {
 

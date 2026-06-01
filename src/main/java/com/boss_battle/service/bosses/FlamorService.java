@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class FlamorService {
 
-	private static final long MAX_ATTACK = 700;
+	private static final long MAX_ATTACK = 1_700;
 	private static final long MAX_INTERVAL = 1100;
 	private static final long MAX_REWARD_BOSS = 300_000;
 	private static final long MAX_EXP = 46000;
@@ -66,8 +66,8 @@ public class FlamorService {
 
 
     	  Random random = new Random();
-      	long min = 10;
-      	long max = 100;
+      	long min = 100;
+      	long max = 200;
       	long incrementarUp = random.nextLong(min, max + 1);
       	long valorHpMax =  boss.getMaxHp();
       	long valorCur = boss.getCurrentHp();
@@ -91,7 +91,7 @@ public class FlamorService {
       	
           if(valorsetRewardBoss < MAX_REWARD_BOSS) {
           	
-          	boss.setRewardBoss(valorsetRewardBoss + 1);
+          	boss.setRewardBoss(valorsetRewardBoss + 10);
           }else {
           	
           	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -100,7 +100,7 @@ public class FlamorService {
           //--->Limitar xp
    	    long valorXp =  boss.getRewardExp();
           if(valorXp < MAX_EXP) {
-             boss.setRewardExp(valorXp + 1);
+             boss.setRewardExp(valorXp + 10);
           }else {
           	 boss.setRewardExp(MAX_EXP);
           	
@@ -108,7 +108,7 @@ public class FlamorService {
           
           // Limitar Evolução do ataque
           if (valorAtaque < MAX_ATTACK) {
-              boss.setAttackPower(valorAtaque + 2);
+              boss.setAttackPower(valorAtaque + 20);
           } else {
               boss.setAttackPower(MAX_ATTACK);
           }

@@ -31,7 +31,7 @@ public class GlobalBossKryptar implements BattleBoss {
     private long currentHp = 100_000L;
 
     // ☣️ ataque tóxico sombrio
-    private long attackPower = 850L;
+    private long attackPower = 150L;
 
     // ataque extremamente rápido
     private long attackIntervalSeconds = 125L;

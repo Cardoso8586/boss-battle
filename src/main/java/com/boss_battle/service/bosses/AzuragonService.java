@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AzuragonService {
 
-    private static final long MAX_ATTACK = 600;
+    private static final long MAX_ATTACK = 1600;
     private static final long MAX_INTERVAL = 1100;
     private static final long MAX_REWARD_BOSS = 400_000;
     private static final long MAX_EXP = 53000;
@@ -63,8 +63,8 @@ public class AzuragonService {
 
         Random random = new Random();
 
-        long min = 10;
-        long max = 100;
+        long min = 40;
+        long max = 150;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -89,7 +89,7 @@ public class AzuragonService {
         // Limitar recompensa boss
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 10);
 
         } else {
 
@@ -101,7 +101,7 @@ public class AzuragonService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 10);
 
         } else {
 
@@ -111,7 +111,7 @@ public class AzuragonService {
         // Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 10);
 
         } else {
 

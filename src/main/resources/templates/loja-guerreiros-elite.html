@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+    
+    
+    <title>Loja de Guerreiros Elite</title>
+    
+      <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+      <link rel="stylesheet" href="/css/loja-guerreiros-elite.css"> 
+      <link rel="stylesheet" href="/css/swal-game-error.css">
+        <link rel="stylesheet" href="/css/customClass.css">  
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+        <link rel="stylesheet" href="/css/anuncios.css"> 
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+      
+      <link rel="preload"
+      href="/images/fundo-boss.webp"
+      as="image">
+        <link rel="preload"
+      href="/images/logo-boss-battle.webp"
+      as="image">
+</head>
+
+
+</head>
+
+<body>
+   <div class="logo">
+        <img src="/images/logo-boss-battle.webp"
+         alt="Boss Battle Arena">
+     </div>
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<div class="loja-container">
+ <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+    <div class="loja-header">
+        <h1>⚔️ Loja de Guerreiros Elite</h1>
+
+        <div class="aviso-ataque">
+            Estes guerreiros são exclusivos para ataque ao Boss.
+            Eles não vão para a retaguarda e não usam o inventário tradicional.
+        </div>
+
+     <div class="saldo-box">
+    BossCoins:
+   <span class="boss-coins-atual"
+      th:text="${boss_coins}">
+</span>
+</div>
+
+
+    </div>
+
+    <div class="mensagem" th:if="${mensagem}" th:text="${mensagem}">
+        Mensagem
+    </div>
+
+<div class="cards-guerreiros">
+
+    <!-- CARD VALGARD -->
+    <div class="card-guerreiro"
+         th:each="guerreiro : ${guerreiros}"
+         th:if="${guerreiro.nome == 'Valgard'}">
+
+        <img loading="lazy"
+             decoding="async"
+             src="/images/guerreiros_elite/guerreiro_valgard/valgard-apresentacao.webp"
+             alt="Valgard">
+
+        <h2 th:text="${guerreiro.nome}">Valgard</h2>
+
+        <div class="info">
+            Tipo:
+            <strong th:text="${guerreiro.tipo}">GUERREIRO</strong>
+        </div>
+
+        <div class="info">
+            Dano base:
+            <strong th:text="${guerreiro.danoBase}">8</strong>
+        </div>
+
+        <div class="info">
+            Preço atual:
+            <strong class="preco-atual"
+                    th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+                5.000
+            </strong>
+            Boss Coins
+        </div>
+
+        <div class="info">
+            Você possui:
+            <strong class="quantidade-atual"
+                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+                0
+            </strong>
+        </div>
+
+        <div class="tag-ataque">
+            Somente ataque ao Boss
+        </div>
+
+        <form class="form-compra">
+            <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+
+            <input type="number"
+                   class="quantidade-guerreiro"
+                   value="1"
+                   min="1"
+                   max="5">
+
+            <button type="button"
+                    class="btn-comprar-guerreiro"
+                    th:data-guerreiro-id="${guerreiro.id}"
+                    th:data-guerreiro-nome="${guerreiro.nome}">
+                Comprar
+            </button>
+        </form>
+    </div>
+
+    <!-- CARD GUERREIRA MÍSTICA -->
+    <div class="card-guerreiro"
+         th:each="guerreiro : ${guerreiros}"
+         th:if="${guerreiro.nome == 'Guerreira Mística'}">
+
+        <img loading="lazy"
+             decoding="async"
+             src="/images/guerreiros_elite/guerreira_mistica/guerreira-mistica-apresentacao2.webp"
+             alt="Guerreira Mística">
+
+        <h2 th:text="${guerreiro.nome}"></h2>
+
+        <div class="info">
+            Tipo:
+            <strong th:text="${guerreiro.tipo}"></strong>
+        </div>
+
+        <div class="info">
+            Dano base:
+            <strong th:text="${guerreiro.danoBase}"></strong>
+        </div>
+
+        <div class="info">
+            Preço atual:
+            <strong class="preco-atual"
+                    th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+            </strong>
+            Boss Coins
+        </div>
+
+        <div class="info">
+            Você possui:
+            <strong class="quantidade-atual"
+                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+                0
+            </strong>
+        </div>
+
+        <div class="tag-ataque">
+            Somente ataque ao Boss
+        </div>
+
+        <form class="form-compra">
+            <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+
+            <input type="number"
+                   class="quantidade-guerreiro"
+                   value="1"
+                   min="1"
+                   max="5">
+
+            <button type="button"
+                    class="btn-comprar-guerreiro"
+                    th:data-guerreiro-id="${guerreiro.id}"
+                    th:data-guerreiro-nome="${guerreiro.nome}">
+                Comprar
+            </button>
+        </form>
+    </div>
+
+    <!-- CARD CAÇADOR DE BOSS -->
+    <div class="card-guerreiro"
+         th:each="guerreiro : ${guerreiros}"
+         th:if="${guerreiro.nome == 'Caçador de Boss'}">
+
+        <img loading="lazy"
+             decoding="async"
+             src="/images/guerreiros_elite/cacador_boss/cacador-boss_apresentacao.webp"
+             alt="Caçador de Boss">
+
+        <h2 th:text="${guerreiro.nome}"></h2>
+
+        <div class="info">
+            Tipo:
+            <strong th:text="${guerreiro.tipo}"></strong>
+        </div>
+
+        <div class="info">
+            Dano base:
+            <strong th:text="${guerreiro.danoBase}"></strong>
+        </div>
+
+        <div class="info">
+            Preço atual:
+            <strong class="preco-atual"
+                    th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+            </strong>
+            Boss Coins
+        </div>
+
+        <div class="info">
+            Você possui:
+            <strong class="quantidade-atual"
+                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+                0
+            </strong>
+        </div>
+
+        <div class="tag-ataque">
+            Somente ataque ao Boss
+        </div>
+
+        <form class="form-compra">
+            <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+            <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
+
+            <button type="button"
+                    class="btn-comprar-guerreiro"
+                    th:data-guerreiro-id="${guerreiro.id}"
+                    th:data-guerreiro-nome="${guerreiro.nome}">
+                Comprar
+            </button>
+        </form>
+    </div>
+
+    <!-- CARD ARQUEIRA REAL -->
+    <div class="card-guerreiro"
+         th:each="guerreiro : ${guerreiros}"
+         th:if="${guerreiro.nome == 'Arqueira Real'}">
+
+        <img loading="lazy"
+             decoding="async"
+             src="/images/guerreiros_elite/arqueira_real/arqueira-real_apresentacao.webp"
+             alt="Arqueira Real">
+
+        <h2 th:text="${guerreiro.nome}"></h2>
+
+        <div class="info">
+            Tipo:
+            <strong th:text="${guerreiro.tipo}"></strong>
+        </div>
+
+        <div class="info">
+            Dano base:
+            <strong th:text="${guerreiro.danoBase}"></strong>
+        </div>
+
+        <div class="info">
+            Preço atual:
+            <strong class="preco-atual"
+                    th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+            </strong>
+            Boss Coins
+        </div>
+
+        <div class="info">
+            Você possui:
+            <strong class="quantidade-atual"
+                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+                0
+            </strong>
+        </div>
+
+        <div class="tag-ataque">
+            Somente ataque ao Boss
+        </div>
+
+        <form class="form-compra">
+            <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+            <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
+
+            <button type="button"
+                    class="btn-comprar-guerreiro"
+                    th:data-guerreiro-id="${guerreiro.id}"
+                    th:data-guerreiro-nome="${guerreiro.nome}">
+                Comprar
+            </button>
+        </form>
+    </div>
+
+    <!-- CARD GUERREIRO GUARDIÃO -->
+    <div class="card-guerreiro"
+         th:each="guerreiro : ${guerreiros}"
+         th:if="${guerreiro.nome == 'Guerreiro Guardião'}">
+
+        <img loading="lazy"
+             decoding="async"
+             src="/images/guerreiros_elite/guerreiro_guardiao/guerreiro-guardiao_apresentacao.webp"
+             alt="Guerreiro Guardião">
+
+        <h2 th:text="${guerreiro.nome}"></h2>
+
+        <div class="info">
+            Tipo:
+            <strong th:text="${guerreiro.tipo}"></strong>
+        </div>
+
+        <div class="info">
+            Dano base:
+            <strong th:text="${guerreiro.danoBase}"></strong>
+        </div>
+
+        <div class="info">
+            Preço atual:
+            <strong class="preco-atual"
+                    th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+            </strong>
+            Boss Coins
+        </div>
+
+        <div class="info">
+            Você possui:
+            <strong class="quantidade-atual"
+                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+                0
+            </strong>
+        </div>
+
+        <div class="tag-ataque">
+            Somente ataque ao Boss
+        </div>
+
+        <form class="form-compra">
+            <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+            <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
+
+            <button type="button"
+                    class="btn-comprar-guerreiro"
+                    th:data-guerreiro-id="${guerreiro.id}"
+                    th:data-guerreiro-nome="${guerreiro.nome}">
+                Comprar
+            </button>
+        </form>
+    </div>
+
+</div>
+
+
+</div>
+    <!-- ANUNCIO -->
+    <div class="anuncio-7">
+
+        <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+
+    </div>
+   
+         <!-- ANUNCIO 5 -->
+
+<div class="anuncio-5">
+
+   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
+   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
+   border="0" frameborder="0"></iframe>
+
+</div>
+</body>
+
+
+<script src="/js/session-keepalive.js"></script>
+<script src="/js/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/comprarGuerreiroElite.js"></script>
+
+</html>

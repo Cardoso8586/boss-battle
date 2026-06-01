@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class AbaddonService {
 
-    private static final long MAX_ATTACK = 700;                // <-- ajuste se quiser
+    private static final long MAX_ATTACK = 1700;                // <-- ajuste se quiser
     private static final long MAX_INTERVAL = 1200;             // <-- ajuste se quiser
     private static final long MAX_REWARD_BOSS = 500_000;      // <-- ajuste se quiser
     private static final long MAX_EXP = 60_000;               // <-- ajuste se quiser
@@ -85,7 +85,7 @@ public class AbaddonService {
 
         // Limitar recompensa boss
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 20);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -100,7 +100,7 @@ public class AbaddonService {
 
         // Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 10);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

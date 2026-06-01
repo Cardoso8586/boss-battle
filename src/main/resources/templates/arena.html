@@ -23,8 +23,13 @@
     <link rel="stylesheet" href="/css/customClass.css">  
     <link rel="stylesheet" href="/css/swal-game-error.css">
     <link rel="stylesheet" href="/css/ultimosAtaques.css">  
-     
-   
+     <link rel="preload"
+      href="/images/logo-boss-battle.webp"
+      as="image">
+      
+   <link rel="preload"
+      href="/images/fundo-boss.webp"
+      as="image">
     <!-- 
  
     
@@ -53,39 +58,13 @@
 
     <!-- Barra de menu -->
     <header class="menu-bar">
-        <div class="logo">
-            <h1>Boss Battle Arena</h1>
-
-<!-- Confi
-<script>
-window.gtranslateSettings = {
-  default_language: "pt",
-  languages: ["pt","en","es"],
-  wrapper_selector: ".gtranslate_wrapper",
-  switcher_horizontal_position: "inline"
-}
-</script>
+    
+       <div class="logo">
+        <img src="/images/logo-boss-battle.webp"
+         alt="Boss Battle Arena">
+     </div>
 
 
-<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
-
-<div class="gtranslate_wrapper"></div>
-
-<script>
-document.addEventListener("change", function (e) {
-  if (e.target.closest(".gtranslate_wrapper")) {
-    setTimeout(() => {
-      location.reload();
-    }, 300);
-  }
-});
-</script>
-
-gurações -->
-
-
-
-        </div>
 <!-- Spinner de carregamento com texto dinâmico -->
 <div id="loading" class="loading">
 
@@ -98,7 +77,29 @@ gurações -->
         Preparando arena...
 
     </span>
-
+  <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+        
+             <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
 </div>
 
 
@@ -184,6 +185,21 @@ gurações -->
                 Loja de Aprimoramentos
             </a>
         </li>
+        <!-- 
+<li>
+    <a href="/loja-guerreiros-elite">
+        <i class="fa-solid fa-chess-knight"></i>
+        Loja de Guerreiros Elite
+    </a>
+</li>
+  -->       
+   <li>
+    <a href="/loja-guerreiros-elite">
+        <i class="fa-solid fa-chess-knight"></i>
+        Loja de Guerreiros Elite
+        <span class="novo-badge">NOVO</span>
+    </a>
+</li>     
         
 <li>
     <a href="/ganhar-boss-coins">
@@ -216,7 +232,7 @@ gurações -->
         
              <li>
             <a href="/depositar">
-                <i class="fa-solid fa-user-plus"></i>
+                 <i class="fa-solid fa-helmet-safety"></i>
                 Depositos
             </a>
         </li>
@@ -254,376 +270,257 @@ gurações -->
 
 
 <main>
-
-<!-- Seção do boss -->
 <section id="jogo" class="active">
 
- <h2 class="jogo-title">  <div class="anuncio-8">
- <!-- Seção 
-  <script>
-    atOptions = {
-      'key' : '0a3b52a54a7a4d065b759366194e5a20',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
+    <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
 
-  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
- do boss -->
-  <div style="display:flex; justify-content:center; margin:10px 0;">
-    <script>
-    window.atOptions = {
-        key: "d594127d103d7640e87b4b11c19bbb17",
-        format: "iframe",
-        height: 50,
-        width: 320,
-        params: {}
-    };
-    </script>
-    <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
-</div>
-
-</div>⚔️ Arena de Batalha </h2>
-   
+    <h2 class="jogo-title">⚔️ Arena de Batalha</h2>
 
     <div class="boss-user-wrapper">
 
-        <!-- Card do Usuário -->
+        <!-- CARD DO USUÁRIO -->
         <div id="user-card">
-
-            <!-- Guerreiros -->
-            <h2 class="card-title"> Meus Guerreiros</h2>
-            
-<div id="desgasteContainer" class="hidden">
-
-    <div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
-        ✔ Espada equipada
-    </div>
-
-    <div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
-        ✔ Machado equipado
-    </div>
-
-    <strong class="titulo-durabilidade">Durabilidade</strong>
-
-    <div class="barra-wrapper">
-        <progress id="barradesgaste"></progress>
-        <span id="desgasteTexto"></span>
-    </div>
-
-</div>
-
-<!-- Escudo separado -->
-<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
-    ✔ Escudo equipado
-</div>
-
-<strong class="titulo-durabilidade-escudo hidden">Durabilidade</strong>
-
-<div class="barra-wrapper-escudo hidden">
-    <progress id="barradesgasteEscudo" max="300" value="0"></progress>
-    <span id="desgasteTextoEscudo"></span>
-</div>
-            <div class="card-section">
-                <img id="guerreiro-image" src="" alt="guerreiro">
-            <div id="damageContainer"></div>
-
-               
-               <p>
-    
-   
-    
-    <strong>Ataque:</strong>
-    <span class="ataque-container">
-        <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
-        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-
-
-                <p class="highlight">
-                    Dano/min: <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
-                </p>
-
-                <div class="energia-wrapper">
-               
-                
-                    <div class="energia-header">⚡ Vigor: <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
-                     <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
-                    </div>
-                    <div class="energia-bar-bg">
-                        <div id="energiaBar" class="energia-bar" 
-                             th:style="'width:' + ${energiaGuerreiros} + '%'"></div>
-                    </div>
-                    
-                    <p>
-<p style="position: relative;"><span id="reparoRetaguarda"></span></p>
-
-
-
-
-
-    <p id="p">
-    <strong>Retaguarda:</strong>
-    <span class="retaguarda-container">
-        <span id="guerreirosRetaguarda" th:text="${guerreirosRetaguarda}">100</span>
-        <img id="generating-image" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-    
-
-                    
-                  <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
-                 
-   <a href="/recarregar-vigor" class="btn-recarregar-vigor">
-    <i class="fa-solid fa-bolt"></i>
-    <span>Recarregar Vigor</span>
-</a>
-
-<!-- 
-<button id="btnRecarregar"
-        th:disabled="${energiaGuerreiros >= energiaGuerreirosPadrao}">
-    ⚡ Recarregar Vigor
-</button>
--->
-  <div class="reward-card" id="rewardCard" style="display:none;">
-    <div class="reward-level" id="rewardLevel">Próximo nível:</div> 
-    <img id="rewardImage" src="" alt="Reward">
-    <div class="reward-title" id="rewardTitle"></div>
-    <div class="reward-amount" id="rewardAmount"></div>
-    <div class="reward-desc" id="rewardDesc"></div>
-</div>
-
-
-
-<!-- NÚCLEO DE BATALHA (LIVRE NA TELA) -->
-<div id="nucleoLivre">
-
-    <!-- BOTÃO -->
-    <button id="btnNucleo" class="btn-nucleo-icon">
-        <img src="/icones/ajustes.webp" alt="Ajustes de Batalha">
-        <span class="nucleo-label">Ajustes de Batalha</span>
-    </button>
-
-    <!-- CARD -->
-    <div id="nucleoCard" class="nucleo-card hidden">
-
-        <button id="fecharNucleo" class="nucleo-close">✕</button>
-
-        <h2 class="card-title">Ajustes de Batalha</h2>
-        
-        <!-- POÇÃO -->
-      <div class="nucleo-item-pocao">
-      <img src="icones/pocao_vigor.webp" alt="Poção de Vigor" class="icone-item">
-       Poção de Vigor: <span id="pocaoVigor">0</span>
-      </div>
-
-        <div class="pocao-ativa-info nucleo-item highlight hidden">✔ Poção equipada</div>
-        <button id="btnAtivarPocao" class="btn-nucleo-acao hidden"> Ativar Poção</button>
-
-
-  <!-- ESPADAS -->
-<div class="nucleo-item-flanejante">
-    <img src="icones/espada_flanejante.webp" alt="Espada Flanejante" class="icone-item">
-    Espada Flanejante: <span id="espadaFlanejante">0</span>
-</div>
-
-<!-- Primeiro lugar -->
-<div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
-    ✔ Espada equipada
-</div>
-
-<button id="btnAtivarEspadaFlanejante"
-        class="btn-nucleo-acao hidden">
-    Ativar Espada
-</button>
-
-
-  <!-- machado dilacerador -->
-<div class="nucleo-item-dilacerador">
-    <img src="icones/machado_dilacerador.webp" alt="Machado Dilacerador" class="icone-item">
-    Machado Dilacerador: <span id="machadoDilacerador">0</span>
-</div>
-
-<!-- Primeiro lugar -->
-<div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
-    ✔ Machado equipado
-</div>
-
-<button id="btnAtivarMachadoDilacerador"
-        class="btn-nucleo-acao hidden">
-    Ativar Machado Dilacerador
-</button>
-
-<!-- escudo primordial -->
-<div class="nucleo-item-escudo">
-    <img src="icones/escudo_primordial.webp" alt="Escudo Primordial" class="icone-item">
-    Escudo Primordial: <span id="escudoPrimordial">0</span>
-</div>
-
-<!-- Escudo ativo -->
-<div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
-    ✔ Escudo equipado
-</div>
-
-<button id="btnAtivarEscudoPrimordial"
-        class="btn-nucleo-acao hidden">
-    Ativar Escudo Primordial
-</button>
-
-
-        <!-- GUERREIRO -->
-       <div class="nucleo-item">
-       <img src="icones/guerreiro_padrao.webp" alt="Guerreiro" class="icone-item">
-       Guerreiros Disponiveis: <span id="guerreirosCount">0</span>
-       
-       
-       
-       <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
-    Enviar ao Ataque
-</button>
-
-<button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
-    Enviar à Retaguarda
-</button>
-
-<button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
-    Retirar do Ataque
-</button>
-
-<button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
-    Retirar da Retaguarda
-</button>
-       
-      </div>
-
-   
-    </div>
-
-</div>
-
-<!-- Ajustes de Batalha -->
-
-
-<!-- 
-<div id="nucleoArco">
-
-
-    <button id="btnNucleoArco" class="btn-nucleo-icon">
-        <img src="/icones/arco_flecha.webp" alt="Arco e Flechas">
-        <span class="nucleo-label">Arco & Flechas</span>
-    </button>
-
-    <div id="nucleoArcoCard" class="nucleo-card hidden">
-
-        <button id="fecharNucleoArco" class="nucleo-close">✕</button>
-
-        <h2 class="card-title">Arco & Flechas</h2>
-
-   
-        <div class="nucleo-item">
-            <img src="icones/arco.webp" alt="Arco" class="icone-item">
-            Arco Disponiveis: <span id="arcoDisponiveis">0</span>
+<div class="anuncio-1">
+            <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="300"
+                    height="250"
+                    scrolling="no"
+                    border="0"
+                    frameborder="0">
+            </iframe>
         </div>
-        
-        <div class="nucleo-item">
-            <img src="icones/arco.webp" alt="Arco" class="icone-item">
-            Arco Ativo: <span id="arcoAtivo">0</span>
-        </div>
+            <h2 class="card-title">Meus Guerreiros</h2>
 
-        <div class="nucleo-item">
-            🔧 Durabilidade: <span id="durabilidadeArco">0</span>
-        </div>
+            <div id="desgasteContainer" class="hidden">
 
-        <div class="arco-ativo-info nucleo-item highlight hidden">
-            ✔ Arco equipado
-        </div>
+                <div class="espada-flanejante-ativa-info nucleo-item highlight hidden">
+                    ✔ Espada equipada
+                </div>
 
-        <button id="btnEquiparArco" class="btn-nucleo-acao hidden">
-            Equipar Arco
-        </button>
+                <div class="machado-dilacerador-ativo-info nucleo-item highlight hidden">
+                    ✔ Machado equipado
+                </div>
 
+                <strong class="titulo-durabilidade">Durabilidade</strong>
 
-        <hr>
-
-        <div class="nucleo-item">
-            <img src="icones/aljava.webp" alt="Aljava" class="icone-item">
-            Flechas na Aljava: <span id="aljavaCount">0</span>
-        </div>
-
-        <div class="nucleo-item">
-            Tipo de Flecha: <span id="tipoFlechaAtiva">-</span>
-        </div>
-
- <button id="btnColocarFlechaFerro" class="btn-nucleo-acao">
-  <img src="icones/flecha_ferro.webp" alt="Flecha de Ferro">
-  <span>Colocar Flecha de Ferro</span>
-</button>
-
-<button id="btnColocarFlechaFogo" class="btn-nucleo-acao">
-  <img src="icones/flecha_fogo.webp" alt="Flecha de Fogo">
-  <span>Colocar Flecha de Fogo</span>
-</button>
-
-<button id="btnColocarFlechaVeneno" class="btn-nucleo-acao">
-  <img src="icones/flecha_veneno.webp" alt="Flecha de Veneno">
-  <span>Colocar Flecha de Veneno</span>
-</button>
-
-<button id="btnColocarFlechaDiamante" class="btn-nucleo-acao">
-  <img src="icones/flecha_diamante.webp" alt="Flecha de Diamante">
-  <span>Colocar Flecha de Diamante</span>
-</button>
-
-    </div>
-</div>
- (LIVRE NA TELA) -->
-
- </div>
-
-       </div>
-       
-       <!-- ataque-especial -->
-       <div id="ataque-especial">
-            <hr class="card-divider">
-
-            <!-- Ataque Manual -->
-            <h2 class="card-title">🔥 Ataque Especial</h2>
-            <div class="card-section">
-            <span id="damage" th:text="${ataque_base}">0</span>
-Dano 
-<span class="bonus">+ Ataque Surpresa da Retaguarda</span>
-            
-              <p>
-    <strong>Ataque Base:</strong><br>
-    <span class="damage-container">
-        <span id="damage" th:text="${ataque_base}">0</span> Dano
-        <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
-    </span>
-</p>
-                <span id="aguarde"></span>
-                <button id="attackBtn">Atacar Boss</button>
-            
-                
+                <div class="barra-wrapper">
+                    <progress id="barradesgaste"></progress>
+                    <span id="desgasteTexto"></span>
                 </div>
 
             </div>
 
-        </div> <!-- ataque-especial -->
+            <div class="escudo-primordial-ativo-info nucleo-item highlight hidden">
+                ✔ Escudo equipado
+            </div>
 
-        <!-- Card do Boss -->
+            <strong class="titulo-durabilidade-escudo hidden">Durabilidade</strong>
+
+            <div class="barra-wrapper-escudo hidden">
+                <progress id="barradesgasteEscudo" max="300" value="0"></progress>
+                <span id="desgasteTextoEscudo"></span>
+            </div>
+
+            <!-- IMAGEM DOS GUERREIROS -->
+            <div id="userGuerreiroCard" class="usuario-guerreiro-card">
+
+                <button type="button"
+                        class="seta-guerreiro esquerda"
+                        onclick="mudarGuerreiroUsuario(-1)">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="guerreiro-card-content">
+
+                    <div class="guerreiro-info-card">
+                        <div id="userGuerreiroNome" class="guerreiro-nome">
+                            Guerreiro Tradicional
+                        </div>
+
+                        <div id="userGuerreiroQuantidade" class="guerreiro-quantidade">
+                            Quantidade: 0
+                        </div>
+                    </div>
+
+                    <img id="userGuerreiroImagem"
+                         src="/images/guerreiros_cards/guerreiro-tradicional-card.webp"
+                         alt="Guerreiro">
+
+                </div>
+
+                <button type="button"
+                        class="seta-guerreiro direita"
+                        onclick="mudarGuerreiroUsuario(1)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+            <div id="damageContainer"></div>
+
+            <p>
+                <strong>Ataque:</strong>
+                <span class="ataque-container">
+                    <span id="guerreiros" th:text="${guerreirosUsuario}">0</span>
+                    <img id="generating-image-ataque" src="/icones/generating.gif" alt="generating">
+                </span>
+            </p>
+
+            <p class="highlight">
+                Dano/min:
+                <span id="ataquePorMinuto" th:text="${ataquePorMinutoUsuario}">0</span>
+            </p>
+
+            <div class="energia-wrapper">
+                <div class="energia-header">
+                    ⚡ Vigor:
+                    <span id="energiaAtual" th:text="${energiaGuerreiros}">0</span> /
+                    <span id="energiaMaxima" th:text="${energiaMaxima}">50</span>
+                </div>
+
+                <div class="energia-bar-bg">
+                    <div id="energiaBar"
+                         class="energia-bar"
+                         th:style="'width:' + ${energiaGuerreiros} + '%'">
+                    </div>
+                </div>
+            </div>
+
+            <p style="position: relative;">
+                <span id="reparoRetaguarda"></span>
+            </p>
+
+            <p id="p">
+                <strong>Retaguarda:</strong>
+                <span class="retaguarda-container">
+                    <span id="guerreirosRetaguarda" th:text="${guerreirosRetaguarda}">100</span>
+                    <img id="generating-image" src="/icones/generating.gif" alt="generating">
+                </span>
+            </p>
+
+            <div class="pocao-ativa-info nucleo-item highlight hidden">
+                ✔ Poção equipada
+            </div>
+
+            <a href="/recarregar-vigor" class="btn-recarregar-vigor">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Recarregar Vigor</span>
+            </a>
+
+            <div class="reward-card" id="rewardCard" style="display:none;">
+                <div class="reward-level" id="rewardLevel">Próximo nível:</div>
+                <img id="rewardImage" src="" alt="Reward">
+                <div class="reward-title" id="rewardTitle"></div>
+                <div class="reward-amount" id="rewardAmount"></div>
+                <div class="reward-desc" id="rewardDesc"></div>
+            </div>
+
+            <!-- NÚCLEO DE BATALHA -->
+            <div id="nucleoLivre">
+
+                <button id="btnNucleo" class="btn-nucleo-icon">
+                    <img src="/icones/ajustes.webp" alt="Ajustes de Batalha">
+                    <span class="nucleo-label">Ajustes de Batalha</span>
+                </button>
+
+                <div id="nucleoCard" class="nucleo-card hidden">
+
+                    <button id="fecharNucleo" class="nucleo-close">✕</button>
+
+                    <h2 class="card-title">Ajustes de Batalha</h2>
+
+                    <div class="nucleo-item-pocao">
+                        <img src="icones/pocao_vigor.webp" alt="Poção de Vigor" class="icone-item">
+                        Poção de Vigor: <span id="pocaoVigor">0</span>
+                    </div>
+
+                    <button id="btnAtivarPocao" class="btn-nucleo-acao hidden">
+                        Ativar Poção
+                    </button>
+
+                    <div class="nucleo-item-flanejante">
+                        <img src="icones/espada_flanejante.webp" alt="Espada Flanejante" class="icone-item">
+                        Espada Flanejante: <span id="espadaFlanejante">0</span>
+                    </div>
+
+                    <button id="btnAtivarEspadaFlanejante" class="btn-nucleo-acao hidden">
+                        Ativar Espada
+                    </button>
+
+                    <div class="nucleo-item-dilacerador">
+                        <img src="icones/machado_dilacerador.webp" alt="Machado Dilacerador" class="icone-item">
+                        Machado Dilacerador: <span id="machadoDilacerador">0</span>
+                    </div>
+
+                    <button id="btnAtivarMachadoDilacerador" class="btn-nucleo-acao hidden">
+                        Ativar Machado Dilacerador
+                    </button>
+
+                    <div class="nucleo-item-escudo">
+                        <img src="icones/escudo_primordial.webp" alt="Escudo Primordial" class="icone-item">
+                        Escudo Primordial: <span id="escudoPrimordial">0</span>
+                    </div>
+
+                    <button id="btnAtivarEscudoPrimordial" class="btn-nucleo-acao hidden">
+                        Ativar Escudo Primordial
+                    </button>
+
+                    <div class="nucleo-item">
+                        <img src="icones/guerreiro_padrao.webp" alt="Guerreiro" class="icone-item">
+                        Guerreiros Disponíveis: <span id="guerreirosCount">0</span>
+                    </div>
+
+                    <button id="btnEquiparGuerreiro" class="btn-nucleo-acao hidden">
+                        Enviar ao Ataque
+                    </button>
+
+                    <button id="btnEquiparRetaguarda" class="btn-nucleo-acao hidden">
+                        Enviar à Retaguarda
+                    </button>
+
+                    <button id="btnRetirarGuerreiro" class="btn-nucleo-acao retirar hidden">
+                        Retirar do Ataque
+                    </button>
+
+                    <button id="btnRetirarRetaguarda" class="btn-nucleo-acao retirar hidden">
+                        Retirar da Retaguarda
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CARD DO BOSS -->
         <div id="boss-container">
+
             <h2 id="boss-name"></h2>
+
             <p>Poder de Ataque: <span id="boss-ataque"></span></p>
             <p>Tempo entre Ataques: <span id="boss-tempo-ataque"></span></p>
 
             <img id="boss-image" src="" alt="Boss">
-            
+
             <div id="damageFloatContainer"></div>
-            
+
             <h3>Recompensa</h3>
+
             <p>BOSS: <span id="boss-reward"></span></p>
             <p>XP: <span id="boss-xp"></span></p>
 
@@ -634,103 +531,118 @@ Dano
             <p>HP: <span id="boss-hp-text"></span></p>
 
             <div id="bossInfo"></div>
+
+            <!-- ATAQUE ESPECIAL AGORA FICA COLADO NO BOSS -->
+            <div id="ataque-especial">
+
+                <h2 class="card-title">🔥 Ataque Especial</h2>
+
+                <div class="card-section">
+
+                    <p>
+                        <strong>Ataque Base:</strong><br>
+                        <span class="damage-container">
+                            <span id="damage" th:text="${ataque_base}">0</span> Dano
+                            <img id="generating-image-ataque-base"
+                                 src="/icones/generating.gif"
+                                 alt="generating">
+                        </span>
+                    </p>
+
+                    <span class="bonus">+ Elite + Ataque Retaguarda</span>
+
+                    <span id="aguarde"></span>
+
+                    <button id="attackBtn">Atacar Boss</button>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
-    
-      <!-- 
-<button id="btnAbrirAnuncio" class="btn-anuncio" onclick="abrirAnuncioRecompensa()">
-    🎁 Ver anúncio e ganhar recompensa
-</button>
--->
-<a href="/ganhar-boss-coins" class="banner-icon-link">
-    <div class="banner-icon">
-        <img src="/icones/boss_coin.webp" alt="Boss Coin">
+
+    <!-- BOTÃO BOSS COINS -->
+    <a href="/ganhar-boss-coins" class="banner-icon-link">
+        <div class="banner-icon">
+            <img src="/icones/boss_coin.webp" alt="Boss Coin">
+        </div>
+    </a>
+
+    <!-- ÚLTIMOS ATAQUES / RANKING -->
+    <div class="ataques-e-anuncio">
+
+        <div class="ataques-recentes">
+            <h2 class="ultimos-ataques">⚔️ Últimos ataques</h2>
+            <ul id="listaAtaques"></ul>
+        </div>
+
+        <div class="anuncio-1">
+            <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="300"
+                    height="250"
+                    scrolling="no"
+                    border="0"
+                    frameborder="0">
+            </iframe>
+        </div>
+
     </div>
-</a>
 
+    <!-- ANÚNCIOS BAIXO -->
+    <div class="anuncio-8">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="468"
+                height="60"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
 
-  <div class="ataques-e-anuncio">
+    <div class="anuncio-2">
+        <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="728"
+                height="90"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
 
-  <div class="ataques-recentes">
-    <h2 class="ultimos-ataques">⚔️ Últimos ataques</h2>
-    <ul id="listaAtaques"></ul>
-  </div>
+    <div class="anuncio-20">
+        <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="300"
+                height="250"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
 
-  <!-- ANÚNCIO AO LADO -->
-  <div class="anuncio-1">
-    <!-- Futuro banner -->
-   <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783" 
-   marginwidth="0" marginheight="0" width="300" height="250" scrolling="no" 
-   border="0" frameborder="0"></iframe>
-  </div>
-
-</div>
-
-      <!-- ANUNCIO
-      
-      <div class="anuncio-8">
-
-  <script>
-    atOptions = {
-      'key' : '0a3b52a54a7a4d065b759366194e5a20',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-
-  <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
-
-</div>
- 8 -->
- 
-<div class="anuncio-8">
-
- <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783" 
- marginwidth="0" marginheight="0" width="468" height="60" scrolling="no" 
- border="0" frameborder="0"></iframe>
-
-</div>
-  <!-- ANUNCIO 2 -->
-
-<div class="anuncio-2">
-
-   <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783" 
-   marginwidth="0" marginheight="0" width="728" height="90" scrolling="no" 
-   border="0" frameborder="0"></iframe>
-
-</div>
-
-  <!-- ANUNCIO  20 -->
-<div class="anuncio-20">
-
-  <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
-   marginwidth="0" marginheight="0" width="300" height="250" scrolling="no" 
-   border="0" frameborder="0"></iframe>
-
-</div>
-  <!-- ANUNCIO  20 -->
-<div class="anuncio-20">
-
-<script>
-  atOptions = {
-    'key' : '159108d30fc2d96573f42996d2971f92',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/159108d30fc2d96573f42996d2971f92/invoke.js"></script>
-
-
-</div>
-
+    <div class="anuncio-20">
+        <script>
+            atOptions = {
+                key: '159108d30fc2d96573f42996d2971f92',
+                format: 'iframe',
+                height: 250,
+                width: 300,
+                params: {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/159108d30fc2d96573f42996d2971f92/invoke.js"></script>
+    </div>
 
 </section>
-<!-- fim da seção Arena boss -->
 
 
 
@@ -1081,7 +993,7 @@ Dano
         
      <script src="/js/global-update.js" defer></script>   
   
-     
+       <script src="/js/guerreirosUsuarioCard.js" defer></script>
     <!--
     
     <script src="/js/lang-select.js"></script>

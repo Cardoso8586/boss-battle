@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boss_battle.enums.TipoFlecha;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
+import com.boss_battle.repository.UsuarioGuerreiroRepository;
 import com.boss_battle.service.auto_ataque.GuerreiroAutoAttackService;
 
 
 @RestController
 public class AtualizarStatusUsuarioController {
 
+	
+	  @Autowired
+	    private  UsuarioGuerreiroRepository usuarioGuerreiroRepository;
+	  
+	  
 	@Autowired
 	GuerreiroAutoAttackService guerreiroAutoAttackService;
 	
@@ -44,6 +50,8 @@ public class AtualizarStatusUsuarioController {
         BigDecimal ultimoGanho = usuario.getUltimoValorRecebido();
         if (ultimoGanho == null) ultimoGanho = BigDecimal.ZERO;
       
+        long gueereirosAtaque =   usuario.getGuerreiros() + quantidadeTotalGuerreirosElite(usuario);
+        
         
         return Map.ofEntries(
         	    Map.entry("totalGuerreiros", totalGuerreiros(usuarioId)),
@@ -51,12 +59,15 @@ public class AtualizarStatusUsuarioController {
         	    Map.entry("email", usuario.getEmail()),
         	    Map.entry("energiaGuerreiros", usuario.getEnergiaGuerreiros()),
         	    Map.entry("energiaGuerreirosPadrao", usuario.getEnergiaGuerreirosPadrao()),
-        	    Map.entry("guerreiros", usuario.getGuerreiros()),
+        	    Map.entry("guerreiros",gueereirosAtaque),// guerreiros no ataque
         	    Map.entry("ataquePorMinuto", ataquePorMinuto(usuarioId)),
         	    Map.entry("xp", usuario.getExp()),
         	    Map.entry("nivel", usuario.getNivel()),
         	    Map.entry("bossCoin", usuario.getBossCoins()),
-        	    Map.entry("ataqueBase", usuario.getAtaqueBase()),
+        	    Map.entry(
+        	    	    "ataqueBase",
+        	    	    calcularAtaqueBaseTotal(usuario)
+        	    	),
         	    Map.entry("ganhosRef", ganhosRef(usuarioId)),
         	    Map.entry("guerreirosRetaguarda", usuario.getGuerreirosRetaguarda()),
         	    Map.entry("espadaflanejante", usuario.getEspadaFlanejante()),
@@ -100,7 +111,11 @@ public class AtualizarStatusUsuarioController {
   	long guerreiroAtaque = usuario.getGuerreiros();
     long guerreiroRetaguarda = usuario.getGuerreirosRetaguarda();
     long guerreiroInventario= usuario.getGuerreirosInventario();
-    long quantidadeTotalGuerriro = guerreiroAtaque + guerreiroRetaguarda + guerreiroInventario;
+    long quantidadeTotalGuerriro =
+            guerreiroAtaque
+          + guerreiroRetaguarda
+          + guerreiroInventario
+          + quantidadeTotalGuerreirosElite(usuario);
     
         //
   	  
@@ -108,6 +123,14 @@ public class AtualizarStatusUsuarioController {
   	  
     }//---<
     
+    public long quantidadeTotalGuerreirosElite(UsuarioBossBattle usuario) {
+
+        return usuarioGuerreiroRepository
+                .findByUsuario(usuario)
+                .stream()
+                .mapToLong(ug -> ug.getQuantidade() == null ? 0L : ug.getQuantidade())
+                .sum();
+    }
 
     @GetMapping("/api/atualizar/status/ajustes/{usuarioId}")
     public Map<String, Object> statusPocaoVigor(@PathVariable Long usuarioId) {
@@ -171,6 +194,30 @@ public class AtualizarStatusUsuarioController {
  
         return resultado;
     }
+    
+    public long calcularAtaqueBaseTotal(UsuarioBossBattle usuario) {
+
+        long ataqueBaseJogador = Math.max(0L, usuario.getAtaqueBase());
+
+        return ataqueBaseJogador + calcularAtaqueBaseElite(usuario);
+    }
+    
+    public long calcularAtaqueBaseElite(UsuarioBossBattle usuario) {
+
+        return usuarioGuerreiroRepository
+                .findByUsuario(usuario)
+                .stream()
+                .mapToLong(ug -> {
+
+                    if (ug.getQuantidade() == null) return 0L;
+                    if (ug.getGuerreiro() == null) return 0L;
+                    if (ug.getGuerreiro().getDanoBase() == null) return 0L;
+
+                    return ug.getQuantidade() *
+                            ug.getGuerreiro().getDanoBase();
+                })
+                .sum();
+    }
 
   //====================================================================================
                                  //  METODOS AUXILIARES //
@@ -197,10 +244,13 @@ public class AtualizarStatusUsuarioController {
 	  UsuarioBossBattle usuario = repo.findById(usuarioId)
 	            .orElseThrow(() -> new RuntimeException("Jogador não encontrado"));
 	  //aqtaque por minuto
+	  
+	  long danoElite = calcularDanoElite(usuario);
       
       long quantGuerreiros = usuario.getGuerreiros();
       long quantAtaqueBaseGuerreiros = usuario.getAtaqueBaseGuerreiros();
-      long totalAtaquePorMinuto =(quantGuerreiros)* (quantAtaqueBaseGuerreiros);
+      
+      long totalAtaquePorMinuto =(quantGuerreiros * quantAtaqueBaseGuerreiros ) + danoElite ;
   
       //
 	  
@@ -208,6 +258,20 @@ public class AtualizarStatusUsuarioController {
 	  
   }//---<
    
+  public long calcularDanoElite(UsuarioBossBattle usuario) {
 
+	    return usuarioGuerreiroRepository
+	            .findByUsuario(usuario)
+	            .stream()
+	            .mapToLong(ug -> {
+
+	                if (ug.getQuantidade() == null) return 0L;
+	                if (ug.getGuerreiro() == null) return 0L;
+	                if (ug.getGuerreiro().getDanoBase() == null) return 0L;
+
+	                return ug.getQuantidade() * ug.getGuerreiro().getDanoBase();
+	            })
+	            .sum();
+	}
 
 }

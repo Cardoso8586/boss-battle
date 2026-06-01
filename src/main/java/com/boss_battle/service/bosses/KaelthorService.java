@@ -16,10 +16,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class KaelthorService {
 
-    private static final long MAX_ATTACK = 1100;
-    private static final long MAX_INTERVAL = 1100; 
+    private static final long MAX_ATTACK = 1_100;
+    private static final long MAX_INTERVAL = 1_100; 
     private static final long MAX_REWARD_BOSS = 600_000;
-    private static final long MAX_EXP = 75000;
+    private static final long MAX_EXP = 75_000;
     private static final long MAX_HP = 950_000;
 
     @Autowired
@@ -70,8 +70,8 @@ public class KaelthorService {
 
         Random random = new Random();
 
-        long min = 20;
-        long max = 150;
+        long min = 200;
+        long max = 350;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -92,7 +92,7 @@ public class KaelthorService {
 
         // ================= REWARD =================
         if (valorRewardBoss < MAX_REWARD_BOSS) {
-            boss.setRewardBoss(valorRewardBoss + 2);
+            boss.setRewardBoss(valorRewardBoss + 12);
         } else {
             boss.setRewardBoss(MAX_REWARD_BOSS);
         }
@@ -101,14 +101,14 @@ public class KaelthorService {
         long valorXp = boss.getRewardExp();
 
         if (valorXp < MAX_EXP) {
-            boss.setRewardExp(valorXp + 2);
+            boss.setRewardExp(valorXp + 12);
         } else {
             boss.setRewardExp(MAX_EXP);
         }
 
         // ================= ATAQUE =================
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 31);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

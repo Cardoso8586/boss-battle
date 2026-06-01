@@ -15,10 +15,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class UmbrarService {
 
-	private static final long MAX_ATTACK = 800;
+	private static final long MAX_ATTACK = 1_800;
 	private static final long MAX_INTERVAL = 900;
-	private static final long MAX_REWARD_BOSS = 900_000;
-	private static final long MAX_EXP = 85000;
+	private static final long MAX_REWARD_BOSS = 400_000;
+	private static final long MAX_EXP = 85_000;
 	private static final long MAX_HP = 770_000;
 	
     @Autowired
@@ -67,8 +67,8 @@ public class UmbrarService {
 
 
   	  Random random = new Random();
-    	long min = 10;
-    	long max = 100;
+    	long min = 101;
+    	long max = 180;
     	long incrementarUp = random.nextLong(min, max + 1);
     	long valorHpMax =  boss.getMaxHp();
     	long valorCur = boss.getCurrentHp();
@@ -92,7 +92,7 @@ public class UmbrarService {
     	
         if(valorsetRewardBoss < MAX_REWARD_BOSS) {
         	
-        	boss.setRewardBoss(valorsetRewardBoss + 1);
+        	boss.setRewardBoss(valorsetRewardBoss + 11);
         }else {
         	
         	boss.setRewardBoss(MAX_REWARD_BOSS);
@@ -101,7 +101,7 @@ public class UmbrarService {
         //--->Limitar xp
  	    long valorXp =  boss.getRewardExp();
         if(valorXp < MAX_EXP) {
-           boss.setRewardExp(valorXp + 1);
+           boss.setRewardExp(valorXp + 11);
         }else {
         	 boss.setRewardExp(MAX_EXP);
         	
@@ -109,7 +109,7 @@ public class UmbrarService {
         
         // Limitar Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 21);
         } else {
             boss.setAttackPower(MAX_ATTACK);
         }

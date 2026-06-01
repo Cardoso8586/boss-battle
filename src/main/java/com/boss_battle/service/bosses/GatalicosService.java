@@ -15,7 +15,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class GatalicosService {
 
-    private static final long MAX_ATTACK = 700;
+    private static final long MAX_ATTACK = 2_700;
     private static final long MAX_INTERVAL = 1000;
     private static final long MAX_REWARD_BOSS = 300_000;
     private static final long MAX_EXP = 53000;
@@ -61,8 +61,8 @@ public class GatalicosService {
 
         Random random = new Random();
 
-        long min = 10;
-        long max = 100;
+        long min = 100;
+        long max = 300;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -85,7 +85,7 @@ public class GatalicosService {
 
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 15);
 
         } else {
 
@@ -96,7 +96,7 @@ public class GatalicosService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 15);
 
         } else {
 
@@ -105,7 +105,7 @@ public class GatalicosService {
 
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 2);
+            boss.setAttackPower(valorAtaque + 25);
 
         } else {
 

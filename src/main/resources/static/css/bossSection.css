@@ -706,3 +706,141 @@ body {
     }
 
 }
+
+.usuario-guerreiro-card {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usuario-guerreiro-card img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+.seta-guerreiro {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffd700;
+
+    font-size: 18px;
+
+    transition: all 0.2s ease;
+}
+
+.seta-guerreiro:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.seta-guerreiro.esquerda {
+    left: -15px;
+}
+
+.seta-guerreiro.direita {
+    right: -15px;
+}
+
+.guerreiro-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guerreiro-show {
+    animation: guerreiroFadeIn 0.25s ease;
+}
+
+.guerreiro-hide {
+    opacity: 0;
+}
+
+@keyframes guerreiroFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.guerreiro-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#userGuerreiroImagem {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+}
+
+.guerreiro-info-card {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.guerreiro-nome {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 6px #000;
+}
+
+.guerreiro-quantidade {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #ffffff;
+    text-shadow: 0 0 5px #000;
+}
+@media (max-width: 768px) {
+
+    .ataques-recentes {
+        width: 95%;
+        max-width: 400px;
+
+        margin: 0 auto;
+
+        padding: 15px;
+
+        border-radius: 15px;
+
+        background: rgba(255,255,255,0.03);
+
+        border: 1px solid rgba(255,180,0,0.15);
+
+        backdrop-filter: blur(5px);
+    }
+
+    .ultimos-ataques {
+        text-align: center;
+    }
+
+    #listaAtaques {
+        text-align: center;
+    }
+}

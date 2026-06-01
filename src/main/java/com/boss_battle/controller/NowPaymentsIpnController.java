@@ -29,17 +29,12 @@ import jakarta.transaction.Transactional;
 public class NowPaymentsIpnController {
 	
 	@Autowired
-	private UltimoValorRecebidoService ultimoValorRecebidoService;
-	
-	
-	@Autowired
 	private DepositoBossCoinsRepository depositoRepository;
 	
 
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
 
- 
     @PostMapping("/nowpayments/ipn")
     @Transactional
     public ResponseEntity<String> receberIpn(
@@ -74,16 +69,14 @@ public class NowPaymentsIpnController {
                 return ResponseEntity.ok("NO_PAYMENT_ID");
             }
 
-            DepositoBossCoins deposito =
-                    depositoRepository
-                            .findByPaymentId(paymentId)
-                            .orElse(null);
+            DepositoBossCoins deposito = depositoRepository
+                    .findByPaymentId(paymentId)
+                    .orElse(null);
 
             if (deposito == null && orderId != null) {
-                deposito =
-                        depositoRepository
-                                .findByOrderId(orderId)
-                                .orElse(null);
+                deposito = depositoRepository
+                        .findByOrderId(orderId)
+                        .orElse(null);
             }
 
             if (deposito == null) {
@@ -96,16 +89,14 @@ public class NowPaymentsIpnController {
 
             boolean statusCreditavel =
                     "finished".equalsIgnoreCase(status)
-                    || "partially_paid".equalsIgnoreCase(status)
-                    || "sending".equalsIgnoreCase(status);
+                    || "partially_paid".equalsIgnoreCase(status);
 
             if (statusCreditavel && !deposito.isCreditado()) {
 
-                UsuarioBossBattle usuario =
-                        usuarioRepository
-                                .findById(deposito.getUsuarioId())
-                                .orElseThrow(() ->
-                                        new RuntimeException("Usuário não encontrado"));
+                UsuarioBossBattle usuario = usuarioRepository
+                        .findById(deposito.getUsuarioId())
+                        .orElseThrow(() ->
+                                new RuntimeException("Usuário não encontrado"));
 
                 BigDecimal saldoAtual = usuario.getBossCoins();
 
@@ -113,54 +104,39 @@ public class NowPaymentsIpnController {
                     saldoAtual = BigDecimal.ZERO;
                 }
 
-                // =========================================
-                // VALOR REAL PAGO
-                // =========================================
+                BigDecimal valorUsdParaCreditar = deposito.getValorUsd();
 
-                BigDecimal valorUsdParaCreditar =
-                        deposito.getValorUsd();
-
-                Object valorPagoFiat =
-                        body.get("actually_paid_fiat");
+                Object valorPagoFiat = body.get("actually_paid_fiat");
 
                 if (valorPagoFiat != null
-                        && !String.valueOf(valorPagoFiat).equals("null")) {
+                        && !String.valueOf(valorPagoFiat).equals("null")
+                        && !String.valueOf(valorPagoFiat).isBlank()) {
 
-                    valorUsdParaCreditar =
-                            new BigDecimal(
-                                    String.valueOf(valorPagoFiat)
-                            );
+                    valorUsdParaCreditar = new BigDecimal(
+                            String.valueOf(valorPagoFiat)
+                    );
                 }
-
-                // =========================================
-                // BOSS COINS
-                // =========================================
 
                 BigDecimal bossCoinsRecebidas =
                         valorUsdParaCreditar.multiply(
                                 BigDecimal.valueOf(10_000_000)
                         );
 
-                
-                
                 usuario.setBossCoins(
                         saldoAtual.add(bossCoinsRecebidas)
                 );
 
-                 ultimoValorRecebidoService
-                        .setUltimoValorRecebido(
-                                usuario,
-                                bossCoinsRecebidas
-                        );
+                 usuario.setUltimoValorRecebido(bossCoinsRecebidas
+                );
                  
+                 System.out.println("ANTES DE SALVAR:");
+                 System.out.println("BossCoins: " + usuario.getBossCoins());
+                 System.out.println("UltimoValor: " + usuario.getUltimoValorRecebido());
                  
                 deposito.setCreditado(true);
-                
-                  
 
-                usuarioRepository.save(usuario);
-
-             
+                usuarioRepository.saveAndFlush(usuario);
+                depositoRepository.saveAndFlush(deposito);
 
                 System.out.println("=================================");
                 System.out.println("SALDO CREDITADO");
@@ -168,9 +144,13 @@ public class NowPaymentsIpnController {
                 System.out.println("STATUS: " + status);
                 System.out.println("VALOR USD CREDITADO: " + valorUsdParaCreditar);
                 System.out.println("BOSS COINS: " + bossCoinsRecebidas);
+                System.out.println("ULTIMO VALOR RECEBIDO: " + usuario.getUltimoValorRecebido());
                 System.out.println("=================================");
+
+                return ResponseEntity.ok("CREDITADO");
             }
-            depositoRepository.save(deposito);
+
+            depositoRepository.saveAndFlush(deposito);
 
             return ResponseEntity.ok("OK");
 
@@ -179,8 +159,6 @@ public class NowPaymentsIpnController {
             return ResponseEntity.ok("ERROR");
         }
     }
-
-
     @GetMapping("/status/{paymentId}")
     public ResponseEntity<Map<String, Object>> statusPagamento(@PathVariable String paymentId) {
 

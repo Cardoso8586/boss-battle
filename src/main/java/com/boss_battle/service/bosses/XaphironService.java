@@ -15,8 +15,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class XaphironService {
 
-    private static final long MAX_ATTACK = 2500;
-    private static final long MAX_INTERVAL = 1000;
+    private static final long MAX_ATTACK = 2_500;
+    private static final long MAX_INTERVAL = 1_000;
     private static final long MAX_REWARD_BOSS = 400_000;
     private static final long MAX_EXP = 50_000;
     private static final long MAX_HP = 1_000_000;
@@ -64,8 +64,8 @@ public class XaphironService {
 
         Random random = new Random();
 
-        long min = 10;
-        long max = 100;
+        long min = 100;
+        long max = 300;
 
         long incrementarUp = random.nextLong(min, max + 1);
 
@@ -90,7 +90,7 @@ public class XaphironService {
         // Limitar recompensa boss
         if (valorsetRewardBoss < MAX_REWARD_BOSS) {
 
-            boss.setRewardBoss(valorsetRewardBoss + 1);
+            boss.setRewardBoss(valorsetRewardBoss + 13);
 
         } else {
 
@@ -102,7 +102,7 @@ public class XaphironService {
 
         if (valorXp < MAX_EXP) {
 
-            boss.setRewardExp(valorXp + 1);
+            boss.setRewardExp(valorXp + 13);
 
         } else {
 
@@ -112,7 +112,7 @@ public class XaphironService {
         // Evolução do ataque
         if (valorAtaque < MAX_ATTACK) {
 
-            boss.setAttackPower(valorAtaque + 1);
+            boss.setAttackPower(valorAtaque + 13);
 
         } else {
 
