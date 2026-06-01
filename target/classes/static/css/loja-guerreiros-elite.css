@@ -449,4 +449,8 @@
 .btn-voltar i{
     color:#ffb400;
 }
-   
+ 
+ .limite-guerreiro {
+    font-size: 12px;
+    opacity: 0.8;
+}  

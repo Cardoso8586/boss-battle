@@ -12,7 +12,9 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 @Service
 @Transactional
 public class ComprarEnergiaService {
-
+	private static final long LIMITE_ENERGIA = 50_000L;
+	
+	
     @Autowired
     private LojaAprimoramentosService lojaService;
 
@@ -25,42 +27,41 @@ public class ComprarEnergiaService {
     @Transactional
     public boolean comprarEnergia(Long usuarioId, int quantidade) {
 
-       // UsuarioBossBattle usuario = repo.findById(usuarioId)
-           // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        if (quantidade <= 0) {
+            return false;
+        }
 
-    	
-        // ✅ preço unitário vem do usuário
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        long energiaAtual = usuario.getEnergiaGuerreirosPadrao();
+        long energiaComprada = quantidade * 50L;
+        long novaEnergia = energiaAtual + energiaComprada;
+
+        if (novaEnergia > LIMITE_ENERGIA) {
+            return false;
+        }
+
         BigDecimal precoUnitario =
                 BigDecimal.valueOf(usuario.getPrecoEnergia());
 
         BigDecimal valorTotal =
                 precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
-        // ✅ verifica saldo
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 debita BossCoins
-        usuario.setBossCoins(
-                usuario.getBossCoins().subtract(valorTotal)
-        );
+        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // ⚡ regra do jogo: cada unidade = +50 energia
-        long energiaAtual = usuario.getEnergiaGuerreirosPadrao();
-        long energiaComprada = quantidade * 50;
+        usuario.setEnergiaGuerreirosPadrao(novaEnergia);
 
-        usuario.setEnergiaGuerreirosPadrao(
-                energiaAtual + energiaComprada
-        );
-
-        // 🔁 recalcula preços (SEM salvar)
         lojaService.atualizarPrecoVigor(usuario, quantidade);
 
-        // ✅ único save
         repo.save(usuario);
 
         return true;

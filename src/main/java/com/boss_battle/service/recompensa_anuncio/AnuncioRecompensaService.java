@@ -36,9 +36,12 @@ public class AnuncioRecompensaService {
     //----------------------------------------------------------
     public RecompensaAnuncioDTO receberRecompensa(Long usuarioId) {
 
-        UsuarioBossBattle usuario = usuarioBossBattleRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
-
+    	UsuarioBossBattle usuario = usuarioBossBattleRepository
+    	        .findByIdForUpdate(usuarioId)
+    	        .orElseThrow(() ->
+    	                new RuntimeException("Usuário não encontrado."));
+    	
+    	
         resetarStreakSeVirouODia(usuario);
 
         validarLimiteDiario(usuario);

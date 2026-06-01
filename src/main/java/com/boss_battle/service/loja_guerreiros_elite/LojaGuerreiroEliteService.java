@@ -26,8 +26,9 @@ public class LojaGuerreiroEliteService {
     private final GuerreiroRepository guerreiroRepository;
     private final UsuarioGuerreiroRepository usuarioGuerreiroRepository;
 
-    private static final BigDecimal AUMENTO = new BigDecimal("0.15");
+    private static final BigDecimal AUMENTO = new BigDecimal("0.2");
     private static final long QUANTIDADE_MAXIMA = 5L;
+    private static final long LIMITE_GUERREIRO = 100L;
 
     public LojaGuerreiroEliteService(
             UsuarioBossBattleRepository repo,
@@ -100,6 +101,28 @@ public class LojaGuerreiroEliteService {
                 ? usuarioGuerreiro.getQuantidade()
                 : 0L;
 
+     
+
+        if (quantidadeAtual >= LIMITE_GUERREIRO) {
+            return new CompraGuerreiroEliteResponse(
+                    false,
+                    "Você já possui o limite máximo deste guerreiro.",
+                    usuario.getBossCoins(),
+                    null,
+                    quantidadeAtual
+            );
+        }
+
+        if (quantidadeAtual + quantidade > LIMITE_GUERREIRO) {
+            return new CompraGuerreiroEliteResponse(
+                    false,
+                    "Limite máximo deste guerreiro é 1000 unidades.",
+                    usuario.getBossCoins(),
+                    null,
+                    quantidadeAtual
+            );
+        }
+        
         BigDecimal precoBase = BigDecimal.valueOf(guerreiro.getCustoCompra());
 
         BigDecimal valorTotal = calcularPrecoCompra(

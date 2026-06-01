@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ComprarGuerreiroService {
-
+	 private static final long LIMITE_GUERREIRO = 1_000L;
     @Autowired
     private LojaAprimoramentosService lojaService;
 
@@ -29,11 +29,11 @@ public class ComprarGuerreiroService {
             return false;
         }
 
-        long limiteMaximoGuerreiros = 2000L;
+       
 
         long quantidadeTotalGuerreiro = quantidadeTotalGuerreiro(usuario);
 
-        if (quantidadeTotalGuerreiro + quantidade > limiteMaximoGuerreiros) {
+        if (quantidadeTotalGuerreiro + quantidade > LIMITE_GUERREIRO) {
             return false;
         }
 

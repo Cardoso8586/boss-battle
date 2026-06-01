@@ -298,3 +298,13 @@ body {
         width: 100%;
     }
 }
+
+.limite-guerreiro {
+    font-size: 12px;
+    opacity: 0.8;
+}
+.limite-energia {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-left: 4px;
+}

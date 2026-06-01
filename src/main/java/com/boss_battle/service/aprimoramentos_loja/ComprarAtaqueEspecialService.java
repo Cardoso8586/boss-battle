@@ -14,17 +14,15 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarAtaqueEspecialService {
 
+    private static final long LIMITE_MAXIMO_ATAQUE = 1000L;
+    private static final long ATAQUE_POR_UNIDADE = 5L;
+
     @Autowired
     private LojaAprimoramentosService lojaService;
 
     @Autowired
     private UsuarioBossBattleRepository repo;
 
-    /**
-     * Compra pontos de ataque especial para o usuário
-     */
-    
-   
     public boolean comprarAtaqueEspecial(Long usuarioId, int quantidade) {
 
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
@@ -34,15 +32,19 @@ public class ComprarAtaqueEspecialService {
             return false;
         }
 
-        long limiteMaximoAtaque = 1000L;
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
 
         long ataqueAtual = usuario.getAtaqueBase();
-
-        long aumentoAtaque = quantidade * 5L;
-
+        long aumentoAtaque = quantidade * ATAQUE_POR_UNIDADE;
         long novoAtaque = ataqueAtual + aumentoAtaque;
 
-        if (novoAtaque > limiteMaximoAtaque) {
+        if (ataqueAtual >= LIMITE_MAXIMO_ATAQUE) {
+            return false;
+        }
+
+        if (novoAtaque > LIMITE_MAXIMO_ATAQUE) {
             return false;
         }
 
@@ -56,9 +58,7 @@ public class ComprarAtaqueEspecialService {
             return false;
         }
 
-        usuario.setBossCoins(
-                usuario.getBossCoins().subtract(valorTotal)
-        );
+        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
         usuario.setAtaqueBase(novoAtaque);
 
