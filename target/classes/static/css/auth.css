@@ -5,14 +5,16 @@
 body {
     margin: 0 !important;
     min-height: 100vh !important;
+
     background:
         url("/images/banner-cadastro.webp")
-        center top / cover no-repeat !important;
+        center 150px / cover no-repeat,
+        #000 !important;
+
     color: #fff !important;
     font-family: Arial, sans-serif !important;
     overflow-x: hidden;
 }
-
 /* ESCONDE POR ENQUANTO, MAS MANTÉM NO HTML */
 .anuncio-9,
 .layout-esquerdo,

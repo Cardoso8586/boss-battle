@@ -1,12 +1,15 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background:
-        url("/images/banner-cadastro.webp")
-        center top / cover no-repeat;
     color: #fff;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+
+    background-color: #000;
+    background-image: url("/images/banner-cadastro.webp");
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 @media (max-width:768px) {
