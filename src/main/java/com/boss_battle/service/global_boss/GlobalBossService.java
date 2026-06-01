@@ -174,7 +174,7 @@ import com.boss_battle.service.missoes.RankingAtaqueEspecialService;
 @Service
 @Transactional
 public class GlobalBossService {
-	  private static final long ATAQUE_BASE = 5L;
+	 
 	  
 	  
 	  
@@ -596,12 +596,12 @@ public class GlobalBossService {
         }
 
         else {
-        	//long ataqueBase = usuario.getAtaqueBase();
+        	long ataqueBase = usuario.getAtaqueBase();
         	long ataqueEspecial = retaguardaService.ataqueSurpresaRetaguarda(usuarioId);
         	long danoElite = calcularDanoElite(usuario);
 
         	long damage =
-        			ATAQUE_BASE
+        			ataqueBase
         	      + ataqueEspecial
         	      + danoElite;
         	

@@ -52,14 +52,14 @@ public class GuerreiroAutoAttackService {
 	@Autowired
 	GlobalBossService globalBossService;
 
-	  private static final long ATAQUE_BASE = 5L;
+
 	  
 	  
 	@Transactional(Transactional.TxType.REQUIRES_NEW)
 	public void processarAtaqueUsuario(UsuarioBossBattle usuario) {
 
 	    Long guerreiros = usuario.getGuerreiros();
-	   // Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
+	    Long ataqueBase = usuario.getAtaqueBaseGuerreiros();
 	    Long energia = usuario.getEnergiaGuerreiros();
 	    Long espadasAtivas = usuario.getEspadaFlanejanteAtiva();
 	    Long machadoDilaceradorAtivo = usuario.getMachadoDilaceradorAtivo();
@@ -75,11 +75,11 @@ public class GuerreiroAutoAttackService {
 	    if (energia == null || energia <= 0) return;
 	    if (guerreiros == null || guerreiros <= 0) return;
 
-	   // if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
+	   if (ataqueBase == null || ataqueBase <= 0) ataqueBase = 1L;
 
 	    // ⚔️ dano base
 	     // ⚔️ dano base dos guerreiros antigos
-	    long dano = guerreiros * ATAQUE_BASE;
+	    long dano = guerreiros * ataqueBase;
 
 	    // ⚔️ dano dos guerreiros elite
 	    long danoElite = calcularDanoElite(usuario);
