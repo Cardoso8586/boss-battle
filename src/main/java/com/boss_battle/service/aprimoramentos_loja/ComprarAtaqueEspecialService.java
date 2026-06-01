@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarAtaqueEspecialService {
 
-    private static final long LIMITE_MAXIMO_ATAQUE = 1000L;
+    private static final long LIMITE_MAXIMO_ATAQUE = 10_000L;
     private static final long ATAQUE_POR_UNIDADE = 5L;
 
     @Autowired
