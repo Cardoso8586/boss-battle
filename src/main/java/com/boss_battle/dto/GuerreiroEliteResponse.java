@@ -11,6 +11,7 @@ public class GuerreiroEliteResponse {
     private String imagem;
     private BigDecimal precoAtual;
     private Long quantidadeUsuario;
+    private Integer quantidadeMaxima;
     private boolean ativo;
 
     public GuerreiroEliteResponse() {
@@ -24,7 +25,8 @@ public class GuerreiroEliteResponse {
             String imagem,
             BigDecimal precoAtual,
             Long quantidadeUsuario,
-            boolean ativo
+            boolean ativo,
+            Integer quantidadeMaxima
     ) {
         this.id = id;
         this.nome = nome;
@@ -34,66 +36,75 @@ public class GuerreiroEliteResponse {
         this.precoAtual = precoAtual;
         this.quantidadeUsuario = quantidadeUsuario;
         this.ativo = ativo;
+        this.quantidadeMaxima = quantidadeMaxima;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public Long getDanoBase() {
         return danoBase;
-    }
-
-    public void setDanoBase(Long danoBase) {
-        this.danoBase = danoBase;
     }
 
     public String getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
-
     public BigDecimal getPrecoAtual() {
         return precoAtual;
-    }
-
-    public void setPrecoAtual(BigDecimal precoAtual) {
-        this.precoAtual = precoAtual;
     }
 
     public Long getQuantidadeUsuario() {
         return quantidadeUsuario;
     }
 
-    public void setQuantidadeUsuario(Long quantidadeUsuario) {
-        this.quantidadeUsuario = quantidadeUsuario;
+    public Integer getQuantidadeMaxima() {
+        return quantidadeMaxima;
     }
 
     public boolean isAtivo() {
         return ativo;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setDanoBase(Long danoBase) {
+        this.danoBase = danoBase;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public void setPrecoAtual(BigDecimal precoAtual) {
+        this.precoAtual = precoAtual;
+    }
+
+    public void setQuantidadeUsuario(Long quantidadeUsuario) {
+        this.quantidadeUsuario = quantidadeUsuario;
+    }
+
+    public void setQuantidadeMaxima(Integer quantidadeMaxima) {
+        this.quantidadeMaxima = quantidadeMaxima;
     }
 
     public void setAtivo(boolean ativo) {

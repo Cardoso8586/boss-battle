@@ -110,16 +110,19 @@
             Boss Coins
         </div>
 
-        <div class="info">
-            Você possui:
-            <strong class="quantidade-atual"
-                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
-                0
-            </strong>
-             <strong class="limite-guerreiro">
-           / 100 Máximo
-           </strong>
-        </div>
+     <div class="info">
+    Você possui:
+    <strong class="quantidade-atual"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+        0
+    </strong>
+    /
+    <strong class="limite-guerreiro"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+        0
+    </strong>
+    Máximo
+</div>
 
         <div class="tag-ataque">
             Somente ataque ao Boss
@@ -134,12 +137,21 @@
                    min="1"
                    max="5">
 
-            <button type="button"
-                    class="btn-comprar-guerreiro"
-                    th:data-guerreiro-id="${guerreiro.id}"
-                    th:data-guerreiro-nome="${guerreiro.nome}">
-                Comprar
-            </button>
+         <button type="button"
+        class="btn-comprar-guerreiro"
+        th:data-guerreiro-id="${guerreiro.id}"
+        th:data-guerreiro-nome="${guerreiro.nome}"
+        th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        
+    <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+        Comprar
+    </span>
+
+    <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        Limite Atingido
+    </span>
+
+</button>
         </form>
     </div>
 
@@ -173,17 +185,19 @@
             Boss Coins
         </div>
 
-        <div class="info">
-            Você possui:
-            <strong class="quantidade-atual"
-                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
-                0
-            </strong>
-               <strong class="limite-guerreiro">
-           / 100 Máximo
-           </strong>
-        </div>
-
+     <div class="info">
+    Você possui:
+    <strong class="quantidade-atual"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+        0
+    </strong>
+    /
+    <strong class="limite-guerreiro"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+        0
+    </strong>
+    Máximo
+</div>
         <div class="tag-ataque">
             Somente ataque ao Boss
         </div>
@@ -197,12 +211,21 @@
                    min="1"
                    max="5">
 
-            <button type="button"
-                    class="btn-comprar-guerreiro"
-                    th:data-guerreiro-id="${guerreiro.id}"
-                    th:data-guerreiro-nome="${guerreiro.nome}">
-                Comprar
-            </button>
+          <button type="button"
+        class="btn-comprar-guerreiro"
+        th:data-guerreiro-id="${guerreiro.id}"
+        th:data-guerreiro-nome="${guerreiro.nome}"
+        th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        
+    <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+        Comprar
+    </span>
+
+    <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        Limite Atingido
+    </span>
+
+</button>
         </form>
     </div>
 
@@ -236,16 +259,19 @@
             Boss Coins
         </div>
 
-        <div class="info">
-            Você possui:
-            <strong class="quantidade-atual"
-                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
-                0
-            </strong>
-               <strong class="limite-guerreiro">
-           / 100 Máximo
-           </strong>
-        </div>
+       <div class="info">
+    Você possui:
+    <strong class="quantidade-atual"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+        0
+    </strong>
+    /
+    <strong class="limite-guerreiro"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+        0
+    </strong>
+    Máximo
+</div>
 
         <div class="tag-ataque">
             Somente ataque ao Boss
@@ -255,12 +281,21 @@
             <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
             <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
 
-            <button type="button"
-                    class="btn-comprar-guerreiro"
-                    th:data-guerreiro-id="${guerreiro.id}"
-                    th:data-guerreiro-nome="${guerreiro.nome}">
-                Comprar
-            </button>
+           <button type="button"
+        class="btn-comprar-guerreiro"
+        th:data-guerreiro-id="${guerreiro.id}"
+        th:data-guerreiro-nome="${guerreiro.nome}"
+        th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        
+    <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+        Comprar
+    </span>
+
+    <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        Limite Atingido
+    </span>
+
+</button>
         </form>
     </div>
 
@@ -294,16 +329,19 @@
             Boss Coins
         </div>
 
-        <div class="info">
-            Você possui:
-            <strong class="quantidade-atual"
-                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
-                0
-            </strong>
-               <strong class="limite-guerreiro">
-           / 100 Máximo
-           </strong>
-        </div>
+      <div class="info">
+    Você possui:
+    <strong class="quantidade-atual"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+        0
+    </strong>
+    /
+    <strong class="limite-guerreiro"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+        0
+    </strong>
+    Máximo
+</div>
 
         <div class="tag-ataque">
             Somente ataque ao Boss
@@ -313,12 +351,21 @@
             <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
             <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
 
-            <button type="button"
-                    class="btn-comprar-guerreiro"
-                    th:data-guerreiro-id="${guerreiro.id}"
-                    th:data-guerreiro-nome="${guerreiro.nome}">
-                Comprar
-            </button>
+           <button type="button"
+        class="btn-comprar-guerreiro"
+        th:data-guerreiro-id="${guerreiro.id}"
+        th:data-guerreiro-nome="${guerreiro.nome}"
+        th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        
+    <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+        Comprar
+    </span>
+
+    <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        Limite Atingido
+    </span>
+
+</button>
         </form>
     </div>
 
@@ -352,18 +399,21 @@
             Boss Coins
         </div>
 
-        <div class="info">
-            Você possui:
-            <strong class="quantidade-atual"
-                    th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
-                0
-            </strong>
-               <strong class="limite-guerreiro">
-           / 100 Máximo
-           </strong>
-        </div>
+     <div class="info">
+    Você possui:
+    <strong class="quantidade-atual"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+        0
+    </strong>
+    /
+    <strong class="limite-guerreiro"
+            th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+        0
+    </strong>
+    Máximo
+</div>
 
-        <div class="tag-ataque">
+       <div class="tag-ataque">
             Somente ataque ao Boss
         </div>
 
@@ -371,19 +421,108 @@
             <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
             <input type="number" class="quantidade-guerreiro" value="1" min="1" max="5">
 
-            <button type="button"
-                    class="btn-comprar-guerreiro"
-                    th:data-guerreiro-id="${guerreiro.id}"
-                    th:data-guerreiro-nome="${guerreiro.nome}">
-                Comprar
-            </button>
+        <button type="button"
+        class="btn-comprar-guerreiro"
+        th:data-guerreiro-id="${guerreiro.id}"
+        th:data-guerreiro-nome="${guerreiro.nome}"
+        th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        
+    <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+        Comprar
+    </span>
+
+    <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+        Limite Atingido
+    </span>
+
+</button>
         </form>
     </div>
 
+
+
+<!-- CARD SENTINELA NYARA -->
+<div class="card-guerreiro"
+     th:each="guerreiro : ${guerreiros}"
+     th:if="${guerreiro.nome == 'Sentinela Nyara'}">
+
+    <img loading="lazy"
+         decoding="async"
+         src="/images/guerreiros_elite/sentinela_nyara/sentinela-nyara_apresentacao.webp"
+         alt="Sentinela Nyara">
+
+    <h2 th:text="${guerreiro.nome}">Sentinela Nyara</h2>
+
+    <div class="info">
+        Tipo:
+        <strong th:text="${guerreiro.tipo}">GUERREIRA</strong>
+    </div>
+
+    <div class="info">
+        Dano base:
+        <strong th:text="${guerreiro.danoBase}">10</strong>
+    </div>
+
+    <div class="info">
+        Preço atual:
+        <strong class="preco-atual"
+                th:text="${#numbers.formatDecimal(guerreiro.precoAtual, 0, 'POINT', 0, 'COMMA')}">
+            15.000
+        </strong>
+        Boss Coins
+    </div>
+
+    <div class="info">
+        Você possui:
+        <strong class="quantidade-atual"
+                th:text="${#numbers.formatInteger(guerreiro.quantidadeUsuario, 0, 'POINT')}">
+            0
+        </strong>
+        /
+        <strong class="limite-guerreiro"
+                th:text="${#numbers.formatInteger(guerreiro.quantidadeMaxima, 0, 'POINT')}">
+            0
+        </strong>
+        Máximo
+    </div>
+
+    <div class="tag-ataque">
+        Somente ataque ao Boss
+    </div>
+
+    <form class="form-compra">
+        <input type="hidden" class="guerreiro-id" th:value="${guerreiro.id}">
+
+        <input type="number"
+               class="quantidade-guerreiro"
+               value="1"
+               min="1"
+               max="5">
+
+        <button type="button"
+                class="btn-comprar-guerreiro"
+                th:data-guerreiro-id="${guerreiro.id}"
+                th:data-guerreiro-nome="${guerreiro.nome}"
+                th:disabled="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+
+            <span th:if="${guerreiro.quantidadeUsuario < guerreiro.quantidadeMaxima}">
+                Comprar
+            </span>
+
+            <span th:if="${guerreiro.quantidadeUsuario >= guerreiro.quantidadeMaxima}">
+                Limite Atingido
+            </span>
+        </button>
+    </form>
 </div>
 
 
+
 </div>
+
+</div> <!-- loja-container -->
+
+
     <!-- ANUNCIO -->
     <div class="anuncio-7">
 

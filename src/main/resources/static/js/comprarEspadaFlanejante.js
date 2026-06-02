@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!card) return;
 
             // 📦 quantidade (ID — exatamente como no HTML)
-            const quantidadeInput = card.querySelector('.quantidade-espadas');
+            const quantidadeInput = card.querySelector('.quantidade-espada');
             if (!quantidadeInput) return;
 
             const quantidade = parseInt(quantidadeInput.value);

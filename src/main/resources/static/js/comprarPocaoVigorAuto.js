@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (emCooldownCompra) return;
 
         const card = btnComprar.closest('.loja-card');
-        const quantidadeInput = card.querySelector('.quantidade-item');
+        const quantidadeInput = card.querySelector('.quantidade-vigor');
         const quantidade = Number(quantidadeInput.value);
 
         if (!Number.isInteger(quantidade) || quantidade <= 0) {

@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const quantidadeInput = card.querySelector('.quantidade-escudo');
+			
             if (!quantidadeInput) {
                 console.error('Input .quantidade-escudo não encontrado');
                 return;

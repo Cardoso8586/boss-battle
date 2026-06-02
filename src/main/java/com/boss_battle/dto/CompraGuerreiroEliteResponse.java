@@ -1,6 +1,5 @@
 package com.boss_battle.dto;
 
-
 import java.math.BigDecimal;
 
 public class CompraGuerreiroEliteResponse {
@@ -8,7 +7,7 @@ public class CompraGuerreiroEliteResponse {
     private boolean sucesso;
     private String mensagem;
     private BigDecimal bossCoinsAtual;
-    private BigDecimal valorTotal;
+    private BigDecimal precoAtual;
     private Long quantidadeAtual;
 
     public CompraGuerreiroEliteResponse() {
@@ -18,13 +17,13 @@ public class CompraGuerreiroEliteResponse {
             boolean sucesso,
             String mensagem,
             BigDecimal bossCoinsAtual,
-            BigDecimal valorTotal,
+            BigDecimal precoAtual,
             Long quantidadeAtual
     ) {
         this.sucesso = sucesso;
         this.mensagem = mensagem;
         this.bossCoinsAtual = bossCoinsAtual;
-        this.valorTotal = valorTotal;
+        this.precoAtual = precoAtual;
         this.quantidadeAtual = quantidadeAtual;
     }
 
@@ -52,12 +51,12 @@ public class CompraGuerreiroEliteResponse {
         this.bossCoinsAtual = bossCoinsAtual;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
+    public BigDecimal getPrecoAtual() {
+        return precoAtual;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setPrecoAtual(BigDecimal precoAtual) {
+        this.precoAtual = precoAtual;
     }
 
     public Long getQuantidadeAtual() {

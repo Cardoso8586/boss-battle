@@ -22,9 +22,10 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        "Valgard",
     	        "GUERREIRO",
     	        8L,
-    	        5000L,
+    	        5_000L,
     	        "valgard.webp",
-    	        true
+    	        true,
+    	        100
     	);
 
     	// ID 2
@@ -32,9 +33,10 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        "Guerreira Mística",
     	        "GUERREIRA",
     	        8L,
-    	        5000L,
+    	        5_000L,
     	        "guerreira-mistica.webp",
-    	        false
+    	        false,
+    	        100
     	);
     	
     	// ID 3
@@ -42,9 +44,10 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        "Caçador de Boss",
     	        "GUERREIRO",
     	        9L,
-    	        7000L,
+    	        7_000L,
     	        "cacador-boss.webp",
-    	        false
+    	        false,
+    	        40
     	);
     	
     	
@@ -53,9 +56,10 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        "Arqueira Real",
     	        "ARQUEIRA",
     	        7L,
-    	        6000L,
+    	        6_000L,
     	        "arqueira-real.webp",
-    	        false
+    	        false,
+    	        70
     	);
     	
 
@@ -64,9 +68,21 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        "Guerreiro Guardião",
     	        "GUERREIRO",
     	        7L,
-    	        6000L,
+    	        6_000L,
     	        "guerreiro-guardiao.webp",
-    	        false
+    	        false,
+    	        70
+    	);
+    	
+    	// ID 6
+    	criarSeNaoExistir(
+    	        "Sentinela Nyara",
+    	        "GUERREIRA",
+    	        10L,
+    	        30_000L,
+    	        "sentinela-nyara.webp",
+    	        false,
+    	        50
     	);
     	
     }
@@ -77,9 +93,9 @@ public class GuerreiroSeeder implements CommandLineRunner {
             Long danoBase,
             Long custoCompra,
             String imagem,
-            boolean padrao
+            boolean padrao,
+            Integer quantidadeMaxima
     ) {
-
         if (guerreiroRepository.existsByNome(nome)) {
             return;
         }
@@ -92,6 +108,7 @@ public class GuerreiroSeeder implements CommandLineRunner {
         guerreiro.setImagem(imagem);
         guerreiro.setPadrao(padrao);
         guerreiro.setAtivo(true);
+        guerreiro.setQuantidadeMaxima(quantidadeMaxima);
 
         guerreiroRepository.save(guerreiro);
     }

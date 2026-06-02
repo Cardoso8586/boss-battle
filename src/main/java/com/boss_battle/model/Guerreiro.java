@@ -27,6 +27,18 @@ public class Guerreiro {
 
     private String imagem;
 
+    
+    private Integer quantidadeMaxima;
+
+    public Integer getQuantidadeMaxima() {
+        return quantidadeMaxima;
+    }
+
+    public void setQuantidadeMaxima(Integer quantidadeMaxima) {
+        this.quantidadeMaxima = quantidadeMaxima;
+    }
+    
+    
     private boolean ativo = true;
 
     private boolean padrao = false;
