@@ -13,7 +13,10 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ComprarGuerreiroService {
-	 private static final long LIMITE_GUERREIRO = 1_000L;
+
+    private static final long LIMITE_GUERREIRO = 1_000L;
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
+
     @Autowired
     private LojaAprimoramentosService lojaService;
 
@@ -29,7 +32,13 @@ public class ComprarGuerreiroService {
             return false;
         }
 
-       
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
 
         long quantidadeTotalGuerreiro = quantidadeTotalGuerreiro(usuario);
 
@@ -56,15 +65,13 @@ public class ComprarGuerreiroService {
 
         return true;
     }
-    
+
     public long quantidadeTotalGuerreiro(UsuarioBossBattle usuario) {
-    	
-      	 //cria qiantidade total de guerreiro por usuario
-          long quantGuerreiros = usuario.getGuerreiros();
-          long estoqueGuerreiro = usuario.getGuerreirosInventario();
-          long  guerreirosRetaguarda = usuario.getGuerreirosRetaguarda();
-          long totalGuerreiro = quantGuerreiros + estoqueGuerreiro + guerreirosRetaguarda;
-      	
-          return totalGuerreiro;
-      }
+
+        long quantGuerreiros = usuario.getGuerreiros();
+        long estoqueGuerreiro = usuario.getGuerreirosInventario();
+        long guerreirosRetaguarda = usuario.getGuerreirosRetaguarda();
+
+        return quantGuerreiros + estoqueGuerreiro + guerreirosRetaguarda;
+    }
 }

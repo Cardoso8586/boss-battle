@@ -1,6 +1,5 @@
 package com.boss_battle.service.aprimoramentos_loja;
 
-
 import java.math.BigDecimal;
 import java.util.Random;
 
@@ -22,86 +21,75 @@ public class LootboxService {
 
     private final Random random = new Random();
 
-    // Preços das lootboxes
-    private final long precoBasica = 500L;   
-    private final long precoAvancada = 800L; 
-    private final long precoEspecial = 1_000L; 
+    private final long precoBasica = 500L;
+    private final long precoAvancada = 800L;
+    private final long precoEspecial = 1_000L;
     private final long precoLendaria = 1_500L;
 
     public String abrirLootboxPorNivel(UsuarioBossBattle usuario, String tipoLootbox) {
-        final int maxBasica = 10;
-        final int maxAvancada = 15;
-        final int maxEspecial = 20;
-        final int maxLendaria = 25;
+
+        if (usuario == null || usuario.getId() == null) {
+            throw new RuntimeException("Usuário inválido");
+        }
+
+        UsuarioBossBattle usuarioLock = usuarioRepository.findByIdForUpdate(usuario.getId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if (usuarioLock.getBossCoins() == null) {
+            usuarioLock.setBossCoins(BigDecimal.ZERO);
+        }
 
         int quantidade;
         TipoFlecha tipoFlecha;
         long preco;
 
-        switch(tipoLootbox.toLowerCase()) {
+        switch (tipoLootbox.toLowerCase()) {
             case "basica" -> {
-                quantidade = 1 + random.nextInt(maxBasica);
+                quantidade = 1 + random.nextInt(10);
                 tipoFlecha = TipoFlecha.FERRO;
                 preco = precoBasica;
             }
             case "avancada" -> {
-                quantidade = 1 + random.nextInt(maxAvancada);
+                quantidade = 1 + random.nextInt(15);
                 tipoFlecha = TipoFlecha.FOGO;
                 preco = precoAvancada;
             }
             case "especial" -> {
-                quantidade = 1 + random.nextInt(maxEspecial);
+                quantidade = 1 + random.nextInt(20);
                 tipoFlecha = TipoFlecha.VENENO;
                 preco = precoEspecial;
             }
             case "lendaria" -> {
-                quantidade = 1 + random.nextInt(maxLendaria);
+                quantidade = 1 + random.nextInt(25);
                 tipoFlecha = TipoFlecha.DIAMANTE;
                 preco = precoLendaria;
             }
             default -> throw new RuntimeException("Tipo de lootbox inválido");
         }
 
-        // ✅ Verifica se o usuário tem saldo suficiente
-        if (usuario.getBossCoins().compareTo(BigDecimal.valueOf(preco)) < 0) {
+        BigDecimal valorTotal = BigDecimal.valueOf(preco);
+
+        if (usuarioLock.getBossCoins().compareTo(valorTotal) < 0) {
             throw new RuntimeException("Saldo insuficiente para abrir a lootbox");
         }
 
-        // 💰 Debita o valor do usuário
-        usuario.setBossCoins(usuario.getBossCoins().subtract(BigDecimal.valueOf(preco)));
+        usuarioLock.setBossCoins(usuarioLock.getBossCoins().subtract(valorTotal));
 
-        // Adiciona a quantidade sorteada diretamente no inventário
         switch (tipoFlecha) {
-            case FERRO -> usuario.setFlechaFerro(usuario.getFlechaFerro() + quantidade);
-            case FOGO -> usuario.setFlechaFogo(usuario.getFlechaFogo() + quantidade);
-            case VENENO -> usuario.setFlechaVeneno(usuario.getFlechaVeneno() + quantidade);
-            case DIAMANTE -> usuario.setFlechaDiamante(usuario.getFlechaDiamante() + quantidade);
+            case FERRO -> usuarioLock.setFlechaFerro(usuarioLock.getFlechaFerro() + quantidade);
+            case FOGO -> usuarioLock.setFlechaFogo(usuarioLock.getFlechaFogo() + quantidade);
+            case VENENO -> usuarioLock.setFlechaVeneno(usuarioLock.getFlechaVeneno() + quantidade);
+            case DIAMANTE -> usuarioLock.setFlechaDiamante(usuarioLock.getFlechaDiamante() + quantidade);
         }
 
-        // Salva alterações
-        usuarioRepository.save(usuario);
-        
-        //String flecha = (quantidade == 1) ? "Flecha" : "Flechas";
-        String flecha;
-        if (quantidade == 1) {
-            flecha = "Flecha";
-        } else {
-            flecha = "Flechas";
-        }
+        usuarioRepository.save(usuarioLock);
+
+        String flecha = quantidade == 1 ? "Flecha" : "Flechas";
 
         return "Você recebeu " + quantidade + " " + flecha + " de " +
-               tipoFlecha.name().toLowerCase();
-
-        
-/*
-        return "Lootbox " + tipoLootbox + " aberta! Você recebeu " + quantidade +
-               " flecha(s) de " + tipoFlecha.name().toLowerCase() +
-               ". Preço: " + preco + " Boss Coins.";
-               */
+                tipoFlecha.name().toLowerCase();
     }
 
-    
- // Getters
     public long getPrecoBasica() {
         return precoBasica;
     }
@@ -117,7 +105,4 @@ public class LootboxService {
     public long getPrecoLendaria() {
         return precoLendaria;
     }
-
-
-  
 }

@@ -25,7 +25,7 @@ public interface UsuarioBossBattleRepository extends JpaRepository<UsuarioBossBa
 
     UsuarioBossBattle findByEmailOrUsername(String email, String username);
   
-    
+    boolean existsByCadastroIp(String cadastroIp);
   
     @Query("""
     	    select u.id

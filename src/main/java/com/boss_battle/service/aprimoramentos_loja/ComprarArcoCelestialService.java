@@ -13,45 +13,55 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class ComprarArcoCelestialService {
-	
-	
-	@Autowired
-	LojaAprimoramentosService lojaAprimoramentosService;
-	
-	@Autowired
+
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
+
+    @Autowired
+    LojaAprimoramentosService lojaAprimoramentosService;
+
+    @Autowired
     private UsuarioBossBattleRepository repo;
 
     public boolean comprarArcoCelestial(Long usuarioId, int quantidade) {
-    	
-    	// 🔒 Busca usuário com lock pessimista
+
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    	
-        Long precoUnitario = lojaAprimoramentosService.getPRECO_ARCO_CELESTIAL();
-        BigDecimal valorTotal = BigDecimal.valueOf(precoUnitario).multiply(BigDecimal.valueOf(quantidade));
+        // 🚨 SEGURANÇA
+        if (quantidade <= 0) {
+            return false;
+        }
 
-        
-        // ❌ Saldo insuficiente
+        // 🚨 SEGURANÇA
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        Long precoUnitario =
+                lojaAprimoramentosService.getPRECO_ARCO_CELESTIAL();
+
+        BigDecimal valorTotal =
+                BigDecimal.valueOf(precoUnitario)
+                        .multiply(BigDecimal.valueOf(quantidade));
+
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 Debita saldo
-        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
+        usuario.setBossCoins(
+                usuario.getBossCoins().subtract(valorTotal)
+        );
 
-        // ⚔️ Adiciona Arco celestial
-       usuario.setInventarioArco(usuario.getInventarioArco() + quantidade);
+        usuario.setInventarioArco(
+                usuario.getInventarioArco() + quantidade
+        );
 
-        // 💾 Salva e força persistência imediata
         repo.saveAndFlush(usuario);
 
-    	
-    	 return true;
-    	
-    }//--->comprarMachadoDilacerador
-	
-	
-	
-
-}//ComprarArcoCelestial
+        return true;
+    }
+}

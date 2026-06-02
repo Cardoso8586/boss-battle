@@ -16,10 +16,12 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class PromoService {
-	
+
+    private static final long LIMITE_GUERREIRO = 1_000L;
+
     DecimalFormat df = new DecimalFormat("0");
     DecimalFormat moeda = new DecimalFormat("#,##0");
-    
+
     @Autowired
     private UsuarioBossBattleRepository usuarioRepository;
 
@@ -28,148 +30,112 @@ public class PromoService {
 
     public String comprarPromo(UsuarioBossBattle usuario, String tipoPromo) {
 
-    	 // DecimalFormat df = new DecimalFormat("#,#0");
-    	
-        // 🔒 Preços atuais
-        long precoGuerreiro = usuario.getPrecoGuerreiros();
-        long precoPocaoVigor = usuario.getPrecoPocaoVigor();
-        long precoEspada = usuario.getPrecoEspadaFlanejante();
-        long precoMachado = usuario.getPrecoMachadoDilacerador();
+        if (usuario == null || usuario.getId() == null) {
+            throw new RuntimeException("Usuário inválido.");
+        }
+
+        UsuarioBossBattle usuarioLock = usuarioRepository.findByIdForUpdate(usuario.getId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
+        if (usuarioLock.getBossCoins() == null) {
+            usuarioLock.setBossCoins(BigDecimal.ZERO);
+        }
+
+        String tipo = tipoPromo == null ? "" : tipoPromo.toUpperCase();
+
+        long precoGuerreiro = usuarioLock.getPrecoGuerreiros();
+        long precoPocaoVigor = usuarioLock.getPrecoPocaoVigor();
+        long precoEspada = usuarioLock.getPrecoEspadaFlanejante();
+        long precoMachado = usuarioLock.getPrecoMachadoDilacerador();
         long precoArcoCelestial = lojaAprimoramentosService.getPRECO_ARCO_CELESTIAL();
 
         long valorBruto;
         double desconto;
+        int guerreirosRecebidos;
 
-        // 🧮 Calcula custo REAL do pacote
-        switch (tipoPromo.toUpperCase()) {
-
+        switch (tipo) {
             case "NORMAL" -> {
-                valorBruto =
-                        (2 * precoGuerreiro) +
-                        (2 * precoPocaoVigor) +
-                        (1 * precoEspada);
+                valorBruto = (2 * precoGuerreiro) + (2 * precoPocaoVigor) + precoEspada;
                 desconto = 0.15;
+                guerreirosRecebidos = 2;
             }
-
             case "AVANCADA" -> {
-                valorBruto =
-                        (4 * precoGuerreiro) +
-                        (3 * precoPocaoVigor) +
-                        (2 * precoEspada) +
-                        (1 * precoMachado);
+                valorBruto = (4 * precoGuerreiro) + (3 * precoPocaoVigor) + (2 * precoEspada) + precoMachado;
                 desconto = 0.25;
+                guerreirosRecebidos = 4;
             }
-
             case "ESPECIAL" -> {
-                valorBruto =
-                        (6 * precoGuerreiro) +
-                        (5 * precoPocaoVigor) +
-                        (3 * precoEspada) +
-                        (2 * precoMachado);
+                valorBruto = (6 * precoGuerreiro) + (5 * precoPocaoVigor) + (3 * precoEspada) + (2 * precoMachado);
                 desconto = 0.35;
+                guerreirosRecebidos = 6;
             }
-
             case "LENDARIA" -> {
-                valorBruto =
-                        (10 * precoGuerreiro) +
-                        (8 * precoPocaoVigor) +
-                        (5 * precoEspada) +
-                        (3 * precoMachado) +
-                        (3 * precoArcoCelestial);
+                valorBruto = (10 * precoGuerreiro) + (8 * precoPocaoVigor) + (5 * precoEspada)
+                        + (3 * precoMachado) + (3 * precoArcoCelestial);
                 desconto = 0.50;
+                guerreirosRecebidos = 10;
             }
-
-            default -> {
-                return "❌ Tipo de promoção inválido.";
-            }
+            default -> throw new RuntimeException("Tipo de promoção inválido.");
         }
 
-        // 💸 Aplica desconto
+        long totalGuerreiros =
+                usuarioLock.getGuerreiros()
+                        + usuarioLock.getGuerreirosInventario()
+                        + usuarioLock.getGuerreirosRetaguarda();
+
+        if (totalGuerreiros + guerreirosRecebidos > LIMITE_GUERREIRO) {
+            throw new RuntimeException("Limite máximo de guerreiros atingido.");
+        }
+
         BigDecimal precoFinal = BigDecimal.valueOf(valorBruto)
                 .multiply(BigDecimal.valueOf(1 - desconto))
                 .setScale(0, RoundingMode.DOWN);
-        
-      
-       //verifica o saldo, e mostra se erro
-        if (usuario.getBossCoins().compareTo(precoFinal) < 0) {
+
+        if (usuarioLock.getBossCoins().compareTo(precoFinal) < 0) {
             throw new RuntimeException(
-                "Saldo insuficiente. Valor com desconto: " 
-                + moeda.format(precoFinal.doubleValue())
+                    "Saldo insuficiente. Valor com desconto: "
+                            + moeda.format(precoFinal.doubleValue())
             );
         }
-      
-        // 💰 Debita
-        usuario.setBossCoins(usuario.getBossCoins().subtract(precoFinal));
 
-        // 🎁 ENTREGA DOS ITENS
-        
-        
-        int quantidade = 0;
-       
-       
-        switch (tipoPromo.toUpperCase()) {
+        usuarioLock.setBossCoins(usuarioLock.getBossCoins().subtract(precoFinal));
 
+        switch (tipo) {
             case "NORMAL" -> {
-                usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + 2);
-                usuario.setPocaoVigor(usuario.getPocaoVigor() + 2);
-                usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 1);
-                
-                
-                // 🔁 Recalcula preço (sem salvar usuário ainda)
-                quantidade = 2;
-                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
-                
-                
+                usuarioLock.setGuerreirosInventario(usuarioLock.getGuerreirosInventario() + 2);
+                usuarioLock.setPocaoVigor(usuarioLock.getPocaoVigor() + 2);
+                usuarioLock.setEspadaFlanejante(usuarioLock.getEspadaFlanejante() + 1);
             }
-
             case "AVANCADA" -> {
-                usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + 4);
-                usuario.setPocaoVigor(usuario.getPocaoVigor() + 3);
-                usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 2);
-                usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 1);
-                
-                // 🔁 Recalcula preço (sem salvar usuário ainda)
-                quantidade = 4;
-                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
-                
+                usuarioLock.setGuerreirosInventario(usuarioLock.getGuerreirosInventario() + 4);
+                usuarioLock.setPocaoVigor(usuarioLock.getPocaoVigor() + 3);
+                usuarioLock.setEspadaFlanejante(usuarioLock.getEspadaFlanejante() + 2);
+                usuarioLock.setMachadoDilacerador(usuarioLock.getMachadoDilacerador() + 1);
             }
-
             case "ESPECIAL" -> {
-            	usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + 6);
-                usuario.setPocaoVigor(usuario.getPocaoVigor() + 5);
-                usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 3);
-                usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 2);
-                // 🔁 Recalcula preço (sem salvar usuário ainda)
-                quantidade = 6;
-                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
-                
+                usuarioLock.setGuerreirosInventario(usuarioLock.getGuerreirosInventario() + 6);
+                usuarioLock.setPocaoVigor(usuarioLock.getPocaoVigor() + 5);
+                usuarioLock.setEspadaFlanejante(usuarioLock.getEspadaFlanejante() + 3);
+                usuarioLock.setMachadoDilacerador(usuarioLock.getMachadoDilacerador() + 2);
             }
-
             case "LENDARIA" -> {
-            	usuario.setGuerreirosInventario(usuario.getGuerreirosInventario() + 10);
-                usuario.setPocaoVigor(usuario.getPocaoVigor() + 8);
-                usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + 5);
-                usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + 3);
-                
-                // 🔁 Recalcula preço (sem salvar usuário ainda)
-                quantidade = 10;
-                lojaAprimoramentosService.atualizarPrecoGuerreiro(usuario, quantidade);
-                
+                usuarioLock.setGuerreirosInventario(usuarioLock.getGuerreirosInventario() + 10);
+                usuarioLock.setPocaoVigor(usuarioLock.getPocaoVigor() + 8);
+                usuarioLock.setEspadaFlanejante(usuarioLock.getEspadaFlanejante() + 5);
+                usuarioLock.setMachadoDilacerador(usuarioLock.getMachadoDilacerador() + 3);
+                usuarioLock.setInventarioArco(usuarioLock.getInventarioArco() + 3);
             }
         }
 
-        // 💾 Salva
-        usuarioRepository.save(usuario);
+        lojaAprimoramentosService.atualizarPrecoGuerreiro(usuarioLock, guerreirosRecebidos);
 
-        return "Promoção " + tipoPromo.toUpperCase()
-        + " comprada! Você economizou "
-        + df.format(desconto * 100) + "%";
+        usuarioRepository.save(usuarioLock);
+
+        return "Promoção " + tipo
+                + " comprada! Você economizou "
+                + df.format(desconto * 100) + "%";
     }
-    
-    //=============================================================
-                   //PREÇOS
-    //=============================================================
-    
+
     public PromoPrecoDTO calcularPreviewPromo(
             UsuarioBossBattle usuario,
             String tipoPromo) {
@@ -184,43 +150,23 @@ public class PromoService {
         int descontoPercentual;
 
         switch (tipoPromo.toUpperCase()) {
-
             case "NORMAL" -> {
-                valorBruto =
-                        (2 * precoGuerreiro) +
-                        (2 * precoPocao) +
-                        (1 * precoEspada);
+                valorBruto = (2 * precoGuerreiro) + (2 * precoPocao) + precoEspada;
                 descontoPercentual = 15;
             }
-
             case "AVANCADA" -> {
-                valorBruto =
-                        (4 * precoGuerreiro) +
-                        (3 * precoPocao) +
-                        (2 * precoEspada) +
-                        (1 * precoMachado);
+                valorBruto = (4 * precoGuerreiro) + (3 * precoPocao) + (2 * precoEspada) + precoMachado;
                 descontoPercentual = 25;
             }
-
             case "ESPECIAL" -> {
-                valorBruto =
-                        (6 * precoGuerreiro) +
-                        (5 * precoPocao) +
-                        (3 * precoEspada) +
-                        (2 * precoMachado);
+                valorBruto = (6 * precoGuerreiro) + (5 * precoPocao) + (3 * precoEspada) + (2 * precoMachado);
                 descontoPercentual = 35;
             }
-
             case "LENDARIA" -> {
-                valorBruto =
-                        (10 * precoGuerreiro) +
-                        (8 * precoPocao) +
-                        (5 * precoEspada) +
-                        (3 * precoMachado) +
-                        (3 * precoArco);
+                valorBruto = (10 * precoGuerreiro) + (8 * precoPocao) + (5 * precoEspada)
+                        + (3 * precoMachado) + (3 * precoArco);
                 descontoPercentual = 50;
             }
-
             default -> throw new RuntimeException("Promoção inválida");
         }
 
@@ -236,6 +182,4 @@ public class PromoService {
                 descontoPercentual
         );
     }
-
 }
-

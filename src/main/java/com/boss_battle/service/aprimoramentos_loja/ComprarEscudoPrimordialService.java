@@ -14,47 +14,76 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarEscudoPrimordialService {
 
-	 @Autowired
-	    private UsuarioBossBattleRepository repo;
-		@Autowired
-		LojaAprimoramentosService lojaAprimoramentosService;
-	
-		 public boolean comprarEscudoPrimordial(Long usuarioId, int quantidade) {
-			 
-			  // 🔒 Busca com lock pessimista
-		        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-		                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));	
-			 
-		        
-		       //BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEscudoPrimordial());
-		        BigDecimal precoUnitario = BigDecimal.valueOf( lojaAprimoramentosService.getPRECO_ESCUDO_PRIMORDIAL());
-			 
-		        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
-			 
-		        // ❌ Saldo insuficiente
-		        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
-		            return false;
-		        }
+    @Autowired
+    private UsuarioBossBattleRepository repo;
 
-		        // 💰 Debita saldo
-		        usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
+    @Autowired
+    private LojaAprimoramentosService lojaAprimoramentosService;
 
-		        // ⚔️ Adiciona espadas escudo primordial
-		        usuario.setEscudoPrimordial(usuario.getEscudoPrimordial() + quantidade);
+    public boolean comprarEscudoPrimordial(Long usuarioId, int quantidade) {
 
-		        
-		        // 🔁 Recalcula preço (sem salvar usuário ainda)
-		        lojaAprimoramentosService.atualizarPrecoEscudoPrimordial(usuario, quantidade);
-		        
-		        // 💾 Salva e força commit imediato
-		        repo.saveAndFlush(usuario);
-			 
-			 return true;
-			 
-			 
-		 }//--->comprarEscudoPrimordial
+        // 🔒 Busca usuário com lock pessimista
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-	
-	
-	
-}//--->ComprarEscudoPrimordialService
+        // 🚨 SEGURANÇA:
+        // Impede quantidade negativa ou zero.
+        // Sem esta validação um invasor poderia enviar:
+        // quantidade = -9999
+        //
+        // Isso faria:
+        // saldo.subtract(valorNegativo)
+        //
+        // Resultado:
+        // saldo + valor
+        //
+        // Ou seja, adicionaria BossCoins ao invés de descontar.
+        if (quantidade <= 0) {
+            return false;
+        }
+
+        // 🚨 SEGURANÇA:
+        // Limite máximo por compra.
+        if (quantidade > 5) {
+            return false;
+        }
+
+        // Proteção contra saldo nulo
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        BigDecimal precoUnitario =
+                BigDecimal.valueOf(
+                        lojaAprimoramentosService.getPRECO_ESCUDO_PRIMORDIAL()
+                );
+
+        BigDecimal valorTotal =
+                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+
+        // ❌ Saldo insuficiente
+        if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
+            return false;
+        }
+
+        // 💰 Debita saldo
+        usuario.setBossCoins(
+                usuario.getBossCoins().subtract(valorTotal)
+        );
+
+        // 🛡️ Adiciona escudos ao inventário
+        usuario.setEscudoPrimordial(
+                usuario.getEscudoPrimordial() + quantidade
+        );
+
+        // 🔁 Atualiza preço da loja
+        lojaAprimoramentosService
+                .atualizarPrecoEscudoPrimordial(usuario, quantidade);
+
+        // 💾 Salva alterações
+        repo.saveAndFlush(usuario);
+
+        return true;
+    }
+
+}

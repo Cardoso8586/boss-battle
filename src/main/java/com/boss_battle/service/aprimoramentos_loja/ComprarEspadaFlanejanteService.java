@@ -14,36 +14,49 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarEspadaFlanejanteService {
 
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
+
     @Autowired
     private UsuarioBossBattleRepository repo;
-	@Autowired
-	LojaAprimoramentosService lojaAprimoramentosService;
+
+    @Autowired
+    private LojaAprimoramentosService lojaAprimoramentosService;
+
     public boolean comprarEspadaFlanejante(Long usuarioId, int quantidade) {
 
-        // 🔒 Busca com lock pessimista
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEspadaFlanejante());
-        BigDecimal precoUnitario = BigDecimal.valueOf( lojaAprimoramentosService.getPRECO_ESPADA_FLANEJANTE());
-       
-        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        if (quantidade <= 0) {
+            return false;
+        }
 
-        // ❌ Saldo insuficiente
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        BigDecimal precoUnitario =
+                BigDecimal.valueOf(lojaAprimoramentosService.getPRECO_ESPADA_FLANEJANTE());
+
+        BigDecimal valorTotal =
+                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 Debita saldo
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // ⚔️ Adiciona espadas flanejantes
-        usuario.setEspadaFlanejante(usuario.getEspadaFlanejante() + quantidade);
+        usuario.setEspadaFlanejante(
+                usuario.getEspadaFlanejante() + quantidade
+        );
 
-        // 💾 Salva e força commit imediato
         repo.saveAndFlush(usuario);
 
         return true;
     }
 }
-

@@ -3,7 +3,7 @@ package com.boss_battle.controller;
 
 import java.util.Base64;
 import java.util.Map;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.CaptchaService;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -37,14 +38,17 @@ public class AuthController {
 
 
     @PostMapping("/cadastro")
-    public ResponseEntity<String> cadastrarUsuario(@RequestBody Map<String, String> payload) {
+    public ResponseEntity<String> cadastrarUsuario(@RequestBody Map<String, String> payload,  HttpServletRequest request) {
 
         String username = payload.get("username");
         String email = payload.get("email");
         String senha = payload.get("senha");
         String captchaToken = payload.get("captcha");
         String ref = payload.get("ref");
-
+        String ip = getClientIp(request);
+        
+        
+        
         // Verifica CAPTCHA
         if (captchaToken == null || !captchaService.isValid(captchaToken)) {
             return ResponseEntity.badRequest().body("Falha na verificação do CAPTCHA.");
@@ -58,6 +62,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Este correio já foi registrado por outro guerreiro.");
         }
 
+        if (usuarioRepository.existsByCadastroIp(ip)) {
+            return ResponseEntity.badRequest()
+                    .body("Já existe uma conta criada neste dispositivo/rede.");
+        }
          // Cria usuário
         UsuarioBossBattle usuario = new UsuarioBossBattle();
         // Processa referência
@@ -78,7 +86,7 @@ public class AuthController {
             }
         }
 
-      
+        usuario.setCadastroIp(ip);
         usuario.setUsername(username);
         usuario.setEmail(email);
         usuario.setSenha(passwordEncoder.encode(senha));
@@ -91,7 +99,17 @@ public class AuthController {
     //===================================================================================
     
     
-    @PostMapping("/login")
+    private String getClientIp(HttpServletRequest request) {
+        String forwarded = request.getHeader("X-Forwarded-For");
+
+        if (forwarded != null && !forwarded.isBlank()) {
+            return forwarded.split(",")[0].trim();
+        }
+
+        return request.getRemoteAddr();
+    }
+    
+	@PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> payload, HttpSession session) {
 
         try {

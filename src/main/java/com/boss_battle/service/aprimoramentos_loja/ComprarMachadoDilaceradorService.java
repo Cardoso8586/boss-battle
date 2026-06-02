@@ -14,37 +14,49 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class ComprarMachadoDilaceradorService {
 
-	@Autowired
-	LojaAprimoramentosService lojaAprimoramentosService;
-	
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
+
+    @Autowired
+    private LojaAprimoramentosService lojaAprimoramentosService;
+
     @Autowired
     private UsuarioBossBattleRepository repo;
 
     public boolean comprarMachadoDilacerador(Long usuarioId, int quantidade) {
 
-        // 🔒 Busca usuário com lock pessimista
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoMachadoDilacerador());
-        BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPRECO_MACHADO_DILACERADOR());
-        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        if (quantidade <= 0) {
+            return false;
+        }
 
-        // ❌ Saldo insuficiente
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        BigDecimal precoUnitario =
+                BigDecimal.valueOf(lojaAprimoramentosService.getPRECO_MACHADO_DILACERADOR());
+
+        BigDecimal valorTotal =
+                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // 💰 Debita saldo
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // ⚔️ Adiciona machados dilacerador
-        usuario.setMachadoDilacerador(usuario.getMachadoDilacerador() + quantidade);
+        usuario.setMachadoDilacerador(
+                usuario.getMachadoDilacerador() + quantidade
+        );
 
-        // 💾 Salva e força persistência imediata
         repo.saveAndFlush(usuario);
 
         return true;
     }
 }
-

@@ -13,38 +13,46 @@ import com.boss_battle.repository.UsuarioBossBattleRepository;
 @Transactional
 public class ComprarVigorAutoService {
 
+    private static final long QUANTIDADE_MAXIMA_POR_COMPRA = 5L;
+
     @Autowired
     private UsuarioBossBattleRepository repo;
-	@Autowired
-	LojaAprimoramentosService lojaAprimoramentosService;
-    /**
-     * Compra automática de poção de vigor.
-     */
+
+    @Autowired
+    private LojaAprimoramentosService lojaAprimoramentosService;
+
     @Transactional
     public boolean comprarVigorAuto(Long usuarioId, long quantidade) {
-       // UsuarioBossBattle usuario = repo.findById(usuarioId)
-           // .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-    	UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
-    	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        // Preço unitário da poção
-       // BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoPocaoVigor());
-    	 BigDecimal precoUnitario = BigDecimal.valueOf(lojaAprimoramentosService.getPOCAO_VIGOR());
-    	
-        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        // Verifica se o usuário tem saldo suficiente
+        if (quantidade <= 0) {
+            return false;
+        }
+
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+
+        BigDecimal precoUnitario =
+                BigDecimal.valueOf(lojaAprimoramentosService.getPOCAO_VIGOR());
+
+        BigDecimal valorTotal =
+                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
-        // Debita BossCoins
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
 
-        // Soma poções compradas ao estoque atual
         usuario.setPocaoVigor(usuario.getPocaoVigor() + quantidade);
 
-        // Salva alterações
         repo.save(usuario);
 
         return true;

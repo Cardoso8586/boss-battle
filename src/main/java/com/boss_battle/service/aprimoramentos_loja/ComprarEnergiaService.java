@@ -8,22 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
-
 @Service
 @Transactional
 public class ComprarEnergiaService {
-	private static final long LIMITE_ENERGIA = 50_000L;
-	
-	
+
+    private static final long LIMITE_ENERGIA = 50_000L;
+    private static final long ENERGIA_POR_UNIDADE = 50L;
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
+
     @Autowired
     private LojaAprimoramentosService lojaService;
 
     @Autowired
     private UsuarioBossBattleRepository repo;
 
-    /**
-     * Compra energia para os guerreiros.
-     */
     @Transactional
     public boolean comprarEnergia(Long usuarioId, int quantidade) {
 
@@ -34,30 +32,30 @@ public class ComprarEnergiaService {
             return false;
         }
 
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
+            return false;
+        }
+
         if (usuario.getBossCoins() == null) {
             usuario.setBossCoins(BigDecimal.ZERO);
         }
 
         long energiaAtual = usuario.getEnergiaGuerreirosPadrao();
-        long energiaComprada = quantidade * 50L;
+        long energiaComprada = quantidade * ENERGIA_POR_UNIDADE;
         long novaEnergia = energiaAtual + energiaComprada;
 
         if (novaEnergia > LIMITE_ENERGIA) {
             return false;
         }
 
-        BigDecimal precoUnitario =
-                BigDecimal.valueOf(usuario.getPrecoEnergia());
-
-        BigDecimal valorTotal =
-                precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        BigDecimal precoUnitario = BigDecimal.valueOf(usuario.getPrecoEnergia());
+        BigDecimal valorTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         if (usuario.getBossCoins().compareTo(valorTotal) < 0) {
             return false;
         }
 
         usuario.setBossCoins(usuario.getBossCoins().subtract(valorTotal));
-
         usuario.setEnergiaGuerreirosPadrao(novaEnergia);
 
         lojaService.atualizarPrecoVigor(usuario, quantidade);

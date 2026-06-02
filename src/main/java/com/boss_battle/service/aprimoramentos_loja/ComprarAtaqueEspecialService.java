@@ -16,6 +16,7 @@ public class ComprarAtaqueEspecialService {
 
     private static final long LIMITE_MAXIMO_ATAQUE = 10_000L;
     private static final long ATAQUE_POR_UNIDADE = 5L;
+    private static final int QUANTIDADE_MAXIMA_POR_COMPRA = 5;
 
     @Autowired
     private LojaAprimoramentosService lojaService;
@@ -28,7 +29,17 @@ public class ComprarAtaqueEspecialService {
         UsuarioBossBattle usuario = repo.findByIdForUpdate(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        // 🚨 SEGURANÇA:
+        // Bloqueia quantidade negativa ou zero.
+        // Sem isso, quantidade negativa poderia transformar subtract(valorTotal)
+        // em adição de saldo.
         if (quantidade <= 0) {
+            return false;
+        }
+
+        // 🚨 SEGURANÇA:
+        // Bloqueia compra muito grande em uma única requisição.
+        if (quantidade > QUANTIDADE_MAXIMA_POR_COMPRA) {
             return false;
         }
 

@@ -93,51 +93,6 @@ public class FaucetPayService {
 
         System.out.println("Reset diário de saques aplicado. Usuários atualizados: " + atualizados);
     }
-    /*
-    @Transactional
-    public void executarResetSeNecessario() {
-        List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
-        LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
-
-        for (UsuarioBossBattle usuario : usuarios) {
-            LocalDate ultimaData = usuario.getDataControleSaque();
-
-            if (ultimaData == null) {
-                usuario.setQuantidadeSaquesDiario(0);
-                usuario.setDataControleSaque(hoje);
-                continue;
-            }
-
-            while (ultimaData.isBefore(hoje)) {
-                usuario.setQuantidadeSaquesDiario(0);
-                ultimaData = ultimaData.plusDays(1);
-            }
-
-            usuario.setDataControleSaque(hoje);
-        }
-
-        usuarioRepo.saveAll(usuarios);
-    }
-    
-    /*
-/*
-    @Scheduled(cron = "0 0 0 * * *", zone = "America/Sao_Paulo")
-    @Transactional
-    public void resetarSaquesDiariosAutomaticamente() {
-    List<UsuarioBossBattle> usuarios = usuarioRepo.findAll();
-
-    LocalDate hoje = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
-    System.out.println("🔥 EXECUTOU AGORA: " + LocalDateTime.now());
-
-    for (UsuarioBossBattle usuario : usuarios) {
-        usuario.setQuantidadeSaquesDiario(0);
-        usuario.setDataControleSaque(hoje);
-    }
-
-    usuarioRepo.saveAll(usuarios);
-}
-*/
-
 
 	/**
      * Consulta saldo com cache
@@ -172,16 +127,20 @@ public class FaucetPayService {
         UsuarioBossBattle usuario = usuarioRepo.buscarPorIdComLock(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        
+           // 🔐 Validações
+        if (usuario.isContaNova()) {
+            throw new RuntimeException("Conta nova. Aguarde 7 dias.");
+        }
+
+        
         BigDecimal saldoAtual = usuario.getBossCoins();
 
-        // 🔐 Validações
-     
         // 🔐 Normaliza quantidade de saques
         int quantidadeSaquesHoje = usuario.getQuantidadeSaquesDiario() == null 
                 ? 0 
                 : usuario.getQuantidadeSaquesDiario();
-        // 🔐 Validações
-
+     
         if(quantidadeSaquesHoje >= DAILY_WITHDRAW_LIMIT){
             throw new RuntimeException("Limite diário de saques atingido");
         }

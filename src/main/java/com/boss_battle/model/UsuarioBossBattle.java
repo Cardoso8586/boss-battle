@@ -23,8 +23,23 @@ public class UsuarioBossBattle  {
     @Column(name = "created_at", columnDefinition = "DATETIME")
     private LocalDateTime createdAt;
     
+    public boolean isContaNova() {
+        return createdAt == null ||
+               createdAt.isAfter(LocalDateTime.now().minusDays(7));
+    }
+    
     private LocalDate dataUltimaColeta;
     
+    @Column(name = "cadastro_ip")
+    private String cadastroIp;
+
+    public String getCadastroIp() {
+        return cadastroIp;
+    }
+
+    public void setCadastroIp(String cadastroIp) {
+        this.cadastroIp = cadastroIp;
+    }
     
     
     // getters e setters para dataUltimaColeta
@@ -38,7 +53,7 @@ public class UsuarioBossBattle  {
     
   //================================ boss_coins =======================================
     @Column(name = "boss_coins", precision = 19, scale = 2)
-    private BigDecimal bossCoins = new BigDecimal("10000.00");
+    private BigDecimal bossCoins = BigDecimal.ZERO;
     /*
     //================================ boss_coins =======================================
     @Column(name = "boss_coins", precision = 19, scale = 2)
@@ -52,9 +67,9 @@ public class UsuarioBossBattle  {
     
     
     public UsuarioBossBattle() {
-        this.bossCoins = new BigDecimal("10000.00");
+        this.bossCoins = BigDecimal.ZERO;
     }
-
+    
     public UsuarioBossBattle(String username, String email, BigDecimal saldoInicial) {
         this.username = username;
         this.email = email;
@@ -78,7 +93,7 @@ public class UsuarioBossBattle  {
         this.createdAt = LocalDateTime.now();
 
         if (this.bossCoins == null) {
-            this.bossCoins = new BigDecimal("10000.00");
+            this.bossCoins = BigDecimal.ZERO;
         }
 
         if (this.zeradsClicks == null) {
