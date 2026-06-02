@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "usuario_boss_battle")
 public class UsuarioBossBattle  {
 
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

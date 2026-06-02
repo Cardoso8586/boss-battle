@@ -72,13 +72,46 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
             } else {
+				// 👇 AQUI só roda quando der ERRO
                 const errorText = await response.text();
                 console.error(errorText);
+				
+				Swal.fire({
+				customClass: {
+				title: 'swal-game-error'
+				},
+				                  
+				title: 'Erro no cadstro',
+				text: errorText,
+				timer: 8000,
+				showConfirmButton: false,
+				allowOutsideClick: false,
+				background: 'transparent',
+				color: '#ff3b3b'
+				
+				});
+				
                 limparFormulario();
             }
 
         } catch (err) {
+			// 👇 AQUI só roda quando der ERRO
             console.error(err);
+			
+			Swal.fire({
+						customClass: {
+						title: 'swal-game-error'
+						},
+						                  
+						title: 'Erro no cadstro',
+						text: errorText,
+						timer: 8000,
+						showConfirmButton: false,
+						allowOutsideClick: false,
+						background: 'transparent',
+						color: '#ff3b3b'
+						
+						});
             limparFormulario();
 
         } finally {
