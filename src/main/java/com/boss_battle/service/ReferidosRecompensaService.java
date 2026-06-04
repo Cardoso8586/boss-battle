@@ -74,7 +74,7 @@ public class ReferidosRecompensaService {
         
         ultimoValorRecebidoService.setUltimoValorRecebido(usuario,totalClaim);
         
-      //  usuarioRepository.save(usuario);
+       usuarioRepository.save(usuario);
     }
 
 }

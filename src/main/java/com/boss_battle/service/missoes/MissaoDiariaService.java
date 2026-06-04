@@ -199,8 +199,9 @@ public class MissaoDiariaService {
    
     @Transactional
     public MissaoDiariaDTO resgatarMissaoAtaques(Long usuarioId) {
-        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
-
+    	  UsuarioBossBattle usuario = usuarioRepository.buscarPorIdComLock(usuarioId)
+          	    .orElseThrow();
+          
         validarResetDiario(usuario);
         
         int nivelAtual = usuario.getMissaoDiariaNivelAtaquesEspeciais();
@@ -235,8 +236,9 @@ public class MissaoDiariaService {
     
     @Transactional
     public MissaoDiariaDTO resgatarMissaoPtc(Long usuarioId) {
-        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
-
+        UsuarioBossBattle usuario = usuarioRepository.buscarPorIdComLock(usuarioId)
+        	    .orElseThrow();
+        
         validarResetDiario(usuario);
 
         int nivelAtual = normalizarNivelMissao(usuario.getMissaoDiariaNivelPtc());

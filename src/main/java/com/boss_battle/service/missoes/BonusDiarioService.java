@@ -48,9 +48,9 @@ public class BonusDiarioService {
 
     public String coletarBonusDiario(Long usuarioId) {
 
-        UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
+    	  UsuarioBossBattle usuario =
+          	    usuarioRepository.buscarPorIdComLock(usuarioId)
+          	    .orElseThrow();
         LocalDate hoje = LocalDate.now();
 
         // Verifica se já coletou hoje
