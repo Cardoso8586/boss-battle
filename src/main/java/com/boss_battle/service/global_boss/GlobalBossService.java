@@ -2,13 +2,10 @@
 package com.boss_battle.service.global_boss;
 
 import java.math.BigDecimal;
-
 import java.util.List;
 import java.util.Map;
-
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +23,7 @@ import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossCybraxus;
+import com.boss_battle.model.GlobalBossDarkbyte;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossDrakzhor;
@@ -35,6 +33,7 @@ import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.model.GlobalBossGatalicos;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
+import com.boss_battle.model.GlobalBossHyperionX;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
@@ -52,6 +51,7 @@ import com.boss_battle.model.GlobalBossMorvyra;
 import com.boss_battle.model.GlobalBossNecrothar;
 import com.boss_battle.model.GlobalBossNeuroth;
 import com.boss_battle.model.GlobalBossNexarach;
+import com.boss_battle.model.GlobalBossNexaron;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -71,6 +71,7 @@ import com.boss_battle.model.GlobalBossTenebris;
 import com.boss_battle.model.GlobalBossTharvok;
 import com.boss_battle.model.GlobalBossTharzul;
 import com.boss_battle.model.GlobalBossThunderon;
+import com.boss_battle.model.GlobalBossTitanex;
 import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
@@ -78,12 +79,14 @@ import com.boss_battle.model.GlobalBossVZurvio;
 import com.boss_battle.model.GlobalBossVespera;
 import com.boss_battle.model.GlobalBossVesta;
 import com.boss_battle.model.GlobalBossVexaroth;
+import com.boss_battle.model.GlobalBossVoidreaper;
 import com.boss_battle.model.GlobalBossVorgathon;
 import com.boss_battle.model.GlobalBossVorgrim;
 import com.boss_battle.model.GlobalBossVorlath;
 import com.boss_battle.model.GlobalBossXaphiron;
 import com.boss_battle.model.GlobalBossXarvokth;
 import com.boss_battle.model.GlobalBossZargoth;
+import com.boss_battle.model.GlobalBossZerathon;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.BossDamageLogRepository;
 import com.boss_battle.repository.BossRewardLockRepository;
@@ -108,6 +111,7 @@ import com.boss_battle.service.bosses.AzurionService;
 import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.CybraxusService;
+import com.boss_battle.service.bosses.DarkbyteService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.DrakzhorService;
@@ -117,6 +121,7 @@ import com.boss_battle.service.bosses.FlamorService;
 import com.boss_battle.service.bosses.GatalicosService;
 import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
+import com.boss_battle.service.bosses.HyperionXService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
@@ -134,6 +139,7 @@ import com.boss_battle.service.bosses.MorvyraService;
 import com.boss_battle.service.bosses.NecrotharService;
 import com.boss_battle.service.bosses.NeurothService;
 import com.boss_battle.service.bosses.NexarachService;
+import com.boss_battle.service.bosses.NexaronService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -153,6 +159,7 @@ import com.boss_battle.service.bosses.TenebrisService;
 import com.boss_battle.service.bosses.TharvokService;
 import com.boss_battle.service.bosses.TharzulService;
 import com.boss_battle.service.bosses.ThunderonService;
+import com.boss_battle.service.bosses.TitanexService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
@@ -160,12 +167,14 @@ import com.boss_battle.service.bosses.VZurvioService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
 import com.boss_battle.service.bosses.VexarothService;
+import com.boss_battle.service.bosses.VoidreaperService;
 import com.boss_battle.service.bosses.VorgathonService;
 import com.boss_battle.service.bosses.VorgrimService;
 import com.boss_battle.service.bosses.VorlathService;
 import com.boss_battle.service.bosses.XaphironService;
 import com.boss_battle.service.bosses.XarvokthService;
 import com.boss_battle.service.bosses.ZargothService;
+import com.boss_battle.service.bosses.ZerathonService;
 import com.boss_battle.service.missoes.MissaoDiariaService;
 import com.boss_battle.service.missoes.RankingAtaqueEspecialService;
 
@@ -174,10 +183,6 @@ import com.boss_battle.service.missoes.RankingAtaqueEspecialService;
 @Service
 @Transactional
 public class GlobalBossService {
-	 
-	  
-	  
-	  
     private final IgnorathService ignorathService;
     private final DrakthorService drakthorService;
     private final AzurionService azurionService;
@@ -239,8 +244,6 @@ public class GlobalBossService {
      private final ExodraxService exodraxService;
      private final ApocalyxService apocalyxService;
      private final EclypzorService eclypzorService;
-     
-     //
      private final CybraxusService cybraxusService;
      private final NeurothService neurothService;
      private final MalghorService malghorService;
@@ -251,11 +254,13 @@ public class GlobalBossService {
      private final NyxaraService nyxaraService;
      private final MorvyraService morvyraService;
      
-     
-    /*
-  
-   
-    */
+     //-------------------------------------------------
+     private final DarkbyteService darkbyteService;
+     private final TitanexService titanexService;
+     private final ZerathonService zerathonService;
+     private final HyperionXService hyperionXService;
+     private final NexaronService nexaronService;
+     private final VoidreaperService voidreaperService;
     
     //------------------------------------------------
     private final BossDamageLogRepository damageLogRepo;
@@ -263,16 +268,11 @@ public class GlobalBossService {
     private final ReferidosRecompensaService referidosService;
     private final UsuarioBossBattleService usuarioService;
     private final BossAttackService bossAttackService;
-
 	private final PocaoVigorService pocaoVigorService;
-    
     private final SpawRandomBossService spawRandomBossService;
-    
-
     private final UsuarioGuerreiroRepository usuarioGuerreiroRepository;
     private final RetaguardaService retaguardaService;
     private final MissaoDiariaService missaoDiariaService;
-    
     private final RankingAtaqueEspecialService rankingAtaqueEspecialService;
     private final UltimoValorRecebidoService ultimoValorRecebidoService;
     
@@ -341,8 +341,6 @@ public class GlobalBossService {
             ExodraxService exodraxService,
             ApocalyxService apocalyxService,
             EclypzorService eclypzorService,
-            
-            //
             CybraxusService cybraxusService,
             NeurothService neurothService,
             MalghorService malghorService,
@@ -353,13 +351,14 @@ public class GlobalBossService {
             NyxaraService nyxaraService,
             MorvyraService morvyraService,
             
+            //------------------------------------
+            DarkbyteService darkbyteService,
+            TitanexService titanexService,
+            ZerathonService zerathonService,
+            HyperionXService hyperionXService,
+            NexaronService nexaronService,
+            VoidreaperService voidreaperService,
             
-            
-            
-            /*
-         
-           
-            */
             
             //Outros Services--->
             BossDamageLogRepository damageLogRepo,
@@ -447,29 +446,31 @@ public class GlobalBossService {
         this.exodraxService = exodraxService;
         this.apocalyxService = apocalyxService;
         this.eclypzorService = eclypzorService;
-        	
+        this.cybraxusService = cybraxusService;
+        this.neurothService = neurothService; 
+        this.malghorService = malghorService; 
+        this.novarokService = novarokService; 
+        this.asterionService = asterionService; 
+        this.kronvexService = kronvexService;  
+        this.kryptarService = kryptarService;
+        this.nyxaraService = nyxaraService;
+        this.morvyraService = morvyraService;      
+        //---------------------------------------
+        this.darkbyteService = darkbyteService; 
+        this.titanexService = titanexService;
+        this.zerathonService = zerathonService;
+        this.hyperionXService = hyperionXService;
+        this.nexaronService = nexaronService;
+        this.voidreaperService = voidreaperService;
         
-        //
-       this.cybraxusService = cybraxusService;
-       this.neurothService = neurothService; 
-       this.malghorService = malghorService; 
-       this.novarokService = novarokService; 
-       this.asterionService = asterionService; 
-       this.kronvexService = kronvexService;  
-       this.kryptarService = kryptarService;
-       this.nyxaraService = nyxaraService;
-       this.morvyraService = morvyraService;
-       
-       /*
-        */
-        
+        //---------------------------------------------------
         this.spawRandomBossService = spawRandomBossService;
         this.missaoDiariaService = missaoDiariaService;
         this.rankingAtaqueEspecialService = rankingAtaqueEspecialService;
         this.ultimoValorRecebidoService = ultimoValorRecebidoService;
         this.usuarioGuerreiroRepository = usuarioGuerreiroRepository;
         
-    }
+    }//--->
 
     // =============================
     // RETORNA O BOSS ATIVO
@@ -536,8 +537,6 @@ public class GlobalBossService {
         if (exodraxService.get().isAlive()) return exodraxService.get();
         if (apocalyxService.get().isAlive()) return apocalyxService.get();
         if (eclypzorService.get().isAlive()) return eclypzorService.get();
-        
-        //
         if (cybraxusService.get().isAlive()) return cybraxusService.get();
         if (neurothService.get().isAlive()) return neurothService.get();
         if (malghorService.get().isAlive()) return malghorService.get();
@@ -546,22 +545,21 @@ public class GlobalBossService {
         if (kronvexService.get().isAlive()) return kronvexService.get();
         if (kryptarService.get().isAlive()) return kryptarService.get();
         if (nyxaraService.get().isAlive()) return nyxaraService.get();
-        if (morvyraService.get().isAlive()) return morvyraService.get();
+        if (morvyraService.get().isAlive()) return morvyraService.get();       
+        //-------------------------------------------------------------------
+        if (darkbyteService.get().isAlive()) return darkbyteService.get();
+        if (titanexService.get().isAlive()) return titanexService.get();
+        if (zerathonService.get().isAlive()) return zerathonService.get();
+        if (hyperionXService.get().isAlive()) return hyperionXService.get();
+        if (nexaronService.get().isAlive()) return nexaronService.get();
+        if (voidreaperService.get().isAlive()) return voidreaperService.get();
         
-        
-        /*
-      
-       
-        */
-        
+        //-----------------------------------------------------------------
         return spawRandomBossService.spawnRandomBoss();
-    }
-
+    }//--->
     // =============================
     // HIT NO BOSS ATIVO
     // =============================
-    
-
     public Object hitActiveBoss(long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -573,8 +571,7 @@ public class GlobalBossService {
         "message", "Boss derrotado. Aguarde o respawn."
           );
        }
-        
-         
+
         if (!bossAttackService.podeAtacar(usuario)) {
         	
             return Map.of(
@@ -583,9 +580,7 @@ public class GlobalBossService {
                 "segundosRestantes", bossAttackService.tempoRestanteSegundos(usuario)
             );
         }
-        
-        
-        
+
         Long energia = usuario.getEnergiaGuerreiros();
 
         if (energia == null || energia <= 0) {
@@ -604,19 +599,10 @@ public class GlobalBossService {
         			ataqueBase
         	      + ataqueEspecial
         	      + danoElite;
-        	
-        
-
-        	
-        	
-        	
             missaoDiariaService.atualizarProgressoDano(usuarioId, damage);
             missaoDiariaService.atualizarProgressoQuantidade(usuarioId, 1);
-            rankingAtaqueEspecialService.incrementarAtaquesSemanais(usuario);
-          
-            
-            	
-            	usuarioRepo.save(usuario);
+            rankingAtaqueEspecialService.incrementarAtaquesSemanais(usuario);              	
+            usuarioRepo.save(usuario);
             
             /*
         	System.out.println("Usuario -" + usuario.getUsername() +
@@ -643,251 +629,169 @@ public class GlobalBossService {
 	    pocaoVigorService.verificarEUsarPocaoSeAtiva(usuario);
         // usar o valor retornado
         Object resultado = null;
-
         // Tenta atacar cada boss na ordem
         resultado = tryHitBoss("IGNORATH", ignorathService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
-
         resultado = tryHitBoss("DRAKTHOR", drakthorService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
-
         resultado = tryHitBoss("AZURION", azurionService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
-
         resultado = tryHitBoss("UMBRAXIS", umbraxisService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
-
         resultado = tryHitBoss("NIGHTMARE", nightmareService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("FLAMOR", flamorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("OBLIVAR", oblivarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("LYXARA", lyxaraService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("NOXAR", noxarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("UMBRAR", umbrarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("MORVATH", morvathService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("OBLÍQUO", obliquoService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);     
         resultado = tryHitBoss("PYRAGON", pyragonService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("GLACIORN", glaciornService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("REFLEXA", reflexaService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("MECHADRON", mechadronService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("NOCTYR", noctyrService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("OBLIVION", oblivionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("VESPERA", vesperaService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("TENEBRIS", tenebrisService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("GLACIARA", glaciaraService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("INFERNAX", infernaxService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("THUNDERON", thunderonService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("NOCTHARION", noctharionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("AZRAEL PRIME", azraelPrimeService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("DESTRUIDOR", destruidorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("TRÍGON BAPHYDRAX", trigonBaphydraxService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("MALPHION", malphionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("ABYSSAR", abyssarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("NECROTHAR", necrotharService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("KAELTHOR", kaelthorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("SOBERANO ABISSAL", abissalService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("LEVIATÃ DO ABISMO", leviatanAbismoService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
          resultado = tryHitBoss("ZARGOTH", zargothService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
          resultado = tryHitBoss("NEXARACH", nexarachService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
         resultado = tryHitBoss("CYBERION", cyberionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("AZURAGON", azuragonService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
         resultado = tryHitBoss("OCULTHAR", ocultharService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
         resultado = tryHitBoss("PUPPETRIX", puppetrixService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);   
         resultado = tryHitBoss("ABADDON", abaddonService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
         resultado = tryHitBoss("VESTA", vestaService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);     
         resultado = tryHitBoss("MALEVOLA", malevolaService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);    
         resultado = tryHitBoss("OBRASERKER", obraserkerService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);      
         resultado = tryHitBoss("CRYOPHANTASM", cryophantasmService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("ARENASCOR", arenascorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("VORGATHON", vorgathonService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("DRAKZHOR", drakzhorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("XARVOKTH", xarvokthService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("MALGRYTH", malgrythService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("THARVOK", tharvokService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("VORLATH", vorlathService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("V-ZURVIO", vZurvioService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("GATALICOS", gatalicosService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("S-HEMOGARTH", sHemogarthService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-  
+        if (resultado != null) return finalizeHit(usuarioId, resultado);  
         resultado = tryHitBoss("VEXAROTH", vexarothService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("THARZUL", tharzulService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("VORGRIM", vorgrimService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("XAPHIRON", xaphironService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("EXODRAX", exodraxService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("APOCALYX", apocalyxService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("ECLYPZOR", eclypzorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
-        
-        //
+        if (resultado != null) return finalizeHit(usuarioId, resultado); 
         resultado = tryHitBoss("CYBRAXUS", cybraxusService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("NEUROTH", neurothService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("MALGHOR", malghorService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("NOVAROK", novarokService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("ASTERION", asterionService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("KRONVEX", kronvexService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);   
         resultado = tryHitBoss("KRYPTAR", kryptarService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);       
         resultado = tryHitBoss("NYXARA", nyxaraService.get(), usuario, damage);
-        if (resultado != null) return finalizeHit(usuarioId, resultado);
-        
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
         resultado = tryHitBoss("MORVYRA", morvyraService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
+        //----------------------------------------------------------------------------
+        resultado = tryHitBoss("DARKBYTE", darkbyteService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        resultado = tryHitBoss("TITANEX", titanexService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        resultado = tryHitBoss("ZERATHON", zerathonService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        resultado = tryHitBoss("HYPERION-X", hyperionXService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);        
+        resultado = tryHitBoss("NEXARON", nexaronService.get(), usuario, damage);
+        if (resultado != null) return finalizeHit(usuarioId, resultado);
+        resultado = tryHitBoss("VOIDREAPER", voidreaperService.get(), usuario, damage);
         if (resultado != null) return finalizeHit(usuarioId, resultado);
         
         
-        
-        /*
-       
-        
-       
-        */
-        
-        
-        //===============================================================================
-        //===============================================================================
-
-     
-      
-      
-        
+        //------------------------------
         return Map.of(
             "status", "NO_BOSS",
-            "message", "O boss foi derrotado. Aguarde o respawn."
-           
-        );
-        
-        
-        
-       }
-        
-        
-             
-    }//fim hitActiveBoss
-
-    
+            "message", "O boss foi derrotado. Aguarde o respawn."          
+        );        
+       }          
+    }//fim hitActiveBoss 
     public long calcularDanoElite(UsuarioBossBattle usuario) {
 
         return usuarioGuerreiroRepository
@@ -913,9 +817,7 @@ public class GlobalBossService {
         synchronized (boss) {
 
             if (!boss.isAlive()) return null;
-
             boss.applyDamage(damage);
-
             // salva a instância no serviço correto
             if (boss instanceof GlobalBossIgnorath) ignorathService.save((GlobalBossIgnorath) boss);
             if (boss instanceof GlobalBossDrakthor) drakthorService.save((GlobalBossDrakthor) boss);
@@ -978,8 +880,6 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossExodrax) exodraxService.save((GlobalBossExodrax) boss);
             if (boss instanceof GlobalBossApocalyx) apocalyxService.save((GlobalBossApocalyx) boss);
             if (boss instanceof GlobalBossEclypzor) eclypzorService.save((GlobalBossEclypzor) boss);
-            
-            //
             if (boss instanceof GlobalBossCybraxus) cybraxusService.save((GlobalBossCybraxus) boss);
             if (boss instanceof GlobalBossNeuroth) neurothService.save((GlobalBossNeuroth) boss);
             if (boss instanceof GlobalBossMalghor) malghorService.save((GlobalBossMalghor) boss);
@@ -989,21 +889,19 @@ public class GlobalBossService {
             if (boss instanceof GlobalBossKryptar) kryptarService.save((GlobalBossKryptar) boss);
             if (boss instanceof GlobalBossNyxara) nyxaraService.save((GlobalBossNyxara) boss);
             if (boss instanceof GlobalBossMorvyra) morvyraService.save((GlobalBossMorvyra) boss);
+            //----------------------------------------------------------------------------------------
+            if (boss instanceof GlobalBossDarkbyte) darkbyteService.save((GlobalBossDarkbyte) boss);
+            if (boss instanceof GlobalBossTitanex) titanexService.save((GlobalBossTitanex) boss);
+            if (boss instanceof GlobalBossZerathon) zerathonService.save((GlobalBossZerathon) boss);
+            if (boss instanceof GlobalBossHyperionX) hyperionXService.save((GlobalBossHyperionX) boss);
+            if (boss instanceof GlobalBossNexaron) nexaronService.save((GlobalBossNexaron) boss);
+            if (boss instanceof GlobalBossVoidreaper) voidreaperService.save((GlobalBossVoidreaper) boss);
             
             
-            
-            /*
-          
-            
-            */
-            
-            
+            //---------------------------------------------------
             registrarDano(bossName, usuario, damage);
 
-            return processReward(bossName, boss, usuario, damage);
-        
-        
-          
+            return processReward(bossName, boss, usuario, damage);                 
         }
         
     }//--->tryHitBoss

@@ -18,6 +18,7 @@ import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossCybraxus;
+import com.boss_battle.model.GlobalBossDarkbyte;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossDrakzhor;
@@ -27,6 +28,7 @@ import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.model.GlobalBossGatalicos;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
+import com.boss_battle.model.GlobalBossHyperionX;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
@@ -44,6 +46,7 @@ import com.boss_battle.model.GlobalBossMorvyra;
 import com.boss_battle.model.GlobalBossNecrothar;
 import com.boss_battle.model.GlobalBossNeuroth;
 import com.boss_battle.model.GlobalBossNexarach;
+import com.boss_battle.model.GlobalBossNexaron;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -63,6 +66,7 @@ import com.boss_battle.model.GlobalBossTenebris;
 import com.boss_battle.model.GlobalBossTharvok;
 import com.boss_battle.model.GlobalBossTharzul;
 import com.boss_battle.model.GlobalBossThunderon;
+import com.boss_battle.model.GlobalBossTitanex;
 import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
@@ -70,12 +74,14 @@ import com.boss_battle.model.GlobalBossVZurvio;
 import com.boss_battle.model.GlobalBossVespera;
 import com.boss_battle.model.GlobalBossVesta;
 import com.boss_battle.model.GlobalBossVexaroth;
+import com.boss_battle.model.GlobalBossVoidreaper;
 import com.boss_battle.model.GlobalBossVorgathon;
 import com.boss_battle.model.GlobalBossVorgrim;
 import com.boss_battle.model.GlobalBossVorlath;
 import com.boss_battle.model.GlobalBossXaphiron;
 import com.boss_battle.model.GlobalBossXarvokth;
 import com.boss_battle.model.GlobalBossZargoth;
+import com.boss_battle.model.GlobalBossZerathon;
 import com.boss_battle.service.bosses.AbaddonService;
 import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
@@ -88,6 +94,7 @@ import com.boss_battle.service.bosses.AzurionService;
 import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.CybraxusService;
+import com.boss_battle.service.bosses.DarkbyteService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.DrakzhorService;
@@ -97,6 +104,7 @@ import com.boss_battle.service.bosses.FlamorService;
 import com.boss_battle.service.bosses.GatalicosService;
 import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
+import com.boss_battle.service.bosses.HyperionXService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
@@ -114,6 +122,7 @@ import com.boss_battle.service.bosses.MorvyraService;
 import com.boss_battle.service.bosses.NecrotharService;
 import com.boss_battle.service.bosses.NeurothService;
 import com.boss_battle.service.bosses.NexarachService;
+import com.boss_battle.service.bosses.NexaronService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -133,6 +142,7 @@ import com.boss_battle.service.bosses.TenebrisService;
 import com.boss_battle.service.bosses.TharvokService;
 import com.boss_battle.service.bosses.TharzulService;
 import com.boss_battle.service.bosses.ThunderonService;
+import com.boss_battle.service.bosses.TitanexService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
@@ -140,12 +150,14 @@ import com.boss_battle.service.bosses.VZurvioService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
 import com.boss_battle.service.bosses.VexarothService;
+import com.boss_battle.service.bosses.VoidreaperService;
 import com.boss_battle.service.bosses.VorgathonService;
 import com.boss_battle.service.bosses.VorgrimService;
 import com.boss_battle.service.bosses.VorlathService;
 import com.boss_battle.service.bosses.XaphironService;
 import com.boss_battle.service.bosses.XarvokthService;
 import com.boss_battle.service.bosses.ZargothService;
+import com.boss_battle.service.bosses.ZerathonService;
 
 
 
@@ -153,12 +165,9 @@ import com.boss_battle.service.bosses.ZargothService;
 @Service
 @Transactional
 public class SpawRandomBossService {
-	
-	
 	    @Autowired
 	    KillAllBossesService KillAllBossesService;
-	 
-	    
+	    private final Random random = new Random();
 	    private final IgnorathService ignorathService;
 	    private final DrakthorService drakthorService;
 	    private final AzurionService azurionService;
@@ -221,8 +230,6 @@ public class SpawRandomBossService {
 	    private final ApocalyxService apocalyxService;
 	    private final EclypzorService eclypzorService;
 	    private final KronvexService kronvexService;
-	    
-	    //
 	    private final CybraxusService cybraxusService;
 	    private final NeurothService neurothService;
 	    private final MalghorService malghorService;
@@ -231,18 +238,16 @@ public class SpawRandomBossService {
 	    private final KryptarService kryptarService;
 	    private final NyxaraService nyxaraService;
 	    private final MorvyraService morvyraService;
+	    //--------------------------------------------------
+	    private final DarkbyteService darkbyteService;
+	    private final TitanexService titanexService;
+	    private final ZerathonService zerathonService;
+	    private final HyperionXService hyperionXService;
+	    private final NexaronService nexaronService;
+	    private final VoidreaperService voidreaperService;
 	    
 	    
-	    /* 
-	  
-	    */
-	    
-	 
-	    private final Random random = new Random();
-
-	    
-	  
-
+        //------------------------------------------------------
 	    public SpawRandomBossService(
 	    		//Services dos boses--->
 	            IgnorathService ignorathService,
@@ -306,10 +311,6 @@ public class SpawRandomBossService {
 		        ExodraxService exodraxService,
 		        ApocalyxService apocalyxService,
 		        EclypzorService eclypzorService,
-		        
-		        
-		        
-		        //
 		        CybraxusService cybraxusService,
 		        NeurothService neurothService,
 		        MalghorService malghorService,
@@ -318,16 +319,17 @@ public class SpawRandomBossService {
 		        KronvexService kronvexService,
 		        KryptarService kryptarService,
 		        NyxaraService nyxaraService,
-		        MorvyraService morvyraService
+		        MorvyraService morvyraService,
+		        //-------------------------------
+		        DarkbyteService darkbyteService,
+		        TitanexService titanexService,
+		        ZerathonService zerathonService,
+		        HyperionXService hyperionXService,
+		        NexaronService nexaronService,
+		        VoidreaperService voidreaperService
 		        
 		        
-		        
-	            /* 
-	          
-	            */
-	            
-	           
-	            
+	            //-------------------------------
 	    ) {
 	    	
 	    	//================ BOSS ===================
@@ -392,9 +394,6 @@ public class SpawRandomBossService {
 		    this.exodraxService = exodraxService;
 		    this.apocalyxService = apocalyxService;
 		    this.eclypzorService = eclypzorService;
-		    
-		    
-		    //
 		    this.cybraxusService = cybraxusService;
 		    this.neurothService = neurothService; 
 		    this.malghorService = malghorService; 
@@ -403,13 +402,17 @@ public class SpawRandomBossService {
 		    this.kronvexService = kronvexService; 
 		    this.kryptarService = kryptarService;
 		    this.nyxaraService = nyxaraService;
-		    this.morvyraService = morvyraService;
-		    
-		    
-	        /* 
+		    this.morvyraService = morvyraService;		    
+		    //--------------------------------------
+	        this.darkbyteService = darkbyteService; 
+	        this.titanexService = titanexService;
+	        this.zerathonService = zerathonService;
+	        this.hyperionXService = hyperionXService;
+	        this.nexaronService = nexaronService;
+	        this.voidreaperService = voidreaperService;
 	        
-	        */
-	    }
+	       //----------------------------------------
+	    }//--->
 
 	
 	 public BattleBoss spawnRandomBoss() {
@@ -417,7 +420,7 @@ public class SpawRandomBossService {
 	      KillAllBossesService.killAllBosses();
 	     
 	        
-	        int choice = random.nextInt(68);
+	        int choice = random.nextInt(74);
 	      
 	        BattleBoss newBoss;
 
@@ -1020,7 +1023,7 @@ public class SpawRandomBossService {
                
                case 52 -> {
 	            	
-            	   GlobalBossGatalicos galat =  gatalicosService.get();
+            	   GlobalBossGatalicos galat = gatalicosService.get();
             	   gatalicosService.aplicarEscalamentoGatalicos(galat);
             	   galat.setProcessingDeath(false);
             	   galat.setAlive(true);
@@ -1031,7 +1034,7 @@ public class SpawRandomBossService {
 	            }
                case 53 -> {
 	            	
-            	   GlobalBossSHemogarth shemo =  sHemogarthService.get();
+            	   GlobalBossSHemogarth shemo = sHemogarthService.get();
             	   sHemogarthService.aplicarEscalamentoSHemogarth(shemo);
             	   shemo.setProcessingDeath(false);
             	   shemo.setAlive(true);
@@ -1043,7 +1046,7 @@ public class SpawRandomBossService {
                
                case 54 -> {
 	            	
-            	   GlobalBossVexaroth vexaro =  vexarothService.get();
+            	   GlobalBossVexaroth vexaro = vexarothService.get();
             	   vexarothService.aplicarEscalamentoVexaroth(vexaro);
             	   vexaro.setProcessingDeath(false);
             	   vexaro.setAlive(true);
@@ -1055,7 +1058,7 @@ public class SpawRandomBossService {
                
                case 55 -> {
 	            	
-            	   GlobalBossTharzul tharz =  tharzulService.get();
+            	   GlobalBossTharzul tharz = tharzulService.get();
             	   tharzulService.aplicarEscalamentoTharzul(tharz);
             	   tharz.setProcessingDeath(false);
             	   tharz.setAlive(true);
@@ -1067,7 +1070,7 @@ public class SpawRandomBossService {
                
                case 56 -> {
 	            	
-            	   GlobalBossVorgrim vorgrim =  vorgrimService.get();
+            	   GlobalBossVorgrim vorgrim = vorgrimService.get();
             	   vorgrimService.aplicarEscalamentoVorgrim(vorgrim);
             	   vorgrim.setProcessingDeath(false);
             	   vorgrim.setAlive(true);
@@ -1079,7 +1082,7 @@ public class SpawRandomBossService {
                
                case 57 -> {
 	            	
-            	   GlobalBossXaphiron xaphi =  xaphironService.get();
+            	   GlobalBossXaphiron xaphi = xaphironService.get();
             	   xaphironService.aplicarEscalamentoXaphiron(xaphi);
             	   xaphi.setProcessingDeath(false);
             	   xaphi.setAlive(true);
@@ -1091,7 +1094,7 @@ public class SpawRandomBossService {
                
                case 58 -> {
 	            	
-            	   GlobalBossExodrax exodrax =  exodraxService.get();
+            	   GlobalBossExodrax exodrax = exodraxService.get();
             	   exodraxService.aplicarEscalamentoExodrax(exodrax);
             	   exodrax.setProcessingDeath(false);
             	   exodrax.setAlive(true);
@@ -1103,7 +1106,7 @@ public class SpawRandomBossService {
                
                case 59 -> {
 	            	
-            	   GlobalBossApocalyx apocal =  apocalyxService.get();
+            	   GlobalBossApocalyx apocal = apocalyxService.get();
             	   apocalyxService.aplicarEscalamentoApocalyx(apocal);
             	   apocal.setProcessingDeath(false);
             	   apocal.setAlive(true);
@@ -1115,7 +1118,7 @@ public class SpawRandomBossService {
                
                case 60 -> {
 	            	
-            	   GlobalBossEclypzor eclypzor =  eclypzorService.get();
+            	   GlobalBossEclypzor eclypzor = eclypzorService.get();
             	   eclypzorService.aplicarEscalamentoEclypzor(eclypzor);
             	   eclypzor.setProcessingDeath(false);
             	   eclypzor.setAlive(true);
@@ -1127,7 +1130,7 @@ public class SpawRandomBossService {
                
                case 61 -> {
 	            	
-            	   GlobalBossCybraxus cybrax =  cybraxusService.get();
+            	   GlobalBossCybraxus cybrax = cybraxusService.get();
             	   cybraxusService.aplicarEscalamentoCybraxus(cybrax);
             	   cybrax.setProcessingDeath(false);
             	   cybrax.setAlive(true);
@@ -1139,7 +1142,7 @@ public class SpawRandomBossService {
                
                case 62 -> {
 	            	
-            	   GlobalBossNeuroth neuroth =  neurothService.get();
+            	   GlobalBossNeuroth neuroth = neurothService.get();
             	   neurothService.aplicarEscalamentoNeuroth(neuroth);
             	   neuroth.setProcessingDeath(false);
             	   neuroth.setAlive(true);
@@ -1150,7 +1153,7 @@ public class SpawRandomBossService {
 	            }
                case 63 -> {
 	            	
-            	   GlobalBossMalghor malgho =  malghorService.get();
+            	   GlobalBossMalghor malgho = malghorService.get();
             	   malghorService.aplicarEscalamentoMalghor(malgho);
             	   malgho.setProcessingDeath(false);
             	   malgho.setAlive(true);
@@ -1162,7 +1165,7 @@ public class SpawRandomBossService {
                
                case 64 -> {
 	            	
-            	   GlobalBossNovarok novaro =  novarokService.get();
+            	   GlobalBossNovarok novaro = novarokService.get();
             	   novarokService.aplicarEscalamentoNovarok(novaro);
             	   novaro.setProcessingDeath(false);
             	   novaro.setAlive(true);
@@ -1174,7 +1177,7 @@ public class SpawRandomBossService {
                
                case 65 -> {
 	            	
-            	   GlobalBossAsterion aster =  asterionService.get();
+            	   GlobalBossAsterion aster = asterionService.get();
             	   asterionService.aplicarEscalamentoAsterion(aster);
             	   aster.setProcessingDeath(false);
             	   aster.setAlive(true);
@@ -1185,7 +1188,7 @@ public class SpawRandomBossService {
 	            }
                case 66 -> {
 	            	
-            	   GlobalBossKronvex kronv =  kronvexService.get();
+            	   GlobalBossKronvex kronv = kronvexService.get();
             	   kronvexService.aplicarEscalamentoKronvex(kronv);
             	   kronv.setProcessingDeath(false);
             	   kronv.setAlive(true);
@@ -1197,7 +1200,7 @@ public class SpawRandomBossService {
                
                case 67 -> {
 	            	
-            	   GlobalBossKryptar krypt =  kryptarService.get();
+            	   GlobalBossKryptar krypt = kryptarService.get();
             	   kryptarService.aplicarEscalamentoKryptar(krypt);
             	   krypt.setProcessingDeath(false);
             	   krypt.setAlive(true);
@@ -1209,7 +1212,7 @@ public class SpawRandomBossService {
                
                case 68 -> {
 	            	
-            	   GlobalBossNyxara nyxara =  nyxaraService.get();
+            	   GlobalBossNyxara nyxara = nyxaraService.get();
             	   nyxaraService.aplicarEscalamentoNyxara(nyxara);
             	   nyxara.setProcessingDeath(false);
             	   nyxara.setAlive(true);
@@ -1222,7 +1225,7 @@ public class SpawRandomBossService {
 
                case 69-> {
 	            	
-            	   GlobalBossMorvyra morvyra =  morvyraService.get();
+            	   GlobalBossMorvyra morvyra = morvyraService.get();
             	   morvyraService.aplicarEscalamentoMorvyra(morvyra);
             	   morvyra.setProcessingDeath(false);
             	   morvyra.setAlive(true);
@@ -1233,6 +1236,75 @@ public class SpawRandomBossService {
 	            }
                
                
+               case 70-> {
+	            	
+            	   GlobalBossDarkbyte dark = darkbyteService.get();
+            	   darkbyteService.aplicarEscalamentoDarkbyte(dark);
+            	   dark.setProcessingDeath(false);
+            	   dark.setAlive(true);
+            	   dark.setCurrentHp(dark.getMaxHp());
+            	   dark.setSpawnedAt(LocalDateTime.now());
+            	   darkbyteService.save(dark);
+	               newBoss = dark;
+	            }
+               case 71-> {
+	            	
+            	   GlobalBossTitanex titan = titanexService.get();
+            	   titanexService.aplicarEscalamentoTitanex(titan);
+            	   titan.setProcessingDeath(false);
+            	   titan.setAlive(true);
+            	   titan.setCurrentHp(titan.getMaxHp());
+            	   titan.setSpawnedAt(LocalDateTime.now());
+            	   titanexService.save(titan);
+	               newBoss = titan;
+	            }
+               case 72-> {
+	            	
+            	   GlobalBossZerathon zera = zerathonService.get();
+            	   zerathonService.aplicarEscalamentoZerathon(zera);
+            	   zera.setProcessingDeath(false);
+            	   zera.setAlive(true);
+            	   zera.setCurrentHp(zera.getMaxHp());
+            	   zera.setSpawnedAt(LocalDateTime.now());
+            	   zerathonService.save(zera);
+	               newBoss = zera;
+	            }
+               
+               case 73-> {
+	            	
+            	   GlobalBossHyperionX  hyper = hyperionXService.get();
+            	   hyperionXService.aplicarEscalamentoHyperionX(hyper);
+            	   hyper.setProcessingDeath(false);
+            	   hyper.setAlive(true);
+            	   hyper.setCurrentHp(hyper.getMaxHp());
+            	   hyper.setSpawnedAt(LocalDateTime.now());
+            	   hyperionXService.save(hyper);
+	               newBoss = hyper;
+	            }
+               case 74-> {
+	            	
+            	   GlobalBossNexaron nexar = nexaronService.get();
+            	   nexaronService.aplicarEscalamentoNexaron(nexar);
+            	   nexar.setProcessingDeath(false);
+            	   nexar.setAlive(true);
+            	   nexar.setCurrentHp(nexar.getMaxHp());
+            	   nexar.setSpawnedAt(LocalDateTime.now());
+            	   nexaronService.save(nexar);
+	               newBoss = nexar;
+	            }
+               case 75-> {
+	            	
+            	   GlobalBossVoidreaper reaper = voidreaperService.get();
+            	   voidreaperService.aplicarEscalamentoVoidreaper(reaper);
+            	   reaper.setProcessingDeath(false);
+            	   reaper.setAlive(true);
+            	   reaper.setCurrentHp(reaper.getMaxHp());
+            	   reaper.setSpawnedAt(LocalDateTime.now());
+            	   voidreaperService.save(reaper);
+	               newBoss = reaper;
+	            }
+
+
                
 	            default -> {
 	                GlobalBossUmbraxis um = umbraxisService.get();

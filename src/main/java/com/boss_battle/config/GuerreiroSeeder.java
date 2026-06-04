@@ -85,6 +85,17 @@ public class GuerreiroSeeder implements CommandLineRunner {
     	        50
     	);
     	
+    	// ID 7
+    	criarSeNaoExistir(
+    	        "Ninja das Sombras",
+    	        "NINJA",
+    	        12L,
+    	        10_000L,
+    	        "ninja-das-sombras.webp",
+    	        false,
+    	        20
+    	);
+    	
     }
 
     private void criarSeNaoExistir(

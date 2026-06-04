@@ -15,6 +15,7 @@ import com.boss_battle.model.GlobalBossAzurion;
 import com.boss_battle.model.GlobalBossCryophantasm;
 import com.boss_battle.model.GlobalBossCyberion;
 import com.boss_battle.model.GlobalBossCybraxus;
+import com.boss_battle.model.GlobalBossDarkbyte;
 import com.boss_battle.model.GlobalBossDestruidor;
 import com.boss_battle.model.GlobalBossDrakthor;
 import com.boss_battle.model.GlobalBossDrakzhor;
@@ -24,6 +25,7 @@ import com.boss_battle.model.GlobalBossFlamor;
 import com.boss_battle.model.GlobalBossGatalicos;
 import com.boss_battle.model.GlobalBossGlaciara;
 import com.boss_battle.model.GlobalBossGlaciorn;
+import com.boss_battle.model.GlobalBossHyperionX;
 import com.boss_battle.model.GlobalBossIgnorath;
 import com.boss_battle.model.GlobalBossInfernax;
 import com.boss_battle.model.GlobalBossKaelthor;
@@ -41,6 +43,7 @@ import com.boss_battle.model.GlobalBossMorvyra;
 import com.boss_battle.model.GlobalBossNecrothar;
 import com.boss_battle.model.GlobalBossNeuroth;
 import com.boss_battle.model.GlobalBossNexarach;
+import com.boss_battle.model.GlobalBossNexaron;
 import com.boss_battle.model.GlobalBossNightmare;
 import com.boss_battle.model.GlobalBossNoctharion;
 import com.boss_battle.model.GlobalBossNoctyr;
@@ -60,6 +63,7 @@ import com.boss_battle.model.GlobalBossTenebris;
 import com.boss_battle.model.GlobalBossTharvok;
 import com.boss_battle.model.GlobalBossTharzul;
 import com.boss_battle.model.GlobalBossThunderon;
+import com.boss_battle.model.GlobalBossTitanex;
 import com.boss_battle.model.GlobalBossTrigonBaphydrax;
 import com.boss_battle.model.GlobalBossUmbrar;
 import com.boss_battle.model.GlobalBossUmbraxis;
@@ -67,12 +71,14 @@ import com.boss_battle.model.GlobalBossVZurvio;
 import com.boss_battle.model.GlobalBossVespera;
 import com.boss_battle.model.GlobalBossVesta;
 import com.boss_battle.model.GlobalBossVexaroth;
+import com.boss_battle.model.GlobalBossVoidreaper;
 import com.boss_battle.model.GlobalBossVorgathon;
 import com.boss_battle.model.GlobalBossVorgrim;
 import com.boss_battle.model.GlobalBossVorlath;
 import com.boss_battle.model.GlobalBossXaphiron;
 import com.boss_battle.model.GlobalBossXarvokth;
 import com.boss_battle.model.GlobalBossZargoth;
+import com.boss_battle.model.GlobalBossZerathon;
 import com.boss_battle.service.bosses.AbaddonService;
 import com.boss_battle.service.bosses.AbissalService;
 import com.boss_battle.service.bosses.AbyssarService;
@@ -85,6 +91,7 @@ import com.boss_battle.service.bosses.AzurionService;
 import com.boss_battle.service.bosses.CryophantasmService;
 import com.boss_battle.service.bosses.CyberionService;
 import com.boss_battle.service.bosses.CybraxusService;
+import com.boss_battle.service.bosses.DarkbyteService;
 import com.boss_battle.service.bosses.DestruidorService;
 import com.boss_battle.service.bosses.DrakthorService;
 import com.boss_battle.service.bosses.DrakzhorService;
@@ -94,6 +101,7 @@ import com.boss_battle.service.bosses.FlamorService;
 import com.boss_battle.service.bosses.GatalicosService;
 import com.boss_battle.service.bosses.GlaciaraService;
 import com.boss_battle.service.bosses.GlaciornService;
+import com.boss_battle.service.bosses.HyperionXService;
 import com.boss_battle.service.bosses.IgnorathService;
 import com.boss_battle.service.bosses.InfernaxService;
 import com.boss_battle.service.bosses.KaelthorService;
@@ -111,6 +119,7 @@ import com.boss_battle.service.bosses.MorvyraService;
 import com.boss_battle.service.bosses.NecrotharService;
 import com.boss_battle.service.bosses.NeurothService;
 import com.boss_battle.service.bosses.NexarachService;
+import com.boss_battle.service.bosses.NexaronService;
 import com.boss_battle.service.bosses.NightmareService;
 import com.boss_battle.service.bosses.NoctharionService;
 import com.boss_battle.service.bosses.NoctyrService;
@@ -130,6 +139,7 @@ import com.boss_battle.service.bosses.TenebrisService;
 import com.boss_battle.service.bosses.TharvokService;
 import com.boss_battle.service.bosses.TharzulService;
 import com.boss_battle.service.bosses.ThunderonService;
+import com.boss_battle.service.bosses.TitanexService;
 import com.boss_battle.service.bosses.TrigonBaphydraxService;
 import com.boss_battle.service.bosses.UmbrarService;
 import com.boss_battle.service.bosses.UmbraxisService;
@@ -137,18 +147,18 @@ import com.boss_battle.service.bosses.VZurvioService;
 import com.boss_battle.service.bosses.VesperaService;
 import com.boss_battle.service.bosses.VestaService;
 import com.boss_battle.service.bosses.VexarothService;
+import com.boss_battle.service.bosses.VoidreaperService;
 import com.boss_battle.service.bosses.VorgathonService;
 import com.boss_battle.service.bosses.VorgrimService;
 import com.boss_battle.service.bosses.VorlathService;
 import com.boss_battle.service.bosses.XaphironService;
 import com.boss_battle.service.bosses.XarvokthService;
 import com.boss_battle.service.bosses.ZargothService;
+import com.boss_battle.service.bosses.ZerathonService;
 
 @Service
 @Transactional
 public class KillAllBossesService {
-	
-
 	    private final IgnorathService ignorathService;
 	    private final DrakthorService drakthorService;
 	    private final AzurionService azurionService;
@@ -210,9 +220,6 @@ public class KillAllBossesService {
 	    private final ExodraxService exodraxService;
 	    private final ApocalyxService apocalyxService;
 	    private final EclypzorService eclypzorService;
-	    
-	    
-	    //
 	    private final CybraxusService cybraxusService;
 	    private final NeurothService neurothService;
 	    private final MalghorService malghorService;
@@ -221,14 +228,17 @@ public class KillAllBossesService {
 	    private final KronvexService kronvexService;
 	    private final KryptarService kryptarService;
 	    private final NyxaraService nyxaraService;
-	    private final MorvyraService morvyraService;
+	    private final MorvyraService morvyraService;	    
+	    //--------------------------------------------------
+	    private final DarkbyteService darkbyteService;
+	    private final TitanexService titanexService;
+	    private final ZerathonService zerathonService;
+	    private final HyperionXService hyperionXService;
+	    private final NexaronService nexaronService;
+	    private final VoidreaperService voidreaperService;
 	    
 	    
-	    /*
-	 
-	   
-
-*/
+	    //----------------------------------------------------
 	    public KillAllBossesService(
 	    		//Services dos boses--->
 	            IgnorathService ignorathService,
@@ -292,10 +302,6 @@ public class KillAllBossesService {
 	            ExodraxService exodraxService,
 	            ApocalyxService apocalyxService,
 	            EclypzorService eclypzorService,
-	            
-	            
-	            //
-
 	            CybraxusService cybraxusService,
 	            NeurothService neurothService,
 	            MalghorService malghorService,
@@ -304,15 +310,16 @@ public class KillAllBossesService {
 	            KronvexService kronvexService,
 	            KryptarService kryptarService,
 	            NyxaraService nyxaraService,
-	            MorvyraService morvyraService
+	            MorvyraService morvyraService,
+	            //-----------------------------------
+	            DarkbyteService darkbyteService,
+	            TitanexService titanexService,
+	            ZerathonService zerathonService,
+	            HyperionXService hyperionXService,
+	            NexaronService nexaronService,
+	            VoidreaperService voidreaperService
 	            
-	            
-	            
-	            /*
-	           
-	           
-	            */
-	         
+	            //----------------------------------       
 	    ) {
 	    	
 	    	//================ BOSS ===================
@@ -377,9 +384,6 @@ public class KillAllBossesService {
 	        this.exodraxService = exodraxService;
 	        this.apocalyxService = apocalyxService;
 	        this.eclypzorService = eclypzorService;
-	        
-	        
-	        //
 	        this.cybraxusService = cybraxusService;
 	        this.neurothService = neurothService; 
 	        this.malghorService = malghorService; 
@@ -388,15 +392,17 @@ public class KillAllBossesService {
 	        this.kronvexService = kronvexService;  
 	        this.kryptarService = kryptarService;
 	        this.nyxaraService = nyxaraService;
-	        this.morvyraService = morvyraService;
+	        this.morvyraService = morvyraService;	        
+	        //---------------------------------------
+	        this.darkbyteService = darkbyteService; 
+	        this.titanexService = titanexService;
+	        this.zerathonService = zerathonService;
+	        this.hyperionXService = hyperionXService;
+	        this.nexaronService = nexaronService;
+	        this.voidreaperService = voidreaperService;
 	        
-	        
-	        
-	        /*
-	      
-	        
-	      */
-	    }
+	       //-----------------------------------------    
+	    }//--->
 
 	    public void killAllBosses() {
 	        GlobalBossIgnorath ig = ignorathService.get();
@@ -460,9 +466,6 @@ public class KillAllBossesService {
 	    	GlobalBossExodrax exodrax = exodraxService.get();
 	    	GlobalBossApocalyx apocal = apocalyxService.get();
 	    	GlobalBossEclypzor eclypzor = eclypzorService.get();
-	    	
-	    	
-	    	//
 	    	GlobalBossCybraxus cybrax = cybraxusService.get();
 	    	GlobalBossNeuroth neuroth = neurothService.get();
 	    	GlobalBossMalghor malgho = malghorService.get();
@@ -472,224 +475,168 @@ public class KillAllBossesService {
 	    	GlobalBossKryptar krypt = kryptarService.get();
 	    	GlobalBossNyxara nyxara = nyxaraService.get();
 	    	GlobalBossMorvyra morvyra = morvyraService.get();
+	    	//-------------------------------------------------
+	    	GlobalBossDarkbyte dark = darkbyteService.get();
+	    	GlobalBossTitanex titan = titanexService.get();
+	    	GlobalBossZerathon zera = zerathonService.get();
+	    	GlobalBossHyperionX hyper = hyperionXService.get();
+	    	GlobalBossNexaron nexar = nexaronService.get();
+	    	GlobalBossVoidreaper reaper= voidreaperService.get();
 	    	
-	    	
-	    	
-	    	
+	    	reaper.setAlive(false);
+	    	reaper.setProcessingDeath(false);	
+	    	nexar.setAlive(false);
+	    	nexar.setProcessingDeath(false);	    	
+	    	hyper.setAlive(false);
+	    	hyper.setProcessingDeath(false);
+	    	zera.setAlive(false);
+	    	zera.setProcessingDeath(false);
+	    	titan.setAlive(false);
+	    	titan.setProcessingDeath(false);
+	    	dark.setAlive(false);
+	    	dark.setProcessingDeath(false);
+	    	//-----------------------------------------------
 	    	morvyra.setAlive(false);
 	    	morvyra.setProcessingDeath(false);
-	    	
 	    	nyxara.setAlive(false);
 	    	nyxara.setProcessingDeath(false);
-	    	
 	    	krypt.setAlive(false);
 	    	krypt.setProcessingDeath(false);
-	    	
 	    	kronv.setAlive(false);
-	    	kronv.setProcessingDeath(false);
-	    	
+	    	kronv.setProcessingDeath(false);	    	
 	    	aster.setAlive(false);
-	    	aster.setProcessingDeath(false);
-	    	
+	    	aster.setProcessingDeath(false);	    	
 	    	novaro.setAlive(false);
-	    	novaro.setProcessingDeath(false);
-	    	
+	    	novaro.setProcessingDeath(false);    	
 	    	malgho.setAlive(false);
-	    	malgho.setProcessingDeath(false);
-	    	
+	    	malgho.setProcessingDeath(false);	    	
 	    	neuroth.setAlive(false);
-	    	neuroth.setProcessingDeath(false);
-	    	
+	    	neuroth.setProcessingDeath(false);	    	
 	    	cybrax.setAlive(false);
-	    	cybrax.setProcessingDeath(false);
-	    	
+	    	cybrax.setProcessingDeath(false);	    	
 	    	eclypzor.setAlive(false);
-	    	eclypzor.setProcessingDeath(false);
-	    	
+	    	eclypzor.setProcessingDeath(false);	    	
 	    	apocal.setAlive(false);
-	    	apocal.setProcessingDeath(false);
-	    	
+	    	apocal.setProcessingDeath(false);	    	
 	    	exodrax.setAlive(false);
-	    	exodrax.setProcessingDeath(false);
-	    	
+	    	exodrax.setProcessingDeath(false);	    	
 	    	xaphi.setAlive(false);
-	    	xaphi.setProcessingDeath(false);
-	    	
+	    	xaphi.setProcessingDeath(false);	    	
 	    	vorgrim.setAlive(false);
-	    	vorgrim.setProcessingDeath(false);
-	    	
+	    	vorgrim.setProcessingDeath(false);	    	
 	    	tharz.setAlive(false);
-	    	tharz.setProcessingDeath(false);
-	    	
+	    	tharz.setProcessingDeath(false);	    	
 	    	vexaro.setAlive(false);
 	    	vexaro.setProcessingDeath(false);
-	    	//
-	    	
-	    	
 	    	shemo.setAlive(false);
-	    	shemo.setProcessingDeath(false);
-	    
+	    	shemo.setProcessingDeath(false);	    
 	    	galat.setAlive(false);
-	    	galat.setProcessingDeath(false);
-	    	
+	    	galat.setProcessingDeath(false);	    	
 	    	vzrur.setAlive(false);
-	    	vzrur.setProcessingDeath(false);
-	    	
+	    	vzrur.setProcessingDeath(false);	    	
 	    	vorla.setAlive(false);
-	    	vorla.setProcessingDeath(false);
-	    	
+	    	vorla.setProcessingDeath(false);	    	
 	    	tharvo.setAlive(false);
-	    	tharvo.setProcessingDeath(false);
-	    	
+	    	tharvo.setProcessingDeath(false);	    	
 	    	malgry.setAlive(false);
-	    	malgry.setProcessingDeath(false);
-	    	
+	    	malgry.setProcessingDeath(false);	    	
 	    	xarvo.setAlive(false);
-	    	xarvo.setProcessingDeath(false);
-	    	
+	    	xarvo.setProcessingDeath(false);	    	
 	    	drakz.setAlive(false);
-	    	drakz.setProcessingDeath(false);
-	    	
+	    	drakz.setProcessingDeath(false);	    	
 	    	vorgat.setAlive(false);
 	    	vorgat.setProcessingDeath(false);
-	    	
-	    	//
-	    	
 	    	arena.setAlive(false);
-	    	arena.setProcessingDeath(false);
-	    	
+	    	arena.setProcessingDeath(false);	    	
 	    	cryoph.setAlive(false);
-	    	cryoph.setProcessingDeath(false);
-	    	
+	    	cryoph.setProcessingDeath(false);	    	
 	    	obraser.setAlive(false);
-	    	obraser.setProcessingDeath(false);
-	    	
+	    	obraser.setProcessingDeath(false);	    	
 	    	malev.setAlive(false);
-	    	malev.setProcessingDeath(false);
-	    	
+	    	malev.setProcessingDeath(false);	    	
 	    	vesta.setAlive(false);
-	    	vesta.setProcessingDeath(false);
-	    	
+	    	vesta.setProcessingDeath(false);	    	
 	    	abadon.setAlive(false);
-	    	abadon.setProcessingDeath(false);
-	    	
+	    	abadon.setProcessingDeath(false);	    	
 	    	pupp.setAlive(false);
-	    	pupp.setProcessingDeath(false);
-	    	
+	    	pupp.setProcessingDeath(false);	    	
 	    	ocult.setAlive(false);
-	    	ocult.setProcessingDeath(false);
-	    	
+	    	ocult.setProcessingDeath(false);	    	
 	    	azura.setAlive(false);
-	    	azura.setProcessingDeath(false);
-	    	
+	    	azura.setProcessingDeath(false);	    	
 	    	cyber.setAlive(false);
-	    	cyber.setProcessingDeath(false);
-	    	
+	    	cyber.setProcessingDeath(false);	    	
 	    	nexah.setAlive(false);
-	    	nexah.setProcessingDeath(false);
-	    	
+	    	nexah.setProcessingDeath(false);	    	
 	        zarg.setAlive(false);
-	    	zarg.setProcessingDeath(false);
-	    	
+	    	zarg.setProcessingDeath(false);	    	
 	    	levi.setAlive(false);
-	    	levi.setProcessingDeath(false);
-	    	
+	    	levi.setProcessingDeath(false);	    	
 	    	abis.setAlive(false);
-	    	abis.setProcessingDeath(false);
-	    	
+	    	abis.setProcessingDeath(false);	    	
 	    	kael.setAlive(false);
-	    	kael.setProcessingDeath(false);
-	    	
+	    	kael.setProcessingDeath(false);	    	
 	    	nthr.setAlive(false);
-	    	nthr.setProcessingDeath(false);
-	    	
+	    	nthr.setProcessingDeath(false);	    	
 	    	ig.setAlive(false);
 	    	ig.setProcessingDeath(false);
-
 	    	dr.setAlive(false);
 	    	dr.setProcessingDeath(false);
-
 	    	az.setAlive(false);
 	    	az.setProcessingDeath(false);
-
 	    	um.setAlive(false);
 	    	um.setProcessingDeath(false);
-
 	    	nm.setAlive(false);
 	    	nm.setProcessingDeath(false);
-
 	    	fl.setAlive(false);
 	    	fl.setProcessingDeath(false);
-
 	    	ob.setAlive(false);
 	    	ob.setProcessingDeath(false);
-
 	    	lx.setAlive(false);
 	    	lx.setProcessingDeath(false);
-
 	    	nx.setAlive(false);
 	    	nx.setProcessingDeath(false);
-
 	    	ub.setAlive(false);
 	    	ub.setProcessingDeath(false);
-
 	    	mv.setAlive(false);
 	    	mv.setProcessingDeath(false);
-
 	    	oq.setAlive(false);
 	    	oq.setProcessingDeath(false);
-
 	    	pg.setAlive(false);
 	    	pg.setProcessingDeath(false);
-
 	    	gc.setAlive(false);
 	    	gc.setProcessingDeath(false);
-
 	    	rx.setAlive(false);
 	    	rx.setProcessingDeath(false);
-
 	    	mc.setAlive(false);
 	    	mc.setProcessingDeath(false);
-
 	    	nr.setAlive(false);
 	    	nr.setProcessingDeath(false);
-
 	    	on.setAlive(false);
 	    	on.setProcessingDeath(false);
-
 	    	vs.setAlive(false);
 	    	vs.setProcessingDeath(false);
-
 	    	ts.setAlive(false);
 	    	ts.setProcessingDeath(false);
-
 	    	gl.setAlive(false);
 	    	gl.setProcessingDeath(false);
-
 	    	ix.setAlive(false);
 	    	ix.setProcessingDeath(false);
-
 	    	td.setAlive(false);
 	    	td.setProcessingDeath(false);
-
 	    	nt.setAlive(false);
 	    	nt.setProcessingDeath(false);
-
 	    	ap.setAlive(false);
 	    	ap.setProcessingDeath(false);
-
 	    	ds.setAlive(false);
-	    	ds.setProcessingDeath(false);
-	    	
+	    	ds.setProcessingDeath(false);	    	
 	    	tb.setAlive(false);
-	    	tb.setProcessingDeath(false);
-	    	
+	    	tb.setProcessingDeath(false);	    	
 	    	mph.setAlive(false);
-	    	mph.setProcessingDeath(false);
-	    	
+	    	mph.setProcessingDeath(false);	    	
 	    	aby.setAlive(false);
 	    	aby.setProcessingDeath(false);
-
+            //----------------------------
 	        ignorathService.save(ig);
 	        drakthorService.save(dr);
 	        azurionService.save(az);
@@ -750,9 +697,6 @@ public class KillAllBossesService {
 	        exodraxService.save(exodrax);
 	        apocalyxService.save(apocal);
 	        eclypzorService.save(eclypzor);
-	        
-	        
-	        //
 	        cybraxusService.save(cybrax);
 	        neurothService.save(neuroth);
 	        malghorService.save(malgho);
@@ -761,18 +705,14 @@ public class KillAllBossesService {
 	        kronvexService.save(kronv);
 	        kryptarService.save(krypt);
 	        nyxaraService.save(nyxara);
-	        morvyraService.save(morvyra);
-	        
-	        
-	        
-	        /*
-	       
-	       
-	      */
-	    }
-
-	
-	
-	
-
+	        morvyraService.save(morvyra);	        
+	        //---------------------------
+	        darkbyteService.save(dark);
+	        titanexService.save(titan);
+	        zerathonService.save(zera);
+	        hyperionXService.save(hyper);
+	        nexaronService.save(nexar);
+	        voidreaperService.save(reaper);
+	      
+	    }//--->
 }//--->kILL BOS FIM
