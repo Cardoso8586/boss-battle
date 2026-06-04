@@ -561,7 +561,7 @@ public class GlobalBossService {
     // HIT NO BOSS ATIVO
     // =============================
     public Object hitActiveBoss(long usuarioId) {
-        UsuarioBossBattle usuario = usuarioRepo.findById(usuarioId)
+        UsuarioBossBattle usuario = usuarioRepo.findByIdForUpdate(usuarioId)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         BattleBoss boss = getActiveBoss();
 
