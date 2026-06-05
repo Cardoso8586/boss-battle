@@ -32,7 +32,10 @@ public class ZerAdsBossController {
 
         System.out.println("===== CALLBACK ZERADS =====");
         System.out.println("USER: " + user);
+        System.out.println("AMOUNT: " + amount);
+        System.out.println("CLICKS: " + clicks);
         System.out.println("IP: " + ip);
+        
 
         if (!PASSWORD.equals(pwd)) {
             return ResponseEntity.status(403).body("Senha inválida");

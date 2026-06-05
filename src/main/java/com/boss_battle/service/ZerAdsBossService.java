@@ -41,38 +41,46 @@ public class ZerAdsBossService {
             throw new RuntimeException("Valor inválido");
         }
 
-        // proteção contra valores absurdos enviados no callback
-        if (amount.compareTo(new BigDecimal("0.15")) > 0) {
+        int totalClicks = clicks == null || clicks <= 0 ? 1 : clicks;
+
+        // segurança para evitar abuso
+        if (totalClicks > 50) {
+            throw new RuntimeException("Quantidade de clicks inválida");
+        }
+
+        // como agora pode vir pagamento acumulado, esse limite precisa ser maior
+        if (amount.compareTo(new BigDecimal("0.50")) > 0) {
             throw new RuntimeException("Amount inválido");
         }
 
         BigDecimal recompensa = amount.multiply(EXCHANGE);
 
-        if (recompensa.compareTo(new BigDecimal("100")) > 0) {
+        // limite maior porque pode vir lote de vários anúncios
+        if (recompensa.compareTo(new BigDecimal("1000")) > 0) {
             throw new RuntimeException("Recompensa inválida");
         }
+
         if (usuario.getBossCoins() == null) {
             usuario.setBossCoins(BigDecimal.ZERO);
         }
-
-        usuario.setBossCoins(usuario.getBossCoins().add(recompensa));
 
         if (usuario.getZeradsClicks() == null) {
             usuario.setZeradsClicks(0);
         }
 
-        usuario.setZeradsClicks(usuario.getZeradsClicks() + 1);
+        usuario.setBossCoins(usuario.getBossCoins().add(recompensa));
+
+        usuario.setZeradsClicks(usuario.getZeradsClicks() + totalClicks);
 
         usuario.setUltimoValorRecebido(recompensa);
 
         ultimoValorRecebidoService.setUltimoValorRecebido(usuario, recompensa);
 
-        missaoDiariaService.atualizarProgressoPtc(usuario.getId(), 1);
+        missaoDiariaService.atualizarProgressoPtc(usuario.getId(), totalClicks);
 
         usuarioRepository.save(usuario);
 
         return recompensa;
     }
- 
    
 }
