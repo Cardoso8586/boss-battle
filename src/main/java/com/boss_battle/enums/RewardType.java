@@ -5,5 +5,6 @@ public enum RewardType {
     CONSUMABLE,
     PROGRESSION,
     GUERREIRO,
-    SPECIAL
+    SPECIAL,
+    BOSS_COIN
 }

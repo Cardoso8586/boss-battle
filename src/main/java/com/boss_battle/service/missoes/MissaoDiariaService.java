@@ -512,7 +512,7 @@ public class MissaoDiariaService {
 
         long nivelUsuario = usuario.getNivel();
 
-        int base = 30 + (int)(nivelUsuario / 25) * 10;
+        int base = 20 + (int)(nivelUsuario / 25) * 10;
 
         if (base > 1000) {
             base = 1000;

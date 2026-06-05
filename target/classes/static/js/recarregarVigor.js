@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ==============================
                 if (!res.ok) {
 
+					
                     Swal.fire({
 
                         customClass: {

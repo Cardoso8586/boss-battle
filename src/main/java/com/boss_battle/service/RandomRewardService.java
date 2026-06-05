@@ -152,50 +152,6 @@ public class RandomRewardService {
 
         }
               
-        /*
-        
-        else if (roll < 30) { // ARCO CELESTIAL
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.ARCO_CELESTIAL);
-            reward.setAmount(1);
-            reward.setImageUrl("icones/arco.webp");
-
-        }
-        
-  
-        
-        else if (roll < 40) { //FLECHA FERRO
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.FLECHA_FERRO);
-            reward.setAmount(30);
-            reward.setImageUrl("icones/flecha_ferro.webp");
-
-        }
-        
-        else if (roll < 50) { //FLECHA FOGO
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.FLECHA_FOGO);
-            reward.setAmount(20);
-            reward.setImageUrl("icones/flecha_fogo.webp");
-
-        }
-        
-        else if (roll < 60) { //FLECHA VENENO
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.FLECHA_VENENO);
-            reward.setAmount(15);
-            reward.setImageUrl("icones/flecha_veneno.webp");
-
-        }
-        else if (roll < 70) { //FLECHA DIAMANTE
-            reward.setRewardType(RewardType.CONSUMABLE);
-            reward.setRewardItem(RewardItem.FLECHA_DIAMANTE);
-            reward.setAmount(10);
-            reward.setImageUrl("icones/flecha_diamante.webp");
-
-        }
-        */
-        
         else if (roll < 80) { // Ataque especial
             reward.setRewardType(RewardType.SPECIAL);
             reward.setRewardItem(RewardItem.ATAQUE_SPECIAL);
@@ -205,7 +161,7 @@ public class RandomRewardService {
         } else if (roll < 90) { // Moedas
             reward.setRewardType(RewardType.CURRENCY);
             reward.setRewardItem(RewardItem.BOSS_COIN);
-            reward.setAmount(200 + random.nextInt(500));
+            reward.setAmount(500 + random.nextInt(1500));
             reward.setImageUrl("icones/boss_coin.webp");
 
         } else { // EXP
@@ -223,3 +179,47 @@ public class RandomRewardService {
 
 }
 
+
+/*
+
+else if (roll < 30) { // ARCO CELESTIAL
+    reward.setRewardType(RewardType.CONSUMABLE);
+    reward.setRewardItem(RewardItem.ARCO_CELESTIAL);
+    reward.setAmount(1);
+    reward.setImageUrl("icones/arco.webp");
+
+}
+
+
+
+else if (roll < 40) { //FLECHA FERRO
+    reward.setRewardType(RewardType.CONSUMABLE);
+    reward.setRewardItem(RewardItem.FLECHA_FERRO);
+    reward.setAmount(30);
+    reward.setImageUrl("icones/flecha_ferro.webp");
+
+}
+
+else if (roll < 50) { //FLECHA FOGO
+    reward.setRewardType(RewardType.CONSUMABLE);
+    reward.setRewardItem(RewardItem.FLECHA_FOGO);
+    reward.setAmount(20);
+    reward.setImageUrl("icones/flecha_fogo.webp");
+
+}
+
+else if (roll < 60) { //FLECHA VENENO
+    reward.setRewardType(RewardType.CONSUMABLE);
+    reward.setRewardItem(RewardItem.FLECHA_VENENO);
+    reward.setAmount(15);
+    reward.setImageUrl("icones/flecha_veneno.webp");
+
+}
+else if (roll < 70) { //FLECHA DIAMANTE
+    reward.setRewardType(RewardType.CONSUMABLE);
+    reward.setRewardItem(RewardItem.FLECHA_DIAMANTE);
+    reward.setAmount(10);
+    reward.setImageUrl("icones/flecha_diamante.webp");
+
+}
+*/

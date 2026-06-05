@@ -150,17 +150,17 @@ public class AnuncioRecompensaService {
         }
     }//--->validarCooldown
     
-//---------------------------------
     private long sortearBossCoins(int streakAtual) {
 
         int min = 10;
-        int max = 100;
+        int max = 50;
 
         double fator = (double) streakAtual / LIMITE_STREAK_ITEM;
 
-        int baseProgressivo = (int) (min + (max - min) * fator);
+        int baseProgressivo = (int) (min + ((max - min) * fator));
 
-        int variacao = random.nextInt(21) - 10; // -10 até +10
+        // variação menor: -3 até +3
+        int variacao = random.nextInt(7) - 3;
 
         int valor = baseProgressivo + variacao;
 
@@ -168,7 +168,7 @@ public class AnuncioRecompensaService {
         if (valor > max) valor = max;
 
         return valor;
-    }//--->sortearBossCoins
+    }
 
     private ItemAnuncio sortearItemEspecialAnuncio() {
 
