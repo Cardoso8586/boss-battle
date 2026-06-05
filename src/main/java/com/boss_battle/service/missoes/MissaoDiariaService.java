@@ -775,9 +775,9 @@ public class MissaoDiariaService {
 
         System.out.println("📺 PTC ATUALIZADO");
         System.out.println("Usuário: " + salvo.getUsername()
-        +  " Tem um total de "
+        +  " Tem um total de- "
         + salvo.getMissaoDiariaPtcAtual()
-        + "PTC visualizados");
+        + " -PTC visualizados");
        
 
         return salvo;
@@ -792,7 +792,7 @@ public class MissaoDiariaService {
         usuario.setMissaoDiariaDanoAtual(usuario.getMissaoDiariaDanoAtual() + dano);
 
         System.out.println("Usuario-" + usuario.getUsername()
-        +" Tem um total dano de -  " 
+        +" Tem um total dano de-  " 
         + usuario.getMissaoDiariaDanoAtual());
 
         return usuarioRepository.save(usuario);
@@ -808,7 +808,7 @@ public class MissaoDiariaService {
         );
 
         System.out.println("Usuario-" + usuario.getUsername() +
-                " Tem um total ataque de -  " + usuario.getMissaoDiariaAtaquesEspeciaisAtual());
+                " Tem um total ataque de-  " + usuario.getMissaoDiariaAtaquesEspeciaisAtual());
 
         return usuarioRepository.save(usuario);
     }

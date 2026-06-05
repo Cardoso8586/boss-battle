@@ -33,7 +33,7 @@ public class ZerAdsBossService {
                                          BigDecimal amount,
                                          Integer clicks) {
 
-        UsuarioBossBattle usuario = usuarioRepository.findByUsernameForUpdate(username)
+        UsuarioBossBattle usuario = usuarioRepository.findByUsername(username)
                 .orElseThrow(() ->
                         new RuntimeException("Usuário não encontrado: " + username));
 

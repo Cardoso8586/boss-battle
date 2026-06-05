@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class ZerAdsBossController {
 
     private static final String PASSWORD = "BossArena2026_ZER_Secure";
-    private static final String ZERADS_IP = "162.0.208.108";
+  //  private static final String ZERADS_IP = "162.0.208.108";
 
     private final ZerAdsBossService zerAdsBossService;
 
@@ -37,11 +37,13 @@ public class ZerAdsBossController {
         if (!PASSWORD.equals(pwd)) {
             return ResponseEntity.status(403).body("Senha inválida");
         }
-
+        
+        /*
         if (!ZERADS_IP.equals(ip)) {
             System.out.println("⚠️ IP diferente do esperado: " + ip);
         }
-
+       */
+        
         BigDecimal recompensa =
                 zerAdsBossService.creditarRecompensa(user, amount, clicks);
 
