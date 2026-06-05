@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="user-id" th:content="${idUsuario}">
+    <meta name="user-id" th:content="${idUsuario}" />
 
-    <title>Desafios da Arena</title>
+    <title>Caçador de Recompensas</title>
 
     <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
-
     <link rel="stylesheet" href="/css/desafios.css">
-    <link rel="stylesheet" href="/css/customClass.css">
-    <link rel="stylesheet" href="/css/swal-game-error.css">
     <link rel="stylesheet" href="/css/anuncios.css">
+    <link rel="stylesheet" href="/css/customClass.css">
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="preload" href="/images/fundo-boss.webp" as="image">
     <link rel="preload" href="/images/logo-boss-battle.webp" as="image">
+    <link rel="preload" href="/images/fundo-boss.webp" as="image">
 </head>
 
 <body>
@@ -54,44 +52,109 @@
         </div>
     </div>
 
-    <section id="missoes">
+    <section id="cacador-recompensas">
 
         <div class="missoes-header">
             <div class="icone-header">
-                <i class="fa-solid fa-trophy"></i>
+                <i class="fa-solid fa-gift"></i>
             </div>
 
-            <h1>Desafios da Arena</h1>
+            <h1>Caçador de Recompensas</h1>
 
             <p>
-                Complete missões, evolua seu poder e conquiste recompensas especiais.
+                Assista anúncios, colete recompensas diárias e avance na missão
+                🏆 Caçador de Recompensas.
             </p>
         </div>
 
-        <div class="bloco-missao">
-            <div class="titulo-bloco">
-                <i class="fa-solid fa-fire"></i>
-                <h2>Missões Diárias</h2>
-            </div>
+     <div class="bloco-missao">
 
-            <div id="diarias" class="lista-missoes"></div>
+    <div class="titulo-bloco">
+        <i class="fa-solid fa-trophy"></i>
+        <h2>Recompensas Diárias</h2>
+    </div>
 
-            <div id="mensagem-diarias"
-                 class="mensagem-vazia"
-                 style="display: none;">
-            </div>
-        </div>
+    <div class="recompensas-layout">
 
-        <!-- ANÚNCIO 468x60 -->
-        <div class="anuncio-13">
-            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                    width="468"
-                    height="60"
+        <!-- ANUNCIO ESQUERDA -->
+       <div class="anuncio-1">
+            <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="300"
+                    height="250"
                     scrolling="no"
+                    border="0"
                     frameborder="0">
             </iframe>
         </div>
 
+        <!-- CARD CENTRAL -->
+        <div class="card-missao">
+
+            <h3>🎁 Próxima Recompensa</h3>
+
+            <p id="textoStatusRecompensa">
+                Verificando disponibilidade...
+            </p>
+
+            <div class="barra-progresso">
+                <div id="barraCooldownRecompensa"
+                     class="barra-preenchida"
+                     style="width:0%;">
+                </div>
+            </div>
+
+            <p id="contadorCooldownRecompensa" style="margin-top:18px;">
+                --
+            </p>
+
+            <a id="btnIrAnuncio"
+               href="/anuncio-recompensa"
+               class="btn-missao"
+               style="display:none; text-align:center; text-decoration:none;">
+                🎬 Assistir anúncio e ganhar
+            </a>
+
+            <button id="btnBloqueadoAnuncio"
+                    class="btn-missao btn-concluida"
+                    disabled
+                    style="display:none;">
+                Aguarde...
+            </button>
+
+        </div>
+
+        <!-- ANUNCIO DIREITA -->
+      <div class="anuncio-1">
+            <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="300"
+                    height="250"
+                    scrolling="no"
+                    border="0"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+    </div>
+
+</div>
+            
+        
+
+  <div class="anuncio-20">
+        <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="300"
+                height="250"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
         <!-- ANÚNCIO 468x60 HIGH PERFORMANCE -->
         <div class="anuncio-8">
             <script>
@@ -125,16 +188,13 @@
                     frameborder="0">
             </iframe>
         </div>
-
     </section>
 
 </main>
 
-
 <script src="/js/session-keepalive.js"></script>
 <script src="/js/global.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/js/missoesDiarias.js" defer></script>
+<script src="/js/cacadorRecompensas.js" defer></script>
 
 </body>
 </html>

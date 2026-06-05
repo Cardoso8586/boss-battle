@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="user-id" th:content="${idUsuario}" />
     <title>Boss Battle Arena</title>
-    
+ 
     <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
     <link rel="stylesheet" href="/css/bossSection.css"> 
     <link rel="stylesheet" href="/css/rankingDano.css">
@@ -179,6 +179,14 @@
             </a>
         </li>
 
+
+  <li>
+    <a href="/ranking-semanal">
+        <i class="fa-solid fa-trophy"></i>
+        Ranking Semanal
+    </a>
+</li>
+
         <li>
             <a href="/aprimoramentos">
                 <i class="fa-solid fa-shop"></i>
@@ -204,19 +212,27 @@
 <li>
     <a href="/ganhar-boss-coins">
         <i class="fa-solid fa-gem"></i>
-        ⚔️ Ganhar Boss Coins
+        Ganhar Boss Coins
            <span class="novo-badge">NOVO</span>
     </a>
 </li>
         
-        <!-- 
+<li>
+
+<li>
+    <a href="/cacador-recompensas" id="linkAnuncioMenu">
+        <i class="fa-solid fa-gift"></i>
+        Caçador de Recompensas
+        <span class="novo-badge">NOVO</span>
+    </a>
+</li>
         <li>
             <a href="#" data-section="section-promocoes">
                 <i class="fa-solid fa-tags"></i>
                 Promoções Especiais
             </a>
         </li>
- -->
+
         <li>
             <a href="/resgatar-recompensas">
                 <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -991,8 +1007,8 @@
     <script src="/js/ultimoAtaqueBoss.js" defer></script>
     <script src="/js/dashboard.js"></script>
     <script src="/js/nav.js"></script>
-        
-     <script src="/js/global-update.js" defer></script>   
+  
+   <script src="/js/global-update.js" defer></script>   
   
        <script src="/js/guerreirosUsuarioCard.js" defer></script>
     <!--
@@ -1030,7 +1046,7 @@
      <script src="/js/equiparEscudoPrimordial.js" defer></script>
      <script src="/js/copiarEmail.js" defer></script>
     <!-- 
-     <script src="/js/anuncio-recompensa.js" defer></script>
+   
          <script src="/js/comprarPromocoes.js" defer></script>
  <script src="/js/ultimosPagamentos.js" defer></script>
     <script src="/js/abrirLootbox.js"></script>

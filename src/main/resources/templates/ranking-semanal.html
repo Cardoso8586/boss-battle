@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+
+    <title>Ranking Semanal</title>
+
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+
+    <link rel="stylesheet" href="/css/rankingModal.css">
+    <link rel="stylesheet" href="/css/ranking-semanal.css">
+    <link rel="stylesheet" href="/css/customClass.css">
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+    <link rel="stylesheet" href="/css/anuncios.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preload" href="/images/fundo-boss.webp" as="image">
+    <link rel="preload" href="/images/logo-boss-battle.webp" as="image">
+    
+</head>
+
+<body>
+
+<div class="logo">
+    <a href="/arena">
+        <img src="/images/logo-boss-battle.webp" alt="Boss Battle Arena">
+    </a>
+</div>
+
+<div class="game-background"></div>
+
+<a href="/arena" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar à Arena</span>
+</a>
+
+<main class="missoes-page">
+
+    <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+
+    <section id="rankingSemanal">
+
+        <div class="missoes-header">
+            <div class="icone-header">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h1>Ranking Semanal</h1>
+
+            <p>
+                Dispute o ranking de ataques especiais da semana e conquiste recompensas exclusivas.
+            </p>
+        </div>
+
+        <div class="anuncio-13">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <div class="anuncio-12">
+            <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                    width="728"
+                    height="90"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <div class="bloco-ranking">
+            <div class="titulo-ranking">
+                <i class="fa-solid fa-crown"></i>
+                <h2>Ranking de Ataques Especiais</h2>
+            </div>
+
+            <div class="ranking-box">
+                <h3 class="subtitulo-ranking">Top 10 da Semana</h3>
+
+                <div id="rankingLista" class="ranking-lista"></div>
+            </div>
+
+            <div id="posicaoUsuario" class="posicao-usuario"></div>
+        </div>
+  <div class="anuncio-13">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <div class="premios-ranking">
+            <div class="titulo-premio">
+                <i class="fa-solid fa-gem"></i>
+                <h2>Premiação Semanal</h2>
+            </div>
+
+            <ul class="lista-premiacao">
+                <li class="lista-premios">
+                    🥇 1º Lugar
+                    <strong>
+                        50.000
+                        <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
+                    </strong>
+                </li>
+
+                <li class="lista-premios">
+                    🥈 2º Lugar
+                    <strong>
+                        30.000
+                        <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
+                    </strong>
+                </li>
+
+                <li class="lista-premios">
+                    🥉 3º Lugar
+                    <strong>
+                        20.000
+                        <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
+                    </strong>
+                </li>
+
+                <li class="lista-premios">
+                    🏅 4º Lugar
+                    <strong>
+                        10.000
+                        <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
+                    </strong>
+                </li>
+
+                <li class="lista-premios">
+                    🎖️ 5º Lugar
+                    <strong>
+                        5.000
+                        <img src="/icones/boss_coin.webp" class="icone-token" alt="Boss Coin">
+                    </strong>
+                </li>
+            </ul>
+
+            <p class="info-premios">
+                Os prêmios são distribuídos automaticamente todo domingo à meia-noite.
+            </p>
+        </div>
+        <div class="anuncio-8">
+            <script>
+                window.atOptions = {
+                    key: "0a3b52a54a7a4d065b759366194e5a20",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+        </div>
+        <div class="anuncio-13">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <div class="anuncio-12">
+            <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                    width="728"
+                    height="90"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <!-- MODAL PRÊMIO ATAQUE ESPECIAL -->
+        <div id="modalPremioAtaqueEspecial" class="modal-premio">
+            <div class="modal-premio-box">
+
+                <button type="button" class="fechar-modal" id="btnFecharModalPremio">×</button>
+
+                <div class="modal-topo">
+                    <i class="fa-solid fa-trophy"></i>
+                    <h3>Prêmio Disponível</h3>
+                </div>
+
+                <div class="modal-conteudo">
+                    <p id="textoPremioAtaqueEspecial">
+                        Você tem um prêmio disponível no ranking semanal de ataques especiais.
+                    </p>
+
+                    <p id="statusPremioAtaqueEspecial" class="status-premio"></p>
+
+                    <div class="premio-valor-box">
+                        <span class="label-premio">Valor do Prêmio</span>
+
+                        <span id="valorPremioAtaqueEspecial" class="valor-premio">
+                            0,00
+                        </span>
+
+                        <img src="/icones/boss_coin.webp" alt="Boss Coin" class="icone-token">
+                    </div>
+                </div>
+
+                <div class="modal-acoes">
+                    <button type="button"
+                            id="btnReceberPremioAtaqueEspecial"
+                            class="btn-receber-premio">
+                        <i class="fa-solid fa-coins"></i>
+                        Receber
+                    </button>
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                            width="468"
+                            height="60"
+                            scrolling="no"
+                            frameborder="0">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </section>
+
+</main>
+
+<script src="/js/session-keepalive.js"></script>
+<script src="/js/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/rankingAtaques.js" defer></script>
+<script src="/js/receberRankingAtaqueEspecial.js" defer></script>
+
+</body>
+</html>

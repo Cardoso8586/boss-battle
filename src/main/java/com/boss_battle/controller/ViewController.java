@@ -62,19 +62,37 @@ public class ViewController {
         return "anuncio-recompensa"; // templates/anuncio-recompensa.html
     }
     */
-    
     @GetMapping("/anuncio-recompensa")
-    public String anuncioRecompensa(@RequestParam("usuarioId") Long usuarioId,
-                                    Model model) {
+    public String anuncioRecompensa(HttpSession session, Model model) {
 
-        UsuarioBossBattle usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        UsuarioBossBattle usuario =
+                (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+        if (usuario == null) {
+            return "redirect:/arena";
+            
+        }
 
         model.addAttribute("usuario", usuario);
 
         return "anuncio-recompensa";
     }
     
+    @GetMapping("/cacador-recompensas")
+    public String cacadorRecompensas(HttpSession session, Model model) {
+
+        UsuarioBossBattle usuario =
+                (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+        if (usuario == null) {
+            return "redirect:/arena";
+        }
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("idUsuario", usuario.getId());
+
+        return "cacador-recompensas";
+    }
 
     @GetMapping("/desafios")
     public String desafiosArena(HttpSession session, Model model) {
@@ -110,6 +128,38 @@ public class ViewController {
         return "desafios";
     }
     
+    @GetMapping("/ranking-semanal")
+    public String rankingSemanal(HttpSession session, Model model) {
+
+        UsuarioBossBattle usuario =
+                (UsuarioBossBattle) session.getAttribute("usuarioLogado");
+
+        if (usuario == null) {
+            return "redirect:/arena";
+        }
+
+        DecimalFormat df = new DecimalFormat("#,##0");
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("idUsuario", usuario.getId());
+
+        model.addAttribute("xpUsuario",
+                df.format(usuario.getExp()));
+
+        model.addAttribute("nivelUsuario",
+                df.format(usuario.getNivel()));
+
+        BigDecimal coins = usuario.getBossCoins();
+
+        if (coins == null) {
+            coins = BigDecimal.ZERO;
+        }
+
+        model.addAttribute("boss_coins",
+                df.format(coins));
+
+        return "ranking-semanal";
+    }
     //recarregar-vigor
  // recarregar-vigor
     @GetMapping("/recarregar-vigor")

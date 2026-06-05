@@ -96,6 +96,12 @@ public class MissaoDiariaService {
      usuario.setMissaoDiariaPtcAtual(0);
      usuario.setMissaoDiariaPtcConcluida(false);
 
+  
+     // missão caçador de recompensas
+     usuario.setMissaoDiariaNivelCacadorRecompensas(1);
+     usuario.setMissaoDiariaCacadorRecompensasAtual(0);
+     usuario.setMissaoDiariaCacadorRecompensasConcluida(false);
+     
      // data reset
      usuario.setMissaoDiariaDataReset(hoje);
  }
@@ -110,22 +116,26 @@ public class MissaoDiariaService {
 	    int nivelDano = normalizarNivelMissao(usuario.getMissaoDiariaNivelDano());
 	    int nivelAtaques = normalizarNivelMissao(usuario.getMissaoDiariaNivelAtaquesEspeciais());
 	    int nivelPtc = normalizarNivelMissao(usuario.getMissaoDiariaNivelPtc());
-
+        int nivelCacador =normalizarNivelMissao(usuario.getMissaoDiariaNivelCacadorRecompensas());
 	    // corrige também no objeto, caso tenha vindo 0 do banco
 	    usuario.setMissaoDiariaNivelDano(nivelDano);
 	    usuario.setMissaoDiariaNivelAtaquesEspeciais(nivelAtaques);
 	    usuario.setMissaoDiariaNivelPtc(nivelPtc);
 
 	    usuarioRepository.save(usuario);
-
+        //missão dano
 	    long objetivoDano = calcularObjetivoDano(usuario, nivelDano);
 	    int recompensaDano = calcularRecompensaDano(usuario, nivelDano);
-
+        //missão ataques
 	    int objetivoAtaques = calcularObjetivoAtaque(usuario, nivelAtaques);
 	    int recompensaAtaques = calcularRecompensaAtaque(usuario, nivelAtaques);
-
+        //missão ptc
 	    int objetivoPtc = calcularObjetivoPtc(nivelPtc);
 	    int recompensaPtc = calcularRecompensaPtc(usuario, nivelPtc);
+	    //missão caçador de reconpensas
+		int objetivoCacador =calcularObjetivoCacadorRecompensas(nivelCacador);
+		int recompensaCacador =calcularRecompensaCacadorRecompensas(usuario,nivelCacador);
+
 
 	    // missão dano
 	    dto.setDanoAtual(usuario.getMissaoDiariaDanoAtual());
@@ -159,10 +169,19 @@ public class MissaoDiariaService {
 	            !usuario.isMissaoDiariaPtcConcluida()
 	            && usuario.getMissaoDiariaPtcAtual() >= objetivoPtc
 	    );
-
+ 
+	   // missão caçadpr de recompensas
+	   
+	   dto.setCacadorAtual(usuario.getMissaoDiariaCacadorRecompensasAtual());
+	   dto.setCacadorObjetivo(objetivoCacador);
+	   dto.setNivelCacador(nivelCacador);
+	   dto.setRecompensaCacador(recompensaCacador);
+	   dto.setPodeResgatarCacador(!usuario.isMissaoDiariaCacadorRecompensasConcluida()
+	        &&usuario.getMissaoDiariaCacadorRecompensasAtual()>= objetivoCacador);
+	   
 	    return dto;
 	}
-    
+    //resgatarMissaoDano
     @Transactional
     public MissaoDiariaDTO resgatarMissaoDano(Long usuarioId) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
@@ -196,7 +215,7 @@ public class MissaoDiariaService {
         usuarioRepository.saveAndFlush(usuario);
         return buscarMissaoDiaria(usuarioId);
     }
-   
+   //resgatarMissaoAtaques
     @Transactional
     public MissaoDiariaDTO resgatarMissaoAtaques(Long usuarioId) {
     	  UsuarioBossBattle usuario = usuarioRepository.buscarPorIdComLock(usuarioId)
@@ -234,6 +253,7 @@ public class MissaoDiariaService {
         return buscarMissaoDiaria(usuarioId);
     }
     
+    //resgatarMissaoPtc
     @Transactional
     public MissaoDiariaDTO resgatarMissaoPtc(Long usuarioId) {
         UsuarioBossBattle usuario = usuarioRepository.buscarPorIdComLock(usuarioId)
@@ -270,6 +290,66 @@ public class MissaoDiariaService {
     /*
    
     */
+    //resgatar resgatarMissaoCacadorRecompensas
+    @Transactional
+    public MissaoDiariaDTO resgatarMissaoCacadorRecompensas(
+            Long usuarioId) {
+
+        UsuarioBossBattle usuario =
+                usuarioRepository.buscarPorIdComLock(usuarioId)
+                        .orElseThrow();
+
+        validarResetDiario(usuario);
+
+        int nivelAtual =
+                normalizarNivelMissao(
+                        usuario.getMissaoDiariaNivelCacadorRecompensas());
+
+        if (usuario.isMissaoDiariaCacadorRecompensasConcluida()) {
+            return buscarMissaoDiaria(usuarioId);
+        }
+
+        int objetivo =
+                calcularObjetivoCacadorRecompensas(nivelAtual);
+
+        int recompensa =
+                calcularRecompensaCacadorRecompensas(
+                        usuario,
+                        nivelAtual);
+
+        if (usuario.getMissaoDiariaCacadorRecompensasAtual()
+                < objetivo) {
+
+            throw new RuntimeException(
+                    "Missão Caçador de Recompensas ainda não concluída.");
+        }
+
+        usuario.setBossCoins(
+                usuario.getBossCoins()
+                        .add(BigDecimal.valueOf(recompensa)));
+
+        referidosService.adicionarGanho(
+                usuario,
+                BigDecimal.valueOf(recompensa));
+
+        ultimoValorRecebidoService.setUltimoValorRecebido(
+                usuario,
+                BigDecimal.valueOf(recompensa));
+
+        if (nivelAtual < 5) {
+
+            usuario.setMissaoDiariaNivelCacadorRecompensas(
+                    nivelAtual + 1);
+
+        } else {
+
+            usuario.setMissaoDiariaCacadorRecompensasConcluida(true);
+        }
+
+        usuarioRepository.saveAndFlush(usuario);
+
+        return buscarMissaoDiaria(usuarioId);
+    }
     //====================== BUSCA ======================
 
     private UsuarioBossBattle buscarUsuario(Long usuarioId) {
@@ -277,71 +357,8 @@ public class MissaoDiariaService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + usuarioId));
     }
     //====================== OBJETIVOS ======================
-    private int calcularRecompensaPtc(UsuarioBossBattle usuario, int nivelMissao) {
-        nivelMissao = normalizarNivelMissao(nivelMissao);
-
-        long nivelUsuario = usuario.getNivel();
-        int base;
-
-        if (nivelUsuario < 25) base = 50;
-        else if (nivelUsuario < 50) base = 60;
-        else if (nivelUsuario < 75) base = 70;
-        else if (nivelUsuario < 100) base = 80;
-        else if (nivelUsuario < 125) base = 90;
-        else if (nivelUsuario < 150) base = 100;
-        else if (nivelUsuario < 175) base = 110;
-        else if (nivelUsuario < 200) base = 120;
-        else if (nivelUsuario < 225) base = 130;
-        else if (nivelUsuario < 250) base = 140;
-        else if (nivelUsuario < 275) base = 150;
-        else if (nivelUsuario < 300) base = 160;
-        else if (nivelUsuario < 325) base = 170;
-        else if (nivelUsuario < 350) base = 180;
-        else if (nivelUsuario < 375) base = 190;
-        else if (nivelUsuario < 400) base = 200;
-        else if (nivelUsuario < 425) base = 210;
-        else if (nivelUsuario < 450) base = 220;
-        else if (nivelUsuario < 475) base = 230;
-        else if (nivelUsuario < 500) base = 240;
-        else if (nivelUsuario < 525) base = 250;
-        else if (nivelUsuario < 550) base = 260;
-        else if (nivelUsuario < 575) base = 270;
-        else if (nivelUsuario < 600) base = 280;
-        else if (nivelUsuario < 625) base = 290;
-        else if (nivelUsuario < 650) base = 300;
-        else if (nivelUsuario < 675) base = 310;
-        else if (nivelUsuario < 700) base = 320;
-        else if (nivelUsuario < 725) base = 330;
-        else if (nivelUsuario < 750) base = 340;
-        else if (nivelUsuario < 775) base = 350;
-        else if (nivelUsuario < 800) base = 360;
-        else if (nivelUsuario < 825) base = 370;
-        else if (nivelUsuario < 850) base = 380;
-        else if (nivelUsuario < 875) base = 390;
-        else if (nivelUsuario < 900) base = 400;
-        else if (nivelUsuario < 925) base = 410;
-        else if (nivelUsuario < 950) base = 420;
-        else if (nivelUsuario < 975) base = 430;
-        else if (nivelUsuario < 1000) base = 440;
-
-        else base = 500;
-
-        switch (nivelMissao) {
-            case 1:
-                return base;
-            case 2:
-                return (int) (base * 1.5);
-            case 3:
-                return base * 2;
-            case 4:
-                return (int) (base * 2.5);
-            case 5:
-                return base * 3;
-            default:
-                return base;
-        }
-    }
-    
+   
+    //objetivo ptc
     private int calcularObjetivoPtc(int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -359,7 +376,9 @@ public class MissaoDiariaService {
             default:
                 return 50;
         }
-    }///========================================================================
+    }
+
+    //objetivo dano
     private long calcularObjetivoDano(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -425,6 +444,7 @@ public class MissaoDiariaService {
                 return baseDano;
         }
     }
+    //objetivo ataque
     private int calcularObjetivoAtaque(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -459,8 +479,132 @@ public class MissaoDiariaService {
                 return baseAtaques;
         }
     }
-    //====================== RECOMPENSAS ======================
+    
+    
+    //objetivo caçador de reconpensas
+    private int calcularObjetivoCacadorRecompensas(int nivelMissao) {
 
+        nivelMissao = normalizarNivelMissao(nivelMissao);
+
+        switch (nivelMissao) {
+            case 1:
+                return 1;
+            case 2:
+                return 5;
+            case 3:
+                return 10;
+            case 4:
+                return 15;
+            case 5:
+                return 20;
+            default:
+                return 20;
+        }
+    }
+    //====================== Calcular RECOMPENSAS ======================
+    
+    //calcular caçador de recompensas
+    private int calcularRecompensaCacadorRecompensas(
+            UsuarioBossBattle usuario,
+            int nivelMissao) {
+
+        nivelMissao = normalizarNivelMissao(nivelMissao);
+
+        long nivelUsuario = usuario.getNivel();
+
+        int base = 30 + (int)(nivelUsuario / 25) * 10;
+
+        if (base > 1000) {
+            base = 1000;
+        }
+
+        switch (nivelMissao) {
+
+            case 1:
+                return base;
+
+            case 2:
+                return (int) (base * 1.5);
+
+            case 3:
+                return base * 2;
+
+            case 4:
+                return (int) (base * 2.5);
+
+            case 5:
+                return base * 3;
+
+            default:
+                return base;
+        }
+    }
+    private int calcularRecompensaPtc(UsuarioBossBattle usuario, int nivelMissao) {
+        nivelMissao = normalizarNivelMissao(nivelMissao);
+
+        long nivelUsuario = usuario.getNivel();
+        int base;
+
+        if (nivelUsuario < 25) base = 50;
+        else if (nivelUsuario < 50) base = 60;
+        else if (nivelUsuario < 75) base = 70;
+        else if (nivelUsuario < 100) base = 80;
+        else if (nivelUsuario < 125) base = 90;
+        else if (nivelUsuario < 150) base = 100;
+        else if (nivelUsuario < 175) base = 110;
+        else if (nivelUsuario < 200) base = 120;
+        else if (nivelUsuario < 225) base = 130;
+        else if (nivelUsuario < 250) base = 140;
+        else if (nivelUsuario < 275) base = 150;
+        else if (nivelUsuario < 300) base = 160;
+        else if (nivelUsuario < 325) base = 170;
+        else if (nivelUsuario < 350) base = 180;
+        else if (nivelUsuario < 375) base = 190;
+        else if (nivelUsuario < 400) base = 200;
+        else if (nivelUsuario < 425) base = 210;
+        else if (nivelUsuario < 450) base = 220;
+        else if (nivelUsuario < 475) base = 230;
+        else if (nivelUsuario < 500) base = 240;
+        else if (nivelUsuario < 525) base = 250;
+        else if (nivelUsuario < 550) base = 260;
+        else if (nivelUsuario < 575) base = 270;
+        else if (nivelUsuario < 600) base = 280;
+        else if (nivelUsuario < 625) base = 290;
+        else if (nivelUsuario < 650) base = 300;
+        else if (nivelUsuario < 675) base = 310;
+        else if (nivelUsuario < 700) base = 320;
+        else if (nivelUsuario < 725) base = 330;
+        else if (nivelUsuario < 750) base = 340;
+        else if (nivelUsuario < 775) base = 350;
+        else if (nivelUsuario < 800) base = 360;
+        else if (nivelUsuario < 825) base = 370;
+        else if (nivelUsuario < 850) base = 380;
+        else if (nivelUsuario < 875) base = 390;
+        else if (nivelUsuario < 900) base = 400;
+        else if (nivelUsuario < 925) base = 410;
+        else if (nivelUsuario < 950) base = 420;
+        else if (nivelUsuario < 975) base = 430;
+        else if (nivelUsuario < 1000) base = 440;
+
+        else base = 500;
+
+        switch (nivelMissao) {
+            case 1:
+                return base;
+            case 2:
+                return (int) (base * 1.5);
+            case 3:
+                return base * 2;
+            case 4:
+                return (int) (base * 2.5);
+            case 5:
+                return base * 3;
+            default:
+                return base;
+        }
+    }
+    
+    //calcular Dano
     private int calcularRecompensaDano(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -524,6 +668,7 @@ public class MissaoDiariaService {
                 return base;
         }
     }
+    // Calcular Ataque
     private int calcularRecompensaAtaque(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -629,10 +774,11 @@ public class MissaoDiariaService {
         UsuarioBossBattle salvo = usuarioRepository.saveAndFlush(usuario);
 
         System.out.println("📺 PTC ATUALIZADO");
-        System.out.println("Usuário: " + salvo.getUsername());
-        System.out.println("Antes: " + atualAntes);
-        System.out.println("Somou: " + quantidade);
-        System.out.println("Depois: " + salvo.getMissaoDiariaPtcAtual());
+        System.out.println("Usuário: " + salvo.getUsername()
+        +  " Tem um total de "
+        + salvo.getMissaoDiariaPtcAtual()
+        + "PTC visualizados");
+       
 
         return salvo;
     }
@@ -645,8 +791,9 @@ public class MissaoDiariaService {
         
         usuario.setMissaoDiariaDanoAtual(usuario.getMissaoDiariaDanoAtual() + dano);
 
-        System.out.println("Usuario-" + usuario.getUsername() +
-                " Tem um total dano de " + usuario.getMissaoDiariaDanoAtual());
+        System.out.println("Usuario-" + usuario.getUsername()
+        +" Tem um total dano de -  " 
+        + usuario.getMissaoDiariaDanoAtual());
 
         return usuarioRepository.save(usuario);
     }
@@ -661,8 +808,31 @@ public class MissaoDiariaService {
         );
 
         System.out.println("Usuario-" + usuario.getUsername() +
-                " Tem um total ataque de " + usuario.getMissaoDiariaAtaquesEspeciaisAtual());
+                " Tem um total ataque de -  " + usuario.getMissaoDiariaAtaquesEspeciaisAtual());
 
         return usuarioRepository.save(usuario);
     }
-}
+    
+    @Transactional
+    public UsuarioBossBattle atualizarProgressoCacadorRecompensas(Long usuarioId, int quantidade) {
+        UsuarioBossBattle usuario = buscarUsuario(usuarioId);
+
+        validarResetDiario(usuario);
+
+        int atualAntes = usuario.getMissaoDiariaCacadorRecompensasAtual();
+
+        usuario.setMissaoDiariaCacadorRecompensasAtual(atualAntes + quantidade);
+
+        UsuarioBossBattle salvo = usuarioRepository.saveAndFlush(usuario);
+
+        System.out.println("🏆 CAÇADOR DE RECOMPENSAS ATUALIZADO");
+        System.out.println("Usuário: " + salvo.getUsername()
+        +  " Tem um total de "
+        + salvo.getMissaoDiariaCacadorRecompensasAtual() 
+        + " - Reconpensas");
+       
+
+        return salvo;
+    }
+    
+}//--->

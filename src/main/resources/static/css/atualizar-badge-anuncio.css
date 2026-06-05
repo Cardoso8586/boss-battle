@@ -1,0 +1,51 @@
+.novo-badge.cooldown {
+    background: #dc2626;
+    color: white;
+}
+
+.novo-badge.disponivel {
+    background: #16a34a;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.menu-anuncio-bloqueado {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.menu-anuncio-bloqueado .novo-badge {
+    background: #dc2626;
+    color: #fff;
+}
+.menu-anuncio-bloqueado {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.menu-anuncio-bloqueado .novo-badge {
+    background: #dc2626;
+    color: #fff;
+}
+
+.menu-anuncio-limite .novo-badge {
+    background: #7f1d1d;
+    color: #fff;
+}

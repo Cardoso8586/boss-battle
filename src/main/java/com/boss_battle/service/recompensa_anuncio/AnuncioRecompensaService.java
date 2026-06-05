@@ -11,29 +11,36 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boss_battle.dto.RecompensaAnuncioDTO;
 import com.boss_battle.enums.RewardItem;
 import com.boss_battle.model.UsuarioBossBattle;
 import com.boss_battle.repository.UsuarioBossBattleRepository;
 import com.boss_battle.service.UltimoValorRecebidoService;
+import com.boss_battle.service.missoes.MissaoDiariaService;
 
 @Service
 public class AnuncioRecompensaService {
 
+	@Autowired
+	private MissaoDiariaService missaoDiariaService;
+	
     @Autowired
     private UsuarioBossBattleRepository usuarioBossBattleRepository;
+    
     @Autowired
     private UltimoValorRecebidoService ultimoValorRecebidoService;
 
     private final Random random = new Random();
 
-    private static final int LIMITE_STREAK_ITEM = 15;
+    private static final int LIMITE_STREAK_ITEM = 20;
     private static final int COOLDOWN_MINUTOS = 5;
 
     private static final ZoneId ZONA_BRASIL = ZoneId.of("America/Sao_Paulo");
 
     //----------------------------------------------------------
+    @Transactional
     public RecompensaAnuncioDTO receberRecompensa(Long usuarioId) {
 
     	UsuarioBossBattle usuario = usuarioBossBattleRepository
@@ -57,7 +64,7 @@ public class AnuncioRecompensaService {
 
         long bossCoinsGanhas = sortearBossCoins(streakAtual);
       
-     // 🔥 bônus especial no último (15)
+     // 🔥 bônus especial no último (20)
      if (streakAtual == LIMITE_STREAK_ITEM) {
          bossCoinsGanhas += 20;
      }
@@ -85,6 +92,7 @@ public class AnuncioRecompensaService {
 
         usuario.setStreakAnuncios(streakAtual);
         usuario.setUltimoAnuncioAssistido(LocalDateTime.now(ZONA_BRASIL));
+        missaoDiariaService.atualizarProgressoCacadorRecompensas(usuario.getId(), 1);
 
         usuarioBossBattleRepository.save(usuario);
 
@@ -145,8 +153,8 @@ public class AnuncioRecompensaService {
 //---------------------------------
     private long sortearBossCoins(int streakAtual) {
 
-        int min = 50;
-        int max = 200;
+        int min = 10;
+        int max = 100;
 
         double fator = (double) streakAtual / LIMITE_STREAK_ITEM;
 

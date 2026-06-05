@@ -267,7 +267,7 @@ async function receberRecompensaAnuncio() {
 
         if (dados.success) {
             recompensaRecebida = true;
-
+			localStorage.removeItem("anuncio_menu_status_cache");
             salvarNovoCooldown();
             localStorage.removeItem(STATUS_CACHE_KEY);
 
@@ -282,16 +282,16 @@ async function receberRecompensaAnuncio() {
             if (textoRecompensa) textoRecompensa.textContent = dados.descricao;
 
             if (textoStreak) {
-                textoStreak.textContent = `🔥 Streak: ${dados.streakAtual}/15`;
+                textoStreak.textContent = `🔥 Streak: ${dados.streakAtual}/20`;
             }
 
             btnReceberRecompensa.textContent = "✅ Recebido";
 
             mostrarValorRecebidoAnimado(`+${dados.descricao} `);
 
-            if (dados.ganhouItem && dados.streakAtual >= 15) {
-                animacaoBonusEspecial15();
-            }
+			if (dados.ganhouItem && dados.streakAtual >= 20) {
+			    animacaoBonusEspecial20();
+			}
 
             setTimeout(() => {
                 voltarPaginaAnterior();
@@ -316,7 +316,7 @@ function voltarPaginaAnterior() {
         return;
     }
 
-    window.location.href = "/dashboard";
+    window.location.href = "/cacador-recompensas";
 }
 
 function voltarJogo() {
@@ -324,15 +324,42 @@ function voltarJogo() {
 }
 
 function mostrarErroAnuncio(mensagem) {
+
     if (typeof Swal !== "undefined") {
+
         Swal.fire({
-            icon: "error",
-            title: mensagem,
+            customClass: {
+                title: 'swal-game-error'
+            },
+
+            title: 'Erro',
+            html: `
+                <div style="
+                    color:#ffffff;
+                    font-size:16px;
+                    font-weight:700;
+                    margin-top:10px;
+                    margin-bottom:15px;">
+                    ${mensagem}
+                </div>
+
+                <div class="modal-anuncio">
+                    <iframe
+                        src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                        width="468"
+                        height="60"
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            `,
+
             timer: 8000,
             showConfirmButton: false,
-            background: "#111827",
-            color: "#fff"
+            background: 'transparent',
+            color: '#ff3b3b'
         });
+		window.location.href = "/cacador-recompensas";
     } else {
         alert(mensagem);
     }
@@ -340,7 +367,6 @@ function mostrarErroAnuncio(mensagem) {
     btnReceberRecompensa.disabled = false;
     btnReceberRecompensa.textContent = "Tentar novamente";
 }
-
 function mostrarValorRecebidoAnimado(valor) {
     const animacao = document.createElement("div");
 
@@ -354,7 +380,7 @@ function mostrarValorRecebidoAnimado(valor) {
     }, 2600);
 }
 
-function animacaoBonusEspecial15() {
+function animacaoBonusEspecial20() {
     if (typeof Swal === "undefined") return;
 
     Swal.fire({
@@ -362,7 +388,7 @@ function animacaoBonusEspecial15() {
         html: `
             <div class="bonus-especial-15">
                 <div class="bau-bonus">🎁</div>
-                <p>Você completou os 15 anúncios!</p>
+                <p>Você completou os 20 anúncios!</p>
             </div>
         `,
         background: "#000",

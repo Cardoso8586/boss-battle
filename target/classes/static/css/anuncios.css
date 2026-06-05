@@ -58,3 +58,38 @@
         display: none;
     }
 }
+
+.recompensas-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+.recompensas-layout .card-missao {
+    flex: 1;
+    max-width: 700px;
+}
+
+.anuncio-lateral {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.anuncio-lateral iframe {
+    max-width: 100%;
+}
+
+@media (max-width: 1200px) {
+
+    .recompensas-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .anuncio-lateral {
+        width: 100%;
+    }
+}

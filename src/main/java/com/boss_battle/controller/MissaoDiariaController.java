@@ -78,4 +78,33 @@ public class MissaoDiariaController {
         MissaoDiariaDTO dto = missaoDiariaService.buscarMissaoDiaria(usuarioId);
         return ResponseEntity.ok(dto);
     }
-}
+    
+ // Resgatar missão Caçador de Recompensas
+    @PostMapping("/{usuarioId}/resgatar/cacador")
+    public ResponseEntity<MissaoDiariaDTO> resgatarMissaoCacador(
+            @PathVariable Long usuarioId) {
+
+        MissaoDiariaDTO dto =
+                missaoDiariaService.resgatarMissaoCacadorRecompensas(usuarioId);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    // Atualizar progresso Caçador de Recompensas
+    @PostMapping("/{usuarioId}/atualizar/cacador")
+    public ResponseEntity<MissaoDiariaDTO> atualizarCacador(
+            @PathVariable Long usuarioId,
+            @RequestParam int quantidade) {
+
+        missaoDiariaService.atualizarProgressoCacadorRecompensas(
+                usuarioId,
+                quantidade);
+
+        MissaoDiariaDTO dto =
+                missaoDiariaService.buscarMissaoDiaria(usuarioId);
+
+        return ResponseEntity.ok(dto);
+    } 
+    
+    
+}//--->

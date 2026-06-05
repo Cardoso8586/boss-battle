@@ -107,12 +107,16 @@ public class SecurityConfig {
                         "/ganhar-boss-coins/**",
                         "/zeradsptc/**",
                         "/depositos/**",
+                        "/cacador-recompensas**",
+                        
+                        
                         "/depositos/nowpayments/ipn/**",
                         "/depositar/**",
                         "/depositar/criar/**",
                         "/loja-guerreiros-elite/**",
                         "/boss-battle/guerreiros-elite/comprar/**",
-                        
+                        "/anuncio-recompensa/**",
+                        "/ranking-semanal/**",
                         "/guerreiros/usuario/**",
                       
                         
@@ -166,14 +170,17 @@ public class SecurityConfig {
                         "/promo/preco/**",
                         "/api/bonus/coletar/**",
                         "/api/bonus/verificar/**",
+                        //-------------------------------------
                         "/api/missoes-diarias/missoes/**",
                         "/api/missoes-diarias/*/resgatar/dano",
                         "/api/missoes-diarias/*/resgatar/ataques",
                         "/api/missoes-diarias/*/atualizar/dano",
-                        "/api/missoes-diarias/*/atualizar/ataques",
-                        
+                        "/api/missoes-diarias/*/atualizar/ataques",   
                         "/api/missoes-diarias/*/resgatar/ptc",
-                        "/api/missoes-diarias/*/atualizar/ptc",
+                        "/api/missoes-diarias/*/atualizar/ptc",                 
+                        "/api/missoes-diarias/*/resgatar/cacador",
+                        "/api/missoes-diarias/*/atualizar/cacador",
+                        //-----------------------------------------
                         
                         "/api/ranking-ataques-especial",
                         "/api/minha-posicao-ataques-especial",

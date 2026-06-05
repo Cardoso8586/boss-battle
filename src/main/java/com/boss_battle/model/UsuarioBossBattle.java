@@ -212,6 +212,41 @@ public class UsuarioBossBattle  {
         this.missaoDiariaDataReset = missaoDiariaDataReset;
     }
 
+ // =============================
+ // MISSÃO CAÇADOR DE RECOMPENSAS
+ // =============================
+
+    private int missaoDiariaNivelCacadorRecompensas = 1;
+
+    private int missaoDiariaCacadorRecompensasAtual = 0;
+
+    private boolean missaoDiariaCacadorRecompensasConcluida = false;
+    public int getMissaoDiariaNivelCacadorRecompensas() {
+	    return missaoDiariaNivelCacadorRecompensas;
+	}
+
+	public void setMissaoDiariaNivelCacadorRecompensas(int missaoDiariaNivelCacadorRecompensas) {
+	    this.missaoDiariaNivelCacadorRecompensas = missaoDiariaNivelCacadorRecompensas;
+	}
+
+	public int getMissaoDiariaCacadorRecompensasAtual() {
+	    return missaoDiariaCacadorRecompensasAtual;
+	}
+
+	public void setMissaoDiariaCacadorRecompensasAtual(int missaoDiariaCacadorRecompensasAtual) {
+	    this.missaoDiariaCacadorRecompensasAtual = missaoDiariaCacadorRecompensasAtual;
+	}
+
+	public boolean isMissaoDiariaCacadorRecompensasConcluida() {
+	    return missaoDiariaCacadorRecompensasConcluida;
+	}
+
+	public void setMissaoDiariaCacadorRecompensasConcluida(
+	        boolean missaoDiariaCacadorRecompensasConcluida) {
+	    this.missaoDiariaCacadorRecompensasConcluida =
+	            missaoDiariaCacadorRecompensasConcluida;
+	}
+//---------------------------------------------------------------------
   
        //SEMANAL
       

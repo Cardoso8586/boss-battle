@@ -18,13 +18,21 @@ public class MissaoDiariaDTO {
     private int recompensaAtaques;
     private boolean podeResgatarAtaques;
 
-    //====================== MISSÃO PTC ======================
+    //====================== MISSÃO PTC =============================
 
     private int ptcAtual;
     private int ptcObjetivo;
     private int nivelPtc;
     private int recompensaPtc;
     private boolean podeResgatarPtc;
+    
+  //================ MISSÃO CAÇADOR DE RECOMPENSAS ======================
+
+    private int cacadorAtual;
+    private int cacadorObjetivo;
+    private int nivelCacador;
+    private int recompensaCacador;
+    private boolean podeResgatarCacador;
 
     //====================== GETTERS / SETTERS DANO ======================
 
@@ -66,6 +74,48 @@ public class MissaoDiariaDTO {
 
     public void setPodeResgatarDano(boolean podeResgatarDano) {
         this.podeResgatarDano = podeResgatarDano;
+    }
+    
+  //====================== GETTERS / SETTERS CAÇADOR DE RECOMPENSAS ======================
+
+    public int getCacadorAtual() {
+        return cacadorAtual;
+    }
+
+    public void setCacadorAtual(int cacadorAtual) {
+        this.cacadorAtual = cacadorAtual;
+    }
+
+    public int getCacadorObjetivo() {
+        return cacadorObjetivo;
+    }
+
+    public void setCacadorObjetivo(int cacadorObjetivo) {
+        this.cacadorObjetivo = cacadorObjetivo;
+    }
+
+    public int getNivelCacador() {
+        return nivelCacador;
+    }
+
+    public void setNivelCacador(int nivelCacador) {
+        this.nivelCacador = nivelCacador;
+    }
+
+    public int getRecompensaCacador() {
+        return recompensaCacador;
+    }
+
+    public void setRecompensaCacador(int recompensaCacador) {
+        this.recompensaCacador = recompensaCacador;
+    }
+
+    public boolean isPodeResgatarCacador() {
+        return podeResgatarCacador;
+    }
+
+    public void setPodeResgatarCacador(boolean podeResgatarCacador) {
+        this.podeResgatarCacador = podeResgatarCacador;
     }
 
     //====================== GETTERS / SETTERS ATAQUES ======================
