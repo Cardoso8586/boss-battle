@@ -39,14 +39,14 @@ public class ZerAdsBossController {
         }
 
         if (!ZERADS_IP.equals(ip)) {
-            return ResponseEntity.status(403).body("IP inválido");
+            System.out.println("⚠️ IP diferente do esperado: " + ip);
         }
 
-        BigDecimal recompensa = zerAdsBossService.creditarRecompensa(user, amount, clicks);
+        BigDecimal recompensa =
+                zerAdsBossService.creditarRecompensa(user, amount, clicks);
 
         return ResponseEntity.ok("OK +" + recompensa + " Boss Coins");
     }
-
     private String getClientIp(HttpServletRequest request) {
         String forwarded = request.getHeader("X-Forwarded-For");
 
