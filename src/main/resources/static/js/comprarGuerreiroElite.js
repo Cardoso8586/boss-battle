@@ -98,7 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (data.sucesso) {
-
+					
+					if (typeof window.atualizarCacheGuerreiros === "function") {
+					    await window.atualizarCacheGuerreiros();
+					}else {
+					    console.error("Função atualizarCacheGuerreiros não encontrada");
+					 }
+					
                     Swal.fire({
                         customClass: {
                             title: 'swal-game-text'
