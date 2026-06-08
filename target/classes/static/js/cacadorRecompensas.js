@@ -2,9 +2,21 @@ document.addEventListener("DOMContentLoaded", () => {
     iniciarPaginaCacadorRecompensas();
 });
 
-let intervaloCacadorRecompensas = null;
+let intervaloAnuncioRecompensa = null;
+let intervaloRuinasPerdidas = null;
 
 async function iniciarPaginaCacadorRecompensas() {
+    iniciarCardAnuncioRecompensa();
+    iniciarCardRuinasPerdidas();
+    iniciarCardMasmorraSombria();
+    iniciarCardFonteVigor();
+}
+
+/* =========================================================
+   CARD 1 - ANÚNCIO RECOMPENSA
+========================================================= */
+
+async function iniciarCardAnuncioRecompensa() {
     const textoStatus = document.getElementById("textoStatusRecompensa");
     const contador = document.getElementById("contadorCooldownRecompensa");
     const barra = document.getElementById("barraCooldownRecompensa");
@@ -16,10 +28,7 @@ async function iniciarPaginaCacadorRecompensas() {
         return;
     }
 
-    if (intervaloCacadorRecompensas) {
-        clearInterval(intervaloCacadorRecompensas);
-        intervaloCacadorRecompensas = null;
-    }
+    limparIntervaloAnuncio();
 
     if (usuarioId) {
         try {
@@ -27,17 +36,20 @@ async function iniciarPaginaCacadorRecompensas() {
             const dados = await res.json();
 
             if (dados.limiteAtingido) {
-                mostrarRecompensasConcluidas(
+                mostrarEventoConcluido(
                     textoStatus,
                     contador,
                     barra,
                     btnIr,
-                    btnBloqueado
+                    btnBloqueado,
+                    "🏆 Recompensas diárias concluídas!",
+                    "Você já coletou todas as 20 recompensas de hoje.",
+                    "✅ 20/20 concluídas"
                 );
                 return;
             }
         } catch (e) {
-            console.error("Erro ao verificar limite diário:", e);
+            console.error("Erro ao verificar limite diário do anúncio:", e);
         }
     }
 
@@ -45,81 +57,308 @@ async function iniciarPaginaCacadorRecompensas() {
     const ultimoUso = parseInt(localStorage.getItem("ultimoAnuncioTempo"));
 
     if (!cooldownTempo || !ultimoUso) {
-        liberarRecompensa(textoStatus, contador, barra, btnIr, btnBloqueado);
+        liberarEvento(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            "🎁 Recompensa disponível agora!",
+            "Clique abaixo para assistir e receber sua recompensa.",
+            "🎬 Assistir anúncio e ganhar"
+        );
         return;
     }
 
     function atualizar() {
-        const agora = Date.now();
-        const diff = Math.floor((agora - ultimoUso) / 1000);
-        const restante = cooldownTempo - diff;
+        const restante = calcularRestante(ultimoUso, cooldownTempo);
 
         if (restante <= 0) {
-            clearInterval(intervaloCacadorRecompensas);
-            intervaloCacadorRecompensas = null;
+            limparIntervaloAnuncio();
 
-            liberarRecompensa(textoStatus, contador, barra, btnIr, btnBloqueado);
+            liberarEvento(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                "🎁 Recompensa disponível agora!",
+                "Clique abaixo para assistir e receber sua recompensa.",
+                "🎬 Assistir anúncio e ganhar"
+            );
             return;
         }
 
-        bloquearRecompensa(
+        bloquearEvento(
             textoStatus,
             contador,
             barra,
             btnIr,
             btnBloqueado,
             restante,
-            cooldownTempo
+            cooldownTempo,
+            "⏳ Próxima recompensa em:"
         );
     }
 
     atualizar();
-    intervaloCacadorRecompensas = setInterval(atualizar, 5000);
+    intervaloAnuncioRecompensa = setInterval(atualizar, 1000);
 }
 
-function mostrarRecompensasConcluidas(
+/* =========================================================
+   CARD 2 - RUÍNAS PERDIDAS
+========================================================= */
+
+async function iniciarCardRuinasPerdidas() {
+    const textoStatus = document.getElementById("textoStatusRuinas");
+    const contador = document.getElementById("contadorCooldownRuinas");
+    const barra = document.getElementById("barraCooldownRuinas");
+    const btnIr = document.getElementById("btnIrRuinas");
+    const btnBloqueado = document.getElementById("btnBloqueadoRuinas");
+    const usuarioId = document.querySelector('meta[name="user-id"]')?.content;
+
+    if (!textoStatus || !contador || !barra || !btnIr || !btnBloqueado || !usuarioId) {
+        return;
+    }
+
+    limparIntervaloRuinas();
+
+    try {
+        const res = await fetch(`/ruinas-perdidas/status/${usuarioId}`);
+        const dados = await res.json();
+
+        if (dados.limiteAtingido) {
+            localStorage.removeItem("ruinasCooldownVisual");
+
+            mostrarEventoConcluido(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                "🏆 Ruínas exploradas por hoje!",
+                `Você já usou todas as ${dados.limite} explorações diárias.`,
+                `✅ ${dados.tentativasHoje}/${dados.limite} concluídas`
+            );
+            return;
+        }
+
+        if (dados.emCooldown) {
+            iniciarCooldownEventoRuinas(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                dados.segundosRestantes,
+                dados.tentativasHoje,
+                dados.limite
+            );
+            return;
+        }
+
+        localStorage.removeItem("ruinasCooldownVisual");
+
+        liberarEvento(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            "🏛️ Ruínas disponíveis!",
+            `Explorações: ${dados.tentativasHoje}/${dados.limite}`,
+            "🏛️ Entrar nas Ruínas"
+        );
+
+    } catch (e) {
+        console.error("Erro ao verificar status das Ruínas:", e);
+
+        mostrarEventoBloqueado(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            "⚠️ Ruínas Perdidas",
+            "Não foi possível verificar o status agora.",
+            "Tente novamente"
+        );
+    }
+}
+
+function iniciarCooldownEventoRuinas(
     textoStatus,
     contador,
     barra,
     btnIr,
-    btnBloqueado
+    btnBloqueado,
+    segundosRestantes,
+    tentativasHoje,
+    limite
 ) {
-    textoStatus.textContent = "🏆 Recompensas diárias concluídas!";
-    contador.textContent = "Você já coletou todas as 20 recompensas de hoje.";
 
-    barra.style.width = "100%";
+    let cooldownVisual = parseInt(
+        localStorage.getItem("ruinasCooldownVisual")
+    );
 
-    btnIr.style.display = "none";
-    btnBloqueado.style.display = "block";
-    btnBloqueado.textContent = "✅ 20/20 concluídas";
+    let inicioCooldown = parseInt(
+        localStorage.getItem("ruinasCooldownInicio")
+    );
+
+    if (!cooldownVisual || !inicioCooldown) {
+
+        cooldownVisual = sortearNumero(300, 600);
+
+        inicioCooldown = Date.now();
+
+        localStorage.setItem(
+            "ruinasCooldownVisual",
+            cooldownVisual
+        );
+
+        localStorage.setItem(
+            "ruinasCooldownInicio",
+            inicioCooldown
+        );
+    }
+
+    function atualizar() {
+
+        const agora = Date.now();
+
+        const decorrido =
+            Math.floor((agora - inicioCooldown) / 1000);
+
+        const restante =
+            cooldownVisual - decorrido;
+
+        if (restante <= 0) {
+
+            localStorage.removeItem(
+                "ruinasCooldownVisual"
+            );
+
+            localStorage.removeItem(
+                "ruinasCooldownInicio"
+            );
+
+            limparIntervaloRuinas();
+
+            iniciarCardRuinasPerdidas();
+
+            return;
+        }
+
+        bloquearEvento(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            restante,
+            cooldownVisual,
+            `⏳ Explorações: ${tentativasHoje}/${limite}`
+        );
+    }
+
+    atualizar();
+
+    intervaloRuinasPerdidas =
+        setInterval(atualizar, 1000);
 }
 
-function liberarRecompensa(textoStatus, contador, barra, btnIr, btnBloqueado) {
-    textoStatus.textContent = "🎁 Recompensa disponível agora!";
-    contador.textContent = "Clique abaixo para assistir e receber sua recompensa.";
+/* =========================================================
+   CARD 3 - MASMORRA SOMBRIA
+========================================================= */
+
+function iniciarCardMasmorraSombria() {
+    const textoStatus = document.getElementById("textoStatusMasmorra");
+    const contador = document.getElementById("contadorCooldownMasmorra");
+    const barra = document.getElementById("barraCooldownMasmorra");
+    const btnIr = document.getElementById("btnIrMasmorra");
+    const btnBloqueado = document.getElementById("btnBloqueadoMasmorra");
+
+    if (!textoStatus || !contador || !barra || !btnIr || !btnBloqueado) {
+        return;
+    }
+
+    mostrarEventoBloqueado(
+        textoStatus,
+        contador,
+        barra,
+        btnIr,
+        btnBloqueado,
+        "🕸️ Masmorra Sombria",
+        "Esse evento ainda será liberado.",
+        "🔒 Em breve"
+    );
+}
+
+/* =========================================================
+   CARD 4 - FONTE DO VIGOR
+========================================================= */
+
+function iniciarCardFonteVigor() {
+    const textoStatus = document.getElementById("textoStatusFonteVigor");
+    const contador = document.getElementById("contadorCooldownFonteVigor");
+    const barra = document.getElementById("barraCooldownFonteVigor");
+    const btnIr = document.getElementById("btnIrFonteVigor");
+    const btnBloqueado = document.getElementById("btnBloqueadoFonteVigor");
+
+    if (!textoStatus || !contador || !barra || !btnIr || !btnBloqueado) {
+        return;
+    }
+
+    mostrarEventoBloqueado(
+        textoStatus,
+        contador,
+        barra,
+        btnIr,
+        btnBloqueado,
+        "💧 Fonte do Vigor",
+        "Esse evento ainda será liberado.",
+        "🔒 Em breve"
+    );
+}
+
+/* =========================================================
+   FUNÇÕES GENÉRICAS
+========================================================= */
+
+function liberarEvento(
+    textoStatus,
+    contador,
+    barra,
+    btnIr,
+    btnBloqueado,
+    texto,
+    descricao,
+    textoBotao
+) {
+    textoStatus.textContent = texto;
+    contador.textContent = descricao;
 
     barra.style.width = "100%";
 
     btnIr.style.display = "block";
+    btnIr.textContent = textoBotao;
+
     btnBloqueado.style.display = "none";
 }
 
-function bloquearRecompensa(
+function bloquearEvento(
     textoStatus,
     contador,
     barra,
     btnIr,
     btnBloqueado,
     restante,
-    cooldownTempo
+    cooldownTempo,
+    textoStatusBloqueado
 ) {
-    const min = Math.floor(restante / 60);
-    const seg = restante % 60;
+    const tempoFormatado = formatarTempo(restante);
 
-    const tempoFormatado =
-        `${min}m ${seg.toString().padStart(2, "0")}s`;
-
-    textoStatus.textContent = "⏳ Próxima recompensa em:";
+    textoStatus.textContent = textoStatusBloqueado;
     contador.textContent = tempoFormatado;
 
     const passado = cooldownTempo - restante;
@@ -128,6 +367,81 @@ function bloquearRecompensa(
     barra.style.width = `${percentual}%`;
 
     btnIr.style.display = "none";
+
     btnBloqueado.style.display = "block";
     btnBloqueado.textContent = `Aguarde ${tempoFormatado}`;
+}
+
+function mostrarEventoConcluido(
+    textoStatus,
+    contador,
+    barra,
+    btnIr,
+    btnBloqueado,
+    titulo,
+    descricao,
+    textoBotao
+) {
+    textoStatus.textContent = titulo;
+    contador.textContent = descricao;
+
+    barra.style.width = "100%";
+
+    btnIr.style.display = "none";
+
+    btnBloqueado.style.display = "block";
+    btnBloqueado.textContent = textoBotao;
+}
+
+function mostrarEventoBloqueado(
+    textoStatus,
+    contador,
+    barra,
+    btnIr,
+    btnBloqueado,
+    titulo,
+    descricao,
+    textoBotao
+) {
+    textoStatus.textContent = titulo;
+    contador.textContent = descricao;
+
+    barra.style.width = "100%";
+
+    btnIr.style.display = "none";
+
+    btnBloqueado.style.display = "block";
+    btnBloqueado.textContent = textoBotao;
+}
+
+function calcularRestante(ultimoUso, cooldownTempo) {
+    const agora = Date.now();
+    const diff = Math.floor((agora - ultimoUso) / 1000);
+
+    return cooldownTempo - diff;
+}
+
+function formatarTempo(segundos) {
+    const min = Math.floor(segundos / 60);
+    const seg = segundos % 60;
+
+    return `${min}m ${seg.toString().padStart(2, "0")}s`;
+}
+
+function limparIntervaloAnuncio() {
+    if (intervaloAnuncioRecompensa) {
+        clearInterval(intervaloAnuncioRecompensa);
+        intervaloAnuncioRecompensa = null;
+    }
+}
+
+function limparIntervaloRuinas() {
+    if (intervaloRuinasPerdidas) {
+        clearInterval(intervaloRuinasPerdidas);
+        intervaloRuinasPerdidas = null;
+    }
+}
+
+function sortearNumero(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

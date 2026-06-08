@@ -113,9 +113,80 @@ public class UsuarioBossBattle  {
     public void setUltimoValorRecebido(BigDecimal ultimoValorRecebido) {
         this.ultimoValorRecebido = ultimoValorRecebido;
     }
-    
-    
+    //=========================================Caçador de Reconpensas ==================================
+    /**
+     * 
+     * 1. Caçador de Recompensas
+   Ganha recompensas assistindo anúncios.
 
+2. Ruínas Perdidas
+   Dá prêmios pequenos e chance rara de +1 Ataque Especial.
+
+3. Masmorra Sombria
+   Dá recompensas médias e itens melhores.
+
+4. Fonte do Vigor
+   Dá grande chance de aumentar Vigor Máximo +1.
+     */
+    
+    //----------------------------------------------------------------------------------------------------
+    
+ // RUÍNAS PERDIDAS
+    private Integer tentativasRuinasHoje = 0;
+
+    private LocalDate dataUltimaExploracaoRuinas;
+
+    private LocalDateTime ultimaExploracaoRuinasEm;
+
+    private Long totalExploracoesRuinas = 0L;
+
+    private Long ataqueEspecialBonus = 0L;
+    
+    public Integer getTentativasRuinasHoje() {
+        return tentativasRuinasHoje;
+    }
+
+    public void setTentativasRuinasHoje(Integer tentativasRuinasHoje) {
+        this.tentativasRuinasHoje = tentativasRuinasHoje;
+    }
+
+    public LocalDate getDataUltimaExploracaoRuinas() {
+        return dataUltimaExploracaoRuinas;
+    }
+
+    public void setDataUltimaExploracaoRuinas(LocalDate dataUltimaExploracaoRuinas) {
+        this.dataUltimaExploracaoRuinas = dataUltimaExploracaoRuinas;
+    }
+
+    public LocalDateTime getUltimaExploracaoRuinasEm() {
+        return ultimaExploracaoRuinasEm;
+    }
+
+    public void setUltimaExploracaoRuinasEm(LocalDateTime ultimaExploracaoRuinasEm) {
+        this.ultimaExploracaoRuinasEm = ultimaExploracaoRuinasEm;
+    }
+
+    public Long getTotalExploracoesRuinas() {
+        return totalExploracoesRuinas;
+    }
+
+    public void setTotalExploracoesRuinas(Long totalExploracoesRuinas) {
+        this.totalExploracoesRuinas = totalExploracoesRuinas;
+    }
+
+    public Long getAtaqueEspecialBonus() {
+        return ataqueEspecialBonus;
+    }
+
+    public void setAtaqueEspecialBonus(Long ataqueEspecialBonus) {
+        this.ataqueEspecialBonus = ataqueEspecialBonus;
+    }
+    
+    
+    
+    
+    
+//---> fim çador de reconpensas
     
     //======================================== MISSÕES ================================================
     // DIÁRIA

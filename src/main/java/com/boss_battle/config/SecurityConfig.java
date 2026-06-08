@@ -108,6 +108,9 @@ public class SecurityConfig {
                         "/zeradsptc/**",
                         "/depositos/**",
                         "/cacador-recompensas**",
+                        "/ruinas-perdidas/**",
+                        "/ruinas-perdidas/explorar/**",
+                        "/ruinas-perdidas/status/**",
                         
                         
                         "/depositos/nowpayments/ipn/**",

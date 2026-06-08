@@ -222,75 +222,7 @@ public class ViewController {
 
         return "recarregar-vigor";
     }
-    /*
-    @GetMapping("/recarregar-vigor")
-    public String recarregarVigor(
-            HttpSession session,
-            Model model) {
-
-        UsuarioBossBattle usuarioSessao =
-            (UsuarioBossBattle)
-                session.getAttribute(
-                    "usuarioLogado"
-                );
-
-        if (usuarioSessao == null) {
-            return "redirect:/arena";
-        }
-
-        UsuarioBossBattle usuario =
-            usuarioRepository
-                .findById(
-                    usuarioSessao.getId()
-                )
-                .orElseThrow(() ->
-                    new RuntimeException(
-                        "Usuário não encontrado"
-                    )
-                );
-
-        DecimalFormat df =
-            new DecimalFormat("#,##0");
-
-        model.addAttribute(
-            "usuario",
-            usuario
-        );
-
-        model.addAttribute(
-            "idUsuario",
-            usuario.getId()
-        );
-
-        long energiaGuerreiros =
-            usuario.getEnergiaGuerreiros();
-
-        long energiaMaxima =
-            usuario.getEnergiaGuerreirosPadrao();
-
-        if (energiaMaxima <= 0) {
-            energiaMaxima = 50L;
-        }
-
-        model.addAttribute(
-            "energiaGuerreiros",
-            energiaGuerreiros
-        );
-
-        model.addAttribute(
-            "energiaMaxima",
-            energiaMaxima
-        );
-
-        model.addAttribute(
-            "energiaGuerreirosPadrao",
-            energiaMaxima
-        );
-
-        return "recarregar-vigor";
-    }
-    */
-  
+   
     @GetMapping("/aprimoramentos")
     public String aprimoramentos(HttpSession session, Model model) {
 
@@ -717,45 +649,6 @@ public class ViewController {
      return "loja-guerreiros-elite";
  }
  
- /*
- 
- @GetMapping("/depositar")
- public String abrirDepositos(HttpSession session,
-                              Model model) {
-
-     UsuarioBossBattle usuarioSessao =
-             (UsuarioBossBattle) session.getAttribute("usuarioLogado");
-
-     if (usuarioSessao == null) {
-         return "redirect:/arena";
-     }
-
-     UsuarioBossBattle usuario = usuarioRepository
-             .findById(usuarioSessao.getId())
-             .orElseThrow(() ->
-                     new RuntimeException("Usuário não encontrado"));
-
-     session.setAttribute("usuarioLogado", usuario);
-
-     model.addAttribute("usuario", usuario);
-     model.addAttribute("idUsuario", usuario.getId());
-
-     // =========================================
-     // HISTÓRICO
-     // =========================================
-
-     List<DepositoBossCoins> historico =
-             depositoRepository
-                     .findByUsuarioIdOrderByCriadoEmDesc(
-                             usuario.getId()
-                     );
-
-     model.addAttribute("historico", historico);
-
-     return "depositar";
- }
- */
- //=========
 
     
     @GetMapping("/aliados")
@@ -766,8 +659,6 @@ public class ViewController {
         model.addAttribute("ref", ref != null ? ref : "");
         return "cadastro"; // nome do template Thymeleaf
     }
-
-
 
     
 }

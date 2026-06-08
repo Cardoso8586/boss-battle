@@ -1,4 +1,4 @@
-package com.boss_battle.controller;
+package com.boss_battle.controller.cacador_reconpensas_controller;
 
 
 import java.util.Map;
@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.boss_battle.dto.RecompensaAnuncioDTO;
-import com.boss_battle.service.recompensa_anuncio.AnuncioRecompensaService;
+import com.boss_battle.service.cacador_reconpensas.recompensa_anuncio.AnuncioRecompensaService;
+
+
 
 
 @RestController

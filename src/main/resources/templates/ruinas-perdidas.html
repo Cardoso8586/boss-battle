@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${usuario.id}">
+    <title>Ruínas Perdidas</title>
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+    <link rel="stylesheet" th:href="@{/css/ruinas-perdidas.css}">
+    <link rel="preload"
+      href="/images/fundo-boss.webp"
+      as="image">
+    <link rel="preload"
+      href="/images/logo-boss-battle.webp"
+      as="image">
+    <link rel="stylesheet" href="/css/customClass.css">
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+     <link rel="stylesheet" href="/css/anuncios.css"> 
+     <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+      
+<link rel="preload" href="/images/cacador-recompensas/ruinas/portao-antigo.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/templo-quebrado.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/sala-secreta.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/altar-perdido.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/cripta-antiga.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/biblioteca-proibida.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/camara-dourada.webp" as="image">
+<link rel="preload" href="/images/cacador-recompensas/ruinas/poco-das-almas.webp" as="image">
+
+
+</head>
+<body>
+
+   <div class="logo">
+     <a href="/cacador-recompensas">
+        <img src="/images/logo-boss-battle.webp"
+         alt="Boss Battle Arena">
+         </a>
+     </div>
+
+
+    <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+
+<a href="/cacador-recompensas" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar </span>
+</a>
+
+<div class="ruinas-container">
+
+<div class="ruinas-header">
+    <h1>Ruínas</h1>
+
+    <p>
+        Explore locais esquecidos pelo tempo, descubra tesouros antigos
+        e encontre recompensas ocultas nas profundezas das ruínas.
+    </p>
+</div>
+<section class="locais-section">
+  
+
+    <div class="locais-grid">
+
+        <div class="local-card" data-local="PORTAO_ANTIGO">
+            <img th:src="@{/images/cacador-recompensas/ruinas/portao-antigo.webp}" alt="Portão Antigo">
+            <h3>Portão Antigo</h3>
+            <p>Entrada esquecida das ruínas.</p>
+            <button class="btn-local">Explorar este local</button>
+        </div>
+
+        <div class="local-card" data-local="TEMPLO_QUEBRADO">
+            <img th:src="@{/images/cacador-recompensas/ruinas/templo-quebrado.webp}" alt="Templo Quebrado">
+            <h3>Templo Quebrado</h3>
+            <p>Um templo tomado pelo tempo.</p>
+            <button class="btn-local">Explorar este local</button>
+        </div>
+
+        <div class="local-card" data-local="SALA_SECRETA">
+            <img th:src="@{/images/cacador-recompensas/ruinas/sala-secreta.webp}" alt="Sala Secreta">
+            <h3>Sala Secreta</h3>
+            <p>Um lugar oculto entre as pedras.</p>
+            <button class="btn-local">Explorar este local</button>
+        </div>
+
+        <div class="local-card" data-local="ALTAR_PERDIDO">
+            <img th:src="@{/images/cacador-recompensas/ruinas/altar-perdido.webp}" alt="Altar Perdido">
+            <h3>Altar Perdido</h3>
+            <p>Um altar coberto por energia antiga.</p>
+            <button class="btn-local">Explorar este local</button>
+        </div>
+        
+        <div class="local-card" data-local="CRIPTA_ANTIGA">
+    <img th:src="@{/images/cacador-recompensas/ruinas/cripta-antiga.webp}" alt="Cripta Antiga">
+    <h3>Cripta Antiga</h3>
+    <p>Túmulos esquecidos escondem segredos valiosos.</p>
+    <button class="btn-local">Explorar este local</button>
+</div>
+
+<div class="local-card" data-local="BIBLIOTECA_PROIBIDA">
+    <img th:src="@{/images/cacador-recompensas/ruinas/biblioteca-proibida.webp}" alt="Biblioteca Proibida">
+    <h3>Biblioteca Proibida</h3>
+    <p>Livros ancestrais ainda guardam conhecimento perdido.</p>
+    <button class="btn-local">Explorar este local</button>
+</div>
+
+<div class="local-card" data-local="CAMARA_DOURADA">
+    <img th:src="@{/images/cacador-recompensas/ruinas/camara-dourada.webp}" alt="Câmara Dourada">
+    <h3>Câmara Dourada</h3>
+    <p>Uma sala coberta por ouro e armadilhas antigas.</p>
+    <button class="btn-local">Explorar este local</button>
+</div>
+
+<div class="local-card" data-local="POCO_DAS_ALMAS">
+    <img th:src="@{/images/cacador-recompensas/ruinas/poco-das-almas.webp}" alt="Poço das Almas">
+    <h3>Poço das Almas</h3>
+    <p>Um poço misterioso onde ecos do passado ainda ressoam.</p>
+    <button class="btn-local">Explorar este local</button>
+</div>
+
+    </div>
+</section>
+
+  <div class="anuncio-20">
+        <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                marginwidth="0"
+                marginheight="0"
+                width="300"
+                height="250"
+                scrolling="no"
+                border="0"
+                frameborder="0">
+        </iframe>
+    </div>
+ <!-- SEGUNDO -->
+                <div class="ad-slot ad-300x250">
+                    <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
+                            marginwidth="0"
+                            marginheight="0"
+                            width="300"
+                            height="250"
+                            scrolling="no"
+                            border="0"
+                            frameborder="0">
+                    </iframe>
+                </div>
+        <!-- ANÚNCIO 468x60 HIGH PERFORMANCE -->
+        <div class="anuncio-8">
+            <script>
+                window.atOptions = {
+                    key: "0a3b52a54a7a4d065b759366194e5a20",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+        </div>
+
+        <!-- ANÚNCIO EXTRA 468x60 -->
+        <div class="modal-anuncio">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <!-- ANÚNCIO 728x90 -->
+        <div class="anuncio-12">
+            <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                    width="728"
+                    height="90"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+   </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/session-keepalive.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/ruinasPerdidasExplorar.js"></script>
+ 
+
+
+</body>
+</html>

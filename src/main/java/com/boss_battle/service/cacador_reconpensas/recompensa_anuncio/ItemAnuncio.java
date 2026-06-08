@@ -1,4 +1,4 @@
-package com.boss_battle.service.recompensa_anuncio;
+package com.boss_battle.service.cacador_reconpensas.recompensa_anuncio;
 
 import com.boss_battle.enums.RewardItem;
 

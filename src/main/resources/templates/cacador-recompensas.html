@@ -54,30 +54,30 @@
 
     <section id="cacador-recompensas">
 
-        <div class="missoes-header">
-            <div class="icone-header">
-                <i class="fa-solid fa-gift"></i>
-            </div>
+      <div class="missoes-header">
+    <div class="icone-header">
+        <i class="fa-solid fa-gift"></i>
+    </div>
 
-            <h1>Caçador de Recompensas</h1>
+    <h1>Caçador de Recompensas</h1>
 
-            <p>
-                Assista anúncios, colete recompensas diárias e avance na missão
-                🏆 Caçador de Recompensas.
-            </p>
-        </div>
+    <p>
+        Escolha uma área de recompensa para explorar. Cada evento possui
+        prêmios, limites e tempos de espera diferentes.
+    </p>
+</div>
 
-     <div class="bloco-missao">
+<div class="bloco-missao">
 
     <div class="titulo-bloco">
-        <i class="fa-solid fa-trophy"></i>
-        <h2>Recompensas Diárias</h2>
+        <i class="fa-solid fa-map-location-dot"></i>
+        <h2>Áreas de Recompensa</h2>
     </div>
 
     <div class="recompensas-layout">
 
-        <!-- ANUNCIO ESQUERDA -->
-       <div class="anuncio-1">
+        <!-- ANÚNCIO ESQUERDA -->
+        <div class="anuncio-1">
             <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
                     marginwidth="0"
                     marginheight="0"
@@ -89,44 +89,172 @@
             </iframe>
         </div>
 
-        <!-- CARD CENTRAL -->
+
+
+        <!-- CARD CENTRAL COM OS EVENTOS -->
         <div class="card-missao">
 
-            <h3>🎁 Próxima Recompensa</h3>
+            <!-- EVENTO ANÚNCIO -->
+            <div class="evento-recompensa-card">
+                <h3>🎁 Recompensas Diárias</h3>
 
-            <p id="textoStatusRecompensa">
-                Verificando disponibilidade...
-            </p>
+                <p id="textoStatusRecompensa">
+                    Verificando disponibilidade...
+                </p>
 
-            <div class="barra-progresso">
-                <div id="barraCooldownRecompensa"
-                     class="barra-preenchida"
-                     style="width:0%;">
+                <div class="barra-progresso">
+                    <div id="barraCooldownRecompensa"
+                         class="barra-preenchida"
+                         style="width:0%;">
+                    </div>
                 </div>
+
+                <p id="contadorCooldownRecompensa" style="margin-top:18px;">
+                    --
+                </p>
+
+                <a id="btnIrAnuncio"
+                   href="/anuncio-recompensa"
+                   class="btn-missao"
+                   style="display:none; text-align:center; text-decoration:none;">
+                    🎬 Assistir anúncio e ganhar
+                </a>
+
+                <button id="btnBloqueadoAnuncio"
+                        class="btn-missao btn-concluida"
+                        disabled
+                        style="display:none;">
+                    Aguarde...
+                </button>
+                
+                        <!-- ANÚNCIO EXTRA 468x60 -->
+        <div class="modal-anuncio">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
             </div>
 
-            <p id="contadorCooldownRecompensa" style="margin-top:18px;">
-                --
-            </p>
+            <hr style="margin:25px 0; opacity:0.25;">
+<!-- EVENTO RUÍNAS -->
 
-            <a id="btnIrAnuncio"
-               href="/anuncio-recompensa"
-               class="btn-missao"
-               style="display:none; text-align:center; text-decoration:none;">
-                🎬 Assistir anúncio e ganhar
-            </a>
 
-            <button id="btnBloqueadoAnuncio"
-                    class="btn-missao btn-concluida"
-                    disabled
-                    style="display:none;">
-                Aguarde...
-            </button>
+<div class="evento-recompensa-card">
+    <h3>🏛️ Ruínas Perdidas</h3>
+
+    <p id="textoStatusRuinas">
+        Verificando disponibilidade...
+    </p>
+
+    <div class="barra-progresso">
+        <div id="barraCooldownRuinas"
+             class="barra-preenchida"
+             style="width:0%;">
+        </div>
+    </div>
+
+    <p id="contadorCooldownRuinas" style="margin-top:18px;">
+        --
+    </p>
+
+    <a id="btnIrRuinas"
+       href="/ruinas-perdidas"
+       class="btn-missao"
+       style="display:none; text-align:center; text-decoration:none;">
+        🏛️ Entrar nas Ruínas
+    </a>
+
+    <button id="btnBloqueadoRuinas"
+            class="btn-missao btn-concluida"
+            disabled
+            style="display:none;">
+        Aguarde...
+    </button>
+    
+         <!-- ANÚNCIO 468x60 HIGH PERFORMANCE -->
+        <div class="anuncio-8">
+            <script>
+                window.atOptions = {
+                    key: "0a3b52a54a7a4d065b759366194e5a20",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+        </div>
+
+
+    
+</div>
+
+            <hr style="margin:25px 0; opacity:0.25;">
+
+            <!-- EVENTO MASMORRA -->
+            <div class="evento-recompensa-card">
+                <h3>🕸️ Masmorra Sombria</h3>
+
+                <p>
+                    Enfrente perigos maiores para conquistar recompensas melhores.
+                </p>
+
+                <button class="btn-missao btn-concluida"
+                        disabled
+                        style="display:block;">
+                    🔒 Em breve
+                </button>
+                
+                        <!-- ANÚNCIO EXTRA 468x60 -->
+        <div class="modal-anuncio">
+            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                    width="468"
+                    height="60"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+            </div>
+
+            <hr style="margin:25px 0; opacity:0.25;">
+
+            <!-- EVENTO FONTE DO VIGOR -->
+            <div class="evento-recompensa-card">
+                <h3>💧 Fonte do Vigor</h3>
+
+                <p>
+                    Beba da fonte antiga e aumente sua capacidade máxima de vigor.
+                </p>
+
+                <button class="btn-missao btn-concluida"
+                        disabled
+                        style="display:block;">
+                    🔒 Em breve
+                </button>
+                
+                         <!-- ANÚNCIO 468x60 HIGH PERFORMANCE -->
+        <div class="anuncio-8">
+            <script>
+                window.atOptions = {
+                    key: "0a3b52a54a7a4d065b759366194e5a20",
+                    format: "iframe",
+                    height: 60,
+                    width: 468,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/0a3b52a54a7a4d065b759366194e5a20/invoke.js"></script>
+        </div>
+                
+            </div>
 
         </div>
 
-        <!-- ANUNCIO DIREITA -->
-      <div class="anuncio-1">
+        <!-- ANÚNCIO DIREITA -->
+        <div class="anuncio-1">
             <iframe src="https://zerads.com/ad/ad.php?width=300&ref=10783"
                     marginwidth="0"
                     marginheight="0"
@@ -141,6 +269,7 @@
     </div>
 
 </div>
+
             
         
 

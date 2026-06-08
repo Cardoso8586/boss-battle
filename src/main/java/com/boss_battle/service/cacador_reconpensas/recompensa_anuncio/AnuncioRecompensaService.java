@@ -1,4 +1,4 @@
-package com.boss_battle.service.recompensa_anuncio;
+package com.boss_battle.service.cacador_reconpensas.recompensa_anuncio;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -48,7 +48,7 @@ public class AnuncioRecompensaService {
     	        .orElseThrow(() ->
     	                new RuntimeException("Usuário não encontrado."));
     	
-    	
+    	protegerCamposRuinas(usuario);
         resetarStreakSeVirouODia(usuario);
 
         validarLimiteDiario(usuario);
@@ -108,7 +108,24 @@ public class AnuncioRecompensaService {
                 quantidadeItem
         );
     }//--->receberRecompensa
-    
+    private void protegerCamposRuinas(UsuarioBossBattle usuario) {
+
+        if (usuario.getTentativasRuinasHoje() == null) {
+            usuario.setTentativasRuinasHoje(0);
+        }
+
+        if (usuario.getTotalExploracoesRuinas() == null) {
+            usuario.setTotalExploracoesRuinas(0L);
+        }
+
+        if (usuario.getAtaqueEspecialBonus() == null) {
+            usuario.setAtaqueEspecialBonus(0L);
+        }
+
+        if (usuario.getBossCoins() == null) {
+            usuario.setBossCoins(BigDecimal.ZERO);
+        }
+    }
     //--------------------------------------------------------------
     private void resetarStreakSeVirouODia(UsuarioBossBattle usuario) {
 
