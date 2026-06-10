@@ -844,3 +844,30 @@ body {
         text-align: center;
     }
 }
+
+.masmorra-icon-link{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    text-decoration: none;
+}
+.masmorra-icon{
+    text-align: center;
+    margin: 15px auto;
+}
+
+.masmorra-icon span{
+    display: block;
+    margin-bottom: 8px;
+
+    color: #d1d5db;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.masmorra-icon img{
+    width: 150px;
+    border-radius: 8px;
+
+    border: 1px solid rgba(255,255,255,0.06);
+}

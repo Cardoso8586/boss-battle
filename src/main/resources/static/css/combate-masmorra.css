@@ -1,0 +1,225 @@
+.modal-combate-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 99999;
+}
+
+.modal-combate-box {
+
+    width: 95%;
+    max-width: 1200px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.65),
+            rgba(0,0,0,.65)
+        ),
+        url('/images/cacador-recompensas/masmorra/fundo-masmorra.webp');
+
+    background-size: cover;
+    background-position: center;
+
+    border: 2px solid rgba(255, 180, 0, .35);
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,.8),
+        0 0 20px rgba(255,180,0,.15);
+}
+
+.titulo-combate-modal {
+    text-align: center;
+
+    color: #ffd54f;
+
+    font-size: 32px;
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 0 10px #000,
+        0 0 15px rgba(255,180,0,.4);
+}
+
+.arena-combate {
+    display: grid;
+    grid-template-columns: 1fr 140px 1fr;
+    gap: 25px;
+    align-items: center;
+}
+
+.lutador-card {
+
+    background: rgba(15, 15, 15, .45);
+
+    backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 18px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 0 20px rgba(0,0,0,.4);
+}
+
+.inimigo-card {
+
+    background: rgba(30, 0, 0, .45);
+
+    border: 1px solid rgba(255, 70, 70, .15);
+}
+
+.lutador-card h3 {
+    color: #fff;
+    margin: 15px 0;
+}
+
+.lutador-card p {
+    color: #ddd;
+}
+
+.area-imagem-lutador {
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area-imagem-lutador img {
+
+    max-width: 260px;
+    max-height: 260px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 15px rgba(0,0,0,.7));
+}
+
+.versus-box {
+
+    text-align: center;
+
+    font-size: 48px;
+    font-weight: 900;
+
+    color: #ffb300;
+
+    text-shadow:
+        0 0 20px rgba(255,180,0,.7);
+}
+
+.mensagem-combate-modal {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #fff;
+
+    font-size: 18px;
+
+    min-height: 40px;
+}
+
+.hp-area-modal {
+
+    margin-top: 15px;
+
+    color: #fff;
+}
+
+.barra-vigor-modal,
+.barra-hp-modal {
+
+    width: 100%;
+    height: 18px;
+
+    margin-top: 8px;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    background: rgba(0,0,0,.45);
+}
+
+.barra-vigor-modal-preenchida {
+
+    height: 100%;
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2ecc71,
+            #27ae60
+        );
+
+    transition: width .4s;
+}
+
+.barra-hp-modal-preenchida {
+
+    height: 100%;
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b3b,
+            #b30000
+        );
+
+    transition: width .4s;
+}
+
+.btn-fechar-combate {
+
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.15);
+
+    color: #fff;
+
+    font-size: 24px;
+
+    cursor: pointer;
+}
+
+.btn-fechar-combate:hover {
+    background: rgba(255,255,255,.3);
+}

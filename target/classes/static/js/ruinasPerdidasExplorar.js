@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 mostrarAlertaAviso(data.mensagem).then(() => {
-                    window.location.href = "/cacador-recompensas";
+                     window.location.replace("/cacador-recompensas");
                 });
 
                 return;
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 bloquearTodosBotoes("Limite diário atingido");
 
                 mostrarAlertaSucesso(data, local).then(() => {
-                    window.location.href = "/cacador-recompensas";
+                     window.location.replace("/cacador-recompensas");
                 });
 
                 return;
@@ -77,15 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
             bloquearTodosBotoes("Em descanso");
 
             mostrarAlertaSucesso(data, local).then(() => {
-                window.location.href = "/cacador-recompensas";
-            });
+             window.location.replace("/cacador-recompensas");            });
         })
         .catch(() => {
 
             bloquearTodosBotoes("Erro");
 
             mostrarAlertaErro().then(() => {
-                window.location.href = "/cacador-recompensas";
+                 window.location.replace("/cacador-recompensas");
             });
         });
     }
@@ -209,7 +208,9 @@ document.addEventListener("DOMContentLoaded", function () {
             showConfirmButton: false,
             background: 'transparent',
             color: '#ffb400'
-        });
+        }).then(() => {
+		 window.location.replace("/cacador-recompensas");
+		});
     }
 
     function mostrarAlertaErro() {
@@ -244,35 +245,53 @@ document.addEventListener("DOMContentLoaded", function () {
             showConfirmButton: false,
             background: 'transparent',
             color: '#ff3b3b'
-        });
+			
+        }).then(() => {
+		window.location.replace("/cacador-recompensas");
+	    });
+		
     }
 
-    function montarValorGanhoHtml(data) {
+	function montarValorGanhoHtml(data) {
 
-        if (!data.valorGanho || data.valorGanho <= 0) {
-            return `
-                <div class="valor-ganho valor-ganho-vazio">
-                    Nada encontrado
-                </div>
-            `;
-        }
+	    const imagemPremio = obterImagemPremioRuinas(data);
 
-        let sufixo = "";
+	    if (!data.valorGanho || data.valorGanho <= 0) {
+	        return `
+	            <div class="premio-ruinas-box">
+	                <img src="${imagemPremio}"
+	                     alt="Prêmio"
+	                     class="premio-ruinas-img">
 
-        if (data.tipoPremio === "BOSS_COINS") {
-            sufixo = " Boss Coins";
-        } else if (data.tipoPremio === "XP") {
-            sufixo = " XP";
-        } else if (data.tipoPremio === "ATAQUE_ESPECIAL") {
-            sufixo = " Ataque Base";
-        }
+	                <div class="valor-ganho valor-ganho-vazio">
+	                    Nada encontrado
+	                </div>
+	            </div>
+	        `;
+	    }
 
-        return `
-            <div class="valor-ganho">
-                +${formatarNumero(data.valorGanho)}${sufixo}
-            </div>
-        `;
-    }
+	    let sufixo = "";
+
+	    if (data.tipoPremio === "BOSS_COINS") {
+	        sufixo = " Boss Coins";
+	    } else if (data.tipoPremio === "XP") {
+	        sufixo = " XP";
+	    } else if (data.tipoPremio === "ATAQUE_ESPECIAL") {
+	        sufixo = " Ataque Base";
+	    }
+
+	    return `
+	        <div class="premio-ruinas-box">
+	            <img src="${imagemPremio}"
+	                 alt="Prêmio"
+	                 class="premio-ruinas-img">
+
+	            <div class="valor-ganho">
+	                +${formatarNumero(data.valorGanho)}${sufixo}
+	            </div>
+	        </div>
+	    `;
+	}
 
     function obterImagemRuina(local) {
 
@@ -328,4 +347,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return Number(valor).toLocaleString("pt-BR");
     }
+	
+	function obterImagemPremioRuinas(data) {
+
+	    if (!data || !data.tipoPremio) {
+	        return "/images/cacador-recompensas/recompensas/nada.webp";
+	    }
+
+	    switch (data.tipoPremio) {
+
+	        case "BOSS_COINS":
+	            return "/icones/boss_coin.webp";
+
+	        case "XP":
+	            return "/images/cacador-recompensas/recompensas/xp.webp";
+
+	        case "ATAQUE_ESPECIAL":
+	            return "/images/cacador-recompensas/recompensas/ataque-base.webp";
+
+	        case "NADA":
+	            return "/images/cacador-recompensas/recompensas/nada.webp";
+
+	        default:
+	            return "/images/cacador-recompensas/recompensas/bau-recompensa.webp";
+	    }
+	}
+	
 });

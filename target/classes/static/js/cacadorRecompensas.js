@@ -28,6 +28,7 @@ async function iniciarCardAnuncioRecompensa() {
         return;
     }
 
+	
     limparIntervaloAnuncio();
 
     if (usuarioId) {
@@ -56,19 +57,27 @@ async function iniciarCardAnuncioRecompensa() {
     const cooldownTempo = parseInt(localStorage.getItem("cooldownTempo"));
     const ultimoUso = parseInt(localStorage.getItem("ultimoAnuncioTempo"));
 
-    if (!cooldownTempo || !ultimoUso) {
-        liberarEvento(
-            textoStatus,
-            contador,
-            barra,
-            btnIr,
-            btnBloqueado,
-            "🎁 Recompensa disponível agora!",
-            "Clique abaixo para assistir e receber sua recompensa.",
-            "🎬 Assistir anúncio e ganhar"
-        );
-        return;
-    }
+	if (!cooldownTempo || !ultimoUso) {
+	    liberarEvento(
+	        textoStatus,
+	        contador,
+	        barra,
+	        btnIr,
+	        btnBloqueado,
+	        "🎁 Recompensa disponível agora!",
+	        "Clique abaixo para assistir e receber sua recompensa.",
+	        "🎬 Assistir anúncio e ganhar"
+	    );
+
+	    btnIr.onclick = function () {
+	        mostrarSpinnerBotao(
+	            btnIr,
+	            "Abrindo..."
+	        );
+	    };
+
+	    return;
+	}
 
     function atualizar() {
         const restante = calcularRestante(ultimoUso, cooldownTempo);
@@ -76,17 +85,25 @@ async function iniciarCardAnuncioRecompensa() {
         if (restante <= 0) {
             limparIntervaloAnuncio();
 
-            liberarEvento(
-                textoStatus,
-                contador,
-                barra,
-                btnIr,
-                btnBloqueado,
-                "🎁 Recompensa disponível agora!",
-                "Clique abaixo para assistir e receber sua recompensa.",
-                "🎬 Assistir anúncio e ganhar"
-            );
-            return;
+			liberarEvento(
+			    textoStatus,
+			    contador,
+			    barra,
+			    btnIr,
+			    btnBloqueado,
+			    "🎁 Recompensa disponível agora!",
+			    "Clique abaixo para assistir e receber sua recompensa.",
+			    "🎬 Assistir anúncio e ganhar"
+			);
+
+			btnIr.onclick = function () {
+			    mostrarSpinnerBotao(
+			        btnIr,
+			        "Abrindo..."
+			    );
+			};
+
+			return;
         }
 
         bloquearEvento(
@@ -157,19 +174,33 @@ async function iniciarCardRuinasPerdidas() {
             return;
         }
 
-        localStorage.removeItem("ruinasCooldownVisual");
+		localStorage.removeItem("ruinasCooldownVisual");
 
-        liberarEvento(
-            textoStatus,
-            contador,
-            barra,
-            btnIr,
-            btnBloqueado,
-            "🏛️ Ruínas disponíveis!",
-            `Explorações: ${dados.tentativasHoje}/${dados.limite}`,
-            "🏛️ Entrar nas Ruínas"
-        );
+		liberarEvento(
+		    textoStatus,
+		    contador,
+		    barra,
+		    btnIr,
+		    btnBloqueado,
+		    "🏛️ Ruínas disponíveis!",
+		    `Explorações: ${dados.tentativasHoje}/${dados.limite}`,
+		    "🏛️ Entrar nas Ruínas"
+		);
 
+		btnIr.href = "/ruinas-perdidas";
+
+		btnIr.onclick = function (e) {
+		    e.preventDefault();
+
+		    mostrarSpinnerBotao(
+		        btnIr,
+		        "Entrando..."
+		    );
+
+		    setTimeout(() => {
+		        window.location.href = "/ruinas-perdidas";
+		    }, 300);
+		};
     } catch (e) {
         console.error("Erro ao verificar status das Ruínas:", e);
 
@@ -271,7 +302,9 @@ function iniciarCooldownEventoRuinas(
    CARD 3 - MASMORRA SOMBRIA
 ========================================================= */
 
-function iniciarCardMasmorraSombria() {
+let intervaloMasmorraSombria = null;
+
+async function iniciarCardMasmorraSombria() {
     const textoStatus = document.getElementById("textoStatusMasmorra");
     const contador = document.getElementById("contadorCooldownMasmorra");
     const barra = document.getElementById("barraCooldownMasmorra");
@@ -282,18 +315,209 @@ function iniciarCardMasmorraSombria() {
         return;
     }
 
-    mostrarEventoBloqueado(
-        textoStatus,
-        contador,
-        barra,
-        btnIr,
-        btnBloqueado,
-        "🕸️ Masmorra Sombria",
-        "Esse evento ainda será liberado.",
-        "🔒 Em breve"
-    );
+
+	
+    limparIntervaloMasmorra();
+
+    const cooldownVisual = parseInt(localStorage.getItem("masmorraCooldownVisual"));
+    const inicioCooldown = parseInt(localStorage.getItem("masmorraCooldownInicio"));
+
+    if (cooldownVisual && inicioCooldown) {
+        const decorrido = Math.floor((Date.now() - inicioCooldown) / 1000);
+        const restante = cooldownVisual - decorrido;
+
+        if (restante > 0) {
+            iniciarCooldownMasmorra(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                restante,
+                cooldownVisual
+            );
+            return;
+        }
+
+        limparCooldownVisualMasmorra();
+    }
+
+    try {
+        const res = await fetch("/masmorra-sombria/status");
+        const dados = await res.json();
+
+        if (!dados.sucesso) {
+            mostrarEventoBloqueado(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                "⚠️ Masmorra Sombria",
+                dados.mensagem || "Não foi possível verificar a masmorra.",
+                "Indisponível"
+            );
+            return;
+        }
+
+        if (dados.emCombate) {
+            textoStatus.textContent = "⚔️ Combate em andamento!";
+            contador.textContent = `${dados.inimigoNome} - HP ${formatarNumero(dados.inimigoHpAtual)}/${formatarNumero(dados.inimigoHpMax)}`;
+
+            const percentualHp = dados.inimigoHpMax > 0
+                ? Math.max(0, Math.min((dados.inimigoHpAtual / dados.inimigoHpMax) * 100, 100))
+                : 0;
+
+            barra.style.width = `${percentualHp}%`;
+
+            btnIr.style.display = "block";
+            btnIr.href = "/masmorra-sombria";
+            btnIr.textContent = "⚔️ Continuar Combate";
+
+            btnBloqueado.style.display = "none";
+            return;
+        }
+
+        if (dados.tentativasHoje >= dados.limite) {
+            mostrarEventoConcluido(
+                textoStatus,
+                contador,
+                barra,
+                btnIr,
+                btnBloqueado,
+                "🏆 Masmorra concluída por hoje!",
+                `Entradas: ${dados.tentativasHoje}/${dados.limite}`,
+                `✅ ${dados.tentativasHoje}/${dados.limite} concluídas`
+            );
+            return;
+        }
+
+		if (dados.vigorAtual < 10) {
+
+		    textoStatus.textContent = "🕸️ Masmorra Sombria";
+		    contador.textContent = `Vigor insuficiente: ${dados.vigorAtual}/10`;
+
+		    barra.style.width = "100%";
+
+		    btnBloqueado.style.display = "none";
+
+		    btnIr.style.display = "block";
+		    btnIr.href = "/recarregar-vigor";
+		    btnIr.textContent = "⚡ Recarregar Vigor";
+
+		    btnIr.onclick = function (e) {
+		        e.preventDefault();
+
+		        mostrarSpinnerBotao(
+		            btnIr,
+		            "Abrindo..."
+		        );
+
+		        setTimeout(() => {
+		            window.location.href = "/recarregar-vigor";
+		        }, 300);
+		    };
+
+		    return;
+		}
+		
+		liberarEvento(
+		    textoStatus,
+		    contador,
+		    barra,
+		    btnIr,
+		    btnBloqueado,
+		    "🕸️ Masmorra disponível!",
+		    `Entradas: ${dados.tentativasHoje}/${dados.limite} | Vigor: ${dados.vigorAtual}`,
+		    "🕸️ Entrar na Masmorra"
+		);
+
+		btnIr.href = "/masmorra-sombria";
+
+		btnIr.onclick = function (e) {
+		    e.preventDefault();
+
+		    mostrarSpinnerBotao(
+		        btnIr,
+		        "Entrando..."
+		    );
+
+		    setTimeout(() => {
+		        window.location.href = "/masmorra-sombria";
+		    }, 300);
+		};
+    } catch (e) {
+        console.error("Erro ao verificar status da Masmorra:", e);
+
+        mostrarEventoBloqueado(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            "⚠️ Masmorra Sombria",
+            "Não foi possível verificar o status agora.",
+            "Tente novamente"
+        );
+    }
 }
 
+function iniciarCooldownVisualMasmorra() {
+    const cooldownVisual = sortearNumero(600, 900);
+
+    localStorage.setItem("masmorraCooldownVisual", cooldownVisual);
+    localStorage.setItem("masmorraCooldownInicio", Date.now());
+}
+
+function iniciarCooldownMasmorra(
+    textoStatus,
+    contador,
+    barra,
+    btnIr,
+    btnBloqueado,
+    restante,
+    total
+) {
+    limparIntervaloMasmorra();
+
+    function atualizar() {
+        if (restante <= 0) {
+            limparCooldownVisualMasmorra();
+            limparIntervaloMasmorra();
+            iniciarCardMasmorraSombria();
+            return;
+        }
+
+        bloquearEvento(
+            textoStatus,
+            contador,
+            barra,
+            btnIr,
+            btnBloqueado,
+            restante,
+            total,
+            "🕸️ Masmorra em recuperação"
+        );
+
+        restante--;
+    }
+
+    atualizar();
+
+    intervaloMasmorraSombria = setInterval(atualizar, 1000);
+}
+
+function limparIntervaloMasmorra() {
+    if (intervaloMasmorraSombria) {
+        clearInterval(intervaloMasmorraSombria);
+        intervaloMasmorraSombria = null;
+    }
+}
+
+function limparCooldownVisualMasmorra() {
+    localStorage.removeItem("masmorraCooldownVisual");
+    localStorage.removeItem("masmorraCooldownInicio");
+}
 /* =========================================================
    CARD 4 - FONTE DO VIGOR
 ========================================================= */
@@ -444,4 +668,32 @@ function limparIntervaloRuinas() {
 
 function sortearNumero(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function formatarNumero(valor) {
+    if (valor === null || valor === undefined) {
+        return "0";
+    }
+
+    return Number(valor).toLocaleString("pt-BR");
+}
+
+function mostrarSpinnerBotao(botao, texto = "Carregando...") {
+
+    if (!botao) return;
+
+    botao.disabled = true;
+
+    botao.innerHTML = `
+        <span class="spinner-btn"></span>
+        <span>${texto}</span>
+    `;
+}
+
+function restaurarBotao(botao, texto) {
+
+    if (!botao) return;
+
+    botao.disabled = false;
+    botao.textContent = texto;
 }

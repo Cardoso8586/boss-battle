@@ -111,6 +111,15 @@ public class SecurityConfig {
                         "/ruinas-perdidas/**",
                         "/ruinas-perdidas/explorar/**",
                         "/ruinas-perdidas/status/**",
+                        "/masmorra-sombria/**",
+                        "/masmorra-sombria/entrar",
+                        "/masmorra-sombria/atacar",
+                        "/masmorra-sombria/status",
+                        "/masmorra-sombria/fugir/**",
+                        "/masmorra-sombria/inimigo-atacar/**",
+                        "/masmorra-sombria/usar-pocao/**",
+                        
+                        
                         
                         
                         "/depositos/nowpayments/ipn/**",

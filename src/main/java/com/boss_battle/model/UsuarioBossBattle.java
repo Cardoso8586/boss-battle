@@ -131,7 +131,7 @@ public class UsuarioBossBattle  {
     
     //----------------------------------------------------------------------------------------------------
     
- // RUÍNAS PERDIDAS
+ //============================== RUÍNAS PERDIDAS ================================================
     private Integer tentativasRuinasHoje = 0;
 
     private LocalDate dataUltimaExploracaoRuinas;
@@ -180,6 +180,92 @@ public class UsuarioBossBattle  {
 
     public void setAtaqueEspecialBonus(Long ataqueEspecialBonus) {
         this.ataqueEspecialBonus = ataqueEspecialBonus;
+    }
+    
+  
+    //=============================== Masmorra Sombria ===================================================
+    
+    private Integer tentativasMasmorraHoje = 0;
+    private LocalDate dataUltimaExploracaoMasmorra;
+    private Long totalExploracoesMasmorra = 0L;
+    private LocalDateTime masmorraCooldownAte;
+
+    private Boolean masmorraEmCombate = false;
+    private String masmorraInimigoAtual;
+    private Long masmorraInimigoHpAtual = 0L;
+    private Long masmorraInimigoHpMax = 0L;
+    private Long masmorraInimigoAtaque = 0L;
+    
+    
+    public LocalDateTime getMasmorraCooldownAte() {
+        return masmorraCooldownAte;
+    }
+
+    public void setMasmorraCooldownAte(LocalDateTime masmorraCooldownAte) {
+        this.masmorraCooldownAte = masmorraCooldownAte;
+    }
+    public Integer getTentativasMasmorraHoje() {
+        return tentativasMasmorraHoje;
+    }
+
+    public void setTentativasMasmorraHoje(Integer tentativasMasmorraHoje) {
+        this.tentativasMasmorraHoje = tentativasMasmorraHoje;
+    }
+
+    public LocalDate getDataUltimaExploracaoMasmorra() {
+        return dataUltimaExploracaoMasmorra;
+    }
+
+    public void setDataUltimaExploracaoMasmorra(LocalDate dataUltimaExploracaoMasmorra) {
+        this.dataUltimaExploracaoMasmorra = dataUltimaExploracaoMasmorra;
+    }
+
+    public Long getTotalExploracoesMasmorra() {
+        return totalExploracoesMasmorra;
+    }
+
+    public void setTotalExploracoesMasmorra(Long totalExploracoesMasmorra) {
+        this.totalExploracoesMasmorra = totalExploracoesMasmorra;
+    }
+
+    public Boolean getMasmorraEmCombate() {
+        return masmorraEmCombate;
+    }
+
+    public void setMasmorraEmCombate(Boolean masmorraEmCombate) {
+        this.masmorraEmCombate = masmorraEmCombate;
+    }
+
+    public String getMasmorraInimigoAtual() {
+        return masmorraInimigoAtual;
+    }
+
+    public void setMasmorraInimigoAtual(String masmorraInimigoAtual) {
+        this.masmorraInimigoAtual = masmorraInimigoAtual;
+    }
+
+    public Long getMasmorraInimigoHpAtual() {
+        return masmorraInimigoHpAtual;
+    }
+
+    public void setMasmorraInimigoHpAtual(Long masmorraInimigoHpAtual) {
+        this.masmorraInimigoHpAtual = masmorraInimigoHpAtual;
+    }
+
+    public Long getMasmorraInimigoHpMax() {
+        return masmorraInimigoHpMax;
+    }
+
+    public void setMasmorraInimigoHpMax(Long masmorraInimigoHpMax) {
+        this.masmorraInimigoHpMax = masmorraInimigoHpMax;
+    }
+
+    public Long getMasmorraInimigoAtaque() {
+        return masmorraInimigoAtaque;
+    }
+
+    public void setMasmorraInimigoAtaque(Long masmorraInimigoAtaque) {
+        this.masmorraInimigoAtaque = masmorraInimigoAtaque;
     }
     
     

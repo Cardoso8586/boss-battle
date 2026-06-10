@@ -155,3 +155,11 @@
 
     overflow: hidden;
 }
+
+.swal2-container {
+    z-index: 999999 !important;
+}
+
+.swal2-popup {
+    z-index: 1000000 !important;
+}

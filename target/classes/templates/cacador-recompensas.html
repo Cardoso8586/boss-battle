@@ -71,7 +71,7 @@
 
     <div class="titulo-bloco">
         <i class="fa-solid fa-map-location-dot"></i>
-        <h2>Áreas de Recompensa</h2>
+      <h2>🏰 Áreas de Exploração</h2>
     </div>
 
     <div class="recompensas-layout">
@@ -127,15 +127,6 @@
                     Aguarde...
                 </button>
                 
-                        <!-- ANÚNCIO EXTRA 468x60 -->
-        <div class="modal-anuncio">
-            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                    width="468"
-                    height="60"
-                    scrolling="no"
-                    frameborder="0">
-            </iframe>
-        </div>
             </div>
 
             <hr style="margin:25px 0; opacity:0.25;">
@@ -195,28 +186,40 @@
             <hr style="margin:25px 0; opacity:0.25;">
 
             <!-- EVENTO MASMORRA -->
-            <div class="evento-recompensa-card">
-                <h3>🕸️ Masmorra Sombria</h3>
+          <div class="evento-recompensa-card">
+    <h3>🕸️ Masmorra Sombria</h3>
 
-                <p>
-                    Enfrente perigos maiores para conquistar recompensas melhores.
-                </p>
+    <p id="textoStatusMasmorra">
+        Verificando disponibilidade...
+    </p>
 
-                <button class="btn-missao btn-concluida"
-                        disabled
-                        style="display:block;">
-                    🔒 Em breve
-                </button>
-                
-                        <!-- ANÚNCIO EXTRA 468x60 -->
-        <div class="modal-anuncio">
-            <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
-                    width="468"
-                    height="60"
-                    scrolling="no"
-                    frameborder="0">
-            </iframe>
+    <div class="barra-progresso">
+        <div id="barraCooldownMasmorra"
+             class="barra-preenchida"
+             style="width:0%;">
         </div>
+    </div>
+
+    <p id="contadorCooldownMasmorra" style="margin-top:18px;">
+        --
+    </p>
+
+    <a id="btnIrMasmorra"
+       href="/masmorra-sombria"
+       class="btn-missao"
+       style="display:none; text-align:center; text-decoration:none;">
+        🕸️ Entrar na Masmorra
+    </a>
+
+    <button id="btnBloqueadoMasmorra"
+            class="btn-missao btn-concluida"
+            disabled
+            style="display:none;">
+        Aguarde...
+    </button>
+                
+                      
+    
             </div>
 
             <hr style="margin:25px 0; opacity:0.25;">

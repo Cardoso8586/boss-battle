@@ -1,0 +1,1060 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #f5f5f5;
+    background:
+        radial-gradient(circle at top, rgba(255,180,0,0.08), transparent 55%),
+        linear-gradient(rgba(6,6,6,0.18), rgba(6,6,6,0.28)),
+        url('/images/fundo-boss.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 450px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.masmorra-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 25px 80px;
+}
+
+.masmorra-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.masmorra-header h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #ffd700;
+    margin-bottom: 20px;
+    text-shadow:
+        0 0 20px rgba(255,215,0,0.65),
+        0 0 40px rgba(255,180,0,0.35);
+}
+
+.masmorra-header p {
+    max-width: 850px;
+    margin: 12px auto;
+    line-height: 1.7;
+    color: #ffe7a3;
+    font-size: 1rem;
+}
+
+.status-jogador {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 35px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+}
+
+.status-card {
+    flex: 1;
+    min-width: 220px;
+    max-width: 280px;
+    padding: 24px;
+    border-radius: 22px;
+    text-align: center;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.018),
+            rgba(255,255,255,0.006)
+        );
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+}
+
+.status-card span {
+    display: block;
+    margin-bottom: 10px;
+    color: #d8d8d8;
+    font-weight: 700;
+}
+
+.status-card strong {
+    color: #ffb400;
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.masmorra-card {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto 45px;
+    padding: 35px;
+    border-radius: 28px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,18,18,0.28),
+            rgba(10,10,10,0.38)
+        );
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow:
+        0 0 18px rgba(0,0,0,0.18),
+        inset 0 0 12px rgba(255,180,0,0.015);
+    backdrop-filter: blur(6px);
+}
+
+.estado-masmorra,
+.estado-combate {
+    text-align: center;
+}
+
+.imagem-masmorra,
+.imagem-inimigo {
+    width: 100%;
+    max-width: 480px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 22px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,180,0,0.10);
+    box-shadow: 0 0 18px rgba(255,180,0,0.08);
+}
+
+.estado-masmorra h2,
+.estado-combate h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 16px;
+    text-shadow: 0 0 15px rgba(255,215,0,0.45);
+}
+
+#textoStatusMasmorra,
+.mensagem-combate {
+    margin: 12px auto;
+    color: #ffe7a3;
+    line-height: 1.7;
+    max-width: 650px;
+}
+
+.custo-vigor {
+    margin: 20px auto;
+    padding: 12px 18px;
+    width: fit-content;
+    border-radius: 12px;
+    color: #ffd700;
+    font-weight: 700;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,180,0,0.08),
+            rgba(255,120,0,0.03)
+        );
+    border: 1px solid rgba(255,180,0,0.08);
+}
+
+.custo-vigor strong {
+    color: #ffb400;
+}
+
+.btn-masmorra {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 22px;
+    padding: 14px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,152,0,0.75),
+            rgba(255,87,34,0.75)
+        );
+    transition: .2s ease;
+    box-shadow: 0 0 18px rgba(255,120,0,0.12);
+}
+
+.btn-masmorra:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(255,120,0,0.18);
+}
+
+.btn-masmorra:disabled {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,25,25,0.92),
+            rgba(8,8,8,0.96)
+        );
+    color: rgba(255,255,255,0.28);
+    cursor: not-allowed;
+    opacity: 0.72;
+    filter: saturate(0.2);
+}
+
+.btn-atacar {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220,38,38,0.78),
+            rgba(127,29,29,0.86)
+        );
+}
+
+.hp-area {
+    margin: 24px auto;
+    max-width: 560px;
+}
+
+.hp-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #ffe7a3;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hp-info strong {
+    color: #ffb400;
+}
+
+.barra-hp {
+    width: 100%;
+    height: 14px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+}
+
+.barra-hp-preenchida {
+    height: 100%;
+    width: 100%;
+    border-radius: 999px;
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #ff9800,
+            #ffd54f
+        );
+    box-shadow: 0 0 14px rgba(255,180,0,0.25);
+    transition: width .3s ease;
+}
+
+.combate-info {
+    max-width: 560px;
+    margin: 24px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.combate-info p {
+    flex: 1;
+    min-width: 220px;
+    padding: 16px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.018),
+            rgba(255,255,255,0.006)
+        );
+    border: 1px solid rgba(255,255,255,0.03);
+    color: #d8d8d8;
+}
+
+.combate-info strong {
+    display: block;
+    margin-top: 8px;
+    color: #ffb400;
+    font-size: 1.4rem;
+}
+
+.btn-voltar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 18px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,180,0,0.10),
+            rgba(255,120,0,0.06)
+        );
+    border: 1px solid rgba(255,180,0,0.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 14px rgba(0,0,0,0.18);
+    transition: .2s ease;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255,180,0,0.12);
+}
+
+.btn-voltar i {
+    color: #ffb400;
+}
+
+.anuncio-13 {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+}
+
+.anuncio-13 iframe {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .masmorra-container {
+        padding: 30px 15px 60px;
+    }
+
+    .masmorra-header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+
+    .masmorra-card {
+        padding: 24px;
+    }
+
+    .imagem-masmorra,
+    .imagem-inimigo {
+        height: 220px;
+    }
+
+    .hp-info {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .masmorra-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .masmorra-card {
+        padding: 20px 14px;
+        border-radius: 18px;
+    }
+
+    .imagem-masmorra,
+    .imagem-inimigo {
+        height: 180px;
+    }
+
+    .btn-voltar {
+        top: 12px;
+        left: 12px;
+        padding: 11px 15px;
+        font-size: 0.85rem;
+    }
+
+    .logo img {
+        max-width: 320px;
+    }
+
+    .status-card {
+        min-width: 100%;
+    }
+}
+
+.lutador-card {
+    padding: 24px;
+    border-radius: 22px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.025),
+            rgba(255,255,255,0.008)
+        );
+
+    border: 1px solid rgba(255,255,255,0.04);
+
+    box-shadow:
+        0 0 14px rgba(0,0,0,0.18);
+}
+
+.lutador-card img {
+    width: 100%;
+    max-width: 260px;
+    height: 230px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(255,180,0,0.10);
+
+    box-shadow:
+        0 0 18px rgba(255,180,0,0.08);
+}
+
+.lutador-card h3 {
+    color: #ffd700;
+    margin-bottom: 12px;
+}
+
+.lutador-card p {
+    color: #d8d8d8;
+    margin: 8px 0;
+}
+
+.lutador-card strong {
+    color: #ffb400;
+}
+
+.versus-box {
+    color: #ffb400;
+    font-size: 2rem;
+    font-weight: 900;
+
+    text-shadow:
+        0 0 18px rgba(255,180,0,0.45);
+}
+
+.hp-area-modal {
+    margin: 14px 0;
+    color: #ffe7a3;
+}
+
+.barra-hp-modal {
+    width: 100%;
+    height: 14px;
+    margin-top: 8px;
+
+    overflow: hidden;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.05);
+}
+
+.barra-hp-modal-preenchida {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(90deg, #ef4444, #ff9800, #ffd54f);
+
+    box-shadow:
+        0 0 14px rgba(255,180,0,0.25);
+
+    transition: width .3s ease;
+}
+
+.mensagem-combate-modal {
+    margin: 24px auto 0;
+    text-align: center;
+    color: #ffe7a3;
+    line-height: 1.6;
+}
+
+#btnAtacarModal {
+    display: block;
+    margin: 24px auto 0;
+}
+
+@media (max-width: 760px) {
+    .arena-combate {
+        grid-template-columns: 1fr;
+    }
+
+    .versus-box {
+        text-align: center;
+    }
+
+    .modal-combate-box {
+        padding: 24px 16px;
+    }
+
+    .lutador-card img {
+        height: 190px;
+    }
+}/* =========================================================
+   MODAL COMBATE MASMORRA - FINAL
+========================================================= */
+
+.modal-combate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px;
+
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+}
+
+.modal-combate-box {
+    position: relative;
+    overflow: hidden;
+
+    width: min(760px, 94vw);
+    max-height: 94vh;
+    overflow-y: auto;
+
+    padding: 18px;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.78)),
+        url('/images/cacador-recompensas/masmorra/fundo-masmorra.webp');
+
+    background-size: cover;
+    background-position: center;
+
+    border: 1px solid rgba(255,180,0,.25);
+
+    box-shadow:
+        0 0 28px rgba(0,0,0,.75),
+        0 0 18px rgba(255,180,0,.14);
+}
+
+.btn-fechar-combate {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+    color: #fff;
+
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.titulo-combate-modal {
+    text-align: center;
+    color: #ffd700;
+
+    font-size: 1.45rem;
+    margin-bottom: 16px;
+
+    text-shadow: 0 0 16px rgba(255,215,0,.45);
+}
+
+.arena-combate {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+}
+
+.lutador-card {
+    padding: 12px;
+    border-radius: 16px;
+    text-align: center;
+
+    background: rgba(255,255,255,.035);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    box-shadow: 0 0 18px rgba(0,0,0,.25);
+}
+
+.area-imagem-lutador {
+    position: relative;
+    display: inline-block;
+}
+
+.lutador-card img {
+    display: block;
+
+    width: 100%;
+    max-width: 170px;
+    height: 155px;
+
+    margin: 0 auto 10px;
+
+    object-fit: contain;
+    object-position: center;
+
+    padding: 5px;
+
+    background: rgba(0,0,0,.22);
+
+    border-radius: 14px;
+    border: 1px solid rgba(255,180,0,.12);
+
+    box-shadow: 0 0 14px rgba(255,180,0,.10);
+
+    filter: drop-shadow(0 0 10px rgba(255,180,0,.22));
+}
+
+.lutador-card h3 {
+    color: #ffd700;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.lutador-card p {
+    color: #d8d8d8;
+    margin: 5px 0;
+    font-size: .9rem;
+}
+
+.lutador-card strong {
+    color: #ffb400;
+}
+
+.versus-box {
+    color: #ffb400;
+
+    font-size: 2.1rem;
+    font-weight: 900;
+
+    text-shadow:
+        0 0 20px rgba(255,180,0,.70),
+        0 0 35px rgba(255,180,0,.35);
+}
+
+.hp-area-modal {
+    margin: 10px 0;
+    color: #ffe7a3;
+    font-size: .9rem;
+}
+
+.barra-hp-modal,
+.barra-vigor-modal {
+    width: 100%;
+    height: 12px;
+
+    margin-top: 7px;
+
+    overflow: hidden;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.06);
+}
+
+.barra-hp-modal-preenchida {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background: linear-gradient(90deg, #ef4444, #ff9800, #ffd54f);
+
+    box-shadow: 0 0 12px rgba(255,180,0,.25);
+
+    transition: width .3s ease;
+}
+
+.barra-vigor-modal-preenchida {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background: linear-gradient(90deg, #22c55e, #84cc16, #ffd54f);
+
+    box-shadow: 0 0 12px rgba(132,204,22,.25);
+
+    transition: width .3s ease;
+}
+
+.mensagem-combate-modal {
+    margin: 12px auto 0;
+    padding: 10px;
+
+    text-align: center;
+
+    color: #ffe7a3;
+    line-height: 1.5;
+    font-size: .95rem;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,180,0,.10);
+}
+
+/* =========================================================
+   BOTÕES DO COMBATE
+========================================================= */
+
+.acoes-combate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 18px;
+
+    flex-wrap: wrap;
+}
+
+#btnAtacarModal,
+.btn-pocao,
+.btn-fugir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 46px;
+
+    padding: 0 18px;
+
+    border-radius: 12px;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+}
+
+#btnAtacarModal {
+    min-width: 160px;
+
+    border: 1px solid rgba(255,180,0,.35);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,180,0,.95),
+            rgba(180,120,0,.95)
+        );
+
+    box-shadow: 0 0 12px rgba(255,180,0,.25);
+}
+
+#btnAtacarModal:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,200,0,1),
+            rgba(220,150,0,1)
+        );
+
+    box-shadow: 0 0 18px rgba(255,180,0,.45);
+}
+
+#btnAtacarModal:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-pocao {
+    display: none;
+
+    min-width: 150px;
+
+    gap: 8px;
+
+    border: 1px solid rgba(76,175,80,.35);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(25,65,25,.95),
+            rgba(15,40,15,.95)
+        );
+
+    box-shadow: 0 0 12px rgba(76,175,80,.20);
+}
+
+.btn-pocao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(76,175,80,.40);
+}
+
+.icone-pocao {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.btn-fugir {
+    min-width: 130px;
+
+    border: 1px solid rgba(255,80,80,.35);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(180,30,30,.95),
+            rgba(120,10,10,.95)
+        );
+
+    box-shadow: 0 0 12px rgba(255,50,50,.25);
+}
+
+.btn-fugir:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(220,40,40,1),
+            rgba(150,15,15,1)
+        );
+
+    box-shadow: 0 0 18px rgba(255,70,70,.45);
+}
+
+.btn-fugir:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================================
+   ANIMAÇÕES DE DANO
+========================================================= */
+
+.dano-flutuante {
+    position: absolute;
+
+    font-size: 26px;
+    font-weight: 900;
+
+    color: #ff2b2b;
+
+    text-shadow:
+        0 0 8px #000,
+        0 0 12px #ff0000;
+
+    pointer-events: none;
+
+    animation: subirDano 900ms ease-out forwards;
+
+    z-index: 20;
+}
+
+.corte-ataque {
+    position: absolute;
+
+    width: 80px;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #fff,
+            #ff2b2b,
+            transparent
+        );
+
+    box-shadow: 0 0 12px #ff0000;
+
+    border-radius: 999px;
+
+    pointer-events: none;
+
+    animation: corteAtaque 420ms ease-out forwards;
+
+    z-index: 19;
+}
+
+@keyframes subirDano {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -20%) scale(.8);
+    }
+
+    25% {
+        opacity: 1;
+        transform: translate(-50%, -60%) scale(1.25);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(1);
+    }
+}
+
+@keyframes corteAtaque {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rotacao)) scaleX(.2);
+    }
+
+    35% {
+        opacity: 1;
+        transform: rotate(var(--rotacao)) scaleX(1.3);
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(var(--rotacao)) scaleX(.6);
+    }
+}
+
+/* =========================================================
+   RESPONSIVO DO MODAL
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .modal-combate-overlay {
+        align-items: flex-start;
+        padding: 12px;
+        overflow-y: auto;
+    }
+
+    .modal-combate-box {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+
+        padding: 16px 12px;
+        border-radius: 16px;
+    }
+
+    .titulo-combate-modal {
+        font-size: 1.25rem;
+        margin-bottom: 14px;
+        padding-right: 36px;
+    }
+
+    .btn-fechar-combate {
+        top: 10px;
+        right: 10px;
+
+        width: 34px;
+        height: 34px;
+
+        font-size: 1.4rem;
+    }
+
+    .arena-combate {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .versus-box {
+        font-size: 1.6rem;
+        text-align: center;
+        margin: -2px 0;
+    }
+
+    .lutador-card {
+        padding: 12px;
+    }
+
+    .lutador-card img {
+        max-width: 150px;
+        height: 135px;
+    }
+
+    .mensagem-combate-modal {
+        font-size: .9rem;
+    }
+
+    .acoes-combate {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    #btnAtacarModal,
+    .btn-pocao,
+    .btn-fugir {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+.recompensa-vitoria-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.recompensa-vitoria-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.45));
+    animation: recompensaPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes recompensaPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

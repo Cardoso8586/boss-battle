@@ -10,11 +10,11 @@
 
     // só recarrega após 10s sem resposta
     const TEMPO_MAX_SEM_RESPOSTA =
-        10000;
+        300000;
 
-    // verifica a cada 10s
+    // verifica a cada 30s
     const INTERVALO_VERIFICACAO =
-        10000;
+        300000;
 
     // ======================================
     // STATE

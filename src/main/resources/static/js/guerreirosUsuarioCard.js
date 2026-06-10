@@ -268,6 +268,12 @@ function obterPastaGuerreiro(guerreiro) {
 				
 	    case "Guerreiro Guardião":
 		    return "/images/guerreiros_elite/guerreiro_guardiao";	
+			
+	    case "Ninja das Sombras":
+			return "/images/guerreiros_elite/ninja_das_sombras";
+								
+		case "Sentinela Nyara":
+			return "/images/guerreiros_elite/sentinela_nyara";
 					
 						
         default:
@@ -294,6 +300,14 @@ function obterPrefixoArquivo(guerreiro) {
 		case "Guerreiro Guardião":
 			return "guerreiro-guardiao";				
 			
+		case "Sentinela Nyara":
+			return "sentinela-nyara.webp";
+			
+	    case "Ninja das Sombras":
+		   return "ninja-das-sombras";		
+			
+						
+						
         default:
             return normalizarParaArquivo(nome);
     }

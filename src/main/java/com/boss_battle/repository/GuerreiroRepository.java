@@ -15,4 +15,6 @@ public interface GuerreiroRepository extends JpaRepository<Guerreiro, Long> {
     boolean existsByNome(String nome);
     
     List<Guerreiro> findByAtivoTrue();
+    
+
 }

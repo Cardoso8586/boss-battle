@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="user-id" th:content="${idUsuario}">
+
+    <title>Masmorra Sombria</title>
+
+    <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
+   
+    <link rel="stylesheet" href="/css/customClass.css">
+    <link rel="stylesheet" href="/css/swal-game-error.css">
+      <link rel="stylesheet" href="/css/swal2-popup.css">
+    <link rel="stylesheet" href="/css/anuncios.css">
+    <link rel="stylesheet" href="/css/masmorra-sombria.css">
+   
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="preload" href="/images/logo-boss-battle.webp" as="image">
+    <link rel="preload" href="/images/fundo-boss.webp" as="image">
+
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/goblin-das-sombras.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/esqueleto-antigo.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/guardiao-sombrio.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/chefe-oculto.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/gnomo-x.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/guardiao-montanha.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/goblin-z.webp" as="image">
+    <link rel="preload" href="/images/cacador-recompensas/masmorra/guardião-de-correntes.webp" as="image">
+    
+    
+</head>
+
+<body>
+         <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+<div class="game-background"></div>
+
+<div class="logo">
+    <a href="/cacador-recompensas">
+        <img src="/images/logo-boss-battle.webp" alt="Boss Battle Arena">
+    </a>
+</div>
+
+<a href="/cacador-recompensas" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar</span>
+</a>
+
+<main class="masmorra-container">
+
+    <header class="masmorra-header">
+        <h1>🕸️ Masmorra Sombria</h1>
+        <p>
+            Entre na masmorra, enfrente inimigos sombrios e conquiste recompensas especiais.
+        </p>
+    </header>
+
+    <section class="status-jogador">
+
+        <div class="status-card">
+            <span>Boss Coins</span>
+            <strong id="bossCoinsAtual" th:text="${boss_coins}">0</strong>
+        </div>
+
+        <div class="status-card">
+            <span>Vigor</span>
+            <strong id="vigorAtual" th:text="${vigorAtual}">0</strong>
+        </div>
+
+        <div class="status-card">
+            <span>Ataque Total</span>
+            <strong id="ataqueBase" th:text="${ataqueBase}">0</strong>
+        </div>
+
+    </section>
+
+    <section class="masmorra-card">
+
+        <div id="estadoSemCombate" class="estado-masmorra">
+
+            <img src="/images/cacador-recompensas/masmorra/portal-masmorra.webp"
+                 alt="Entrada da Masmorra"
+                 class="imagem-masmorra">
+
+            <h2>Entrada da Masmorra</h2>
+
+            <p id="textoStatusMasmorra">
+                Verificando status da masmorra...
+            </p>
+
+            <p class="custo-vigor">
+                Custo para entrar: <strong>10 Vigor</strong>
+            </p>
+
+            <button id="btnEntrarMasmorra" class="btn-masmorra">
+                🕸️ Entrar na Masmorra
+            </button>
+
+        </div>
+
+       
+    </section>
+         <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+    
+    
+    <div class="anuncio-13">
+        <iframe src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+                width="468"
+                height="60"
+                scrolling="no"
+                frameborder="0">
+        </iframe>
+    </div>
+
+   <!-- ANÚNCIO 728x90 -->
+        <div class="anuncio-12">
+            <iframe src="https://zerads.com/ad/ad.php?width=728&ref=10783"
+                    width="728"
+                    height="90"
+                    scrolling="no"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+</main>
+
+<div id="modalCombateMasmorra" class="modal-combate-overlay" style="display:none;">
+
+
+
+    <div class="modal-combate-box">
+    
+      <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+
+        <button id="btnFecharModalCombate" class="btn-fechar-combate">
+            ×
+        </button>
+
+        <h2 class="titulo-combate-modal">
+            ⚔️ Combate na Masmorra
+        </h2>
+
+        <div class="arena-combate">
+
+            <div class="lutador-card">
+               <div id="areaImagemUsuario" class="area-imagem-lutador">
+    <img id="imagemGuerreiroUsuario"
+         src="/images/cacador-recompensas/masmorra/guerreiro-masmorra.webp"
+         alt="Seu Guerreiro">
+</div>
+
+                <h3 id="nomeGuerreiroUsuario">
+        Seu Guerreiro
+    </h3>
+
+                <p>
+                    Ataque:
+                    <strong id="ataqueGuerreiroModal">0</strong>
+                </p>
+
+              
+<div class="hp-area-modal">
+    <span>Vigor</span>
+
+    <strong>
+        <span id="vigorGuerreiroModal">0</span> /
+        <span id="vigorMaximoModal" th:text="${vigorMaximo}">0</span>
+    </strong>
+
+    <div class="barra-vigor-modal">
+        <div id="barraVigorModal"
+             class="barra-vigor-modal-preenchida">
+        </div>
+    </div>
+</div>
+            </div>
+
+            <div class="versus-box">
+                VS
+            </div>
+
+            <div class="lutador-card inimigo-card">
+            
+            <div id="areaImagemInimigo" class="area-imagem-lutador">
+    <img id="imagemInimigoModal"
+         src="/images/cacador-recompensas/masmorra/goblin-das-sombras.webp"
+         alt="Inimigo">
+</div>
+
+                <h3 id="nomeInimigoModal">Inimigo</h3>
+                 <p>
+                    Ataque:
+                    <strong id="ataqueInimigoModal">0</strong>
+                </p>
+                <div class="hp-area-modal">
+                    <span>HP</span>
+
+                    <strong>
+                        <span id="hpAtualInimigoModal">0</span> /
+                        <span id="hpMaxInimigoModal">0</span>
+                    </strong>
+
+                    <div class="barra-hp-modal">
+                        <div id="barraHpInimigoModal" class="barra-hp-modal-preenchida"></div>
+                    </div>
+                </div>
+
+               
+               
+            </div>
+
+        </div>
+
+        <p id="mensagemCombateModal" class="mensagem-combate-modal">
+            Prepare-se para lutar.
+        </p>
+
+<div class="acoes-combate">
+
+    <button id="btnAtacarModal">
+        ⚔️ Atacar
+    </button>
+
+    <button id="btnUsarPocaoModal" class="btn-pocao">
+        <img src="/icones/pocao_vigor.webp"
+             class="icone-pocao">
+    </button>
+
+    <button id="btnFugirModal" class="btn-fugir">
+        🏃 Fugir
+    </button>
+
+</div>
+
+       
+      <!-- ANÚNCIO TOPO -->
+    <div class="anuncio-8">
+        <div style="display:flex; justify-content:center; margin:10px 0;">
+            <script>
+                window.atOptions = {
+                    key: "d594127d103d7640e87b4b11c19bbb17",
+                    format: "iframe",
+                    height: 50,
+                    width: 320,
+                    params: {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/d594127d103d7640e87b4b11c19bbb17/invoke.js"></script>
+        </div>
+    </div>
+   
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/session-keepalive.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/masmorraSombria.js"></script>
+
+</body>
+</html>
