@@ -56,7 +56,7 @@ public enum InimigoMasmorra {
 	            "O Guardião de Correntes",
 	            30, 90,
 	            25, 95,
-	            "/images/cacador-recompensas/masmorra/guardião-de-correntes.webp"
+	            "/images/cacador-recompensas/masmorra/guardiao-de-correntes.webp"
 	    ),
 
 	  SUSSURRADOR_DAS_SOMBRAS(
