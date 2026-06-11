@@ -205,20 +205,25 @@ body {
     padding: 26px;
     border-radius: 22px;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,0.045),
-            rgba(255,255,255,0.015)
-        );
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-        0 0 18px rgba(0,0,0,0.22),
-        inset 0 0 14px rgba(255,180,0,0.025);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
+.btn-missao,
+a.btn-missao,
+button.btn-missao {
+
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    padding: 14px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+}
 .evento-recompensa-card h3 {
     font-size: 1.45rem;
     margin-bottom: 14px;
