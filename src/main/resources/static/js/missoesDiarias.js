@@ -597,6 +597,8 @@ window.adicionarAtaque = async function () {
     }
 };
 
+}
+
 setInterval(carregarMissoes, 60000);
 
 /**
