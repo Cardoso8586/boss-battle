@@ -365,31 +365,50 @@ button.btn-missao {
     .logo img {
         max-width: 320px;
     }
+}/* CORREÇÃO RESPONSIVO */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-@media (max-width: 480px) {
-    .missoes-header {
-        margin-top: 20px;
-    }
+.evento-recompensa-card {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
 
-    .icone-header i {
-        font-size: 48px;
-    }
+.btn-missao,
+a.btn-missao,
+button.btn-missao {
+    display: block;
 
-    .missoes-header h1 {
-        letter-spacing: 1px;
-    }
+    width: 100%;
+    max-width: 100%;
 
-    .evento-recompensa-card h3 {
-        font-size: 1.25rem;
-    }
+    margin-left: 0;
+    margin-right: 0;
 
+    box-sizing: border-box;
+
+    white-space: normal;
+    word-break: break-word;
+}
+
+@media (max-width: 768px) {
+
+    .card-missao,
+    .evento-recompensa-card,
     .bloco-missao {
-        padding: 18px 12px;
+        width: 100%;
+        max-width: 100%;
     }
 
-    .anuncio-5 iframe {
-        max-width: 100%;
-        height: auto;
+    .btn-missao,
+    a.btn-missao,
+    button.btn-missao {
+        font-size: 0.95rem;
+        padding: 12px;
     }
 }
