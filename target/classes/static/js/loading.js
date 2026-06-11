@@ -1,3 +1,78 @@
+const mensagensLoader = {
+
+    desafios: [
+        "Carregando desafios disponíveis...",
+        "Preparando novas missões...",
+        "Analisando objetivos da Arena...",
+        "Calculando recompensas dos desafios...",
+        "Verificando progresso das missões...",
+        "Atualizando desafios diários...",
+        "Sincronizando sistema de missões...",
+        "Preparando metas do guerreiro...",
+        "Buscando novos objetivos...",
+        "Processando recompensas disponíveis...",
+        "Carregando contratos de desafio...",
+        "Ativando protocolos de missão...",
+        "Monitorando progresso das tarefas...",
+        "Preparando jornada de conquistas..."
+    ],
+	
+	"recarregar-vigor": [
+	    "Recarregando vigor dos guerreiros...",
+	    "Restaurando energia de combate...",
+	    "Preparando força para a Arena...",
+	    "Sincronizando fôlego dos guerreiros...",
+	    "Ativando núcleo de vigor...",
+	    "Recuperando resistência de batalha...",
+	    "Carregando poder físico...",
+	    "Estabilizando energia vital...",
+	    "Revigorando tropas da Arena...",
+	    "Preparando novo avanço de combate..."
+	],
+
+    default: [
+        "Carregando sistema...",
+        "Preparando ambiente...",
+        "Sincronizando dados...",
+        "Conectando ao servidor...",
+        "Finalizando carregamento..."
+    ]
+};
+const TEMPO_MINIMO_LOADING = 4200;
+
+function iniciarLoadingPagina() {
+
+    const loading = document.getElementById("loading");
+    if (!loading) return;
+
+    const inicio = Date.now();
+
+    function fecharLoader() {
+
+        const tempoDecorrido = Date.now() - inicio;
+        const restante = Math.max(0, TEMPO_MINIMO_LOADING - tempoDecorrido);
+
+        setTimeout(() => {
+
+            loading.style.opacity = "0";
+            loading.style.pointerEvents = "none";
+
+            setTimeout(() => {
+                loading.remove();
+            }, 300);
+
+        }, restante);
+    }
+
+    fecharLoader();
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    iniciarLoadingPagina
+);
+/*
+
 const loadingMessagesLogin = [
     "Carregando login...",
     "Preparando acesso...",
@@ -74,61 +149,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 });
-/*
-// Lista de textos épicos
-const loadingMessagesLogin = [
-    "Carregando login...",
-    "Preparando acesso...",
-    "Abrindo tela de entrada...",
-    "Conectando ao reino...",
-    "Preparando autenticação...",
-    "Verificando credenciais...",
-    "Acessando portal principal...",
-    "Os guardiões estão verificando sua entrada...",
-    "Carregando sistema de acesso...",
-    "Preparando conexão com a Arena...",
-    "Abrindo portal dos guerreiros...",
-    "Sincronizando dados do jogador...",
-    "Seu acesso está sendo preparado...",
-    "O reino aguarda seu retorno...",
-    "Os portões estão se abrindo...",
-    "Preparando ambiente de batalha...",
-    "Carregando informações da conta...",
-    "Verificando permissões de acesso...",
-    "Inicializando sistema do jogador...",
-    "Seu herói está sendo localizado...",
-    "A Arena está pronta para recebê-lo...",
-    "Entrando no mundo da batalha...",
-    "O portal de entrada foi ativado...",
-    "Conectando aos servidores do reino...",
-    "Preparando sessão do guerreiro...",
-    "As muralhas do reino estão se abrindo...",
-    "Seu caminho para a batalha está sendo liberado...",
-    "A conexão com o reino foi iniciada...",
-    "Tudo pronto para seu retorno...",
-    "Carregando experiência épica..."
-];
-
-// Mostra imediatamente um texto aleatório
-function setRandomLoadingText() {
-    const textEl = document.getElementById('loading-text');
-    const message = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-    textEl.textContent = message;
-}
-
-// Mostrar o texto **imediatamente** ao iniciar
-setRandomLoadingText();
-
-// Espera todas as imagens carregarem
-window.addEventListener('load', () => {
-    const loading = document.getElementById('loading');
-    if (loading) {
-      
-        setTimeout(() => {
-            loading.style.opacity = '0';
-            setTimeout(() => loading.remove(), 1000);
-        }, 5000);
-    }
-});
-
 */

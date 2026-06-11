@@ -8,7 +8,7 @@
     <title>Desafios da Arena</title>
 
     <link rel="icon" type="image/x-icon" href="/icones/favicon.ico">
-
+     <link rel="stylesheet" href="/css/loading.css">
     <link rel="stylesheet" href="/css/desafios.css">
     <link rel="stylesheet" href="/css/customClass.css">
     <link rel="stylesheet" href="/css/swal-game-error.css">
@@ -35,6 +35,36 @@
     <i class="fa-solid fa-arrow-left"></i>
     <span>Voltar à Arena</span>
 </a>
+
+
+
+
+<!-- Spinner de carregamento com texto dinâmico -->
+<div id="loading" class="loading">
+
+    <div class="spinner"></div>
+
+    <span
+        id="loading-text"
+        class="swal-game-text">
+
+        Atualizando painel de desafios...
+
+    </span>
+  <iframe
+            src="https://zerads.com/ad/ad.php?width=468&ref=10783"
+            marginwidth="0"
+            marginheight="0"
+            width="468"
+            height="60"
+            scrolling="no"
+            border="0"
+            frameborder="0">
+        </iframe>
+        
+         
+</div>
+
 
 <main class="missoes-page">
 
@@ -130,7 +160,7 @@
 
 </main>
 
-
+ <script src="/js/loading.js" defer></script>
 <script src="/js/session-keepalive.js"></script>
 <script src="/js/global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
