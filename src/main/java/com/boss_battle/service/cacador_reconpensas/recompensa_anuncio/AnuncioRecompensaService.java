@@ -92,7 +92,7 @@ public class AnuncioRecompensaService {
 
         usuario.setStreakAnuncios(streakAtual);
         usuario.setUltimoAnuncioAssistido(LocalDateTime.now(ZONA_BRASIL));
-        missaoDiariaService.atualizarProgressoCacadorRecompensas(usuario.getId(), 1);
+       // missaoDiariaService.atualizarProgressoCacadorRecompensas(usuario.getId(), 1);
 
         usuarioBossBattleRepository.save(usuario);
 

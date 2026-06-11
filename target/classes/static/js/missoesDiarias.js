@@ -468,7 +468,7 @@ window.resgatarPtc = async function (botao) {
 };
 
 //================ RESGATAR CAÇADOR DE RECOMPENSAS =================
-
+/*
 window.resgatarCacador = async function (botao) {
     try {
         botao.disabled = true;
@@ -508,6 +508,7 @@ window.resgatarCacador = async function (botao) {
     }
 };
 
+*/
 //================ ATUALIZAR PTC =================
 
 window.adicionarPtc = async function () {
@@ -531,7 +532,7 @@ window.adicionarPtc = async function () {
 };
 
 //================ ATUALIZAR CAÇADOR DE RECOMPENSAS =================
-
+/*
 window.adicionarCacadorRecompensas = async function () {
     try {
         const response = await fetch(
@@ -551,7 +552,7 @@ window.adicionarCacadorRecompensas = async function () {
         console.error("Erro ao adicionar caçador de recompensas:", error);
     }
 };
-
+*/
 //================ ATUALIZAR DANO =================
 
 window.adicionarDano = async function (valor) {

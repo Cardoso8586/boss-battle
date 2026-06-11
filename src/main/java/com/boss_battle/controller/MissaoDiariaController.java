@@ -79,6 +79,7 @@ public class MissaoDiariaController {
         return ResponseEntity.ok(dto);
     }
     
+    /*
  // Resgatar missão Caçador de Recompensas
     @PostMapping("/{usuarioId}/resgatar/cacador")
     public ResponseEntity<MissaoDiariaDTO> resgatarMissaoCacador(
@@ -105,6 +106,6 @@ public class MissaoDiariaController {
 
         return ResponseEntity.ok(dto);
     } 
-    
+    */
     
 }//--->

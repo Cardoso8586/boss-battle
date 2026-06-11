@@ -133,8 +133,8 @@ public class MissaoDiariaService {
 	    int objetivoPtc = calcularObjetivoPtc(nivelPtc);
 	    int recompensaPtc = calcularRecompensaPtc(usuario, nivelPtc);
 	    //missão caçador de reconpensas
-		int objetivoCacador =calcularObjetivoCacadorRecompensas(nivelCacador);
-		int recompensaCacador =calcularRecompensaCacadorRecompensas(usuario,nivelCacador);
+		//int objetivoCacador =calcularObjetivoCacadorRecompensas(nivelCacador);
+		//int recompensaCacador =calcularRecompensaCacadorRecompensas(usuario,nivelCacador);
 
 
 	    // missão dano
@@ -173,11 +173,11 @@ public class MissaoDiariaService {
 	   // missão caçadpr de recompensas
 	   
 	   dto.setCacadorAtual(usuario.getMissaoDiariaCacadorRecompensasAtual());
-	   dto.setCacadorObjetivo(objetivoCacador);
+	  // dto.setCacadorObjetivo(objetivoCacador);
 	   dto.setNivelCacador(nivelCacador);
-	   dto.setRecompensaCacador(recompensaCacador);
-	   dto.setPodeResgatarCacador(!usuario.isMissaoDiariaCacadorRecompensasConcluida()
-	        &&usuario.getMissaoDiariaCacadorRecompensasAtual()>= objetivoCacador);
+	  // dto.setRecompensaCacador(recompensaCacador);
+	  // dto.setPodeResgatarCacador(!usuario.isMissaoDiariaCacadorRecompensasConcluida()
+	      //  &&usuario.getMissaoDiariaCacadorRecompensasAtual()>= objetivoCacador);
 	   
 	    return dto;
 	}
@@ -290,6 +290,8 @@ public class MissaoDiariaService {
     /*
    
     */
+    
+    /*
     //resgatar resgatarMissaoCacadorRecompensas
     @Transactional
     public MissaoDiariaDTO resgatarMissaoCacadorRecompensas(
@@ -350,6 +352,8 @@ public class MissaoDiariaService {
 
         return buscarMissaoDiaria(usuarioId);
     }
+    
+    */
     //====================== BUSCA ======================
 
     private UsuarioBossBattle buscarUsuario(Long usuarioId) {
@@ -480,7 +484,7 @@ public class MissaoDiariaService {
         }
     }
     
-    
+    /*
     //objetivo caçador de reconpensas
     private int calcularObjetivoCacadorRecompensas(int nivelMissao) {
 
@@ -501,8 +505,9 @@ public class MissaoDiariaService {
                 return 20;
         }
     }
+    */
     //====================== Calcular RECOMPENSAS ======================
-    
+    /*
     //calcular caçador de recompensas
     private int calcularRecompensaCacadorRecompensas(
             UsuarioBossBattle usuario,
@@ -539,6 +544,8 @@ public class MissaoDiariaService {
                 return base;
         }
     }
+    
+    */
     private int calcularRecompensaPtc(UsuarioBossBattle usuario, int nivelMissao) {
         nivelMissao = normalizarNivelMissao(nivelMissao);
 
@@ -813,6 +820,7 @@ public class MissaoDiariaService {
         return usuarioRepository.save(usuario);
     }
     
+    /*
     @Transactional
     public UsuarioBossBattle atualizarProgressoCacadorRecompensas(Long usuarioId, int quantidade) {
         UsuarioBossBattle usuario = buscarUsuario(usuarioId);
@@ -834,5 +842,5 @@ public class MissaoDiariaService {
 
         return salvo;
     }
-    
+    */
 }//--->
