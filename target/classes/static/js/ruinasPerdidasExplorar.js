@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	            return "/icones/boss_coin.webp";
 
 	        case "XP":
-	            return "/images/cacador-recompensas/recompensas/xp.webp";
+	            return "/images/cacador-recompensas/recompensas/exp.webp";
 
 	        case "ATAQUE_ESPECIAL":
 	            return "/images/cacador-recompensas/recompensas/ataque-base.webp";

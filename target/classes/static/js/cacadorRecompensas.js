@@ -6,7 +6,7 @@ let intervaloAnuncioRecompensa = null;
 let intervaloRuinasPerdidas = null;
 
 async function iniciarPaginaCacadorRecompensas() {
-    iniciarCardAnuncioRecompensa();
+  //  iniciarCardAnuncioRecompensa();
     iniciarCardRuinasPerdidas();
     iniciarCardMasmorraSombria();
     iniciarCardFonteVigor();
@@ -14,7 +14,7 @@ async function iniciarPaginaCacadorRecompensas() {
 
 /* =========================================================
    CARD 1 - ANÚNCIO RECOMPENSA
-========================================================= */
+
 
 async function iniciarCardAnuncioRecompensa() {
     const textoStatus = document.getElementById("textoStatusRecompensa");
@@ -121,7 +121,7 @@ async function iniciarCardAnuncioRecompensa() {
     atualizar();
     intervaloAnuncioRecompensa = setInterval(atualizar, 1000);
 }
-
+========================================================= */
 /* =========================================================
    CARD 2 - RUÍNAS PERDIDAS
 ========================================================= */
