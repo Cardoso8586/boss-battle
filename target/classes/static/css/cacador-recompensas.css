@@ -1,0 +1,390 @@
+/* ================================
+   CAÇADOR DE RECOMPENSAS
+================================ */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+    background: #05070d;
+}
+
+/* BACKGROUND */
+.game-background {
+    position: fixed;
+    inset: 0;
+    z-index: -999;
+
+    background:
+        linear-gradient(rgba(3,5,10,0.35), rgba(3,5,10,0.60)),
+        url('/images/fundo-boss.webp') center center / cover no-repeat;
+}
+
+/* LOGO */
+.logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    display: block;
+}
+
+/* BOTÃO VOLTAR */
+.btn-voltar {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 12px 18px;
+    border-radius: 16px;
+
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+
+    background: rgba(15, 15, 20, 0.72);
+    border: 1px solid rgba(255, 180, 0, 0.25);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 0 18px rgba(0,0,0,0.35);
+}
+
+.btn-voltar i {
+    color: #ffb400;
+}
+
+/* PAGE */
+.missoes-page {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 14px 70px;
+    position: relative;
+    z-index: 1;
+}
+
+#cacador-recompensas {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+/* HEADER */
+.missoes-header {
+    text-align: center;
+    margin: 28px auto 34px;
+    padding: 0 12px;
+}
+
+.icone-header {
+    margin-bottom: 16px;
+}
+
+.icone-header i {
+    font-size: 58px;
+    color: #ffb400;
+    text-shadow: 0 0 24px rgba(255,180,0,0.55);
+}
+
+.missoes-header h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffd700;
+    margin-bottom: 16px;
+
+    text-shadow:
+        0 0 18px rgba(255,215,0,0.55),
+        0 0 34px rgba(255,120,0,0.25);
+}
+
+.missoes-header p {
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: #ffe7a3;
+    font-size: 1rem;
+}
+
+/* BLOCO */
+.bloco-missao {
+    width: 100%;
+    max-width: 820px;
+    margin: 0 auto 36px;
+    padding: 28px;
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(18,18,18,0.58),
+            rgba(8,8,8,0.72)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 0 28px rgba(0,0,0,0.35),
+        inset 0 0 20px rgba(255,180,0,0.025);
+
+    backdrop-filter: blur(8px);
+}
+
+/* TÍTULO BLOCO */
+.titulo-bloco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.titulo-bloco i {
+    font-size: 30px;
+    color: #ffb400;
+}
+
+.titulo-bloco h2 {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffd700;
+}
+
+/* LAYOUT CENTRAL */
+.recompensas-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-missao {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    border-radius: 0;
+    overflow: visible;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.card-missao:hover {
+    transform: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* EVENTOS */
+.evento-recompensa-card {
+    width: 100%;
+    padding: 26px;
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.045),
+            rgba(255,255,255,0.015)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 0 18px rgba(0,0,0,0.22),
+        inset 0 0 14px rgba(255,180,0,0.025);
+}
+
+.evento-recompensa-card h3 {
+    font-size: 1.45rem;
+    margin-bottom: 14px;
+    color: #fff;
+}
+
+.evento-recompensa-card p {
+    color: #d8d8d8;
+    line-height: 1.6;
+}
+
+/* BARRA */
+.barra-progresso {
+    width: 100%;
+    height: 14px;
+    margin-top: 18px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+}
+
+.barra-preenchida {
+    height: 100%;
+    border-radius: 999px;
+
+    background: linear-gradient(90deg, #ffd54f, #ff9800);
+    box-shadow: 0 0 14px rgba(255,180,0,0.35);
+
+    transition: width .3s ease;
+}
+
+/* BOTÕES */
+.btn-missao {
+    width: 100%;
+    display: block;
+    margin-top: 22px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    box-shadow: 0 0 18px rgba(255,120,0,0.20);
+
+    transition: .2s ease;
+}
+
+.btn-missao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(255,120,0,0.28);
+}
+
+.btn-concluida {
+    background: linear-gradient(135deg, #191919, #080808) !important;
+    color: rgba(255,255,255,0.38) !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: not-allowed;
+    opacity: .78;
+    filter: saturate(.2);
+}
+
+.btn-concluida:hover {
+    transform: none !important;
+}
+
+/* ANÚNCIOS */
+.anuncio-topo,
+.anuncio-5,
+.anuncio-6,
+.anuncio-7,
+.anuncio-8,
+.anuncio-12,
+.modal-anuncio {
+    width: 100%;
+    max-width: 100%;
+    margin: 18px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    text-align: center;
+}
+
+.anuncio-topo iframe,
+.anuncio-5 iframe,
+.anuncio-6 iframe,
+.anuncio-7 iframe,
+.anuncio-8 iframe,
+.anuncio-12 iframe,
+.modal-anuncio iframe {
+    max-width: 100%;
+    border: 0;
+}
+
+/* HR */
+.card-missao hr {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.18);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .missoes-page {
+        padding: 18px 12px 60px;
+    }
+
+    .bloco-missao {
+        padding: 22px 16px;
+        border-radius: 22px;
+    }
+
+    .evento-recompensa-card {
+        padding: 22px 16px;
+    }
+
+    .titulo-bloco {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-voltar {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: fit-content;
+        margin: 12px auto 0;
+    }
+
+    .logo img {
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .missoes-header {
+        margin-top: 20px;
+    }
+
+    .icone-header i {
+        font-size: 48px;
+    }
+
+    .missoes-header h1 {
+        letter-spacing: 1px;
+    }
+
+    .evento-recompensa-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .bloco-missao {
+        padding: 18px 12px;
+    }
+
+    .anuncio-5 iframe {
+        max-width: 100%;
+        height: auto;
+    }
+}
