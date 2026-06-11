@@ -275,14 +275,14 @@ function renderizarMissoes(missao) {
             ${acaoCacador}
         </div>
     `;
-
+*/
     container.innerHTML =
         danoHTML +
         ataqueHTML +
-        ptcHTML +
-        cacadorHTML;
+        ptcHTML ;
+      //  cacadorHTML;
 }
-*/
+
 //================ SWAL PADRÃO =================
 
 function swalSucesso(titulo, mensagem) {
@@ -597,7 +597,6 @@ window.adicionarAtaque = async function () {
     }
 };
 
-}
 
 setInterval(carregarMissoes, 60000);
 
