@@ -221,7 +221,7 @@ function renderizarMissoes(missao) {
     `;
 
     //================ CAÇADOR DE RECOMPENSAS =================
-
+/*
     const cacadorPercentual = missao.cacadorObjetivo > 0
         ? Math.min((missao.cacadorAtual / missao.cacadorObjetivo) * 100, 100)
         : 0;
@@ -282,7 +282,7 @@ function renderizarMissoes(missao) {
         ptcHTML +
         cacadorHTML;
 }
-
+*/
 //================ SWAL PADRÃO =================
 
 function swalSucesso(titulo, mensagem) {
